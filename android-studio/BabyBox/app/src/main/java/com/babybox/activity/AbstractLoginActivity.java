@@ -22,22 +22,27 @@ import android.util.Log;
 import android.view.View;
 
 // FB API v4.0
-//import com.facebook.CallbackManager;
-//import com.facebook.FacebookCallback;
-//import com.facebook.FacebookException;
-//import com.facebook.FacebookSdk;
-//import com.facebook.login.LoginManager;
-//import com.facebook.login.LoginResult;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 
+/*
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
+*/
 
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
+
+import java.util.Arrays;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -72,17 +77,17 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
     };
 
     // Instance of Facebook Class
-    protected Facebook facebook = new Facebook(APP_ID);
+    //protected Facebook facebook = new Facebook(APP_ID);
 
     // FB API v4.0
-    //protected CallbackManager callbackManager;
+    protected CallbackManager callbackManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // FB API v4.0
-        /*
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
@@ -90,7 +95,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(AbstractLoginActivity.this.getClass().getSimpleName(), "loginToFacebook.onComplete: fb doLoginUsingAccessToken");
-                doLoginUsingAccessToken(loginResult.getAccessToken().getToken(), spinner);
+                doLoginUsingAccessToken(loginResult.getAccessToken().getToken());
             }
 
             @Override
@@ -102,22 +107,23 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
             @Override
             public void onError(FacebookException e) {
                 stopSpinner();
-                ActivityUtil.alert(AbstractLoginActivity.this,
+                ViewUtil.alert(AbstractLoginActivity.this,
                         getString(R.string.login_error_title),
                         getString(R.string.login_error_message));
                 e.printStackTrace();
             }
         });
-        */
+
     }
 
     protected void loginToFacebook() {
         showSpinner();
 
         // FB API v4.0
-        //LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(REQUEST_FACEBOOK_PERMISSIONS));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(REQUEST_FACEBOOK_PERMISSIONS));
 
         // FB API v3.0
+        /*
         String access_token = SharedPreferencesUtil.getInstance().getString(SharedPreferencesUtil.FB_ACCESS_TOKEN);
         long expires = SharedPreferencesUtil.getInstance().getLong(SharedPreferencesUtil.FB_ACCESS_EXPIRES);
 
@@ -176,6 +182,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                     });
             Log.d(this.getClass().getSimpleName(), "loginToFacebook: completed");
         }
+        */
     }
 
     protected void doLoginUsingAccessToken(String access_token) {
@@ -231,10 +238,10 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
 
         try {
             // FB API v3.0
-            facebook.authorizeCallback(requestCode, resultCode, data);
+            //facebook.authorizeCallback(requestCode, resultCode, data);
 
             // FB API v4.0
-            //callbackManager.onActivityResult(requestCode, resultCode, data);
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         } catch (Exception e) {
             Log.d(this.getClass().getSimpleName(), "onActivityResult: callbackManager exception");
             e.printStackTrace();

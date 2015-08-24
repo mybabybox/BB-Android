@@ -13,7 +13,7 @@
     <string name="app_desc">babybox - Things you want and love</string>
     <string name="facebook_app_id">798543453496777</string>
     <!--string name="base_url">http://192.168.1.135:9000</string-->
-    <string name="base_url">http://www.baby-box.hk</string>
+    <string name="base_url">http://www.minibean.hk</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>

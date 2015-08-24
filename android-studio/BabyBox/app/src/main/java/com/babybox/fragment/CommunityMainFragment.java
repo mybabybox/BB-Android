@@ -31,7 +31,7 @@ public class CommunityMainFragment extends TrackedFragment {
 
         View view = inflater.inflate(R.layout.community_main_fragement, container, false);
 
-        getActivity().getActionBar().hide();
+        //getActivity().getActionBar().hide();
 
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.pager);
@@ -42,6 +42,9 @@ public class CommunityMainFragment extends TrackedFragment {
         viewPager.setAdapter(mAdapter);
         
         tabs.setViewPager(viewPager);
+
+        /*
+        // declared in xml
         tabs.setTextColor(getResources().getColor(R.color.dark_gray));
         tabs.setIndicatorColor(getResources().getColor(R.color.actionbar_selected_text));
 
@@ -50,6 +53,7 @@ public class CommunityMainFragment extends TrackedFragment {
 
         final int textSize = ViewUtil.getRealDimension(16, this.getResources());
         tabs.setTextSize(textSize);
+        */
 
         return view;
     }
@@ -61,7 +65,8 @@ public class CommunityMainFragment extends TrackedFragment {
 }
 
 /**
- * Main tabs
+ * https://guides.codepath.com/android/Sliding-Tabs-with-PagerSlidingTabStrip
+ * https://android-arsenal.com/details/1/1100
  */
 class CommunityMainPagerAdapter extends FragmentStatePagerAdapter {
 

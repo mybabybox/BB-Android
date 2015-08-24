@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
 
     packagingOptions {
         exclude 'META-INF/NOTICE.txt'
@@ -10,9 +10,9 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.babybox.app"
+        applicationId "com.babybox.app.AppController"
         minSdkVersion 14
-        targetSdkVersion 21
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
     }
@@ -30,16 +30,18 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "joda-time:joda-time:2.2"
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'joda-time:joda-time:2.2'
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:recyclerview-v7:22.0.0'
     // FB API v4.0
-    //compile 'com.facebook.android:facebook-android-sdk:4.0.0'
-    compile 'com.facebook.android:facebook-android-sdk:3.23.1'
+    compile 'com.facebook.android:facebook-android-sdk:4.5.0'
+    //compile 'com.facebook.android:facebook-android-sdk:3.23.1'
     compile 'com.squareup.retrofit:retrofit:1.7.1'
     compile 'com.squareup.okhttp:okhttp:2.2.0'
     compile 'com.google.code.gson:gson:2.3'
     compile 'org.parceler:parceler:0.2.13'
-    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    //compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.jpardogo.materialtabstrip:library:1.0.9'
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile files('libs/android-viewbadger.jar')
