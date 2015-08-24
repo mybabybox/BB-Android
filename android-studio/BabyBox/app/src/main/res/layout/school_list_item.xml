@@ -1,0 +1,312 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/schoolMainLayout">
+
+        <LinearLayout
+            android:id="@+id/schoolNameLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/schoolImage"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="3dp"></ImageView>
+
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="18dp"
+                android:textColor="@color/schools_title"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/distName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="-"
+                android:textColor="@color/schools_district"
+                android:textSize="14dp"
+                android:layout_toRightOf="@+id/textView1"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/enNameText"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="14dp"
+            android:layout_below="@+id/schoolNameLayout"
+            android:textColor="@color/gray" />
+
+        <RelativeLayout
+            android:id="@+id/schoolInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/schools_info_box"
+            android:layout_below="@+id/enNameText"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/infoRow1Layout"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:id="@+id/couponLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4.5">
+                <TextView
+                    android:id="@+id/couponText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/schools_info_coupon"
+                    android:textColor="@color/dark_gray_3"
+                    android:textSize="14dp" />
+                <ImageView
+                    android:id="@+id/couponImage"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/typeLayout"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5.5">
+                    <TextView
+                        android:id="@+id/typeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/schools_info_type"
+                        android:textColor="@color/dark_gray_3"
+                        android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/typeValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/schools_info_text"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="14dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/infoRow2Layout"
+                android:layout_below="@+id/infoRow1Layout"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:id="@+id/curriculumLayout"
+                    android:layout_below="@+id/couponLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4.5">
+                    <TextView
+                        android:id="@+id/curriculumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/schools_info_curriculum"
+                        android:textColor="@color/dark_gray_3"
+                        android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/curriculumValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="-"
+                        android:textColor="@color/schools_info_text"
+                        android:textSize="14dp" />
+                    </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/timeLayout"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/typeLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5.5">
+                    <TextView
+                        android:id="@+id/timeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/schools_info_time"
+                        android:textColor="@color/dark_gray_3"
+                        android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/timeValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textColor="@color/schools_info_text"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="14dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/infoRow3Layout"
+                android:layout_below="@+id/infoRow2Layout"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:id="@+id/pnLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4.5">
+
+                    <TextView
+                        android:id="@+id/pnText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/schools_info_pn"
+                        android:textColor="@color/dark_gray_3"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/pnImage"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/schoolMainLayout"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:id="@+id/actionsLayout">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/numViewsLayout"
+            android:orientation="horizontal"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp">
+            <ImageView
+                android:id="@+id/numViewsImage"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/view"
+                android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/numViews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/commentpic"
+                android:textColor="@color/admin_green"
+                android:textSize="12dp"
+                android:layout_gravity="center_vertical"
+                android:text="-"
+                android:layout_marginLeft="3dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/commentLayout"
+            android:layout_toRightOf="@+id/numViewsLayout"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/commentImage"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/comment"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/numViewsLayout" />
+
+            <TextView
+                    android:id="@+id/totalCommentText"
+                    android:layout_toRightOf="@+id/commentImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="14dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/bookmarkImage"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_toRightOf="@+id/commentLayout"
+            android:src="@drawable/bookmark"
+            android:layout_centerInParent="true"
+            android:padding="2dp"
+            android:layout_alignParentStart="false" />
+    </RelativeLayout>
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

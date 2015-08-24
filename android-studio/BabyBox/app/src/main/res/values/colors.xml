@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="admin_green">#038100</color>
+    <color name="gray">#888</color>
+    <color name="light_gray">#aaa</color>
+    <color name="light_gray_2">#ddd</color>
+    <color name="light_gray_3">#F6F6F6</color>
+    <color name="dark_gray">#555</color>
+    <color name="dark_gray_2">#222</color>
+    <color name="dark_gray_3">#111</color>
+    <color name="sharp_pink">#FF76A4</color>
+    <color name="purple">#FF76A4</color>
+    <color name="light_purple">#FF99B8</color>
+    <color name="light_purple_2">#FFAEC0</color>
+    <color name="light_purple_3">#FFC7D2</color>
+    <color name="yellow">#F3F300</color>
+    <color name="light_yellow">#fffff0</color>
+    <color name="orange">#FFA500</color>
+    <color name="light_orange">#fff1dc</color>
+    <color name="red">#FF0000</color>
+    <color name="dark_blue">#1255B4</color>
+
+    <color name="main_menubar_bg">#FCFAF8</color>
+    <color name="signup_yellow">#FFBE42</color>
+    <color name="signup_blue">#8379F1</color>
+    <color name="input_text">#111</color>
+    <color name="view_bg">#FCFAF8</color>
+    <color name="feed_bg">#FCFAF8</color>
+    <color name="feed_item_bg">#ffffff</color>
+    <color name="feed_item_border">#c2c3c8</color>
+    <color name="like_blue">#3334FE</color>
+    <color name="pale_blue">#3691E0</color>
+    <color name="link">#0a80d1</color>
+    <color name="timestamp">#a0a3a7</color>
+    <color name="tabset_selected">#FF76A4</color>
+    <color name="actionbar_bg">#FF99B8</color>
+    <color name="actionbar_bg_light">#FFAEC0</color>
+    <color name="actionbar_selected_text">#FF76A4</color>
+
+    <color name="game_view_bg">#F2FFFC</color>
+    <color name="game_box_border">#7ACFF2</color>
+    <color name="game_box_border_light">#A2E7E7</color>
+    <color name="game_orange">#FF6600</color>
+    <color name="game_title_border">#2EAB66</color>
+    <color name="game_title_text">#556fb5</color>
+
+    <color name="schools_district">#CD8400</color>
+    <color name="schools_title">#1A20DC</color>
+    <color name="schools_info_text">#5F1B1B</color>
+    <color name="schools_info_box_bg">#FEFFF0</color>
+    <color name="schools_info_box_border">#D1D897</color>
+
+    <color name="pn_view_bg">#FCFAF8</color>
+    <color name="pn_actionbar_bg">#67BB67</color>
+    <color name="pn_box_border">#7BC77E</color>
+    <color name="pn_box_shadow">#8FB389</color>
+    <color name="pn_green">#57A857</color>
+    <color name="pn_text">#008000</color>
+    <color name="pn_text_light">#4B964B</color>
+    <color name="pn_bg">#EBFDEA</color>
+    <color name="pn_bg_light">#F3FDF2</color>
+
+    <color name="kg_view_bg">#FCFAF8</color>
+    <color name="kg_actionbar_bg">#BB5C5D</color>
+    <color name="kg_box_border">#C77B7B</color>
+    <color name="kg_box_shadow">#B38989</color>
+    <color name="kg_maroon">#B86B6B</color>
+    <color name="kg_text">#A63D3D</color>
+    <color name="kg_text_light">#B86464</color>
+    <color name="kg_bg">#FFF4F4</color>
+    <color name="kg_bg_light">#FFF9F9</color>
+
+
+</resources>

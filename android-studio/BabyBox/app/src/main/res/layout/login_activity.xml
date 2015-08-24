@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_spinner"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="255dp" />
+
+    <ImageView
+        android:id="@+id/LoginScreen"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitXY"
+        android:gravity="clip_horizontal"
+        android:src="@drawable/login_bg" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:src="@drawable/logo_login"
+        android:layout_marginTop="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <RelativeLayout
+        android:id="@+id/loginMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="120dp"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:id="@+id/mainComponent"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:gravity="clip_horizontal"
+                    android:src="@drawable/login_user"
+                    android:layout_marginLeft="30dp"
+                    android:baselineAlignBottom="false"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="7dp"
+                    android:adjustViewBounds="false" />
+                <EditText
+                    android:hint="您的電郵"
+                    android:textColor="@color/input_text"
+                    android:id="@+id/userName"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="15dp"
+                    android:editable="true"
+                    android:focusable="true"
+                    android:singleLine="true"
+                    android:textSize="20dp"
+                    android:background="@color/white"
+                    android:alpha="0.9"
+                    android:elevation="-5dp"
+                    android:autoText="false"
+                    android:clickable="false"
+                    android:textIsSelectable="false" />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:gravity="clip_horizontal"
+                    android:src="@drawable/login_lock"
+                    android:layout_marginLeft="30dp"
+                    android:baselineAlignBottom="false"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="7dp" />
+                <EditText
+                    android:textColor="@color/input_text"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="密碼"
+                    android:inputType="textPassword"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="10dp"
+                    android:singleLine="true"
+                    android:password="true"
+                    android:focusable="true"
+                    android:editable="true"
+                    android:textSize="20dp"
+                    android:background="@color/white"
+                    android:alpha="0.9"
+                    android:elevation="-5dp"
+                    android:textIsSelectable="false" />
+            </FrameLayout>
+            <TextView
+                android:id="@+id/buttonLogin"
+                android:background="@drawable/rounded_corner_signup_button"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="@string/login"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="22dp"
+                android:textColor="@color/dark_gray_3"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_forgot_password"
+            android:textColor="@color/dark_gray_2"
+            android:textSize="16dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/mainComponent"
+            android:padding="5dp"
+            android:layout_margin="20dp"
+            android:id="@+id/forgetPasswordText" />
+         <TextView
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_new_signup"
+            android:textColor="@color/dark_gray_2"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/mainComponent"
+             android:id="@+id/signupText"
+             android:padding="5dp"
+             android:layout_margin="20dp" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:id="@+id/dashLine"
+        android:src="@drawable/dash_line"
+        android:scaleType="fitXY"
+        android:layout_below="@+id/loginMenu"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp" />
+
+    <RelativeLayout
+        android:id="@+id/facebookMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentTop="false"
+        android:layout_marginBottom="80dp">
+        <ImageView
+            android:id="@+id/buttonFbLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:src="@drawable/facebook_login"/>
+    </RelativeLayout>
+
+</RelativeLayout>
+
+

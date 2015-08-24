@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Crash report -->
+    <string name="crash_toast_text">對不起！babybox 發生問題要退出</string>
+    <string name="crash_dialog_title">babybox 要退出</string>
+    <string name="crash_dialog_text">對不起! babybox 發生問題要退出，請幫我們修理問題，提供資訊報告給我們</string>
+    <string name="crash_dialog_comment_prompt">按OK寄出 (報告只包括問題資訊)</string>
+    <string name="crash_dialog_ok_toast">謝謝！</string>
+
+    <!-- Settings -->
+    <string name="app_name">babybox</string>
+    <string name="app_desc">babybox - Things you want and love</string>
+    <string name="facebook_app_id">798543453496777</string>
+    <!--string name="base_url">http://192.168.1.135:9000</string-->
+    <string name="base_url">http://www.baby-box.hk</string>
+    <string name="clipboard_text_label">複制信息</string>
+    <string name="connection_timeout_title">網路問題</string>
+    <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>
+    <string name="tips_reminder">提提你~</string>
+
+    <!-- Login / Signup -->
+    <string name="login">登入</string>
+    <string name="login_forgot_password">忘記密碼</string>
+    <string name="login_new_signup">新會員注册</string>
+    <string name="login_error_title">登入錯誤</string>
+    <string name="login_error_message">登入錯誤。請重試</string>
+    <string name="login_id_error_message">登入電郵或密碼錯誤</string>
+    <string name="signup">註冊</string>
+    <string name="signup_fb_title">以 Facebook 註冊\n(無需驗證電郵，一分鐘完成)</string>
+    <string name="signup_fb_note">註: babybox 絕對不會發佈或留言到您的 Facebook 帳戶中</string>
+    <string name="signup_email_title">以電郵註冊</string>
+    <string name="signup_lastname_hint">姓</string>
+    <string name="signup_firstname_hint">名</string>
+    <string name="signup_email_hint">您的電郵</string>
+    <string name="signup_password_hint">密碼</string>
+    <string name="signup_password_confirm_hint">再次輸入密碼</string>
+    <string name="signup_privacy">私隱權聲明</string>
+    <string name="signup_terms">使用條款細則</string>
+    <string name="signup_success_title">歡迎加入 babybox! 我們已經將認證電郵發送到</string>
+    <string name="signup_success_title_2">請點擊電郵中的連結即可使用帳號。</string>
+    <string name="signup_success_note">註: 若您沒有收到會員認證電郵，請檢查廣告信件匣，部分電郵信箱會誤判我們所發出的郵件為廣告電郵</string>
+    <string name="signup_error_email_unverified">電郵尚未認證，請登入電郵並按認證連結 - </string>
+    <string name="signup_error_email_already_exists">電郵已被登記</string>
+    <string name="signup_error_password_min_char">密碼最小4個字</string>
+    <string name="signup_error_password_not_identical">密碼不同</string>
+    <string name="signup_error_please_check">請檢查輸入資料</string>
+    <string name="signup_error_field_required">必須填寫</string>
+    <string name="signup_error_email_format">電郵格式不對</string>
+
+    <string name="signup_details_greeting">您好!</string>
+    <string name="signup_details_greeting_note">請給我們一分鐘來完成登記，您所提供的資料是以便我們能把您加入到最相關的社群</string>
+    <string name="signup_details_displayname_title">顯示名稱 : </string>
+    <string name="signup_details_displayname_note">註: 其他用戶只會看到您的顯示名稱，請選用一個您喜愛的暱稱。您的姓名和電郵絶對不會對外顯示。</string>
+    <string name="signup_details_location_title">您的地區 : </string>
+    <string name="signup_details_location_note">註: babybox 會按您的地區推介資訊給您</string>
+    <string name="signup_details_location">-地區-</string>
+    <string name="signup_details_status_title">您現在是 : </string>
+    <string name="signup_details_mom">媽媽</string>
+    <string name="signup_details_dad">爸爸</string>
+    <string name="signup_details_soon_mom">準媽媽</string>
+    <string name="signup_details_soon_dad">準爸爸</string>
+    <string name="signup_details_not_parent">沒有小寶寶</string>
+    <string name="signup_details_text_you_have">您有</string>
+    <string name="signup_details_text_babies">個小寶寶</string>
+    <string name="signup_details_text_baby_is">小寶寶是 : </string>
+    <string name="signup_details_boy">BB仔</string>
+    <string name="signup_details_girl">BB女</string>
+    <string name="signup_details_text_birthday">生日 : </string>
+    <string name="signup_details_complete">完成! 立刻進入</string>
+    <string name="signup_details_error_info">請檢查已輸入資料。再重試</string>
+    <string name="signup_details_error_displayname_already_exists">已被選用。請選擇另一個顯示名稱重試</string>
+    <string name="signup_details_error_displayname_not_entered">請填寫顯示名稱</string>
+    <string name="signup_details_error_name_not_entered">請填寫姓名</string>
+    <string name="signup_details_error_location_not_entered">請選擇地區</string>
+    <string name="signup_details_error_status_not_entered">請選擇您現在是</string>
+    <string name="signup_details_error_baby_not_entered">請填寫小寶寶性別，出生日期</string>
+
+    <!-- Main -->
+    <string name="tabset_communities">babybox</string>
+    <string name="tabset_schools">Search</string>
+    <string name="tabset_profile">Me</string>
+
+    <!-- Main tab -->
+    <string name="main_tab_explore">Explore</string>
+    <string name="main_tab_following">Following</string>
+    <string name="main_tab_trending">Trending</string>
+
+    <!-- Community tab -->
+    <string name="community_tab_my">我的社群</string>
+    <string name="community_tab_topic">主題社群</string>
+    <string name="community_tab_year">年份社群</string>
+    <string name="community_tab_my_joined">正在關注</string>
+    <string name="community_tab_my_newsfeed">社群動向</string>
+    <string name="community_leave_confirm">取消關注社群?</string>
+    <string name="community_join_success">成功關注社群。話題會顯示到 社群動向</string>
+    <string name="community_join_failed">暫時不能關注社群，請稍後重試</string>
+    <string name="community_leave_success">成功取消關注社群</string>
+    <string name="community_leave_failed">暫時不能退出社群，請稍後重試</string>
+    <string name="community_newsfeed_header_text_1">您「正在關注」的社群最新話題</string>
+    <string name="community_newsfeed_header_text_2">會顯示在這「社群動向」中</string>
+    <string name="community_new_topics">最新話題 : </string>
+    <string name="post_delete_confirm">確定刪除話題?</string>
+    <string name="post_not_found">尋找不到此話題。話題可能已被刪除</string>
+    <string name="post_delete_success">成功刪除話題</string>
+    <string name="post_delete_failed">暫時不能刪除話題，請稍後重試</string>
+    <string name="comment_delete_success">成功刪除回覆</string>
+    <string name="comment_delete_failed">暫時不能刪除回覆，請稍後重試</string>
+    <string name="community_actionbar_title">社群話題</string>
+    <string name="post_actionbar_title">話題詳情</string>
+    <string name="post_comment_bar_hint">回覆話題</string>
+    <string name="from_community">社群:</string>
+    <string name="new_post_to_popup_title">發佈話題到</string>
+    <string name="new_post_to">發佈到:</string>
+    <string name="new_post_select_community">請選擇社群</string>
+    <string name="new_post_select_pn_community">請選擇幼兒班討論區</string>
+    <string name="new_post_select_kg_community">請選擇幼稚園討論區</string>
+    <string name="new_post_actionbar_title">新話題</string>
+    <string name="new_post">發出</string>
+    <string name="new_post_title">問題 / 分享⋯⋯</string>
+    <string name="new_post_body">加些詳情</string>
+    <string name="new_post_max_images">最多可加入3張圖</string>
+    <string name="new_post_success">成功發佈話題</string>
+    <string name="new_post_failed">暫時不能發佈話題，請稍後重試</string>
+    <string name="comment_max_images">最多可加入3張圖</string>
+    <string name="comment_success">成功回覆話題</string>
+    <string name="comment_failed">暫時不能回覆話題，請稍後重試</string>
+    <string name="photo_select">請選擇圖片</string>
+    <string name="photo_not_found">尋找不到圖片</string>
+    <string name="photo_size_too_big">圖片太大，請重試</string>
+    <string name="timeago_just_now">剛剛</string>
+    <string name="timeago_min">分鐘前</string>
+    <string name="timeago_hrs">小時前</string>
+    <string name="timeago_yesterday">昨天</string>
+    <string name="timeago_days">日前</string>
+    <string name="delete">刪除</string>
+    <string name="like">讚好</string>
+    <string name="unlike">取消讚好</string>
+    <string name="page_back">上頁</string>
+    <string name="page_next">下頁</string>
+    <string name="goto_page">前往頁數</string>
+    <string name="page_before">第</string>
+    <string name="page_after">頁</string>
+    <string name="list_no_posts">- 沒有話題 -</string>
+    <string name="list_loading">加載中。。。</string>
+    <string name="list_loading_error">加載出現問題。請檢查網路再重試</string>
+    <string name="list_loaded_all">- 已加載全部 -</string>
+    <string name="sharing_app_not_installed"> 沒有安裝。</string>
+    <string name="sharing_message_note">(分享自 babybox，立即下載全新 Android App)</string>
+    <string name="sharing_whatsapp_button">Whatsapp分享</string>
+    <string name="sharing_copy_url_button">複製連結</string>
+
+    <!-- Profile tab -->
+    <string name="settings_actionbar_title">設定</string>
+    <string name="logout">登出</string>
+    <string name="my_profile_actionbar_title"></string>
+    <string name="user_profile_actionbar_title">主頁</string>
+    <string name="edit_user_info">更改資料</string>
+    <string name="edit_user_info_login_method">登入方式 : </string>
+    <string name="edit_user_info_email">電郵 : </string>
+    <string name="edit_user_info_aboutme">個人簡介 : </string>
+    <string name="edit_user_info_name">姓名 : </string>
+    <string name="edit_user_info_save">儲存資料</string>
+
+    <string name="edit_user_photo">更改個人照片</string>
+    <string name="edit_cover_photo">更改封面照片</string>
+    <string name="request_actionbar_title">邀請</string>
+    <string name="notification_actionbar_title">通知</string>
+    <string name="no_notification">- 沒有訊息 -</string>
+    <string name="questions_title">發佈的話題</string>
+    <string name="answers_title">回覆的話題</string>
+    <string name="bookmarks_title">我的收藏</string>
+
+    <string name="pm_actionbar_title">私人訊息</string>
+    <string name="pm_user">私人訊息</string>
+    <string name="pm_max_images">最多可加入1張圖</string>
+    <string name="pm_load_more">加載訊息</string>
+    <string name="pm_start_failed">暫時不能開啟訊息，請稍後重試</string>
+    <string name="pm_send_failed">暫時不能發出訊息，請稍後重試</string>
+
+    <string name="game_title">小豆豆中心</string>
+    <string name="game_rules_title">積分規則</string>
+    <string name="game_rules_text">如何累積小豆豆？</string>
+    <string name="game_daily_signin_title">每日簽到</string>
+    <string name="game_daily_signin_text">立即簽到累積小豆豆!</string>
+    <string name="game_level_title">我的等級</string>
+    <string name="game_level_text">等級 : </string>
+    <string name="game_level_tips">( 距離升級到 %1$s 還差 %2$d 小豆豆 )</string>
+    <string name="game_points_title">我的小豆豆</string>
+    <string name="game_points">小豆豆</string>
+    <string name="game_points_desc">小豆豆 : </string>
+    <string name="game_points_total">小豆豆總數 : </string>
+    <string name="game_points_redeem">可兌換 : </string>
+    <string name="game_points_redeemed">已兌換 : </string>
+    <string name="game_points_redeemed_tips">( 未有兌換禮品記錄 )</string>
+    <string name="game_referral_title">介紹新會員加入</string>
+    <string name="game_referral_text">用以下連結介紹你的朋友加入</string>
+    <string name="game_referral_note1">每個朋友成功註冊。你即可獲得</string>
+    <string name="game_referral_note2">小豆豆!</string>
+    <string name="game_referral_fb_note">*註意: 被邀請加入者必需以Facebook用戶身份註冊成為 babybox 會員</string>
+    <string name="game_referral_success_num">成功介紹加入 : </string>
+    <string name="game_referral_success_points">獲得小豆豆 : </string>
+    <string name="game_referral_url_copy_success">介紹連結已複制</string>
+    <string name="game_referral_url_copy_failed">介紹連結不能複制</string>
+    <string name="game_transaction_title">小豆豆記錄表 (最近30個記錄)</string>
+    <string name="game_transaction_latest_title">小豆豆最新記錄</string>
+    <string name="game_transaction_note">由"每日簽到"、"介紹新會員加入"所獲得的小豆豆會立即計算在"小豆豆總數"中。以其他方式獲得的小豆豆會在隔天反應</string>
+    <string name="game_upload_profile_pic_title">上載個人照片</string>
+    <string name="game_note_points">小豆豆！</string>
+    <string name="game_gifts_title">儲小豆豆換領豐富禮品</string>
+    <string name="game_gifts_desc">儲小豆豆換禮品</string>
+    <string name="game_gifts_redeem_now">立即換領</string>
+    <string name="game_gifts_redeem_pending">- 已要求換領 -</string>
+    <string name="game_gifts_redeem_ended">- 換領已結束 -</string>
+    <string name="game_gifts_redeem_desc">兌換 : </string>
+    <string name="game_gifts_redeem_title">換領禮品</string>
+    <string name="game_gifts_redeem_steps_title">換領規則</string>
+    <string name="game_gifts_redeem_expiration_title">換領有效期</string>
+    <string name="game_gifts_redeem_shipping_title">領取方式</string>
+    <string name="game_gifts_redeem_cc_title">客戶服務</string>
+    <string name="game_gifts_redeem_more_title">注意事項</string>
+    <string name="game_gifts_redeem_points_not_enough">換領需要%1$d小豆豆。您現在只有%2$d小豆豆，還未足夠~</string>
+    <string name="game_gifts_redeem_points_limit_per_user">每個用戶最多可換領 %1$d次</string>
+    <string name="game_gifts_redeem_requested">我們已收到您的換領禮品要求~ 請按照「換領規則」聯絡我們</string>
+    <string name="game_gifts_redeem_confirm">確定使用小豆豆換領禮品嗎?</string>
+
+    <!-- Schools tab -->
+    <string name="schools_tab_title_pn">幼兒班(PN班)</string>
+    <string name="schools_tab_title_kg">幼稚園(K班)</string>
+    <string name="schools_district_search">地區搜尋</string>
+    <string name="schools_newsfeed">最新討論</string>
+    <string name="schools_bookmarks">我的收藏</string>
+    <string name="schools_your_district">您的地區:</string>
+    <string name="schools_actionbar_title">詳情</string>
+    <string name="schools_application_date">申請日期</string>
+    <string name="schools_application_date_prefix">[申請日期]</string>
+    <string name="schools_ranking">最多媽媽關注</string>
+    <string name="schools_info_app_date">申請日期:</string>
+    <string name="schools_info_open_day">開放日:</string>
+    <string name="schools_info_coupon">學券申請:</string>
+    <string name="schools_info_type">學校類別:</string>
+    <string name="schools_info_curriculum">課程類別:</string>
+    <string name="schools_info_time">課堂時間:</string>
+    <string name="schools_info_pn">PN幼兒班:</string>
+    <string name="schools_info_org">辦學團體:</string>
+    <string name="schools_info_students_num">收錄人數:</string>
+    <string name="schools_info_tuition_half_day">半日班全年收費:</string>
+    <string name="schools_info_tuition_full_day">全日班全年收費:</string>
+    <string name="schools_info_data_asof">* 根據教育局提供的幼兒服務資料 (2013年9月資料)</string>
+    <string name="schools_info_school_fee_coupon">以下是兌換學劵後的全年學費 (期數)</string>
+    <string name="schools_info_curriculum_arrange">課程編排:</string>
+    <string name="schools_info_address">地址:</string>
+    <string name="schools_info_phone">電話:</string>
+    <string name="schools_info_url">網址:</string>
+    <string name="schools_info_gov_url">教局網址:</string>
+    <string name="schools_info_k1">幼兒 3-4歲</string>
+    <string name="schools_info_k2">低班 4-5歲</string>
+    <string name="schools_info_k3">高班 5-6歲</string>
+    <string name="schools_info_am">上午班</string>
+    <string name="schools_info_pm">下午班</string>
+    <string name="schools_info_wd">全日班</string>
+    <string name="schools_info_total">總數</string>
+    <string name="schools_info_summer_uniform">夏季校服</string>
+    <string name="schools_info_winter_uniform">冬季校服</string>
+    <string name="schools_info_schoolbag">書包</string>
+    <string name="schools_info_tea">茶點</string>
+    <string name="schools_info_textbooks">課本</string>
+    <string name="schools_info_workbooks">練習簿/作業</string>
+    <string name="schools_info_fee_note">全年學費(期數)</string>
+    <string name="schools_info_not_provide">沒有直接代辦</string>
+    <string name="schools_info_comm_welcome">歡迎和其他家長一起討論</string>
+    <string name="schools_search_hint">搜尋學校名稱(所有區)</string>
+    <string name="schools_search_text_1">搜尋</string>
+    <string name="schools_search_text_2">有</string>
+    <string name="schools_search_text_3">個結果</string>
+    <string name="schools_search_cancel">結束搜尋</string>
+    <string name="schools_search_too_many_results">由於搜尋結果太多，請修改搜尋字再重試。</string>
+
+    <string name="schools_filter_text_1">有</string>
+    <string name="schools_filter_text_2">間幼稚園提供幼兒班(PN班)</string>
+    <string name="schools_filter_text_3">幼兒服務 (PN班)</string>
+    <string name="schools_filter_text_4">間幼稚園</string>
+    <string name="schools_posts">話題 :</string>
+    <string name="schools_discuss_together">討論區</string>
+    <string name="schools_landing_title_important_dates">重要日期</string>
+    <string name="schools_landing_title_info">學校資料</string>
+    <string name="schools_landing_title_pn">幼兒班(PN班 2-3歲) 收生資料</string>
+    <string name="schools_landing_title_kg_1">學生人數</string>
+    <string name="schools_landing_title_kg_2">全年學費 (2014/15 學年資料)</string>
+    <string name="schools_landing_title_kg_3">主要代辦項目參考價目 (2013/14 學年)</string>
+    <string name="schools_landing_title_curriculum">課程資料</string>
+    <string name="schools_landing_title_contact">聯絡資料</string>
+    <string name="schools_landing_title_comm">討論區</string>
+    <string name="schools_landing_new_post">新話題</string>
+
+    <string name="filter_schools_all">全部</string>
+    <string name="filter_schools_yes">有</string>
+    <string name="filter_schools_no">沒有</string>
+    <string name="filter_schools_type_public">非牟利</string>
+    <string name="filter_schools_type_private">私立</string>
+    <string name="filter_schools_curriculum_local">本地</string>
+    <string name="filter_schools_curriculum_nonlocal">非本地</string>
+    <string name="filter_schools_time_am">上午</string>
+    <string name="filter_schools_time_pm">下午</string>
+    <string name="filter_schools_time_wd">全日</string>
+
+    <string name="schools_bookmark_title_pn_tips">還沒有收藏幼兒班~\n立即收藏，接收最新討論通知</string>
+    <string name="schools_bookmark_title_kg_tips">還沒有收藏幼稚園~\n立即收藏，接收最新討論通知</string>
+    <string name="schools_bookmark_title_prefix">收藏了</string>
+    <string name="schools_bookmark_title_pn">間幼兒班(PN班)</string>
+    <string name="schools_bookmark_title_kg">間幼稚園</string>
+
+    <string name="schools_app_dates_title_all">全部</string>
+    <string name="schools_app_dates_title_hk">香港</string>
+    <string name="schools_app_dates_title_kl">九龍</string>
+    <string name="schools_app_dates_title_nt">新界</string>
+    <string name="schools_app_dates_tips">資料由 babybox 會員提供，最終以幼稚園官方網站或請致電幼稚園為準</string>
+    <string name="schools_info_app_dates_tips">* 資料由 babybox 會員提供，最終以幼稚園官方網站或請致電幼稚園為準</string>
+
+    <string name="schools_top_pn_ranking">幼兒班排名</string>
+    <string name="schools_top_kg_ranking">幼稚園排名</string>
+    <string name="schools_top_viewed">最多閱覽次數</string>
+    <string name="schools_top_bookmarked">最多媽媽收藏</string>
+    <string name="schools_top_discussed">最多媽媽討論</string>
+
+    <!-- Dialog -->
+    <string name="cancel_new_post">退出發佈話題？</string>
+    <string name="exit_app">是否退出 babybox？</string>
+    <string name="logout_message">確定登出？</string>
+    <string name="yes">是</string>
+    <string name="no">取消</string>
+    <string name="confirm">確定</string>
+    <string name="cancel">取消</string>
+
+    <!-- Validation -->
+    <string name="invalid_post_title_empty">請填寫標題</string>
+    <string name="invalid_post_body_empty">請填寫內容</string>
+    <string name="invalid_comment_body_empty">請填寫內容</string>
+
+</resources>
+

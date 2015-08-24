@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popupElement"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/light_purple"
+    android:orientation="horizontal"
+    android:elevation="5dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <RelativeLayout
+        android:id="@+id/viewComponent"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:id="@+id/cancelButton"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/close"
+                android:layout_gravity="bottom" />
+
+            <ImageView
+                android:id="@+id/browseImage"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/browse"
+                android:layout_gravity="bottom" />
+            <ImageView
+                android:id="@+id/emoImage"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/emo_smile"
+                android:layout_gravity="bottom" />
+
+            <ImageView
+                android:id="@+id/commentImage1"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/commentComponent"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="bottom|left" />
+
+            <ImageView
+                android:id="@+id/commentImage2"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/commentComponent"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="bottom|left" />
+            <ImageView
+                android:id="@+id/commentImage3"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@+id/commentComponent"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="bottom|left" />
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/postButton"
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/new_post"
+            android:textSize="14dp"
+            android:layout_centerVertical="true"
+            style="@style/com_facebook_loginview_silver_style"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/commentComponent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewComponent"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:editable="true"
+            android:id="@+id/commentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="#ffffff"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:enabled="true"
+            android:gravity="left|top"
+            android:padding="3dp"
+            android:hint="@string/post_comment_bar_hint"
+            android:textSize="16dp"
+            android:clickable="true" />
+    </LinearLayout>
+
+</RelativeLayout>
+
+
