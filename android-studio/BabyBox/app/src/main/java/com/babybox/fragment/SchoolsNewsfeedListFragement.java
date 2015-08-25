@@ -12,7 +12,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class SchoolsNewsfeedListFragement extends AbstractNewsfeedListFragement {
+public class SchoolsNewsfeedListFragement extends AbstractNewsfeedListFragment {
 
     private static final String TAG = SchoolsNewsfeedListFragement.class.getName();
 

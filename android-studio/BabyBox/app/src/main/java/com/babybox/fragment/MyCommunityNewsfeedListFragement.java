@@ -22,7 +22,7 @@ import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 
-public class MyCommunityNewsfeedListFragement extends NewsfeedListFragement {
+public class MyCommunityNewsfeedListFragement extends NewsfeedListFragment {
 
     private static final String TAG = MyCommunityNewsfeedListFragement.class.getName();
 

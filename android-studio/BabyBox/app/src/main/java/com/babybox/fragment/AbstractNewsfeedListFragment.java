@@ -25,9 +25,9 @@ import com.babybox.app.TrackedFragment;
 import com.babybox.util.DefaultValues;
 import com.babybox.viewmodel.CommunityPostVM;
 
-public abstract class AbstractNewsfeedListFragement extends TrackedFragment {
+public abstract class AbstractNewsfeedListFragment extends TrackedFragment {
 
-    private static final String TAG = AbstractNewsfeedListFragement.class.getName();
+    private static final String TAG = AbstractNewsfeedListFragment.class.getName();
 
     protected ListView listView;
     protected BaseAdapter listAdapter;

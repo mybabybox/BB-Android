@@ -22,7 +22,7 @@ public class CommunityMainFragment extends TrackedFragment {
 
     private static final String TAG = CommunityMainFragment.class.getName();
     private ViewPager viewPager;
-    private CommunityMainPagerAdapter mAdapter;
+    private CommunityMainPagerAdapter adapter;
     private PagerSlidingTabStrip tabs;
 
     @Override
@@ -33,13 +33,13 @@ public class CommunityMainFragment extends TrackedFragment {
 
         //getActivity().getActionBar().hide();
 
-        tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
-        viewPager = (ViewPager) view.findViewById(R.id.pager);
-        mAdapter = new CommunityMainPagerAdapter(getChildFragmentManager());
+        tabs = (PagerSlidingTabStrip) view.findViewById(R.id.commTabs);
+        viewPager = (ViewPager) view.findViewById(R.id.commPager);
+        adapter = new CommunityMainPagerAdapter(getChildFragmentManager());
 
-        int pageMargin = ViewUtil.getRealDimension(2, this.getResources());
+        int pageMargin = ViewUtil.getRealDimension(0, this.getResources());
         viewPager.setPageMargin(pageMargin);
-        viewPager.setAdapter(mAdapter);
+        viewPager.setAdapter(adapter);
         
         tabs.setViewPager(viewPager);
 
@@ -65,31 +65,22 @@ public class CommunityMainFragment extends TrackedFragment {
 }
 
 /**
- * https://guides.codepath.com/android/Sliding-Tabs-with-PagerSlidingTabStrip
- * https://android-arsenal.com/details/1/1100
+ *
  */
 class CommunityMainPagerAdapter extends FragmentStatePagerAdapter {
 
-    public static final int NUM_TABS = 3;
-    private static String[] TITLES;
-
     public CommunityMainPagerAdapter(FragmentManager fm) {
         super(fm);
-
-        TITLES = new String[NUM_TABS];
-        TITLES[0] = AppController.getInstance().getString(R.string.main_tab_explore);
-        TITLES[1] = AppController.getInstance().getString(R.string.main_tab_following);
-        TITLES[2] = AppController.getInstance().getString(R.string.main_tab_trending);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return TITLES[position];
+        return "";
     }
 
     @Override
     public int getCount() {
-        return TITLES.length;
+        return 1;
     }
 
     @Override
@@ -97,20 +88,5 @@ class CommunityMainPagerAdapter extends FragmentStatePagerAdapter {
         Log.d(this.getClass().getSimpleName(), "getItem: item - " + position);
         MyCommunityNewsfeedFragment fragment = new MyCommunityNewsfeedFragment();
         return fragment;
-
-        /*
-        switch (position) {
-            case 0: {
-                MyCommunityFragment fragment = new MyCommunityFragment();
-                return fragment;
-            }
-            default: {
-                TopicCommunityFragment fragment = new TopicCommunityFragment();
-                fragment.setTrackedOnce();
-                fragment.setCommunities(LocalCommunityTabCache.getCommunityCategoryMapList().get(position).communities);
-                return fragment;
-            }
-        }
-        */
     }
 }

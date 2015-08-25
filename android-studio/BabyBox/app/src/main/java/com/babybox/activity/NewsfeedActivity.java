@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.fragment.NewsfeedListFragement;
+import com.babybox.fragment.NewsfeedListFragment;
 
 public class NewsfeedActivity extends TrackedFragmentActivity {
 
@@ -65,7 +65,7 @@ public class NewsfeedActivity extends TrackedFragmentActivity {
         bundle.putString("key", key);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        NewsfeedListFragement newsfeedFragment = new NewsfeedListFragement();
+        NewsfeedListFragment newsfeedFragment = new NewsfeedListFragment();
         newsfeedFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.placeHolders, newsfeedFragment).commit();
     }

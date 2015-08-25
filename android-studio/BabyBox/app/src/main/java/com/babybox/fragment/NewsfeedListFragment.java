@@ -16,9 +16,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class NewsfeedListFragement extends AbstractNewsfeedListFragement {
+public class NewsfeedListFragment extends AbstractNewsfeedListFragment {
 
-    private static final String TAG = NewsfeedListFragement.class.getName();
+    private static final String TAG = NewsfeedListFragment.class.getName();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class NewsfeedListFragement extends AbstractNewsfeedListFragement {
             @Override
             public void failure(RetrofitError error) {
                 setFooterText(R.string.list_loading_error);
-                Log.e(NewsfeedListFragement.class.getSimpleName(), "getNewsFeed: failure", error);
+                Log.e(NewsfeedListFragment.class.getSimpleName(), "getNewsFeed: failure", error);
             }
         });
     }
@@ -78,7 +78,7 @@ public class NewsfeedListFragement extends AbstractNewsfeedListFragement {
             @Override
             public void failure(RetrofitError error) {
                 setFooterText(R.string.list_loading_error);
-                Log.e(NewsfeedListFragement.class.getSimpleName(), "getUserQuestion: failure", error);
+                Log.e(NewsfeedListFragment.class.getSimpleName(), "getUserQuestion: failure", error);
             }
         });
     }
@@ -94,7 +94,7 @@ public class NewsfeedListFragement extends AbstractNewsfeedListFragement {
             @Override
             public void failure(RetrofitError error) {
                 setFooterText(R.string.list_loading_error);
-                Log.e(NewsfeedListFragement.class.getSimpleName(), "getUserAnswer: failure", error);
+                Log.e(NewsfeedListFragment.class.getSimpleName(), "getUserAnswer: failure", error);
             }
         });
     }
@@ -109,7 +109,7 @@ public class NewsfeedListFragement extends AbstractNewsfeedListFragement {
             @Override
             public void failure(RetrofitError error) {
                 setFooterText(R.string.list_loading_error);
-                Log.e(NewsfeedListFragement.class.getSimpleName(), "getBookmark: failure", error);
+                Log.e(NewsfeedListFragment.class.getSimpleName(), "getBookmark: failure", error);
             }
         });
     }

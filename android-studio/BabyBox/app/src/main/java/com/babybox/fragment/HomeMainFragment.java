@@ -3,8 +3,11 @@ package com.babybox.fragment;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +15,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.babybox.R;
 import com.babybox.activity.GameActivity;
 import com.babybox.activity.MainActivity;
 import com.babybox.activity.NewPostActivity;
+import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.ImageUtil;
+import com.babybox.util.ViewUtil;
 
 public class HomeMainFragment extends TrackedFragment {
 
@@ -28,6 +34,10 @@ public class HomeMainFragment extends TrackedFragment {
     private ImageView signInImage;
     private ImageView newPostIcon;
     private View actionBarView;
+
+    private ViewPager viewPager;
+    private HomeMainPagerAdapter adapter;
+    private PagerSlidingTabStrip tabs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,8 +70,6 @@ public class HomeMainFragment extends TrackedFragment {
         }, 2000);
         */
 
-        init();
-
         // profile
         ImageUtil.displayThumbnailProfileImage(UserInfoCache.getUser().getId(), profileImage);
         usernameText.setText(UserInfoCache.getUser().getDisplayName());
@@ -91,25 +99,99 @@ public class HomeMainFragment extends TrackedFragment {
                 // launch new post page with no comm id, user will select
                 Intent intent = new Intent(HomeMainFragment.this.getActivity(), NewPostActivity.class);
                 intent.putExtra("id",0L);
-                intent.putExtra("flag","FromCommActivity");
+                intent.putExtra("flag","FromHomeActivity");
                 startActivity(intent);
             }
         });
 
+        // pager
+
+        tabs = (PagerSlidingTabStrip) view.findViewById(R.id.homeTabs);
+        viewPager = (ViewPager) view.findViewById(R.id.homePager);
+        adapter = new HomeMainPagerAdapter(getChildFragmentManager());
+
+        int pageMargin = ViewUtil.getRealDimension(0, this.getResources());
+        viewPager.setPageMargin(pageMargin);
+        viewPager.setAdapter(adapter);
+
+        tabs.setViewPager(viewPager);
+
+        /*
+        // styles declared in xml
+        tabs.setTextColor(getResources().getColor(R.color.dark_gray));
+        tabs.setIndicatorColor(getResources().getColor(R.color.actionbar_selected_text));
+
+        int indicatorHeight = ViewUtil.getRealDimension(5, this.getResources());
+        tabs.setIndicatorHeight(indicatorHeight);
+
+        final int textSize = ViewUtil.getRealDimension(16, this.getResources());
+        tabs.setTextSize(textSize);
+        */
+
         return view;
     }
+}
 
-    private void init() {
+/**
+ * https://guides.codepath.com/android/Sliding-Tabs-with-PagerSlidingTabStrip
+ * https://android-arsenal.com/details/1/1100
+ */
+class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
+
+    public static final int NUM_TABS = 3;
+    private static String[] TITLES;
+
+    public HomeMainPagerAdapter(FragmentManager fm) {
+        super(fm);
+
+        TITLES = new String[NUM_TABS];
+        TITLES[0] = AppController.getInstance().getString(R.string.main_tab_explore);
+        TITLES[1] = AppController.getInstance().getString(R.string.main_tab_following);
+        TITLES[2] = AppController.getInstance().getString(R.string.main_tab_trending);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return TITLES[position];
+    }
+
+    @Override
+    public int getCount() {
+        return TITLES.length;
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        Log.d(this.getClass().getSimpleName(), "getItem: item - " + position);
+
         Bundle bundle = new Bundle();
-        bundle.putString("key","feed");
-        MyCommunityNewsfeedListFragement fragment = new MyCommunityNewsfeedListFragement();
-        fragment.setTrackedOnce();
-        FragmentManager fragmentManager = getChildFragmentManager();
-        fragment.setArguments(bundle);
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.children_fragement, fragment);
-        fragmentTransaction.commit();
+        TrackedFragment fragment = null;
+        switch (position) {
+            // Explore
+            case 0: {
+                bundle.putString("key", "feed");
+                fragment = new HomeNewsfeedListFragment();
+            }
+            // Following
+            case 1: {
+                bundle.putString("key", "feed");
+                fragment = new HomeNewsfeedListFragment();
+            }
+            // Trending
+            case 2: {
+                bundle.putString("key", "feed");
+                fragment = new HomeNewsfeedListFragment();
+            }
+            default: {
+
+            }
+        }
+
+        if (fragment != null) {
+            fragment.setArguments(bundle);
+            fragment.setTrackedOnce();
+        }
+        return fragment;
     }
 }
 
