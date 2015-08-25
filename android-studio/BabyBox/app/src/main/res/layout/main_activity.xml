@@ -48,9 +48,35 @@
                     android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/homeLayout"
+                    android:background="@color/main_menubar_bg"
+                    android:layout_weight="25"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:id="@+id/homeImage"
+                        android:src="@drawable/mn_home"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tabset_home"
+                        android:id="@+id/homeText"
+                        android:textSize="15dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="2dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:id="@+id/commsLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="33"
+                    android:layout_weight="25"
                     android:gravity="center">
 
                     <ImageView
@@ -76,7 +102,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/schoolsLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="34"
+                    android:layout_weight="25"
                     android:gravity="center" >
 
                     <ImageView
@@ -102,7 +128,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/profileLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="33"
+                    android:layout_weight="25"
                     android:gravity="center" >
 
                     <ImageView
@@ -119,7 +145,7 @@
                         android:id="@+id/profileText"
                         android:textSize="15dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="2dp" />
+                        android:layout_marginLeft="4dp" />
 
                 </LinearLayout>
 

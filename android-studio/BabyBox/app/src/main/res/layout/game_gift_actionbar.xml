@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/actionbar_bg_purple">
+        android:background="@drawable/actionbar_bg_pink">
 
         <ImageView
             android:id="@+id/backImage"

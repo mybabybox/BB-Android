@@ -8,7 +8,7 @@
         android:id="@+id/mainActionsLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/actionbar_bg_purple">
+        android:background="@drawable/actionbar_bg_pink">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -23,7 +23,6 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginLeft="15dp"
-                android:layout_alignParentStart="false"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"></ImageView>
 

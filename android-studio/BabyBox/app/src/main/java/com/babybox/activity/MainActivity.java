@@ -21,6 +21,7 @@ import com.babybox.app.NotificationCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.CommunityMainFragment;
 import com.babybox.app.TrackedFragment;
+import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.MyProfileFragment;
 import com.babybox.fragment.SchoolsMainFragment;
 import com.babybox.viewmodel.CommunitiesParentVM;
@@ -31,6 +32,10 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends TrackedFragmentActivity {
+
+    private LinearLayout homeLayout;
+    private ImageView homeImage;
+    private TextView homeText;
 
     private LinearLayout commsLayout;
     private ImageView commsImage;
@@ -44,7 +49,7 @@ public class MainActivity extends TrackedFragmentActivity {
     private ImageView profileImage;
     private TextView profileText;
 
-    private boolean commsClicked = false, schoolsClicked = false, profileClicked = false;
+    private boolean homeClicked = false, commsClicked = false, schoolsClicked = false, profileClicked = false;
 
     private boolean topicCommunityTabLoaded = false;
     private boolean yearCommunityTabLoaded = false;
@@ -71,6 +76,10 @@ public class MainActivity extends TrackedFragmentActivity {
 
         getActionBar().hide();
 
+        homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
+        homeImage = (ImageView) findViewById(R.id.homeImage);
+        homeText = (TextView) findViewById(R.id.homeText);
+
         commsLayout = (LinearLayout) findViewById(R.id.commsLayout);
         commsImage = (ImageView) findViewById(R.id.commsImage);
         commsText = (TextView) findViewById(R.id.commsText);
@@ -84,11 +93,19 @@ public class MainActivity extends TrackedFragmentActivity {
         profileText = (TextView) findViewById(R.id.profileText);
         notificationCount = (TextView) findViewById(R.id.notificationCount);
 
+        homeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Home tab clicked");
+                pressHomeTab();
+            }
+        });
+
         commsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Community tab clicked");
-                pressMainTab();
+                pressCommTab();
             }
         });
 
@@ -128,7 +145,31 @@ public class MainActivity extends TrackedFragmentActivity {
         });
     }
 
-    public void pressMainTab() {
+    public void pressHomeTab() {
+        getActionBar().hide();
+
+        if (!homeClicked) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            selectedFragment = new HomeMainFragment();
+            fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
+        }
+
+        setMenuButton(homeImage, homeText, R.drawable.mn_home_sel, R.color.sharp_pink);
+        homeClicked = true;
+
+        setMenuButton(commsImage, commsText, R.drawable.mn_comm, R.color.dark_gray_2);
+        commsClicked = false;
+
+        setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag, R.color.dark_gray_2);
+        schoolsClicked = false;
+
+        setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
+        profileClicked = false;
+
+        setUnreadNotificationsCount();
+    }
+
+    public void pressCommTab() {
         getActionBar().hide();
 
         if (!commsClicked) {
@@ -136,6 +177,9 @@ public class MainActivity extends TrackedFragmentActivity {
             selectedFragment = new CommunityMainFragment();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
         }
+
+        setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
+        homeClicked = false;
 
         setMenuButton(commsImage, commsText, R.drawable.mn_comm_sel, R.color.sharp_pink);
         commsClicked = true;
@@ -157,6 +201,9 @@ public class MainActivity extends TrackedFragmentActivity {
             selectedFragment = new SchoolsMainFragment();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
         }
+
+        setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
+        homeClicked = false;
 
         setMenuButton(commsImage, commsText, R.drawable.mn_comm, R.color.dark_gray_2);
         commsClicked = false;
@@ -180,6 +227,9 @@ public class MainActivity extends TrackedFragmentActivity {
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
             notificationCount.setVisibility(View.INVISIBLE);
         }
+
+        setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
+        homeClicked = false;
 
         setMenuButton(commsImage, commsText, R.drawable.mn_comm, R.color.dark_gray_2);
         commsClicked = false;
@@ -260,7 +310,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
                             topicCommunityTabLoaded = true;
                             if (topicCommunityTabLoaded && yearCommunityTabLoaded) {
-                                pressMainTab();
+                                pressHomeTab();
                             }
                         }
 
@@ -280,7 +330,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
                             yearCommunityTabLoaded = true;
                             if (topicCommunityTabLoaded && yearCommunityTabLoaded) {
-                                pressMainTab();
+                                pressHomeTab();
                             }
                         }
 

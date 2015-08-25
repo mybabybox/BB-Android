@@ -59,7 +59,8 @@ public class AppController extends Application {
     public static String BASE_URL;
 
     private static AppController mInstance;
-    private static MyApi api;
+    private static BabyBoxService apiService;
+    private static MyApi apiOld;
 
     private long conversationId;
     public List<MessageVM> messageVMList;
@@ -77,9 +78,15 @@ public class AppController extends Application {
     }
 
     public static synchronized MyApi getApi() {
-        if (api == null)
+        if (apiOld == null)
             init();
-        return api;
+        return apiOld;
+    }
+
+    public static synchronized BabyBoxService getApiService() {
+        if (apiService == null)
+            init();
+        return apiService;
     }
 
     public static synchronized boolean isUserAdmin() {
@@ -104,11 +111,19 @@ public class AppController extends Application {
     public static void init() {
         BASE_URL = getInstance().getString(R.string.base_url);
 
-        if (api == null) {
+        if (apiOld == null) {
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint(BASE_URL)
                     .setClient(new OkClient()).build();
-            api = restAdapter.create(MyApi.class);
+            apiOld = restAdapter.create(MyApi.class);
+        }
+
+        if (apiService == null) {
+            RestAdapter restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(BASE_URL)
+                    .setClient(new OkClient()).build();
+            BabyBoxApi api = restAdapter.create(BabyBoxApi.class);
+            apiService = new BabyBoxService(api);
         }
 
         ImageUtil.init();

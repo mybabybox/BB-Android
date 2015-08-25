@@ -91,7 +91,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                         Gravity.CENTER
                 )
         );
-        getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_purple));
+        getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_pink));
 
         backImage = (ImageView) findViewById(R.id.backImage);
         postAction = (TextView) findViewById(R.id.postAction);

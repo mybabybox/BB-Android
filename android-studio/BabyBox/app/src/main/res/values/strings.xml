@@ -77,7 +77,8 @@
     <string name="signup_details_error_baby_not_entered">請填寫小寶寶性別，出生日期</string>
 
     <!-- Main -->
-    <string name="tabset_communities">babybox</string>
+    <string name="tabset_home">Home</string>
+    <string name="tabset_communities">Comm</string>
     <string name="tabset_schools">Search</string>
     <string name="tabset_profile">Me</string>
 

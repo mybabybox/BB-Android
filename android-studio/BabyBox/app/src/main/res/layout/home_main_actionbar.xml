@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/actionbar_bg_pink">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profileLayout"
+        android:visibility="visible"
+        android:paddingBottom="0dp"
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"></ImageView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/usernameText"
+            android:layout_toRightOf="@+id/profileImage"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/actionsLayout"
+        android:gravity="right"
+        android:layout_alignParentRight="true">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/signInImage"
+            android:src="@drawable/game_sign_in_s"
+            android:layout_gravity="center_vertical"
+            android:layout_toLeftOf="@+id/newPostIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp" />
+
+        <ImageView
+            android:id="@+id/newPostIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/edit_post"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

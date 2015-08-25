@@ -184,7 +184,7 @@ public class DetailActivity extends TrackedFragmentActivity {
                 } else if (isFromKG) {
                     getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_maroon));
                 } else {
-                    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_purple));
+                    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_pink));
                 }
 
                 communityName.setOnClickListener(new View.OnClickListener() {

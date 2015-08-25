@@ -8,7 +8,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="42dp"
-        android:textSize="16dp"
+        android:textSize="15dp"
         android:textColorPrimary="@color/dark_gray_2"
         android:background="@color/view_bg"
         app:pstsDividerColor="@color/view_bg"
