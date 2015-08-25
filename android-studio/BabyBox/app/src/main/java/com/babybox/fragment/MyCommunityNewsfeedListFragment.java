@@ -22,9 +22,9 @@ import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 
-public class MyCommunityNewsfeedListFragement extends NewsfeedListFragment {
+public class MyCommunityNewsfeedListFragment extends NewsfeedListFragment {
 
-    private static final String TAG = MyCommunityNewsfeedListFragement.class.getName();
+    private static final String TAG = MyCommunityNewsfeedListFragment.class.getName();
 
     private Button topicCommsButton, yearCommsButton;
     private boolean topicCommsPressed = true;
@@ -88,7 +88,7 @@ public class MyCommunityNewsfeedListFragement extends NewsfeedListFragment {
 
         pressTopicCommsButton();
 
-        LocalCommunityTabCache.setMyNewsfeedListFragement(this);
+        LocalCommunityTabCache.setMyNewsfeedListFragment(this);
 
         // tips
         //SharedPreferencesUtil.getInstance().saveBoolean(SharedPreferencesUtil.Screen.MY_NEWSFEED_TIPS.name(), false);

@@ -89,7 +89,7 @@ public class UserProfileFragment extends TrackedFragment {
                 bundle.putLong("id",getArguments().getLong("oid"));
                 bundle.putString("key","userquestion");
 
-                NewsfeedListFragement fragment = new NewsfeedListFragement();
+                NewsfeedListFragment fragment = new NewsfeedListFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -114,7 +114,7 @@ public class UserProfileFragment extends TrackedFragment {
                 bundle.putLong("id",getArguments().getLong("oid"));
                 bundle.putString("key","useranswer");
 
-                NewsfeedListFragement fragment = new NewsfeedListFragement();
+                NewsfeedListFragment fragment = new NewsfeedListFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

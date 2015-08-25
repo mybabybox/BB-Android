@@ -29,7 +29,7 @@ public class CommunityMainFragment extends TrackedFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.community_main_fragement, container, false);
+        View view = inflater.inflate(R.layout.community_main_fragment, container, false);
 
         //getActivity().getActionBar().hide();
 

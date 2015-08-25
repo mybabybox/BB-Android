@@ -97,7 +97,7 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/children_fragement"
+        android:id="@+id/children_fragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/mainActionsLayout">

@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.babybox.R;
 import com.babybox.fragment.CommunityListFragment;
-import com.babybox.fragment.MyCommunityNewsfeedListFragement;
+import com.babybox.fragment.MyCommunityNewsfeedListFragment;
 import com.babybox.fragment.TopicCommunityFragment;
 import com.babybox.util.DefaultValues;
 import com.babybox.viewmodel.CommunitiesParentVM;
@@ -32,7 +32,7 @@ public class LocalCommunityTabCache {
     private static List<CommunityCategoryMapVM> communityCategoryMapList;
 
     // tabs to refresh
-    private static MyCommunityNewsfeedListFragement myNewsfeedListFragement;
+    private static MyCommunityNewsfeedListFragment myNewsfeedListFragment;
     private static CommunityListFragment myCommunityFragment;
     private static List<TopicCommunityFragment> topicCommunityFragments;
 
@@ -126,14 +126,14 @@ public class LocalCommunityTabCache {
     //
 
     public static void clear() {
-        myNewsfeedListFragement = null;
+        myNewsfeedListFragment = null;
         myCommunitiesParentVM = null;
         communityCategoryMapList = new ArrayList<>();
         init();
     }
 
-    public static void setMyNewsfeedListFragement(MyCommunityNewsfeedListFragement fragment) {
-        LocalCommunityTabCache.myNewsfeedListFragement = fragment;
+    public static void setMyNewsfeedListFragment(MyCommunityNewsfeedListFragment fragment) {
+        LocalCommunityTabCache.myNewsfeedListFragment = fragment;
     }
 
     public static void setMyCommunityFragment(CommunityListFragment fragment) {
@@ -173,8 +173,8 @@ public class LocalCommunityTabCache {
     }
 
     private static void notifyChange() {
-        if (myNewsfeedListFragement != null) {
-            myNewsfeedListFragement.notifyChange();
+        if (myNewsfeedListFragment != null) {
+            myNewsfeedListFragment.notifyChange();
         }
         if (myCommunityFragment != null) {
             myCommunityFragment.notifyChange(getMyCommunities().communities);

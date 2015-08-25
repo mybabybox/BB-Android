@@ -34,7 +34,7 @@ public class MyCommunityNewsfeedFragment extends TrackedFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.my_community_newsfeed_fragement, container, false);
+        View view = inflater.inflate(R.layout.my_community_newsfeed_fragment, container, false);
 
         profileLayout = (RelativeLayout) view.findViewById(R.id.profileLayout);
         profileImage = (ImageView) view.findViewById(R.id.profileImage);
@@ -126,7 +126,7 @@ public class MyCommunityNewsfeedFragment extends TrackedFragment {
         TrackedFragment fragment = new CommunityListFragment();
         fragment.setTrackedOnce();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.children_fragement, fragment).commit();
+        transaction.replace(R.id.children_fragment, fragment).commit();
     }
 
     private void pressNewsfeedButton() {
@@ -137,13 +137,13 @@ public class MyCommunityNewsfeedFragment extends TrackedFragment {
 
         Bundle bundle = new Bundle();
         bundle.putString("key","feed");
-        MyCommunityNewsfeedListFragement fragment = new MyCommunityNewsfeedListFragement();
+        MyCommunityNewsfeedListFragment fragment = new MyCommunityNewsfeedListFragment();
         fragment.setTrackedOnce();
         FragmentManager fragmentManager = getChildFragmentManager();
         fragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         //fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.children_fragement, fragment);
+        fragmentTransaction.replace(R.id.children_fragment, fragment);
         fragmentTransaction.commit();
     }
 }

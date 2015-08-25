@@ -110,7 +110,7 @@ public class SchoolsPNFragment extends TrackedFragment {
         selectedFragment = new SchoolsPNListFragment();
         selectedFragment.setTrackedOnce();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.children_fragement, selectedFragment).commit();
+        transaction.replace(R.id.children_fragment, selectedFragment).commit();
     }
 
     private void pressNewsfeedButton(){
@@ -123,12 +123,12 @@ public class SchoolsPNFragment extends TrackedFragment {
         buttonNews.setTextColor(getResources().getColor(R.color.pn_box_border));
         buttonNews.setBackgroundColor(Color.WHITE);
 
-        SchoolsNewsfeedListFragement fragment = new SchoolsNewsfeedListFragement();
+        SchoolsNewsfeedListFragment fragment = new SchoolsNewsfeedListFragment();
         fragment.setIsPN(true);
         selectedFragment = fragment;
         selectedFragment.setTrackedOnce();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.children_fragement, selectedFragment).commit();
+        transaction.replace(R.id.children_fragment, selectedFragment).commit();
     }
 
     private void pressBookmarkButton(){
@@ -144,7 +144,7 @@ public class SchoolsPNFragment extends TrackedFragment {
         selectedFragment = new PNBookmarksFragment();
         selectedFragment.setTrackedOnce();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.children_fragement, selectedFragment).commit();
+        transaction.replace(R.id.children_fragment, selectedFragment).commit();
     }
 
     @Override

@@ -12,9 +12,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class SchoolsNewsfeedListFragement extends AbstractNewsfeedListFragment {
+public class SchoolsNewsfeedListFragment extends AbstractNewsfeedListFragment {
 
-    private static final String TAG = SchoolsNewsfeedListFragement.class.getName();
+    private static final String TAG = SchoolsNewsfeedListFragment.class.getName();
 
     private boolean isPN = false;
 

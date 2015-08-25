@@ -171,7 +171,7 @@ public abstract class AbstractSchoolsListFragment extends TrackedFragment {
             public void onClick(View v) {
                 /*Fragment fragment = new SchoolListFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.children_fragement, fragment).addToBackStack(null).commit();
+                fragmentManager.beginTransaction().replace(R.id.children_fragment, fragment).addToBackStack(null).commit();
                 searchResultLayout.setVisibility(View.GONE);
                 */
 

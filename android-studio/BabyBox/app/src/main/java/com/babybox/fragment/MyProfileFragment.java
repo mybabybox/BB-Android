@@ -40,7 +40,7 @@ public class MyProfileFragment extends TrackedFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.my_profile_fragement, container, false);
+        View view = inflater.inflate(R.layout.my_profile_fragment, container, false);
 
         actionBarView = inflater.inflate(R.layout.my_profile_actionbar, null);
 
@@ -68,7 +68,7 @@ public class MyProfileFragment extends TrackedFragment {
         TrackedFragment fragment = new ProfileFragment();
         fragment.setTrackedOnce();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.children_fragement, fragment,"profile").commit();
+        transaction.replace(R.id.children_fragment, fragment,"profile").commit();
 
         request.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class MyProfileFragment extends TrackedFragment {
                 bundle.putString("requestNotif", gson.toJson(requestNotif));
                 requestFragment.setArguments(bundle);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.children_fragement, requestFragment).commit();
+                transaction.replace(R.id.children_fragment, requestFragment).commit();
                 */
             }
         });
@@ -109,7 +109,7 @@ public class MyProfileFragment extends TrackedFragment {
                 bundle.putString("notifAll", gson.toJson(notifAll));
                 notificactionFragment.setArguments(bundle);
                 FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.children_fragement, notificactionFragment).commit();
+                transaction.replace(R.id.children_fragment, notificactionFragment).commit();
                 */
             }
         });

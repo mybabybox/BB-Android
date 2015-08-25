@@ -43,7 +43,7 @@ public class HomeMainFragment extends TrackedFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.home_main_fragement, container, false);
+        View view = inflater.inflate(R.layout.home_main_fragment, container, false);
 
         actionBarView = inflater.inflate(R.layout.home_main_actionbar, null);
 

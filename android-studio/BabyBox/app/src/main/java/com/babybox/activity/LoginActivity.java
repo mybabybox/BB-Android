@@ -104,7 +104,7 @@ public class LoginActivity extends AbstractLoginActivity {
         });
 
         /*
-         * Login my_community_fragement Click event
+         * Login my_community_fragment Click event
 		 * */
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
