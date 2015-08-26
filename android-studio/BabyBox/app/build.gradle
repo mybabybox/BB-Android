@@ -38,13 +38,13 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.0.0'
     //compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.jpardogo.materialtabstrip:library:1.0.9'
-    compile 'com.squareup.retrofit:retrofit:1.7.1'
-    compile 'com.squareup.okhttp:okhttp:2.2.0'
-    compile 'com.google.code.gson:gson:2.3'
-    compile 'org.parceler:parceler:0.2.13'
-    compile 'joda-time:joda-time:2.2'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.2.0'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'com.squareup.retrofit:retrofit:1.8.0'
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'org.parceler:parceler:1.0.3'
+    compile 'joda-time:joda-time:2.8.1'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     compile files('libs/android-viewbadger.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
     compile files('libs/acra-4.6.1.jar')

@@ -71,26 +71,23 @@ public interface BabyBoxApi {
     @GET("/get-all-districts")
     public void getAllDistricts(@Query("key") String key, Callback<List<LocationVM>> cb);
 
-    @POST("/mobile/login") //your login function in your api
+    @POST("/mobile/login")
     public void login(@Query("email") String email, @Query("password") String password, Callback<Response> cb);
 
-    @POST("/authenticate/mobile/facebook") //your facebook login function in your api
+    @POST("/authenticate/mobile/facebook")
     public void loginByFacebook(@Query("access_token") String access_token, Callback<Response> cb);
 
     @GET("/init-new-user")
     public void initNewUser(@Query("key") String key, Callback<UserVM> cb);
 
-    @GET("/get-user-info") //a function in your api get User all Information
+    @GET("/get-user-info")
     public void getUserInfo(@Query("key") String key, Callback<UserVM> cb);
 
-    @GET("/get-newsfeeds/{offset}") //a function in your api to get all the Newsfeed list
+    @GET("/get-newsfeeds/{offset}")
     public void getNewsfeed(@Path("offset") Long offset, @Query("key") String key, Callback<PostArray> callback);
 
-    @GET("/get-my-communities") //a function in your api to get all the joined communities list
+    @GET("/get-my-communities")
     public void getMyCommunities(@Query("key") String key, Callback<CommunitiesParentVM> callback);
-
-    @GET("/get-social-community-categories-map")
-    public void getTopicCommunityCategoriesMap(@Query("indexOnly") Boolean indexOnly, @Query("key") String key, Callback<List<CommunityCategoryMapVM>> callback);
 
     @GET("/community/{id}")
     public void getCommunity(@Path("id") Long comm_id, @Query("key") String key, Callback<CommunityVM> cb);
@@ -126,18 +123,6 @@ public interface BabyBoxApi {
 
     @GET("/unbookmark-post/{post_id}")
     public void setUnBookmark(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/like-comment/{comment_id}")
-    public void setLikeComment(@Path("comment_id") Long comment_id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/unlike-comment/{comment_id}")
-    public void setUnLikeComment(@Path("comment_id") Long comment_id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/like-post/{post_id}")
-    public void setLikePost(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/unlike-post/{post_id}")
-    public void setUnLikePost(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
 
     @GET("/delete-post/{post_id}")
     public void deletePost(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);

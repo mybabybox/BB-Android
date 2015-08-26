@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:layout_toRightOf="@+id/commIcon"
-                android:textColor="#ffffff"
+                android:textColor="@color/white"
                 android:shadowColor="#000000"
                 android:shadowDx="3"
                 android:shadowDy="3"

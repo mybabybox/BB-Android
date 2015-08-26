@@ -1,7 +1,11 @@
 package com.babybox.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +14,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.babybox.R;
-import com.babybox.app.LocalCommunityTabCache;
+import com.babybox.app.CategoryCache;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
+import com.babybox.viewmodel.CategoryVM;
+
+import java.util.List;
 
 public class HomeNewsfeedListFragment extends NewsfeedListFragment {
 
     private static final String TAG = HomeNewsfeedListFragment.class.getName();
 
     private ViewPager viewPager;
-    private MyCommunityPagerAdapter mAdapter;
+    private HomeCategoryPagerAdapter adapter;
 
     private LinearLayout dotsLayout;
 
@@ -40,15 +47,15 @@ public class HomeNewsfeedListFragment extends NewsfeedListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        viewPager = (ViewPager) headerView.findViewById(R.id.commsPager);
+        viewPager = (ViewPager) headerView.findViewById(R.id.catPager);
         dotsLayout = (LinearLayout) view.findViewById(R.id.dots);
 
-        int pageMargin = ViewUtil.getRealDimension(2, this.getResources());
+        int pageMargin = ViewUtil.getRealDimension(0, this.getResources());
         viewPager.setPageMargin(pageMargin);
 
         // init adapter
-        mAdapter = new MyCommunityPagerAdapter(LocalCommunityTabCache.CommunityTabType.TOPIC_COMMUNITY, getChildFragmentManager());
-        viewPager.setAdapter(mAdapter);
+        adapter = new HomeCategoryPagerAdapter(getChildFragmentManager());
+        viewPager.setAdapter(adapter);
 
         init();
 
@@ -74,18 +81,81 @@ public class HomeNewsfeedListFragment extends NewsfeedListFragment {
     }
 
     public void notifyChange() {
-        mAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
         viewPager.invalidate();
     }
 
     private void init() {
-        mAdapter.setCommunityTabType(LocalCommunityTabCache.CommunityTabType.TOPIC_COMMUNITY);
         notifyChange();
 
         viewPager.setCurrentItem(0);
 
         // pager indicator
-        addDots(mAdapter.getCount(), dotsLayout, viewPager);
+        addDots(adapter.getCount(), dotsLayout, viewPager);
+    }
+}
+
+class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {
+
+    public static final int CATEGORIES_PER_PAGE = 6;
+
+    private String title;
+
+    public HomeCategoryPagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return title;
+    }
+
+    @Override
+    public int getCount() {
+        int count = (int) Math.ceil((double) CategoryCache.getCategories().size() / (double) CATEGORIES_PER_PAGE);
+        return count;
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        Log.d(this.getClass().getSimpleName(), "getItem: item - " + position);
+        switch (position) {
+            default: {
+                HomeCategoryPagerFragment fragment = new HomeCategoryPagerFragment();
+                //fragment.setTrackedOnce();
+                fragment.setCategories(getCategoriesForPage(position));
+                return fragment;
+            }
+        }
+    }
+
+    /**
+     * HACK... returns POSITION_NONE will refresh pager more frequent than needed... but works in this case
+     * http://stackoverflow.com/questions/12510404/reorder-pages-in-fragmentstatepageradapter-using-getitempositionobject-object
+     *
+     * @param object
+     * @return
+     */
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    private List<CategoryVM> getCategoriesForPage(int position) {
+        int start = position * CATEGORIES_PER_PAGE;
+        int end = start + CATEGORIES_PER_PAGE;
+
+        List<CategoryVM> categories = CategoryCache.getCategories();
+        if (start >= categories.size()) {
+            Log.e(this.getClass().getSimpleName(), "getCategoriesForPage: position out of bound... position="+position+" categories.size="+categories.size());
+            return null;
+        }
+
+        if (end >= categories.size()) {
+            end = categories.size();
+        }
+
+        return categories.subList(start, end);
     }
 }
 

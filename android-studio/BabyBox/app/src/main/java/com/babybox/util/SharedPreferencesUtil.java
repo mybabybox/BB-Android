@@ -3,6 +3,7 @@ package com.babybox.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.babybox.viewmodel.CategoryVM;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -29,6 +30,7 @@ public class SharedPreferencesUtil {
     public static final String GAME_ACCOUNT = "gameAccount";
     public static final String DISTRICTS = "districts";
     public static final String EMOTICONS = "emoticons";
+    public static final String CATEGORIES = "categories";
 
     public static enum Screen {
         COMMS_TAB,
@@ -73,6 +75,10 @@ public class SharedPreferencesUtil {
 
     public void saveEmoticons(List<EmoticonVM> emoticons) {
         this.saveObject(EMOTICONS, emoticons);
+    }
+
+    public void saveCategories(List<CategoryVM> categories) {
+        this.saveObject(CATEGORIES, categories);
     }
 
     public void saveString(String key, String value) {
@@ -129,6 +135,14 @@ public class SharedPreferencesUtil {
         List<EmoticonVM> emoticons = new Gson().fromJson(json, type);
         //Log.d(this.getClass().getSimpleName(), "[DEBUG] getEmoticons: size="+emoticons.size());
         return emoticons;
+    }
+
+    public List<CategoryVM> getCategories() {
+        Type type = new TypeToken<List<CategoryVM>>() {}.getType();
+        String json = this.prefs.getString(CATEGORIES, null);
+        List<CategoryVM> categories = new Gson().fromJson(json, type);
+        //Log.d(this.getClass().getSimpleName(), "[DEBUG] getCategories: size="+categories.size());
+        return categories;
     }
 
     public String getString(String key) {

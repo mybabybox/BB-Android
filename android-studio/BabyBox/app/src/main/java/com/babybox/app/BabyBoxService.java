@@ -1,9 +1,13 @@
 package com.babybox.app;
 
+import android.util.Log;
+
 import com.babybox.viewmodel.BookmarkSummaryVM;
+import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommentPost;
 import com.babybox.viewmodel.CommentResponse;
 import com.babybox.viewmodel.CommunitiesParentVM;
+import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityCategoryMapVM;
 import com.babybox.viewmodel.CommunityPostCommentVM;
 import com.babybox.viewmodel.CommunityPostVM;
@@ -25,9 +29,11 @@ import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserProfileDataVM;
 import com.babybox.viewmodel.UserVM;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
+import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 
@@ -79,12 +85,26 @@ public class BabyBoxService {
         api.getNewsfeed(offset, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getMyCommunities(Callback<CommunitiesParentVM> cb) {
-        api.getMyCommunities(AppController.getInstance().getSessionId(), cb);
-    }
+    public void getCategories(Callback<List<CategoryVM>> cb) {
+        // TEMP - for api testing
+        final Callback<List<CategoryVM>> callback = cb;
+        api.getMyCommunities(AppController.getInstance().getSessionId(), new Callback<CommunitiesParentVM>() {
+            @Override
+            public void success(CommunitiesParentVM communitiesParentVM, Response response) {
+                List<CategoryVM> categories = new ArrayList<CategoryVM>();
+                for (CommunitiesWidgetChildVM comm : communitiesParentVM.getCommunities()) {
+                    categories.add(new CategoryVM(comm));
+                }
+                callback.success(categories, response);
 
-    public void getTopicCommunityCategoriesMap(Boolean indexOnly, Callback<List<CommunityCategoryMapVM>> cb) {
-        api.getTopicCommunityCategoriesMap(indexOnly, AppController.getInstance().getSessionId(), cb);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+
     }
 
     public void getCommunity(Long comm_id, Callback<CommunityVM> cb) {
@@ -123,28 +143,12 @@ public class BabyBoxService {
         api.uploadCommentPhoto(id, photo, cb);
     }
 
-    public void setBookmark(Long post_id, Callback<Response> cb) {
+    public void likePost(Long post_id, Callback<Response> cb) {
         api.setBookmark(post_id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void setUnBookmark(Long post_id, Callback<Response> cb) {
+    public void unlikePost(Long post_id, Callback<Response> cb) {
         api.setUnBookmark(post_id, AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void setLikeComment(Long comment_id, Callback<Response> cb) {
-        api.setLikeComment(comment_id, AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void setUnLikeComment(Long comment_id, Callback<Response> cb) {
-        api.setUnLikeComment(comment_id, AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void setLikePost(Long post_id, Callback<Response> cb) {
-        api.setLikePost(post_id, AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void setUnLikePost(Long post_id, Callback<Response> cb) {
-        api.setUnLikePost(post_id, AppController.getInstance().getSessionId(), cb);
     }
 
     public void deletePost(Long post_id, Callback<Response> cb) {
@@ -171,7 +175,7 @@ public class BabyBoxService {
         api.uploadProfilePhoto(photo, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getBookmarkSummary(Callback<BookmarkSummaryVM> cb) {
+    public void getLikeSummary(Callback<BookmarkSummaryVM> cb) {
         api.getBookmarkSummary(AppController.getInstance().getSessionId(), cb);
     }
 
@@ -191,7 +195,7 @@ public class BabyBoxService {
         api.getUserComments(offset, id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getBookmarkedPosts(Long offset, Callback<List<CommunityPostVM>> cb) {
+    public void getLikedPosts(Long offset, Callback<List<CommunityPostVM>> cb) {
         api.getBookmarkedPosts(offset, AppController.getInstance().getSessionId(), cb);
     }
 

@@ -136,6 +136,7 @@ public class AppController extends Application {
     public static void initStaticCaches() {
         DistrictCache.refresh();
         EmoticonCache.refresh();
+        CategoryCache.refresh();
     }
 
     /**

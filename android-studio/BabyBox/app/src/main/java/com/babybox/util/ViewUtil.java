@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -18,6 +19,7 @@ import android.text.Spannable;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -41,8 +43,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.babybox.R;
+import com.babybox.activity.CommunityActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
+import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import retrofit.RetrofitError;
 
@@ -429,4 +434,19 @@ public class ViewUtil {
                 replace("PM", resources.getString(R.string.filter_schools_time_pm)).
                 replace("WD", resources.getString(R.string.filter_schools_time_wd));
     }
+
+    //
+    // Start Activities
+    //
+
+    public static void startCategoryActivity(Activity activity, CategoryVM category, String flag) {
+        if (category != null) {
+            Log.d(ViewUtil.class.getSimpleName(), "startCategoryActivity with catId - " + category.getId());
+            Intent intent = new Intent(activity, CommunityActivity.class);
+            intent.putExtra("id", category.getId());
+            intent.putExtra("flag", flag);
+            activity.startActivity(intent);
+        }
+    }
+
 }
