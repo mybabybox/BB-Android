@@ -40,12 +40,11 @@
 
                     <ImageView
                         android:id="@+id/commImage1"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:scaleType="fitCenter"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_centerVertical="true"></ImageView>
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"></ImageView>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -62,61 +61,6 @@
                         android:textSize="15dp"
                         android:textColor="@color/dark_gray_2" />
 
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/summaryLayout1"
-                    android:layout_below="@+id/commImageLayout1">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
-
-                        <ImageView
-                            android:id="@+id/memberIcon1"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_member"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp" />
-
-                        <TextView
-                            android:id="@+id/noMember1"
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="-"
-                            android:textSize="10dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <ImageView
-                            android:id="@+id/postIcon1"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/post"
-                            android:layout_marginLeft="5dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <TextView
-                            android:id="@+id/noPost1"
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="-"
-                            android:textSize="10dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/joinButton1"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/ic_add" />
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -143,12 +87,11 @@
 
                     <ImageView
                         android:id="@+id/commImage2"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:scaleType="fitCenter"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_centerVertical="true"></ImageView>
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"></ImageView>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -165,61 +108,6 @@
                         android:textSize="15dp"
                         android:textColor="@color/dark_gray_2" />
 
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/summaryLayout2"
-                    android:layout_below="@+id/commImageLayout2">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
-
-                        <ImageView
-                            android:id="@+id/memberIcon2"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_member"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp" />
-
-                        <TextView
-                            android:id="@+id/noMember2"
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="-"
-                            android:textSize="10dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <ImageView
-                            android:id="@+id/postIcon2"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/post"
-                            android:layout_marginLeft="5dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <TextView
-                            android:id="@+id/noPost2"
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="-"
-                            android:textSize="10dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/joinButton2"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/ic_add" />
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -252,12 +140,11 @@
 
                     <ImageView
                         android:id="@+id/commImage3"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:scaleType="fitCenter"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_centerVertical="true"></ImageView>
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"></ImageView>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -274,61 +161,6 @@
                         android:textSize="15dp"
                         android:textColor="@color/dark_gray_2" />
 
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/commImageLayout3"
-                    android:id="@+id/summaryLayout3">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
-
-                        <ImageView
-                            android:id="@+id/memberIcon3"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_member"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp" />
-
-                        <TextView
-                            android:id="@+id/noMember3"
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="-"
-                            android:textSize="10dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <ImageView
-                            android:id="@+id/postIcon3"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/post"
-                            android:layout_marginLeft="5dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <TextView
-                            android:id="@+id/noPost3"
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="-"
-                            android:textSize="10dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/joinButton3"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/ic_add" />
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -356,12 +188,11 @@
 
                     <ImageView
                         android:id="@+id/commImage4"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:scaleType="fitCenter"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_centerVertical="true"></ImageView>
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"></ImageView>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -380,60 +211,6 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/summaryLayout4"
-                    android:layout_below="@+id/commImageLayout4">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true">
-
-                        <ImageView
-                            android:id="@+id/memberIcon4"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/ic_member"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="5dp" />
-
-                        <TextView
-                            android:id="@+id/noMember4"
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="-"
-                            android:textSize="10dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <ImageView
-                            android:id="@+id/postIcon4"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
-                            android:src="@drawable/post"
-                            android:layout_marginLeft="5dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <TextView
-                            android:id="@+id/noPost4"
-                            android:layout_width="25dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:text="-"
-                            android:textSize="10dp"
-                            android:layout_gravity="center_vertical" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:id="@+id/joinButton4"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/ic_add" />
-                </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>
 

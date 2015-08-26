@@ -1,8 +1,6 @@
 package com.babybox.util;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -36,9 +34,7 @@ public class CommunityUtil {
         this.communities = communities;
     }
 
-    public void setCommunityLayout(
-            final int index, final View commLayout, final ImageView commImage,
-            final TextView commName, final TextView noMember, TextView noPost, final ImageView joinButton) {
+    public void setCommunityLayout(final int index, final View commLayout, final ImageView commImage, final TextView commName) {
 
         if (communities == null || index >= communities.size()) {
             commLayout.setVisibility(View.GONE);
@@ -50,8 +46,6 @@ public class CommunityUtil {
         final CommunitiesWidgetChildVM item = communities.get(index);
 
         commName.setText(item.getDn());
-        noMember.setText(item.getMm().toString());
-        noPost.setText("-");
 
         int iconMapped = ImageMapping.map(item.gi);
         if (iconMapped != -1) {
@@ -61,38 +55,6 @@ public class CommunityUtil {
             Log.d(this.getClass().getSimpleName(), "setCommunityLayout: load comm icon from background - " + item.gi);
             ImageUtil.displayRoundedCornersImage(item.gi, commImage);
         }
-
-        if (item.getIsM()) {
-            joinButton.setImageResource(R.drawable.ic_check);
-        } else {
-            joinButton.setImageResource(R.drawable.ic_add);
-        }
-
-        joinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if (!item.getIsM()) {
-                    joinCommunity(item, joinButton);
-                } else {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-                    alertDialogBuilder.setMessage(activity.getString(R.string.community_leave_confirm));
-                    alertDialogBuilder.setPositiveButton(activity.getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            leaveCommunity(item, joinButton);
-                        }
-                    });
-                    alertDialogBuilder.setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
-                }
-            }
-        });
 
         commLayout.setOnClickListener(new View.OnClickListener() {
             @Override

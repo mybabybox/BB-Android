@@ -17,20 +17,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="10"
-            android:background="@color/view_bg">
+            android:background="@color/view_bg"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="3.3"
+                android:layout_weight="3.33"
                 android:id="@+id/cat1"
-                android:padding="2dp">
+                android:layout_marginRight="5dp">
 
                 <ImageView
                     android:id="@+id/image1"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:scaleType="fitCenter"></ImageView>
 
                 <TextView
@@ -41,7 +45,7 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="6"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/image1"
@@ -54,14 +58,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="3.3"
+                android:layout_weight="3.33"
                 android:id="@+id/cat2"
-                android:padding="2dp">
+                android:layout_marginRight="5dp">
 
                 <ImageView
                     android:id="@+id/image2"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:scaleType="fitCenter"></ImageView>
 
                 <TextView
@@ -72,7 +76,7 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="6"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/image2"
@@ -84,14 +88,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="3.3"
-                android:id="@+id/cat3"
-                android:padding="2dp">
+                android:layout_weight="3.33"
+                android:id="@+id/cat3">
 
                 <ImageView
                     android:id="@+id/image3"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:scaleType="fitCenter"></ImageView>
 
                 <TextView
@@ -102,7 +105,7 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="6"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/image3"
@@ -116,20 +119,23 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="10">
+            android:weightSum="10"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="3.3"
+                android:layout_weight="3.33"
                 android:id="@+id/cat4"
-                android:padding="2dp">
+                android:layout_marginRight="5dp">
 
                 <ImageView
                     android:id="@+id/image4"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:scaleType="fitCenter"></ImageView>
 
                 <TextView
@@ -140,7 +146,7 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="6"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/image4"
@@ -152,14 +158,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="3.3"
+                android:layout_weight="3.33"
                 android:id="@+id/cat5"
-                android:padding="2dp">
+                android:layout_marginRight="5dp">
 
                 <ImageView
                     android:id="@+id/image5"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:scaleType="fitCenter"></ImageView>
 
                 <TextView
@@ -170,7 +176,7 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="6"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/image5"
@@ -182,14 +188,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_weight="3.3"
-                android:id="@+id/cat6"
-                android:padding="2dp">
+                android:layout_weight="3.33"
+                android:id="@+id/cat6">
 
                 <ImageView
                     android:id="@+id/image6"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
                     android:scaleType="fitCenter"></ImageView>
 
                 <TextView
@@ -200,7 +205,7 @@
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="6"
-                    android:textSize="15dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/image6"

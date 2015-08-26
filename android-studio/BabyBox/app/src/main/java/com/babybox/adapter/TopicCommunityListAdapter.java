@@ -56,11 +56,8 @@ public class TopicCommunityListAdapter extends BaseAdapter {
 
         ImageView commImage = (ImageView) convertView.findViewById(R.id.commImage);
         TextView commName = (TextView) convertView.findViewById(R.id.commName);
-        TextView noMember = (TextView) convertView.findViewById(R.id.noMember);
-        TextView noPost = (TextView) convertView.findViewById(R.id.noPost);
-        ImageView joinButton = (ImageView) convertView.findViewById(R.id.joinButton);
 
-        communityUtil.setCommunityLayout(position, convertView, commImage, commName, noMember, noPost, joinButton);
+        communityUtil.setCommunityLayout(position, convertView, commImage, commName);
 
         return convertView;
     }

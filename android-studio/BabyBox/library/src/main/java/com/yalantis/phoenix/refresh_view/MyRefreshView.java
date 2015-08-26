@@ -56,7 +56,7 @@ public class MyRefreshView extends BaseRefreshView implements Animatable {
     private float mTownFinalTopOffset;
     private float mTownMoveOffset;
 
-    private int mSunSize = 100;
+    private int mSunSize = 180;
     private float mSunLeftOffset;
     private float mSunTopOffset;
 
@@ -109,7 +109,7 @@ public class MyRefreshView extends BaseRefreshView implements Animatable {
         mSky = Bitmap.createScaledBitmap(mSky, mScreenWidth, mSkyHeight, true);
         mTown = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.buildings);
         mTown = Bitmap.createScaledBitmap(mTown, mScreenWidth, (int) (mScreenWidth * TOWN_RATIO), true);
-        mSun = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.bean);
+        mSun = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.box);
         mSun = Bitmap.createScaledBitmap(mSun, mSunSize, mSunSize, true);
     }
 
