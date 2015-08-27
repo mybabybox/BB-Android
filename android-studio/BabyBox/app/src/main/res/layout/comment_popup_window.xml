@@ -3,7 +3,7 @@
     android:id="@+id/popupElement"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/light_purple"
+    android:background="@color/light_pink"
     android:orientation="horizontal"
     android:elevation="5dp"
     android:paddingLeft="15dp"

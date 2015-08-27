@@ -3,7 +3,7 @@
 
     <!-- view background color -->
     <solid
-        android:color="@color/light_purple_2" >
+        android:color="@color/light_pink_2" >
     </solid>
 
     <!-- view border color and width -->

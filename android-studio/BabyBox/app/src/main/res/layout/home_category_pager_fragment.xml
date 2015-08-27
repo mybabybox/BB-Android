@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
@@ -26,16 +28,35 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="3.33"
                 android:id="@+id/cat1"
                 android:layout_marginRight="5dp">
 
-                <ImageView
-                    android:id="@+id/image1"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:scaleType="fitCenter"></ImageView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card1">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image1"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <TextView
                     android:id="@+id/name1"
@@ -48,8 +69,7 @@
                     android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/image1"
-                    android:layout_gravity="bottom"
+                    android:layout_alignBottom="@+id/card1"
                     android:paddingBottom="5dp" />
 
             </RelativeLayout>
@@ -57,16 +77,35 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="3.33"
                 android:id="@+id/cat2"
                 android:layout_marginRight="5dp">
 
-                <ImageView
-                    android:id="@+id/image2"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:scaleType="fitCenter"></ImageView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card2">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image2"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <TextView
                     android:id="@+id/name2"
@@ -79,7 +118,7 @@
                     android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/image2"
+                    android:layout_alignBottom="@+id/card2"
                     android:paddingBottom="5dp" />
 
             </RelativeLayout>
@@ -87,15 +126,34 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="3.33"
                 android:id="@+id/cat3">
 
-                <ImageView
-                    android:id="@+id/image3"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:scaleType="fitCenter"></ImageView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card3">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image3"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <TextView
                     android:id="@+id/name3"
@@ -108,7 +166,7 @@
                     android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/image3"
+                    android:layout_alignBottom="@+id/card3"
                     android:paddingBottom="5dp" />
 
             </RelativeLayout>
@@ -127,16 +185,35 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="3.33"
                 android:id="@+id/cat4"
                 android:layout_marginRight="5dp">
 
-                <ImageView
-                    android:id="@+id/image4"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:scaleType="fitCenter"></ImageView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card4">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image4"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <TextView
                     android:id="@+id/name4"
@@ -149,7 +226,7 @@
                     android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/image4"
+                    android:layout_alignBottom="@+id/card4"
                     android:paddingBottom="5dp" />
 
             </RelativeLayout>
@@ -157,16 +234,35 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="3.33"
                 android:id="@+id/cat5"
                 android:layout_marginRight="5dp">
 
-                <ImageView
-                    android:id="@+id/image5"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:scaleType="fitCenter"></ImageView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card5">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image5"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <TextView
                     android:id="@+id/name5"
@@ -179,7 +275,7 @@
                     android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/image5"
+                    android:layout_alignBottom="@+id/card5"
                     android:paddingBottom="5dp" />
 
             </RelativeLayout>
@@ -187,15 +283,34 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_weight="3.33"
                 android:id="@+id/cat6">
 
-                <ImageView
-                    android:id="@+id/image6"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:scaleType="fitCenter"></ImageView>
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card6">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image6"
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
 
                 <TextView
                     android:id="@+id/name6"
@@ -208,7 +323,7 @@
                     android:textSize="16dp"
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/image6"
+                    android:layout_alignBottom="@+id/card6"
                     android:paddingBottom="5dp" />
 
             </RelativeLayout>
