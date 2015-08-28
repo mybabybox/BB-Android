@@ -95,6 +95,8 @@ public abstract class TrackedFragment extends Fragment {
             return;
         }
 
+        Log.d(this.getClass().getSimpleName(), "addDots: numPages="+numPages);
+
         dots = new ArrayList<>();
         dotsLayout.removeAllViews();
 

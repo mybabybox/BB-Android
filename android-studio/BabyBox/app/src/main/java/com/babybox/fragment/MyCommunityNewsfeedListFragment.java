@@ -55,7 +55,7 @@ public class MyCommunityNewsfeedListFragment extends NewsfeedListFragment {
         yearCommsButton = (Button) headerView.findViewById(R.id.yearCommsButton);
 
         viewPager = (ViewPager) headerView.findViewById(R.id.commsPager);
-        dotsLayout = (LinearLayout) view.findViewById(R.id.dots);
+        dotsLayout = (LinearLayout) headerView.findViewById(R.id.dots);
 
         int pageMargin = ViewUtil.getRealDimension(2, this.getResources());
         viewPager.setPageMargin(pageMargin);

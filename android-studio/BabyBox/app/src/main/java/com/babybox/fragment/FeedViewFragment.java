@@ -26,7 +26,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
     }
 
     protected void loadFeed(int offset) {
-        Log.d(this.getClass().getSimpleName(), "InfiniteScrollListener offset=" + offset + " with key=" + getArguments().getString("key"));
+        Log.d(this.getClass().getSimpleName(), "EndlessScrollListener offset=" + offset + " with key=" + getArguments().getString("key"));
         switch (getArguments().getString("key")) {
             case "home_explore":
             case "home_following":
@@ -34,7 +34,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
                 getFeed(offset);
                 break;
             default:
-                Log.w(this.getClass().getSimpleName(), "InfiniteScrollListener unknown default case with key - "+getArguments().getString("key"));
+                Log.w(this.getClass().getSimpleName(), "EndlessScrollListener unknown default case with key - "+getArguments().getString("key"));
         }
     }
 

@@ -82,10 +82,11 @@
     <string name="tabset_schools">Search</string>
     <string name="tabset_profile">Me</string>
 
-    <!-- Main tab -->
+    <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>
     <string name="main_tab_following">Following</string>
     <string name="main_tab_trending">Trending</string>
+    <string name="suggest_for_you">Suggest For You</string>
 
     <!-- Community tab -->
     <string name="community_tab_my">我的社群</string>

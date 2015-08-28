@@ -2,7 +2,7 @@
     android:id="@+id/profileLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/view_bg">
+    android:background="@color/feed_bg">
     <LinearLayout
         android:id="@+id/placeHolders"
         android:layout_width="match_parent"

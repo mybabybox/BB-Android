@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/view_bg">
+    android:background="@color/feed_bg">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:layout_marginBottom="1dp"
                 android:layout_marginLeft="1dp"
                 android:layout_marginTop="1dp"
-                android:background="@color/view_bg"
+                android:background="@color/feed_bg"
                 android:text="@string/community_tab_topic"
                 android:textColor="@color/actionbar_selected_text"
                 android:elegantTextHeight="false"

@@ -11,7 +11,7 @@
         android:layout_height="42dp"
         android:textSize="15dp"
         android:textColorPrimary="@color/dark_gray"
-        app:pstsDividerColor="@color/view_bg"
+        app:pstsDividerColor="@color/feed_bg"
         app:pstsIndicatorColor="@color/actionbar_selected_text"
         app:pstsUnderlineColor="@color/light_gray_2"
         app:pstsTabPaddingLeftRight="10dp"
@@ -22,7 +22,7 @@
         app:pstsTextSelectedStyle="bold"
         app:pstsTextAllCaps="false"
         android:fillViewport="false"
-        android:background="@color/view_bg"
+        android:background="@color/feed_bg"
         android:visibility="gone" />
 
     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"

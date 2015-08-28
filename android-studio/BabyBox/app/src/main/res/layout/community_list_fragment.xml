@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/view_bg"
+    android:background="@color/feed_bg"
     tools:context=".MainActivity">
 
     <ProgressBar
@@ -19,7 +19,7 @@
         android:id="@+id/listComm"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:divider="@color/view_bg"
+        android:divider="@color/feed_bg"
         android:dividerHeight="10dp"
         android:drawSelectorOnTop="false"
         android:headerDividersEnabled="true"

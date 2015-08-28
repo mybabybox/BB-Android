@@ -3,7 +3,7 @@ package com.babybox.listener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
-public abstract class InfiniteScrollListener  implements OnScrollListener {
+public abstract class InfiniteScrollListener implements OnScrollListener {
     // The minimum amount of items to have below your current scroll position
     // before loading more.
     private int visibleThreshold = 0;

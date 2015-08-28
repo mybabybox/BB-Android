@@ -2,7 +2,7 @@
     android:id="@+id/mainFrameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/view_bg"
+    android:background="@color/feed_bg"
     android:foreground="#01000000">
 
     <ProgressBar
@@ -22,7 +22,7 @@
             android:id="@+id/messageList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/view_bg"
+            android:background="@color/feed_bg"
             android:stackFromBottom="true"
             android:layout_marginBottom="50dp"
             android:divider="@null">

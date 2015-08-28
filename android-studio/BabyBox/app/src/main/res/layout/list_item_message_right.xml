@@ -6,7 +6,7 @@
     android:paddingBottom="5dp"
     android:paddingRight="10dp"
     android:paddingTop="5dp"
-    android:background="@color/view_bg">
+    android:background="@color/feed_bg">
 
     <RelativeLayout
         android:background="@drawable/bg_msg_you"

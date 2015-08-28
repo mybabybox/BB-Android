@@ -1,22 +1,18 @@
 package com.babybox.fragment;
 
-import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.babybox.R;
-import com.babybox.activity.DetailActivity;
 import com.babybox.adapter.FeedViewAdapter;
 import com.babybox.app.TrackedFragment;
-import com.babybox.listener.InfiniteScrollListener;
+import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.DefaultValues;
 import com.babybox.viewmodel.PostVM;
 import com.yalantis.phoenix.PullToRefreshView;
@@ -28,11 +24,12 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     private static final String TAG = AbstractFeedViewFragment.class.getName();
 
-    protected ListView listView;
-    protected BaseAdapter listAdapter;
+    protected RecyclerView feedView;
+    protected FeedViewAdapter feedAdapter;
+    protected GridLayoutManager layoutManager;
+
     protected List<PostVM> items;
     protected View loadingFooter;
-    protected TextView footerText;
 
     protected boolean hasHeader = false;
 
@@ -55,20 +52,41 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
         items = new ArrayList<>();
 
-        listView = (ListView) view.findViewById(R.id.list);
+        feedView = (RecyclerView) view.findViewById(R.id.feedView);
+        feedView.setHasFixedSize(true);
+        feedView.addItemDecoration(
+                new RecyclerView.ItemDecoration() {
+                    @Override
+                    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                        int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
+                        outRect.set(margin, margin, margin, margin);
+                    }
+                });
+
+        // header
         View headerView = getHeaderView(inflater);
         if (headerView != null) {
-            listView.addHeaderView(headerView);
             hasHeader = true;
         }
-        listView.addFooterView(loadingFooter);      // need to add footer before set adapter
-        listAdapter = getAdapterByFlow("");
-        listView.setAdapter(listAdapter);
-        listView.setFriction(ViewConfiguration.getScrollFriction() *
-                DefaultValues.LISTVIEW_SCROLL_FRICTION_SCALE_FACTOR);
 
-        footerText = (TextView) listView.findViewById(R.id.listLoadingFooterText);
+        // adapter
+        feedAdapter = new FeedViewAdapter(getActivity(), items, headerView);
+        feedView.setAdapter(feedAdapter);
 
+        // layout manager
+        layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return feedAdapter.isHeader(position) ? layoutManager.getSpanCount() : 1;
+            }
+        });
+        feedView.setLayoutManager(layoutManager);
+
+        // endless scroll
+        attachEndlessScrollListener();
+
+        // pull refresh
         pullListView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -76,39 +94,9 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                     @Override
                     public void run() {
                         pullListView.setRefreshing(false);
-                        refreshList();
+                        refreshView();
                     }
                 }, DefaultValues.PULL_TO_REFRESH_DELAY);
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int headerViewsCount = listView.getHeaderViewsCount();
-                if (position < headerViewsCount) {
-                    // listview header
-                    return;
-                }
-
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                PostVM post = (PostVM) listAdapter.getItem(position - headerViewsCount);
-                if (post != null) {
-                    intent.putExtra("postId", post.getId());
-                    intent.putExtra("catId", post.getCategoryId());
-                    intent.putExtra("flag","FromFeedView");
-                    startActivity(intent);
-                }
-            }
-        });
-
-        // pass hasFooter = true to InfiniteScrollListener
-        listView.setOnScrollListener(new InfiniteScrollListener(
-                DefaultValues.DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD, hasHeader, true) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                loadingFooter.setVisibility(View.VISIBLE);
-                loadFeed(page - 1);
             }
         });
 
@@ -117,26 +105,22 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         return view;
     }
 
-    protected BaseAdapter getAdapterByFlow(String flowName) {
-        return new FeedViewAdapter(getActivity(), items);
+    protected void attachEndlessScrollListener() {
+        feedView.setOnScrollListener(new EndlessScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page) {
+                loadFeed(page - 1);
+            }
+        });
     }
 
-    protected void loadFeedItemsToList(final List<PostVM> posts) {
-        if (items.size() == 0) {
-            //Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: first batch completed");
-            items.addAll(posts);
-            listAdapter.notifyDataSetChanged();
-            showFooter(false);
-        } else {
-            // NOTE: delay infinite scroll by a short interval to make UI looks smooth
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    items.addAll(posts);
-                    listAdapter.notifyDataSetChanged();
-                }
-            }, DefaultValues.DEFAULT_INFINITE_SCROLL_DELAY);
-            showFooter(true);
-        }
+    protected void loadFeedItemsToList(List<PostVM> p) {
+        final List<PostVM> posts = getImagePosts(p);
+
+        Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: size = "+posts.size());
+        items.addAll(posts);
+        feedAdapter.notifyDataSetChanged();
+        showFooter(false);
 
         if (posts == null || posts.size() == 0) {
             setFooterText(R.string.list_loaded_all);
@@ -145,18 +129,29 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         }
     }
 
-    protected void refreshList() {
+    protected void refreshView() {
         items.clear();
         loadFeed(0);
-        listAdapter.notifyDataSetChanged();
+        attachEndlessScrollListener();
     }
 
     protected void setFooterText(int text) {
-        showFooter(true);
-        footerText.setText(text);
+        //showFooter(true);
+        //footerText.setText(text);
     }
 
     protected void showFooter(boolean show) {
         loadingFooter.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    // TEMP - for api testing
+    private List<PostVM> getImagePosts(List<PostVM> items) {
+        List<PostVM> imagePosts = new ArrayList<>();
+        for (PostVM item : items) {
+            if (item.hasImage) {
+                imagePosts.add(item);
+            }
+        }
+        return imagePosts;
     }
 }
