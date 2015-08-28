@@ -16,6 +16,7 @@ public class CategoryVM {
         this.name = comm.dn;
         this.desc = comm.msg;
         this.system = comm.sys;
+        this.type = comm.tp;
     }
 
     public Long getId() {

@@ -49,6 +49,8 @@ import com.babybox.app.MyImageGetter;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityPostVM;
+import com.babybox.viewmodel.PostVM;
+
 import retrofit.RetrofitError;
 
 /**
@@ -409,6 +411,21 @@ public class ViewUtil {
     //
     // Post
     //
+
+    public static boolean isNewPost(PostVM post) {
+        return post.getNumComments() <= DefaultValues.NEW_POST_NOC &&
+                DateTimeUtil.getDaysAgo(post.getCreatedDate()) <= DefaultValues.NEW_POST_DAYS_AGO;
+    }
+
+    public static boolean isHotPost(PostVM post) {
+        return post.getNumComments() > DefaultValues.HOT_POST_NOC ||
+                post.getNumLikes() > DefaultValues.HOT_POST_NOL ||
+                post.getNumViews() > DefaultValues.HOT_POST_NOV;
+    }
+
+    public static boolean isImagePost(PostVM post) {
+        return post.isHasImage();
+    }
 
     public static boolean isNewPost(CommunityPostVM post) {
         return post.getN_c() <= DefaultValues.NEW_POST_NOC &&

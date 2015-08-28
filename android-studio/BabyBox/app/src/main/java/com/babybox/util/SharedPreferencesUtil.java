@@ -33,11 +33,17 @@ public class SharedPreferencesUtil {
     public static final String CATEGORIES = "categories";
 
     public static enum Screen {
-        COMMS_TAB,
-        SCHOOLS_TAB,
+        HOME_TAB,
+        SEARCH_TAB,
         PROFILE_TAB,
-        MY_NEWSFEED_TIPS,
-        UPLOAD_PROFILE_PIC_TIPS
+
+        HOME_EXPLORE_TIPS,
+        HOME_FOLLOWING_TIPS,
+        HOME_TRENDING_TIPS,
+        UPLOAD_PROFILE_PIC_TIPS,
+
+        // OBSOLETE...
+        MY_NEWSFEED_TIPS
     }
 
     private static SharedPreferencesUtil instance = null;

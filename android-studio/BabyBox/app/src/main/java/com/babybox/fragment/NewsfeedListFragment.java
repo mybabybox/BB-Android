@@ -34,18 +34,24 @@ public class NewsfeedListFragment extends AbstractNewsfeedListFragment {
                 getUserQuestions(offset,getArguments().getLong("id"));
                 break;
             case "useranswer":
-                getUserAnswers(offset,getArguments().getLong("id"));
+                getUserAnswers(offset, getArguments().getLong("id"));
                 break;
             case "question":
-                getUserQuestions(offset,getArguments().getLong("id"));
+                getUserQuestions(offset, getArguments().getLong("id"));
                 break;
             case "answer":
-                getUserAnswers(offset,getArguments().getLong("id"));
+                getUserAnswers(offset, getArguments().getLong("id"));
                 break;
             case "bookmark":
                 getBookmarks(offset);
                 break;
             case "feed":
+                getNewsFeed(offset);
+                break;
+
+            case "home_explore":
+            case "home_following":
+            case "home_trending":
                 getNewsFeed(offset);
                 break;
             default:

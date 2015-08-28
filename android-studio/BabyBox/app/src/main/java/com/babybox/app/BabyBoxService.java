@@ -1,14 +1,11 @@
 package com.babybox.app;
 
-import android.util.Log;
-
 import com.babybox.viewmodel.BookmarkSummaryVM;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommentPost;
 import com.babybox.viewmodel.CommentResponse;
 import com.babybox.viewmodel.CommunitiesParentVM;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
-import com.babybox.viewmodel.CommunityCategoryMapVM;
 import com.babybox.viewmodel.CommunityPostCommentVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.CommunityVM;
@@ -24,6 +21,8 @@ import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NotificationsParentVM;
 import com.babybox.viewmodel.PostArray;
 import com.babybox.viewmodel.PostResponse;
+import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.PostVMArray;
 import com.babybox.viewmodel.ProfileVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserProfileDataVM;
@@ -81,8 +80,26 @@ public class BabyBoxService {
         api.getUserInfo(AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getNewsfeed(Long offset, Callback<PostArray> cb) {
-        api.getNewsfeed(offset, AppController.getInstance().getSessionId(), cb);
+    public void getHomeExploreFeed(Long offset, Callback<PostVMArray> cb) {
+        // TEMP - for api testing
+        final Callback<PostVMArray> callback = cb;
+        api.getNewsfeed(offset, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
+            @Override
+            public void success(PostArray posts, Response response) {
+                List<CategoryVM> categories = new ArrayList<CategoryVM>();
+                PostVMArray array = new PostVMArray();
+                array.posts = new ArrayList<PostVM>();
+                for (CommunityPostVM post : posts.posts) {
+                    array.posts.add(new PostVM(post));
+                }
+                callback.success(array, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
     }
 
     public void getCategories(Callback<List<CategoryVM>> cb) {
@@ -96,7 +113,6 @@ public class BabyBoxService {
                     categories.add(new CategoryVM(comm));
                 }
                 callback.success(categories, response);
-
             }
 
             @Override
@@ -104,7 +120,6 @@ public class BabyBoxService {
                 callback.failure(error);
             }
         });
-
     }
 
     public void getCommunity(Long comm_id, Callback<CommunityVM> cb) {

@@ -21,9 +21,9 @@ import com.babybox.viewmodel.CategoryVM;
 
 import java.util.List;
 
-public class HomeNewsfeedListFragment extends NewsfeedListFragment {
+public class HomeFeedViewFragment extends FeedViewFragment {
 
-    private static final String TAG = HomeNewsfeedListFragment.class.getName();
+    private static final String TAG = HomeFeedViewFragment.class.getName();
 
     private ViewPager viewPager;
     private HomeCategoryPagerAdapter adapter;
@@ -38,7 +38,7 @@ public class HomeNewsfeedListFragment extends NewsfeedListFragment {
     @Override
     protected View getHeaderView(LayoutInflater inflater) {
         if (headerView == null) {
-            headerView = inflater.inflate(R.layout.home_newsfeed_list_header, null);
+            headerView = inflater.inflate(R.layout.home_feed_view_header, null);
         }
         return headerView;
     }
@@ -60,9 +60,9 @@ public class HomeNewsfeedListFragment extends NewsfeedListFragment {
         init();
 
         // tips
-        //SharedPreferencesUtil.getInstance().saveBoolean(SharedPreferencesUtil.Screen.MY_NEWSFEED_TIPS.name(), false);
+        //SharedPreferencesUtil.getInstance().saveBoolean(SharedPreferencesUtil.Screen.HOME_EXPLORE_TIPS.name(), false);
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
-        if (SharedPreferencesUtil.getInstance().isScreenViewed(SharedPreferencesUtil.Screen.MY_NEWSFEED_TIPS)) {
+        if (SharedPreferencesUtil.getInstance().isScreenViewed(SharedPreferencesUtil.Screen.HOME_EXPLORE_TIPS)) {
             tipsLayout.setVisibility(View.GONE);
         } else {
             tipsLayout.setVisibility(View.VISIBLE);
@@ -71,7 +71,7 @@ public class HomeNewsfeedListFragment extends NewsfeedListFragment {
             cancelTipsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SharedPreferencesUtil.getInstance().setScreenViewed(SharedPreferencesUtil.Screen.MY_NEWSFEED_TIPS);
+                    SharedPreferencesUtil.getInstance().setScreenViewed(SharedPreferencesUtil.Screen.HOME_EXPLORE_TIPS);
                     tipsLayout.setVisibility(View.GONE);
                 }
             });
