@@ -18,8 +18,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+//import com.nostra13.universalimageloader.core.assist.FailReason;
+//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -237,6 +237,8 @@ public class ProfileFragment extends TrackedFragment {
         answersCount.setText(user.getAnswersCount()+"");
 
         ImageUtil.displayProfileImage(userId, userPic);
+        ImageUtil.displayCoverImage(userId, userCoverPic);
+        /*
         ImageUtil.displayCoverImage(userId, userCoverPic, new SimpleImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
@@ -253,6 +255,7 @@ public class ProfileFragment extends TrackedFragment {
                 ViewUtil.stopSpinner(getActivity());
             }
         });
+        */
     }
 
     private void getGameAccount() {
@@ -323,6 +326,8 @@ public class ProfileFragment extends TrackedFragment {
             public void success(Response response, Response response2) {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
+                        ImageUtil.displayCoverImage(id, userCoverPic);
+                        /*
                         ImageUtil.displayCoverImage(id, userCoverPic, new SimpleImageLoadingListener() {
                             @Override
                             public void onLoadingStarted(String imageUri, View view) {
@@ -339,6 +344,7 @@ public class ProfileFragment extends TrackedFragment {
                                 ViewUtil.stopSpinner(getActivity());
                             }
                         });
+                        */
                     }
                 }, DefaultValues.DEFAULT_HANDLER_DELAY);
             }
@@ -373,6 +379,8 @@ public class ProfileFragment extends TrackedFragment {
 
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
+                        ImageUtil.displayProfileImage(id, userPic);
+                        /*
                         ImageUtil.displayProfileImage(id, userPic, new SimpleImageLoadingListener() {
                             @Override
                             public void onLoadingStarted(String imageUri, View view) {
@@ -389,6 +397,7 @@ public class ProfileFragment extends TrackedFragment {
                                 ViewUtil.stopSpinner(getActivity());
                             }
                         });
+                        */
                     }
                 }, DefaultValues.DEFAULT_HANDLER_DELAY);
             }

@@ -237,7 +237,7 @@ public class CommunityFragment extends TrackedFragment {
                     communityIcon.setImageDrawable(getResources().getDrawable(iconMapped));
                 } else {
                     Log.d(this.getClass().getSimpleName(), "getNewsFeedByCommunityId.api.success: load comm icon from background - " + community.gi);
-                    ImageUtil.displayRoundedCornersImage(community.gi, communityIcon);
+                    ImageUtil.displayCircleImage(community.gi, communityIcon);
                 }
             }
 

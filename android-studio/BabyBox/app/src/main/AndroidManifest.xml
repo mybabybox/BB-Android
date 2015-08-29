@@ -18,6 +18,8 @@
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
+        <meta-data android:name="com.babybox.util.GlideConfiguration" android:value="GlideModule"/>
+
         <!--service android:name=".app.BroadcastService" /-->
 
         <activity

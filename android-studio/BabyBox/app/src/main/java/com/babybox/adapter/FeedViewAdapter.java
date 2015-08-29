@@ -19,8 +19,9 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+//import com.nostra13.universalimageloader.core.assist.FailReason;
+//import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
+//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
@@ -117,6 +118,8 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageView.setPadding(0, 0, 0, 0);
 
+        ImageUtil.displayPostImage(imageId, imageView);
+        /*
         ImageUtil.displayPostImage(imageId, imageView, new SimpleImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
@@ -132,15 +135,14 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 if (loadedImage != null) {
-                    Log.d(this.getClass().getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "x" + loadedImage.getHeight());
+                    Log.d(FeedViewAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "x" + loadedImage.getHeight());
 
                     int displayDimension =
                             (ViewUtil.getDisplayDimensions(FeedViewAdapter.this.activity).width() / DefaultValues.MAX_POST_IMAGES);
 
-                    //Log.d(this.getClass().getSimpleName(), "onLoadingComplete: screen size="+activityUtil.getDisplayDimensions().width()+"x"+activityUtil.getDisplayDimensions().height());
+                    //Log.d(FeedViewAdapter.class.getSimpleName(), "onLoadingComplete: screen size="+activityUtil.getDisplayDimensions().width()+"x"+activityUtil.getDisplayDimensions().height());
 
-                    // obsolete
-                    /*
+                    // obsolete - start
                     int width = loadedImage.getWidth();
                     int height = loadedImage.getHeight();
 
@@ -155,8 +157,8 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
                         height = displayDimension;
                     }
 
-                    Log.d(this.getClass().getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
-                    */
+                    Log.d(FeedViewAdapter.class.getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
+                    // obsolete - end
 
                     Drawable d = new BitmapDrawable(
                             FeedViewAdapter.this.activity.getResources(),
@@ -167,6 +169,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
                 }
             }
         });
+        */
     }
 
     /**

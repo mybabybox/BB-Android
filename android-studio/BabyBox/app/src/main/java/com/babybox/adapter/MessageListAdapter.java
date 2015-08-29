@@ -12,8 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+//import com.nostra13.universalimageloader.core.assist.FailReason;
+//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
@@ -105,6 +105,8 @@ public class MessageListAdapter extends BaseAdapter {
         messageImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         messageImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10, this.activity.getResources()));
 
+        ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage);
+        /*
         ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage, new SimpleImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {
@@ -119,7 +121,7 @@ public class MessageListAdapter extends BaseAdapter {
             @Override
             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                 if (loadedImage != null) {
-                    Log.d(this.getClass().getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
+                    Log.d(MessageListAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
 
                     int width = loadedImage.getWidth();
                     int height = loadedImage.getHeight();
@@ -130,7 +132,7 @@ public class MessageListAdapter extends BaseAdapter {
                     width = displayWidth;
                     height = (int) (height * scaleAspect);
 
-                    Log.d(this.getClass().getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
+                    Log.d(MessageListAdapter.class.getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
 
                     Drawable d = new BitmapDrawable(
                             MessageListAdapter.this.activity.getResources(),
@@ -141,5 +143,6 @@ public class MessageListAdapter extends BaseAdapter {
                 }
             }
         });
+        */
     }
 }

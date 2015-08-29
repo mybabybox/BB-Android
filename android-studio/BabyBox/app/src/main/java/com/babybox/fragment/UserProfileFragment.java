@@ -1,7 +1,6 @@
 package com.babybox.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+//import com.nostra13.universalimageloader.core.assist.FailReason;
+//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.lang.reflect.Field;
 
@@ -168,6 +167,8 @@ public class UserProfileFragment extends TrackedFragment {
                 }
 
                 ImageUtil.displayProfileImage(userId, userPic);
+                ImageUtil.displayCoverImage(userId, userCoverPic);
+                /*
                 ImageUtil.displayCoverImage(userId, userCoverPic, new SimpleImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
@@ -184,6 +185,7 @@ public class UserProfileFragment extends TrackedFragment {
                         ViewUtil.stopSpinner(getActivity());
                     }
                 });
+                */
             }
 
             @Override

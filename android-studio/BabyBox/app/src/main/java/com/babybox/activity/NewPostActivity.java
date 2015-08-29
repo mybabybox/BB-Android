@@ -369,7 +369,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                         communityIcon.setImageDrawable(getResources().getDrawable(iconMapped));
                     } else {
                         Log.d(this.getClass().getSimpleName(), "initMyCommunityPopup: load comm icon from background - " + community.getGi());
-                        ImageUtil.displayRoundedCornersImage(community.getGi(), communityIcon);
+                        ImageUtil.displayCircleImage(community.getGi(), communityIcon);
                     }
 
                     updateSelectCommunityLayout();

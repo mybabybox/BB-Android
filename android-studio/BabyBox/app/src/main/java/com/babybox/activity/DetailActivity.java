@@ -250,7 +250,7 @@ public class DetailActivity extends TrackedFragmentActivity {
                     communityIcon.setImageDrawable(getResources().getDrawable(iconMapped));
                 } else {
                     Log.d(this.getClass().getSimpleName(), "getQnaDetail: load comm icon from background - " + post.getCi());
-                    ImageUtil.displayRoundedCornersImage(post.getCi(), communityIcon);
+                    ImageUtil.displayCircleImage(post.getCi(), communityIcon);
                 }
 
                 setPageButtons(curPage);

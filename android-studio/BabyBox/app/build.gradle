@@ -5,6 +5,9 @@ android {
     buildToolsVersion "22.0.1"
 
     packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE.txt'
     }
@@ -44,7 +47,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'org.parceler:parceler:1.0.3'
     compile 'joda-time:joda-time:2.8.1'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
     compile files('libs/android-viewbadger.jar')
     compile files('libs/libGoogleAnalyticsServices.jar')
     compile files('libs/acra-4.6.1.jar')

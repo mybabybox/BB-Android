@@ -53,7 +53,7 @@ public class CommunityUtil {
             commImage.setImageDrawable(activity.getResources().getDrawable(iconMapped));
         } else {
             Log.d(this.getClass().getSimpleName(), "setCommunityLayout: load comm icon from background - " + item.gi);
-            ImageUtil.displayRoundedCornersImage(item.gi, commImage);
+            ImageUtil.displayCircleImage(item.gi, commImage);
         }
 
         commLayout.setOnClickListener(new View.OnClickListener() {

@@ -72,7 +72,7 @@ public class NotificationListAdapter extends BaseAdapter {
         message.setText(item.getMsg());
         timeText.setText(DateTimeUtil.getTimeAgo(new DateTime(Long.parseLong(item.getUpd())).getMillis()));
 
-        ImageUtil.displayRoundImage(item.getUrl().getPhoto(), userPhoto);
+        ImageUtil.displayCircleImage(item.getUrl().getPhoto(), userPhoto);
 
         return convertView;
     }

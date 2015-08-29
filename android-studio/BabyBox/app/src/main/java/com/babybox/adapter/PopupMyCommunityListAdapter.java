@@ -70,7 +70,7 @@ public class PopupMyCommunityListAdapter extends BaseAdapter {
             communityIcon.setImageDrawable(activity.getResources().getDrawable(iconMapped));
         } else {
             Log.d(this.getClass().getSimpleName(), "getView: load comm icon from background - " + item.getGi());
-            ImageUtil.displayRoundedCornersImage(item.getGi(), communityIcon);
+            ImageUtil.displayCircleImage(item.getGi(), communityIcon);
         }
 
         return convertView;

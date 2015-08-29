@@ -83,7 +83,7 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
             image.setImageDrawable(getActivity().getResources().getDrawable(iconMapped));
         } else {
             Log.d(this.getClass().getSimpleName(), "initLayout: load category icon from background - " + item.getImage());
-            ImageUtil.displayRoundedCornersImage(item.getImage(), image);
+            ImageUtil.displayCircleImage(item.getImage(), image);
         }
 
         catLayout.setOnClickListener(new View.OnClickListener() {

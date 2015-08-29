@@ -20,8 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+//import com.nostra13.universalimageloader.core.assist.FailReason;
+//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
@@ -315,6 +315,8 @@ public class DetailListAdapter extends BaseAdapter {
             new LoadPostImage().execute(source, postImage);
             */
 
+            ImageUtil.displayOriginalPostImage(imageId, postImage);
+            /*
             ImageUtil.displayOriginalPostImage(imageId, postImage, new SimpleImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
@@ -330,7 +332,7 @@ public class DetailListAdapter extends BaseAdapter {
                 @Override
                 public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
                     if (loadedImage != null) {
-                        Log.d(this.getClass().getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
+                        Log.d(DetailListAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
 
                         int width = loadedImage.getWidth();
                         int height = loadedImage.getHeight();
@@ -341,7 +343,7 @@ public class DetailListAdapter extends BaseAdapter {
                         width = displayWidth;
                         height = (int)(height * scaleAspect);
 
-                        Log.d(this.getClass().getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
+                        Log.d(DetailListAdapter.class.getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
 
                         Drawable d = new BitmapDrawable(
                                 DetailListAdapter.this.activity.getResources(),
@@ -352,6 +354,7 @@ public class DetailListAdapter extends BaseAdapter {
                     }
                 }
             });
+            */
         }
         item.imageLoaded = true;
     }

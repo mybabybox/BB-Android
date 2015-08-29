@@ -16,15 +16,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.utils.DiskCacheUtils;
-import com.nostra13.universalimageloader.utils.MemoryCacheUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,7 +27,7 @@ import com.babybox.R;
 import com.babybox.app.AppController;
 
 /**
- * Created by keithlei on 3/16/15.
+ * http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
  */
 public class ImageUtil {
 
@@ -60,43 +53,7 @@ public class ImageUtil {
     public static final String MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-message-image-by-id/";
     public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-original-private-image-by-id/";
 
-    public static DisplayImageOptions DEFAULT_IMAGE_OPTIONS =
-            new DisplayImageOptions.Builder().
-                    cacheInMemory(true).
-                    cacheOnDisk(true).
-                    bitmapConfig(Bitmap.Config.RGB_565).
-                    imageScaleType(ImageScaleType.IN_SAMPLE_INT).
-                    showImageOnLoading(R.drawable.image_loading).
-                    displayer(new RoundedBitmapDisplayer(0)).build();
-
-    public static DisplayImageOptions ROUNDED_CORNERS_IMAGE_OPTIONS =
-            new DisplayImageOptions.Builder().
-                    cacheInMemory(true).
-                    cacheOnDisk(true).
-                    bitmapConfig(Bitmap.Config.RGB_565).
-                    imageScaleType(ImageScaleType.IN_SAMPLE_INT).
-                    showImageOnLoading(R.drawable.image_loading).
-                    displayer(new RoundedBitmapDisplayer(DefaultValues.IMAGE_ROUNDED_CORNERS_RADIUS)).build();
-
-    public static DisplayImageOptions THIN_ROUNDED_CORNERS_IMAGE_OPTIONS =
-            new DisplayImageOptions.Builder().
-                    cacheInMemory(true).
-                    cacheOnDisk(true).
-                    bitmapConfig(Bitmap.Config.RGB_565).
-                    imageScaleType(ImageScaleType.IN_SAMPLE_INT).
-                    showImageOnLoading(R.drawable.image_loading).
-                    displayer(new RoundedBitmapDisplayer(DefaultValues.IMAGE_THIN_ROUNDED_CORNERS_RADIUS)).build();
-
-    public static DisplayImageOptions ROUND_IMAGE_OPTIONS =
-            new DisplayImageOptions.Builder().
-                    cacheInMemory(true).
-                    cacheOnDisk(true).
-                    bitmapConfig(Bitmap.Config.RGB_565).
-                    imageScaleType(ImageScaleType.IN_SAMPLE_INT).
-                    showImageOnLoading(R.drawable.image_loading).
-                    displayer(new RoundedBitmapDisplayer(DefaultValues.IMAGE_ROUND_RADIUS)).build();
-
-    private static ImageLoader mImageLoader;
+    private static ImageCircleTransform circleTransform = new ImageCircleTransform(AppController.getInstance());
 
     private static File tempDir;
 
@@ -104,22 +61,9 @@ public class ImageUtil {
         init();
     }
 
-    public static synchronized ImageLoader getImageLoader() {
-        return mImageLoader;
-    }
-
     private ImageUtil() {}
 
     public static void init() {
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-                AppController.getInstance().getApplicationContext()).
-                threadPoolSize(5).
-                threadPriority(Thread.MIN_PRIORITY + 3).
-                denyCacheImageMultipleSizesInMemory().
-                memoryCache(new WeakMemoryCache()).
-                defaultDisplayImageOptions(DEFAULT_IMAGE_OPTIONS).build();
-        com.nostra13.universalimageloader.core.ImageLoader.getInstance().init(config);
-        mImageLoader = ImageLoader.getInstance();
 
         initImageTempDir();
     }
@@ -162,119 +106,89 @@ public class ImageUtil {
     // Community cover image
 
     public static void displayCommunityCoverImage(long id, ImageView imageView) {
-        getImageLoader().displayImage(COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView);
-    }
-
-    public static void displayCommunityCoverImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        getImageLoader().displayImage(COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView, listener);
+        Log.d(ImageUtil.class.getSimpleName(), "displayCommunityCoverImage: loading "+COMMUNITY_COVER_IMAGE_BY_ID_URL + id);
+        displayImage(COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView);
     }
 
     public static void displayThumbnailCommunityCoverImage(long id, ImageView imageView) {
-        getImageLoader().displayImage(THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView);
-    }
-
-    public static void displayThumbnailCommunityCoverImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        getImageLoader().displayImage(THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView, listener);
+        Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailCommunityCoverImage: loading " + THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL + id);
+        displayImage(THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView);
     }
 
     // Cover image
 
     public static void displayCoverImage(long id, ImageView imageView) {
-        getImageLoader().displayImage(COVER_IMAGE_BY_ID_URL + id, imageView);
+        Log.d(ImageUtil.class.getSimpleName(), "displayCoverImage: loading "+COVER_IMAGE_BY_ID_URL + id);
+        displayImage(COVER_IMAGE_BY_ID_URL + id, imageView);
     }
 
-    public static void displayCoverImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        getImageLoader().displayImage(COVER_IMAGE_BY_ID_URL + id, imageView, listener);
-    }
-
-    public static void displayThumbnailCoverImage(long id, ImageView imageView) {
-        getImageLoader().displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView);
-    }
-
-    public static void displayThumbnailCoverImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        getImageLoader().displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView, listener);
+    public static void displayThumbnailCoverImage(long id, ImageView imageView, Context context) {
+        Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailCoverImage: loading "+THUMBNAIL_COVER_IMAGE_BY_ID_URL + id);
+        displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView);
     }
 
     // Profile image
 
     public static void displayProfileImage(long id, ImageView imageView) {
-        ImageLoader.getInstance().displayImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, ROUNDED_CORNERS_IMAGE_OPTIONS);
-    }
-
-    public static void displayProfileImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        ImageLoader.getInstance().displayImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, ROUNDED_CORNERS_IMAGE_OPTIONS, listener);
+        Log.d(ImageUtil.class.getSimpleName(), "displayProfileImage: loading "+PROFILE_IMAGE_BY_ID_URL + id);
+        displayImage(PROFILE_IMAGE_BY_ID_URL + id, imageView);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView) {
-        ImageLoader.getInstance().displayImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, ROUND_IMAGE_OPTIONS);
-    }
-
-    public static void displayThumbnailProfileImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        ImageLoader.getInstance().displayImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, ROUND_IMAGE_OPTIONS, listener);
+        Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailProfileImage: loading " + THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id);
+        displayImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView);
     }
 
     // Post image
 
     public static void displayPostImage(long id, ImageView imageView) {
-        Log.d(ImageUtil.class.getSimpleName(), "displayPostImage: loading "+POST_IMAGE_BY_ID_URL + id);
-        getImageLoader().displayImage(POST_IMAGE_BY_ID_URL + id, imageView);
-    }
-
-    public static void displayPostImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        Log.d(ImageUtil.class.getSimpleName(), "displayPostImage: loading "+POST_IMAGE_BY_ID_URL + id);
-        getImageLoader().displayImage(POST_IMAGE_BY_ID_URL + id, imageView, listener);
+        Log.d(ImageUtil.class.getSimpleName(), "displayPostImage: loading " + POST_IMAGE_BY_ID_URL + id);
+        displayImage(POST_IMAGE_BY_ID_URL + id, imageView);
     }
 
     public static void displayOriginalPostImage(long id, ImageView imageView) {
         Log.d(ImageUtil.class.getSimpleName(), "displayOriginalPostImage: loading "+ORIGINAL_POST_IMAGE_BY_ID_URL + id);
-        getImageLoader().displayImage(ORIGINAL_POST_IMAGE_BY_ID_URL + id, imageView);
+        displayImage(ORIGINAL_POST_IMAGE_BY_ID_URL + id, imageView);
     }
 
-    public static void displayOriginalPostImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        Log.d(ImageUtil.class.getSimpleName(), "displayOriginalPostImage: loading "+ORIGINAL_POST_IMAGE_BY_ID_URL + id);
-        getImageLoader().displayImage(ORIGINAL_POST_IMAGE_BY_ID_URL + id, imageView, listener);
+    public static void displayMessageImage(long id, ImageView imageView) {
+        Log.d(ImageUtil.class.getSimpleName(), "displayMessageImage: loading " + MESSAGE_IMAGE_BY_ID_URL + id);
+        displayImage(MESSAGE_IMAGE_BY_ID_URL + id, imageView);
     }
 
-    public static void displayMessageImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        Log.d(ImageUtil.class.getSimpleName(), "displayPostImage: loading "+MESSAGE_IMAGE_BY_ID_URL + id);
-        getImageLoader().displayImage(MESSAGE_IMAGE_BY_ID_URL + id, imageView, listener);
-    }
-
-    public static void displayOriginalMessageImage(long id, ImageView imageView, ImageLoadingListener listener) {
-        Log.d(ImageUtil.class.getSimpleName(), "displayPostImage: loading "+ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id);
-        getImageLoader().displayImage(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id, imageView, listener);
+    public static void displayOriginalMessageImage(long id, ImageView imageView) {
+        Log.d(ImageUtil.class.getSimpleName(), "displayOriginalMessageImage: loading "+ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id);
+        displayImage(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id, imageView);
     }
 
     // Generic
 
-    public static void displayImage(String url, ImageView imageView, ImageLoadingListener listener) {
-        if (!url.startsWith(AppController.BASE_URL))
-            url = AppController.BASE_URL + url;
-        getImageLoader().displayImage(url, imageView, listener);
-    }
-
     public static void displayImage(String url, ImageView imageView) {
-        if (!url.startsWith(AppController.BASE_URL))
+        if (!url.startsWith(AppController.BASE_URL)) {
             url = AppController.BASE_URL + url;
-        getImageLoader().displayImage(url, imageView);
+        }
+        Glide.with(AppController.getInstance())
+                .load(url)
+                .placeholder(R.drawable.image_loading)
+                .error(R.drawable.image_loading)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .crossFade()
+                .into(imageView);
     }
 
-    public static void displayRoundedCornersImage(String url, ImageView imageView) {
-        if (!url.startsWith(AppController.BASE_URL))
+    public static void displayCircleImage(String url, ImageView imageView) {
+        if (!url.startsWith(AppController.BASE_URL)) {
             url = AppController.BASE_URL + url;
-        ImageLoader.getInstance().displayImage(url, imageView, ROUNDED_CORNERS_IMAGE_OPTIONS);
-    }
-
-    public static void displayThinRoundedCornersImage(String url, ImageView imageView) {
-        if (!url.startsWith(AppController.BASE_URL))
-            url = AppController.BASE_URL + url;
-        ImageLoader.getInstance().displayImage(url, imageView, THIN_ROUNDED_CORNERS_IMAGE_OPTIONS);
-    }
-
-    public static void displayRoundImage(String url, ImageView imageView) {
-        if (!url.startsWith(AppController.BASE_URL))
-            url = AppController.BASE_URL + url;
-        ImageLoader.getInstance().displayImage(url, imageView, ROUND_IMAGE_OPTIONS);
+        }
+        Glide.with(AppController.getInstance())
+                .load(url)
+                .placeholder(R.drawable.image_loading)
+                .error(R.drawable.image_loading)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .transform(new ImageCircleTransform(AppController.getInstance()))
+                .dontAnimate()
+                .into(imageView);
     }
 
     public static void clearProfileImageCache(long id){
@@ -288,12 +202,7 @@ public class ImageUtil {
     }
 
     private static void clearImageCache(String url) {
-        File imageFile = mImageLoader.getDiskCache().get(url);
-        if (imageFile.exists()) {
-            imageFile.delete();
-        }
-        DiskCacheUtils.removeFromCache(url, mImageLoader.getDiskCache());
-        MemoryCacheUtils.removeFromCache(url, mImageLoader.getMemoryCache());
+
     }
 
     // Select photo
