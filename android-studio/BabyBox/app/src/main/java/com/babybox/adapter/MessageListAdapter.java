@@ -1,19 +1,12 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-//import com.nostra13.universalimageloader.core.assist.FailReason;
-//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
@@ -23,9 +16,6 @@ import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.MessageVM;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 public class MessageListAdapter extends BaseAdapter {
     private Activity activity;

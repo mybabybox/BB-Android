@@ -2,9 +2,6 @@ package com.babybox.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,13 +12,8 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.activity.DetailActivity;
-import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
-import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
-//import com.nostra13.universalimageloader.core.assist.FailReason;
-//import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
-//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.util.List;
 
@@ -86,9 +78,11 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
         // NOTE: need to load images from UIL cache each time as ListAdapter items are being recycled...
         //       without this item will not show images correctly
-        if(item.hasImage) {
+        if (item.hasImage) {
             Log.d(this.getClass().getSimpleName(), "getView: load " + item.getImages().length + " images to post #" + position + " - " + item.getTitle());
             loadImage(item.getImages()[0], holder.imageView);
+        } else {
+            holder.imageView.setImageDrawable(activity.getResources().getDrawable(R.drawable.image_loading));
         }
 
         holder.textView.setText(item.getTitle());

@@ -86,11 +86,15 @@ public class BabyBoxService {
         api.getNewsfeed(offset, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
             @Override
             public void success(PostArray posts, Response response) {
-                List<CategoryVM> categories = new ArrayList<CategoryVM>();
                 PostVMArray array = new PostVMArray();
                 array.posts = new ArrayList<PostVM>();
                 for (CommunityPostVM post : posts.posts) {
-                    array.posts.add(new PostVM(post));
+                    if (post.hasImage) {
+                        array.posts.add(new PostVM(post));
+                    }
+                }
+                if (posts.posts.size() > 0 && array.posts.size() == 0) {
+                    array.posts.add(new PostVM(posts.posts.get(0)));    // dummy to continue endless scroll
                 }
                 callback.success(array, response);
             }

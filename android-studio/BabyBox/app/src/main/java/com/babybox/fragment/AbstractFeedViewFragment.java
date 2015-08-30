@@ -114,9 +114,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         });
     }
 
-    protected void loadFeedItemsToList(List<PostVM> p) {
-        final List<PostVM> posts = getImagePosts(p);
-
+    protected void loadFeedItemsToList(List<PostVM> posts) {
         Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: size = "+posts.size());
         items.addAll(posts);
         feedAdapter.notifyDataSetChanged();
@@ -142,16 +140,5 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected void showFooter(boolean show) {
         loadingFooter.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    // TEMP - for api testing
-    private List<PostVM> getImagePosts(List<PostVM> items) {
-        List<PostVM> imagePosts = new ArrayList<>();
-        for (PostVM item : items) {
-            if (item.hasImage) {
-                imagePosts.add(item);
-            }
-        }
-        return imagePosts;
     }
 }

@@ -20,9 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.nostra13.universalimageloader.core.assist.FailReason;
-//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
 import java.util.List;
 
 import com.babybox.R;
@@ -35,9 +32,6 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.MessageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CommunityPostCommentVM;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
