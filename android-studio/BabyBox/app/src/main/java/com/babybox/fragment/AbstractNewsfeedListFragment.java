@@ -79,7 +79,7 @@ public abstract class AbstractNewsfeedListFragment extends TrackedFragment {
                         pullListView.setRefreshing(false);
                         refreshList();
                     }
-                }, DefaultValues.PULL_TO_REFRESH_DELAY);
+                }, DefaultValues.DEFAULT_REFRESH_DELAY);
             }
         });
 

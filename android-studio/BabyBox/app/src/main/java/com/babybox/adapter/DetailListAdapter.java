@@ -35,6 +35,10 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.MessageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CommunityPostCommentVM;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -293,7 +297,7 @@ public class DetailListAdapter extends BaseAdapter {
 
         Log.d(this.getClass().getSimpleName(), "loadImages: "+item.getImgs().length+" images");
         for (Long imageId : item.getImgs()) {
-            ImageView postImage = new ImageView(this.activity);
+            final ImageView postImage = new ImageView(this.activity);
             postImage.setAdjustViewBounds(true);
             postImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
             postImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10, this.activity.getResources()));
@@ -317,20 +321,16 @@ public class DetailListAdapter extends BaseAdapter {
 
             ImageUtil.displayOriginalPostImage(imageId, postImage);
             /*
-            ImageUtil.displayOriginalPostImage(imageId, postImage, new SimpleImageLoadingListener() {
+            ImageUtil.displayOriginalPostImage(imageId, postImage, new RequestListener<String, GlideBitmapDrawable>() {
                 @Override
-                public void onLoadingStarted(String imageUri, View view) {
-
+                public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                    postImage.setVisibility(View.GONE);
+                    return false;
                 }
 
                 @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    ImageView imageView = (ImageView)view;
-                    imageView.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    Bitmap loadedImage = resource.getBitmap();
                     if (loadedImage != null) {
                         Log.d(DetailListAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
 
@@ -348,10 +348,10 @@ public class DetailListAdapter extends BaseAdapter {
                         Drawable d = new BitmapDrawable(
                                 DetailListAdapter.this.activity.getResources(),
                                 Bitmap.createScaledBitmap(loadedImage, width, height, false));
-                        ImageView imageView = (ImageView)view;
-                        imageView.setImageDrawable(d);
-                        imageView.setVisibility(View.VISIBLE);
+                        postImage.setImageDrawable(d);
+                        postImage.setVisibility(View.VISIBLE);
                     }
+                    return true;
                 }
             });
             */

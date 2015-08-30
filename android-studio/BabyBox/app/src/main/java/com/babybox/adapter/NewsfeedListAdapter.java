@@ -16,9 +16,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//import com.nostra13.universalimageloader.core.assist.FailReason;
-//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
 import java.util.List;
 
 import com.babybox.R;
@@ -29,6 +26,9 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CommunityPostVM;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 public class NewsfeedListAdapter extends BaseAdapter {
     private TextView postTitle;
@@ -172,6 +172,7 @@ public class NewsfeedListAdapter extends BaseAdapter {
 
         //Animation animation = AnimationUtils.loadAnimation(activity.getBaseContext(), (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
         // Slide in from bottom
+        /*
         if (position > lastPosition) {
             if (position > DefaultValues.LISTVIEW_SLIDE_IN_ANIM_START && lastPosition != -1) {
                 //Log.d(this.getClass().getSimpleName(), "getView: animate up_from_bottom - " + position+"");
@@ -180,6 +181,7 @@ public class NewsfeedListAdapter extends BaseAdapter {
             }
             lastPosition = position;
         }
+        */
 
         return convertView;
     }
@@ -195,29 +197,23 @@ public class NewsfeedListAdapter extends BaseAdapter {
             if (loadedImageCount >= DefaultValues.MAX_POST_IMAGES)
                 break;
 
-            ImageView postImage = new ImageView(this.activity);
+            final ImageView postImage = new ImageView(this.activity);
             postImage.setAdjustViewBounds(true);
             postImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
             postImage.setPadding(0, 0, padding, 0);
             layout.addView(postImage);
             loadedImageCount++;
 
-            ImageUtil.displayPostImage(imageId, postImage);
-            /*
-            ImageUtil.displayPostImage(imageId, postImage, new SimpleImageLoadingListener() {
+            ImageUtil.displayPostImage(imageId, postImage, new RequestListener<String, GlideBitmapDrawable>() {
                 @Override
-                public void onLoadingStarted(String imageUri, View view) {
-
+                public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                    postImage.setVisibility(View.GONE);
+                    return false;
                 }
 
                 @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    ImageView imageView = (ImageView)view;
-                    imageView.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    Bitmap loadedImage = resource.getBitmap();
                     if (loadedImage != null) {
                         Log.d(NewsfeedListAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "x" + loadedImage.getHeight());
 
@@ -226,7 +222,7 @@ public class NewsfeedListAdapter extends BaseAdapter {
                                         DefaultValues.MAX_POST_IMAGES) - totalPadding;
                         //Log.d(NewsfeedListAdapter.class.getSimpleName(), "onLoadingComplete: screen size="+activityUtil.getDisplayDimensions().width()+"x"+activityUtil.getDisplayDimensions().height());
 
-                        // obsolete - start
+                        /*
                         int width = loadedImage.getWidth();
                         int height = loadedImage.getHeight();
 
@@ -242,18 +238,17 @@ public class NewsfeedListAdapter extends BaseAdapter {
                         }
 
                         Log.d(NewsfeedListAdapter.class.getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
-                        // obsolete - end
+                        */
 
                         Drawable d = new BitmapDrawable(
                                 NewsfeedListAdapter.this.activity.getResources(),
                                 ImageUtil.cropToSquare(loadedImage, displayDimension));     // crop to square
-                        ImageView imageView = (ImageView)view;
-                        imageView.setImageDrawable(d);
-                        imageView.setVisibility(View.VISIBLE);
+                        postImage.setImageDrawable(d);
+                        postImage.setVisibility(View.VISIBLE);
                     }
+                    return true;
                 }
             });
-            */
         }
     }
 }

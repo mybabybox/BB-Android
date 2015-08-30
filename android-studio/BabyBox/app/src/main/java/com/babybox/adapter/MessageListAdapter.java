@@ -23,6 +23,9 @@ import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.MessageVM;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 public class MessageListAdapter extends BaseAdapter {
     private Activity activity;
@@ -107,19 +110,16 @@ public class MessageListAdapter extends BaseAdapter {
 
         ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage);
         /*
-        ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage, new SimpleImageLoadingListener() {
+        ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override
-            public void onLoadingStarted(String imageUri, View view) {
-
+            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                messageImage.setVisibility(View.GONE);
+                return false;
             }
 
             @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                Bitmap loadedImage = resource.getBitmap();
                 if (loadedImage != null) {
                     Log.d(MessageListAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
 
@@ -137,10 +137,10 @@ public class MessageListAdapter extends BaseAdapter {
                     Drawable d = new BitmapDrawable(
                             MessageListAdapter.this.activity.getResources(),
                             Bitmap.createScaledBitmap(loadedImage, width, height, false));
-                    ImageView imageView = (ImageView) view;
-                    imageView.setImageDrawable(d);
-                    imageView.setVisibility(View.VISIBLE);
+                    messageImage.setImageDrawable(d);
+                    messageImage.setVisibility(View.VISIBLE);
                 }
+                return true;
             }
         });
         */

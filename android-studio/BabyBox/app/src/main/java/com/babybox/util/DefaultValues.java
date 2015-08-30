@@ -28,7 +28,7 @@ public class DefaultValues {
     public static final int DEFAULT_CONNECTION_TIMEOUT_MILLIS = 3000;
     public static final int DEFAULT_HANDLER_DELAY = 100;
 
-    public static final int PULL_TO_REFRESH_DELAY = 1000;
+    public static final int DEFAULT_REFRESH_DELAY = 1000;
 
     public static final int LISTVIEW_SLIDE_IN_ANIM_START = 10;
     public static final int LISTVIEW_SCROLL_FRICTION_SCALE_FACTOR = 2;
@@ -42,7 +42,7 @@ public class DefaultValues {
     public static final int EMOTICON_POPUP_WIDTH = 300;
     public static final int EMOTICON_POPUP_HEIGHT = 100;
 
-    public static final int MAX_POST_IMAGES = 2;
+    public static final int MAX_POST_IMAGES = 3;
     public static final int MAX_COMMENT_IMAGES = 3;
     public static final int MAX_MESSAGE_IMAGES = 1;
     public static final int MAX_POST_IMAGE_DIMENSION = 100;

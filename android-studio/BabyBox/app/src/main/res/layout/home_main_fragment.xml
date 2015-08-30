@@ -15,7 +15,7 @@
         app:pstsIndicatorColor="@color/actionbar_selected_text"
         app:pstsUnderlineColor="@color/light_gray_2"
         app:pstsTabPaddingLeftRight="10dp"
-        app:pstsIndicatorHeight="4dp"
+        app:pstsIndicatorHeight="3dp"
         app:pstsUnderlineHeight="0.8dp"
         app:pstsShouldExpand="true"
         app:pstsTextStyle="normal"

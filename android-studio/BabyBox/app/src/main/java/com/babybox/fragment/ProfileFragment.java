@@ -18,9 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//import com.nostra13.universalimageloader.core.assist.FailReason;
-//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
 import java.io.File;
 import java.lang.reflect.Field;
 
@@ -40,6 +37,10 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.BookmarkSummaryVM;
 import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.UserVM;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -237,25 +238,19 @@ public class ProfileFragment extends TrackedFragment {
         answersCount.setText(user.getAnswersCount()+"");
 
         ImageUtil.displayProfileImage(userId, userPic);
-        ImageUtil.displayCoverImage(userId, userCoverPic);
-        /*
-        ImageUtil.displayCoverImage(userId, userCoverPic, new SimpleImageLoadingListener() {
+        ImageUtil.displayCoverImage(userId, userCoverPic, new RequestListener<String, GlideBitmapDrawable>() {
             @Override
-            public void onLoadingStarted(String imageUri, View view) {
-                ViewUtil.showSpinner(getActivity());
+            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                ViewUtil.stopSpinner(getActivity());
+                return false;
             }
 
             @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                 ViewUtil.stopSpinner(getActivity());
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                ViewUtil.stopSpinner(getActivity());
+                return false;
             }
         });
-        */
     }
 
     private void getGameAccount() {
@@ -326,32 +321,26 @@ public class ProfileFragment extends TrackedFragment {
             public void success(Response response, Response response2) {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
-                        ImageUtil.displayCoverImage(id, userCoverPic);
-                        /*
-                        ImageUtil.displayCoverImage(id, userCoverPic, new SimpleImageLoadingListener() {
+                        ImageUtil.displayCoverImage(id, userCoverPic, new RequestListener<String, GlideBitmapDrawable>() {
                             @Override
-                            public void onLoadingStarted(String imageUri, View view) {
-                                ViewUtil.showSpinner(getActivity());
+                            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                                ViewUtil.stopSpinner(getActivity());
+                                return false;
                             }
 
                             @Override
-                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                                 ViewUtil.stopSpinner(getActivity());
-                            }
-
-                            @Override
-                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                ViewUtil.stopSpinner(getActivity());
+                                return false;
                             }
                         });
-                        */
                     }
                 }, DefaultValues.DEFAULT_HANDLER_DELAY);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                    error.printStackTrace();
+                Log.e(ProfileFragment.class.getSimpleName(), "uploadCoverPhoto: failure", error);
             }
         });
     }
@@ -379,32 +368,26 @@ public class ProfileFragment extends TrackedFragment {
 
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
-                        ImageUtil.displayProfileImage(id, userPic);
-                        /*
-                        ImageUtil.displayProfileImage(id, userPic, new SimpleImageLoadingListener() {
+                        ImageUtil.displayProfileImage(id, userPic, new RequestListener<String, GlideBitmapDrawable>() {
                             @Override
-                            public void onLoadingStarted(String imageUri, View view) {
-                                ViewUtil.showSpinner(getActivity());
+                            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                                ViewUtil.stopSpinner(getActivity());
+                                return false;
                             }
 
                             @Override
-                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                                 ViewUtil.stopSpinner(getActivity());
-                            }
-
-                            @Override
-                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                ViewUtil.stopSpinner(getActivity());
+                                return false;
                             }
                         });
-                        */
                     }
                 }, DefaultValues.DEFAULT_HANDLER_DELAY);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                error.printStackTrace();
+                Log.e(ProfileFragment.class.getSimpleName(), "uploadCoverPhoto: failure", error);
             }
         });
     }

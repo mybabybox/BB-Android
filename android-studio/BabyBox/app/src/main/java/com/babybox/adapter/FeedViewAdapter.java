@@ -117,59 +117,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         imageView.setAdjustViewBounds(true);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageView.setPadding(0, 0, 0, 0);
-
         ImageUtil.displayPostImage(imageId, imageView);
-        /*
-        ImageUtil.displayPostImage(imageId, imageView, new SimpleImageLoadingListener() {
-            @Override
-            public void onLoadingStarted(String imageUri, View view) {
-
-            }
-
-            @Override
-            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                ImageView imageView = (ImageView) view;
-                imageView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                if (loadedImage != null) {
-                    Log.d(FeedViewAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "x" + loadedImage.getHeight());
-
-                    int displayDimension =
-                            (ViewUtil.getDisplayDimensions(FeedViewAdapter.this.activity).width() / DefaultValues.MAX_POST_IMAGES);
-
-                    //Log.d(FeedViewAdapter.class.getSimpleName(), "onLoadingComplete: screen size="+activityUtil.getDisplayDimensions().width()+"x"+activityUtil.getDisplayDimensions().height());
-
-                    // obsolete - start
-                    int width = loadedImage.getWidth();
-                    int height = loadedImage.getHeight();
-
-                    float scaleAspect = 1;
-                    if (width >= height) {  // landscape... scale according to width
-                        scaleAspect = (float)displayDimension / (float)width;
-                        width = displayDimension;
-                        height = (int)(height * scaleAspect);
-                    } else {    // portrait... scale according to height
-                        scaleAspect = (float)displayDimension / (float)height;
-                        width = (int)(width * scaleAspect);
-                        height = displayDimension;
-                    }
-
-                    Log.d(FeedViewAdapter.class.getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
-                    // obsolete - end
-
-                    Drawable d = new BitmapDrawable(
-                            FeedViewAdapter.this.activity.getResources(),
-                            ImageUtil.cropToSquare(loadedImage, displayDimension));     // crop to square
-                    ImageView imageView = (ImageView) view;
-                    imageView.setImageDrawable(d);
-                    imageView.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-        */
     }
 
     /**

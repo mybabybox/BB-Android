@@ -13,9 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//import com.nostra13.universalimageloader.core.assist.FailReason;
-//import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-
 import java.lang.reflect.Field;
 
 import com.babybox.R;
@@ -27,6 +24,10 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.MessageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ProfileVM;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 
@@ -167,25 +168,19 @@ public class UserProfileFragment extends TrackedFragment {
                 }
 
                 ImageUtil.displayProfileImage(userId, userPic);
-                ImageUtil.displayCoverImage(userId, userCoverPic);
-                /*
-                ImageUtil.displayCoverImage(userId, userCoverPic, new SimpleImageLoadingListener() {
+                ImageUtil.displayCoverImage(userId, userCoverPic, new RequestListener<String, GlideBitmapDrawable>() {
                     @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-                        ViewUtil.showSpinner(getActivity());
+                    public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                        ViewUtil.stopSpinner(getActivity());
+                        return false;
                     }
 
                     @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                         ViewUtil.stopSpinner(getActivity());
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        ViewUtil.stopSpinner(getActivity());
+                        return false;
                     }
                 });
-                */
             }
 
             @Override

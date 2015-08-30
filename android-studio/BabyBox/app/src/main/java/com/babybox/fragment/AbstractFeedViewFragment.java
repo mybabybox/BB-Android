@@ -96,7 +96,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                         pullListView.setRefreshing(false);
                         refreshView();
                     }
-                }, DefaultValues.PULL_TO_REFRESH_DELAY);
+                }, DefaultValues.DEFAULT_REFRESH_DELAY);
             }
         });
 
