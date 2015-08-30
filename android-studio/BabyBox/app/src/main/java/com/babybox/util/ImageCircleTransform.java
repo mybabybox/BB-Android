@@ -22,10 +22,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-import com.bumptech.glide.load.Transformation;
-import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
-import com.bumptech.glide.load.resource.bitmap.BitmapResource;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 public class ImageCircleTransform extends BitmapTransformation {
@@ -44,22 +41,21 @@ public class ImageCircleTransform extends BitmapTransformation {
 
         Bitmap squaredBitmap = Bitmap.createBitmap(source, width, height, size, size);
         if (squaredBitmap != source) {
-            source.recycle();
+            //source.recycle();
         }
 
         Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();
-        BitmapShader shader = new BitmapShader(squaredBitmap, BitmapShader.TileMode.CLAMP,
-                BitmapShader.TileMode.CLAMP);
+        BitmapShader shader = new BitmapShader(squaredBitmap, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
         paint.setShader(shader);
         paint.setAntiAlias(true);
 
         float r = size / 2f;
         canvas.drawCircle(r, r, r, paint);
 
-        squaredBitmap.recycle();
+        //squaredBitmap.recycle();
 
         //return BitmapResource.obtain(bitmap, mBitmapPool).get();
         return bitmap;

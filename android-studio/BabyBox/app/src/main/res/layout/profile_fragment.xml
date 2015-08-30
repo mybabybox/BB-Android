@@ -49,23 +49,24 @@
                         android:id="@+id/userImageLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/image_round"
+                        android:background="@drawable/image_circle"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp">
 
                         <ImageView
                             android:scaleType="fitXY"
                             android:id="@+id/userImage"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp" />
+                            android:layout_width="90dp"
+                            android:layout_height="90dp" />
 
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:id="@+id/editUserImage"
                             android:src="@drawable/edit_photo"
                             android:adjustViewBounds="true"
-                            android:layout_gravity="bottom|right" />
+                            android:layout_gravity="bottom|right"
+                            android:layout_margin="5dp" />
 
                     </FrameLayout>
 

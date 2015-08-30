@@ -51,7 +51,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignParentBottom="false"
-                    android:background="@drawable/image_round_thin"
+                    android:background="@drawable/image_rounded_thin"
                     android:layout_toRightOf="@+id/newPostToText"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="false"

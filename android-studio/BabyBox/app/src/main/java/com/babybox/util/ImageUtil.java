@@ -16,8 +16,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableRequestBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.bumptech.glide.signature.StringSignature;
 
 /**
  * http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
@@ -53,7 +54,13 @@ public class ImageUtil {
     public static final String MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-message-image-by-id/";
     public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-original-private-image-by-id/";
 
-    private static ImageCircleTransform circleTransform = new ImageCircleTransform(AppController.getInstance());
+    private static ImageCircleTransform circleTransform =
+            new ImageCircleTransform(AppController.getInstance());
+
+    private static ImageRoundedTransform roundedTransform =
+            new ImageRoundedTransform(AppController.getInstance(), DefaultValues.IMAGE_ROUNDED_RADIUS, 3);
+
+    private static String stringSignature = "glide-dev-1";
 
     private static File tempDir;
 
@@ -130,13 +137,13 @@ public class ImageUtil {
     // Profile image
 
     public static void displayProfileImage(long id, ImageView imageView) {
-        Log.d(ImageUtil.class.getSimpleName(), "displayProfileImage: loading "+PROFILE_IMAGE_BY_ID_URL + id);
-        displayImage(PROFILE_IMAGE_BY_ID_URL + id, imageView);
+        Log.d(ImageUtil.class.getSimpleName(), "displayProfileImage: loading " + PROFILE_IMAGE_BY_ID_URL + id);
+        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView) {
         Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailProfileImage: loading " + THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id);
-        displayImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView);
+        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView);
     }
 
     // Post image
@@ -164,31 +171,66 @@ public class ImageUtil {
     // Generic
 
     public static void displayImage(String url, ImageView imageView) {
+        displayImage(url, imageView, true);
+    }
+
+    public static void displayImage(String url, ImageView imageView, boolean centerCrop) {
         if (!url.startsWith(AppController.BASE_URL)) {
             url = AppController.BASE_URL + url;
         }
-        Glide.with(AppController.getInstance())
+
+        DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
+                .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.image_loading)
                 .error(R.drawable.image_loading)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .crossFade()
-                .into(imageView);
+                .crossFade(150);
+        if (centerCrop) {
+            builder = builder.centerCrop();
+        }
+        builder.into(imageView);
     }
 
     public static void displayCircleImage(String url, ImageView imageView) {
+        displayCircleImage(url, imageView, true);
+    }
+
+    public static void displayCircleImage(String url, ImageView imageView, boolean centerCrop) {
         if (!url.startsWith(AppController.BASE_URL)) {
             url = AppController.BASE_URL + url;
         }
-        Glide.with(AppController.getInstance())
+
+        DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
+                .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.image_loading)
                 .error(R.drawable.image_loading)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transform(new ImageCircleTransform(AppController.getInstance()))
-                .dontAnimate()
-                .into(imageView);
+                .dontAnimate();
+        if (centerCrop) {
+            builder = builder.centerCrop();
+        }
+        builder.transform(circleTransform).into(imageView);
+    }
+
+    public static void displayRoundedImage(String url, ImageView imageView) {
+        displayRoundedImage(url, imageView, true);
+    }
+
+    public static void displayRoundedImage(String url, ImageView imageView, boolean centerCrop) {
+        if (!url.startsWith(AppController.BASE_URL)) {
+            url = AppController.BASE_URL + url;
+        }
+
+        DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
+                .load(url)
+                .signature(new StringSignature(stringSignature))
+                .placeholder(R.drawable.image_loading)
+                .error(R.drawable.image_loading)
+                .dontAnimate();
+        if (centerCrop) {
+            builder = builder.centerCrop();
+        }
+        builder.transform(roundedTransform).into(imageView);
     }
 
     public static void clearProfileImageCache(long id){
@@ -202,7 +244,7 @@ public class ImageUtil {
     }
 
     private static void clearImageCache(String url) {
-
+        //Glide.get(AppController.getInstance()).clearMemory();
     }
 
     // Select photo

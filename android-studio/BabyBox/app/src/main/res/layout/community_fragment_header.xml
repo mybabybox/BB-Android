@@ -26,8 +26,7 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/image_round_thin"></ImageView>
+                android:layout_marginLeft="20dp"></ImageView>
 
             <TextView
                 android:id="@+id/commNameText"

@@ -72,7 +72,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/image_round_thin" />
+            android:background="@drawable/image_rounded_thin" />
 
         <TextView
             android:id="@+id/commName"
