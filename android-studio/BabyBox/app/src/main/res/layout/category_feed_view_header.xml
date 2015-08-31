@@ -53,96 +53,162 @@
     <LinearLayout
         android:id="@+id/filterLayout"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/viewBar"
         android:background="@color/feed_bg"
-        android:orientation="horizontal"
-        android:weightSum="10"
+        android:orientation="vertical"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2.5"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_below="@+id/viewBar"
+            android:background="@color/feed_bg"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:layout_marginBottom="7dp">
 
-            <Button
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/filter_popular"
-                android:id="@+id/popularFilterButton"
-                android:textSize="14dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_round_pink"
-                android:textColor="@color/white"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:textAllCaps="false"/>
+                android:layout_weight="3.33"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/filter_all"
+                    android:id="@+id/allFilterButton"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_round_pink"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.33"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/filter_new"
+                    android:id="@+id/newFilterButton"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_round"
+                    android:textColor="@color/light_gray"
+                    android:textAllCaps="false"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.33"
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/filter_used"
+                    android:id="@+id/usedFilterButton"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_round"
+                    android:textColor="@color/light_gray"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2.5"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_below="@+id/viewBar"
+            android:background="@color/feed_bg"
+            android:orientation="horizontal"
+            android:weightSum="10">
 
-            <Button
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/filter_newest"
-                android:id="@+id/newestFilterButton"
-                android:textSize="14dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_round"
-                android:textColor="@color/light_gray"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:textAllCaps="false"/>
+                android:layout_weight="2.5"
+                android:orientation="horizontal" >
 
-        </LinearLayout>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/filter_popular"
+                    android:id="@+id/popularFilterButton"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_round_pink"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2.5"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/filter_price_low_high"
-                android:id="@+id/priceLowHighFilterButton"
-                android:textSize="14dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_round"
-                android:textColor="@color/light_gray"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:textAllCaps="false"/>
+                android:layout_weight="2.5"
+                android:orientation="horizontal" >
 
-        </LinearLayout>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/filter_newest"
+                    android:id="@+id/newestFilterButton"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_round"
+                    android:textColor="@color/light_gray"
+                    android:textAllCaps="false" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2.5"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/filter_price_high_low"
-                android:id="@+id/priceHighLowFilterButton"
-                android:textSize="14dp"
-                android:layout_gravity="center"
-                android:background="@drawable/button_round"
-                android:textColor="@color/light_gray"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:textAllCaps="false"/>
+                android:layout_weight="2.5"
+                android:orientation="horizontal" >
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/filter_price_low_high"
+                    android:id="@+id/priceLowHighFilterButton"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_round"
+                    android:textColor="@color/light_gray"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/filter_price_high_low"
+                    android:id="@+id/priceHighLowFilterButton"
+                    android:textSize="14dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_round"
+                    android:textColor="@color/light_gray"
+                    android:textAllCaps="false" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -40,6 +40,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     private ImageView backImage, whatsappAction, linkCopyAction, newPostAction;
 
     private Button popularFilterButton, newestFilterButton, priceLowHighFilterButton, priceHighLowFilterButton;
+    private Button newFilterButton, usedFilterButton, allFilterButton;
 
     private FrameLayout tipsLayout;
     private ImageView cancelTipsButton;
@@ -103,35 +104,64 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         priceLowHighFilterButton = (Button) headerView.findViewById(R.id.priceLowHighFilterButton);
         priceHighLowFilterButton = (Button) headerView.findViewById(R.id.priceHighLowFilterButton);
 
+        newFilterButton = (Button) headerView.findViewById(R.id.newFilterButton);
+        usedFilterButton = (Button) headerView.findViewById(R.id.usedFilterButton);
+        allFilterButton = (Button) headerView.findViewById(R.id.allFilterButton);
+
         popularFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                selectFilter(ViewUtil.CategoryFeedType.POPULAR);
+                selectFeedFilter(ViewUtil.CategoryFeedType.POPULAR);
             }
         });
         newestFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                selectFilter(ViewUtil.CategoryFeedType.NEWEST);
+                selectFeedFilter(ViewUtil.CategoryFeedType.NEWEST);
             }
         });
         priceLowHighFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                selectFilter(ViewUtil.CategoryFeedType.PRICE_LOW_HIGH);
+                selectFeedFilter(ViewUtil.CategoryFeedType.PRICE_LOW_HIGH);
             }
         });
         priceHighLowFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                selectFilter(ViewUtil.CategoryFeedType.PRICE_HIGH_LOW);
+                selectFeedFilter(ViewUtil.CategoryFeedType.PRICE_HIGH_LOW);
             }
         });
-        selectFilter(ViewUtil.CategoryFeedType.POPULAR);
+
+        selectFeedFilter(ViewUtil.CategoryFeedType.POPULAR);
+
+        allFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectProductFilter(ViewUtil.FeedProductType.ALL);
+            }
+        });
+        newFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectProductFilter(ViewUtil.FeedProductType.NEW);
+            }
+        });
+        usedFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectProductFilter(ViewUtil.FeedProductType.USED);
+            }
+        });
+
+        selectProductFilter(ViewUtil.FeedProductType.ALL);
 
         // tips
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
@@ -170,7 +200,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         return view;
     }
 
-    private void selectFilter(ViewUtil.CategoryFeedType feedType) {
+    private void selectFeedFilter(ViewUtil.CategoryFeedType feedType) {
         if (ViewUtil.CategoryFeedType.POPULAR.equals(feedType)) {
             ViewUtil.selectButtonStyle(popularFilterButton);
         } else {
@@ -193,6 +223,26 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             ViewUtil.selectButtonStyle(priceHighLowFilterButton);
         } else {
             ViewUtil.unselectButtonStyle(priceHighLowFilterButton);
+        }
+    }
+
+    private void selectProductFilter(ViewUtil.FeedProductType productType) {
+        if (ViewUtil.FeedProductType.ALL.equals(productType)) {
+            ViewUtil.selectButtonStyle(allFilterButton);
+        } else {
+            ViewUtil.unselectButtonStyle(allFilterButton);
+        }
+
+        if (ViewUtil.FeedProductType.NEW.equals(productType)) {
+            ViewUtil.selectButtonStyle(newFilterButton);
+        } else {
+            ViewUtil.unselectButtonStyle(newFilterButton);
+        }
+
+        if (ViewUtil.FeedProductType.USED.equals(productType)) {
+            ViewUtil.selectButtonStyle(usedFilterButton);
+        } else {
+            ViewUtil.unselectButtonStyle(usedFilterButton);
         }
     }
 

@@ -70,6 +70,12 @@ public class ViewUtil {
         PRICE_HIGH_LOW
     }
 
+    public enum FeedProductType {
+        ALL,
+        NEW,
+        USED
+    }
+
     public static final String INTENT_VALUE_REFRESH = "refresh";
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
     public static final int SELECT_PICTURE_REQUEST_CODE = 2;

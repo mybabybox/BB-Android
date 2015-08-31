@@ -95,6 +95,9 @@
     <string name="filter_newest">Newest</string>
     <string name="filter_price_low_high">$ ⇾ $$</string>
     <string name="filter_price_high_low">$$ ⇾ $</string>
+    <string name="filter_all">All</string>
+    <string name="filter_new">New</string>
+    <string name="filter_used">Used</string>
 
     <!-- Community tab -->
     <string name="community_tab_my">我的社群</string>
