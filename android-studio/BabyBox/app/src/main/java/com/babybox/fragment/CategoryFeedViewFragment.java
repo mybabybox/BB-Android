@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,10 +39,10 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
 
     private ImageView backImage, whatsappAction, linkCopyAction, newPostAction;
 
+    private Button popularFilterButton, newestFilterButton, priceLowHighFilterButton, priceHighLowFilterButton;
+
     private FrameLayout tipsLayout;
     private ImageView cancelTipsButton;
-
-    private View headerView;
 
     @Override
     protected View getHeaderView(LayoutInflater inflater) {
@@ -96,6 +97,42 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             }
         });
 
+        // feed buttons
+        popularFilterButton = (Button) headerView.findViewById(R.id.popularFilterButton);
+        newestFilterButton = (Button) headerView.findViewById(R.id.newestFilterButton);
+        priceLowHighFilterButton = (Button) headerView.findViewById(R.id.priceLowHighFilterButton);
+        priceHighLowFilterButton = (Button) headerView.findViewById(R.id.priceHighLowFilterButton);
+
+        popularFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectFilter(ViewUtil.CategoryFeedType.POPULAR);
+            }
+        });
+        newestFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectFilter(ViewUtil.CategoryFeedType.NEWEST);
+            }
+        });
+        priceLowHighFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectFilter(ViewUtil.CategoryFeedType.PRICE_LOW_HIGH);
+            }
+        });
+        priceHighLowFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                selectFilter(ViewUtil.CategoryFeedType.PRICE_HIGH_LOW);
+            }
+        });
+        selectFilter(ViewUtil.CategoryFeedType.POPULAR);
+
         // tips
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
         if (SharedPreferencesUtil.getInstance().isScreenViewed(SharedPreferencesUtil.Screen.CATEGORY_TIPS)) {
@@ -131,6 +168,32 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         */
 
         return view;
+    }
+
+    private void selectFilter(ViewUtil.CategoryFeedType feedType) {
+        if (ViewUtil.CategoryFeedType.POPULAR.equals(feedType)) {
+            ViewUtil.selectButtonStyle(popularFilterButton);
+        } else {
+            ViewUtil.unselectButtonStyle(popularFilterButton);
+        }
+
+        if (ViewUtil.CategoryFeedType.NEWEST.equals(feedType)) {
+            ViewUtil.selectButtonStyle(newestFilterButton);
+        } else {
+            ViewUtil.unselectButtonStyle(newestFilterButton);
+        }
+
+        if (ViewUtil.CategoryFeedType.PRICE_LOW_HIGH.equals(feedType)) {
+            ViewUtil.selectButtonStyle(priceLowHighFilterButton);
+        } else {
+            ViewUtil.unselectButtonStyle(priceLowHighFilterButton);
+        }
+
+        if (ViewUtil.CategoryFeedType.PRICE_HIGH_LOW.equals(feedType)) {
+            ViewUtil.selectButtonStyle(priceHighLowFilterButton);
+        } else {
+            ViewUtil.unselectButtonStyle(priceHighLowFilterButton);
+        }
     }
 
     private void setCategory(Long catId) {

@@ -86,8 +86,8 @@
 
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>
-    <string name="main_tab_following">Following</string>
     <string name="main_tab_trending">Trending</string>
+    <string name="main_tab_following">Following</string>
     <string name="suggest_for_you">Suggest For You</string>
 
     <!-- Category tab -->

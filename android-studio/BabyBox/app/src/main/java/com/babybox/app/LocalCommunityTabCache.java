@@ -19,7 +19,7 @@ import retrofit.client.Response;
 
 public class LocalCommunityTabCache {
 
-    public static enum CommunityTabType {
+    public enum CommunityTabType {
         MY_COMMUNITY,
         TOPIC_COMMUNITY,
         ZODIAC_YEAR_COMMUNITY

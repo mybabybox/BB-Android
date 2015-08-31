@@ -44,11 +44,9 @@ import java.io.InputStreamReader;
 
 import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
-import com.babybox.activity.CommunityActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.PostVM;
 
@@ -58,6 +56,19 @@ import retrofit.RetrofitError;
  * Created by keithlei on 3/16/15.
  */
 public class ViewUtil {
+
+    public enum HomeFeedType {
+        EXPLORE,
+        TRENDING,
+        FOLLOWING
+    }
+
+    public enum CategoryFeedType {
+        POPULAR,
+        NEWEST,
+        PRICE_LOW_HIGH,
+        PRICE_HIGH_LOW
+    }
 
     public static final String INTENT_VALUE_REFRESH = "refresh";
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
@@ -144,6 +155,16 @@ public class ViewUtil {
         } else {
             scrollView.fullScroll(View.FOCUS_UP);
         }
+    }
+
+    public static void selectButtonStyle(Button button) {
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.white));
+        button.setBackgroundResource(R.drawable.button_round_pink);
+    }
+
+    public static void unselectButtonStyle(Button button) {
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.light_gray));
+        button.setBackgroundResource(R.drawable.button_round);
     }
 
     public static void fullscreenImagePopup(Activity activity, String source) {

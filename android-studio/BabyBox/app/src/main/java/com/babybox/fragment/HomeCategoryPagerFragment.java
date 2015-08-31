@@ -20,9 +20,9 @@ import java.util.List;
 
 public class HomeCategoryPagerFragment extends TrackedFragment {
 
-    private RelativeLayout cat1, cat2, cat3, cat4, cat5, cat6;
-    private ImageView image1, image2, image3, image4, image5, image6;
-    private TextView name1, name2, name3, name4, name5, name6;
+    private RelativeLayout cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8;
+    private ImageView image1, image2, image3, image4, image5, image6, image7, image8;
+    private TextView name1, name2, name3, name4, name5, name6, name7, name8;
 
     private List<CategoryVM> categories;
 
@@ -55,12 +55,24 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
         image6 = (ImageView) view.findViewById(R.id.image6);
         name6 = (TextView) view.findViewById(R.id.name6);
 
+        /*
+        cat7 = (RelativeLayout) view.findViewById(R.id.cat7);
+        image7 = (ImageView) view.findViewById(R.id.image7);
+        name7 = (TextView) view.findViewById(R.id.name7);
+
+        cat8 = (RelativeLayout) view.findViewById(R.id.cat8);
+        image8 = (ImageView) view.findViewById(R.id.image8);
+        name8 = (TextView) view.findViewById(R.id.name8);
+        */
+
         initLayout(0, cat1, image1, name1);
         initLayout(1, cat2, image2, name2);
         initLayout(2, cat3, image3, name3);
         initLayout(3, cat4, image4, name4);
         initLayout(4, cat5, image5, name5);
         initLayout(5, cat6, image6, name6);
+        //initLayout(6, cat7, image7, name7);
+        //initLayout(7, cat8, image8, name8);
 
         return view;
     }

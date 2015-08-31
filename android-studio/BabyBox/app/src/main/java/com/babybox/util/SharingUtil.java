@@ -22,7 +22,7 @@ import com.babybox.viewmodel.PreNurseryVM;
  */
 public class SharingUtil {
 
-    public static enum SharingType {
+    public enum SharingType {
         WHATSAPP
     }
 

@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.multidex.MultiDex;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
@@ -95,6 +96,19 @@ public class AppController extends Application {
 
     public static synchronized LocationVM getUserLocation() {
         return UserInfoCache.getUser().getLocation();
+    }
+
+    /**
+     * http://stackoverflow.com/questions/29344481/why-did-this-happen-how-do-i-fix-this-android-unexpected-top-level-exception
+     * https://developer.android.com/tools/building/multidex.html
+     * https://developer.android.com/reference/android/support/multidex/MultiDexApplication.html
+     *
+     * @param base
+     */
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     @Override

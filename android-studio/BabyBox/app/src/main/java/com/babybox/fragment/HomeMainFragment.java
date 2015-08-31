@@ -146,8 +146,8 @@ class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
 
         TITLES = new String[NUM_TABS];
         TITLES[0] = AppController.getInstance().getString(R.string.main_tab_explore);
-        TITLES[1] = AppController.getInstance().getString(R.string.main_tab_following);
-        TITLES[2] = AppController.getInstance().getString(R.string.main_tab_trending);
+        TITLES[1] = AppController.getInstance().getString(R.string.main_tab_trending);
+        TITLES[2] = AppController.getInstance().getString(R.string.main_tab_following);
     }
 
     @Override
@@ -173,15 +173,15 @@ class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
                 fragment = new HomeFeedViewFragment();
                 break;
             }
-            // Following
+            // Trending
             case 1: {
-                bundle.putString("key", "home_following");
+                bundle.putString("key", "home_trending");
                 fragment = new HomeFeedViewFragment();
                 break;
             }
-            // Trending
+            // Following
             case 2: {
-                bundle.putString("key", "home_trending");
+                bundle.putString("key", "home_following");
                 fragment = new HomeFeedViewFragment();
                 break;
             }

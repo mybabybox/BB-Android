@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
         <ImageView
             android:scaleType="fitXY"
@@ -78,7 +78,6 @@
                 android:textColor="@color/white"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:textStyle="bold"
                 android:textAllCaps="false"/>
 
         </LinearLayout>
@@ -100,7 +99,6 @@
                 android:textColor="@color/light_gray"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:textStyle="bold"
                 android:textAllCaps="false"/>
 
         </LinearLayout>
@@ -115,14 +113,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/filter_price_low_high"
-                android:id="@+id/priceLowhighFilterButton"
+                android:id="@+id/priceLowHighFilterButton"
                 android:textSize="14dp"
                 android:layout_gravity="center"
                 android:background="@drawable/button_round"
                 android:textColor="@color/light_gray"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:textStyle="bold"
                 android:textAllCaps="false"/>
 
         </LinearLayout>
@@ -144,7 +141,6 @@
                 android:textColor="@color/light_gray"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:textStyle="bold"
                 android:textAllCaps="false"/>
 
         </LinearLayout>
@@ -156,7 +152,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/tipsLayout"
         android:layout_below="@+id/filterLayout"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp">
 
         <LinearLayout
             android:id="@+id/tips"

@@ -32,14 +32,14 @@ public class SharedPreferencesUtil {
     public static final String EMOTICONS = "emoticons";
     public static final String CATEGORIES = "categories";
 
-    public static enum Screen {
+    public enum Screen {
         HOME_TAB,
         SEARCH_TAB,
         PROFILE_TAB,
 
         HOME_EXPLORE_TIPS,
-        HOME_FOLLOWING_TIPS,
         HOME_TRENDING_TIPS,
+        HOME_FOLLOWING_TIPS,
         CATEGORY_TIPS,
         UPLOAD_PROFILE_PIC_TIPS,
 
