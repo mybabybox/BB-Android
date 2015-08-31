@@ -18,6 +18,8 @@
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>
     <string name="tips_reminder">提提你~</string>
+    <string name="url_copy_success">連結已複制</string>
+    <string name="url_copy_failed">連結不能複制</string>
 
     <!-- Login / Signup -->
     <string name="login">登入</string>

@@ -30,7 +30,7 @@ public class DistrictCache {
     public static void refresh(final Callback<List<LocationVM>> callback) {
         Log.d(DistrictCache.class.getSimpleName(), "refresh");
 
-        AppController.getApi().getAllDistricts(AppController.getInstance().getSessionId(), new Callback<List<LocationVM>>() {
+        AppController.getApiService().getAllDistricts(new Callback<List<LocationVM>>() {
             @Override
             public void success(List<LocationVM> vms, Response response) {
                 districts = vms;

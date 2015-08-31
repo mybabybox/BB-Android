@@ -89,7 +89,7 @@ public class SharingUtil {
         }
     }
 
-    private static String createMessage(GameAccountVM gameAccount) {
+    public static String createMessage(GameAccountVM gameAccount) {
         String message = AppController.getInstance().getResources().getString(R.string.app_desc);
         String url = UrlUtil.createReferralUrl(gameAccount);
         message = message +
@@ -100,7 +100,7 @@ public class SharingUtil {
         return message;
     }
 
-    private static String createMessage(GameGiftVM gameGift) {
+    public static String createMessage(GameGiftVM gameGift) {
         String message = AppController.getInstance().getResources().getString(R.string.game_gifts_desc)+"："+gameGift.getNm();
         String url = UrlUtil.createGameGiftUrl(gameGift);
         message = message +
@@ -111,7 +111,7 @@ public class SharingUtil {
         return message;
     }
 
-    private static String createMessage(CategoryVM category) {
+    public static String createMessage(CategoryVM category) {
         String message = category.getName();
         String url = UrlUtil.createCategoryUrl(category);
         message = message +
@@ -122,7 +122,7 @@ public class SharingUtil {
         return message;
     }
 
-    private static String createMessage(CommunitiesWidgetChildVM community) {
+    public static String createMessage(CommunitiesWidgetChildVM community) {
         String message = community.getDn();
         String url = UrlUtil.createCommunityUrl(community);
         message = message +
@@ -133,7 +133,7 @@ public class SharingUtil {
         return message;
     }
 
-    private static String createMessage(CommunityPostVM post) {
+    public static String createMessage(CommunityPostVM post) {
         String message = post.getPtl();
         String url = UrlUtil.createPostLandingUrl(post);
         message = message +
@@ -144,7 +144,7 @@ public class SharingUtil {
         return message;
     }
 
-    private static String createMessage(PreNurseryVM school) {
+    public static String createMessage(PreNurseryVM school) {
         String message = school.getN();
         if (!StringUtils.isEmpty(school.getNe())) {
             message += " "+school.getNe();
@@ -158,7 +158,7 @@ public class SharingUtil {
         return message;
     }
 
-    private static String createMessage(KindergartenVM school) {
+    public static String createMessage(KindergartenVM school) {
         String message = school.getN();
         if (!StringUtils.isEmpty(school.getNe())) {
             message += " "+school.getNe();

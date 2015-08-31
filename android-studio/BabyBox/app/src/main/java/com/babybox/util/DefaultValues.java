@@ -30,6 +30,8 @@ public class DefaultValues {
 
     public static final int DEFAULT_REFRESH_DELAY = 1000;
 
+    public static final int FEEDVIEW_ITEM_MARGIN = 7;
+
     public static final int LISTVIEW_SLIDE_IN_ANIM_START = 10;
     public static final int LISTVIEW_SCROLL_FRICTION_SCALE_FACTOR = 2;
 

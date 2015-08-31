@@ -60,7 +60,8 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                 new RecyclerView.ItemDecoration() {
                     @Override
                     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                        int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
+                        //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
+                        int margin = DefaultValues.FEEDVIEW_ITEM_MARGIN;
                         outRect.set(margin, margin, margin, margin);
                     }
                 });

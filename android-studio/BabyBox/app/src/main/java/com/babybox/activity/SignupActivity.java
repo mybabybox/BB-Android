@@ -130,7 +130,7 @@ public class SignupActivity extends AbstractLoginActivity {
         showErrorMessage(false);
 
         showSpinner();
-        AppController.getApi().signUp(lname, fname, email, password, repeatPassword, new Callback<Response>() {
+        AppController.getApiService().signUp(lname, fname, email, password, repeatPassword, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 stopSpinner();

@@ -262,10 +262,10 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
                             "\n babyGen3="+babygen3+"\n babyBirthday3="+year3+"-"+month3+"-"+day3);
 
             showSpinner();
-            AppController.getApi().signUpInfo(displayname, DefaultValues.DEFAULT_PARENT_BIRTH_YEAR, locationId, parenttype, babynum,
+            AppController.getApiService().signUpInfo(
+                    displayname, DefaultValues.DEFAULT_PARENT_BIRTH_YEAR, locationId, parenttype, babynum,
                     babygen1, babygen2, babygen3,
                     year1, month1, day1, year2, month2, day2, year3, month3, day3,
-                    AppController.getInstance().getSessionId(),
                     new Callback<Response>() {
                         @Override
                         public void success(Response response, Response response2) {
@@ -296,7 +296,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
 
     private void initNewUser() {
         Log.d(this.getClass().getSimpleName(), "initNewUser");
-        AppController.getApi().initNewUser(AppController.getInstance().getSessionId(), new Callback<UserVM>() {
+        AppController.getApiService().initNewUser(new Callback<UserVM>() {
             @Override
             public void success(UserVM userVM, Response response) {
                 Log.d(SignupDetailActivity.class.getSimpleName(), "initNewUser.success");

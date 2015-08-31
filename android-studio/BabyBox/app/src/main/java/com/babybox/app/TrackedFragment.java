@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -128,6 +129,8 @@ public abstract class TrackedFragment extends Fragment {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+        //dotsLayout.setVisibility(numPages > 1? View.VISIBLE : View.GONE);
     }
 
     protected void selectDot(int index, int numPages) {

@@ -209,6 +209,10 @@ public class ViewUtil {
     // Text
     //
 
+    public static boolean copyToClipboard(String text) {
+        return ClipboardUtil.copyToClipboard(AppController.getInstance(), text);
+    }
+
     public static boolean copyToClipboard(TextView textView) {
         return ClipboardUtil.copyToClipboard(AppController.getInstance(), textView.getText().toString());
     }

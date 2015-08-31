@@ -189,7 +189,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
         showSpinner();
 
         Log.d(this.getClass().getSimpleName(), "doLoginUsingAccessToken: access_token - " + access_token);
-        AppController.getApi().loginByFacebook(access_token, new Callback<Response>() {
+        AppController.getApiService().loginByFacebook(access_token, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 stopSpinner();

@@ -39,7 +39,7 @@ public class UserInfoCache {
     public static void refresh(final String sessionId, final Callback<UserVM> userCallback, final Callback<GameAccountVM> gameAccountCallback) {
         Log.d(UserInfoCache.class.getSimpleName(), "refresh");
 
-        AppController.getApi().getUserInfo(sessionId, new Callback<UserVM>() {
+        AppController.getApiService().getUserInfo(sessionId, new Callback<UserVM>() {
             @Override
             public void success(UserVM userVM, retrofit.client.Response response) {
                 userInfo = userVM;

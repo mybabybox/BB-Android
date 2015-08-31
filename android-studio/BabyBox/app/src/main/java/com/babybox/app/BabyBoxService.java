@@ -72,12 +72,12 @@ public class BabyBoxService {
         api.loginByFacebook(access_token, cb);
     }
 
-    public void initNewUser(Callback<UserVM> cb) {
-        api.initNewUser(AppController.getInstance().getSessionId(), cb);
+    public void getUserInfo(String access_token, Callback<UserVM> cb) {
+        api.getUserInfo(access_token, cb);
     }
 
-    public void getUserInfo(Callback<UserVM> cb) {
-        api.getUserInfo(AppController.getInstance().getSessionId(), cb);
+    public void initNewUser(Callback<UserVM> cb) {
+        api.initNewUser(AppController.getInstance().getSessionId(), cb);
     }
 
     public void getHomeExploreFeed(Long offset, Callback<PostVMArray> cb) {

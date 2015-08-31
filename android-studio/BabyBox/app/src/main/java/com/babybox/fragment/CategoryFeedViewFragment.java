@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.activity.NewPostActivity;
@@ -17,6 +18,8 @@ import com.babybox.app.CategoryCache;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.SharingUtil;
+import com.babybox.util.UrlUtil;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 
 import retrofit.Callback;
@@ -29,7 +32,8 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
 
     private ImageView catImage;
     private TextView catNameText, catDescText;
-    private CategoryVM currentCategory;
+
+    private CategoryVM category;
     private Long catId;
 
     private ImageView backImage, whatsappAction, linkCopyAction, newPostAction;
@@ -68,14 +72,18 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         whatsappAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharingUtil.shareToWhatapp(currentCategory, getActivity());
+                SharingUtil.shareToWhatapp(category, getActivity());
             }
         });
 
         linkCopyAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ViewUtil.copyToClipboard();
+                if (ViewUtil.copyToClipboard(UrlUtil.createCategoryUrl(category))) {
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.url_copy_success), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), getActivity().getString(R.string.url_copy_failed), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -112,11 +120,11 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
 
         // init
         catId = getArguments().getLong("id");
-        setCurrentCategory(catId);
+        setCategory(catId);
         /*
         if (!getArguments().getString("flag").equals("FromDetailActivity")) {
             catId = getArguments().getLong("id");
-            setCurrentCategory();
+            setCategory();
         } else {
             getCategory(getArguments().getLong("id"));
         }
@@ -125,13 +133,12 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         return view;
     }
 
-    private void setCurrentCategory(Long catId) {
-        currentCategory = null;
-        for (CategoryVM category : CategoryCache.getCategories()) {
-            if (category.getId().equals(catId)) {
-                Log.d(this.getClass().getSimpleName(), "onCreateView: set currentCategory [catId=" + catId + "] [category=" + category.name + "|" + category.getId() + "]");
-                currentCategory = category;
-
+    private void setCategory(Long catId) {
+        category = null;
+        for (CategoryVM cat : CategoryCache.getCategories()) {
+            if (cat.getId().equals(catId)) {
+                Log.d(this.getClass().getSimpleName(), "onCreateView: set currentCategory [catId=" + catId + "] [category=" + cat.name + "|" + cat.getId() + "]");
+                category = cat;
                 catNameText.setText(category.name);
                 catDescText.setText(category.desc);
                 catImage.setImageDrawable(getResources().getDrawable(ImageMapping.map(category.icon)));
@@ -145,7 +152,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             @Override
             public void success(CategoryVM categoryVM, Response response) {
                 catId = categoryVM.getId();
-                setCurrentCategory(catId);
+                setCategory(catId);
             }
 
             @Override
