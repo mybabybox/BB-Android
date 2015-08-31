@@ -124,7 +124,6 @@ public class SchoolsPNFragment extends TrackedFragment {
         buttonNews.setBackgroundColor(Color.WHITE);
 
         SchoolsNewsfeedListFragment fragment = new SchoolsNewsfeedListFragment();
-        fragment.setIsPN(true);
         selectedFragment = fragment;
         selectedFragment.setTrackedOnce();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
