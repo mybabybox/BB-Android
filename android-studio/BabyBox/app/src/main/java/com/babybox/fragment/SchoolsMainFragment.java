@@ -22,7 +22,6 @@ import com.babybox.util.ViewUtil;
 public class SchoolsMainFragment extends TrackedFragment {
 
     private static final String TAG = SchoolsMainFragment.class.getName();
-    private ActionBar.Tab Tab1, Tab2, Tab3;
     private ViewPager viewPager;
     private SchoolsPagerAdapter mAdapter;
     private PagerSlidingTabStrip tabs;
@@ -37,7 +36,7 @@ public class SchoolsMainFragment extends TrackedFragment {
         viewPager = (ViewPager) view.findViewById(R.id.pager);
         mAdapter = new SchoolsPagerAdapter(getChildFragmentManager());
 
-        int pageMargin = ViewUtil.getRealDimension(2, this.getResources());
+        int pageMargin = ViewUtil.getRealDimension(2);
         viewPager.setPageMargin(pageMargin);
         viewPager.setAdapter(mAdapter);
 
@@ -63,10 +62,10 @@ public class SchoolsMainFragment extends TrackedFragment {
             }
         });
 
-        int indicatorHeight = ViewUtil.getRealDimension(5, this.getResources());
+        int indicatorHeight = ViewUtil.getRealDimension(5);
         tabs.setIndicatorHeight(indicatorHeight);
 
-        int textSize = ViewUtil.getRealDimension(16, this.getResources());
+        int textSize = ViewUtil.getRealDimension(16);
         tabs.setTextSize(textSize);
 
         return view;
@@ -91,14 +90,11 @@ public class SchoolsMainFragment extends TrackedFragment {
 class SchoolsPagerAdapter extends FragmentStatePagerAdapter {
 
     public static final int PN_PAGE = 0;
-    public static final int KG_PAGE = 1;
 
     private TrackedFragment pnFragment;
-    private TrackedFragment kgFragment;
 
     private static String[] TITLES = {
-            AppController.getInstance().getString(R.string.schools_tab_title_pn),
-            AppController.getInstance().getString(R.string.schools_tab_title_kg)
+            AppController.getInstance().getString(R.string.schools_tab_title_pn)
     };
 
     public SchoolsPagerAdapter(FragmentManager fm) {
@@ -120,22 +116,17 @@ class SchoolsPagerAdapter extends FragmentStatePagerAdapter {
         Log.d(this.getClass().getSimpleName(), "getItem: item - " + position);
         switch (position) {
             case PN_PAGE:
+            default:
                 pnFragment = new SchoolsPNFragment();
                 return pnFragment;
-            case KG_PAGE:
-            default:
-                kgFragment = new SchoolsKGFragment();
-                return kgFragment;
         }
     }
 
     public TrackedFragment getFragment(int position) {
         switch (position) {
             case PN_PAGE:
-                return pnFragment;
-            case KG_PAGE:
             default:
-                return kgFragment;
+                return pnFragment;
         }
     }
 }

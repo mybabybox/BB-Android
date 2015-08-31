@@ -342,8 +342,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
             if (myCommunityPopup == null) {
                 myCommunityPopup = new PopupWindow(
                         layout,
-                        ViewUtil.getRealDimension(DefaultValues.MY_COMMUNITY_POPUP_WIDTH, this.getResources()),
-                        ViewUtil.getRealDimension(DefaultValues.MY_COMMUNITY_POPUP_HEIGHT, this.getResources()),
+                        ViewUtil.getRealDimension(DefaultValues.MY_COMMUNITY_POPUP_WIDTH),
+                        ViewUtil.getRealDimension(DefaultValues.MY_COMMUNITY_POPUP_HEIGHT),
                         true);
             }
 
@@ -398,7 +398,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
             if (emoPopup == null) {
                 emoPopup = new PopupWindow(layout,
-                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH, this.getResources()),
+                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH),
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         true);
             }

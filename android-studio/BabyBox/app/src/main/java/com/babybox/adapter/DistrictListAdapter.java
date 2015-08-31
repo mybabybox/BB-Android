@@ -73,10 +73,7 @@ public class DistrictListAdapter extends BaseAdapter {
 
         //Log.d(this.getClass().getSimpleName(), "i="+i+" selected="+selected);
         if (i == selected) {
-            if (isPN)
-                nameBtn.setBackgroundResource(R.drawable.rounded_corner_pn_grid_item);
-            else
-                nameBtn.setBackgroundResource(R.drawable.rounded_corner_kg_grid_item);
+            nameBtn.setBackgroundResource(R.drawable.rounded_corner_pn_grid_item);
             distName.setTextColor(view.getResources().getColor(R.color.white));
         } else if (i == oldSelected) {
             nameBtn.setBackgroundColor(view.getResources().getColor(R.color.white));

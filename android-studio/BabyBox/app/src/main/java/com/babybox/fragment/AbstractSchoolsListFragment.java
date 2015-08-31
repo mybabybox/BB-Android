@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.babybox.R;
-import com.babybox.activity.KGAppDatesActivity;
 import com.babybox.activity.PNAppDatesActivity;
 import com.babybox.activity.TopSchoolsActivity;
 import com.babybox.adapter.DistrictListAdapter;
@@ -37,7 +36,6 @@ import com.babybox.viewmodel.LocationVM;
 public abstract class AbstractSchoolsListFragment extends TrackedFragment {
 
     public static final String PN_INTENT_FLAG = "FromPN";
-    public static final String KG_INTENT_FLAG = "FromKG";
 
     private static final String TAG = AbstractSchoolsListFragment.class.getName();
     protected GridView districtGrid;
@@ -125,9 +123,6 @@ public abstract class AbstractSchoolsListFragment extends TrackedFragment {
                 if (isPN()) {
                     Intent intent = new Intent(getActivity(), PNAppDatesActivity.class);
                     startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getActivity(), KGAppDatesActivity.class);
-                    startActivity(intent);
                 }
             }
         });
@@ -136,7 +131,7 @@ public abstract class AbstractSchoolsListFragment extends TrackedFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), TopSchoolsActivity.class);
-                intent.putExtra("flag", isPN()? PN_INTENT_FLAG : KG_INTENT_FLAG);
+                intent.putExtra("flag", PN_INTENT_FLAG);
                 startActivity(intent);
             }
         });

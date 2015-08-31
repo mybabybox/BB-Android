@@ -246,7 +246,7 @@ public class ImageUtil {
                 .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.image_loading)
                 .error(R.drawable.image_loading)
-                .crossFade(150);
+                .crossFade(300);
 
         displayImage(builder, imageView, listener, centerCrop, noCache, null);
     }

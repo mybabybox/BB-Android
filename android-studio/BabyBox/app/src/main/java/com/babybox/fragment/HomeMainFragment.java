@@ -110,7 +110,7 @@ public class HomeMainFragment extends TrackedFragment {
         viewPager = (ViewPager) view.findViewById(R.id.homePager);
         adapter = new HomeMainPagerAdapter(getChildFragmentManager());
 
-        int pageMargin = ViewUtil.getRealDimension(0, this.getResources());
+        int pageMargin = ViewUtil.getRealDimension(0);
         viewPager.setPageMargin(pageMargin);
         viewPager.setAdapter(adapter);
 

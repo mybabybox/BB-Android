@@ -14,6 +14,7 @@ import com.babybox.adapter.FeedViewAdapter;
 import com.babybox.app.TrackedFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.DefaultValues;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
 import com.yalantis.phoenix.PullToRefreshView;
 
@@ -61,8 +62,9 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                     @Override
                     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                         //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
-                        int margin = DefaultValues.FEEDVIEW_ITEM_MARGIN;
-                        outRect.set(margin, margin, margin, margin);
+                        int topMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
+                        int sideMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
+                        outRect.set(sideMargin, topMargin, sideMargin, topMargin);
                     }
                 });
 

@@ -15,8 +15,6 @@ import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.GameGiftVM;
 import com.babybox.viewmodel.GameTransactionVM;
-import com.babybox.viewmodel.KindergartenVM;
-import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessagePostVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewPost;
@@ -203,37 +201,6 @@ public interface MyApi {
     public void unbookmarkPN(@Path("id") Long post_id, @Query("key") String key, Callback<Response> cb);
 
     //
-    // KG APIs
-    //
-
-    @GET("/get-kgs-by-district/{id}")
-    public void getKGsByDistricts(@Path("id") Long id,@Query("key") String key, Callback<List<KindergartenVM>> cb);
-
-    @GET("/search-kgs-by-name/{query}")
-    public void searchKGsByName(@Path("query")String query,@Query("key") String key, Callback<List<KindergartenVM>> cb);
-
-    @GET("/get-bookmarked-kgs")
-    public void getBookmarkedKGs(@Query("key") String key, Callback<List<KindergartenVM>> cb);
-
-    @GET("/get-bookmarked-kg-communities")
-    public void getBookmarkedKGCommunities(@Query("key") String key, Callback<CommunitiesParentVM> callback);
-
-    @GET("/get-kg-app-dates")
-    public void getKGAppDates(@Query("key") String key, Callback<List<KindergartenVM>> cb);
-
-    @GET("/get-kgnewsfeeds/{offset}")
-    public void getKGNewsfeed(@Path("offset") Long offset, @Query("key") String key, Callback<PostArray> callback);
-
-    @GET("/get-kg-info/{id}")
-    public void getKGInfo(@Path("id") Long post_id,@Query("key") String key, Callback<KindergartenVM> cb);
-
-    @GET("/bookmark-kg/{id}")
-    public void bookmarkKG(@Path("id") Long post_id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/unbookmark-kg/{id}")
-    public void unbookmarkKG(@Path("id") Long post_id, @Query("key") String key, Callback<Response> cb);
-
-    //
     // Top schools APIs
     //
 
@@ -245,15 +212,6 @@ public interface MyApi {
 
     @GET("/get-top-bookmarked-pns")
     public void getTopBookmarkedPNs(@Query("key") String key, Callback<List<PreNurseryVM>> cb);
-
-    @GET("/get-top-viewed-kgs")
-    public void getTopViewedKGs(@Query("key") String key, Callback<List<KindergartenVM>> cb);
-
-    @GET("/get-top-discussed-kgs")
-    public void getTopDiscussedKGs(@Query("key") String key, Callback<List<KindergartenVM>> cb);
-
-    @GET("/get-top-bookmarked-kgs")
-    public void getTopBookmarkedKGs(@Query("key") String key, Callback<List<KindergartenVM>> cb);
 
     //
     // Messages APIs

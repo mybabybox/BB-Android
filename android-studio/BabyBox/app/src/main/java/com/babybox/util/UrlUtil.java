@@ -9,7 +9,6 @@ import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.GameGiftVM;
-import com.babybox.viewmodel.KindergartenVM;
 import com.babybox.viewmodel.PreNurseryVM;
 
 /**
@@ -52,10 +51,6 @@ public class UrlUtil {
 
     public static String createSchoolUrl(PreNurseryVM school) {
         return String.format(SCHOOL_PN_URL, school.getId());
-    }
-
-    public static String createSchoolUrl(KindergartenVM school) {
-        return String.format(SCHOOL_KG_URL, school.getId());
     }
 
     public static String createAndroidAppDownloadUrl() {

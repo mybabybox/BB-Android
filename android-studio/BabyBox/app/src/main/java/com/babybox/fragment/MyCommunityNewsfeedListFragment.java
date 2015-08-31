@@ -57,7 +57,7 @@ public class MyCommunityNewsfeedListFragment extends NewsfeedListFragment {
         viewPager = (ViewPager) headerView.findViewById(R.id.commsPager);
         dotsLayout = (LinearLayout) headerView.findViewById(R.id.dots);
 
-        int pageMargin = ViewUtil.getRealDimension(2, this.getResources());
+        int pageMargin = ViewUtil.getRealDimension(2);
         viewPager.setPageMargin(pageMargin);
 
         // init adapter

@@ -161,12 +161,6 @@ public class DetailActivity extends TrackedFragmentActivity {
                 (!"FromKG".equals(flag) && ("PN".equals(post.getSubType()) || "PN_KG".equals(post.getSubType())));
     }
 
-    private boolean isFromKG(CommunityPostVM post) {
-        String flag = getIntent().getStringExtra("flag");
-        return "FromKG".equals(flag) ||
-                (!"FromPN".equals(flag) && "KG".equals(post.getSubType()));
-    }
-
     private void getQnaDetail() {
         ViewUtil.showSpinner(this);
 
@@ -178,11 +172,8 @@ public class DetailActivity extends TrackedFragmentActivity {
                 getActionBar().show();
 
                 final boolean isFromPN = isFromPN(post);
-                final boolean isFromKG = isFromKG(post);
                 if (isFromPN) {
                     getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_green));
-                } else if (isFromKG) {
-                    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_maroon));
                 } else {
                     getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_pink));
                 }
@@ -197,11 +188,6 @@ public class DetailActivity extends TrackedFragmentActivity {
                             intent.putExtra("id", post.getPnId());
                             intent.putExtra("commId", getIntent().getLongExtra("commId", 0L));
                             intent.putExtra("flag", "FromPN");
-                        } else if (isFromKG) {
-                            intent = new Intent(DetailActivity.this, KGCommunityActivity.class);
-                            intent.putExtra("id", post.getKgId());
-                            intent.putExtra("commId", getIntent().getLongExtra("commId", 0L));
-                            intent.putExtra("flag", "FromKG");
                         } else {
                             intent = new Intent(DetailActivity.this, CommunityActivity.class);
                             intent.putExtra("id", getIntent().getLongExtra("commId", 0L));
@@ -583,8 +569,8 @@ public class DetailActivity extends TrackedFragmentActivity {
             if (paginationPopup == null) {
                 paginationPopup = new PopupWindow(
                         layout,
-                        ViewUtil.getRealDimension(DefaultValues.PAGINATION_POPUP_WIDTH, this.getResources()),
-                        ViewUtil.getRealDimension(DefaultValues.PAGINATION_POPUP_HEIGHT, this.getResources()),
+                        ViewUtil.getRealDimension(DefaultValues.PAGINATION_POPUP_WIDTH),
+                        ViewUtil.getRealDimension(DefaultValues.PAGINATION_POPUP_HEIGHT),
                         true);
             }
 
@@ -781,7 +767,7 @@ public class DetailActivity extends TrackedFragmentActivity {
 
             if (emoPopup == null) {
                 emoPopup = new PopupWindow(layout,
-                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH, this.getResources()),
+                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH),
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         true);
             }

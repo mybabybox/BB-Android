@@ -16,15 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.babybox.R;
-import com.babybox.adapter.TopBookmarkedKGListAdapter;
 import com.babybox.adapter.TopBookmarkedPNListAdapter;
 import com.babybox.adapter.TopViewedPNListAdapter;
-import com.babybox.adapter.TopViewedKGListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.AbstractSchoolsListFragment;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.KindergartenVM;
 import com.babybox.viewmodel.PreNurseryVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -34,10 +31,7 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
     private ListView topViewedList,topBookmarkedList;
     private TopViewedPNListAdapter topViewedPNListAdapter;
     private TopBookmarkedPNListAdapter topBookmarkedPNListAdapter;
-    private TopViewedKGListAdapter topViewedKGListAdapter;
-    private TopBookmarkedKGListAdapter topBookmarkedKGListAdapter;
     private List<PreNurseryVM> topViewedPNs,topBookmarkedPNs;
-    private List<KindergartenVM> topViewedKGs,topBookmarkedKGs;
 
     private ImageView backAction, scrollButton;
     private ScrollView scrollView;
@@ -67,11 +61,6 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
             actionbarTitle.setText(getString(R.string.schools_top_pn_ranking));
             topViewedLayout.setBackgroundResource(R.drawable.schools_pn_edit_text_round);
             topBookmarkedLayout.setBackgroundResource(R.drawable.schools_pn_edit_text_round);
-        } else if (getIntent().getStringExtra("flag").equals(AbstractSchoolsListFragment.KG_INTENT_FLAG)) {
-            getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_maroon));
-            actionbarTitle.setText(getString(R.string.schools_top_kg_ranking));
-            topViewedLayout.setBackgroundResource(R.drawable.schools_kg_edit_text_round);
-            topBookmarkedLayout.setBackgroundResource(R.drawable.schools_kg_edit_text_round);
         }
 
         //topViewedLayout.setPadding(10,10,10,10);
@@ -79,8 +68,6 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
 
         topViewedPNs = new ArrayList<>();
         topBookmarkedPNs = new ArrayList<>();
-        topViewedKGs = new ArrayList<>();
-        topBookmarkedKGs = new ArrayList<>();
 
         topViewedList = (ListView) findViewById(R.id.topViewedList);
         topBookmarkedList = (ListView) findViewById(R.id.topBookmarkedList);
@@ -98,9 +85,6 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
         if (getIntent().getStringExtra("flag").equals(AbstractSchoolsListFragment.PN_INTENT_FLAG)) {
             getTopViewPNs();
             getTopBookmarkPNs();
-        } else if (getIntent().getStringExtra("flag").equals(AbstractSchoolsListFragment.KG_INTENT_FLAG)) {
-            getTopViewsKGs();
-            getTopBookmarkKGs();
         }
 
         topViewedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,9 +93,6 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
                 if (getIntent().getStringExtra("flag").equals(AbstractSchoolsListFragment.PN_INTENT_FLAG)) {
                     PreNurseryVM vm = topViewedPNListAdapter.getItem(i);
                     startSchoolActivity(vm.getId(), vm.getCommId(), PNCommunityActivity.class);
-                } else if (getIntent().getStringExtra("flag").equals(AbstractSchoolsListFragment.KG_INTENT_FLAG)) {
-                    KindergartenVM vm = topViewedKGListAdapter.getItem(i);
-                    startSchoolActivity(vm.getId(), vm.getCommId(), KGCommunityActivity.class);
                 }
             }
         });
@@ -122,9 +103,6 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
                 if (getIntent().getStringExtra("flag").equals(AbstractSchoolsListFragment.PN_INTENT_FLAG)) {
                     PreNurseryVM vm = topBookmarkedPNListAdapter.getItem(i);
                     startSchoolActivity(vm.getId(), vm.getCommId(), PNCommunityActivity.class);
-                } else if (getIntent().getStringExtra("flag").equals(AbstractSchoolsListFragment.KG_INTENT_FLAG)) {
-                    KindergartenVM vm = topBookmarkedKGListAdapter.getItem(i);
-                    startSchoolActivity(vm.getId(), vm.getCommId(), KGCommunityActivity.class);
                 }
             }
         });
@@ -175,42 +153,6 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
                 topBookmarkedPNs.addAll(vms);
                 topBookmarkedPNListAdapter = new TopBookmarkedPNListAdapter(TopSchoolsActivity.this, topBookmarkedPNs);
                 topBookmarkedList.setAdapter(topBookmarkedPNListAdapter);
-                ViewUtil.setHeightBasedOnChildren(topBookmarkedList);
-                ViewUtil.scrollTop(scrollView);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                error.printStackTrace();
-            }
-        });
-    }
-
-    private void getTopViewsKGs(){
-        AppController.getApi().getTopViewedKGs(AppController.getInstance().getSessionId(), new Callback<List<KindergartenVM>>() {
-            @Override
-            public void success(List<KindergartenVM> vms, Response response) {
-                topViewedKGs.addAll(vms);
-                topViewedKGListAdapter = new TopViewedKGListAdapter(TopSchoolsActivity.this, topViewedKGs);
-                topViewedList.setAdapter(topViewedKGListAdapter);
-                ViewUtil.setHeightBasedOnChildren(topViewedList);
-                ViewUtil.scrollTop(scrollView);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                error.printStackTrace();
-            }
-        });
-    }
-
-    private void getTopBookmarkKGs(){
-        AppController.getApi().getTopBookmarkedKGs(AppController.getInstance().getSessionId(), new Callback<List<KindergartenVM>>() {
-            @Override
-            public void success(List<KindergartenVM> vms, Response response) {
-                topBookmarkedKGs.addAll(vms);
-                topBookmarkedKGListAdapter = new TopBookmarkedKGListAdapter(TopSchoolsActivity.this, topBookmarkedKGs);
-                topBookmarkedList.setAdapter(topBookmarkedKGListAdapter);
                 ViewUtil.setHeightBasedOnChildren(topBookmarkedList);
                 ViewUtil.scrollTop(scrollView);
             }

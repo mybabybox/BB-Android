@@ -96,7 +96,7 @@ public class MessageListAdapter extends BaseAdapter {
 
         messageImage.setAdjustViewBounds(true);
         messageImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        messageImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10, this.activity.getResources()));
+        messageImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10));
 
         ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage);
         /*

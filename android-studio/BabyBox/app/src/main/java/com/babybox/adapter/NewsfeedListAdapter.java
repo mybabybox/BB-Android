@@ -189,7 +189,7 @@ public class NewsfeedListAdapter extends BaseAdapter {
     private void loadImages(final CommunityPostVM item, final LinearLayout layout) {
         layout.removeAllViewsInLayout();
 
-        final int padding = ViewUtil.getRealDimension(3, this.activity.getResources());
+        final int padding = ViewUtil.getRealDimension(3);
         final int totalPadding = padding * DefaultValues.MAX_POST_IMAGES;
 
         loadedImageCount = 0;

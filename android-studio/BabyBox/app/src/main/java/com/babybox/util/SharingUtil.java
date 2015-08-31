@@ -14,7 +14,6 @@ import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.GameGiftVM;
-import com.babybox.viewmodel.KindergartenVM;
 import com.babybox.viewmodel.PreNurseryVM;
 
 /**
@@ -54,10 +53,6 @@ public class SharingUtil {
     }
 
     public static void shareToWhatapp(PreNurseryVM school, Context context) {
-        shareTo(createMessage(school), SharingType.WHATSAPP, context);
-    }
-
-    public static void shareToWhatapp(KindergartenVM school, Context context) {
         shareTo(createMessage(school), SharingType.WHATSAPP, context);
     }
 
@@ -145,20 +140,6 @@ public class SharingUtil {
     }
 
     public static String createMessage(PreNurseryVM school) {
-        String message = school.getN();
-        if (!StringUtils.isEmpty(school.getNe())) {
-            message += " "+school.getNe();
-        }
-        String url = UrlUtil.createSchoolUrl(school);
-        message = message +
-                ViewUtil.HTML_LINE_BREAK +
-                url +
-                ViewUtil.HTML_LINE_BREAK +
-                SHARING_MESSAGE_NOTE;
-        return message;
-    }
-
-    public static String createMessage(KindergartenVM school) {
         String message = school.getN();
         if (!StringUtils.isEmpty(school.getNe())) {
             message += " "+school.getNe();

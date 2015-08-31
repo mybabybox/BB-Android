@@ -100,16 +100,7 @@
             android:name="com.babybox.activity.NewPNPostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.KGCommunityActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.babybox.activity.NewKGPostActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name="com.babybox.activity.PNAppDatesActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.babybox.activity.KGAppDatesActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.TopSchoolsActivity"

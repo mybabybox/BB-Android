@@ -102,8 +102,9 @@ public class ViewUtil {
         }
     }
 
-    public static int getRealDimension(int size, Resources resources) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, resources.getDisplayMetrics());
+    public static int getRealDimension(int size) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size,
+                AppController.getInstance().getResources().getDisplayMetrics());
     }
 
     public static Rect getDisplayDimensions(Activity activity) {
@@ -135,7 +136,7 @@ public class ViewUtil {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight +
                 (listView.getDividerHeight() * (listAdapter.getCount()-1)) +
-                ViewUtil.getRealDimension(5, listView.getResources());  // extra margin
+                ViewUtil.getRealDimension(5);  // extra margin
         listView.setLayoutParams(params);
         listView.requestLayout();
     }

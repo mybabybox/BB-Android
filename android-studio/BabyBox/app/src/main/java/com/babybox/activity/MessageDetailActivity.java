@@ -396,7 +396,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
             if (emoPopup == null) {
                 emoPopup = new PopupWindow(
                         layout,
-                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH, this.getResources()),
+                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH),
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         true);
             }

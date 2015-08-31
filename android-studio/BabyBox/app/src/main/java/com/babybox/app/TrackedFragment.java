@@ -106,7 +106,7 @@ public abstract class TrackedFragment extends Fragment {
             ImageView dot = new ImageView(this.getActivity());
             dot.setImageDrawable(getResources().getDrawable(imageResource));
 
-            int dimension = ViewUtil.getRealDimension(PAGER_INDICATOR_DOT_DIMENSION, this.getResources());
+            int dimension = ViewUtil.getRealDimension(PAGER_INDICATOR_DOT_DIMENSION);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dimension, dimension);
             params.gravity = Gravity.CENTER_VERTICAL;
             dotsLayout.addView(dot, params);

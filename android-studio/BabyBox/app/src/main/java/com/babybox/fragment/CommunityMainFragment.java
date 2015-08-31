@@ -37,7 +37,7 @@ public class CommunityMainFragment extends TrackedFragment {
         viewPager = (ViewPager) view.findViewById(R.id.commPager);
         adapter = new CommunityMainPagerAdapter(getChildFragmentManager());
 
-        int pageMargin = ViewUtil.getRealDimension(0, this.getResources());
+        int pageMargin = ViewUtil.getRealDimension(0);
         viewPager.setPageMargin(pageMargin);
         viewPager.setAdapter(adapter);
         

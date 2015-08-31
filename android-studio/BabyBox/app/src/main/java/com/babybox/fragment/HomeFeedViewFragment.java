@@ -48,7 +48,7 @@ public class HomeFeedViewFragment extends FeedViewFragment {
         viewPager = (ViewPager) getHeaderView(inflater).findViewById(R.id.catPager);
         dotsLayout = (LinearLayout) getHeaderView(inflater).findViewById(R.id.dots);
 
-        int pageMargin = ViewUtil.getRealDimension(0, this.getResources());
+        int pageMargin = ViewUtil.getRealDimension(0);
         viewPager.setPageMargin(pageMargin);
 
         // init adapter

@@ -294,7 +294,7 @@ public class DetailListAdapter extends BaseAdapter {
             final ImageView postImage = new ImageView(this.activity);
             postImage.setAdjustViewBounds(true);
             postImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            postImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10, this.activity.getResources()));
+            postImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10));
             layout.addView(postImage);
 
             /*

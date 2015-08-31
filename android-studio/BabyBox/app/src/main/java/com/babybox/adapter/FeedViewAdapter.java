@@ -107,7 +107,6 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
     }
 
     private void loadImage(Long imageId, ImageView imageView) {
-
         imageView.setAdjustViewBounds(true);
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageView.setPadding(0, 0, 0, 0);

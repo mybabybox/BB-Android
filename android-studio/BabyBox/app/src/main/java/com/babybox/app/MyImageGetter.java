@@ -33,8 +33,8 @@ public class MyImageGetter implements Html.ImageGetter{
 
     public MyImageGetter(Activity activity) {
         this.activity = activity;
-        emoticonWidth = ViewUtil.getRealDimension(ImageMapping.EMOTICON_WIDTH, this.activity.getResources());
-        emoticonHeight = ViewUtil.getRealDimension(ImageMapping.EMOTICON_HEIGHT, this.activity.getResources());
+        emoticonWidth = ViewUtil.getRealDimension(ImageMapping.EMOTICON_WIDTH);
+        emoticonHeight = ViewUtil.getRealDimension(ImageMapping.EMOTICON_HEIGHT);
     }
 
     public void setTextView(TextView textView) {

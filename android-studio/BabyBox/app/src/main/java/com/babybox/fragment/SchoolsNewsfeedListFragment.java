@@ -16,12 +16,6 @@ public class SchoolsNewsfeedListFragment extends AbstractNewsfeedListFragment {
 
     private static final String TAG = SchoolsNewsfeedListFragment.class.getName();
 
-    private boolean isPN = false;
-
-    public void setIsPN(boolean isPN) {
-        this.isPN = isPN;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
@@ -43,10 +37,6 @@ public class SchoolsNewsfeedListFragment extends AbstractNewsfeedListFragment {
             }
         };
 
-        if (isPN) {
-            AppController.getApi().getPNNewsfeed(Long.valueOf(offset), AppController.getInstance().getSessionId(), callback);
-        } else {
-            AppController.getApi().getKGNewsfeed(Long.valueOf(offset), AppController.getInstance().getSessionId(), callback);
-        }
+        AppController.getApi().getPNNewsfeed(Long.valueOf(offset), AppController.getInstance().getSessionId(), callback);
     }
 }
