@@ -77,14 +77,7 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
         final CategoryVM item = categories.get(index);
 
         name.setText(item.getName());
-        int iconMapped = ImageMapping.map(item.getImage());
-        if (iconMapped != -1) {
-            //Log.d(this.getClass().getSimpleName(), "initLayout: replace source with local category icon - " + item.image);
-            image.setImageDrawable(getActivity().getResources().getDrawable(iconMapped));
-        } else {
-            Log.d(this.getClass().getSimpleName(), "initLayout: load category icon from background - " + item.getImage());
-            ImageUtil.displayCircleImage(item.getImage(), image);
-        }
+        image.setImageDrawable(getActivity().getResources().getDrawable(ImageMapping.map(item.getIcon())));
 
         catLayout.setOnClickListener(new View.OnClickListener() {
             @Override

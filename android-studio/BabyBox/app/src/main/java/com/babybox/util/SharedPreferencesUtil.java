@@ -40,6 +40,7 @@ public class SharedPreferencesUtil {
         HOME_EXPLORE_TIPS,
         HOME_FOLLOWING_TIPS,
         HOME_TRENDING_TIPS,
+        CATEGORY_TIPS,
         UPLOAD_PROFILE_PIC_TIPS,
 
         // OBSOLETE...

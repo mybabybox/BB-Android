@@ -9,6 +9,7 @@ import org.parceler.apache.commons.lang.StringUtils;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.GameAccountVM;
@@ -38,6 +39,10 @@ public class SharingUtil {
 
     public static void shareToWhatapp(GameGiftVM gameGift, Context context) {
         shareTo(createMessage(gameGift), SharingType.WHATSAPP, context);
+    }
+
+    public static void shareToWhatapp(CategoryVM category, Context context) {
+        shareTo(createMessage(category), SharingType.WHATSAPP, context);
     }
 
     public static void shareToWhatapp(CommunitiesWidgetChildVM community, Context context) {
@@ -98,6 +103,17 @@ public class SharingUtil {
     private static String createMessage(GameGiftVM gameGift) {
         String message = AppController.getInstance().getResources().getString(R.string.game_gifts_desc)+"："+gameGift.getNm();
         String url = UrlUtil.createGameGiftUrl(gameGift);
+        message = message +
+                ViewUtil.HTML_LINE_BREAK +
+                url +
+                ViewUtil.HTML_LINE_BREAK +
+                SHARING_MESSAGE_NOTE;
+        return message;
+    }
+
+    private static String createMessage(CategoryVM category) {
+        String message = category.getName();
+        String url = UrlUtil.createCategoryUrl(category);
         message = message +
                 ViewUtil.HTML_LINE_BREAK +
                 url +

@@ -4,7 +4,6 @@ import com.babybox.viewmodel.BookmarkSummaryVM;
 import com.babybox.viewmodel.CommentPost;
 import com.babybox.viewmodel.CommentResponse;
 import com.babybox.viewmodel.CommunitiesParentVM;
-import com.babybox.viewmodel.CommunityCategoryMapVM;
 import com.babybox.viewmodel.CommunityPostCommentVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.CommunityVM;

@@ -33,8 +33,6 @@ public class HomeFeedViewFragment extends FeedViewFragment {
     private FrameLayout tipsLayout;
     private ImageView cancelTipsButton;
 
-    private View headerView;
-
     @Override
     protected View getHeaderView(LayoutInflater inflater) {
         if (headerView == null) {
@@ -47,8 +45,8 @@ public class HomeFeedViewFragment extends FeedViewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        viewPager = (ViewPager) headerView.findViewById(R.id.catPager);
-        dotsLayout = (LinearLayout) headerView.findViewById(R.id.dots);
+        viewPager = (ViewPager) getHeaderView(inflater).findViewById(R.id.catPager);
+        dotsLayout = (LinearLayout) getHeaderView(inflater).findViewById(R.id.dots);
 
         int pageMargin = ViewUtil.getRealDimension(0, this.getResources());
         viewPager.setPageMargin(pageMargin);
@@ -57,10 +55,7 @@ public class HomeFeedViewFragment extends FeedViewFragment {
         adapter = new HomeCategoryPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
 
-        init();
-
         // tips
-        //SharedPreferencesUtil.getInstance().saveBoolean(SharedPreferencesUtil.Screen.HOME_EXPLORE_TIPS.name(), false);
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
         if (SharedPreferencesUtil.getInstance().isScreenViewed(SharedPreferencesUtil.Screen.HOME_EXPLORE_TIPS)) {
             tipsLayout.setVisibility(View.GONE);
@@ -77,21 +72,12 @@ public class HomeFeedViewFragment extends FeedViewFragment {
             });
         }
 
-        return view;
-    }
-
-    public void notifyChange() {
-        adapter.notifyDataSetChanged();
-        viewPager.invalidate();
-    }
-
-    private void init() {
-        notifyChange();
-
         viewPager.setCurrentItem(0);
 
         // pager indicator
         addDots(adapter.getCount(), dotsLayout, viewPager);
+
+        return view;
     }
 }
 

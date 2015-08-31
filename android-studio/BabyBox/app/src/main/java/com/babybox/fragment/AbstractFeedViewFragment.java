@@ -33,6 +33,8 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected boolean hasHeader = false;
 
+    protected View headerView;
+
     protected PullToRefreshView pullListView;
 
     abstract protected void loadFeed(int offset);
@@ -64,7 +66,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                 });
 
         // header
-        View headerView = getHeaderView(inflater);
+        headerView = getHeaderView(inflater);
         if (headerView != null) {
             hasHeader = true;
         }

@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.babybox.R;
+import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.CommunityActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
@@ -423,10 +424,6 @@ public class ViewUtil {
                 post.getNumViews() > DefaultValues.HOT_POST_NOV;
     }
 
-    public static boolean isImagePost(PostVM post) {
-        return post.isHasImage();
-    }
-
     public static boolean isNewPost(CommunityPostVM post) {
         return post.getN_c() <= DefaultValues.NEW_POST_NOC &&
                 DateTimeUtil.getDaysAgo(post.t) <= DefaultValues.NEW_POST_DAYS_AGO;
@@ -459,7 +456,7 @@ public class ViewUtil {
     public static void startCategoryActivity(Activity activity, CategoryVM category, String flag) {
         if (category != null) {
             Log.d(ViewUtil.class.getSimpleName(), "startCategoryActivity with catId - " + category.getId());
-            Intent intent = new Intent(activity, CommunityActivity.class);
+            Intent intent = new Intent(activity, CategoryActivity.class);
             intent.putExtra("id", category.getId());
             intent.putExtra("flag", flag);
             activity.startActivity(intent);

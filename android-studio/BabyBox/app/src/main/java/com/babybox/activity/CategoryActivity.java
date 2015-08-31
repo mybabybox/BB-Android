@@ -11,19 +11,19 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.fragment.CategoryFeedViewFragment;
 import com.babybox.fragment.CommunityFragment;
 
-public class CommunityActivity extends TrackedFragmentActivity {
-    private ImageView backImage, newPostAction;
+public class CategoryActivity extends TrackedFragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.community_activity);
+        setContentView(R.layout.category_activity);
 
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.community_actionbar, null),
+        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.category_actionbar, null),
                 new ActionBar.LayoutParams(
                         ActionBar.LayoutParams.WRAP_CONTENT,
                         ActionBar.LayoutParams.MATCH_PARENT,
@@ -31,40 +31,18 @@ public class CommunityActivity extends TrackedFragmentActivity {
                 )
         );
 
-        backImage = (ImageView) this.findViewById(R.id.backImage);
-        newPostAction = (ImageView) this.findViewById(R.id.newPostIcon);
-
         Bundle bundle = new Bundle();
         if (getIntent().getStringExtra("flag") != null) {
             bundle.putString("flag", (getIntent().getStringExtra("flag")));
         }
 
-        bundle.putLong("id", getIntent().getLongExtra("id",0L));
-        CommunityFragment fragment = new CommunityFragment();
+        bundle.putLong("id", getIntent().getLongExtra("id", 0L));
+        bundle.putString("key", "category_popular");
+        CategoryFeedViewFragment fragment = new CategoryFeedViewFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragment.setArguments(bundle);
         //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.children_layout, fragment).commit();
-
-        backImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-                //finish();
-                /*Intent intent = new Intent(CommunityActivity.this, ActivityMain.class);
-                startActivity(intent);*/
-            }
-        });
-
-        newPostAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CommunityActivity.this,NewPostActivity.class);
-                intent.putExtra("id",getIntent().getLongExtra("id",0L));
-                intent.putExtra("flag","FromCommActivity");
-                startActivity(intent);
-            }
-        });
     }
 
     @Override

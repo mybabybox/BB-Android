@@ -31,14 +31,35 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
             case "home_explore":
             case "home_following":
             case "home_trending":
-                getFeed(offset);
+                getHomeFeed(offset);
+                break;
+            case "category_popular":
+            case "category_newest":
+            case "category_price_low_high":
+            case "category_price_high_low":
+                getCategoryFeed(offset);
                 break;
             default:
                 Log.w(this.getClass().getSimpleName(), "EndlessScrollListener unknown default case with key - "+getArguments().getString("key"));
         }
     }
 
-    private void getFeed(int offset) {
+    private void getHomeFeed(int offset) {
+        AppController.getApiService().getHomeExploreFeed(Long.valueOf(offset), new Callback<PostVMArray>() {
+            @Override
+            public void success(final PostVMArray array, Response response) {
+                loadFeedItemsToList(array.getPosts());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                setFooterText(R.string.list_loading_error);
+                Log.e(FeedViewFragment.class.getSimpleName(), "getFeed: failure", error);
+            }
+        });
+    }
+
+    private void getCategoryFeed(int offset) {
         AppController.getApiService().getHomeExploreFeed(Long.valueOf(offset), new Callback<PostVMArray>() {
             @Override
             public void success(final PostVMArray array, Response response) {

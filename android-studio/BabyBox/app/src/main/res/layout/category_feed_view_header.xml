@@ -1,0 +1,202 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/feed_bg">
+
+    <LinearLayout
+        android:layout_weight="20"
+        android:id="@+id/detailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/catImage"
+            android:layout_width="85dp"
+            android:layout_height="85dp"></ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/catNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="18dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/catDescText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textSize="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewBar"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:background="@drawable/bar1"
+        android:layout_below="@+id/detailsLayout"></View>
+
+    <LinearLayout
+        android:id="@+id/filterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@+id/viewBar"
+        android:background="@color/feed_bg"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/filter_popular"
+                android:id="@+id/popularFilterButton"
+                android:textSize="14dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_round_pink"
+                android:textColor="@color/white"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/filter_newest"
+                android:id="@+id/newestFilterButton"
+                android:textSize="14dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_round"
+                android:textColor="@color/light_gray"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/filter_price_low_high"
+                android:id="@+id/priceLowhighFilterButton"
+                android:textSize="14dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_round"
+                android:textColor="@color/light_gray"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/filter_price_high_low"
+                android:id="@+id/priceHighLowFilterButton"
+                android:textSize="14dp"
+                android:layout_gravity="center"
+                android:background="@drawable/button_round"
+                android:textColor="@color/light_gray"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:textAllCaps="false"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tipsLayout"
+        android:layout_below="@+id/filterLayout">
+
+        <LinearLayout
+            android:id="@+id/tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/tips_box_pink"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="12dp"
+            android:layout_below="@+id/viewBar"
+            android:paddingTop="12dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/community_newsfeed_header_text_1"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/community_newsfeed_header_text_2"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/cancelTipsButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_close"
+            android:layout_gravity="right|top"
+            android:layout_marginTop="7dp"
+            android:layout_marginRight="5dp"
+            android:padding="6dp" />
+
+    </FrameLayout>
+
+</RelativeLayout>

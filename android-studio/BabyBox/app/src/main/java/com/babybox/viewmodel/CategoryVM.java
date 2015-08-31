@@ -2,7 +2,7 @@ package com.babybox.viewmodel;
 
 public class CategoryVM {
     public Long id;
-    public String image;
+    public String icon;
     public String name;
     public String desc;
     public Boolean system;
@@ -12,11 +12,21 @@ public class CategoryVM {
     // TEMP - for api testing
     public CategoryVM(CommunitiesWidgetChildVM comm) {
         this.id = comm.id;
-        this.image = comm.gi;
+        this.icon = comm.gi;
         this.name = comm.dn;
         this.desc = comm.msg;
         this.system = comm.sys;
         this.type = comm.tp;
+    }
+
+    // TEMP - for api testing
+    public CategoryVM(CommunityVM comm) {
+        this.id = comm.id;
+        this.icon = comm.icon;
+        this.name = comm.n;
+        this.desc = comm.d;
+        this.system = comm.sys;
+        this.type = "";
     }
 
     public Long getId() {
@@ -27,12 +37,12 @@ public class CategoryVM {
         this.id = id;
     }
 
-    public String getImage() {
-        return image;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getName() {

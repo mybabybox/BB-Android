@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.babybox.app.AppController;
+import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.GameAccountVM;
@@ -16,6 +17,7 @@ import com.babybox.viewmodel.PreNurseryVM;
  */
 public class UrlUtil {
 
+    private static final String CATEGORY_URL = AppController.BASE_URL + "/#!/category/%d";
     private static final String COMMUNITY_URL = AppController.BASE_URL + "/#!/community/%d";
     private static final String QNA_LANDING_URL = AppController.BASE_URL + "/#!/qna-landing/id/%d/communityId/%d";
     private static final String SCHOOL_PN_URL = AppController.BASE_URL + "/schools#!/pn/%d";
@@ -34,6 +36,10 @@ public class UrlUtil {
 
     public static String createGameGiftUrl(GameGiftVM gameGift) {
         return String.format(GAME_GIFT_URL, gameGift.getId());
+    }
+
+    public static String createCategoryUrl(CategoryVM category) {
+        return String.format(CATEGORY_URL, category.getId());
     }
 
     public static String createCommunityUrl(CommunitiesWidgetChildVM community) {

@@ -126,8 +126,20 @@ public class BabyBoxService {
         });
     }
 
-    public void getCommunity(Long comm_id, Callback<CommunityVM> cb) {
-        api.getCommunity(comm_id, AppController.getInstance().getSessionId(), cb);
+    public void getCategory(Long id, Callback<CategoryVM> cb) {
+        // TEMP - for api testing
+        final Callback<CategoryVM> callback = cb;
+        api.getCommunity(id, AppController.getInstance().getSessionId(), new Callback<CommunityVM>() {
+            @Override
+            public void success(CommunityVM comm, Response response) {
+                callback.success(new CategoryVM(comm), response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
     }
 
     public void getCommunityInitialPosts(Long id, Callback<PostArray> cb) {

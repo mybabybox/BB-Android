@@ -88,6 +88,12 @@
     <string name="main_tab_trending">Trending</string>
     <string name="suggest_for_you">Suggest For You</string>
 
+    <!-- Category tab -->
+    <string name="filter_popular">Popular</string>
+    <string name="filter_newest">Newest</string>
+    <string name="filter_price_low_high">$ ⇾ $$</string>
+    <string name="filter_price_high_low">$$ ⇾ $</string>
+
     <!-- Community tab -->
     <string name="community_tab_my">我的社群</string>
     <string name="community_tab_topic">主題社群</string>
