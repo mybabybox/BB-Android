@@ -11,6 +11,10 @@ import com.babybox.app.AppController;
  */
 public class DefaultValues {
 
+    // Default feeds
+    public static final ViewUtil.FeedType DEFAULT_HOME_FEED_TYPE = ViewUtil.FeedType.HOME_EXPLORE;
+    public static final ViewUtil.FeedType DEFAULT_CATEGORY_FEED_TYPE = ViewUtil.FeedType.CATEGORY_POPULAR;
+
     // From server
     public static final int DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD = 0;
     public static final int DEFAULT_INFINITE_SCROLL_DELAY = 500;

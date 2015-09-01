@@ -106,6 +106,30 @@ public class BabyBoxService {
         });
     }
 
+    public void getHomeTrendingFeed(Long offset, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
+    public void getHomeFollowingFeed(Long offset, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
+    public void getCategoryPopularFeed(Long offset, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
+    public void getCategoryNewestFeed(Long offset, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
+    public void getCategoryPriceLowHighFeed(Long offset, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
+    public void getCategoryPriceHighLowFeed(Long offset, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
     public void getCategories(Callback<List<CategoryVM>> cb) {
         // TEMP - for api testing
         final Callback<List<CategoryVM>> callback = cb;
@@ -140,14 +164,6 @@ public class BabyBoxService {
                 callback.failure(error);
             }
         });
-    }
-
-    public void getCommunityInitialPosts(Long id, Callback<PostArray> cb) {
-        api.getCommunityInitialPosts(id, AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void getCommunityNextPosts(Long id, String time, Callback<List<CommunityPostVM>> cb) {
-        api.getCommunityNextPosts(id, time, AppController.getInstance().getSessionId(), cb);
     }
 
     public void qnaLanding(Long qnaId, Long communityId, Callback<CommunityPostVM> cb) {

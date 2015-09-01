@@ -48,12 +48,6 @@ public class NewsfeedListFragment extends AbstractNewsfeedListFragment {
             case "feed":
                 getNewsFeed(offset);
                 break;
-
-            case "home_explore":
-            case "home_following":
-            case "home_trending":
-                getNewsFeed(offset);
-                break;
             default:
                 Log.w(this.getClass().getSimpleName(), "InfiniteScrollListener unknown default case with key - "+getArguments().getString("key"));
         }

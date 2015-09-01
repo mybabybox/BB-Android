@@ -57,17 +57,14 @@ import retrofit.RetrofitError;
  */
 public class ViewUtil {
 
-    public enum HomeFeedType {
-        EXPLORE,
-        TRENDING,
-        FOLLOWING
-    }
-
-    public enum CategoryFeedType {
-        POPULAR,
-        NEWEST,
-        PRICE_LOW_HIGH,
-        PRICE_HIGH_LOW
+    public enum FeedType {
+        HOME_EXPLORE,
+        HOME_TRENDING,
+        HOME_FOLLOWING,
+        CATEGORY_POPULAR,
+        CATEGORY_NEWEST,
+        CATEGORY_PRICE_LOW_HIGH,
+        CATEGORY_PRICE_HIGH_LOW
     }
 
     public enum FeedProductType {

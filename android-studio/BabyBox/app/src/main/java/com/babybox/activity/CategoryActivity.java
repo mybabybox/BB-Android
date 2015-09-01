@@ -13,6 +13,8 @@ import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.CategoryFeedViewFragment;
 import com.babybox.fragment.CommunityFragment;
+import com.babybox.util.DefaultValues;
+import com.babybox.util.ViewUtil;
 
 public class CategoryActivity extends TrackedFragmentActivity {
 
@@ -37,7 +39,7 @@ public class CategoryActivity extends TrackedFragmentActivity {
         }
 
         bundle.putLong("id", getIntent().getLongExtra("id", 0L));
-        bundle.putString("key", "category_popular");
+        bundle.putString("key", DefaultValues.DEFAULT_CATEGORY_FEED_TYPE.name());
         CategoryFeedViewFragment fragment = new CategoryFeedViewFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragment.setArguments(bundle);

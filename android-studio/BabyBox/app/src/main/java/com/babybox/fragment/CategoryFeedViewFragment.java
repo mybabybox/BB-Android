@@ -98,7 +98,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             }
         });
 
-        // feed buttons
+        // feed type filters
         popularFilterButton = (Button) headerView.findViewById(R.id.popularFilterButton);
         newestFilterButton = (Button) headerView.findViewById(R.id.newestFilterButton);
         priceLowHighFilterButton = (Button) headerView.findViewById(R.id.priceLowHighFilterButton);
@@ -111,57 +111,48 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         popularFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                selectFeedFilter(ViewUtil.CategoryFeedType.POPULAR);
+                selectFeedFilter(ViewUtil.FeedType.CATEGORY_POPULAR);
             }
         });
         newestFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                selectFeedFilter(ViewUtil.CategoryFeedType.NEWEST);
+                selectFeedFilter(ViewUtil.FeedType.CATEGORY_NEWEST);
             }
         });
         priceLowHighFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                selectFeedFilter(ViewUtil.CategoryFeedType.PRICE_LOW_HIGH);
+                selectFeedFilter(ViewUtil.FeedType.CATEGORY_PRICE_LOW_HIGH);
             }
         });
         priceHighLowFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                selectFeedFilter(ViewUtil.CategoryFeedType.PRICE_HIGH_LOW);
+                selectFeedFilter(ViewUtil.FeedType.CATEGORY_PRICE_HIGH_LOW);
             }
         });
-
-        selectFeedFilter(ViewUtil.CategoryFeedType.POPULAR);
+        selectFeedFilter(ViewUtil.FeedType.CATEGORY_POPULAR, false);
 
         allFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 selectProductFilter(ViewUtil.FeedProductType.ALL);
             }
         });
         newFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 selectProductFilter(ViewUtil.FeedProductType.NEW);
             }
         });
         usedFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 selectProductFilter(ViewUtil.FeedProductType.USED);
             }
         });
-
-        selectProductFilter(ViewUtil.FeedProductType.ALL);
+        selectProductFilter(ViewUtil.FeedProductType.ALL, false);
 
         // tips
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
@@ -200,47 +191,76 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         return view;
     }
 
-    private void selectFeedFilter(ViewUtil.CategoryFeedType feedType) {
-        if (ViewUtil.CategoryFeedType.POPULAR.equals(feedType)) {
+    private void selectFeedFilter(ViewUtil.FeedType feedType) {
+        selectFeedFilter(feedType, true);
+    }
+
+    private void selectFeedFilter(ViewUtil.FeedType feedType, boolean loadFeed) {
+        if (ViewUtil.FeedType.CATEGORY_POPULAR.equals(feedType)) {
             ViewUtil.selectButtonStyle(popularFilterButton);
+            if (loadFeed) {
+                reloadFeed(ViewUtil.FeedType.CATEGORY_POPULAR);
+            }
         } else {
             ViewUtil.unselectButtonStyle(popularFilterButton);
         }
 
-        if (ViewUtil.CategoryFeedType.NEWEST.equals(feedType)) {
+        if (ViewUtil.FeedType.CATEGORY_NEWEST.equals(feedType)) {
             ViewUtil.selectButtonStyle(newestFilterButton);
+            if (loadFeed) {
+                reloadFeed(ViewUtil.FeedType.CATEGORY_NEWEST);
+            }
         } else {
             ViewUtil.unselectButtonStyle(newestFilterButton);
         }
 
-        if (ViewUtil.CategoryFeedType.PRICE_LOW_HIGH.equals(feedType)) {
+        if (ViewUtil.FeedType.CATEGORY_PRICE_LOW_HIGH.equals(feedType)) {
             ViewUtil.selectButtonStyle(priceLowHighFilterButton);
+            if (loadFeed) {
+                reloadFeed(ViewUtil.FeedType.CATEGORY_PRICE_LOW_HIGH);
+            }
         } else {
             ViewUtil.unselectButtonStyle(priceLowHighFilterButton);
         }
 
-        if (ViewUtil.CategoryFeedType.PRICE_HIGH_LOW.equals(feedType)) {
+        if (ViewUtil.FeedType.CATEGORY_PRICE_HIGH_LOW.equals(feedType)) {
             ViewUtil.selectButtonStyle(priceHighLowFilterButton);
+            if (loadFeed) {
+                reloadFeed(ViewUtil.FeedType.CATEGORY_PRICE_HIGH_LOW);
+            }
         } else {
             ViewUtil.unselectButtonStyle(priceHighLowFilterButton);
         }
     }
 
     private void selectProductFilter(ViewUtil.FeedProductType productType) {
+        selectProductFilter(productType, true);
+    }
+
+    private void selectProductFilter(ViewUtil.FeedProductType productType, boolean loadFeed) {
         if (ViewUtil.FeedProductType.ALL.equals(productType)) {
             ViewUtil.selectButtonStyle(allFilterButton);
+            if (loadFeed) {
+
+            }
         } else {
             ViewUtil.unselectButtonStyle(allFilterButton);
         }
 
         if (ViewUtil.FeedProductType.NEW.equals(productType)) {
             ViewUtil.selectButtonStyle(newFilterButton);
+            if (loadFeed) {
+
+            }
         } else {
             ViewUtil.unselectButtonStyle(newFilterButton);
         }
 
         if (ViewUtil.FeedProductType.USED.equals(productType)) {
             ViewUtil.selectButtonStyle(usedFilterButton);
+            if (loadFeed) {
+
+            }
         } else {
             ViewUtil.unselectButtonStyle(usedFilterButton);
         }

@@ -169,19 +169,19 @@ class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             // Explore
             case 0: {
-                bundle.putString("key", "home_explore");
+                bundle.putString("key", ViewUtil.FeedType.HOME_EXPLORE.name());
                 fragment = new HomeFeedViewFragment();
                 break;
             }
             // Trending
             case 1: {
-                bundle.putString("key", "home_trending");
+                bundle.putString("key", ViewUtil.FeedType.HOME_TRENDING.name());
                 fragment = new HomeFeedViewFragment();
                 break;
             }
             // Following
             case 2: {
-                bundle.putString("key", "home_following");
+                bundle.putString("key", ViewUtil.FeedType.HOME_FOLLOWING.name());
                 fragment = new HomeFeedViewFragment();
                 break;
             }

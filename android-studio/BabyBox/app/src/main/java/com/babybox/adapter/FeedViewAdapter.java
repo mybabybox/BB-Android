@@ -79,7 +79,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         // NOTE: need to load images from UIL cache each time as ListAdapter items are being recycled...
         //       without this item will not show images correctly
         if (item.hasImage) {
-            Log.d(this.getClass().getSimpleName(), "getView: load " + item.getImages().length + " images to post #" + position + " - " + item.getTitle());
+            //Log.d(this.getClass().getSimpleName(), "getView: load " + item.getImages().length + " images to post #" + position + " - " + item.getTitle());
             loadImage(item.getImages()[0], holder.imageView);
         } else {
             holder.imageView.setImageDrawable(activity.getResources().getDrawable(R.drawable.image_loading));

@@ -18,6 +18,8 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
 import com.yalantis.phoenix.PullToRefreshView;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     protected FeedViewAdapter feedAdapter;
     protected GridLayoutManager layoutManager;
 
+    protected ViewUtil.FeedType feedType;
     protected List<PostVM> items;
     protected View loadingFooter;
 
@@ -38,7 +41,15 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected PullToRefreshView pullListView;
 
-    abstract protected void loadFeed(int offset);
+    abstract protected void loadFeed(int offset, ViewUtil.FeedType feedType);
+
+    protected ViewUtil.FeedType getFeedType() {
+        return feedType;
+    }
+
+    protected void setFeedType(ViewUtil.FeedType feedType) {
+        this.feedType = feedType;
+    }
 
     protected View getHeaderView(LayoutInflater inflater) {
         return null;
@@ -88,9 +99,6 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         });
         feedView.setLayoutManager(layoutManager);
 
-        // endless scroll
-        attachEndlessScrollListener();
-
         // pull refresh
         pullListView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
@@ -105,16 +113,44 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
             }
         });
 
-        loadFeed(0);
+        reloadFeed();
 
         return view;
+    }
+
+    protected void reloadFeed() {
+        ViewUtil.FeedType feedType = getFeedType(getArguments().getString("key"));
+        reloadFeed(feedType);
+    }
+
+    protected void reloadFeed(ViewUtil.FeedType feedType) {
+        if (feedType != null) {
+            clearFeedItems();
+            setFeedType(feedType);
+            loadFeed(0, feedType);
+            attachEndlessScrollListener();
+        }
+    }
+
+    protected ViewUtil.FeedType getFeedType(String feedType) {
+        if (StringUtils.isEmpty(feedType)) {
+            Log.w(this.getClass().getSimpleName(), "getFeedType: null feedType!!");
+            return null;
+        }
+
+        try {
+            return ViewUtil.FeedType.valueOf(feedType);
+        } catch (IllegalArgumentException e) {
+            Log.e(this.getClass().getSimpleName(), "getFeedType: Invalid feedType="+feedType, e);
+        }
+        return null;
     }
 
     protected void attachEndlessScrollListener() {
         feedView.setOnScrollListener(new EndlessScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page) {
-                loadFeed(page - 1);
+                loadFeed(page - 1, getFeedType());
             }
         });
     }
@@ -132,10 +168,13 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         }
     }
 
-    protected void refreshView() {
+    protected void clearFeedItems() {
         items.clear();
-        loadFeed(0);
-        attachEndlessScrollListener();
+        feedAdapter.notifyDataSetChanged();
+    }
+
+    protected void refreshView() {
+        reloadFeed(getFeedType());
     }
 
     protected void setFooterText(int text) {

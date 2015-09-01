@@ -1,7 +1,6 @@
 package com.babybox.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.TrackedFragment;
 import com.babybox.util.ImageMapping;
-import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 
