@@ -20,7 +20,6 @@ public class UserVM {
     public boolean isAdmin = false;
     public boolean isMobile = false;
     public boolean isFbLogin = false;
-    public boolean isHomeTourCompleted = false;
     public boolean enableSignInForToday = false;
     public Long questionsCount;
     public Long answersCount;
@@ -177,14 +176,6 @@ public class UserVM {
 
     public void setFbLogin(boolean isFbLogin) {
         this.isFbLogin = isFbLogin;
-    }
-
-    public boolean isHomeTourCompleted() {
-        return isHomeTourCompleted;
-    }
-
-    public void setHomeTourCompleted(boolean isHomeTourCompleted) {
-        this.isHomeTourCompleted = isHomeTourCompleted;
     }
 
     public boolean isEnableSignInForToday() {

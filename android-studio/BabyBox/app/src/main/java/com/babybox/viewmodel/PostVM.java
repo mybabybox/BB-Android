@@ -11,6 +11,8 @@ public class PostVM {
     public long updatedDate;
     public String title;
     public String desc;
+    public double price;
+    public boolean sold;
     public boolean hasImage = false;
     public int numComments;
     public List<CommentVM> comments;
@@ -121,6 +123,22 @@ public class PostVM {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public boolean isSold() {
+        return sold;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 
     public boolean isHasImage() {
