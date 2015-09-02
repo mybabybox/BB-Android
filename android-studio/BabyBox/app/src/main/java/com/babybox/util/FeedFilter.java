@@ -38,4 +38,11 @@ public class FeedFilter {
         this.productType = productType;
         this.objId = objId;
     }
+
+    @Override
+    public String toString() {
+        return "feedType=" + (feedType == null? "" : feedType.name()) +
+                "\nproductType=" + (productType == null? "" : productType.name()) +
+                "\nobjId=" + objId;
+    }
 }

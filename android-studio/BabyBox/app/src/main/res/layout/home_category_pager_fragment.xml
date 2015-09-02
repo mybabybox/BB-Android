@@ -41,13 +41,13 @@
 
                         <ImageView
                             android:id="@+id/image1"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -90,13 +90,13 @@
 
                         <ImageView
                             android:id="@+id/image2"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -138,13 +138,13 @@
 
                         <ImageView
                             android:id="@+id/image3"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -195,13 +195,13 @@
 
                         <ImageView
                             android:id="@+id/image4"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -244,13 +244,13 @@
 
                         <ImageView
                             android:id="@+id/image5"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -292,13 +292,13 @@
 
                         <ImageView
                             android:id="@+id/image6"
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="110dp"
-                            android:layout_height="110dp"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>

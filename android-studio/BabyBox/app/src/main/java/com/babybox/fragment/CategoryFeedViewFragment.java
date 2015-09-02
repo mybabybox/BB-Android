@@ -38,6 +38,9 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     private CategoryVM category;
     private Long catId;
 
+    private FeedFilter.FeedType feedType;
+    private FeedFilter.FeedProductType productType;
+
     private ImageView backImage, whatsappAction, linkCopyAction, newPostAction;
 
     private Button popularFilterButton, newestFilterButton, priceLowHighFilterButton, priceHighLowFilterButton;
@@ -199,38 +202,35 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     private void selectFeedFilter(FeedFilter.FeedType feedType, boolean loadFeed) {
         if (FeedFilter.FeedType.CATEGORY_POPULAR.equals(feedType)) {
             ViewUtil.selectButtonStyle(popularFilterButton);
-            if (loadFeed) {
-                reloadFeed(new FeedFilter(FeedFilter.FeedType.CATEGORY_POPULAR));
-            }
         } else {
             ViewUtil.unselectButtonStyle(popularFilterButton);
         }
 
         if (FeedFilter.FeedType.CATEGORY_NEWEST.equals(feedType)) {
             ViewUtil.selectButtonStyle(newestFilterButton);
-            if (loadFeed) {
-                reloadFeed(new FeedFilter(FeedFilter.FeedType.CATEGORY_NEWEST));
-            }
         } else {
             ViewUtil.unselectButtonStyle(newestFilterButton);
         }
 
         if (FeedFilter.FeedType.CATEGORY_PRICE_LOW_HIGH.equals(feedType)) {
             ViewUtil.selectButtonStyle(priceLowHighFilterButton);
-            if (loadFeed) {
-                reloadFeed(new FeedFilter(FeedFilter.FeedType.CATEGORY_PRICE_LOW_HIGH));
-            }
         } else {
             ViewUtil.unselectButtonStyle(priceLowHighFilterButton);
         }
 
         if (FeedFilter.FeedType.CATEGORY_PRICE_HIGH_LOW.equals(feedType)) {
             ViewUtil.selectButtonStyle(priceHighLowFilterButton);
-            if (loadFeed) {
-                reloadFeed(new FeedFilter(FeedFilter.FeedType.CATEGORY_PRICE_HIGH_LOW));
-            }
         } else {
             ViewUtil.unselectButtonStyle(priceHighLowFilterButton);
+        }
+
+        setFeedType(feedType);
+
+        if (loadFeed) {
+            reloadFeed(new FeedFilter(
+                    getFeedType(),
+                    getProductType(),
+                    catId));
         }
     }
 
@@ -241,9 +241,6 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     private void selectProductFilter(FeedFilter.FeedProductType productType, boolean loadFeed) {
         if (FeedFilter.FeedProductType.ALL.equals(productType)) {
             ViewUtil.selectButtonStyle(allFilterButton);
-            if (loadFeed) {
-
-            }
         } else {
             ViewUtil.unselectButtonStyle(allFilterButton);
         }
@@ -264,6 +261,15 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             }
         } else {
             ViewUtil.unselectButtonStyle(usedFilterButton);
+        }
+
+        setProductType(productType);
+
+        if (loadFeed) {
+            reloadFeed(new FeedFilter(
+                    getFeedType(),
+                    getProductType(),
+                    catId));
         }
     }
 
@@ -294,5 +300,21 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
                 Log.e(CategoryFeedViewFragment.class.getSimpleName(), "getCategory: failure", error);
             }
         });
+    }
+
+    public FeedFilter.FeedType getFeedType() {
+        return feedType;
+    }
+
+    public void setFeedType(FeedFilter.FeedType feedType) {
+        this.feedType = feedType;
+    }
+
+    public FeedFilter.FeedProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(FeedFilter.FeedProductType productType) {
+        this.productType = productType;
     }
 }

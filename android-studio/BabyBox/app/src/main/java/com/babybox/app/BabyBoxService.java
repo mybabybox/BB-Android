@@ -63,7 +63,7 @@ public class BabyBoxService {
     }
 
     public void getHomeExploreFeed(Long offset, Callback<PostVMArray> cb) {
-        //api.getHomeExploreFeed(AppController.getInstance().getSessionId(), cb);
+        //api.getHomeExploreFeed(offset, AppController.getInstance().getSessionId(), cb);
 
         // TEMP - for api testing
         final Callback<PostVMArray> callback = cb;
@@ -71,7 +71,7 @@ public class BabyBoxService {
             @Override
             public void success(PostArray posts, Response response) {
                 PostVMArray array = new PostVMArray();
-                array.posts = new ArrayList<PostVM>();
+                array.posts = new ArrayList<>();
                 for (CommunityPostVM post : posts.posts) {
                     if (post.hasImage) {
                         array.posts.add(new PostVM(post));
@@ -91,32 +91,84 @@ public class BabyBoxService {
     }
 
     public void getHomeTrendingFeed(Long offset, Callback<PostVMArray> cb) {
-        //api.getHomeTrendingFeed(AppController.getInstance().getSessionId(), cb);
+        //api.getHomeTrendingFeed(offset, AppController.getInstance().getSessionId(), cb);
         getHomeExploreFeed(offset, cb);
     }
 
     public void getHomeFollowingFeed(Long offset, Callback<PostVMArray> cb) {
-        //api.getHomeFollowingFeed(AppController.getInstance().getSessionId(), cb);
+        //api.getHomeFollowingFeed(offset, AppController.getInstance().getSessionId(), cb);
         getHomeExploreFeed(offset, cb);
     }
 
-    public void getCategoryPopularFeed(Long offset, Long catId, String productType, Callback<PostVMArray> cb) {
-        //api.getCategoryPopularFeed(AppController.getInstance().getSessionId(), cb);
-        getHomeExploreFeed(offset, cb);
+    private long feedTime;
+    public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+        //api.getCategoryPopularFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
+
+        // TEMP - for api testing
+        final Callback<PostVMArray> callback = cb;
+
+        if (offset == 0) {
+            feedTime = 0;
+            AppController.getApi().getCommunityInitialPosts(id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
+                @Override
+                public void success(PostArray posts, Response response) {
+                    PostVMArray array = new PostVMArray();
+                    array.posts = new ArrayList<>();
+                    for (CommunityPostVM post : posts.posts) {
+                        if (post.hasImage) {
+                            array.posts.add(new PostVM(post));
+                        }
+                        feedTime = post.getUt();
+                    }
+                    if (posts.posts.size() > 0 && array.posts.size() == 0) {
+                        array.posts.add(new PostVM(posts.posts.get(0)));    // dummy to continue endless scroll
+                    }
+                    callback.success(array, response);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    callback.failure(error);
+                }
+            });
+        } else {
+            AppController.getApi().getCommunityNextPosts(id, feedTime + "", AppController.getInstance().getSessionId(), new Callback<List<CommunityPostVM>>() {
+                @Override
+                public void success(List<CommunityPostVM> posts, Response response) {
+                    PostVMArray array = new PostVMArray();
+                    array.posts = new ArrayList<>();
+                    for (CommunityPostVM post : posts) {
+                        if (post.hasImage) {
+                            array.posts.add(new PostVM(post));
+                        }
+                        feedTime = post.getUt();
+                    }
+                    if (posts.size() > 0 && array.posts.size() == 0) {
+                        array.posts.add(new PostVM(posts.get(0)));    // dummy to continue endless scroll
+                    }
+                    callback.success(array, response);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    callback.failure(error);
+                }
+            });
+        }
     }
 
-    public void getCategoryNewestFeed(Long offset, Long catId, String productType, Callback<PostVMArray> cb) {
-        //api.getCategoryNewestFeed(AppController.getInstance().getSessionId(), cb);
+    public void getCategoryNewestFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+        //api.getCategoryNewestFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
         getHomeExploreFeed(offset, cb);
     }
 
     public void getCategoryPriceLowHighFeed(Long offset, Long catId, String productType, Callback<PostVMArray> cb) {
-        //api.getCategoryPriceLowHighFeed(AppController.getInstance().getSessionId(), cb);
+        //api.getCategoryPriceLowHighFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
         getHomeExploreFeed(offset, cb);
     }
 
     public void getCategoryPriceHighLowFeed(Long offset, Long catId, String productType, Callback<PostVMArray> cb) {
-        //api.getCategoryPriceHighLowFeed(AppController.getInstance().getSessionId(), cb);
+        //api.getCategoryPriceHighLowFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
         getHomeExploreFeed(offset, cb);
     }
 

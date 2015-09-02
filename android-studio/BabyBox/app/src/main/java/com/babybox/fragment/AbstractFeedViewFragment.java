@@ -51,6 +51,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void setFeedFilter(FeedFilter feedFilter) {
+        Log.d(this.getClass().getSimpleName(), "setFeedFilter: feedFilter=\n"+feedFilter.toString());
         this.feedFilter = feedFilter;
     }
 
@@ -176,7 +177,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void loadFeedItemsToList(List<PostVM> posts) {
-        Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: size = "+posts.size());
+        Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: size = " + posts.size());
 
         if (reload) {
             clearFeedItems();
@@ -186,8 +187,8 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
         items.addAll(posts);
         feedAdapter.notifyDataSetChanged();
-        showFooter(false);
 
+        showFooter(false);
         if (posts == null || posts.size() == 0) {
             setFooterText(R.string.list_loaded_all);
         } else {
