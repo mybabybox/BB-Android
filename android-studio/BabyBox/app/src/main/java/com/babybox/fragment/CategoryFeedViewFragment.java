@@ -16,6 +16,7 @@ import com.babybox.R;
 import com.babybox.activity.NewPostActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
+import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.SharingUtil;
@@ -93,7 +94,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), NewPostActivity.class);
-                intent.putExtra("id", catId);
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, catId);
                 startActivity(intent);
             }
         });
@@ -111,48 +112,48 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         popularFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectFeedFilter(ViewUtil.FeedType.CATEGORY_POPULAR);
+                selectFeedFilter(FeedFilter.FeedType.CATEGORY_POPULAR);
             }
         });
         newestFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectFeedFilter(ViewUtil.FeedType.CATEGORY_NEWEST);
+                selectFeedFilter(FeedFilter.FeedType.CATEGORY_NEWEST);
             }
         });
         priceLowHighFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectFeedFilter(ViewUtil.FeedType.CATEGORY_PRICE_LOW_HIGH);
+                selectFeedFilter(FeedFilter.FeedType.CATEGORY_PRICE_LOW_HIGH);
             }
         });
         priceHighLowFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectFeedFilter(ViewUtil.FeedType.CATEGORY_PRICE_HIGH_LOW);
+                selectFeedFilter(FeedFilter.FeedType.CATEGORY_PRICE_HIGH_LOW);
             }
         });
-        selectFeedFilter(ViewUtil.FeedType.CATEGORY_POPULAR, false);
+        selectFeedFilter(FeedFilter.FeedType.CATEGORY_POPULAR, false);
 
         allFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectProductFilter(ViewUtil.FeedProductType.ALL);
+                selectProductFilter(FeedFilter.FeedProductType.ALL);
             }
         });
         newFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectProductFilter(ViewUtil.FeedProductType.NEW);
+                selectProductFilter(FeedFilter.FeedProductType.NEW);
             }
         });
         usedFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectProductFilter(ViewUtil.FeedProductType.USED);
+                selectProductFilter(FeedFilter.FeedProductType.USED);
             }
         });
-        selectProductFilter(ViewUtil.FeedProductType.ALL, false);
+        selectProductFilter(FeedFilter.FeedProductType.ALL, false);
 
         // tips
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
@@ -177,68 +178,68 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         catDescText = (TextView) getHeaderView(inflater).findViewById(R.id.catDescText);
 
         // init
-        catId = getArguments().getLong("id");
+        catId = getArguments().getLong(ViewUtil.BUNDLE_KEY_ID, -1L);
         setCategory(catId);
         /*
-        if (!getArguments().getString("flag").equals("FromDetailActivity")) {
-            catId = getArguments().getLong("id");
+        if (!getArguments().getString(ViewUtil.BUNDLE_KEY_SOURCE).equals("FromDetailActivity")) {
+            catId = getArguments().getLong(ViewUtil.BUNDLE_KEY_ID, -1L);
             setCategory();
         } else {
-            getCategory(getArguments().getLong("id"));
+            getCategory(getArguments().getLong(ViewUtil.BUNDLE_KEY_ID, -1L));
         }
         */
 
         return view;
     }
 
-    private void selectFeedFilter(ViewUtil.FeedType feedType) {
+    private void selectFeedFilter(FeedFilter.FeedType feedType) {
         selectFeedFilter(feedType, true);
     }
 
-    private void selectFeedFilter(ViewUtil.FeedType feedType, boolean loadFeed) {
-        if (ViewUtil.FeedType.CATEGORY_POPULAR.equals(feedType)) {
+    private void selectFeedFilter(FeedFilter.FeedType feedType, boolean loadFeed) {
+        if (FeedFilter.FeedType.CATEGORY_POPULAR.equals(feedType)) {
             ViewUtil.selectButtonStyle(popularFilterButton);
             if (loadFeed) {
-                reloadFeed(ViewUtil.FeedType.CATEGORY_POPULAR);
+                reloadFeed(new FeedFilter(FeedFilter.FeedType.CATEGORY_POPULAR));
             }
         } else {
             ViewUtil.unselectButtonStyle(popularFilterButton);
         }
 
-        if (ViewUtil.FeedType.CATEGORY_NEWEST.equals(feedType)) {
+        if (FeedFilter.FeedType.CATEGORY_NEWEST.equals(feedType)) {
             ViewUtil.selectButtonStyle(newestFilterButton);
             if (loadFeed) {
-                reloadFeed(ViewUtil.FeedType.CATEGORY_NEWEST);
+                reloadFeed(new FeedFilter(FeedFilter.FeedType.CATEGORY_NEWEST));
             }
         } else {
             ViewUtil.unselectButtonStyle(newestFilterButton);
         }
 
-        if (ViewUtil.FeedType.CATEGORY_PRICE_LOW_HIGH.equals(feedType)) {
+        if (FeedFilter.FeedType.CATEGORY_PRICE_LOW_HIGH.equals(feedType)) {
             ViewUtil.selectButtonStyle(priceLowHighFilterButton);
             if (loadFeed) {
-                reloadFeed(ViewUtil.FeedType.CATEGORY_PRICE_LOW_HIGH);
+                reloadFeed(new FeedFilter(FeedFilter.FeedType.CATEGORY_PRICE_LOW_HIGH));
             }
         } else {
             ViewUtil.unselectButtonStyle(priceLowHighFilterButton);
         }
 
-        if (ViewUtil.FeedType.CATEGORY_PRICE_HIGH_LOW.equals(feedType)) {
+        if (FeedFilter.FeedType.CATEGORY_PRICE_HIGH_LOW.equals(feedType)) {
             ViewUtil.selectButtonStyle(priceHighLowFilterButton);
             if (loadFeed) {
-                reloadFeed(ViewUtil.FeedType.CATEGORY_PRICE_HIGH_LOW);
+                reloadFeed(new FeedFilter(FeedFilter.FeedType.CATEGORY_PRICE_HIGH_LOW));
             }
         } else {
             ViewUtil.unselectButtonStyle(priceHighLowFilterButton);
         }
     }
 
-    private void selectProductFilter(ViewUtil.FeedProductType productType) {
+    private void selectProductFilter(FeedFilter.FeedProductType productType) {
         selectProductFilter(productType, true);
     }
 
-    private void selectProductFilter(ViewUtil.FeedProductType productType, boolean loadFeed) {
-        if (ViewUtil.FeedProductType.ALL.equals(productType)) {
+    private void selectProductFilter(FeedFilter.FeedProductType productType, boolean loadFeed) {
+        if (FeedFilter.FeedProductType.ALL.equals(productType)) {
             ViewUtil.selectButtonStyle(allFilterButton);
             if (loadFeed) {
 
@@ -247,7 +248,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             ViewUtil.unselectButtonStyle(allFilterButton);
         }
 
-        if (ViewUtil.FeedProductType.NEW.equals(productType)) {
+        if (FeedFilter.FeedProductType.NEW.equals(productType)) {
             ViewUtil.selectButtonStyle(newFilterButton);
             if (loadFeed) {
 
@@ -256,7 +257,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             ViewUtil.unselectButtonStyle(newFilterButton);
         }
 
-        if (ViewUtil.FeedProductType.USED.equals(productType)) {
+        if (FeedFilter.FeedProductType.USED.equals(productType)) {
             ViewUtil.selectButtonStyle(usedFilterButton);
             if (loadFeed) {
 

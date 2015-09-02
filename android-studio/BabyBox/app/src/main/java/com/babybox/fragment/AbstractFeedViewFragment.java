@@ -14,6 +14,7 @@ import com.babybox.adapter.FeedViewAdapter;
 import com.babybox.app.TrackedFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.DefaultValues;
+import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
 import com.yalantis.phoenix.PullToRefreshView;
@@ -31,24 +32,26 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     protected FeedViewAdapter feedAdapter;
     protected GridLayoutManager layoutManager;
 
-    protected ViewUtil.FeedType feedType;
+    protected FeedFilter feedFilter;
     protected List<PostVM> items;
-    protected View loadingFooter;
 
     protected boolean hasHeader = false;
 
     protected View headerView;
+    protected View footerView;
 
     protected PullToRefreshView pullListView;
 
-    abstract protected void loadFeed(int offset, ViewUtil.FeedType feedType);
+    protected boolean reload = false;
 
-    protected ViewUtil.FeedType getFeedType() {
-        return feedType;
+    abstract protected void loadFeed(int offset, FeedFilter feedFilter);
+
+    protected FeedFilter getFeedFilter() {
+        return feedFilter;
     }
 
-    protected void setFeedType(ViewUtil.FeedType feedType) {
-        this.feedType = feedType;
+    protected void setFeedFilter(FeedFilter feedFilter) {
+        this.feedFilter = feedFilter;
     }
 
     protected View getHeaderView(LayoutInflater inflater) {
@@ -61,7 +64,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
         View view = inflater.inflate(R.layout.feed_view_fragment, container, false);
 
-        loadingFooter = inflater.inflate(R.layout.list_loading_footer, null);
+        footerView = inflater.inflate(R.layout.list_loading_footer, null);
         pullListView = (PullToRefreshView) view.findViewById(R.id.pull_to_refresh);
 
         items = new ArrayList<>();
@@ -109,7 +112,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                         pullListView.setRefreshing(false);
                         refreshView();
                     }
-                }, DefaultValues.DEFAULT_REFRESH_DELAY);
+                }, DefaultValues.PULL_TO_REFRESH_DELAY);
             }
         });
 
@@ -119,29 +122,46 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void reloadFeed() {
-        ViewUtil.FeedType feedType = getFeedType(getArguments().getString("key"));
-        reloadFeed(feedType);
+        FeedFilter.FeedType feedType = getFeedType(getArguments().getString(ViewUtil.BUNDLE_KEY_FEED_TYPE));
+        FeedFilter.FeedProductType productType = getFeedProductType(getArguments().getString(ViewUtil.BUNDLE_KEY_FEED_PRODUCT_TYPE));
+        Long objId = getArguments().getLong(ViewUtil.BUNDLE_KEY_ID, -1);
+        reloadFeed(new FeedFilter(feedType, productType, objId));
     }
 
-    protected void reloadFeed(ViewUtil.FeedType feedType) {
-        if (feedType != null) {
-            clearFeedItems();
-            setFeedType(feedType);
-            loadFeed(0, feedType);
+    protected void reloadFeed(FeedFilter feedFilter) {
+        if (feedFilter.feedType != null) {
+            ViewUtil.showSpinner(getActivity());
+            setFeedFilter(feedFilter);
+            loadFeed(0, feedFilter);
             attachEndlessScrollListener();
+            reload = true;
         }
     }
 
-    protected ViewUtil.FeedType getFeedType(String feedType) {
+    protected FeedFilter.FeedType getFeedType(String feedType) {
         if (StringUtils.isEmpty(feedType)) {
             Log.w(this.getClass().getSimpleName(), "getFeedType: null feedType!!");
             return null;
         }
 
         try {
-            return ViewUtil.FeedType.valueOf(feedType);
+            return FeedFilter.FeedType.valueOf(feedType);
         } catch (IllegalArgumentException e) {
             Log.e(this.getClass().getSimpleName(), "getFeedType: Invalid feedType="+feedType, e);
+        }
+        return null;
+    }
+
+    protected FeedFilter.FeedProductType getFeedProductType(String productType) {
+        if (StringUtils.isEmpty(productType)) {
+            Log.w(this.getClass().getSimpleName(), "getFeedProductType: null productType!!");
+            return null;
+        }
+
+        try {
+            return FeedFilter.FeedProductType.valueOf(productType);
+        } catch (IllegalArgumentException e) {
+            Log.e(this.getClass().getSimpleName(), "getFeedProductType: Invalid productType="+productType, e);
         }
         return null;
     }
@@ -150,13 +170,20 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         feedView.setOnScrollListener(new EndlessScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page) {
-                loadFeed(page - 1, getFeedType());
+                loadFeed(page - 1, getFeedFilter());
             }
         });
     }
 
     protected void loadFeedItemsToList(List<PostVM> posts) {
         Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: size = "+posts.size());
+
+        if (reload) {
+            clearFeedItems();
+            ViewUtil.stopSpinner(getActivity());
+            reload = false;
+        }
+
         items.addAll(posts);
         feedAdapter.notifyDataSetChanged();
         showFooter(false);
@@ -174,7 +201,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void refreshView() {
-        reloadFeed(getFeedType());
+        reloadFeed(getFeedFilter());
     }
 
     protected void setFooterText(int text) {
@@ -183,6 +210,6 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void showFooter(boolean show) {
-        loadingFooter.setVisibility(show ? View.VISIBLE : View.GONE);
+        footerView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }

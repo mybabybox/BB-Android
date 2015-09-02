@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.CommunityFragment;
+import com.babybox.util.ViewUtil;
 
 public class CommunityActivity extends TrackedFragmentActivity {
     private ImageView backImage, newPostAction;
@@ -39,7 +40,7 @@ public class CommunityActivity extends TrackedFragmentActivity {
             bundle.putString("flag", (getIntent().getStringExtra("flag")));
         }
 
-        bundle.putLong("id", getIntent().getLongExtra("id",0L));
+        bundle.putLong(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
         CommunityFragment fragment = new CommunityFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragment.setArguments(bundle);
@@ -60,7 +61,7 @@ public class CommunityActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CommunityActivity.this,NewPostActivity.class);
-                intent.putExtra("id",getIntent().getLongExtra("id",0L));
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
                 intent.putExtra("flag","FromCommActivity");
                 startActivity(intent);
             }

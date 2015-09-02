@@ -1,18 +1,13 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.CategoryFeedViewFragment;
-import com.babybox.fragment.CommunityFragment;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
 
@@ -33,17 +28,15 @@ public class CategoryActivity extends TrackedFragmentActivity {
                 )
         );
 
+        // feed filter keys
         Bundle bundle = new Bundle();
-        if (getIntent().getStringExtra("flag") != null) {
-            bundle.putString("flag", (getIntent().getStringExtra("flag")));
-        }
+        bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, DefaultValues.DEFAULT_CATEGORY_FEED_TYPE.name());
+        bundle.putString(ViewUtil.BUNDLE_KEY_FEED_PRODUCT_TYPE, DefaultValues.DEFAULT_FEED_PRODUCT_TYPE.name());
+        bundle.putLong(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
 
-        bundle.putLong("id", getIntent().getLongExtra("id", 0L));
-        bundle.putString("key", DefaultValues.DEFAULT_CATEGORY_FEED_TYPE.name());
         CategoryFeedViewFragment fragment = new CategoryFeedViewFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragment.setArguments(bundle);
-        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.children_layout, fragment).commit();
     }
 

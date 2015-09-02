@@ -122,7 +122,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             }
         });
 
-        Long commId = getIntent().getLongExtra("id",0L);
+        Long commId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
         if (commId == 0L) {
             communityId = null;
             communityLayout.setVisibility(View.VISIBLE);
@@ -287,8 +287,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 }
 
                 /*Intent intent = new Intent(PostActivity.this,CommunityActivity.class);
-                intent.putExtra("id",getIntent().getLongExtra("id",0l));
-                intent.putExtra("flag","FromPostFragment");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1l));
+                intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE,"FromPostFragment");
                 startActivity(intent);*/
             }
 

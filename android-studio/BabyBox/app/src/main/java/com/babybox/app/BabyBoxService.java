@@ -114,19 +114,19 @@ public class BabyBoxService {
         getHomeExploreFeed(offset, cb);
     }
 
-    public void getCategoryPopularFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getCategoryPopularFeed(Long offset, Long catId, String productType, Callback<PostVMArray> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
-    public void getCategoryNewestFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getCategoryNewestFeed(Long offset, Long catId, String productType, Callback<PostVMArray> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
-    public void getCategoryPriceLowHighFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getCategoryPriceLowHighFeed(Long offset, Long catId, String productType, Callback<PostVMArray> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
-    public void getCategoryPriceHighLowFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getCategoryPriceHighLowFeed(Long offset, Long catId, String productType, Callback<PostVMArray> cb) {
         getHomeExploreFeed(offset, cb);
     }
 

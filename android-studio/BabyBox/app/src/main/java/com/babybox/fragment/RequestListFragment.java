@@ -119,7 +119,7 @@ public class RequestListFragment extends TrackedFragment {
 
                     /*if(item.getTp().equals("FRD_REQUEST")){
                         Intent intent = new Intent(getActivity(), UserProfileActivity.class);
-                        intent.putExtra("id",item.getUrl().getTarget());
+                        intent.putExtra(ViewUtil.BUNDLE_KEY_ID,item.getUrl().getTarget());
                         startActivity(intent);
                     }*/
                 }

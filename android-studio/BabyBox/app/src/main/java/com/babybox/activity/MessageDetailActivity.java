@@ -451,7 +451,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     JSONObject obj = new JSONObject(responseVm);
                     JSONArray userGroupArray = obj.getJSONArray("message");
                     JSONObject object1 = userGroupArray.getJSONObject(0);
-                    uploadPhotos(object1.getLong("id"));
+                    uploadPhotos(object1.getLong(ViewUtil.BUNDLE_KEY_ID));
                     getMessages(getIntent().getLongExtra("cid", 0l),0l);
 
                     reset();
@@ -510,7 +510,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     for (int i = 0; i < userGroupArray.length(); i++) {
                         JSONObject object1 = userGroupArray.getJSONObject(i);
                         MessageVM vm = new MessageVM();
-                        vm.setId(object1.getLong("id"));
+                        vm.setId(object1.getLong(ViewUtil.BUNDLE_KEY_ID));
                         vm.setHasImage(object1.getBoolean("hasImage"));
                         vm.setSnm(object1.getString("snm"));
                         vm.setSuid(object1.getLong("suid"));
@@ -575,7 +575,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     for (int i = 0; i < userGroupArray.length(); i++) {
                         JSONObject object1 = userGroupArray.getJSONObject(i);
                         MessageVM vm = new MessageVM();
-                        vm.setId(object1.getLong("id"));
+                        vm.setId(object1.getLong(ViewUtil.BUNDLE_KEY_ID));
                         vm.setHasImage(object1.getBoolean("hasImage"));
                         vm.setSnm(object1.getString("snm"));
                         vm.setSuid(object1.getLong("suid"));

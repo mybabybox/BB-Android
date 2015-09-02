@@ -23,6 +23,7 @@ import com.babybox.activity.NewPostActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
 import com.babybox.app.UserInfoCache;
+import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
@@ -98,7 +99,7 @@ public class HomeMainFragment extends TrackedFragment {
             public void onClick(View v) {
                 // launch new post page with no comm id, user will select
                 Intent intent = new Intent(HomeMainFragment.this.getActivity(), NewPostActivity.class);
-                intent.putExtra("id",0L);
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,0L);
                 intent.putExtra("flag","FromHomeActivity");
                 startActivity(intent);
             }
@@ -169,19 +170,19 @@ class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             // Explore
             case 0: {
-                bundle.putString("key", ViewUtil.FeedType.HOME_EXPLORE.name());
+                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_EXPLORE.name());
                 fragment = new HomeFeedViewFragment();
                 break;
             }
             // Trending
             case 1: {
-                bundle.putString("key", ViewUtil.FeedType.HOME_TRENDING.name());
+                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_TRENDING.name());
                 fragment = new HomeFeedViewFragment();
                 break;
             }
             // Following
             case 2: {
-                bundle.putString("key", ViewUtil.FeedType.HOME_FOLLOWING.name());
+                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_FOLLOWING.name());
                 fragment = new HomeFeedViewFragment();
                 break;
             }

@@ -12,8 +12,9 @@ import com.babybox.app.AppController;
 public class DefaultValues {
 
     // Default feeds
-    public static final ViewUtil.FeedType DEFAULT_HOME_FEED_TYPE = ViewUtil.FeedType.HOME_EXPLORE;
-    public static final ViewUtil.FeedType DEFAULT_CATEGORY_FEED_TYPE = ViewUtil.FeedType.CATEGORY_POPULAR;
+    public static final FeedFilter.FeedType DEFAULT_HOME_FEED_TYPE = FeedFilter.FeedType.HOME_EXPLORE;
+    public static final FeedFilter.FeedType DEFAULT_CATEGORY_FEED_TYPE = FeedFilter.FeedType.CATEGORY_POPULAR;
+    public static final FeedFilter.FeedProductType DEFAULT_FEED_PRODUCT_TYPE = FeedFilter.FeedProductType.ALL;
 
     // From server
     public static final int DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD = 0;
@@ -32,7 +33,7 @@ public class DefaultValues {
     public static final int DEFAULT_CONNECTION_TIMEOUT_MILLIS = 3000;
     public static final int DEFAULT_HANDLER_DELAY = 100;
 
-    public static final int DEFAULT_REFRESH_DELAY = 1000;
+    public static final int PULL_TO_REFRESH_DELAY = 500;
 
     public static final int FEEDVIEW_ITEM_TOP_MARGIN = 3;
     public static final int FEEDVIEW_ITEM_SIDE_MARGIN = 5;

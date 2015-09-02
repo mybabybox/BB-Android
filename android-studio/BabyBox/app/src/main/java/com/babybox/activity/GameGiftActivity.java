@@ -64,7 +64,7 @@ public class GameGiftActivity extends TrackedFragmentActivity {
                 )
         );
 
-        gameGiftId = getIntent().getLongExtra("id", 0L);
+        gameGiftId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
         userGamePoints = getIntent().getLongExtra("userGamePoints", 0L);
 
         whatsappAction = (ImageView) findViewById(R.id.whatsappAction);

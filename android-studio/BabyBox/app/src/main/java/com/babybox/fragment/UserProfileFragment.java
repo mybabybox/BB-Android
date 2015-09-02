@@ -86,7 +86,7 @@ public class UserProfileFragment extends TrackedFragment {
             public void onClick(View v) {
                 /*
                 Bundle bundle = new Bundle();
-                bundle.putLong("id",getArguments().getLong("oid"));
+                bundle.putLong(ViewUtil.BUNDLE_KEY_ID,getArguments().getLong("oid"));
                 bundle.putString("key","userquestion");
 
                 NewsfeedListFragment fragment = new NewsfeedListFragment();
@@ -111,7 +111,7 @@ public class UserProfileFragment extends TrackedFragment {
             public void onClick(View v) {
                 /*
                 Bundle bundle = new Bundle();
-                bundle.putLong("id",getArguments().getLong("oid"));
+                bundle.putLong(ViewUtil.BUNDLE_KEY_ID,getArguments().getLong("oid"));
                 bundle.putString("key","useranswer");
 
                 NewsfeedListFragment fragment = new NewsfeedListFragment();

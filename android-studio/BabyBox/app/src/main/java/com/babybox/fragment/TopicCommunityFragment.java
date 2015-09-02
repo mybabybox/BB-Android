@@ -50,8 +50,8 @@ public class TopicCommunityFragment extends TrackedFragment {
                 if (childVM != null) {
                     Log.d(this.getClass().getSimpleName(), "onCreateView: listView.onItemClick with commId - " + childVM.getId());
                     Intent intent = new Intent(getActivity(), CommunityActivity.class);
-                    intent.putExtra("id", childVM.getId());
-                    intent.putExtra("flag", "FromTopicFragment");
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_ID, childVM.getId());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromTopicFragment");
                     startActivity(intent);
                 }
             }

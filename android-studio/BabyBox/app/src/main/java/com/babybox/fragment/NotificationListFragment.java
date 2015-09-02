@@ -122,7 +122,7 @@ public class NotificationListFragment extends TrackedFragment {
                             Intent intent = new Intent(getActivity(), DetailActivity.class);
                             intent.putExtra("postId", postId);
                             intent.putExtra("commId", commId);
-                            intent.putExtra("flag", "FromRequest");
+                            intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromRequest");
                             startActivity(intent);
                         } catch (Exception e) {
                             Log.e(NotificationListFragment.this.getClass().getSimpleName(), "Failed to parse comm id from url", e);

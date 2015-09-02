@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.NewsfeedListFragment;
+import com.babybox.util.ViewUtil;
 
 public class NewsfeedActivity extends TrackedFragmentActivity {
 
@@ -42,7 +43,7 @@ public class NewsfeedActivity extends TrackedFragmentActivity {
             }
         });
 
-        Long id = getIntent().getLongExtra("id", 0L);
+        Long id = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
         String key = getIntent().getStringExtra("key");
 
         Log.d(this.getClass().getSimpleName(), "onCreate: Id=" + id + " key=" + key);
@@ -61,7 +62,7 @@ public class NewsfeedActivity extends TrackedFragmentActivity {
         }
 
         Bundle bundle = new Bundle();
-        bundle.putLong("id", id);
+        bundle.putLong(ViewUtil.BUNDLE_KEY_ID, id);
         bundle.putString("key", key);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

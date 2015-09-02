@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
-import com.babybox.util.ViewUtil.FeedType;
+import com.babybox.util.FeedFilter;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVMArray;
 
 import retrofit.Callback;
@@ -33,18 +34,20 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
             @Override
             public void success(final PostVMArray array, Response response) {
                 loadFeedItemsToList(array.getPosts());
+                ViewUtil.stopSpinner(getActivity());
             }
 
             @Override
             public void failure(RetrofitError error) {
                 setFooterText(R.string.list_loading_error);
                 Log.e(FeedViewFragment.class.getSimpleName(), "getFeed: failure", error);
+                ViewUtil.stopSpinner(getActivity());
             }
         };
     }
 
-    protected void loadFeed(int offset, FeedType feedType) {
-        if (feedType == null) {
+    protected void loadFeed(int offset, FeedFilter feedFilter) {
+        if (feedFilter == null || feedFilter.feedType == null) {
             Log.w(this.getClass().getSimpleName(), "loadFeed: offset=" + offset + " with null key!!");
             return;
         }
@@ -53,8 +56,8 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
             initCallback();
         }
 
-        Log.d(this.getClass().getSimpleName(), "loadFeed: offset=" + offset + " with key="+feedType.name());
-        switch (feedType) {
+        Log.d(this.getClass().getSimpleName(), "loadFeed: offset=" + offset + " with key="+feedFilter.feedType.name());
+        switch (feedFilter.feedType) {
             case HOME_EXPLORE:
                 getHomeExploreFeed(offset);
                 break;
@@ -65,19 +68,19 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
                 getHomeFollowingFeed(offset);
                 break;
             case CATEGORY_POPULAR:
-                getCategoryPopularFeed(offset);
+                getCategoryPopularFeed(offset, feedFilter.objId, feedFilter.productType.name());
                 break;
             case CATEGORY_NEWEST:
-                getCategoryNewestFeed(offset);
+                getCategoryNewestFeed(offset, feedFilter.objId, feedFilter.productType.name());
                 break;
             case CATEGORY_PRICE_LOW_HIGH:
-                getCategoryPriceLowHighFeed(offset);
+                getCategoryPriceLowHighFeed(offset, feedFilter.objId, feedFilter.productType.name());
                 break;
             case CATEGORY_PRICE_HIGH_LOW:
-                getCategoryPriceHighLowFeed(offset);
+                getCategoryPriceHighLowFeed(offset, feedFilter.objId, feedFilter.productType.name());
                 break;
             default:
-                Log.w(this.getClass().getSimpleName(), "loadFeed: unknown default case with key - "+feedType.name());
+                Log.w(this.getClass().getSimpleName(), "loadFeed: unknown default case with key - "+feedFilter.feedType.name());
         }
     }
 
@@ -93,19 +96,19 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
         AppController.getApiService().getHomeFollowingFeed(Long.valueOf(offset), feedCallback);
     }
 
-    private void getCategoryPopularFeed(int offset) {
-        AppController.getApiService().getCategoryPopularFeed(Long.valueOf(offset), feedCallback);
+    private void getCategoryPopularFeed(int offset, Long catId, String productType) {
+        AppController.getApiService().getCategoryPopularFeed(Long.valueOf(offset), catId, productType, feedCallback);
     }
 
-    private void getCategoryNewestFeed(int offset) {
-        AppController.getApiService().getCategoryNewestFeed(Long.valueOf(offset), feedCallback);
+    private void getCategoryNewestFeed(int offset, Long catId, String productType) {
+        AppController.getApiService().getCategoryNewestFeed(Long.valueOf(offset), catId, productType, feedCallback);
     }
 
-    private void getCategoryPriceLowHighFeed(int offset) {
-        AppController.getApiService().getCategoryPriceLowHighFeed(Long.valueOf(offset), feedCallback);
+    private void getCategoryPriceLowHighFeed(int offset, Long catId, String productType) {
+        AppController.getApiService().getCategoryPriceLowHighFeed(Long.valueOf(offset), catId, productType, feedCallback);
     }
 
-    private void getCategoryPriceHighLowFeed(int offset) {
-        AppController.getApiService().getCategoryPriceHighLowFeed(Long.valueOf(offset), feedCallback);
+    private void getCategoryPriceHighLowFeed(int offset, Long catId, String productType) {
+        AppController.getApiService().getCategoryPriceHighLowFeed(Long.valueOf(offset), catId, productType, feedCallback);
     }
 }

@@ -57,21 +57,12 @@ import retrofit.RetrofitError;
  */
 public class ViewUtil {
 
-    public enum FeedType {
-        HOME_EXPLORE,
-        HOME_TRENDING,
-        HOME_FOLLOWING,
-        CATEGORY_POPULAR,
-        CATEGORY_NEWEST,
-        CATEGORY_PRICE_LOW_HIGH,
-        CATEGORY_PRICE_HIGH_LOW
-    }
-
-    public enum FeedProductType {
-        ALL,
-        NEW,
-        USED
-    }
+    public static final String BUNDLE_KEY_ID = "id";
+    public static final String BUNDLE_KEY_OWNER_ID = "ownerId";
+    public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
+    public static final String BUNDLE_KEY_SOURCE = "flag";
+    public static final String BUNDLE_KEY_FEED_TYPE = "feedType";
+    public static final String BUNDLE_KEY_FEED_PRODUCT_TYPE = "feedProductType";
 
     public static final String INTENT_VALUE_REFRESH = "refresh";
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
@@ -486,7 +477,7 @@ public class ViewUtil {
         if (category != null) {
             Log.d(ViewUtil.class.getSimpleName(), "startCategoryActivity with catId - " + category.getId());
             Intent intent = new Intent(activity, CategoryActivity.class);
-            intent.putExtra("id", category.getId());
+            intent.putExtra(ViewUtil.BUNDLE_KEY_ID, category.getId());
             intent.putExtra("flag", flag);
             activity.startActivity(intent);
         }

@@ -185,12 +185,12 @@ public class DetailActivity extends TrackedFragmentActivity {
                         Intent intent = null;
                         if (isFromPN) {
                             intent = new Intent(DetailActivity.this, PNCommunityActivity.class);
-                            intent.putExtra("id", post.getPnId());
+                            intent.putExtra(ViewUtil.BUNDLE_KEY_ID, post.getPnId());
                             intent.putExtra("commId", getIntent().getLongExtra("commId", 0L));
                             intent.putExtra("flag", "FromPN");
                         } else {
                             intent = new Intent(DetailActivity.this, CommunityActivity.class);
-                            intent.putExtra("id", getIntent().getLongExtra("commId", 0L));
+                            intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra("commId", 0L));
                             intent.putExtra("flag", "FromDetailActivity");
                         }
                         startActivity(intent);
