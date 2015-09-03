@@ -35,8 +35,6 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     protected FeedFilter feedFilter;
     protected List<PostVM> items;
 
-    protected boolean hasHeader = false;
-
     protected View headerView;
     protected View footerView;
 
@@ -45,6 +43,10 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     protected boolean reload = false;
 
     abstract protected void loadFeed(int offset, FeedFilter feedFilter);
+
+    public boolean hasHeader() {
+        return headerView != null;
+    }
 
     protected FeedFilter getFeedFilter() {
         return feedFilter;
@@ -79,15 +81,12 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                         //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
                         int topMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
                         int sideMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
-                        outRect.set(sideMargin, topMargin, sideMargin, topMargin);
+                        outRect.set(sideMargin, topMargin, sideMargin, 0);
                     }
                 });
 
         // header
         headerView = getHeaderView(inflater);
-        if (headerView != null) {
-            hasHeader = true;
-        }
 
         // adapter
         feedAdapter = new FeedViewAdapter(getActivity(), items, headerView);

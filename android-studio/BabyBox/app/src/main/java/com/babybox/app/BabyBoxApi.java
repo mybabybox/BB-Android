@@ -1,9 +1,8 @@
 package com.babybox.app;
 
-import com.babybox.viewmodel.BookmarkSummaryVM;
 import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
-import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.GameAccountVM;
@@ -15,14 +14,12 @@ import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.NotificationsParentVM;
-import com.babybox.viewmodel.PostArray;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMArray;
 import com.babybox.viewmodel.ProfileVM;
 import com.babybox.viewmodel.ResponseStatusLiteVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserProfileDataVM;
-import com.babybox.viewmodel.UserProfileVM;
 import com.babybox.viewmodel.UserVM;
 
 import java.util.List;
@@ -83,6 +80,9 @@ public interface BabyBoxApi {
     @GET("/get-user-info")
     public void getUserInfo(@Query("key") String key, Callback<UserVM> cb);
 
+    @GET("/image/getEmoticons")
+    public void getEmoticons(@Query("key") String key, Callback<List<EmoticonVM>> cb);
+
     //
     // Home feeds
     //
@@ -129,11 +129,11 @@ public interface BabyBoxApi {
     // Category + post + comments
     //
 
-    @GET("/category/{id}")
-    public void getCategory(@Path("id") Long id, @Query("key") String key, Callback<CategoryVM> cb);
-
     @GET("/categories")
     public void getCategories(@Query("key") String key, Callback<List<CategoryVM>> cb);
+
+    @GET("/category/{id}")
+    public void getCategory(@Path("id") Long id, @Query("key") String key, Callback<CategoryVM> cb);
 
     @GET("/post/{id}")
     public void getPost(@Path("id") Long id, @Query("key") String key, Callback<PostVM> callback);
@@ -188,20 +188,26 @@ public interface BabyBoxApi {
     @POST("/image/upload-profile-photo")
     public void uploadProfilePhoto(@Part("profile-photo") TypedFile photo, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/get-user-profile")
-    public void getUserProfile(@Query("key") String key, Callback<UserProfileVM> cb);
-
     @GET("/get-notifs")
     public void getNotifs(@Query("key") String key, Callback<NotificationsParentVM> cb);
 
     @GET("/read-notifs/{ids}")
     public void readNotifs(@Path("ids") String ids, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/image/getEmoticons")
-    public void getEmoticons(@Query("key") String key, Callback<List<EmoticonVM>> cb);
-
     @POST("/updateUserProfileData")
     public void updateUserProfileData(@Body UserProfileDataVM userProfileDataVM, @Query("key") String key, Callback<UserVM> cb);
+
+    @GET("/collections/{userId}")
+    public void getCollections(@Path("userId") Long userId, @Query("key") String key, Callback<List<CollectionVM>> cb);
+
+    @GET("/collection/{id}")
+    public void getCollection(@Path("id") Long id, @Query("key") String key, Callback<CollectionVM> cb);
+
+    @GET("/followings/{userId}")
+    public void getFollowings(@Path("userId") Long userId, @Query("key") String key, Callback<List<UserVM>> cb);
+
+    @GET("/followers/{userId}")
+    public void getFollowers(@Path("userId") Long userId, @Query("key") String key, Callback<List<UserVM>> cb);
 
     //
     // Messages

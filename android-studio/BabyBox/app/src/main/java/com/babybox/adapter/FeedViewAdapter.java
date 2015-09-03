@@ -3,7 +3,6 @@ package com.babybox.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,30 +30,37 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
     private Activity activity;
 
     private List<PostVM> items;
-    private boolean isFeed = true;
 
     public FeedViewAdapter(Activity activity, List<PostVM> items, View header) {
-        this(activity, items, header, true);
-    }
-
-    public FeedViewAdapter(Activity activity, List<PostVM> items, View header, boolean isFeed) {
         this.activity = activity;
         this.items = items;
         this.headerView = header;
-        this.isFeed = isFeed;
+    }
+
+    public boolean hasHeader() {
+        return headerView != null;
     }
 
     public boolean isHeader(int position) {
-        return position == 0;
+        if (hasHeader()) {
+            return position == 0;
+        }
+        return false;
     }
 
     public PostVM getItem(int position) {
-        return items.get(position - 1);     // header
+        if (hasHeader()) {
+            return items.get(position - 1);
+        }
+        return items.get(position);
     }
 
     @Override
     public int getItemCount() {
-        return items.size() + 1;    // header
+        if (hasHeader()) {
+            return items.size() + 1;
+        }
+        return items.size();
     }
 
     @Override

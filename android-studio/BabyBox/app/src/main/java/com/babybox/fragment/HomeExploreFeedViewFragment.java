@@ -21,9 +21,9 @@ import com.babybox.viewmodel.CategoryVM;
 
 import java.util.List;
 
-public class HomeFeedViewFragment extends FeedViewFragment {
+public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
-    private static final String TAG = HomeFeedViewFragment.class.getName();
+    private static final String TAG = HomeExploreFeedViewFragment.class.getName();
 
     private ViewPager viewPager;
     private HomeCategoryPagerAdapter adapter;
@@ -36,7 +36,7 @@ public class HomeFeedViewFragment extends FeedViewFragment {
     @Override
     protected View getHeaderView(LayoutInflater inflater) {
         if (headerView == null) {
-            headerView = inflater.inflate(R.layout.home_feed_view_header, null);
+            headerView = inflater.inflate(R.layout.home_explore_feed_view_header, null);
         }
         return headerView;
     }
