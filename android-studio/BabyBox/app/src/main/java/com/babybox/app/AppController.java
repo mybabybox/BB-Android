@@ -61,7 +61,7 @@ public class AppController extends Application {
 
     private static AppController mInstance;
     private static BabyBoxService apiService;
-    private static MyApi apiOld;
+    private static MyApi myApi;
 
     private long conversationId;
     public List<MessageVM> messageVMList;
@@ -79,9 +79,9 @@ public class AppController extends Application {
     }
 
     public static synchronized MyApi getApi() {
-        if (apiOld == null)
+        if (myApi == null)
             init();
-        return apiOld;
+        return myApi;
     }
 
     public static synchronized BabyBoxService getApiService() {
@@ -125,11 +125,11 @@ public class AppController extends Application {
     public static void init() {
         BASE_URL = getInstance().getString(R.string.base_url);
 
-        if (apiOld == null) {
+        if (myApi == null) {
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint(BASE_URL)
                     .setClient(new OkClient()).build();
-            apiOld = restAdapter.create(MyApi.class);
+            myApi = restAdapter.create(MyApi.class);
         }
 
         if (apiService == null) {
@@ -137,7 +137,7 @@ public class AppController extends Application {
                     .setEndpoint(BASE_URL)
                     .setClient(new OkClient()).build();
             BabyBoxApi api = restAdapter.create(BabyBoxApi.class);
-            apiService = new BabyBoxService(api);
+            apiService = new BabyBoxMockService(api);
         }
 
         ImageUtil.init();
