@@ -1,139 +1,287 @@
 package com.babybox.fragment;
 
-import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-
+import java.io.File;
 import java.lang.reflect.Field;
-import java.util.List;
 
 import com.babybox.R;
+import com.babybox.activity.EditProfileActivity;
+import com.babybox.activity.GameActivity;
 import com.babybox.activity.MyProfileActionActivity;
-import com.babybox.app.NotificationCache;
+import com.babybox.activity.NewsfeedActivity;
+import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
-import com.babybox.viewmodel.NotificationVM;
-import com.babybox.viewmodel.NotificationsParentVM;
+import com.babybox.app.UserInfoCache;
+import com.babybox.util.DefaultValues;
+import com.babybox.util.GameConstants;
+import com.babybox.util.ImageUtil;
+import com.babybox.util.SharedPreferencesUtil;
+import com.babybox.util.ViewUtil;
+import com.babybox.viewmodel.BookmarkSummaryVM;
+import com.babybox.viewmodel.GameAccountVM;
+import com.babybox.viewmodel.UserVM;
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.TypedFile;
 
 public class MyProfileFragment extends TrackedFragment {
 
-    public List<NotificationVM> requestNotif, notifAll;
-    private ImageView back;
-    private ViewGroup request, notification,message;
-    private TextView requestCount, notificationCount,messageCount;
-    private View actionBarView;
+    private static final String TAG = MyProfileFragment.class.getName();
+    private ImageView userCoverPic, userPic, editCoverImage;
+    private TextView questionsCount, answersCount, bookmarksCount, userName;
+    private LinearLayout questionMenu, answerMenu, bookmarksMenu, settingsMenu, userInfoLayout;
+    private Long userId;
+    private Boolean isPhoto = false;
+    private String selectedImagePath = null;
+    private Uri selectedImageUri = null;
+    private boolean coverPhotoClicked = false, profilePhotoClicked = false;
+    private boolean hasProfilePic = false;
 
-    private Gson gson = new Gson();
+    private Button editButton, messageButton;
+    private LinearLayout gameLayout;
+    private TextView pointsText;
+
+    private FrameLayout uploadProfilePicTipsLayout;
+    private TextView tipsDescText, tipsPointsText, tipsEndText;
+    private ImageView cancelTipsButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.my_profile_fragment, container, false);
+        View view = inflater.inflate(R.layout.user_profile_fragment, container, false);
 
-        actionBarView = inflater.inflate(R.layout.my_profile_actionbar, null);
+        userName = (TextView) view.findViewById(R.id.usernameText);
+        questionsCount = (TextView) view.findViewById(R.id.questionsCount);
+        answersCount = (TextView) view.findViewById(R.id.answersCount);
+        bookmarksCount = (TextView) view.findViewById(R.id.bookmarksCount);
+        userCoverPic = (ImageView) view.findViewById(R.id.userCoverPic);
+        userPic = (ImageView) view.findViewById(R.id.userImage);
+        editCoverImage = (ImageView) view.findViewById(R.id.editCoverImage);
+        questionMenu = (LinearLayout) view.findViewById(R.id.menuQuestion);
+        answerMenu = (LinearLayout) view.findViewById(R.id.menuAnswer);
+        bookmarksMenu = (LinearLayout) view.findViewById(R.id.menuBookmarks);
+        settingsMenu = (LinearLayout) view.findViewById(R.id.menuSettings);
+        userInfoLayout = (LinearLayout) view.findViewById(R.id.userInfoLayout);
+        editButton = (Button) view.findViewById(R.id.editButton);
+        messageButton = (Button) view.findViewById(R.id.messageButton);
+        gameLayout = (LinearLayout) view.findViewById(R.id.gameLayout);
+        pointsText = (TextView) view.findViewById(R.id.pointsText);
 
-        ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        getActivity().getActionBar().setCustomView(actionBarView, lp);
-        getActivity().getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActivity().getActionBar().show();
+        uploadProfilePicTipsLayout = (FrameLayout) view.findViewById(R.id.uploadProfilePicTipsLayout);
+        tipsDescText = (TextView) view.findViewById(R.id.tipsDescText);
+        tipsPointsText = (TextView) view.findViewById(R.id.tipsPointsText);
+        tipsEndText = (TextView) view.findViewById(R.id.tipsEndText);
+        cancelTipsButton = (ImageView) view.findViewById(R.id.cancelTipsButton);
 
-        setHasOptionsMenu(true);
+        messageButton.setVisibility(View.GONE);
+        userInfoLayout.setVisibility(View.GONE);
 
-        request = (ViewGroup) actionBarView.findViewById(R.id.requestLayout);
-        notification = (ViewGroup) actionBarView.findViewById(R.id.notificationLayout);
-        requestCount = (TextView) actionBarView.findViewById(R.id.requestCount);
-        notificationCount = (TextView) actionBarView.findViewById(R.id.notificationCount);
-        messageCount = (TextView) actionBarView.findViewById(R.id.messageCount);
-        message = (ViewGroup) actionBarView.findViewById(R.id.messageLayout);
-
-        back = (ImageView) actionBarView.findViewById(R.id.backAction);
-        back.setVisibility(View.INVISIBLE);
-
-        requestCount.setVisibility(View.INVISIBLE);
-        notificationCount.setVisibility(View.INVISIBLE);
-        messageCount.setVisibility(View.INVISIBLE);
-
-        TrackedFragment fragment = new ProfileFragment();
-        fragment.setTrackedOnce();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.children_fragment, fragment,"profile").commit();
-
-        request.setOnClickListener(new View.OnClickListener() {
+        gameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra("key","requests");
-                intent.putExtra("requestNotif", gson.toJson(requestNotif));
-                startActivity(intent);
-
-                /*
-                back.setVisibility(View.INVISIBLE);
-                ((TextView) actionBarView.findViewById(R.id.title)).setText(getString(R.string.request_actionbar_title));
-
-                Fragment requestFragment = new RequestListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("requestNotif", gson.toJson(requestNotif));
-                requestFragment.setArguments(bundle);
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.children_fragment, requestFragment).commit();
-                */
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
             }
         });
 
-        notification.setOnClickListener(new View.OnClickListener() {
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra("key","notifications");
-                intent.putExtra("notifAll", gson.toJson(notifAll));
-                startActivity(intent);
-
-                /*
-                back.setVisibility(View.INVISIBLE);
-                ((TextView) actionBarView.findViewById(R.id.title)).setText(getString(R.string.notification_actionbar_title));
-
-                Fragment notificactionFragment = new NotificationListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("notifAll", gson.toJson(notifAll));
-                notificactionFragment.setArguments(bundle);
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.children_fragment, notificactionFragment).commit();
-                */
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
             }
         });
 
-        message.setOnClickListener(new View.OnClickListener() {
+        editCoverImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageUtil.openPhotoPicker(MyProfileFragment.this.getActivity(), getString(R.string.edit_cover_photo));
+                isPhoto = true;
+                coverPhotoClicked = true;
+            }
+        });
+
+        userPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageUtil.openPhotoPicker(MyProfileFragment.this.getActivity(), getString(R.string.edit_user_photo));
+                isPhoto = true;
+                profilePhotoClicked = true;
+            }
+        });
+
+        questionMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra("key", "messages");
-                intent.putExtra("notifAll", gson.toJson(notifAll));
+                Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
+                intent.putExtra("id", userId);
+                intent.putExtra("key","question");
                 startActivity(intent);
             }
         });
-                return view;
+
+        answerMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
+                intent.putExtra("id",userId);
+                intent.putExtra("key","answer");
+                startActivity(intent);
+            }
+        });
+
+        bookmarksMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
+                intent.putExtra("id",userId);
+                intent.putExtra("key","bookmark");
+                startActivity(intent);
+            }
+        });
+
+        settingsMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
+                intent.putExtra("id",userId);
+                intent.putExtra("key","settings");
+                startActivity(intent);
+            }
+        });
+
+        getUserInfo();
+        getGameAccount();
+        getBookmarkSummary();
+
+        return view;
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        NotificationCache.refresh(new Callback<NotificationsParentVM>() {
+        if (requestCode == ViewUtil.SELECT_PICTURE_REQUEST_CODE) {
+            if (data == null)
+                return;
+
+            selectedImageUri = data.getData();
+            selectedImagePath = ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri);
+            String path = selectedImageUri.getPath();
+
+            Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri="+path+" selectedImagePath="+selectedImagePath);
+            Bitmap bp = ImageUtil.resizeAsPreviewThumbnail(selectedImagePath);
+            if (bp != null) {
+                if (coverPhotoClicked) {
+                    userCoverPic.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
+                    userCoverPic.setVisibility(View.VISIBLE);
+                    uploadCoverPhoto(userId);
+                    coverPhotoClicked = false;
+                } else if (profilePhotoClicked) {
+                    userPic.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
+                    userPic.setVisibility(View.VISIBLE);
+                    uploadProfilePhoto(userId);
+                    profilePhotoClicked = false;
+                }
+            }
+        }
+
+        if(requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_VALUE_REFRESH, false);
+            if (refresh) {
+                getUserInfo();
+                getGameAccount();
+
+                // refresh parent activity
+                Intent intent = new Intent();
+                intent.putExtra(ViewUtil.INTENT_VALUE_REFRESH, true);
+                getActivity().setResult(Activity.RESULT_OK, intent);
+            }
+        }
+    }
+
+    private void getUserInfo() {
+        ViewUtil.showSpinner(getActivity());
+
+        UserVM user = UserInfoCache.getUser();
+
+        //Log.d(ProfileFragment.this.getClass().getSimpleName(), "questionsCount - "+user.getQuestionsCount());
+        //Log.d(ProfileFragment.this.getClass().getSimpleName(), "answersCount - "+user.getAnswersCount());
+        //Log.d(ProfileFragment.this.getClass().getSimpleName(), "enableSignInForToday - "+user.isEnableSignInForToday());
+
+        userId = user.getId();
+        userName.setText(user.getDisplayName());
+        questionsCount.setText(user.getQuestionsCount()+"");
+        answersCount.setText(user.getAnswersCount()+"");
+
+        ImageUtil.displayProfileImage(userId, userPic);
+        ImageUtil.displayCoverImage(userId, userCoverPic, new RequestListener<String, GlideBitmapDrawable>() {
             @Override
-            public void success(NotificationsParentVM notificationsParentVM, Response response) {
-                setHeaderBarData(notificationsParentVM);
+            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                ViewUtil.stopSpinner(getActivity());
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                ViewUtil.stopSpinner(getActivity());
+                return false;
+            }
+        });
+    }
+
+    private void getGameAccount() {
+        ViewUtil.showSpinner(getActivity());
+        GameAccountVM gameAccount = UserInfoCache.getGameAccount();
+        pointsText.setText(gameAccount.getGmpt() + "");
+        hasProfilePic = gameAccount.hasProfilePic();
+        if (hasProfilePic ||
+                SharedPreferencesUtil.getInstance().isScreenViewed(SharedPreferencesUtil.Screen.UPLOAD_PROFILE_PIC_TIPS)) {
+            uploadProfilePicTipsLayout.setVisibility(View.GONE);
+        } else {
+            uploadProfilePicTipsLayout.setVisibility(View.VISIBLE);
+            tipsDescText.setText(getString(R.string.game_upload_profile_pic_title));
+            tipsPointsText.setText("+" + GameConstants.POINTS_UPLOAD_PROFILE_PHOTO);
+            cancelTipsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferencesUtil.getInstance().setScreenViewed(SharedPreferencesUtil.Screen.UPLOAD_PROFILE_PIC_TIPS);
+                    uploadProfilePicTipsLayout.setVisibility(View.GONE);
+                }
+            });
+        }
+        ViewUtil.stopSpinner(getActivity());
+    }
+
+    private void getBookmarkSummary() {
+        AppController.getApi().getBookmarkSummary(AppController.getInstance().getSessionId(), new Callback<BookmarkSummaryVM>() {
+            @Override
+            public void success(BookmarkSummaryVM bookmarkSummary, retrofit.client.Response response) {
+                Log.d(MyProfileFragment.this.getClass().getSimpleName(), "bookmarksCount - "+bookmarkSummary.getQc());
+                bookmarksCount.setText(bookmarkSummary.getQc()+"");
             }
 
             @Override
@@ -141,32 +289,6 @@ public class MyProfileFragment extends TrackedFragment {
                 error.printStackTrace();
             }
         });
-    }
-
-    private void setHeaderBarData(NotificationsParentVM notificationsParentVM) {
-        requestNotif = notificationsParentVM.getRequestNotif();
-        notifAll = notificationsParentVM.getAllNotif();
-
-        if (notificationsParentVM.getRequestCounts() == 0) {
-            requestCount.setVisibility(View.INVISIBLE);
-        } else {
-            requestCount.setVisibility(View.VISIBLE);
-            requestCount.setText(notificationsParentVM.getRequestCounts() + "");
-        }
-
-        if (notificationsParentVM.getNotifyCounts() == 0) {
-            notificationCount.setVisibility(View.INVISIBLE);
-        } else {
-            notificationCount.setVisibility(View.VISIBLE);
-            notificationCount.setText(notificationsParentVM.getNotifyCounts() + "");
-        }
-
-        if(notificationsParentVM.getMessageCount() == 0) {
-            messageCount.setVisibility(View.INVISIBLE);
-        }else{
-            messageCount.setVisibility(View.VISIBLE);
-            messageCount.setText(notificationsParentVM.getMessageCount() + "");
-        }
     }
 
     @Override
@@ -177,7 +299,6 @@ public class MyProfileFragment extends TrackedFragment {
             Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
             childFragmentManager.setAccessible(true);
             childFragmentManager.set(this, null);
-
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
@@ -185,12 +306,89 @@ public class MyProfileFragment extends TrackedFragment {
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        Fragment fragment = (Fragment) getChildFragmentManager().findFragmentByTag("profile");
-        if(fragment != null){
-            fragment.onActivityResult(requestCode, resultCode, intent);
-        }
+    private void uploadCoverPhoto(final long id){
+        ViewUtil.showSpinner(getActivity());
+
+        Log.d(this.getClass().getSimpleName(), "changeCoverPhoto: Id=" + id);
+
+        ImageUtil.clearCoverImageCache(id);
+
+        File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
+        photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
+        TypedFile typedFile = new TypedFile("application/octet-stream", photo);
+        AppController.getApi().uploadCoverPhoto(typedFile,AppController.getInstance().getSessionId(),new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        ImageUtil.displayCoverImage(id, userCoverPic, new RequestListener<String, GlideBitmapDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                                ViewUtil.stopSpinner(getActivity());
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                ViewUtil.stopSpinner(getActivity());
+                                return false;
+                            }
+                        });
+                    }
+                }, DefaultValues.DEFAULT_HANDLER_DELAY);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(MyProfileFragment.class.getSimpleName(), "uploadCoverPhoto: failure", error);
+            }
+        });
+    }
+
+    private void uploadProfilePhoto(final long id) {
+        ViewUtil.showSpinner(getActivity());
+
+        Log.d(this.getClass().getSimpleName(), "changeProfilePhoto: Id=" + id);
+
+        ImageUtil.clearProfileImageCache(id);
+
+        File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
+        photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
+        TypedFile typedFile = new TypedFile("application/octet-stream", photo);
+        AppController.getApi().uploadProfilePhoto(typedFile,AppController.getInstance().getSessionId(),new Callback<Response>(){
+            @Override
+            public void success(Response response, Response response2) {
+                if (!hasProfilePic) {
+                    hasProfilePic = true;
+                    uploadProfilePicTipsLayout.setVisibility(View.GONE);
+                    ViewUtil.alertGameStatus(getActivity(),
+                            getActivity().getString(R.string.game_upload_profile_pic_title),
+                            GameConstants.POINTS_UPLOAD_PROFILE_PHOTO);
+                }
+
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        ImageUtil.displayProfileImage(id, userPic, new RequestListener<String, GlideBitmapDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                                ViewUtil.stopSpinner(getActivity());
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                ViewUtil.stopSpinner(getActivity());
+                                return false;
+                            }
+                        });
+                    }
+                }, DefaultValues.DEFAULT_HANDLER_DELAY);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(MyProfileFragment.class.getSimpleName(), "uploadCoverPhoto: failure", error);
+            }
+        });
     }
 }

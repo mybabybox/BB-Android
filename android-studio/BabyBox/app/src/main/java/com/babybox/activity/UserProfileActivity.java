@@ -35,7 +35,6 @@ public class UserProfileActivity extends TrackedFragmentActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         UserProfileFragment profileFragment = new UserProfileFragment();
         profileFragment.setArguments(bundle);
-        //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.placeHolder, profileFragment).commit();
     }
 }

@@ -44,7 +44,7 @@ public class UserProfileFragment extends TrackedFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.profile_fragment, container, false);
+        View view = inflater.inflate(R.layout.user_profile_fragment, container, false);
 
         userName = (TextView) view.findViewById(R.id.usernameText);
         questionsCount = (TextView) view.findViewById(R.id.questionsCount);

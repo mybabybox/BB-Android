@@ -22,7 +22,7 @@ import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.CommunityMainFragment;
 import com.babybox.app.TrackedFragment;
 import com.babybox.fragment.HomeMainFragment;
-import com.babybox.fragment.MyProfileFragment;
+import com.babybox.fragment.ProfileMainFragment;
 import com.babybox.fragment.SchoolsMainFragment;
 import com.babybox.viewmodel.CommunitiesParentVM;
 import com.babybox.viewmodel.CommunityCategoryMapVM;
@@ -222,7 +222,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
         if (!profileClicked) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            selectedFragment = new MyProfileFragment();
+            selectedFragment = new ProfileMainFragment();
             selectedFragment.setTrackedOnce();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
             notificationCount.setVisibility(View.INVISIBLE);
