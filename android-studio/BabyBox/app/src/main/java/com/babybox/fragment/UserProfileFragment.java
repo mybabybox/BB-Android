@@ -19,9 +19,7 @@ import com.babybox.R;
 import com.babybox.activity.NewsfeedActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
-import com.babybox.app.UserInfoCache;
 import com.babybox.util.ImageUtil;
-import com.babybox.util.MessageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ProfileVM;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
@@ -34,10 +32,10 @@ import retrofit.RetrofitError;
 public class UserProfileFragment extends TrackedFragment {
 
     private static final String TAG = UserProfileFragment.class.getName();
-    private ImageView userCoverPic, userPic;
+    private ImageView coverImage, profileImage;
     private TextView questionsCount, answersCount, bookmarksCount, userName, userInfoText;
     private LinearLayout questionMenu, answerMenu, bookmarksMenu, settingsMenu, userInfoLayout;
-    private Button editButton, messageButton;
+    private Button editButton;
     private LinearLayout gameLayout;
     private FrameLayout uploadProfilePicTipsLayout;
 
@@ -50,12 +48,12 @@ public class UserProfileFragment extends TrackedFragment {
         questionsCount = (TextView) view.findViewById(R.id.questionsCount);
         answersCount = (TextView) view.findViewById(R.id.answersCount);
         bookmarksCount = (TextView) view.findViewById(R.id.bookmarksCount);
-        userCoverPic = (ImageView) view.findViewById(R.id.userCoverPic);
-        userPic = (ImageView) view.findViewById(R.id.userImage);
+        coverImage = (ImageView) view.findViewById(R.id.coverImage);
+        profileImage = (ImageView) view.findViewById(R.id.profileImage);
         questionMenu = (LinearLayout) view.findViewById(R.id.menuQuestion);
         answerMenu = (LinearLayout) view.findViewById(R.id.menuAnswer);
 
-        uploadProfilePicTipsLayout = (FrameLayout) view.findViewById(R.id.uploadProfilePicTipsLayout);
+        uploadProfilePicTipsLayout = (FrameLayout) view.findViewById(R.id.uploadProfileImageTipsLayout);
         uploadProfilePicTipsLayout.setVisibility(View.GONE);
 
         bookmarksMenu = (LinearLayout) view.findViewById(R.id.menuBookmarks);
@@ -76,10 +74,8 @@ public class UserProfileFragment extends TrackedFragment {
 
         ImageView editCoverImage = (ImageView) view.findViewById(R.id.editCoverImage);
         editCoverImage.setVisibility(View.GONE);
-        ImageView editUserImage = (ImageView) view.findViewById(R.id.editUserImage);
-        editUserImage.setVisibility(View.GONE);
-
-        messageButton = (Button) view.findViewById(R.id.messageButton);
+        ImageView editProfileImage = (ImageView) view.findViewById(R.id.editProfileImage);
+        editProfileImage.setVisibility(View.GONE);
 
         questionMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,18 +128,6 @@ public class UserProfileFragment extends TrackedFragment {
         });
 
         final long userId = getArguments().getLong("oid");
-        if (userId == UserInfoCache.getUser().getId()) {
-            messageButton.setVisibility(View.GONE);
-        } else {
-            messageButton.setVisibility(View.VISIBLE);
-            messageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    MessageUtil.openConversation(userId, getActivity());
-                }
-            });
-        }
-
         getUserProfile(userId);
 
         return view;
@@ -167,8 +151,7 @@ public class UserProfileFragment extends TrackedFragment {
                     userInfoLayout.setVisibility(View.GONE);
                 }
 
-                ImageUtil.displayProfileImage(userId, userPic);
-                ImageUtil.displayCoverImage(userId, userCoverPic, new RequestListener<String, GlideBitmapDrawable>() {
+                ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
                         ViewUtil.stopSpinner(getActivity());
@@ -181,6 +164,21 @@ public class UserProfileFragment extends TrackedFragment {
                         return false;
                     }
                 });
+                /*
+                ImageUtil.displayCoverImage(userId, coverImage, new RequestListener<String, GlideBitmapDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                        ViewUtil.stopSpinner(getActivity());
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        ViewUtil.stopSpinner(getActivity());
+                        return false;
+                    }
+                });
+                */
             }
 
             @Override

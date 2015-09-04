@@ -28,7 +28,7 @@
                 android:layout_height="30dp"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/mascot_yellow_left" />
+                android:src="@drawable/mascot_box" />
 
             <TextView
                 android:id="@+id/descText"

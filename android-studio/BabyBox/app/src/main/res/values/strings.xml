@@ -176,8 +176,8 @@
     <string name="edit_user_info_name">姓名 : </string>
     <string name="edit_user_info_save">儲存資料</string>
 
-    <string name="edit_user_photo">更改個人照片</string>
-    <string name="edit_cover_photo">更改封面照片</string>
+    <string name="edit_cover_image">更改封面照片</string>
+    <string name="edit_profile_image">更改個人照片</string>
     <string name="request_actionbar_title">邀請</string>
     <string name="notification_actionbar_title">通知</string>
     <string name="no_notification">- 沒有訊息 -</string>
