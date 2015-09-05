@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.babybox.util.ViewUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -49,7 +50,7 @@ public class RequestListFragment extends TrackedFragment {
         listView = (ListView) view.findViewById(R.id.listRequest);
         tipText = (TextView) view.findViewById(R.id.tipText);
 
-        String notif = getArguments().getString("requestNotif");
+        String notif = getArguments().getString(ViewUtil.BUNDLE_KEY_LISTS);
 
         StringBuilder ids = new StringBuilder();
 

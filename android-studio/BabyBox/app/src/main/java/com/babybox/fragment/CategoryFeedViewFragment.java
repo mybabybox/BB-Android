@@ -201,27 +201,27 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
 
     private void selectFeedFilter(FeedFilter.FeedType feedType, boolean loadFeed) {
         if (FeedFilter.FeedType.CATEGORY_POPULAR.equals(feedType)) {
-            ViewUtil.selectButtonStyle(popularFilterButton);
+            ViewUtil.selectFilterButtonStyle(popularFilterButton);
         } else {
-            ViewUtil.unselectButtonStyle(popularFilterButton);
+            ViewUtil.unselectFilterButtonStyle(popularFilterButton);
         }
 
         if (FeedFilter.FeedType.CATEGORY_NEWEST.equals(feedType)) {
-            ViewUtil.selectButtonStyle(newestFilterButton);
+            ViewUtil.selectFilterButtonStyle(newestFilterButton);
         } else {
-            ViewUtil.unselectButtonStyle(newestFilterButton);
+            ViewUtil.unselectFilterButtonStyle(newestFilterButton);
         }
 
         if (FeedFilter.FeedType.CATEGORY_PRICE_LOW_HIGH.equals(feedType)) {
-            ViewUtil.selectButtonStyle(priceLowHighFilterButton);
+            ViewUtil.selectFilterButtonStyle(priceLowHighFilterButton);
         } else {
-            ViewUtil.unselectButtonStyle(priceLowHighFilterButton);
+            ViewUtil.unselectFilterButtonStyle(priceLowHighFilterButton);
         }
 
         if (FeedFilter.FeedType.CATEGORY_PRICE_HIGH_LOW.equals(feedType)) {
-            ViewUtil.selectButtonStyle(priceHighLowFilterButton);
+            ViewUtil.selectFilterButtonStyle(priceHighLowFilterButton);
         } else {
-            ViewUtil.unselectButtonStyle(priceHighLowFilterButton);
+            ViewUtil.unselectFilterButtonStyle(priceHighLowFilterButton);
         }
 
         setFeedType(feedType);
@@ -240,27 +240,27 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
 
     private void selectProductFilter(FeedFilter.FeedProductType productType, boolean loadFeed) {
         if (FeedFilter.FeedProductType.ALL.equals(productType)) {
-            ViewUtil.selectButtonStyle(allFilterButton);
+            ViewUtil.selectFilterButtonStyle(allFilterButton);
         } else {
-            ViewUtil.unselectButtonStyle(allFilterButton);
+            ViewUtil.unselectFilterButtonStyle(allFilterButton);
         }
 
         if (FeedFilter.FeedProductType.NEW.equals(productType)) {
-            ViewUtil.selectButtonStyle(newFilterButton);
+            ViewUtil.selectFilterButtonStyle(newFilterButton);
             if (loadFeed) {
 
             }
         } else {
-            ViewUtil.unselectButtonStyle(newFilterButton);
+            ViewUtil.unselectFilterButtonStyle(newFilterButton);
         }
 
         if (FeedFilter.FeedProductType.USED.equals(productType)) {
-            ViewUtil.selectButtonStyle(usedFilterButton);
+            ViewUtil.selectFilterButtonStyle(usedFilterButton);
             if (loadFeed) {
 
             }
         } else {
-            ViewUtil.unselectButtonStyle(usedFilterButton);
+            ViewUtil.unselectFilterButtonStyle(usedFilterButton);
         }
 
         setProductType(productType);

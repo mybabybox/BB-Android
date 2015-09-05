@@ -26,6 +26,9 @@ public class UserVM {
     public boolean emailValidated = false;
     public boolean newUser = false;
 
+    public int numFollowers = 0;
+    public int numFollowing = 0;
+
     public Long getId() {
         return id;
     }

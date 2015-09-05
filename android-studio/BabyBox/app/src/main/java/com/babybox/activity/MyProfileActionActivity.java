@@ -15,6 +15,7 @@ import com.babybox.fragment.MessageListFragment;
 import com.babybox.fragment.SettingsFragment;
 import com.babybox.fragment.NotificationListFragment;
 import com.babybox.fragment.RequestListFragment;
+import com.babybox.util.ViewUtil;
 
 public class MyProfileActionActivity extends TrackedFragmentActivity {
 
@@ -42,16 +43,16 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
 
         Bundle bundle = new Bundle();
         TrackedFragment fragment = null;
-        switch (getIntent().getStringExtra("key")) {
+        switch (getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE)) {
             case "requests":
                 titleText.setText(getString(R.string.request_actionbar_title));
-                bundle.putString("requestNotif", getIntent().getStringExtra("requestNotif"));
+                bundle.putString(ViewUtil.BUNDLE_KEY_LISTS, getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_LISTS));
                 fragment = new RequestListFragment();
                 fragment.setArguments(bundle);
                 break;
             case "notifications":
                 titleText.setText(getString(R.string.notification_actionbar_title));
-                bundle.putString("notifAll", getIntent().getStringExtra("notifAll"));
+                bundle.putString(ViewUtil.BUNDLE_KEY_LISTS, getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_LISTS));
                 fragment = new NotificationListFragment();
                 fragment.setArguments(bundle);
                 break;
@@ -62,6 +63,10 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
             case "messages":
                 titleText.setText(getString(R.string.pm_actionbar_title));
                 fragment = new MessageListFragment();
+                break;
+            case "":
+                titleText.setText(getString(R.string.orders));
+                //fragment = new MyOrdersFragment();
                 break;
         }
 
@@ -78,33 +83,6 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
                 onBackPressed();
             }
         });
-
-        /*
-        if(getIntent().getStringExtra("key").equals("request")) {
-            titleText.setText("Request");
-            Fragment requestFragment = new RequestListFragment();
-            Bundle bundle1 = new Bundle();
-            String jstring = getIntent().getStringExtra("requestNotif");
-            bundle1.putString("requestNotif", getIntent().getStringExtra("requestNotif"));
-            requestFragment.setArguments(bundle1);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.children_layout, requestFragment).commit();
-        } else if(getIntent().getStringExtra("key").equals("notification")) {
-            titleText.setText("Notification");
-            Fragment notificationFragment = new NotificationListFragment();
-            Bundle bundle1 = new Bundle();
-            String jstring = getIntent().getStringExtra("notifAll");
-            bundle1.putString("notifAll",getIntent().getStringExtra("notifAll"));
-            notificationFragment.setArguments(bundle1);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.children_layout, notificationFragment).commit();
-        } else if(getIntent().getStringExtra("key").equals("logout")) {
-            titleText.setText("Logout");
-            Fragment logoutFragment = new SettingsFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.children_layout, logoutFragment).commit();
-        }
-        */
     }
 }
 

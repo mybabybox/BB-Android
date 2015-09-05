@@ -34,6 +34,10 @@ public class ProfileVM {
     public Long lc;
     public Long wc;
 
+    public boolean following = false;
+    public int numFollowers = 0;
+    public int numFollowing = 0;
+
     public long getId() {
         return id;
     }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.babybox.util.ViewUtil;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
@@ -74,21 +75,9 @@ public class ProfileMainFragment extends TrackedFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra("key","requests");
-                intent.putExtra("requestNotif", gson.toJson(requestNotif));
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE, "requests");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_LISTS, gson.toJson(requestNotif));
                 startActivity(intent);
-
-                /*
-                back.setVisibility(View.INVISIBLE);
-                ((TextView) actionBarView.findViewById(R.id.title)).setText(getString(R.string.request_actionbar_title));
-
-                Fragment requestFragment = new RequestListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("requestNotif", gson.toJson(requestNotif));
-                requestFragment.setArguments(bundle);
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.children_fragment, requestFragment).commit();
-                */
             }
         });
 
@@ -96,21 +85,9 @@ public class ProfileMainFragment extends TrackedFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra("key","notifications");
-                intent.putExtra("notifAll", gson.toJson(notifAll));
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE, "notifications");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_LISTS, gson.toJson(notifAll));
                 startActivity(intent);
-
-                /*
-                back.setVisibility(View.INVISIBLE);
-                ((TextView) actionBarView.findViewById(R.id.title)).setText(getString(R.string.notification_actionbar_title));
-
-                Fragment notificactionFragment = new NotificationListFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("notifAll", gson.toJson(notifAll));
-                notificactionFragment.setArguments(bundle);
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                transaction.replace(R.id.children_fragment, notificactionFragment).commit();
-                */
             }
         });
 
@@ -118,12 +95,13 @@ public class ProfileMainFragment extends TrackedFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra("key", "messages");
-                intent.putExtra("notifAll", gson.toJson(notifAll));
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE, "messages");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_LISTS, gson.toJson(notifAll));
                 startActivity(intent);
             }
         });
-                return view;
+
+        return view;
     }
 
     @Override

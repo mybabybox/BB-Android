@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 import com.babybox.R;
+import com.babybox.activity.EditProfileActivity;
 import com.babybox.activity.NewsfeedActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
@@ -34,16 +35,19 @@ public class UserProfileFragment extends TrackedFragment {
 
     private static final String TAG = UserProfileFragment.class.getName();
     private ImageView coverImage, profileImage;
-    private TextView questionsCount, answersCount, bookmarksCount, userName, userInfoText;
-    private LinearLayout questionMenu, answerMenu, bookmarksMenu, userInfoLayout;
+    private TextView userName, userInfoText, followersText, followingText;
+    private LinearLayout userInfoLayout;
     private RelativeLayout settingsLayout;
-    private Button editButton, followButton;
+    private Button editButton, followButton, ordersButton;
     private LinearLayout gameLayout;
     private FrameLayout tipsFrame;
+
+    private boolean following;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.user_profile_fragment, container, false);
 
         userName = (TextView) view.findViewById(R.id.usernameText);
@@ -56,18 +60,14 @@ public class UserProfileFragment extends TrackedFragment {
         settingsLayout = (RelativeLayout) view.findViewById(R.id.settingsLayout);
         settingsLayout.setVisibility(View.GONE);
 
+        followersText = (TextView) view.findViewById(R.id.followersText);
+        followingText = (TextView) view.findViewById(R.id.followingText);
+
         followButton = (Button) view.findViewById(R.id.followButton);
         followButton.setVisibility(View.VISIBLE);
 
-        questionsCount = (TextView) view.findViewById(R.id.questionsCount);
-        answersCount = (TextView) view.findViewById(R.id.answersCount);
-        bookmarksCount = (TextView) view.findViewById(R.id.bookmarksCount);
-
-        questionMenu = (LinearLayout) view.findViewById(R.id.menuQuestion);
-        answerMenu = (LinearLayout) view.findViewById(R.id.menuAnswer);
-
-        bookmarksMenu = (LinearLayout) view.findViewById(R.id.menuBookmarks);
-        bookmarksMenu.setVisibility(View.GONE);
+        ordersButton = (Button) view.findViewById(R.id.ordersButton);
+        ordersButton.setVisibility(View.GONE);
 
         editButton = (Button) view.findViewById(R.id.editButton);
         editButton.setVisibility(View.GONE);
@@ -84,56 +84,6 @@ public class UserProfileFragment extends TrackedFragment {
         ImageView editProfileImage = (ImageView) view.findViewById(R.id.editProfileImage);
         editProfileImage.setVisibility(View.GONE);
 
-        questionMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                Bundle bundle = new Bundle();
-                bundle.putLong(ViewUtil.BUNDLE_KEY_ID,getArguments().getLong("oid"));
-                bundle.putString("key","userquestion");
-
-                NewsfeedListFragment fragment = new NewsfeedListFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragment.setArguments(bundle);
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.hide(UserProfileFragment.this);
-                fragmentTransaction.replace(R.id.placeHolder, fragment);
-                fragmentTransaction.commit();
-                */
-
-                Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
-                intent.putExtra("id",getArguments().getLong("oid"));
-                intent.putExtra("key","userquestion");
-                startActivity(intent);
-            }
-        });
-
-        answerMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                Bundle bundle = new Bundle();
-                bundle.putLong(ViewUtil.BUNDLE_KEY_ID,getArguments().getLong("oid"));
-                bundle.putString("key","useranswer");
-
-                NewsfeedListFragment fragment = new NewsfeedListFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragment.setArguments(bundle);
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.hide(UserProfileFragment.this);
-                fragmentTransaction.replace(R.id.placeHolder, fragment);
-                fragmentTransaction.commit();
-                */
-
-                Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
-                intent.putExtra("id", getArguments().getLong("oid"));
-                intent.putExtra("key", "useranswer");
-                startActivity(intent);
-            }
-        });
-
         final long userId = getArguments().getLong("oid");
         getUserProfile(userId);
 
@@ -147,8 +97,6 @@ public class UserProfileFragment extends TrackedFragment {
             @Override
             public void success(ProfileVM profile, retrofit.client.Response response) {
                 userName.setText(profile.getDn());
-                questionsCount.setText(profile.getQc() + "");
-                answersCount.setText(profile.getAc() + "");
 
                 // admin only
                 if (AppController.isUserAdmin()) {
@@ -186,6 +134,28 @@ public class UserProfileFragment extends TrackedFragment {
                     }
                 });
                 */
+
+                followersText.setText(ViewUtil.followingFormat(profile.numFollowers));
+                followingText.setText(ViewUtil.followingFormat(profile.numFollowing));
+
+                following = profile.following;
+                if (following) {
+                    ViewUtil.selectFollowButtonStyle(followButton);
+                } else {
+                    ViewUtil.unselectFollowButtonStyle(followButton);
+                }
+
+                followButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        following = !following;
+                        if (following) {
+                            ViewUtil.selectFollowButtonStyle(followButton);
+                        } else {
+                            ViewUtil.unselectFollowButtonStyle(followButton);
+                        }
+                    }
+                });
             }
 
             @Override

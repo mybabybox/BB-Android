@@ -92,6 +92,8 @@
     <string name="suggest_for_you">Suggest For You</string>
     <string name="follow">Follow</string>
     <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="orders">My Orders</string>
 
     <!-- Category tab -->
     <string name="filter_popular">Popular</string>

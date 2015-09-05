@@ -13,7 +13,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.Selection;
 import android.text.Spannable;
@@ -64,6 +63,8 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_SOURCE = "flag";
     public static final String BUNDLE_KEY_FEED_TYPE = "feedType";
     public static final String BUNDLE_KEY_FEED_PRODUCT_TYPE = "feedProductType";
+    public static final String BUNDLE_KEY_ACTION_TYPE = "actionType";
+    public static final String BUNDLE_KEY_LISTS = "lists";
 
     public static final String INTENT_VALUE_REFRESH = "refresh";
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
@@ -153,12 +154,32 @@ public class ViewUtil {
         }
     }
 
-    public static void selectButtonStyle(Button button) {
+    public static String followersFormat(int value) {
+        return value + " " + AppController.getInstance().getString(R.string.followers);
+    }
+
+    public static String followingFormat(int value) {
+        return value + " " + AppController.getInstance().getString(R.string.following);
+    }
+
+    public static void selectFollowButtonStyle(Button button) {
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.white));
+        button.setBackgroundResource(R.drawable.button_following);
+        button.setText(R.string.following);
+    }
+
+    public static void unselectFollowButtonStyle(Button button) {
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.white));
+        button.setBackgroundResource(R.drawable.button_follow);
+        button.setText(R.string.follow);
+    }
+
+    public static void selectFilterButtonStyle(Button button) {
         button.setTextColor(AppController.getInstance().getResources().getColor(R.color.white));
         button.setBackgroundResource(R.drawable.button_filter);
     }
 
-    public static void unselectButtonStyle(Button button) {
+    public static void unselectFilterButtonStyle(Button button) {
         button.setTextColor(AppController.getInstance().getResources().getColor(R.color.light_gray));
         button.setBackgroundResource(R.drawable.button_filter_unselect);
     }

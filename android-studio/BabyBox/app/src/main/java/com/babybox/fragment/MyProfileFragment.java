@@ -26,7 +26,6 @@ import com.babybox.R;
 import com.babybox.activity.EditProfileActivity;
 import com.babybox.activity.GameActivity;
 import com.babybox.activity.MyProfileActionActivity;
-import com.babybox.activity.NewsfeedActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
 import com.babybox.app.UserInfoCache;
@@ -35,7 +34,6 @@ import com.babybox.util.GameConstants;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.BookmarkSummaryVM;
 import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.UserVM;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
@@ -51,8 +49,8 @@ public class MyProfileFragment extends TrackedFragment {
 
     private static final String TAG = MyProfileFragment.class.getName();
     private ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
-    private TextView questionsCount, answersCount, bookmarksCount, userName;
-    private LinearLayout questionMenu, answerMenu, bookmarksMenu, userInfoLayout;
+    private TextView userName, followersText, followingText;
+    private LinearLayout userInfoLayout;
     private RelativeLayout settingsLayout;
     private Long userId;
     private Boolean isPhoto = false;
@@ -61,7 +59,7 @@ public class MyProfileFragment extends TrackedFragment {
     private boolean coverImageClicked = false, profileImageClicked = false;
     private boolean hasProfilePic = false;
 
-    private Button editButton, followButton;
+    private Button editButton, followButton, ordersButton;
     private LinearLayout gameLayout;
     private TextView pointsText;
 
@@ -85,16 +83,14 @@ public class MyProfileFragment extends TrackedFragment {
         editButton = (Button) view.findViewById(R.id.editButton);
         settingsIcon = (ImageView) view.findViewById(R.id.settingsIcon);
 
+        followersText = (TextView) view.findViewById(R.id.followersText);
+        followingText = (TextView) view.findViewById(R.id.followingText);
+
         followButton = (Button) view.findViewById(R.id.followButton);
         followButton.setVisibility(View.GONE);
 
-        questionsCount = (TextView) view.findViewById(R.id.questionsCount);
-        answersCount = (TextView) view.findViewById(R.id.answersCount);
-        bookmarksCount = (TextView) view.findViewById(R.id.bookmarksCount);
-
-        questionMenu = (LinearLayout) view.findViewById(R.id.menuQuestion);
-        answerMenu = (LinearLayout) view.findViewById(R.id.menuAnswer);
-        bookmarksMenu = (LinearLayout) view.findViewById(R.id.menuBookmarks);
+        ordersButton = (Button) view.findViewById(R.id.ordersButton);
+        ordersButton.setVisibility(View.VISIBLE);
 
         userInfoLayout = (LinearLayout) view.findViewById(R.id.userInfoLayout);
         gameLayout = (LinearLayout) view.findViewById(R.id.gameLayout);
@@ -157,45 +153,21 @@ public class MyProfileFragment extends TrackedFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra("id", userId);
-                intent.putExtra("key","settings");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE, "settings");
                 startActivity(intent);
             }
         });
 
-        questionMenu.setOnClickListener(new View.OnClickListener() {
+        ordersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
-                intent.putExtra("id", userId);
-                intent.putExtra("key","question");
-                startActivity(intent);
-            }
-        });
-
-        answerMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
-                intent.putExtra("id",userId);
-                intent.putExtra("key","answer");
-                startActivity(intent);
-            }
-        });
-
-        bookmarksMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
-                intent.putExtra("id",userId);
-                intent.putExtra("key","bookmark");
-                startActivity(intent);
+                //Intent intent = new Intent(getActivity(), MyOrdersActivity.class);
+                //startActivity(intent);
             }
         });
 
         getUserInfo();
         getGameAccount();
-        getBookmarkSummary();
 
         return view;
     }
@@ -218,12 +190,12 @@ public class MyProfileFragment extends TrackedFragment {
                 if (coverImageClicked) {
                     coverImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
                     coverImage.setVisibility(View.VISIBLE);
-                    uploadCoverPhoto(userId);
+                    uploadCoverImage(userId);
                     coverImageClicked = false;
                 } else if (profileImageClicked) {
                     profileImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
                     profileImage.setVisibility(View.VISIBLE);
-                    uploadProfilePhoto(userId);
+                    uploadProfileImage(userId);
                     profileImageClicked = false;
                 }
             }
@@ -248,14 +220,8 @@ public class MyProfileFragment extends TrackedFragment {
 
         UserVM user = UserInfoCache.getUser();
 
-        //Log.d(ProfileFragment.this.getClass().getSimpleName(), "questionsCount - "+user.getQuestionsCount());
-        //Log.d(ProfileFragment.this.getClass().getSimpleName(), "answersCount - "+user.getAnswersCount());
-        //Log.d(ProfileFragment.this.getClass().getSimpleName(), "enableSignInForToday - "+user.isEnableSignInForToday());
-
         userId = user.getId();
         userName.setText(user.getDisplayName());
-        questionsCount.setText(user.getQuestionsCount()+"");
-        answersCount.setText(user.getAnswersCount() + "");
 
         ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override
@@ -285,6 +251,9 @@ public class MyProfileFragment extends TrackedFragment {
             }
         });
         */
+
+        followersText.setText(ViewUtil.followingFormat(user.numFollowers));
+        followingText.setText(ViewUtil.followingFormat(user.numFollowing));
     }
 
     private void getGameAccount() {
@@ -310,21 +279,6 @@ public class MyProfileFragment extends TrackedFragment {
         ViewUtil.stopSpinner(getActivity());
     }
 
-    private void getBookmarkSummary() {
-        AppController.getApi().getBookmarkSummary(AppController.getInstance().getSessionId(), new Callback<BookmarkSummaryVM>() {
-            @Override
-            public void success(BookmarkSummaryVM bookmarkSummary, retrofit.client.Response response) {
-                Log.d(MyProfileFragment.this.getClass().getSimpleName(), "bookmarksCount - "+bookmarkSummary.getQc());
-                bookmarksCount.setText(bookmarkSummary.getQc()+"");
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                error.printStackTrace();
-            }
-        });
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();
@@ -340,7 +294,7 @@ public class MyProfileFragment extends TrackedFragment {
         }
     }
 
-    private void uploadCoverPhoto(final long id){
+    private void uploadCoverImage(final long id){
         ViewUtil.showSpinner(getActivity());
 
         Log.d(this.getClass().getSimpleName(), "changeCoverPhoto: Id=" + id);
@@ -379,7 +333,7 @@ public class MyProfileFragment extends TrackedFragment {
         });
     }
 
-    private void uploadProfilePhoto(final long id) {
+    private void uploadProfileImage(final long id) {
         ViewUtil.showSpinner(getActivity());
 
         Log.d(this.getClass().getSimpleName(), "changeProfilePhoto: Id=" + id);
