@@ -252,7 +252,7 @@ public class MyProfileFragment extends TrackedFragment {
         });
         */
 
-        followersText.setText(ViewUtil.followingFormat(user.numFollowers));
+        followersText.setText(ViewUtil.followersFormat(user.numFollowers));
         followingText.setText(ViewUtil.followingFormat(user.numFollowing));
     }
 

@@ -125,8 +125,8 @@ public class LoginActivity extends AbstractLoginActivity {
         AppController.getInstance().saveSessionId(key);
 
         Intent intent = new Intent(this, SplashActivity.class);
-        intent.putExtra("flag", "FromLoginActivity");
-        intent.putExtra("key", key);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromLoginActivity");
+        intent.putExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY, key);
         startActivity(intent);
         finish();
 

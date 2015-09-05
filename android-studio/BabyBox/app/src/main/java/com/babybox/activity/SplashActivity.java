@@ -44,10 +44,10 @@ public class SplashActivity extends TrackedFragmentActivity {
 
         Intent intent = getIntent();
         if (intent != null &&
-                intent.getStringExtra("flag") != null &&
-                intent.getStringExtra("flag").equals("FromLoginActivity")) {
+                intent.getStringExtra(ViewUtil.BUNDLE_KEY_SOURCE) != null &&
+                intent.getStringExtra(ViewUtil.BUNDLE_KEY_SOURCE).equals("FromLoginActivity")) {
             fromLoginActivity = true;
-            sessionId = intent.getStringExtra("key");
+            sessionId = intent.getStringExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY);
         }
 
         if (sessionId == null) {
@@ -81,7 +81,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                         LoginActivity.startLoginActivity(SplashActivity.this);
                     } else {
                         Intent intent = new Intent(SplashActivity.this, SignupDetailActivity.class);
-                        intent.putExtra("first_name", user.firstName);
+                        intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, user.firstName);
                         startActivity(intent);
                         finish();
                     }

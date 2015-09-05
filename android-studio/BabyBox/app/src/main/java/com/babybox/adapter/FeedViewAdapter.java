@@ -100,9 +100,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             public void onClick(View view) {
                 Intent intent = new Intent(activity, DetailActivity.class);
                 if (item != null) {
-                    intent.putExtra("postId", item.getId());
-                    intent.putExtra("catId", item.getCategoryId());
-                    intent.putExtra("flag", "FromFeedView");
+                    intent.putExtra("postId", item.getId());    // obsolete
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getId());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, item.getCategoryId());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromFeedView");
                     activity.startActivity(intent);
                 }
             }

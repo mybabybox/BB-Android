@@ -57,6 +57,7 @@ import retrofit.RetrofitError;
  */
 public class ViewUtil {
 
+    public static final String BUNDLE_KEY_LOGIN_KEY = "loginKey";
     public static final String BUNDLE_KEY_ID = "id";
     public static final String BUNDLE_KEY_OWNER_ID = "ownerId";
     public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
@@ -65,6 +66,10 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_FEED_PRODUCT_TYPE = "feedProductType";
     public static final String BUNDLE_KEY_ACTION_TYPE = "actionType";
     public static final String BUNDLE_KEY_LISTS = "lists";
+
+    public static final String BUNDLE_KEY_ARG1 = "arg1";
+    public static final String BUNDLE_KEY_ARG2 = "arg2";
+    public static final String BUNDLE_KEY_ARG3 = "arg3";
 
     public static final String INTENT_VALUE_REFRESH = "refresh";
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
@@ -500,12 +505,12 @@ public class ViewUtil {
     // Start Activities
     //
 
-    public static void startCategoryActivity(Activity activity, CategoryVM category, String flag) {
+    public static void startCategoryActivity(Activity activity, CategoryVM category, String source) {
         if (category != null) {
             Log.d(ViewUtil.class.getSimpleName(), "startCategoryActivity with catId - " + category.getId());
             Intent intent = new Intent(activity, CategoryActivity.class);
             intent.putExtra(ViewUtil.BUNDLE_KEY_ID, category.getId());
-            intent.putExtra("flag", flag);
+            intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
             activity.startActivity(intent);
         }
     }

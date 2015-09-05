@@ -155,7 +155,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
 
         Intent intent = new Intent(this, SplashActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromLoginActivity");
-        intent.putExtra("key", key);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY, key);
         startActivity(intent);
         finish();
 

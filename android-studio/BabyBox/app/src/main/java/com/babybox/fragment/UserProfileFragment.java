@@ -135,7 +135,7 @@ public class UserProfileFragment extends TrackedFragment {
                 });
                 */
 
-                followersText.setText(ViewUtil.followingFormat(profile.numFollowers));
+                followersText.setText(ViewUtil.followersFormat(profile.numFollowers));
                 followingText.setText(ViewUtil.followingFormat(profile.numFollowing));
 
                 following = profile.following;

@@ -100,7 +100,7 @@ public class HomeMainFragment extends TrackedFragment {
                 // launch new post page with no comm id, user will select
                 Intent intent = new Intent(HomeMainFragment.this.getActivity(), NewPostActivity.class);
                 intent.putExtra(ViewUtil.BUNDLE_KEY_ID,0L);
-                intent.putExtra("flag","FromHomeActivity");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE,"FromHomeActivity");
                 startActivity(intent);
             }
         });
