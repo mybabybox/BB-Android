@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.text.Selection;
 import android.text.Spannable;
@@ -114,22 +115,22 @@ public class ViewUtil {
     }
 
     public static void setHeightBasedOnChildren(ListView listView) {
-        BaseAdapter listAdapter = (BaseAdapter) listView.getAdapter();
-        if (listAdapter == null) {
+        BaseAdapter adapter = (BaseAdapter) listView.getAdapter();
+        if (adapter == null) {
             // pre-condition
             return;
         }
 
         int totalHeight = 0;
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View item = adapter.getView(i, null, listView);
+            item.measure(0, 0);
+            totalHeight += item.getMeasuredHeight();
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight +
-                (listView.getDividerHeight() * (listAdapter.getCount()-1)) +
+                (listView.getDividerHeight() * (adapter.getCount()-1)) +
                 ViewUtil.getRealDimension(5);  // extra margin
         listView.setLayoutParams(params);
         listView.requestLayout();
@@ -154,12 +155,12 @@ public class ViewUtil {
 
     public static void selectButtonStyle(Button button) {
         button.setTextColor(AppController.getInstance().getResources().getColor(R.color.white));
-        button.setBackgroundResource(R.drawable.button_round_pink);
+        button.setBackgroundResource(R.drawable.button_filter);
     }
 
     public static void unselectButtonStyle(Button button) {
         button.setTextColor(AppController.getInstance().getResources().getColor(R.color.light_gray));
-        button.setBackgroundResource(R.drawable.button_round);
+        button.setBackgroundResource(R.drawable.button_filter_unselect);
     }
 
     public static void fullscreenImagePopup(Activity activity, String source) {
@@ -268,7 +269,8 @@ public class ViewUtil {
     }
 
     public static String priceFormat(double value) {
-        return String.format("$%.2f", value);
+        //return String.format("$%.2f", value);
+        return String.format("$%.0f", value);
     }
 
     //

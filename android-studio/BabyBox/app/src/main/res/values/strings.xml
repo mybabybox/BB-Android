@@ -90,6 +90,8 @@
     <string name="main_tab_trending">Trending</string>
     <string name="main_tab_following">Following</string>
     <string name="suggest_for_you">Suggest For You</string>
+    <string name="follow">Follow</string>
+    <string name="following">Following</string>
 
     <!-- Category tab -->
     <string name="filter_popular">Popular</string>

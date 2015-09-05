@@ -26,7 +26,6 @@ public class PNAppDatesActivity extends TrackedFragmentActivity {
 
     private static final String TAG = PNAppDatesActivity.class.getName();
 
-    private TextView allSchoolsText, hkSchoolsText, klSchoolsText, ntSchoolsText;
     private ListView appDateList;
     private PNBookmarkListAdapter appDateListAdapter;
     private List<PreNurseryVM> allSchoolVMList;
@@ -54,12 +53,6 @@ public class PNAppDatesActivity extends TrackedFragmentActivity {
 
         TextView actionbarTitle = (TextView) findViewById(R.id.actionbarTitle);
         actionbarTitle.setText(getString(R.string.schools_application_date));
-
-        allSchoolsText = (TextView) findViewById(R.id.allSchoolsText);
-        hkSchoolsText = (TextView) findViewById(R.id.hkSchoolsText);
-        klSchoolsText = (TextView) findViewById(R.id.klSchoolsText);
-        ntSchoolsText = (TextView) findViewById(R.id.ntSchoolsText);
-        appDateList = (ListView) findViewById(R.id.appDateList);
 
         appDateList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
@@ -32,10 +33,11 @@ import retrofit.RetrofitError;
 public class UserProfileFragment extends TrackedFragment {
 
     private static final String TAG = UserProfileFragment.class.getName();
-    private ImageView coverImage, profileImage, settingsIcon;
+    private ImageView coverImage, profileImage;
     private TextView questionsCount, answersCount, bookmarksCount, userName, userInfoText;
     private LinearLayout questionMenu, answerMenu, bookmarksMenu, userInfoLayout;
-    private Button editButton;
+    private RelativeLayout settingsLayout;
+    private Button editButton, followButton;
     private LinearLayout gameLayout;
     private FrameLayout tipsFrame;
 
@@ -51,8 +53,11 @@ public class UserProfileFragment extends TrackedFragment {
         tipsFrame = (FrameLayout) view.findViewById(R.id.tipsFrame);
         tipsFrame.setVisibility(View.GONE);
 
-        settingsIcon = (ImageView) view.findViewById(R.id.settingsIcon);
-        settingsIcon.setVisibility(View.GONE);
+        settingsLayout = (RelativeLayout) view.findViewById(R.id.settingsLayout);
+        settingsLayout.setVisibility(View.GONE);
+
+        followButton = (Button) view.findViewById(R.id.followButton);
+        followButton.setVisibility(View.VISIBLE);
 
         questionsCount = (TextView) view.findViewById(R.id.questionsCount);
         answersCount = (TextView) view.findViewById(R.id.answersCount);

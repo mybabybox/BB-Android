@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -52,6 +53,7 @@ public class MyProfileFragment extends TrackedFragment {
     private ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
     private TextView questionsCount, answersCount, bookmarksCount, userName;
     private LinearLayout questionMenu, answerMenu, bookmarksMenu, userInfoLayout;
+    private RelativeLayout settingsLayout;
     private Long userId;
     private Boolean isPhoto = false;
     private String selectedImagePath = null;
@@ -59,7 +61,7 @@ public class MyProfileFragment extends TrackedFragment {
     private boolean coverImageClicked = false, profileImageClicked = false;
     private boolean hasProfilePic = false;
 
-    private Button editButton;
+    private Button editButton, followButton;
     private LinearLayout gameLayout;
     private TextView pointsText;
 
@@ -78,7 +80,13 @@ public class MyProfileFragment extends TrackedFragment {
         profileImage = (ImageView) view.findViewById(R.id.profileImage);
         editCoverImage = (ImageView) view.findViewById(R.id.editCoverImage);
         editProfileImage = (ImageView) view.findViewById(R.id.editProfileImage);
+
+        settingsLayout = (RelativeLayout) view.findViewById(R.id.settingsLayout);
+        editButton = (Button) view.findViewById(R.id.editButton);
         settingsIcon = (ImageView) view.findViewById(R.id.settingsIcon);
+
+        followButton = (Button) view.findViewById(R.id.followButton);
+        followButton.setVisibility(View.GONE);
 
         questionsCount = (TextView) view.findViewById(R.id.questionsCount);
         answersCount = (TextView) view.findViewById(R.id.answersCount);
@@ -89,7 +97,6 @@ public class MyProfileFragment extends TrackedFragment {
         bookmarksMenu = (LinearLayout) view.findViewById(R.id.menuBookmarks);
 
         userInfoLayout = (LinearLayout) view.findViewById(R.id.userInfoLayout);
-        editButton = (Button) view.findViewById(R.id.editButton);
         gameLayout = (LinearLayout) view.findViewById(R.id.gameLayout);
         pointsText = (TextView) view.findViewById(R.id.pointsText);
 
@@ -105,14 +112,6 @@ public class MyProfileFragment extends TrackedFragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), GameActivity.class);
-                startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
-            }
-        });
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
                 startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -141,6 +140,16 @@ public class MyProfileFragment extends TrackedFragment {
                 ImageUtil.openPhotoPicker(MyProfileFragment.this.getActivity(), getString(R.string.edit_profile_image));
                 isPhoto = true;
                 profileImageClicked = true;
+            }
+        });
+
+        settingsLayout.setVisibility(View.VISIBLE);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
             }
         });
 

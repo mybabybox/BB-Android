@@ -623,11 +623,11 @@ public class DetailActivity extends TrackedFragmentActivity {
         } else {
             if (page <= 1) {
                 backButton.setEnabled(false);
-                backButton.setBackgroundResource(R.drawable.rounded_corner_button_gray);
+                backButton.setBackgroundResource(R.drawable.button_gray);
                 backButton.setImageDrawable(getResources().getDrawable(R.drawable.arrow_back_gray));
             } else {
                 backButton.setEnabled(true);
-                backButton.setBackgroundResource(R.drawable.rounded_corner_button_pink);
+                backButton.setBackgroundResource(R.drawable.button_pink);
                 backButton.setImageDrawable(getResources().getDrawable(R.drawable.arrow_back));
 
                 final int pageOffset = page - 1;
@@ -641,11 +641,11 @@ public class DetailActivity extends TrackedFragmentActivity {
 
             if (page >= maxPage) {
                 nextButton.setEnabled(false);
-                nextButton.setBackgroundResource(R.drawable.rounded_corner_button_gray);
+                nextButton.setBackgroundResource(R.drawable.button_gray);
                 nextButton.setImageDrawable(getResources().getDrawable(R.drawable.arrow_next_gray));
             } else {
                 nextButton.setEnabled(true);
-                nextButton.setBackgroundResource(R.drawable.rounded_corner_button_pink);
+                nextButton.setBackgroundResource(R.drawable.button_pink);
                 nextButton.setImageDrawable(getResources().getDrawable(R.drawable.arrow_next));
 
                 final int pageOffset = page - 1;

@@ -608,7 +608,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="@string/signup_details_complete"
-                android:background="@drawable/rounded_corner_signup_button"
+                android:background="@drawable/button_signup"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:layout_marginTop="25dp"

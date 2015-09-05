@@ -1,17 +1,21 @@
 package com.babybox.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.babybox.R;
 import com.babybox.app.CategoryCache;
@@ -25,7 +29,7 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
     private static final String TAG = HomeExploreFeedViewFragment.class.getName();
 
-    private ViewPager viewPager;
+    private HomeCategoryViewPager viewPager;
     private HomeCategoryPagerAdapter adapter;
 
     private LinearLayout dotsLayout;
@@ -45,7 +49,7 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        viewPager = (ViewPager) getHeaderView(inflater).findViewById(R.id.catPager);
+        viewPager = (HomeCategoryViewPager) getHeaderView(inflater).findViewById(R.id.catPager);
         dotsLayout = (LinearLayout) getHeaderView(inflater).findViewById(R.id.dots);
 
         int pageMargin = ViewUtil.getRealDimension(0);
@@ -78,6 +82,40 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
         addDots(adapter.getCount(), dotsLayout, viewPager);
 
         return view;
+    }
+}
+
+class HomeCategoryViewPager extends ViewPager {
+
+    public HomeCategoryViewPager(Context context) {
+        super(context);
+    }
+
+    public HomeCategoryViewPager(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    /**
+     * Fix ViewPager WRAP_CONTENT - http://stackoverflow.com/a/20784791
+     * Get height of the biggest child
+     *
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        int height = 0;
+        for(int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+            int h = child.getMeasuredHeight();
+            if(h > height) height = h;
+        }
+
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }
 

@@ -427,7 +427,7 @@
         <LinearLayout
             android:id="@+id/cancelLayout"
             android:layout_alignParentRight="true"
-            android:background="@drawable/rounded_corner_signup_button"
+            android:background="@drawable/button_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

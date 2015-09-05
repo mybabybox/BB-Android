@@ -123,7 +123,7 @@
             </FrameLayout>
             <TextView
                 android:id="@+id/buttonLogin"
-                android:background="@drawable/rounded_corner_signup_button"
+                android:background="@drawable/button_signup"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="15dp"

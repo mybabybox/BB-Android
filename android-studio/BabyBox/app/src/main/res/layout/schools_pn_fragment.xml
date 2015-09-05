@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/button_round"
+            android:background="@drawable/button_filter_unselect"
             android:id="@+id/buttonsLayout">
             <Button
                 android:id="@+id/buttonListing"

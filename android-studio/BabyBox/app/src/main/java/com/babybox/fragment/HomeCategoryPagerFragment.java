@@ -97,11 +97,6 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     public List<CategoryVM> getCategories() {
         return categories;
     }

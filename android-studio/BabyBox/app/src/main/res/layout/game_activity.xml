@@ -459,7 +459,7 @@
                                 android:layout_height="40dp"
                                 android:id="@+id/whatsappLayout"
                                 android:layout_weight="5"
-                                android:background="@drawable/rounded_corner_button"
+                                android:background="@drawable/button_gray_border"
                                 android:layout_marginLeft="3dp"
                                 android:layout_marginRight="3dp">
 
@@ -490,7 +490,7 @@
                                 android:layout_height="40dp"
                                 android:id="@+id/copyUrlLayout"
                                 android:layout_weight="5"
-                                android:background="@drawable/rounded_corner_button"
+                                android:background="@drawable/button_gray_border"
                                 android:layout_marginLeft="3dp"
                                 android:layout_marginRight="3dp">
 

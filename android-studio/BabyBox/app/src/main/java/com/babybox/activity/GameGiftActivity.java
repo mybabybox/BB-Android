@@ -146,8 +146,8 @@ public class GameGiftActivity extends TrackedFragmentActivity {
                         }
                     });
                 } else {
-                    redeemLayout1.setBackgroundResource(R.drawable.rounded_corner_button_gray);
-                    redeemLayout2.setBackgroundResource(R.drawable.rounded_corner_button_gray);
+                    redeemLayout1.setBackgroundResource(R.drawable.button_gray);
+                    redeemLayout2.setBackgroundResource(R.drawable.button_gray);
                     redeemText1.setText(getString(R.string.game_gifts_redeem_ended));
                     redeemText2.setText(getString(R.string.game_gifts_redeem_ended));
                 }
