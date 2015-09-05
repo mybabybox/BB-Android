@@ -32,12 +32,12 @@ import retrofit.RetrofitError;
 public class UserProfileFragment extends TrackedFragment {
 
     private static final String TAG = UserProfileFragment.class.getName();
-    private ImageView coverImage, profileImage;
+    private ImageView coverImage, profileImage, settingsIcon;
     private TextView questionsCount, answersCount, bookmarksCount, userName, userInfoText;
-    private LinearLayout questionMenu, answerMenu, bookmarksMenu, settingsMenu, userInfoLayout;
+    private LinearLayout questionMenu, answerMenu, bookmarksMenu, userInfoLayout;
     private Button editButton;
     private LinearLayout gameLayout;
-    private FrameLayout uploadProfilePicTipsLayout;
+    private FrameLayout tipsFrame;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,22 +45,24 @@ public class UserProfileFragment extends TrackedFragment {
         View view = inflater.inflate(R.layout.user_profile_fragment, container, false);
 
         userName = (TextView) view.findViewById(R.id.usernameText);
+        coverImage = (ImageView) view.findViewById(R.id.coverImage);
+        profileImage = (ImageView) view.findViewById(R.id.profileImage);
+
+        tipsFrame = (FrameLayout) view.findViewById(R.id.tipsFrame);
+        tipsFrame.setVisibility(View.GONE);
+
+        settingsIcon = (ImageView) view.findViewById(R.id.settingsIcon);
+        settingsIcon.setVisibility(View.GONE);
+
         questionsCount = (TextView) view.findViewById(R.id.questionsCount);
         answersCount = (TextView) view.findViewById(R.id.answersCount);
         bookmarksCount = (TextView) view.findViewById(R.id.bookmarksCount);
-        coverImage = (ImageView) view.findViewById(R.id.coverImage);
-        profileImage = (ImageView) view.findViewById(R.id.profileImage);
+
         questionMenu = (LinearLayout) view.findViewById(R.id.menuQuestion);
         answerMenu = (LinearLayout) view.findViewById(R.id.menuAnswer);
 
-        uploadProfilePicTipsLayout = (FrameLayout) view.findViewById(R.id.uploadProfileImageTipsLayout);
-        uploadProfilePicTipsLayout.setVisibility(View.GONE);
-
         bookmarksMenu = (LinearLayout) view.findViewById(R.id.menuBookmarks);
         bookmarksMenu.setVisibility(View.GONE);
-
-        settingsMenu = (LinearLayout) view.findViewById(R.id.menuSettings);
-        settingsMenu.setVisibility(View.GONE);
 
         editButton = (Button) view.findViewById(R.id.editButton);
         editButton.setVisibility(View.GONE);

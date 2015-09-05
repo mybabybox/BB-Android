@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="@color/feed_bg"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="vertical"
@@ -33,7 +30,8 @@
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="0dp"
                     card_view:cardElevation="2dp"
-                    android:id="@+id/card1">
+                    android:id="@+id/card1"
+                    android:layout_centerHorizontal="true">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -66,7 +64,8 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/card1"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -82,7 +81,8 @@
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="0dp"
                     card_view:cardElevation="2dp"
-                    android:id="@+id/card2">
+                    android:id="@+id/card2"
+                    android:layout_centerHorizontal="true">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -115,7 +115,8 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/card2"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -130,7 +131,8 @@
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="0dp"
                     card_view:cardElevation="2dp"
-                    android:id="@+id/card3">
+                    android:id="@+id/card3"
+                    android:layout_centerHorizontal="true">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -163,7 +165,8 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/card3"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -187,7 +190,8 @@
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="0dp"
                     card_view:cardElevation="2dp"
-                    android:id="@+id/card4">
+                    android:id="@+id/card4"
+                    android:layout_centerHorizontal="true">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -220,7 +224,8 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/card4"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -236,7 +241,8 @@
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="0dp"
                     card_view:cardElevation="2dp"
-                    android:id="@+id/card5">
+                    android:id="@+id/card5"
+                    android:layout_centerHorizontal="true">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -269,7 +275,8 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/card5"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -284,7 +291,8 @@
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="0dp"
                     card_view:cardElevation="2dp"
-                    android:id="@+id/card6">
+                    android:id="@+id/card6"
+                    android:layout_centerHorizontal="true">
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -317,11 +325,12 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/card6"
-                    android:paddingBottom="5dp" />
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

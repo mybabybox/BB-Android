@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.activity.DetailActivity;
 import com.babybox.util.ImageUtil;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
 
 import java.util.List;
@@ -86,14 +87,15 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         //       without this item will not show images correctly
         if (item.hasImage) {
             //Log.d(this.getClass().getSimpleName(), "getView: load " + item.getImages().length + " images to post #" + position + " - " + item.getTitle());
-            loadImage(item.getImages()[0], holder.imageView);
+            loadImage(item.getImages()[0], holder.image);
         } else {
-            holder.imageView.setImageDrawable(activity.getResources().getDrawable(R.drawable.image_loading));
+            holder.image.setImageDrawable(activity.getResources().getDrawable(R.drawable.image_loading));
         }
 
-        holder.textView.setText(item.getTitle());
+        holder.title.setText(item.getTitle());
+        holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
 
-        holder.imageView.setOnClickListener(new View.OnClickListener() {
+        holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, DetailActivity.class);
@@ -123,14 +125,16 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
      * View item.
      */
     class FeedViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView textView;
+        ImageView image;
+        TextView title;
+        TextView price;
 
         public FeedViewHolder(View holder) {
             super(holder);
 
-            imageView = (ImageView) holder.findViewById(R.id.image);
-            textView = (TextView) holder.findViewById(R.id.title);
+            image = (ImageView) holder.findViewById(R.id.image);
+            title = (TextView) holder.findViewById(R.id.title);
+            price = (TextView) holder.findViewById(R.id.price);
         }
     }
 }

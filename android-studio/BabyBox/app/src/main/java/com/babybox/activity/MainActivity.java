@@ -146,7 +146,7 @@ public class MainActivity extends TrackedFragmentActivity {
     }
 
     public void pressHomeTab() {
-        getActionBar().hide();
+        getActionBar().show();
 
         if (!homeClicked) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

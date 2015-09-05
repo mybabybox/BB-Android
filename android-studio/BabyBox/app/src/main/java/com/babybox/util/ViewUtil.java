@@ -267,6 +267,10 @@ public class ViewUtil {
         });
     }
 
+    public static String priceFormat(double value) {
+        return String.format("$%.2f", value);
+    }
+
     //
     // Popup soft keyboard
     //

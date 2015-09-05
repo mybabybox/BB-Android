@@ -49,9 +49,9 @@ import retrofit.mime.TypedFile;
 public class MyProfileFragment extends TrackedFragment {
 
     private static final String TAG = MyProfileFragment.class.getName();
-    private ImageView coverImage, profileImage, editCoverImage, editProfileImage;
+    private ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
     private TextView questionsCount, answersCount, bookmarksCount, userName;
-    private LinearLayout questionMenu, answerMenu, bookmarksMenu, settingsMenu, userInfoLayout;
+    private LinearLayout questionMenu, answerMenu, bookmarksMenu, userInfoLayout;
     private Long userId;
     private Boolean isPhoto = false;
     private String selectedImagePath = null;
@@ -63,7 +63,7 @@ public class MyProfileFragment extends TrackedFragment {
     private LinearLayout gameLayout;
     private TextView pointsText;
 
-    private FrameLayout uploadProfilePicTipsLayout;
+    private FrameLayout tipsFrame;
     private TextView tipsDescText, tipsPointsText, tipsEndText;
     private ImageView cancelTipsButton;
 
@@ -74,23 +74,26 @@ public class MyProfileFragment extends TrackedFragment {
         View view = inflater.inflate(R.layout.user_profile_fragment, container, false);
 
         userName = (TextView) view.findViewById(R.id.usernameText);
-        questionsCount = (TextView) view.findViewById(R.id.questionsCount);
-        answersCount = (TextView) view.findViewById(R.id.answersCount);
-        bookmarksCount = (TextView) view.findViewById(R.id.bookmarksCount);
         coverImage = (ImageView) view.findViewById(R.id.coverImage);
         profileImage = (ImageView) view.findViewById(R.id.profileImage);
         editCoverImage = (ImageView) view.findViewById(R.id.editCoverImage);
         editProfileImage = (ImageView) view.findViewById(R.id.editProfileImage);
+        settingsIcon = (ImageView) view.findViewById(R.id.settingsIcon);
+
+        questionsCount = (TextView) view.findViewById(R.id.questionsCount);
+        answersCount = (TextView) view.findViewById(R.id.answersCount);
+        bookmarksCount = (TextView) view.findViewById(R.id.bookmarksCount);
+
         questionMenu = (LinearLayout) view.findViewById(R.id.menuQuestion);
         answerMenu = (LinearLayout) view.findViewById(R.id.menuAnswer);
         bookmarksMenu = (LinearLayout) view.findViewById(R.id.menuBookmarks);
-        settingsMenu = (LinearLayout) view.findViewById(R.id.menuSettings);
+
         userInfoLayout = (LinearLayout) view.findViewById(R.id.userInfoLayout);
         editButton = (Button) view.findViewById(R.id.editButton);
         gameLayout = (LinearLayout) view.findViewById(R.id.gameLayout);
         pointsText = (TextView) view.findViewById(R.id.pointsText);
 
-        uploadProfilePicTipsLayout = (FrameLayout) view.findViewById(R.id.uploadProfileImageTipsLayout);
+        tipsFrame = (FrameLayout) view.findViewById(R.id.tipsFrame);
         tipsDescText = (TextView) view.findViewById(R.id.tipsDescText);
         tipsPointsText = (TextView) view.findViewById(R.id.tipsPointsText);
         tipsEndText = (TextView) view.findViewById(R.id.tipsEndText);
@@ -141,6 +144,16 @@ public class MyProfileFragment extends TrackedFragment {
             }
         });
 
+        settingsIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
+                intent.putExtra("id", userId);
+                intent.putExtra("key","settings");
+                startActivity(intent);
+            }
+        });
+
         questionMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,16 +180,6 @@ public class MyProfileFragment extends TrackedFragment {
                 Intent intent = new Intent(getActivity(), NewsfeedActivity.class);
                 intent.putExtra("id",userId);
                 intent.putExtra("key","bookmark");
-                startActivity(intent);
-            }
-        });
-
-        settingsMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra("id",userId);
-                intent.putExtra("key","settings");
                 startActivity(intent);
             }
         });
@@ -243,7 +246,7 @@ public class MyProfileFragment extends TrackedFragment {
         userId = user.getId();
         userName.setText(user.getDisplayName());
         questionsCount.setText(user.getQuestionsCount()+"");
-        answersCount.setText(user.getAnswersCount()+"");
+        answersCount.setText(user.getAnswersCount() + "");
 
         ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override
@@ -282,16 +285,16 @@ public class MyProfileFragment extends TrackedFragment {
         hasProfilePic = gameAccount.hasProfilePic();
         if (hasProfilePic ||
                 SharedPreferencesUtil.getInstance().isScreenViewed(SharedPreferencesUtil.Screen.UPLOAD_PROFILE_PIC_TIPS)) {
-            uploadProfilePicTipsLayout.setVisibility(View.GONE);
+            tipsFrame.setVisibility(View.GONE);
         } else {
-            uploadProfilePicTipsLayout.setVisibility(View.VISIBLE);
+            tipsFrame.setVisibility(View.VISIBLE);
             tipsDescText.setText(getString(R.string.game_upload_profile_pic_title));
             tipsPointsText.setText("+" + GameConstants.POINTS_UPLOAD_PROFILE_PHOTO);
             cancelTipsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SharedPreferencesUtil.getInstance().setScreenViewed(SharedPreferencesUtil.Screen.UPLOAD_PROFILE_PIC_TIPS);
-                    uploadProfilePicTipsLayout.setVisibility(View.GONE);
+                    tipsFrame.setVisibility(View.GONE);
                 }
             });
         }
@@ -382,7 +385,7 @@ public class MyProfileFragment extends TrackedFragment {
             public void success(Response response, Response response2) {
                 if (!hasProfilePic) {
                     hasProfilePic = true;
-                    uploadProfilePicTipsLayout.setVisibility(View.GONE);
+                    tipsFrame.setVisibility(View.GONE);
                     ViewUtil.alertGameStatus(getActivity(),
                             getActivity().getString(R.string.game_upload_profile_pic_title),
                             GameConstants.POINTS_UPLOAD_PROFILE_PHOTO);

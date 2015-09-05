@@ -20,6 +20,7 @@
     <color name="light_orange">#fff1dc</color>
     <color name="red">#FF0000</color>
     <color name="dark_blue">#1255B4</color>
+    <color name="green">#70BA3E</color>
 
     <color name="main_menubar_bg">#FCFAF8</color>
     <color name="signup_yellow">#FFBE42</color>
@@ -60,16 +61,5 @@
     <color name="pn_text_light">#4B964B</color>
     <color name="pn_bg">#EBFDEA</color>
     <color name="pn_bg_light">#F3FDF2</color>
-
-    <color name="kg_view_bg">#FCFAF8</color>
-    <color name="kg_actionbar_bg">#BB5C5D</color>
-    <color name="kg_box_border">#C77B7B</color>
-    <color name="kg_box_shadow">#B38989</color>
-    <color name="kg_maroon">#B86B6B</color>
-    <color name="kg_text">#A63D3D</color>
-    <color name="kg_text_light">#B86464</color>
-    <color name="kg_bg">#FFF4F4</color>
-    <color name="kg_bg_light">#FFF9F9</color>
-
 
 </resources>

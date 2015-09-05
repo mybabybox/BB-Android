@@ -61,6 +61,8 @@ public class PostVM {
         this.ios = post.ios;
         this.mob = post.mob;
 
+        this.price = 1 + (int)(Math.random() * 500);
+
         if (post.cs != null) {
             this.comments = new ArrayList<>();
             for (CommunityPostCommentVM comment : post.cs) {

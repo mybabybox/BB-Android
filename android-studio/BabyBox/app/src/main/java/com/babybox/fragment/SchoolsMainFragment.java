@@ -51,10 +51,7 @@ public class SchoolsMainFragment extends TrackedFragment {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == SchoolsPagerAdapter.PN_PAGE)
-                    tabs.setIndicatorColor(getResources().getColor(R.color.pn_box_border));
-                else
-                    tabs.setIndicatorColor(getResources().getColor(R.color.kg_box_border));
+                tabs.setIndicatorColor(getResources().getColor(R.color.pn_box_border));
             }
 
             @Override
