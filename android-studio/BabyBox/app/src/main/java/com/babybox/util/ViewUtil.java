@@ -189,6 +189,16 @@ public class ViewUtil {
         button.setBackgroundResource(R.drawable.button_filter_unselect);
     }
 
+    public static void selectProfileFeedButtonStyle(Button button) {
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.pink));
+        button.setBackgroundResource(R.drawable.button_profile_feed);
+    }
+
+    public static void unselectProfileFeedButtonStyle(Button button) {
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.dark_gray_2));
+        button.setBackgroundResource(R.drawable.button_profile_feed_unselect);
+    }
+
     public static void fullscreenImagePopup(Activity activity, String source) {
         try {
             //frameLayout.getForeground().setAlpha(20);

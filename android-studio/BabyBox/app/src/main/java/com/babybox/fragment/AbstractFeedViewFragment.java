@@ -42,7 +42,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected boolean reload = false;
 
-    abstract protected void loadFeed(int offset, FeedFilter feedFilter);
+    abstract protected void loadFeed(Long offset, FeedFilter feedFilter);
 
     public boolean hasHeader() {
         return headerView != null;
@@ -78,10 +78,15 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                 new RecyclerView.ItemDecoration() {
                     @Override
                     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                        //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
-                        int topMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
-                        int sideMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
-                        outRect.set(sideMargin, topMargin, sideMargin, 0);
+                        if (hasHeader() && headerView == view) {
+                            outRect.set(0, 0, 0, 0);
+                        } else {
+                            //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
+                            int topMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
+                            int bottomMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_BOTTOM_MARGIN);
+                            int sideMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
+                            outRect.set(sideMargin, topMargin, sideMargin, bottomMargin);
+                        }
                     }
                 });
 
@@ -132,7 +137,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         if (feedFilter.feedType != null) {
             ViewUtil.showSpinner(getActivity());
             setFeedFilter(feedFilter);
-            loadFeed(0, feedFilter);
+            loadFeed(0L, feedFilter);
             attachEndlessScrollListener();
             reload = true;
         }
@@ -170,7 +175,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         feedView.setOnScrollListener(new EndlessScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int page) {
-                loadFeed(page - 1, getFeedFilter());
+                loadFeed(Long.valueOf(page - 1), getFeedFilter());
             }
         });
     }

@@ -8,8 +8,8 @@
 
     <!-- view border color and width -->
     <stroke
-        android:width="0.2dp"
-        android:color="@color/light_gray" >
+        android:width="0dp"
+        android:color="@color/white" >
     </stroke>
 
     <!-- If you want to add some padding -->

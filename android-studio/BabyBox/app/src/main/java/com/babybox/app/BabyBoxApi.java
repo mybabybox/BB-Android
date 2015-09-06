@@ -116,14 +116,20 @@ public interface BabyBoxApi {
     // User feeds
     //
 
-    @GET("/get-user-posted-feed/{offset}")
-    public void getUserPostedFeed(@Path("offset") Long offset, @Query("key") String key, Callback<PostVMArray> callback);
+    @GET("/get-user-posted-feed/{id}/{offset}")
+    public void getUserPostedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<PostVMArray> callback);
 
-    @GET("/get-user-liked-feed/{offset}")
-    public void getUserLikedFeed(@Path("offset") Long offset, @Query("key") String key, Callback<PostVMArray> callback);
+    @GET("/get-user-liked-feed/{id}/{offset}")
+    public void getUserLikedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<PostVMArray> callback);
 
-    @GET("/get-user-collection-feed/{offset}")
+    @GET("/get-user-collection-feed/{collectionId}/{offset}")
     public void getUserCollectionFeed(@Path("offset") Long offset, @Path("collectionId") Long collectionId, @Query("key") String key, Callback<PostVMArray> callback);
+
+    @GET("/followings/{userId}/{offset}")
+    public void getFollowings(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVM>> cb);
+
+    @GET("/followers/{userId}/{offset}")
+    public void getFollowers(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVM>> cb);
 
     //
     // Category + post + comments
@@ -202,12 +208,6 @@ public interface BabyBoxApi {
 
     @GET("/collection/{id}")
     public void getCollection(@Path("id") Long id, @Query("key") String key, Callback<CollectionVM> cb);
-
-    @GET("/followings/{userId}")
-    public void getFollowings(@Path("userId") Long userId, @Query("key") String key, Callback<List<UserVM>> cb);
-
-    @GET("/followers/{userId}")
-    public void getFollowers(@Path("userId") Long userId, @Query("key") String key, Callback<List<UserVM>> cb);
 
     //
     // Messages

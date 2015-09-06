@@ -46,7 +46,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
         };
     }
 
-    protected void loadFeed(int offset, FeedFilter feedFilter) {
+    protected void loadFeed(Long offset, FeedFilter feedFilter) {
         if (feedFilter == null || feedFilter.feedType == null) {
             Log.w(this.getClass().getSimpleName(), "loadFeed: offset=" + offset + " with null key!!");
             return;
@@ -56,59 +56,72 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
             initCallback();
         }
 
-        Log.d(this.getClass().getSimpleName(), "loadFeed: offset=" + offset + " with key="+feedFilter.feedType.name());
+        Log.d(this.getClass().getSimpleName(), "loadFeed: offset=" + offset + " with key=" + feedFilter.feedType.name());
         switch (feedFilter.feedType) {
             case HOME_EXPLORE:
-                getHomeExploreFeed(offset);
+                AppController.getApiService().getHomeExploreFeed(
+                        Long.valueOf(offset),
+                        feedCallback);
                 break;
             case HOME_TRENDING:
-                getHomeTrendingFeed(offset);
+                AppController.getApiService().getHomeTrendingFeed(
+                        Long.valueOf(offset),
+                        feedCallback);
                 break;
             case HOME_FOLLOWING:
-                getHomeFollowingFeed(offset);
+                AppController.getApiService().getHomeFollowingFeed(
+                        Long.valueOf(offset),
+                        feedCallback);
                 break;
             case CATEGORY_POPULAR:
-                getCategoryPopularFeed(offset, feedFilter.objId, feedFilter.productType.name());
+                AppController.getApiService().getCategoryPopularFeed(
+                        Long.valueOf(offset),
+                        feedFilter.objId,
+                        feedFilter.productType.name(),
+                        feedCallback);
                 break;
             case CATEGORY_NEWEST:
-                getCategoryNewestFeed(offset, feedFilter.objId, feedFilter.productType.name());
+                AppController.getApiService().getCategoryNewestFeed(
+                        Long.valueOf(offset),
+                        feedFilter.objId,
+                        feedFilter.productType.name(),
+                        feedCallback);
                 break;
             case CATEGORY_PRICE_LOW_HIGH:
-                getCategoryPriceLowHighFeed(offset, feedFilter.objId, feedFilter.productType.name());
+                AppController.getApiService().getCategoryPriceLowHighFeed(
+                        Long.valueOf(offset),
+                        feedFilter.objId,
+                        feedFilter.productType.name(),
+                        feedCallback);
                 break;
             case CATEGORY_PRICE_HIGH_LOW:
-                getCategoryPriceHighLowFeed(offset, feedFilter.objId, feedFilter.productType.name());
+                AppController.getApiService().getCategoryPriceHighLowFeed(
+                        Long.valueOf(offset),
+                        feedFilter.objId,
+                        feedFilter.productType.name(),
+                        feedCallback);
+                break;
+            case USER_COLLECTION:
+            case USER_COLLECTIONS:
+                AppController.getApiService().getUserCollectionFeed(
+                        Long.valueOf(offset),
+                        feedFilter.objId,
+                        feedCallback);
+                break;
+            case USER_POSTED:
+                AppController.getApiService().getUserPostedFeed(
+                        Long.valueOf(offset),
+                        feedFilter.objId,
+                        feedCallback);
+                break;
+            case USER_LIKED:
+                AppController.getApiService().getUserLikedFeed(
+                        Long.valueOf(offset),
+                        feedFilter.objId,
+                        feedCallback);
                 break;
             default:
-                Log.w(this.getClass().getSimpleName(), "loadFeed: unknown default case with key - "+feedFilter.feedType.name());
+                Log.w(this.getClass().getSimpleName(), "loadFeed: unknown default case with key - " + feedFilter.feedType.name());
         }
-    }
-
-    private void getHomeExploreFeed(int offset) {
-        AppController.getApiService().getHomeExploreFeed(Long.valueOf(offset), feedCallback);
-    }
-
-    private void getHomeTrendingFeed(int offset) {
-        AppController.getApiService().getHomeTrendingFeed(Long.valueOf(offset), feedCallback);
-    }
-
-    private void getHomeFollowingFeed(int offset) {
-        AppController.getApiService().getHomeFollowingFeed(Long.valueOf(offset), feedCallback);
-    }
-
-    private void getCategoryPopularFeed(int offset, Long catId, String productType) {
-        AppController.getApiService().getCategoryPopularFeed(Long.valueOf(offset), catId, productType, feedCallback);
-    }
-
-    private void getCategoryNewestFeed(int offset, Long catId, String productType) {
-        AppController.getApiService().getCategoryNewestFeed(Long.valueOf(offset), catId, productType, feedCallback);
-    }
-
-    private void getCategoryPriceLowHighFeed(int offset, Long catId, String productType) {
-        AppController.getApiService().getCategoryPriceLowHighFeed(Long.valueOf(offset), catId, productType, feedCallback);
-    }
-
-    private void getCategoryPriceHighLowFeed(int offset, Long catId, String productType) {
-        AppController.getApiService().getCategoryPriceHighLowFeed(Long.valueOf(offset), catId, productType, feedCallback);
     }
 }

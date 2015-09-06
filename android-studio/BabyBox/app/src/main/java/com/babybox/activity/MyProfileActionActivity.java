@@ -28,7 +28,7 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
 
         setTracked(false);  // track in fragment
 
-        setContentView(R.layout.my_profile_action_activity);
+        setContentView(R.layout.child_layout_view);
 
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.my_actionbar, null),

@@ -19,17 +19,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.File;
-import java.lang.reflect.Field;
-
 import com.babybox.R;
 import com.babybox.activity.EditProfileActivity;
 import com.babybox.activity.GameActivity;
 import com.babybox.activity.MyProfileActionActivity;
 import com.babybox.app.AppController;
-import com.babybox.app.TrackedFragment;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
+import com.babybox.util.FeedFilter;
 import com.babybox.util.GameConstants;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
@@ -40,14 +37,17 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import java.io.File;
+import java.lang.reflect.Field;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 
-public class MyProfileFragment extends TrackedFragment {
+public class MyProfileFeedViewFragment extends FeedViewFragment {
 
-    private static final String TAG = MyProfileFragment.class.getName();
+    private static final String TAG = MyProfileFeedViewFragment.class.getName();
 
     private ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
     private TextView userName, followersText, followingText;
@@ -60,7 +60,7 @@ public class MyProfileFragment extends TrackedFragment {
     private boolean coverImageClicked = false, profileImageClicked = false;
     private boolean hasProfilePic = false;
 
-    private Button editButton, followButton, ordersButton;
+    private Button editButton, followButton, ordersButton, collectionsButton, productsButton, likedButton;
     private LinearLayout gameLayout;
     private TextView pointsText;
 
@@ -68,40 +68,52 @@ public class MyProfileFragment extends TrackedFragment {
     private TextView tipsDescText, tipsPointsText, tipsEndText;
     private ImageView cancelTipsButton;
 
+    private FeedFilter.FeedType feedType;
+
+    @Override
+    protected View getHeaderView(LayoutInflater inflater) {
+        if (headerView == null) {
+            headerView = inflater.inflate(R.layout.user_profile_feed_view_header, null);
+        }
+        return headerView;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.user_profile_fragment, container, false);
+        userName = (TextView) headerView.findViewById(R.id.usernameText);
+        coverImage = (ImageView) headerView.findViewById(R.id.coverImage);
+        profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        editCoverImage = (ImageView) headerView.findViewById(R.id.editCoverImage);
+        editProfileImage = (ImageView) headerView.findViewById(R.id.editProfileImage);
 
-        userName = (TextView) view.findViewById(R.id.usernameText);
-        coverImage = (ImageView) view.findViewById(R.id.coverImage);
-        profileImage = (ImageView) view.findViewById(R.id.profileImage);
-        editCoverImage = (ImageView) view.findViewById(R.id.editCoverImage);
-        editProfileImage = (ImageView) view.findViewById(R.id.editProfileImage);
+        settingsLayout = (RelativeLayout) headerView.findViewById(R.id.settingsLayout);
+        editButton = (Button) headerView.findViewById(R.id.editButton);
+        settingsIcon = (ImageView) headerView.findViewById(R.id.settingsIcon);
 
-        settingsLayout = (RelativeLayout) view.findViewById(R.id.settingsLayout);
-        editButton = (Button) view.findViewById(R.id.editButton);
-        settingsIcon = (ImageView) view.findViewById(R.id.settingsIcon);
+        followersText = (TextView) headerView.findViewById(R.id.followersText);
+        followingText = (TextView) headerView.findViewById(R.id.followingText);
 
-        followersText = (TextView) view.findViewById(R.id.followersText);
-        followingText = (TextView) view.findViewById(R.id.followingText);
-
-        followButton = (Button) view.findViewById(R.id.followButton);
+        followButton = (Button) headerView.findViewById(R.id.followButton);
         followButton.setVisibility(View.GONE);
 
-        ordersButton = (Button) view.findViewById(R.id.ordersButton);
+        ordersButton = (Button) headerView.findViewById(R.id.ordersButton);
         ordersButton.setVisibility(View.VISIBLE);
 
-        userInfoLayout = (LinearLayout) view.findViewById(R.id.userInfoLayout);
-        gameLayout = (LinearLayout) view.findViewById(R.id.gameLayout);
-        pointsText = (TextView) view.findViewById(R.id.pointsText);
+        collectionsButton = (Button) headerView.findViewById(R.id.collectionsButton);
+        productsButton = (Button) headerView.findViewById(R.id.productsButton);
+        likedButton = (Button) headerView.findViewById(R.id.likedButton);
 
-        tipsFrame = (FrameLayout) view.findViewById(R.id.tipsFrame);
-        tipsDescText = (TextView) view.findViewById(R.id.tipsDescText);
-        tipsPointsText = (TextView) view.findViewById(R.id.tipsPointsText);
-        tipsEndText = (TextView) view.findViewById(R.id.tipsEndText);
-        cancelTipsButton = (ImageView) view.findViewById(R.id.cancelTipsButton);
+        userInfoLayout = (LinearLayout) headerView.findViewById(R.id.userInfoLayout);
+        gameLayout = (LinearLayout) headerView.findViewById(R.id.gameLayout);
+        pointsText = (TextView) headerView.findViewById(R.id.pointsText);
+
+        tipsFrame = (FrameLayout) headerView.findViewById(R.id.tipsFrame);
+        tipsDescText = (TextView) headerView.findViewById(R.id.tipsDescText);
+        tipsPointsText = (TextView) headerView.findViewById(R.id.tipsPointsText);
+        tipsEndText = (TextView) headerView.findViewById(R.id.tipsEndText);
+        cancelTipsButton = (ImageView) headerView.findViewById(R.id.cancelTipsButton);
 
         userInfoLayout.setVisibility(View.GONE);
 
@@ -116,7 +128,7 @@ public class MyProfileFragment extends TrackedFragment {
         editCoverImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageUtil.openPhotoPicker(MyProfileFragment.this.getActivity(), getString(R.string.edit_cover_image));
+                ImageUtil.openPhotoPicker(MyProfileFeedViewFragment.this.getActivity(), getString(R.string.edit_cover_image));
                 isPhoto = true;
                 coverImageClicked = true;
             }
@@ -125,7 +137,7 @@ public class MyProfileFragment extends TrackedFragment {
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageUtil.openPhotoPicker(MyProfileFragment.this.getActivity(), getString(R.string.edit_profile_image));
+                ImageUtil.openPhotoPicker(MyProfileFeedViewFragment.this.getActivity(), getString(R.string.edit_profile_image));
                 isPhoto = true;
                 profileImageClicked = true;
             }
@@ -134,7 +146,7 @@ public class MyProfileFragment extends TrackedFragment {
         editProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ImageUtil.openPhotoPicker(MyProfileFragment.this.getActivity(), getString(R.string.edit_profile_image));
+                ImageUtil.openPhotoPicker(MyProfileFeedViewFragment.this.getActivity(), getString(R.string.edit_profile_image));
                 isPhoto = true;
                 profileImageClicked = true;
             }
@@ -170,49 +182,40 @@ public class MyProfileFragment extends TrackedFragment {
         getUserInfo();
         getGameAccount();
 
+        selectFeedFilter(FeedFilter.FeedType.USER_POSTED);
+
         return view;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void selectFeedFilter(FeedFilter.FeedType feedType) {
+        selectFeedFilter(feedType, true);
+    }
 
-        if (requestCode == ViewUtil.SELECT_PICTURE_REQUEST_CODE) {
-            if (data == null)
-                return;
-
-            selectedImageUri = data.getData();
-            selectedImagePath = ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri);
-            String path = selectedImageUri.getPath();
-
-            Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri="+path+" selectedImagePath="+selectedImagePath);
-            Bitmap bp = ImageUtil.resizeAsPreviewThumbnail(selectedImagePath);
-            if (bp != null) {
-                if (coverImageClicked) {
-                    coverImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
-                    coverImage.setVisibility(View.VISIBLE);
-                    uploadCoverImage(userId);
-                    coverImageClicked = false;
-                } else if (profileImageClicked) {
-                    profileImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
-                    profileImage.setVisibility(View.VISIBLE);
-                    uploadProfileImage(userId);
-                    profileImageClicked = false;
-                }
-            }
+    private void selectFeedFilter(FeedFilter.FeedType feedType, boolean loadFeed) {
+        if (FeedFilter.FeedType.USER_COLLECTIONS.equals(feedType)) {
+            ViewUtil.selectProfileFeedButtonStyle(collectionsButton);
+        } else {
+            ViewUtil.unselectProfileFeedButtonStyle(collectionsButton);
         }
 
-        if(requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_VALUE_REFRESH, false);
-            if (refresh) {
-                getUserInfo();
-                getGameAccount();
+        if (FeedFilter.FeedType.USER_POSTED.equals(feedType)) {
+            ViewUtil.selectProfileFeedButtonStyle(productsButton);
+        } else {
+            ViewUtil.unselectProfileFeedButtonStyle(productsButton);
+        }
 
-                // refresh parent activity
-                Intent intent = new Intent();
-                intent.putExtra(ViewUtil.INTENT_VALUE_REFRESH, true);
-                getActivity().setResult(Activity.RESULT_OK, intent);
-            }
+        if (FeedFilter.FeedType.USER_LIKED.equals(feedType)) {
+            ViewUtil.selectProfileFeedButtonStyle(likedButton);
+        } else {
+            ViewUtil.unselectProfileFeedButtonStyle(likedButton);
+        }
+
+        setFeedType(feedType);
+
+        if (loadFeed) {
+            reloadFeed(new FeedFilter(
+                    getFeedType(),
+                    userId));
         }
     }
 
@@ -280,19 +283,12 @@ public class MyProfileFragment extends TrackedFragment {
         ViewUtil.stopSpinner(getActivity());
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
+    public FeedFilter.FeedType getFeedType() {
+        return feedType;
+    }
 
-        try {
-            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
-            childFragmentManager.setAccessible(true);
-            childFragmentManager.set(this, null);
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
+    public void setFeedType(FeedFilter.FeedType feedType) {
+        this.feedType = feedType;
     }
 
     private void uploadCoverImage(final long id){
@@ -344,7 +340,7 @@ public class MyProfileFragment extends TrackedFragment {
         File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
         photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
         TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-        AppController.getApi().uploadProfilePhoto(typedFile,AppController.getInstance().getSessionId(),new Callback<Response>(){
+        AppController.getApi().uploadProfilePhoto(typedFile, AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 if (!hasProfilePic) {
@@ -379,5 +375,63 @@ public class MyProfileFragment extends TrackedFragment {
                 Log.e(MyProfileFragment.class.getSimpleName(), "uploadCoverPhoto: failure", error);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ViewUtil.SELECT_PICTURE_REQUEST_CODE) {
+            if (data == null)
+                return;
+
+            selectedImageUri = data.getData();
+            selectedImagePath = ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri);
+            String path = selectedImageUri.getPath();
+
+            Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri="+path+" selectedImagePath="+selectedImagePath);
+            Bitmap bp = ImageUtil.resizeAsPreviewThumbnail(selectedImagePath);
+            if (bp != null) {
+                if (coverImageClicked) {
+                    coverImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
+                    coverImage.setVisibility(View.VISIBLE);
+                    uploadCoverImage(userId);
+                    coverImageClicked = false;
+                } else if (profileImageClicked) {
+                    profileImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
+                    profileImage.setVisibility(View.VISIBLE);
+                    uploadProfileImage(userId);
+                    profileImageClicked = false;
+                }
+            }
+        }
+
+        if(requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_VALUE_REFRESH, false);
+            if (refresh) {
+                getUserInfo();
+                getGameAccount();
+
+                // refresh parent activity
+                Intent intent = new Intent();
+                intent.putExtra(ViewUtil.INTENT_VALUE_REFRESH, true);
+                getActivity().setResult(Activity.RESULT_OK, intent);
+            }
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

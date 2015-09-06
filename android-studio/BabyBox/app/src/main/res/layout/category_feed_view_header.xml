@@ -9,7 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <ImageView
             android:scaleType="fitXY"
@@ -27,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/dark_gray_2"
-                android:textSize="18dp"
+                android:textSize="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp" />
 
@@ -57,18 +60,19 @@
         android:background="@color/feed_bg"
         android:orientation="vertical"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_height="35dp"
             android:layout_below="@+id/viewBar"
             android:background="@color/feed_bg"
             android:orientation="horizontal"
             android:weightSum="10"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -81,7 +85,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/filter_all"
                     android:id="@+id/allFilterButton"
-                    android:textSize="14dp"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/button_filter"
                     android:textColor="@color/white"
@@ -100,7 +104,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/filter_new"
                     android:id="@+id/newFilterButton"
-                    android:textSize="14dp"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/button_filter_unselect"
                     android:textColor="@color/gray"
@@ -119,7 +123,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/filter_used"
                     android:id="@+id/usedFilterButton"
-                    android:textSize="14dp"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/button_filter_unselect"
                     android:textColor="@color/gray"
@@ -148,7 +152,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/filter_popular"
                     android:id="@+id/popularFilterButton"
-                    android:textSize="14dp"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/button_filter"
                     android:textColor="@color/white"
@@ -166,7 +170,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/filter_newest"
                     android:id="@+id/newestFilterButton"
-                    android:textSize="14dp"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/button_filter_unselect"
                     android:textColor="@color/gray"
@@ -184,7 +188,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/filter_price_low_high"
                     android:id="@+id/priceLowHighFilterButton"
-                    android:textSize="14dp"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/button_filter_unselect"
                     android:textColor="@color/gray"
@@ -202,7 +206,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/filter_price_high_low"
                     android:id="@+id/priceHighLowFilterButton"
-                    android:textSize="14dp"
+                    android:textSize="15dp"
                     android:layout_gravity="center"
                     android:background="@drawable/button_filter_unselect"
                     android:textColor="@color/gray"
@@ -230,7 +234,9 @@
             android:paddingRight="15dp"
             android:paddingBottom="12dp"
             android:layout_below="@+id/viewBar"
-            android:paddingTop="12dp">
+            android:paddingTop="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -255,9 +261,8 @@
             android:layout_height="24dp"
             android:src="@drawable/ic_close"
             android:layout_gravity="right|top"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="5dp"
-            android:padding="6dp" />
+            android:padding="6dp"
+            android:layout_marginRight="10dp" />
 
     </FrameLayout>
 

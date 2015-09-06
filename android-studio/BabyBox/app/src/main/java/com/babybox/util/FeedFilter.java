@@ -12,7 +12,11 @@ public class FeedFilter {
         CATEGORY_POPULAR,
         CATEGORY_NEWEST,
         CATEGORY_PRICE_LOW_HIGH,
-        CATEGORY_PRICE_HIGH_LOW
+        CATEGORY_PRICE_HIGH_LOW,
+        USER_COLLECTIONS,
+        USER_POSTED,
+        USER_LIKED,
+        USER_COLLECTION
     }
 
     public enum FeedProductType {
@@ -31,6 +35,10 @@ public class FeedFilter {
 
     public FeedFilter(FeedType feedType, FeedProductType productType) {
         this(feedType, productType, -1L);
+    }
+
+    public FeedFilter(FeedType feedType, Long objId) {
+        this(feedType, FeedProductType.ALL, objId);
     }
 
     public FeedFilter(FeedType feedType, FeedProductType productType, Long objId) {

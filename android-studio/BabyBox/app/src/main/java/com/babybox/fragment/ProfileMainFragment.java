@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.babybox.app.AppController;
+import com.babybox.app.UserInfoCache;
+import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
 import com.google.gson.Gson;
 
@@ -31,8 +34,8 @@ public class ProfileMainFragment extends TrackedFragment {
 
     public List<NotificationVM> requestNotif, notifAll;
     private ImageView back;
-    private ViewGroup request, notification,message;
-    private TextView requestCount, notificationCount,messageCount;
+    private ViewGroup request, notification, message;
+    private TextView requestCount, notificationCount, messageCount;
     private View actionBarView;
 
     private Gson gson = new Gson();
@@ -41,7 +44,7 @@ public class ProfileMainFragment extends TrackedFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.profile_main_fragment, container, false);
+        View view = inflater.inflate(R.layout.child_layout_view, container, false);
 
         actionBarView = inflater.inflate(R.layout.my_profile_actionbar, null);
 
@@ -66,10 +69,16 @@ public class ProfileMainFragment extends TrackedFragment {
         notificationCount.setVisibility(View.INVISIBLE);
         messageCount.setVisibility(View.INVISIBLE);
 
-        TrackedFragment fragment = new MyProfileFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, DefaultValues.DEFAULT_USER_FEED_TYPE.name());
+        bundle.putString(ViewUtil.BUNDLE_KEY_FEED_PRODUCT_TYPE, DefaultValues.DEFAULT_FEED_PRODUCT_TYPE.name());
+        bundle.putLong(ViewUtil.BUNDLE_KEY_ID, UserInfoCache.getUser().getId());
+
+        TrackedFragment fragment = new MyProfileFeedViewFragment();
+        fragment.setArguments(bundle);
         fragment.setTrackedOnce();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.children_fragment, fragment,"profile").commit();
+        transaction.replace(R.id.childLayout, fragment, "profile").commit();
 
         request.setOnClickListener(new View.OnClickListener() {
             @Override

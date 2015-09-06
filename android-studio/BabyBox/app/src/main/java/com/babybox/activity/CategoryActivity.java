@@ -17,7 +17,7 @@ public class CategoryActivity extends TrackedFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.category_activity);
+        setContentView(R.layout.child_layout_view);
 
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.category_actionbar, null),

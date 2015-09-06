@@ -21,7 +21,7 @@ public class CommunityActivity extends TrackedFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.community_activity);
+        setContentView(R.layout.child_layout_view);
 
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.community_actionbar, null),

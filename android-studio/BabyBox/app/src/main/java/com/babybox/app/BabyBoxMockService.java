@@ -8,6 +8,7 @@ import com.babybox.viewmodel.CommunityVM;
 import com.babybox.viewmodel.PostArray;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMArray;
+import com.babybox.viewmodel.UserVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +126,18 @@ public class BabyBoxMockService extends BabyBoxService {
 
     @Override
     public void getCategoryPriceHighLowFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
+    public void getUserPostedFeed(Long offset, Long id, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
+    public void getUserLikedFeed(Long offset, Long id, Callback<PostVMArray> cb) {
+        getHomeExploreFeed(offset, cb);
+    }
+
+    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<PostVMArray> cb) {
         getHomeExploreFeed(offset, cb);
     }
 

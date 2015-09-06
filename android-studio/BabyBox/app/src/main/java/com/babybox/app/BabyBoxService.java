@@ -1,6 +1,7 @@
 package com.babybox.app;
 
 import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMArray;
@@ -55,6 +56,8 @@ public class BabyBoxService {
         api.initNewUser(AppController.getInstance().getSessionId(), cb);
     }
 
+    // home feeds
+
     public void getHomeExploreFeed(Long offset, Callback<PostVMArray> cb) {
         api.getHomeExploreFeed(offset, AppController.getInstance().getSessionId(), cb);
     }
@@ -66,6 +69,8 @@ public class BabyBoxService {
     public void getHomeFollowingFeed(Long offset, Callback<PostVMArray> cb) {
         api.getHomeFollowingFeed(offset, AppController.getInstance().getSessionId(), cb);
     }
+
+    // category feeds
 
     public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
         api.getCategoryPopularFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
@@ -83,6 +88,30 @@ public class BabyBoxService {
         api.getCategoryPriceHighLowFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
     }
 
+    // user feeds
+
+    public void getUserPostedFeed(Long offset, Long id, Callback<PostVMArray> cb) {
+        api.getUserPostedFeed(offset, id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getUserLikedFeed(Long offset, Long id, Callback<PostVMArray> cb) {
+        api.getUserLikedFeed(offset, id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<PostVMArray> cb) {
+        api.getUserCollectionFeed(offset, collectionId, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getFollowers(Long offset, Long userId, Callback<List<UserVM>> cb) {
+        api.getFollowers(offset, userId, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getFollowings(Long offset, Long userId, Callback<List<UserVM>> cb) {
+        api.getFollowings(offset, userId, AppController.getInstance().getSessionId(), cb);
+    }
+
+    // category
+
     public void getCategories(Callback<List<CategoryVM>> cb) {
         api.getCategories(AppController.getInstance().getSessionId(), cb);
     }
@@ -93,6 +122,16 @@ public class BabyBoxService {
 
     public void getPost(Long id, Callback<PostVM> cb) {
         api.getPost(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    // user profile
+
+    public void getCollections(Long userId, Callback<List<CollectionVM>> cb) {
+        api.getCollections(userId, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getCollection(Long id, Callback<CollectionVM> cb) {
+        api.getCollection(id, AppController.getInstance().getSessionId(), cb);
     }
 }
 

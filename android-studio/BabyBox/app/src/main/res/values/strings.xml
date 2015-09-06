@@ -94,6 +94,9 @@
     <string name="following">Following</string>
     <string name="followers">Followers</string>
     <string name="orders">My Orders</string>
+    <string name="collections">3\nCollections</string>
+    <string name="products">32\nProducts</string>
+    <string name="liked">5\nLiked</string>
 
     <!-- Category tab -->
     <string name="filter_popular">Popular</string>
