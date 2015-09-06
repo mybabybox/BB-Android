@@ -37,7 +37,7 @@ public class CategoryActivity extends TrackedFragmentActivity {
         CategoryFeedViewFragment fragment = new CategoryFeedViewFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.children_layout, fragment).commit();
+        fragmentTransaction.replace(R.id.childLayout, fragment).commit();
     }
 
     @Override

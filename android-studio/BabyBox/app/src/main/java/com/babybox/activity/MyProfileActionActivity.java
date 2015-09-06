@@ -72,7 +72,7 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
 
         if (fragment != null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.children_layout, fragment).commit();
+            transaction.replace(R.id.childLayout, fragment).commit();
             fragment.setTrackedOnce();
         }
 

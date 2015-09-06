@@ -152,7 +152,7 @@ public class PNCommunityActivity extends TrackedFragmentActivity {
         fragment.setSchool(schoolVM);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.children_layout, fragment).commit();
+        fragmentTransaction.replace(R.id.childLayout, fragment).commit();
     }
 
     @Override

@@ -36,8 +36,8 @@ public class CommunityActivity extends TrackedFragmentActivity {
         newPostAction = (ImageView) this.findViewById(R.id.newPostIcon);
 
         Bundle bundle = new Bundle();
-        if (getIntent().getStringExtra("flag") != null) {
-            bundle.putString("flag", (getIntent().getStringExtra("flag")));
+        if (getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_SOURCE) != null) {
+            bundle.putString(ViewUtil.BUNDLE_KEY_SOURCE, (getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_SOURCE)));
         }
 
         bundle.putLong(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
@@ -45,7 +45,7 @@ public class CommunityActivity extends TrackedFragmentActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragment.setArguments(bundle);
         //fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.children_layout, fragment).commit();
+        fragmentTransaction.replace(R.id.childLayout, fragment).commit();
 
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +61,8 @@ public class CommunityActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CommunityActivity.this,NewPostActivity.class);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
-                intent.putExtra("flag","FromCommActivity");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
+                intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromCommActivity");
                 startActivity(intent);
             }
         });

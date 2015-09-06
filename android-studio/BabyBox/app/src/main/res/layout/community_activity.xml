@@ -12,7 +12,7 @@
         android:indeterminate="true"
         android:indeterminateDrawable="@drawable/progress_spinner"></ProgressBar>
     <LinearLayout
-        android:id="@+id/children_layout"
+        android:id="@+id/childLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

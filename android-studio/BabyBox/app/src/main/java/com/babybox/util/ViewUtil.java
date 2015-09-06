@@ -185,7 +185,7 @@ public class ViewUtil {
     }
 
     public static void unselectFilterButtonStyle(Button button) {
-        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.light_gray));
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
         button.setBackgroundResource(R.drawable.button_filter_unselect);
     }
 

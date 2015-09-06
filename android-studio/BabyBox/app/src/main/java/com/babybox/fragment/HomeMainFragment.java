@@ -99,8 +99,8 @@ public class HomeMainFragment extends TrackedFragment {
             public void onClick(View v) {
                 // launch new post page with no comm id, user will select
                 Intent intent = new Intent(HomeMainFragment.this.getActivity(), NewPostActivity.class);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,0L);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE,"FromHomeActivity");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
+                intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromHomeActivity");
                 startActivity(intent);
             }
         });
@@ -139,16 +139,14 @@ public class HomeMainFragment extends TrackedFragment {
  */
 class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
 
-    public static final int NUM_TABS = 3;
-    private static String[] TITLES;
+    private static String[] TITLES = new String[] {
+            AppController.getInstance().getString(R.string.main_tab_explore),
+            AppController.getInstance().getString(R.string.main_tab_trending),
+            AppController.getInstance().getString(R.string.main_tab_following)
+    };
 
     public HomeMainPagerAdapter(FragmentManager fm) {
         super(fm);
-
-        TITLES = new String[NUM_TABS];
-        TITLES[0] = AppController.getInstance().getString(R.string.main_tab_explore);
-        TITLES[1] = AppController.getInstance().getString(R.string.main_tab_trending);
-        TITLES[2] = AppController.getInstance().getString(R.string.main_tab_following);
     }
 
     @Override
