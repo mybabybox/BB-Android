@@ -41,7 +41,7 @@ public class SharedPreferencesUtil {
         HOME_TRENDING_TIPS,
         HOME_FOLLOWING_TIPS,
         CATEGORY_TIPS,
-        UPLOAD_PROFILE_PIC_TIPS,
+        MY_PROFILE_TIPS,
 
         // OBSOLETE...
         MY_NEWSFEED_TIPS

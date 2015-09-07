@@ -13,10 +13,8 @@ public class FeedFilter {
         CATEGORY_NEWEST,
         CATEGORY_PRICE_LOW_HIGH,
         CATEGORY_PRICE_HIGH_LOW,
-        USER_COLLECTIONS,
         USER_POSTED,
-        USER_LIKED,
-        USER_COLLECTION
+        USER_LIKED
     }
 
     public enum FeedProductType {
@@ -45,6 +43,23 @@ public class FeedFilter {
         this.feedType = feedType;
         this.productType = productType;
         this.objId = objId;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null)
+            return false;
+
+        if (other == this)
+            return true;
+
+        if (!(other instanceof FeedFilter))
+            return false;
+
+        FeedFilter o = (FeedFilter) other;
+        return this.feedType.equals(o.feedType) &&
+                this.productType.equals(o.productType) &&
+                this.objId.equals(o.objId);
     }
 
     @Override

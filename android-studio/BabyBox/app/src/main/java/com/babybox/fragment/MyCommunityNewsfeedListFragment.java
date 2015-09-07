@@ -35,7 +35,7 @@ public class MyCommunityNewsfeedListFragment extends NewsfeedListFragment {
     private LinearLayout dotsLayout;
 
     private FrameLayout tipsLayout;
-    private ImageView cancelTipsButton;
+    private ImageView dismissTipsButton;
 
     private View headerView;
 
@@ -98,8 +98,8 @@ public class MyCommunityNewsfeedListFragment extends NewsfeedListFragment {
         } else {
             tipsLayout.setVisibility(View.VISIBLE);
 
-            cancelTipsButton = (ImageView) headerView.findViewById(R.id.cancelTipsButton);
-            cancelTipsButton.setOnClickListener(new View.OnClickListener() {
+            dismissTipsButton = (ImageView) headerView.findViewById(R.id.dismissTipsButton);
+            dismissTipsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SharedPreferencesUtil.getInstance().setScreenViewed(SharedPreferencesUtil.Screen.MY_NEWSFEED_TIPS);

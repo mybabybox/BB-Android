@@ -47,7 +47,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     private Button newFilterButton, usedFilterButton, allFilterButton;
 
     private FrameLayout tipsLayout;
-    private ImageView cancelTipsButton;
+    private ImageView dismissTipsButton;
 
     @Override
     protected View getHeaderView(LayoutInflater inflater) {
@@ -165,8 +165,8 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         } else {
             tipsLayout.setVisibility(View.VISIBLE);
 
-            cancelTipsButton = (ImageView) headerView.findViewById(R.id.cancelTipsButton);
-            cancelTipsButton.setOnClickListener(new View.OnClickListener() {
+            dismissTipsButton = (ImageView) headerView.findViewById(R.id.dismissTipsButton);
+            dismissTipsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SharedPreferencesUtil.getInstance().setScreenViewed(SharedPreferencesUtil.Screen.CATEGORY_TIPS);

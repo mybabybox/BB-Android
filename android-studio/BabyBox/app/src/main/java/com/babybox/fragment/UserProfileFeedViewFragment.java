@@ -1,6 +1,5 @@
 package com.babybox.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,13 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
-
 import com.babybox.R;
-import com.babybox.activity.EditProfileActivity;
-import com.babybox.activity.NewsfeedActivity;
 import com.babybox.app.AppController;
-import com.babybox.app.TrackedFragment;
+import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ProfileVM;
@@ -28,70 +23,115 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import java.lang.reflect.Field;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 
-public class UserProfileFragment extends TrackedFragment {
+public class UserProfileFeedViewFragment extends FeedViewFragment {
 
-    private static final String TAG = UserProfileFragment.class.getName();
-    private ImageView coverImage, profileImage;
-    private TextView userName, userInfoText, followersText, followingText;
-    private LinearLayout userInfoLayout;
-    private RelativeLayout settingsLayout;
-    private Button editButton, followButton, ordersButton;
-    private LinearLayout gameLayout;
-    private FrameLayout tipsFrame;
+    private static final String TAG = UserProfileFeedViewFragment.class.getName();
+
+    protected ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
+    protected TextView userName, followersText, followingText, userInfoText;
+    protected LinearLayout userInfoLayout;
+    protected RelativeLayout settingsLayout;
+    protected Button editButton, followButton, ordersButton, collectionsButton, productsButton, likedButton;
+
+    protected FrameLayout tipsLayout;
+    protected TextView tipsDescText, tipsEndText;
+    protected ImageView dismissTipsButton;
 
     private boolean following;
 
+    protected Long userId;
+    protected FeedFilter.FeedType feedType;
+
+    @Override
+    protected View getHeaderView(LayoutInflater inflater) {
+        if (headerView == null) {
+            headerView = inflater.inflate(R.layout.user_profile_feed_view_header, null);
+        }
+        return headerView;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+        View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.user_profile_fragment, container, false);
+        userName = (TextView) headerView.findViewById(R.id.usernameText);
+        coverImage = (ImageView) headerView.findViewById(R.id.coverImage);
+        profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        editCoverImage = (ImageView) headerView.findViewById(R.id.editCoverImage);
+        editProfileImage = (ImageView) headerView.findViewById(R.id.editProfileImage);
 
-        userName = (TextView) view.findViewById(R.id.usernameText);
-        coverImage = (ImageView) view.findViewById(R.id.coverImage);
-        profileImage = (ImageView) view.findViewById(R.id.profileImage);
+        settingsLayout = (RelativeLayout) headerView.findViewById(R.id.settingsLayout);
+        editButton = (Button) headerView.findViewById(R.id.editButton);
+        settingsIcon = (ImageView) headerView.findViewById(R.id.settingsIcon);
 
-        tipsFrame = (FrameLayout) view.findViewById(R.id.tipsFrame);
-        tipsFrame.setVisibility(View.GONE);
+        followersText = (TextView) headerView.findViewById(R.id.followersText);
+        followingText = (TextView) headerView.findViewById(R.id.followingText);
 
-        settingsLayout = (RelativeLayout) view.findViewById(R.id.settingsLayout);
-        settingsLayout.setVisibility(View.GONE);
+        followButton = (Button) headerView.findViewById(R.id.followButton);
+        ordersButton = (Button) headerView.findViewById(R.id.ordersButton);
 
-        followersText = (TextView) view.findViewById(R.id.followersText);
-        followingText = (TextView) view.findViewById(R.id.followingText);
+        collectionsButton = (Button) headerView.findViewById(R.id.collectionsButton);
+        productsButton = (Button) headerView.findViewById(R.id.productsButton);
+        likedButton = (Button) headerView.findViewById(R.id.likedButton);
 
-        followButton = (Button) view.findViewById(R.id.followButton);
-        followButton.setVisibility(View.VISIBLE);
+        tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
+        dismissTipsButton = (ImageView) headerView.findViewById(R.id.dismissTipsButton);
 
-        ordersButton = (Button) view.findViewById(R.id.ordersButton);
-        ordersButton.setVisibility(View.GONE);
+        userInfoLayout = (LinearLayout) headerView.findViewById(R.id.userInfoLayout);
+        userInfoText = (TextView) headerView.findViewById(R.id.userInfoText);
 
-        editButton = (Button) view.findViewById(R.id.editButton);
-        editButton.setVisibility(View.GONE);
+        // init
+        initLayout();
+        initUserProfile();
 
-        userInfoLayout = (LinearLayout) view.findViewById(R.id.userInfoLayout);
-        userInfoLayout.setVisibility(View.GONE);
-        userInfoText = (TextView) view.findViewById(R.id.userInfoText);
-
-        gameLayout = (LinearLayout) view.findViewById(R.id.gameLayout);
-        gameLayout.setVisibility(View.GONE);
-
-        ImageView editCoverImage = (ImageView) view.findViewById(R.id.editCoverImage);
-        editCoverImage.setVisibility(View.GONE);
-        ImageView editProfileImage = (ImageView) view.findViewById(R.id.editProfileImage);
-        editProfileImage.setVisibility(View.GONE);
-
-        final long userId = getArguments().getLong("oid");
-        getUserProfile(userId);
+        selectFeedFilter(FeedFilter.FeedType.USER_POSTED);
 
         return view;
     }
 
-    private void getUserProfile(final long userId) {
+    /**
+     * Subclass to override
+     */
+    protected void initLayout() {
+        // hide
+        editCoverImage.setVisibility(View.GONE);
+        editProfileImage.setVisibility(View.GONE);
+        settingsLayout.setVisibility(View.GONE);
+        ordersButton.setVisibility(View.GONE);
+        tipsLayout.setVisibility(View.GONE);
+
+        // show
+        followButton.setVisibility(View.VISIBLE);
+        userInfoLayout.setVisibility(View.VISIBLE);
+
+        // actions
+        productsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectFeedFilter(FeedFilter.FeedType.USER_POSTED);
+            }
+        });
+
+        likedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectFeedFilter(FeedFilter.FeedType.USER_LIKED);
+            }
+        });
+    }
+
+    /**
+     * Subclass to override
+     */
+    protected void initUserProfile() {
         ViewUtil.showSpinner(getActivity());
+
+        setUserId(getArguments().getLong(ViewUtil.BUNDLE_KEY_ID));
 
         AppController.getApi().getUserProfile(userId, AppController.getInstance().getSessionId(), new Callback<ProfileVM>() {
             @Override
@@ -160,10 +200,40 @@ public class UserProfileFragment extends TrackedFragment {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(UserProfileFragment.class.getSimpleName(), "getUserProfile: failure", error);
+                Log.e(UserProfileFeedViewFragment.class.getSimpleName(), "getUserProfile: failure", error);
                 ViewUtil.stopSpinner(getActivity());
             }
         });
+    }
+
+    protected void selectFeedFilter(FeedFilter.FeedType feedType) {
+        selectFeedFilter(feedType, true);
+    }
+
+    protected void selectFeedFilter(FeedFilter.FeedType feedType, boolean loadFeed) {
+        if (FeedFilter.FeedType.USER_POSTED.equals(feedType)) {
+            ViewUtil.selectProfileFeedButtonStyle(productsButton);
+        } else {
+            ViewUtil.unselectProfileFeedButtonStyle(productsButton);
+        }
+
+        if (FeedFilter.FeedType.USER_LIKED.equals(feedType)) {
+            ViewUtil.selectProfileFeedButtonStyle(likedButton);
+        } else {
+            ViewUtil.unselectProfileFeedButtonStyle(likedButton);
+        }
+
+        this.feedType = feedType;
+
+        if (loadFeed) {
+            reloadFeed(new FeedFilter(
+                    feedType,
+                    userId));
+        }
+    }
+
+    protected void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

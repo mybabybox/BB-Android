@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Selection;
 import android.text.Spannable;
@@ -46,6 +47,7 @@ import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
+import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.PostVM;
@@ -76,6 +78,13 @@ public class ViewUtil {
     public static final int SELECT_PICTURE_REQUEST_CODE = 2;
 
     public static final String HTML_LINE_BREAK = "<br>";
+
+    public enum FeedItemPosition {
+        UNKNOWN,
+        HEADER,
+        LEFT_COLUMN,
+        RIGHT_COLUMN
+    }
 
     private static Rect displayDimensions = null;
 
@@ -195,8 +204,43 @@ public class ViewUtil {
     }
 
     public static void unselectProfileFeedButtonStyle(Button button) {
-        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.dark_gray_2));
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.dark_gray));
         button.setBackgroundResource(R.drawable.button_profile_feed_unselect);
+    }
+
+    public static FeedItemPosition getFeedItemPosition(AbstractFeedViewFragment feedViewFragment, View feedItemView) {
+        RecyclerView recyclerView = feedViewFragment.getFeedView();
+        int pos = recyclerView.getChildAdapterPosition(feedItemView);
+        if (feedViewFragment.hasHeader()) {
+            if (pos == 0) {
+                return FeedItemPosition.HEADER;
+            }
+            // real position
+            pos = pos - 1;
+        }
+
+        pos = pos % 2;
+        if (pos == 0) {
+            return FeedItemPosition.LEFT_COLUMN;
+        } else if (pos == 1) {
+            return FeedItemPosition.RIGHT_COLUMN;
+        }
+        return FeedItemPosition.UNKNOWN;
+    }
+
+    public static void showTips(final SharedPreferencesUtil.Screen screen, final ViewGroup tipsLayout, final View dismissTipsButton) {
+        if (SharedPreferencesUtil.getInstance().isScreenViewed(screen)) {
+            tipsLayout.setVisibility(View.GONE);
+        } else {
+            tipsLayout.setVisibility(View.VISIBLE);
+            dismissTipsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferencesUtil.getInstance().setScreenViewed(screen);
+                    tipsLayout.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     public static void fullscreenImagePopup(Activity activity, String source) {

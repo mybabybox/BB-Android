@@ -48,12 +48,16 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         return headerView != null;
     }
 
+    public RecyclerView getFeedView() {
+        return feedView;
+    }
+
     protected FeedFilter getFeedFilter() {
         return feedFilter;
     }
 
     protected void setFeedFilter(FeedFilter feedFilter) {
-        Log.d(this.getClass().getSimpleName(), "setFeedFilter: feedFilter=\n"+feedFilter.toString());
+        Log.d(this.getClass().getSimpleName(), "setFeedFilter: feedFilter\n"+feedFilter.toString());
         this.feedFilter = feedFilter;
     }
 
@@ -78,14 +82,20 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                 new RecyclerView.ItemDecoration() {
                     @Override
                     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                        if (hasHeader() && headerView == view) {
+                        //int pos = parent.getChildAdapterPosition(view);
+                        //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
+
+                        int topMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
+                        int bottomMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_BOTTOM_MARGIN);
+                        int sideMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
+
+                        ViewUtil.FeedItemPosition feedItemPosition = ViewUtil.getFeedItemPosition(AbstractFeedViewFragment.this, view);
+                        if (feedItemPosition == ViewUtil.FeedItemPosition.HEADER) {
                             outRect.set(0, 0, 0, 0);
-                        } else {
-                            //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
-                            int topMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
-                            int bottomMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_BOTTOM_MARGIN);
-                            int sideMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
-                            outRect.set(sideMargin, topMargin, sideMargin, bottomMargin);
+                        } else if (feedItemPosition == ViewUtil.FeedItemPosition.LEFT_COLUMN) {
+                            outRect.set(sideMargin * 2, topMargin, sideMargin, bottomMargin);
+                        } else if (feedItemPosition == ViewUtil.FeedItemPosition.RIGHT_COLUMN) {
+                            outRect.set(sideMargin, topMargin, sideMargin * 2, bottomMargin);
                         }
                     }
                 });
@@ -134,6 +144,14 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void reloadFeed(FeedFilter feedFilter) {
+        // reload already fired
+        if (this.feedFilter != null &&
+                this.feedFilter.equals(feedFilter) &&
+                reload) {
+            Log.w(this.getClass().getSimpleName(), "reloadFeed: reload already fired for filter\n"+feedFilter.toString());
+            return;
+        }
+
         if (feedFilter.feedType != null) {
             ViewUtil.showSpinner(getActivity());
             setFeedFilter(feedFilter);
@@ -159,8 +177,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected FeedFilter.FeedProductType getFeedProductType(String productType) {
         if (StringUtils.isEmpty(productType)) {
-            Log.w(this.getClass().getSimpleName(), "getFeedProductType: null productType!!");
-            return null;
+            return FeedFilter.FeedProductType.ALL;
         }
 
         try {
@@ -168,7 +185,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         } catch (IllegalArgumentException e) {
             Log.e(this.getClass().getSimpleName(), "getFeedProductType: Invalid productType="+productType, e);
         }
-        return null;
+        return FeedFilter.FeedProductType.ALL;
     }
 
     protected void attachEndlessScrollListener() {

@@ -11,11 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.babybox.R;
 import com.babybox.app.CategoryCache;
@@ -35,7 +33,7 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
     private LinearLayout dotsLayout;
 
     private FrameLayout tipsLayout;
-    private ImageView cancelTipsButton;
+    private ImageView dismissTipsButton;
 
     @Override
     protected View getHeaderView(LayoutInflater inflater) {
@@ -66,8 +64,8 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
         } else {
             tipsLayout.setVisibility(View.VISIBLE);
 
-            cancelTipsButton = (ImageView) headerView.findViewById(R.id.cancelTipsButton);
-            cancelTipsButton.setOnClickListener(new View.OnClickListener() {
+            dismissTipsButton = (ImageView) headerView.findViewById(R.id.dismissTipsButton);
+            dismissTipsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     SharedPreferencesUtil.getInstance().setScreenViewed(SharedPreferencesUtil.Screen.HOME_EXPLORE_TIPS);
@@ -85,6 +83,10 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
     }
 }
 
+/**
+ * Fix ViewPager WRAP_CONTENT - http://stackoverflow.com/a/20784791
+ * Get height of the biggest child
+ */
 class HomeCategoryViewPager extends ViewPager {
 
     public HomeCategoryViewPager(Context context) {
@@ -95,13 +97,6 @@ class HomeCategoryViewPager extends ViewPager {
         super(context, attrs);
     }
 
-    /**
-     * Fix ViewPager WRAP_CONTENT - http://stackoverflow.com/a/20784791
-     * Get height of the biggest child
-     *
-     * @param widthMeasureSpec
-     * @param heightMeasureSpec
-     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 

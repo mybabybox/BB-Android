@@ -136,7 +136,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MessageDetailActivity.this, UserProfileActivity.class);
-                i.putExtra("oid", getIntent().getLongExtra("uid",0l));
+                i.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra("uid",0l));
                 startActivity(i);
             }
         });

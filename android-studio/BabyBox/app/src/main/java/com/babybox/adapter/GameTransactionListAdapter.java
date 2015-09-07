@@ -14,6 +14,7 @@ import java.util.List;
 import com.babybox.R;
 import com.babybox.activity.UserProfileActivity;
 import com.babybox.util.DateTimeUtil;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.GameTransactionVM;
 
 public class GameTransactionListAdapter extends BaseAdapter {
@@ -88,7 +89,7 @@ public class GameTransactionListAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(activity, UserProfileActivity.class);
-                    intent.putExtra("oid", item.getUid());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getUid());
                     activity.startActivity(intent);
                 }
             });

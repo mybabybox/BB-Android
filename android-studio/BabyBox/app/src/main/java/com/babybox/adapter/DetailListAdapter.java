@@ -239,8 +239,7 @@ public class DetailListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(activity, UserProfileActivity.class);
-                i.putExtra("oid", item.getOid());
-                i.putExtra("name", item.getOn());
+                i.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getOid());
                 activity.startActivity(i);
             }
         });
@@ -249,8 +248,7 @@ public class DetailListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(activity, UserProfileActivity.class);
-                i.putExtra("oid", item.getOid());
-                i.putExtra("name", item.getOn());
+                i.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getOid());
                 activity.startActivity(i);
             }
         });

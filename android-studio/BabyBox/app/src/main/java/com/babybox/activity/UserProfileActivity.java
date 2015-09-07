@@ -7,7 +7,8 @@ import android.view.Gravity;
 
 import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.fragment.UserProfileFragment;
+import com.babybox.fragment.UserProfileFeedViewFragment;
+import com.babybox.util.ViewUtil;
 
 public class UserProfileActivity extends TrackedFragmentActivity {
 
@@ -27,13 +28,13 @@ public class UserProfileActivity extends TrackedFragmentActivity {
         );
 
         Bundle bundle = new Bundle();
-        bundle.putLong("oid", getIntent().getLongExtra("oid", 0l));
+        bundle.putLong(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l));
 
         //set Fragmentclass Arguments
         //Fragmentclass fragobj=new Fragmentclass();
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        UserProfileFragment profileFragment = new UserProfileFragment();
+        UserProfileFeedViewFragment profileFragment = new UserProfileFeedViewFragment();
         profileFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.placeHolder, profileFragment).commit();
     }

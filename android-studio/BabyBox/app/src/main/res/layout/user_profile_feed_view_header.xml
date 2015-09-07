@@ -34,140 +34,141 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
         android:id="@+id/profileImageLayout"
         android:layout_below="@+id/coverImageLayout"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/profileImageFrame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/image_circle"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
 
-            <ImageView
-                android:scaleType="fitXY"
-                android:id="@+id/profileImage"
-                android:layout_width="85dp"
-                android:layout_height="85dp" />
+            <FrameLayout
+                android:id="@+id/profileImageFrame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/image_circle"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:id="@+id/editProfileImage"
-                android:src="@drawable/edit_photo"
-                android:adjustViewBounds="true"
-                android:layout_gravity="bottom|right"
-                android:layout_margin="5dp" />
+                <ImageView
+                    android:scaleType="fitXY"
+                    android:id="@+id/profileImage"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp" />
 
-        </FrameLayout>
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:id="@+id/editProfileImage"
+                    android:src="@drawable/edit_photo"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="5dp" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/profileInfo"
+                android:layout_marginLeft="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/usernameText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20dp"
+                        android:textColor="@color/dark_gray"
+                        android:singleLine="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/settingsLayout"
+                        android:layout_toRightOf="@+id/followButton"
+                        android:layout_marginLeft="5dp"
+                        android:gravity="center_vertical">
+
+                        <Button
+                            android:id="@+id/editButton"
+                            android:layout_width="68dp"
+                            android:layout_height="28dp"
+                            android:textSize="14dp"
+                            android:background="@drawable/button_gray_border"
+                            android:text="@string/edit_user_info"
+                            android:textColor="@color/gray"
+                            android:layout_centerVertical="true"
+                            android:textAlignment="center"
+                            android:textAllCaps="false"
+                            android:layout_toLeftOf="@+id/settingsIcon"
+                            android:layout_marginRight="10dp" />
+
+                        <ImageView
+                            android:id="@+id/settingsIcon"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:background="@drawable/ic_settings"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_centerVertical="true" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/ratingsLayout">
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/profileInfo"
-            android:layout_marginLeft="5dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/userInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="false"
+                android:layout_below="@+id/tipsLayout"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:id="@+id/usernameText"
+                    android:id="@+id/userInfoText"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20dp"
-                    android:textColor="@color/dark_gray"
-                    android:singleLine="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/settingsLayout"
-                    android:layout_toRightOf="@+id/followButton"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center_vertical">
-
-                    <Button
-                        android:id="@+id/editButton"
-                        android:layout_width="68dp"
-                        android:layout_height="28dp"
-                        android:textSize="14dp"
-                        android:background="@drawable/button_gray_border"
-                        android:text="@string/edit_user_info"
-                        android:textColor="@color/gray"
-                        android:layout_centerVertical="true"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:layout_toLeftOf="@+id/settingsIcon"
-                        android:layout_marginRight="10dp" />
-
-                    <ImageView
-                        android:id="@+id/settingsIcon"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:background="@drawable/ic_settings"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dp"
-                        android:layout_centerVertical="true" />
-                </RelativeLayout>
+                    android:layout_height="match_parent"
+                    android:layout_weight="75"
+                    android:text="-"
+                    android:textSize="14dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/admin_green" />
 
             </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:id="@+id/ratingsLayout">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/gameLayout">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/game_l1"
-                        android:layout_gravity="center_vertical" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/game_points_desc"
-                        android:id="@+id/pointsDesc"
-                        android:textColor="@color/dark_gray_2"
-                        android:textSize="15dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        android:id="@+id/pointsText"
-                        android:textStyle="bold"
-                        android:textSize="18dp"
-                        android:textColor="@color/game_orange"
-                        android:layout_marginLeft="7dp"
-                        android:layout_gravity="center_vertical" />
-
-                </LinearLayout>
-            </LinearLayout>
-
         </LinearLayout>
 
     </LinearLayout>
@@ -286,129 +287,92 @@
         android:layout_below="@+id/bar2"
         android:layout_margin="10dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
             android:id="@+id/tipsLayout"
-            android:layout_below="@+id/bar2"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
             android:visibility="gone">
 
-            <FrameLayout
+                <LinearLayout
+                    android:id="@+id/tips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                android:id="@+id/tipsFrame">
-
-                    <LinearLayout
-                        android:id="@+id/tips"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:background="@drawable/schools_info_box"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="5dp"
-                        android:layout_below="@+id/viewBar"
-                        android:paddingTop="5dp">
-
-                        <ImageView
-                            android:id="@+id/mascot"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:scaleType="fitCenter"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/mascot_box" />
-
-                        <TextView
-                            android:id="@+id/tipsReminderText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="15dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/dark_gray_2"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="3dp"
-                            android:text="@string/tips_reminder" />
-
-                        <TextView
-                            android:id="@+id/tipsDescText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="15dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/dark_gray_2"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="3dp" />
-
-                        <TextView
-                            android:id="@+id/tipsPointsText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/game_orange"
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="2dp"
-                            android:layout_gravity="center_vertical" />
-
-                        <TextView
-                            android:id="@+id/tipsEndText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/game_note_points"
-                            android:textSize="15dp"
-                            android:textStyle="bold"
-                            android:textColor="@color/dark_gray_2"
-                            android:layout_gravity="center_vertical" />
-
-                    </LinearLayout>
+                    android:orientation="horizontal"
+                    android:background="@drawable/schools_info_box"
+                    android:layout_below="@+id/viewBar"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp">
 
                     <ImageView
-                        android:id="@+id/cancelTipsButton"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_close"
-                        android:layout_gravity="right|top"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="15dp"
-                        android:padding="6dp" />
+                        android:id="@+id/mascot"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/mascot_box" />
 
-                </FrameLayout>
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tipsReminderText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_gray_2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/tips_reminder" />
 
-        <LinearLayout
-            android:id="@+id/userInfoLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/view_bg"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_alignParentBottom="false"
-            android:layout_below="@+id/tipsLayout"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:visibility="gone">
+                    <TextView
+                        android:id="@+id/tipsDescText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_gray_2"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp" />
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tipsPointsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/game_orange"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_gravity="center_vertical" />
 
-                <TextView
-                    android:id="@+id/userInfoText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_weight="75"
-                    android:text="-"
-                    android:textSize="14dp"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/admin_green" />
+                    <TextView
+                        android:id="@+id/tipsEndText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/game_note_points"
+                        android:textSize="15dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/dark_gray_2"
+                        android:layout_gravity="center_vertical" />
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/dismissTipsButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_close"
+                    android:layout_gravity="right|top"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:padding="6dp" />
+
+            </FrameLayout>
+
     </LinearLayout>
 
     <View
@@ -427,13 +391,6 @@
         android:orientation="horizontal"
         android:weightSum="10">
 
-        <View
-            android:layout_width="0.8dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bar2"
-            android:layout_below="@+id/profileImageLayout"
-            android:id="@+id/barVertical3" />
-
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -442,9 +399,31 @@
             android:textSize="15dp"
             android:layout_gravity="center"
             android:background="@drawable/button_profile_feed"
-            android:textColor="@color/pink"
+            android:textColor="@color/dark_gray"
             android:textAllCaps="false"
             android:layout_weight="3.33"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="0.8dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bar2"
+            android:layout_below="@+id/profileImageLayout"
+            android:id="@+id/barVertical3"
+            android:visibility="gone" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/products"
+            android:id="@+id/productsButton"
+            android:textSize="15dp"
+            android:layout_gravity="center"
+            android:background="@drawable/button_profile_feed_unselect"
+            android:textColor="@color/pink"
+            android:textAllCaps="false"
+            android:layout_weight="5"
             android:textStyle="bold" />
 
         <View
@@ -457,42 +436,15 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/products"
-            android:id="@+id/productsButton"
-            android:textSize="15dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_profile_feed_unselect"
-            android:textColor="@color/dark_gray_2"
-            android:textAllCaps="false"
-            android:layout_weight="3.33"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="0.8dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bar2"
-            android:layout_below="@+id/profileImageLayout"
-            android:id="@+id/barVertical5" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:text="@string/liked"
             android:id="@+id/likedButton"
             android:textSize="15dp"
             android:layout_gravity="center"
             android:background="@drawable/button_profile_feed_unselect"
-            android:textColor="@color/dark_gray_2"
+            android:textColor="@color/dark_gray"
             android:textAllCaps="false"
-            android:layout_weight="3.33"
+            android:layout_weight="5"
             android:textStyle="bold" />
-
-        <View
-            android:layout_width="0.8dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bar2"
-            android:layout_below="@+id/profileImageLayout"
-            android:id="@+id/barVertical6" />
 
     </LinearLayout>
 
