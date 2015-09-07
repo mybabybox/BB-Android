@@ -1,6 +1,5 @@
 package com.babybox.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import org.parceler.apache.commons.lang.StringUtils;
 
 import com.babybox.R;
-import com.babybox.activity.NewPNPostActivity;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ExternalLauncherUtil;
 import com.babybox.util.ViewUtil;
@@ -75,16 +73,6 @@ public class PNCommunityFragment extends AbstractSchoolCommunityFragment {
         openDayBox = (LinearLayout) listHeader.findViewById(R.id.openDayBox);
         appDateValueText = (TextView) listHeader.findViewById(R.id.appDateValueText);
         openDayValueText = (TextView) listHeader.findViewById(R.id.openDayValueText);
-
-        newPostLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), NewPNPostActivity.class);
-                intent.putExtra("id", getArguments().getLong("commId"));
-                intent.putExtra("flag", "FromPN");
-                startActivity(intent);
-            }
-        });
 
         gotoCommLayout.setOnClickListener(new View.OnClickListener() {
             @Override

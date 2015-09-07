@@ -14,7 +14,7 @@
             android:id="@+id/tips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:background="@drawable/tips_box_pink"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
@@ -23,21 +23,23 @@
             android:paddingTop="12dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/community_newsfeed_header_text_1"
-                android:textSize="15dp"
-                android:textColor="@color/white"
-                android:layout_gravity="center_horizontal" />
+
+            <ImageView
+                android:id="@+id/mascot"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/mascot_box" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/community_newsfeed_header_text_2"
+                android:text="@string/home_explore_tips"
                 android:textSize="15dp"
                 android:textColor="@color/white"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp" />
 
         </LinearLayout>
 

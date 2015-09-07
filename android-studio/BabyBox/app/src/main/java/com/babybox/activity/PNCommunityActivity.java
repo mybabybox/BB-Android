@@ -1,7 +1,6 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -21,7 +20,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class PNCommunityActivity extends TrackedFragmentActivity {
-    private ImageView whatsappAction,bookmarkAction,newPostAction,backAction;
+    private ImageView whatsappAction,bookmarkAction,newPostAction,backImage;
     private Boolean isBookmarked;
     private PreNurseryVM schoolVM;
 
@@ -43,7 +42,7 @@ public class PNCommunityActivity extends TrackedFragmentActivity {
         whatsappAction = (ImageView) findViewById(R.id.whatsappAction);
         bookmarkAction = (ImageView) findViewById(R.id.bookmarkAction);
         newPostAction = (ImageView) findViewById(R.id.newPostIcon);
-        backAction = (ImageView) findViewById(R.id.backImage);
+        backImage = (ImageView) findViewById(R.id.backImage);
 
         getSchoolInfo(getIntent().getLongExtra("id", 0L));
 
@@ -70,20 +69,10 @@ public class PNCommunityActivity extends TrackedFragmentActivity {
             }
         });
 
-        backAction.setOnClickListener(new View.OnClickListener() {
+        backImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-            }
-        });
-
-        newPostAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PNCommunityActivity.this,NewPNPostActivity.class);
-                intent.putExtra("id",schoolVM.getCommId());
-                intent.putExtra("flag","FromPN");
-                startActivity(intent);
             }
         });
     }
@@ -144,9 +133,9 @@ public class PNCommunityActivity extends TrackedFragmentActivity {
 
     private void initFragment() {
         Bundle bundle = new Bundle();
-        bundle.putLong("commId", getIntent().getLongExtra("commId", 0L));
-        bundle.putLong("id", getIntent().getLongExtra("id", 0L));
-        bundle.putString("flag", getIntent().getStringExtra("flag"));
+        bundle.putLong(ViewUtil.BUNDLE_KEY_CATEGORY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, 0L));
+        bundle.putLong(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L));
+        bundle.putString(ViewUtil.BUNDLE_KEY_SOURCE, getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_SOURCE));
 
         PNCommunityFragment fragment = new PNCommunityFragment();
         fragment.setSchool(schoolVM);

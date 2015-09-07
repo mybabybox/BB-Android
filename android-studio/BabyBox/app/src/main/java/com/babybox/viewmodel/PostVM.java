@@ -1,5 +1,7 @@
 package com.babybox.viewmodel;
 
+import com.babybox.util.ViewUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +63,7 @@ public class PostVM {
         this.ios = post.ios;
         this.mob = post.mob;
 
-        this.price = 1 + (int)(Math.random() * 500);
+        this.price = ViewUtil.random(1, 500);
 
         if (post.cs != null) {
             this.comments = new ArrayList<>();

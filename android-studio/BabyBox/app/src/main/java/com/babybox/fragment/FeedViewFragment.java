@@ -10,7 +10,9 @@ import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.PostVMArray;
+import com.babybox.viewmodel.PostVM;
+
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -20,7 +22,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
 
     private static final String TAG = FeedViewFragment.class.getName();
 
-    protected Callback<PostVMArray> feedCallback;
+    protected Callback<List<PostVM>> feedCallback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,10 +32,10 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
     }
 
     protected void initCallback() {
-        feedCallback = new Callback<PostVMArray>() {
+        feedCallback = new Callback<List<PostVM>>() {
             @Override
-            public void success(final PostVMArray array, Response response) {
-                loadFeedItemsToList(array.getPosts());
+            public void success(final List<PostVM> posts, Response response) {
+                loadFeedItemsToList(posts);
                 ViewUtil.stopSpinner(getActivity());
             }
 

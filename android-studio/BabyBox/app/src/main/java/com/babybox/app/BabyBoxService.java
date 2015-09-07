@@ -4,7 +4,6 @@ import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.PostVM;
-import com.babybox.viewmodel.PostVMArray;
 import com.babybox.viewmodel.UserVM;
 
 import java.util.List;
@@ -58,47 +57,47 @@ public class BabyBoxService {
 
     // home feeds
 
-    public void getHomeExploreFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getHomeExploreFeed(Long offset, Callback<List<PostVM>> cb) {
         api.getHomeExploreFeed(offset, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getHomeTrendingFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getHomeTrendingFeed(Long offset, Callback<List<PostVM>> cb) {
         api.getHomeTrendingFeed(offset, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getHomeFollowingFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getHomeFollowingFeed(Long offset, Callback<List<PostVM>> cb) {
         api.getHomeFollowingFeed(offset, AppController.getInstance().getSessionId(), cb);
     }
 
     // category feeds
 
-    public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+    public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
         api.getCategoryPopularFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getCategoryNewestFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+    public void getCategoryNewestFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
         api.getCategoryNewestFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getCategoryPriceLowHighFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+    public void getCategoryPriceLowHighFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
         api.getCategoryPriceLowHighFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getCategoryPriceHighLowFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+    public void getCategoryPriceHighLowFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
         api.getCategoryPriceHighLowFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
     }
 
     // user feeds
 
-    public void getUserPostedFeed(Long offset, Long id, Callback<PostVMArray> cb) {
+    public void getUserPostedFeed(Long offset, Long id, Callback<List<PostVM>> cb) {
         api.getUserPostedFeed(offset, id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getUserLikedFeed(Long offset, Long id, Callback<PostVMArray> cb) {
+    public void getUserLikedFeed(Long offset, Long id, Callback<List<PostVM>> cb) {
         api.getUserLikedFeed(offset, id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<PostVMArray> cb) {
+    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<List<PostVM>> cb) {
         api.getUserCollectionFeed(offset, collectionId, AppController.getInstance().getSessionId(), cb);
     }
 

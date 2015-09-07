@@ -18,6 +18,7 @@ import com.babybox.activity.PNCommunityActivity;
 import com.babybox.adapter.PNBookmarkListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PreNurseryVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -57,10 +58,9 @@ public class PNBookmarksFragment extends TrackedFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 PreNurseryVM vm = bookmarkListAdapter.getItem(i);
-
                 Intent intent = new Intent(getActivity(), PNCommunityActivity.class);
-                intent.putExtra("commId",vm.getCommId());
-                intent.putExtra("id", vm.getId());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID,vm.getCommId());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, vm.getId());
                 startActivity(intent);
             }
         });

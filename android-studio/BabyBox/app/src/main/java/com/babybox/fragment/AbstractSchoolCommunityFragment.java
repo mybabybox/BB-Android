@@ -21,6 +21,7 @@ import com.babybox.adapter.NewsfeedListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
 import com.babybox.util.DefaultValues;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.PostArray;
 import retrofit.Callback;
@@ -56,7 +57,7 @@ public abstract class AbstractSchoolCommunityFragment extends TrackedFragment {
         listView.addHeaderView(listHeader);
         listView.addFooterView(loadingFooter);      // need to add footer before set adapter
 
-        getNewsFeedByCommunityId(getArguments().getLong("commId"));
+        getNewsFeedByCommunityId(getArguments().getLong(ViewUtil.BUNDLE_KEY_CATEGORY_ID));
 
         feedItems = new ArrayList<>();
         feedListAdapter = new NewsfeedListAdapter(getActivity(), feedItems, false);
@@ -87,9 +88,9 @@ public abstract class AbstractSchoolCommunityFragment extends TrackedFragment {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 CommunityPostVM post = feedListAdapter.getItem(position - headerViewsCount);
                 if (post != null) {
-                    intent.putExtra("postId", post.getId());
-                    intent.putExtra("commId", post.getCid());
-                    intent.putExtra("flag", getIntentFlag());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_POST_ID, post.getId());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, post.getCid());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, getIntentFlag());
                     startActivity(intent);
                 }
             }
@@ -101,7 +102,7 @@ public abstract class AbstractSchoolCommunityFragment extends TrackedFragment {
             public void onLoadMore(int page, int totalItemsCount) {
                 loadingFooter.setVisibility(View.VISIBLE);
                 loadNewsfeed(
-                        getArguments().getLong("commId"),
+                        getArguments().getLong(ViewUtil.BUNDLE_KEY_CATEGORY_ID),
                         feedItems.get(feedItems.size() - 1).getUt() + "",       // NOTE: use updateTime not createTime!!
                         page - 1);
             }
@@ -110,7 +111,7 @@ public abstract class AbstractSchoolCommunityFragment extends TrackedFragment {
         listView.post(new Runnable() {
             @Override
             public void run() {
-                if ("FromCommentImage".equals(getArguments().getString("flag"))) {
+                if ("FromCommentImage".equals(getArguments().getString(ViewUtil.BUNDLE_KEY_SOURCE))) {
                     //listView.smoothScrollToPosition(1);
                 } else {
                     listView.scrollTo(0, 0);

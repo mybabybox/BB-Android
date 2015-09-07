@@ -8,10 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.babybox.app.AppController;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
@@ -33,7 +31,6 @@ import retrofit.client.Response;
 public class ProfileMainFragment extends TrackedFragment {
 
     public List<NotificationVM> requestNotif, notifAll;
-    private ImageView back;
     private ViewGroup request, notification, message;
     private TextView requestCount, notificationCount, messageCount;
     private View actionBarView;
@@ -61,9 +58,6 @@ public class ProfileMainFragment extends TrackedFragment {
         notificationCount = (TextView) actionBarView.findViewById(R.id.notificationCount);
         messageCount = (TextView) actionBarView.findViewById(R.id.messageCount);
         message = (ViewGroup) actionBarView.findViewById(R.id.messageLayout);
-
-        back = (ImageView) actionBarView.findViewById(R.id.backAction);
-        back.setVisibility(View.INVISIBLE);
 
         requestCount.setVisibility(View.INVISIBLE);
         notificationCount.setVisibility(View.INVISIBLE);

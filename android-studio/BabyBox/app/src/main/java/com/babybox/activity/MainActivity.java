@@ -12,20 +12,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.babybox.R;
 import com.babybox.app.AppController;
-import com.babybox.app.LocalCommunityTabCache;
 import com.babybox.app.NotificationCache;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.fragment.CommunityMainFragment;
 import com.babybox.app.TrackedFragment;
 import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
 import com.babybox.fragment.SchoolsMainFragment;
-import com.babybox.viewmodel.CommunitiesParentVM;
-import com.babybox.viewmodel.CommunityCategoryMapVM;
 import com.babybox.viewmodel.NotificationsParentVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -37,9 +31,9 @@ public class MainActivity extends TrackedFragmentActivity {
     private ImageView homeImage;
     private TextView homeText;
 
-    private LinearLayout commsLayout;
-    private ImageView commsImage;
-    private TextView commsText;
+    private LinearLayout notificationsLayout;
+    private ImageView notificationsImage;
+    private TextView notificationsText;
 
     private LinearLayout schoolsLayout;
     private ImageView schoolsImage;
@@ -49,10 +43,7 @@ public class MainActivity extends TrackedFragmentActivity {
     private ImageView profileImage;
     private TextView profileText;
 
-    private boolean homeClicked = false, commsClicked = false, schoolsClicked = false, profileClicked = false;
-
-    private boolean topicCommunityTabLoaded = false;
-    private boolean yearCommunityTabLoaded = false;
+    private boolean homeClicked = false, notificationsClicked = false, schoolsClicked = false, profileClicked = false;
 
     private TextView notificationCount;
 
@@ -80,9 +71,9 @@ public class MainActivity extends TrackedFragmentActivity {
         homeImage = (ImageView) findViewById(R.id.homeImage);
         homeText = (TextView) findViewById(R.id.homeText);
 
-        commsLayout = (LinearLayout) findViewById(R.id.commsLayout);
-        commsImage = (ImageView) findViewById(R.id.commsImage);
-        commsText = (TextView) findViewById(R.id.commsText);
+        notificationsLayout = (LinearLayout) findViewById(R.id.notificationsLayout);
+        notificationsImage = (ImageView) findViewById(R.id.notificationsImage);
+        notificationsText = (TextView) findViewById(R.id.notificationsText);
 
         schoolsLayout = (LinearLayout) findViewById(R.id.schoolsLayout);
         schoolsImage = (ImageView) findViewById(R.id.schoolsImage);
@@ -101,11 +92,11 @@ public class MainActivity extends TrackedFragmentActivity {
             }
         });
 
-        commsLayout.setOnClickListener(new View.OnClickListener() {
+        notificationsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Community tab clicked");
-                pressCommTab();
+                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Notifications tab clicked");
+                pressNotificationsTab();
             }
         });
 
@@ -124,13 +115,13 @@ public class MainActivity extends TrackedFragmentActivity {
                 pressProfileTab();
             }
         });
+
+        pressHomeTab();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-        init();
 
         NotificationCache.refresh(new Callback<NotificationsParentVM>() {
             @Override
@@ -157,8 +148,8 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(homeImage, homeText, R.drawable.mn_home_sel, R.color.sharp_pink);
         homeClicked = true;
 
-        setMenuButton(commsImage, commsText, R.drawable.mn_comm, R.color.dark_gray_2);
-        commsClicked = false;
+        setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
+        notificationsClicked = false;
 
         setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag, R.color.dark_gray_2);
         schoolsClicked = false;
@@ -169,20 +160,22 @@ public class MainActivity extends TrackedFragmentActivity {
         setUnreadNotificationsCount();
     }
 
-    public void pressCommTab() {
+    public void pressNotificationsTab() {
         getActionBar().hide();
 
-        if (!commsClicked) {
+        if (!notificationsClicked) {
+            /*
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            selectedFragment = new CommunityMainFragment();
+            selectedFragment = new NotificationMainFragment();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
+            */
         }
 
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
         homeClicked = false;
 
-        setMenuButton(commsImage, commsText, R.drawable.mn_comm_sel, R.color.sharp_pink);
-        commsClicked = true;
+        setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif_sel, R.color.sharp_pink);
+        notificationsClicked = true;
 
         setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag, R.color.dark_gray_2);
         schoolsClicked = false;
@@ -205,8 +198,8 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
         homeClicked = false;
 
-        setMenuButton(commsImage, commsText, R.drawable.mn_comm, R.color.dark_gray_2);
-        commsClicked = false;
+        setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
+        notificationsClicked = false;
 
         setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag_sel, R.color.sharp_pink);
         schoolsClicked = true;
@@ -231,8 +224,8 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
         homeClicked = false;
 
-        setMenuButton(commsImage, commsText, R.drawable.mn_comm, R.color.dark_gray_2);
-        commsClicked = false;
+        setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
+        notificationsClicked = false;
 
         setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag, R.color.dark_gray_2);
         schoolsClicked = false;
@@ -288,57 +281,6 @@ public class MainActivity extends TrackedFragmentActivity {
         super.onActivityResult(requestCode, resultCode, data);
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
-    private void init() {
-        if (LocalCommunityTabCache.getMyCommunities() == null) {
-            LocalCommunityTabCache.refreshMyCommunities();
-        }
-
-        if (LocalCommunityTabCache.isCommunityCategoryMapListEmpty()) {
-            topicCommunityTabLoaded = false;
-            yearCommunityTabLoaded = false;
-
-            AppController.getApi().getTopicCommunityCategoriesMap(false, AppController.getInstance().getSessionId(),
-                    new Callback<List<CommunityCategoryMapVM>>() {
-                        @Override
-                        public void success(List<CommunityCategoryMapVM> array, retrofit.client.Response response) {
-                            Log.d("MainActivity", "api.getTopicCommunityCategoriesMap.success: CommunityCategoryMapVM list size - " + array.size());
-
-                            LocalCommunityTabCache.addToCommunityCategoryMapList(LocalCommunityTabCache.CommunityTabType.TOPIC_COMMUNITY, array);
-
-                            topicCommunityTabLoaded = true;
-                            if (topicCommunityTabLoaded && yearCommunityTabLoaded) {
-                                pressHomeTab();
-                            }
-                        }
-
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Log.e(MainActivity.class.getSimpleName(), "init.api.getTopicCommunityCategoriesMap: failure", error);
-                        }
-                    });
-
-            AppController.getApi().getZodiacYearCommunities(AppController.getInstance().getSessionId(),
-                    new Callback<CommunitiesParentVM>() {
-                        @Override
-                        public void success(CommunitiesParentVM communitiesParent, retrofit.client.Response response) {
-                            Log.d("MainActivity", "api.getZodiacYearCommunities.success: CommunitiesParentVM list size - " + communitiesParent.communities.size());
-
-                            LocalCommunityTabCache.addToCommunityCategoryMapList(LocalCommunityTabCache.CommunityTabType.ZODIAC_YEAR_COMMUNITY, communitiesParent);
-
-                            yearCommunityTabLoaded = true;
-                            if (topicCommunityTabLoaded && yearCommunityTabLoaded) {
-                                pressHomeTab();
-                            }
-                        }
-
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Log.e(MainActivity.class.getSimpleName(), "init.api.getZodiacYearCommunities: failure", error);
-                        }
-                    });
         }
     }
 

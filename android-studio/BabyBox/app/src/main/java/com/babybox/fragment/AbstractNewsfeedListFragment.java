@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.babybox.util.ViewUtil;
 import com.yalantis.phoenix.PullToRefreshView;
 
 import java.util.ArrayList;
@@ -95,9 +96,9 @@ public abstract class AbstractNewsfeedListFragment extends TrackedFragment {
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                 CommunityPostVM post = (CommunityPostVM) listAdapter.getItem(position - headerViewsCount);
                 if (post != null) {
-                    intent.putExtra("postId", post.getId());
-                    intent.putExtra("commId", post.getCid());
-                    intent.putExtra("flag","FromNewsfeed");
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_POST_ID, post.getId());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, post.getCid());
+                    intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE,"FromNewsfeed");
                     startActivity(intent);
                 }
             }

@@ -32,16 +32,16 @@ import java.util.List;
 
 import com.babybox.R;
 import com.babybox.adapter.EmoticonListAdapter;
-import com.babybox.adapter.PopupMyCommunityListAdapter;
+import com.babybox.adapter.PopupCategoryListAdapter;
 import com.babybox.app.AppController;
+import com.babybox.app.CategoryCache;
 import com.babybox.app.EmoticonCache;
-import com.babybox.app.LocalCommunityTabCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.CommunitiesWidgetChildVM;
+import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.PostResponse;
@@ -56,8 +56,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected LinearLayout selectCommunityLayout;
     protected TextView selectCommunityText;
     protected ImageView selectCommunityIcon;
-    protected TextView communityName;
-    protected ImageView communityIcon;
+    protected TextView categoryName;
+    protected ImageView categoryIcon;
     protected ImageView backImage, browseImage, emoImage;
     protected TextView postTitle, postContent, postAction, editTextInFocus;
 
@@ -70,9 +70,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected List<EmoticonVM> emoticonVMList = new ArrayList<>();
     protected EmoticonListAdapter emoticonListAdapter;
 
-    protected Long communityId;
-    protected PopupWindow myCommunityPopup, emoPopup;
-    protected PopupMyCommunityListAdapter adapter;
+    protected Long catId;
+    protected PopupWindow categoryPopup, emoPopup;
+    protected PopupCategoryListAdapter adapter;
 
     protected boolean postSuccess = false;
     protected int imageUploadSuccessCount = 0;
@@ -99,8 +99,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
         selectCommunityLayout = (LinearLayout) findViewById(R.id.selectCommunityLayout);
         selectCommunityText = (TextView) findViewById(R.id.selectCommunityText);
         selectCommunityIcon = (ImageView) findViewById(R.id.selectCommunityIcon);
-        communityIcon = (ImageView) findViewById(R.id.commIcon);
-        communityName = (TextView) findViewById(R.id.communityName);
+        categoryIcon = (ImageView) findViewById(R.id.commIcon);
+        categoryName = (TextView) findViewById(R.id.communityName);
         browseImage = (ImageView) findViewById(R.id.browseImage);
         emoImage = (ImageView) findViewById(R.id.emoImage);
         postTitle = (TextView) findViewById(R.id.postTitle);
@@ -124,10 +124,10 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         Long commId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
         if (commId == 0L) {
-            communityId = null;
+            catId = null;
             communityLayout.setVisibility(View.VISIBLE);
         } else {
-            communityId = commId;
+            catId = commId;
             communityLayout.setVisibility(View.GONE);
         }
         Log.d(this.getClass().getSimpleName(), "onCreate: communityId=" + commId);
@@ -136,7 +136,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         selectCommunityLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initMyCommunityPopup();
+                initCategoryPopup();
             }
         });
 
@@ -189,22 +189,22 @@ public class NewPostActivity extends TrackedFragmentActivity {
     }
 
     protected void updateSelectCommunityLayout() {
-        if (communityId == null) {
+        if (catId == null) {
             selectCommunityText.setVisibility(View.VISIBLE);
             selectCommunityIcon.setVisibility(View.VISIBLE);
-            communityIcon.setVisibility(View.GONE);
-            communityName.setVisibility(View.GONE);
+            categoryIcon.setVisibility(View.GONE);
+            categoryName.setVisibility(View.GONE);
         } else {
             selectCommunityText.setVisibility(View.GONE);
             selectCommunityIcon.setVisibility(View.GONE);
-            communityIcon.setVisibility(View.VISIBLE);
-            communityName.setVisibility(View.VISIBLE);
+            categoryIcon.setVisibility(View.VISIBLE);
+            categoryName.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ViewUtil.SELECT_PICTURE_REQUEST_CODE && resultCode == RESULT_OK &&
+        if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
                 data != null && photos.size() < DefaultValues.MAX_POST_IMAGES) {
 
             selectedImageUri = data.getData();
@@ -243,14 +243,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
         }
     }
 
-    /**
-     * To be overriden by child new post activity.
-     * @return
-     */
-    protected List<CommunitiesWidgetChildVM> getMyCommunities() {
-        return LocalCommunityTabCache.getMyCommunities().communities;
-    }
-
     protected void doPost() {
         String title = postTitle.getText().toString().trim();
         String content = postContent.getText().toString().trim();
@@ -265,8 +257,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
             return;
         }
 
-        if (communityId == null) {
-            initMyCommunityPopup();
+        if (catId == null) {
+            initCategoryPopup();
             return;
         }
 
@@ -274,8 +266,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         final boolean withPhotos = photos.size() > 0;
 
-        Log.d(this.getClass().getSimpleName(), "doPost: communityId=" + communityId + " title=" + title);
-        AppController.getApi().newCommunityPost(new NewPost(communityId, title, content, withPhotos), AppController.getInstance().getSessionId(), new Callback<PostResponse>() {
+        Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title);
+        AppController.getApi().newCommunityPost(new NewPost(catId, title, content, withPhotos), AppController.getInstance().getSessionId(), new Callback<PostResponse>() {
             @Override
             public void success(PostResponse postResponse, Response response) {
                 postSuccess = true;
@@ -331,51 +323,50 @@ public class NewPostActivity extends TrackedFragmentActivity {
         Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_success), Toast.LENGTH_LONG).show();
     }
 
-    protected void initMyCommunityPopup() {
+    protected void initCategoryPopup() {
         try {
             LayoutInflater inflater = (LayoutInflater) NewPostActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            View layout = inflater.inflate(R.layout.my_community_popup_window,
+            View layout = inflater.inflate(R.layout.category_popup_window,
                     (ViewGroup) findViewById(R.id.popupElement));
 
-            if (myCommunityPopup == null) {
-                myCommunityPopup = new PopupWindow(
+            if (categoryPopup == null) {
+                categoryPopup = new PopupWindow(
                         layout,
                         ViewUtil.getRealDimension(DefaultValues.MY_COMMUNITY_POPUP_WIDTH),
                         ViewUtil.getRealDimension(DefaultValues.MY_COMMUNITY_POPUP_HEIGHT),
                         true);
             }
 
-            myCommunityPopup.setBackgroundDrawable(new BitmapDrawable(getResources(), ""));
-            myCommunityPopup.setOutsideTouchable(false);
-            myCommunityPopup.setFocusable(true);
-            myCommunityPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            categoryPopup.setBackgroundDrawable(new BitmapDrawable(getResources(), ""));
+            categoryPopup.setOutsideTouchable(false);
+            categoryPopup.setFocusable(true);
+            categoryPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
             ListView listView = (ListView) layout.findViewById(R.id.communityList);
-            adapter = new PopupMyCommunityListAdapter(this, getMyCommunities());
+            adapter = new PopupCategoryListAdapter(this, CategoryCache.getCategories());
             listView.setAdapter(adapter);
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    CommunitiesWidgetChildVM community = adapter.getItem(position);
-                    communityId = community.getId();
+                    CategoryVM category = adapter.getItem(position);
+                    catId = category.getId();
 
-                    communityName.setText(community.getDn());
-                    int iconMapped = ImageMapping.map(community.getGi());
+                    categoryName.setText(category.getName());
+                    int iconMapped = ImageMapping.map(category.getIcon());
                     if (iconMapped != -1) {
-                        //Log.d(this.getClass().getSimpleName(), "initMyCommunityPopup: replace source with local comm icon - " + commIcon);
-                        communityIcon.setImageDrawable(getResources().getDrawable(iconMapped));
+                        categoryIcon.setImageDrawable(getResources().getDrawable(iconMapped));
                     } else {
-                        Log.d(this.getClass().getSimpleName(), "initMyCommunityPopup: load comm icon from background - " + community.getGi());
-                        ImageUtil.displayCircleImage(community.getGi(), communityIcon);
+                        Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
+                        ImageUtil.displayCircleImage(category.getIcon(), categoryIcon);
                     }
 
                     updateSelectCommunityLayout();
-                    myCommunityPopup.dismiss();
-                    myCommunityPopup = null;
-                    Log.d(this.getClass().getSimpleName(), "initMyCommunityPopup: listView.onItemClick: community="+community.getId()+"|"+community.getDn());
+                    categoryPopup.dismiss();
+                    categoryPopup = null;
+                    Log.d(this.getClass().getSimpleName(), "initCategoryPopup: listView.onItemClick: category="+category.getId()+"|"+category.getName());
                 }
             });
         } catch (Exception e) {
@@ -438,9 +429,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
         if (postSuccess ||
                 (StringUtils.isEmpty(title) && StringUtils.isEmpty(content))) {
             super.onBackPressed();
-            if (myCommunityPopup != null) {
-                myCommunityPopup.dismiss();
-                myCommunityPopup = null;
+            if (categoryPopup != null) {
+                categoryPopup.dismiss();
+                categoryPopup = null;
             }
             return;
         }

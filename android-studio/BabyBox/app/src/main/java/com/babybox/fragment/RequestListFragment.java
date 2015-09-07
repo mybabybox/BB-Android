@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.babybox.activity.CategoryActivity;
 import com.babybox.util.ViewUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.babybox.R;
-import com.babybox.activity.CommunityActivity;
 import com.babybox.adapter.RequestListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
@@ -109,7 +109,7 @@ public class RequestListFragment extends TrackedFragment {
                             long commId = UrlUtil.parseCommunityUrlId(item.getUrl().getOnClick());
                             Log.d(RequestListFragment.this.getClass().getSimpleName(), "click request: commId="+commId);
 
-                            Intent intent = new Intent(getActivity(), CommunityActivity.class);
+                            Intent intent = new Intent(getActivity(), CategoryActivity.class);
                             intent.putExtra("id", commId);
                             intent.putExtra("flag", "FromRequest");
                             startActivity(intent);

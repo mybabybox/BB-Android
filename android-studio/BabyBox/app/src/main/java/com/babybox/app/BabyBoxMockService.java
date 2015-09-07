@@ -1,5 +1,6 @@
 package com.babybox.app;
 
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommunitiesParentVM;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
@@ -7,8 +8,6 @@ import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.CommunityVM;
 import com.babybox.viewmodel.PostArray;
 import com.babybox.viewmodel.PostVM;
-import com.babybox.viewmodel.PostVMArray;
-import com.babybox.viewmodel.UserVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,25 +20,32 @@ public class BabyBoxMockService extends BabyBoxService {
 
     private long feedTime;
 
+    private Long[] postImages = new Long[] {
+            580L, 726L, 753L, 754L, 755L, 775L, 776L, 790L, 814L, 815L, 816L, 817L, 820L, 821L, 1484L, 1481L
+    };
+
     public BabyBoxMockService(BabyBoxApi api) {
         super(api);
     }
 
     @Override
-    public void getHomeExploreFeed(Long offset, Callback<PostVMArray> cb) {
-        final Callback<PostVMArray> callback = cb;
+    public void getHomeExploreFeed(Long offset, Callback<List<PostVM>> cb) {
+        final Callback<List<PostVM>> callback = cb;
         AppController.getApi().getNewsfeed(offset, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
             @Override
             public void success(PostArray posts, Response response) {
-                PostVMArray array = new PostVMArray();
-                array.posts = new ArrayList<>();
+                List<PostVM> array = new ArrayList<>();
                 for (CommunityPostVM post : posts.posts) {
                     if (post.hasImage) {
-                        array.posts.add(new PostVM(post));
+                        array.add(new PostVM(post));
                     }
                 }
-                if (posts.posts.size() > 0 && array.posts.size() == 0) {
-                    array.posts.add(new PostVM(posts.posts.get(0)));    // dummy to continue endless scroll
+                if (posts.posts.size() > 0 && array.size() == 0) {
+                    CommunityPostVM post = posts.posts.get(0);
+                    post.imgs = new Long[1];
+                    post.imgs[0] = postImages[ViewUtil.random(0, postImages.length - 1)];
+                    post.hasImage = true;
+                    array.add(new PostVM(post));    // dummy to continue endless scroll
                 }
                 callback.success(array, response);
             }
@@ -52,33 +58,36 @@ public class BabyBoxMockService extends BabyBoxService {
     }
 
     @Override
-    public void getHomeTrendingFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getHomeTrendingFeed(Long offset, Callback<List<PostVM>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
     @Override
-    public void getHomeFollowingFeed(Long offset, Callback<PostVMArray> cb) {
+    public void getHomeFollowingFeed(Long offset, Callback<List<PostVM>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
     @Override
-    public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
-        final Callback<PostVMArray> callback = cb;
+    public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
+        final Callback<List<PostVM>> callback = cb;
         if (offset == 0) {
             feedTime = 0;
             AppController.getApi().getCommunityInitialPosts(id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
                 @Override
                 public void success(PostArray posts, Response response) {
-                    PostVMArray array = new PostVMArray();
-                    array.posts = new ArrayList<>();
+                    List<PostVM> array = new ArrayList<>();
                     for (CommunityPostVM post : posts.posts) {
                         if (post.hasImage) {
-                            array.posts.add(new PostVM(post));
+                            array.add(new PostVM(post));
                         }
                         feedTime = post.getUt();
                     }
-                    if (posts.posts.size() > 0 && array.posts.size() == 0) {
-                        array.posts.add(new PostVM(posts.posts.get(0)));    // dummy to continue endless scroll
+                    if (posts.posts.size() > 0 && array.size() == 0) {
+                        CommunityPostVM post = posts.posts.get(0);
+                        post.imgs = new Long[1];
+                        post.imgs[0] = postImages[ViewUtil.random(0, postImages.length - 1)];
+                        post.hasImage = true;
+                        array.add(new PostVM(post));    // dummy to continue endless scroll
                     }
                     callback.success(array, response);
                 }
@@ -92,16 +101,19 @@ public class BabyBoxMockService extends BabyBoxService {
             AppController.getApi().getCommunityNextPosts(id, feedTime + "", AppController.getInstance().getSessionId(), new Callback<List<CommunityPostVM>>() {
                 @Override
                 public void success(List<CommunityPostVM> posts, Response response) {
-                    PostVMArray array = new PostVMArray();
-                    array.posts = new ArrayList<>();
+                    List<PostVM> array = new ArrayList<>();
                     for (CommunityPostVM post : posts) {
                         if (post.hasImage) {
-                            array.posts.add(new PostVM(post));
+                            array.add(new PostVM(post));
                         }
                         feedTime = post.getUt();
                     }
-                    if (posts.size() > 0 && array.posts.size() == 0) {
-                        array.posts.add(new PostVM(posts.get(0)));    // dummy to continue endless scroll
+                    if (posts.size() > 0 && array.size() == 0) {
+                        CommunityPostVM post = posts.get(0);
+                        post.imgs = new Long[1];
+                        post.imgs[0] = postImages[ViewUtil.random(0, postImages.length - 1)];
+                        post.hasImage = true;
+                        array.add(new PostVM(post));    // dummy to continue endless scroll
                     }
                     callback.success(array, response);
                 }
@@ -115,29 +127,77 @@ public class BabyBoxMockService extends BabyBoxService {
     }
 
     @Override
-    public void getCategoryNewestFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+    public void getCategoryNewestFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
     @Override
-    public void getCategoryPriceLowHighFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+    public void getCategoryPriceLowHighFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
         getCategoryPopularFeed(offset, id, productType, cb);
     }
 
     @Override
-    public void getCategoryPriceHighLowFeed(Long offset, Long id, String productType, Callback<PostVMArray> cb) {
+    public void getCategoryPriceHighLowFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
-    public void getUserPostedFeed(Long offset, Long id, Callback<PostVMArray> cb) {
-        getHomeExploreFeed(offset, cb);
+    public void getUserPostedFeed(Long offset, Long id, Callback<List<PostVM>> cb) {
+        final Callback<List<PostVM>> callback = cb;
+        AppController.getApi().getUserPosts(offset, id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
+            @Override
+            public void success(PostArray posts, Response response) {
+                List<PostVM> array = new ArrayList<>();
+                for (CommunityPostVM post : posts.posts) {
+                    if (post.hasImage) {
+                        array.add(new PostVM(post));
+                    }
+                }
+                if (posts.posts.size() > 0 && array.size() == 0) {
+                    CommunityPostVM post = posts.posts.get(0);
+                    post.imgs = new Long[1];
+                    post.imgs[0] = postImages[ViewUtil.random(0, postImages.length - 1)];
+                    post.hasImage = true;
+                    array.add(new PostVM(post));    // dummy to continue endless scroll
+                }
+                callback.success(array, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
     }
 
-    public void getUserLikedFeed(Long offset, Long id, Callback<PostVMArray> cb) {
-        getHomeExploreFeed(offset, cb);
+    public void getUserLikedFeed(Long offset, Long id, Callback<List<PostVM>> cb) {
+        final Callback<List<PostVM>> callback = cb;
+        AppController.getApi().getUserComments(offset, id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
+            @Override
+            public void success(PostArray posts, Response response) {
+                List<PostVM> array = new ArrayList<>();
+                for (CommunityPostVM post : posts.posts) {
+                    if (post.hasImage) {
+                        array.add(new PostVM(post));
+                    }
+                }
+                if (posts.posts.size() > 0 && array.size() == 0) {
+                    CommunityPostVM post = posts.posts.get(0);
+                    post.imgs = new Long[1];
+                    post.imgs[0] = postImages[ViewUtil.random(0, postImages.length - 1)];
+                    post.hasImage = true;
+                    array.add(new PostVM(post));    // dummy to continue endless scroll
+                }
+                callback.success(array, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
     }
 
-    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<PostVMArray> cb) {
+    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<List<PostVM>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 

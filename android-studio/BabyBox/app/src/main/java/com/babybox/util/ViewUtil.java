@@ -63,6 +63,7 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_ID = "id";
     public static final String BUNDLE_KEY_OWNER_ID = "ownerId";
     public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
+    public static final String BUNDLE_KEY_POST_ID = "postId";
     public static final String BUNDLE_KEY_SOURCE = "flag";
     public static final String BUNDLE_KEY_FEED_TYPE = "feedType";
     public static final String BUNDLE_KEY_FEED_PRODUCT_TYPE = "feedProductType";
@@ -75,7 +76,7 @@ public class ViewUtil {
 
     public static final String INTENT_VALUE_REFRESH = "refresh";
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
-    public static final int SELECT_PICTURE_REQUEST_CODE = 2;
+    public static final int SELECT_IMAGE_REQUEST_CODE = 2;
 
     public static final String HTML_LINE_BREAK = "<br>";
 
@@ -89,6 +90,14 @@ public class ViewUtil {
     private static Rect displayDimensions = null;
 
     private ViewUtil() {}
+
+    //
+    // Helper
+    //
+
+    public static int random(int low, int high) {
+        return low + (int)(Math.random() * (high - low));
+    }
 
     //
     // View
@@ -204,7 +213,7 @@ public class ViewUtil {
     }
 
     public static void unselectProfileFeedButtonStyle(Button button) {
-        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.dark_gray));
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
         button.setBackgroundResource(R.drawable.button_profile_feed_unselect);
     }
 

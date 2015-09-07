@@ -154,27 +154,12 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
                 return false;
             }
         });
-        /*
-        ImageUtil.displayCoverImage(userId, coverImage, new RequestListener<String, GlideBitmapDrawable>() {
-            @Override
-            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
-                ViewUtil.stopSpinner(getActivity());
-                return false;
-            }
-
-            @Override
-            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                ViewUtil.stopSpinner(getActivity());
-                return false;
-            }
-        });
-        */
 
         followersText.setText(ViewUtil.followersFormat(user.numFollowers));
         followingText.setText(ViewUtil.followingFormat(user.numFollowing));
     }
 
-    private void uploadCoverImage(final long id){
+    protected void uploadCoverImage(final long id){
         ViewUtil.showSpinner(getActivity());
 
         Log.d(this.getClass().getSimpleName(), "changeCoverPhoto: Id=" + id);
@@ -213,7 +198,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         });
     }
 
-    private void uploadProfileImage(final long id) {
+    protected void uploadProfileImage(final long id) {
         ViewUtil.showSpinner(getActivity());
 
         Log.d(this.getClass().getSimpleName(), "changeProfilePhoto: Id=" + id);
@@ -264,7 +249,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ViewUtil.SELECT_PICTURE_REQUEST_CODE) {
+        if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE) {
             if (data == null)
                 return;
 

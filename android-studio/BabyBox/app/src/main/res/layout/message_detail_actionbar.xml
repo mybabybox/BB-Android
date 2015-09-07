@@ -11,7 +11,7 @@
         android:background="@drawable/actionbar_bg_pink">
 
         <ImageView
-            android:id="@+id/backAction"
+            android:id="@+id/backImage"
             android:layout_width="30dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="10dp"

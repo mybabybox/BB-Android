@@ -100,36 +100,13 @@ public class NotificationListFragment extends TrackedFragment {
                         Log.d(NotificationListFragment.this.getClass().getSimpleName(), "click notif: postId="+postId+" commId="+commId);
 
                         Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra("postId", postId);
-                        intent.putExtra("commId", commId);
-                        intent.putExtra("flag", "FromRequest");
+                        intent.putExtra(ViewUtil.BUNDLE_KEY_POST_ID, postId);
+                        intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, commId);
+                        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromRequest");
                         startActivity(intent);
                     } catch (Exception e) {
                         Log.e(NotificationListFragment.this.getClass().getSimpleName(), "Failed to parse comm id from url", e);
                     }
-
-                    /*
-                    if (item.getTp().equals("POSTED") ||
-                            item.getTp().equals("POSTED_QUESTION") ||
-                            item.getTp().equals("COMMENTED") ||
-                            item.getTp().equals("ANSWERED") ||
-                            item.getTp().equals("WANT_ANS") ||
-                            item.getTp().equals("LIKED")) {
-                        try {
-                            long postId = UrlUtil.parsePostLandingUrlId(item.getUrl().getOnClick());
-                            long commId = UrlUtil.parsePostLandingUrlCommId(item.getUrl().getOnClick());
-                            Log.d(NotificationListFragment.this.getClass().getSimpleName(), "click notif: postId="+postId+" commId="+commId);
-
-                            Intent intent = new Intent(getActivity(), DetailActivity.class);
-                            intent.putExtra("postId", postId);
-                            intent.putExtra("commId", commId);
-                            intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromRequest");
-                            startActivity(intent);
-                        } catch (Exception e) {
-                            Log.e(NotificationListFragment.this.getClass().getSimpleName(), "Failed to parse comm id from url", e);
-                        }
-                    }
-                    */
                 }
             }
         });

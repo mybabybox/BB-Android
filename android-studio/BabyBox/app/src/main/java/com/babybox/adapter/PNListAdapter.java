@@ -135,8 +135,8 @@ public class PNListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, PNCommunityActivity.class);
-                intent.putExtra("commId",item.getCommId());
-                intent.putExtra("id",item.getId());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID,item.getCommId());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,item.getId());
                 activity.startActivity(intent);
             }
         });
@@ -145,9 +145,9 @@ public class PNListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, PNCommunityActivity.class);
-                intent.putExtra("commId",item.getCommId());
-                intent.putExtra("id",item.getId());
-                intent.putExtra("flag","FromCommentImage");
+                intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID,item.getCommId());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,item.getId());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE,"FromCommentImage");
                 activity.startActivity(intent);
             }
         });

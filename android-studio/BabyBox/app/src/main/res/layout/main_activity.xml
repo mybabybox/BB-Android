@@ -74,7 +74,7 @@
                     android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/commsLayout"
+                    android:id="@+id/notificationsLayout"
                     android:background="@color/main_menubar_bg"
                     android:layout_weight="25"
                     android:gravity="center">
@@ -82,15 +82,15 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:id="@+id/commsImage"
-                        android:src="@drawable/mn_comm"
+                        android:id="@+id/notificationsImage"
+                        android:src="@drawable/mn_notif"
                         android:layout_gravity="center" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tabset_communities"
-                        android:id="@+id/commsText"
+                        android:text="@string/tabset_notifications"
+                        android:id="@+id/notificationsText"
                         android:textSize="15dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="2dp" />

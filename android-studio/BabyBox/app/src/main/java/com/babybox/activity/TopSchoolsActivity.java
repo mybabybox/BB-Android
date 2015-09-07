@@ -33,7 +33,7 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
     private TopBookmarkedPNListAdapter topBookmarkedPNListAdapter;
     private List<PreNurseryVM> topViewedPNs,topBookmarkedPNs;
 
-    private ImageView backAction, scrollButton;
+    private ImageView backImage, scrollButton;
     private ScrollView scrollView;
     private boolean scrollUp = true;
 
@@ -71,11 +71,11 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
 
         topViewedList = (ListView) findViewById(R.id.topViewedList);
         topBookmarkedList = (ListView) findViewById(R.id.topBookmarkedList);
-        backAction = (ImageView) findViewById(R.id.backImage);
+        backImage = (ImageView) findViewById(R.id.backImage);
         scrollButton = (ImageView) findViewById(R.id.scrollButton);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
 
-        backAction.setOnClickListener(new View.OnClickListener() {
+        backImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -123,8 +123,8 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
 
     private void startSchoolActivity(Long id, Long commId, Class activityClass) {
         Intent intent = new Intent(TopSchoolsActivity.this, activityClass);
-        intent.putExtra("commId", commId);
-        intent.putExtra("id", id);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, commId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, id);
         startActivity(intent);
     }
 
@@ -169,7 +169,3 @@ public class TopSchoolsActivity extends TrackedFragmentActivity {
         super.onBackPressed();
     }
 }
-
-
-
-

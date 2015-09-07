@@ -6,7 +6,6 @@ import com.babybox.viewmodel.BookmarkSummaryVM;
 import com.babybox.viewmodel.CommentPost;
 import com.babybox.viewmodel.CommentResponse;
 import com.babybox.viewmodel.CommunitiesParentVM;
-import com.babybox.viewmodel.CommunityCategoryMapVM;
 import com.babybox.viewmodel.CommunityPostCommentVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.CommunityVM;
@@ -46,18 +45,6 @@ public interface MyApi {
 
     @GET("/get-my-communities") //a function in your api to get all the joined communities list
     public void getMyCommunities(@Query("key") String key, Callback<CommunitiesParentVM> callback);
-
-    @GET("/get-social-community-categories-map")
-    public void getTopicCommunityCategoriesMap(@Query("indexOnly") Boolean indexOnly, @Query("key") String key, Callback<List<CommunityCategoryMapVM>> callback);
-
-    @GET("/get-zodiac-year-communities")
-    public void getZodiacYearCommunities(@Query("key") String key, Callback<CommunitiesParentVM> callback);
-
-    @GET("/community/join/{id}") //a function in your api send join request to Community
-    public void sendJoinRequest(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/community/leave/{id}") //a function in your api leave community.
-    public void sendLeaveRequest(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
     @GET("/community/{id}")
     public void getCommunity(@Path("id")Long comm_id, @Query("key") String key, Callback<CommunityVM> cb);

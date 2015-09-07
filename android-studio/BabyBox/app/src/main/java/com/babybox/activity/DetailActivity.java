@@ -136,8 +136,8 @@ public class DetailActivity extends TrackedFragmentActivity {
         //getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         //getActionBar().setTitle("Details");
 
-        postId = getIntent().getLongExtra("postId", 0L);
-        commId = getIntent().getLongExtra("commId", 0L);
+        postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L);
+        commId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, 0L);
 
         whatsappAction = (ImageView) findViewById(R.id.whatsappAction);
         bookmarkAction = (ImageView) findViewById(R.id.bookmarkAction);
@@ -155,12 +155,6 @@ public class DetailActivity extends TrackedFragmentActivity {
         getQnaDetail();
     }
 
-    private boolean isFromPN(CommunityPostVM post) {
-        String flag = getIntent().getStringExtra("flag");
-        return "FromPN".equals(flag) ||
-                (!"FromKG".equals(flag) && ("PN".equals(post.getSubType()) || "PN_KG".equals(post.getSubType())));
-    }
-
     private void getQnaDetail() {
         ViewUtil.showSpinner(this);
 
@@ -170,29 +164,15 @@ public class DetailActivity extends TrackedFragmentActivity {
                 //Log.d(DetailActivity.class.getSimpleName(), "getQnaDetail: post subtype="+post.getSubType());
 
                 getActionBar().show();
-
-                final boolean isFromPN = isFromPN(post);
-                if (isFromPN) {
-                    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_green));
-                } else {
-                    getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_pink));
-                }
+                getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.actionbar_bg_pink));
 
                 communityName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        Intent intent = null;
-                        if (isFromPN) {
-                            intent = new Intent(DetailActivity.this, PNCommunityActivity.class);
-                            intent.putExtra(ViewUtil.BUNDLE_KEY_ID, post.getPnId());
-                            intent.putExtra("commId", getIntent().getLongExtra("commId", 0L));
-                            intent.putExtra("flag", "FromPN");
-                        } else {
-                            intent = new Intent(DetailActivity.this, CommunityActivity.class);
-                            intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra("commId", 0L));
-                            intent.putExtra("flag", "FromDetailActivity");
-                        }
+                        Intent intent = new Intent(DetailActivity.this, CategoryActivity.class);
+                        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, 0L));
+                        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromDetailActivity");
                         startActivity(intent);
                     }
                 });
@@ -478,7 +458,7 @@ public class DetailActivity extends TrackedFragmentActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ViewUtil.SELECT_PICTURE_REQUEST_CODE && resultCode == RESULT_OK &&
+        if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
                 data != null && photos.size() < DefaultValues.MAX_COMMENT_IMAGES) {
 
             selectedImageUri = data.getData();
@@ -512,14 +492,14 @@ public class DetailActivity extends TrackedFragmentActivity {
 
         final boolean withPhotos = photos.size() > 0;
 
-        Log.d(this.getClass().getSimpleName(), "doComment: postId="+getIntent().getLongExtra("postId", 0L)+" comment="+comment.substring(0, Math.min(5, comment.length())));
-        AppController.getApi().answerOnQuestion(new CommentPost(getIntent().getLongExtra("postId", 0L), comment, withPhotos), AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
+        Log.d(this.getClass().getSimpleName(), "doComment: postId="+getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L)+" comment="+comment.substring(0, Math.min(5, comment.length())));
+        AppController.getApi().answerOnQuestion(new CommentPost(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), comment, withPhotos), AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
             @Override
             public void success(CommentResponse array, Response response) {
                 if (withPhotos) {
                     uploadPhotos(array.getId());
                 } else {
-                    getComments(getIntent().getLongExtra("postId", 0L), 0);  // reload page
+                    getComments(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), 0);  // reload page
                 }
                 Toast.makeText(DetailActivity.this, DetailActivity.this.getString(R.string.comment_success), Toast.LENGTH_LONG).show();
 
@@ -542,7 +522,7 @@ public class DetailActivity extends TrackedFragmentActivity {
             AppController.getApi().uploadCommentPhoto(commentId, typedFile, new Callback<Response>() {
                 @Override
                 public void success(Response array, Response response) {
-                    getComments(getIntent().getLongExtra("postId", 0L), 0);  // reload page
+                    getComments(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), 0);  // reload page
                 }
 
                 @Override
@@ -591,7 +571,7 @@ public class DetailActivity extends TrackedFragmentActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Log.d(this.getClass().getSimpleName(), "listView1.onItemClick: Page " + (position + 1));
-                    getComments(getIntent().getLongExtra("postId", 0L), position);
+                    getComments(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), position);
                     paginationPopup.dismiss();
                     paginationPopup = null;
                 }
@@ -634,7 +614,7 @@ public class DetailActivity extends TrackedFragmentActivity {
                 backButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getComments(getIntent().getLongExtra("postId", 0L), pageOffset - 1);
+                        getComments(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), pageOffset - 1);
                     }
                 });
             }
@@ -652,7 +632,7 @@ public class DetailActivity extends TrackedFragmentActivity {
                 nextButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        getComments(getIntent().getLongExtra("postId", 0L), pageOffset + 1);
+                        getComments(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), pageOffset + 1);
                     }
                 });
             }

@@ -15,33 +15,34 @@ import java.util.List;
 import com.babybox.R;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
+import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 
-public class PopupMyCommunityListAdapter extends BaseAdapter {
+public class PopupCategoryListAdapter extends BaseAdapter {
     private ImageView communityIcon;
     private TextView communityName;
     private Activity activity;
-    private List<CommunitiesWidgetChildVM> communities;
+    private List<CategoryVM> categories;
 
     private LayoutInflater inflater;
 
-    public PopupMyCommunityListAdapter(Activity activity, List<CommunitiesWidgetChildVM> communities) {
+    public PopupCategoryListAdapter(Activity activity, List<CategoryVM> categories) {
         this.activity = activity;
-        this.communities = communities;
+        this.categories = categories;
     }
 
     @Override
     public int getCount() {
-        if (communities == null)
+        if (categories == null)
             return 0;
-        return communities.size();
+        return categories.size();
     }
 
     @Override
-    public CommunitiesWidgetChildVM getItem(int location) {
-        if (communities == null || location > communities.size()-1)
+    public CategoryVM getItem(int location) {
+        if (categories == null || location > categories.size()-1)
             return null;
-        return communities.get(location);
+        return categories.get(location);
     }
 
     @Override
@@ -56,21 +57,21 @@ public class PopupMyCommunityListAdapter extends BaseAdapter {
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.my_community_popup_item, null);
+            convertView = inflater.inflate(R.layout.category_popup_item, null);
 
         communityIcon = (ImageView) convertView.findViewById(R.id.commIcon);
         communityName = (TextView) convertView.findViewById(R.id.communityName);
 
-        CommunitiesWidgetChildVM item = communities.get(position);
+        CategoryVM item = categories.get(position);
 
-        communityName.setText(item.getDn());
-        int iconMapped = ImageMapping.map(item.getGi());
+        communityName.setText(item.getName());
+        int iconMapped = ImageMapping.map(item.getIcon());
         if (iconMapped != -1) {
             //Log.d(this.getClass().getSimpleName(), "getView: replace source with local comm icon - " + commIcon);
             communityIcon.setImageDrawable(activity.getResources().getDrawable(iconMapped));
         } else {
-            Log.d(this.getClass().getSimpleName(), "getView: load comm icon from background - " + item.getGi());
-            ImageUtil.displayCircleImage(item.getGi(), communityIcon);
+            Log.d(this.getClass().getSimpleName(), "getView: load comm icon from background - " + item.getIcon());
+            ImageUtil.displayCircleImage(item.getIcon(), communityIcon);
         }
 
         return convertView;

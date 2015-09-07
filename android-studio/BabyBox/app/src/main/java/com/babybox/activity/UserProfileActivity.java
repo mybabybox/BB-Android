@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
@@ -11,6 +13,8 @@ import com.babybox.fragment.UserProfileFeedViewFragment;
 import com.babybox.util.ViewUtil;
 
 public class UserProfileActivity extends TrackedFragmentActivity {
+
+    private ImageView backImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,14 @@ public class UserProfileActivity extends TrackedFragmentActivity {
                         Gravity.CENTER
                 )
         );
+
+        backImage = (ImageView) findViewById(R.id.backImage);
+        backImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         Bundle bundle = new Bundle();
         bundle.putLong(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l));

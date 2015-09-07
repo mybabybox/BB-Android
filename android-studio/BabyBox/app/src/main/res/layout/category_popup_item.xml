@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:background="@color/light_pink_3"
@@ -24,7 +25,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="false"
         android:layout_marginLeft="3dp"
-        android:text="@string/tabset_communities"
+        android:text="@string/tabset_notifications"
         android:textColor="@color/dark_gray_3"
         android:textSize="16dp"
         android:layout_centerVertical="true"
@@ -32,26 +33,3 @@
         android:layout_toRightOf="@+id/commIcon" />
 
 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

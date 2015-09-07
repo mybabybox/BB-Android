@@ -158,7 +158,6 @@ public class AppController extends Application {
      */
     public void clearAll() {
         Log.d(this.getClass().getSimpleName(), "clearAll");
-        LocalCommunityTabCache.clear();
         NotificationCache.clear();
         UserInfoCache.clear();
     }

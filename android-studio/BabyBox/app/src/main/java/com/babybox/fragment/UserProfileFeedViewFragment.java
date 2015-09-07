@@ -104,10 +104,10 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         settingsLayout.setVisibility(View.GONE);
         ordersButton.setVisibility(View.GONE);
         tipsLayout.setVisibility(View.GONE);
+        userInfoLayout.setVisibility(View.GONE);
 
         // show
         followButton.setVisibility(View.VISIBLE);
-        userInfoLayout.setVisibility(View.VISIBLE);
 
         // actions
         productsButton.setOnClickListener(new View.OnClickListener() {
@@ -139,12 +139,14 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                 userName.setText(profile.getDn());
 
                 // admin only
+                /*
                 if (AppController.isUserAdmin()) {
                     userInfoText.setText(profile.toString());
                     userInfoLayout.setVisibility(View.VISIBLE);
                 } else {
                     userInfoLayout.setVisibility(View.GONE);
                 }
+                */
 
                 ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
                     @Override
@@ -159,21 +161,6 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                         return false;
                     }
                 });
-                /*
-                ImageUtil.displayCoverImage(userId, coverImage, new RequestListener<String, GlideBitmapDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
-                        ViewUtil.stopSpinner(getActivity());
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        ViewUtil.stopSpinner(getActivity());
-                        return false;
-                    }
-                });
-                */
 
                 followersText.setText(ViewUtil.followersFormat(profile.numFollowers));
                 followingText.setText(ViewUtil.followingFormat(profile.numFollowing));

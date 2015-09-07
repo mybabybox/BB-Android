@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.babybox.R;
-import com.babybox.activity.NewPNPostActivity;
 import com.babybox.activity.TopSchoolsActivity;
 import com.babybox.app.TrackedFragment;
 
@@ -71,17 +70,6 @@ public class SchoolsPNFragment extends TrackedFragment {
                 bookmarkClicked=false;
                 newsClicked=true;
                 listClicked=false;
-            }
-        });
-
-        newPostIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // launch new post page with no comm id, user will select
-                Intent intent = new Intent(SchoolsPNFragment.this.getActivity(), NewPNPostActivity.class);
-                intent.putExtra("id",0L);
-                intent.putExtra("flag",AbstractSchoolsListFragment.PN_INTENT_FLAG);
-                startActivity(intent);
             }
         });
 

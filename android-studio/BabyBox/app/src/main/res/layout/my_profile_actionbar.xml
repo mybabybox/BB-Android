@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center">
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/actionbar_bg_pink">
-
-        <ImageView
-            android:id="@+id/backAction"
-            android:layout_width="30dp"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/back"
-            android:layout_alignParentLeft="true"
-            android:layout_centerInParent="true"
-            android:layout_alignParentStart="false" />
+        android:background="@drawable/actionbar_bg_pink"
+        android:layout_gravity="center">
 
         <TextView
             android:id="@+id/actionbarTitle"
@@ -138,4 +128,5 @@
         </LinearLayout>
 
     </RelativeLayout>
+
 </RelativeLayout>

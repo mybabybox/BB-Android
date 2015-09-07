@@ -362,7 +362,7 @@ public class ImageUtil {
         intent.setData(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         //intent.setType("image/*");
         //intent.setAction(Intent.ACTION_GET_CONTENT);
-        activity.startActivityForResult(Intent.createChooser(intent, title), ViewUtil.SELECT_PICTURE_REQUEST_CODE);
+        activity.startActivityForResult(Intent.createChooser(intent, title), ViewUtil.SELECT_IMAGE_REQUEST_CODE);
     }
 
     public static String getRealPathFromUri(Context context, Uri contentUri) {

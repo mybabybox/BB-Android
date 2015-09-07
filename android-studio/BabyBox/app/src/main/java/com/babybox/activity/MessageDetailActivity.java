@@ -157,7 +157,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
             }
         });
 
-        backImage = (ImageView) this.findViewById(R.id.backAction);
+        backImage = (ImageView) this.findViewById(R.id.backImage);
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -333,7 +333,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ViewUtil.SELECT_PICTURE_REQUEST_CODE && resultCode == RESULT_OK &&
+        if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
                 data != null && photos.size() < DefaultValues.MAX_MESSAGE_IMAGES) {
 
             selectedImageUri = data.getData();
