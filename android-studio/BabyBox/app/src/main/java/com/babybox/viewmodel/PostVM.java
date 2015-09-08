@@ -1,5 +1,7 @@
 package com.babybox.viewmodel;
 
+import com.babybox.mock.CommunityPostCommentVM;
+import com.babybox.mock.CommunityPostVM;
 import com.babybox.util.ViewUtil;
 
 import java.util.ArrayList;

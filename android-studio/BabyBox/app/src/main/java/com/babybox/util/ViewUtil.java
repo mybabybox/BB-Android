@@ -49,7 +49,7 @@ import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
 import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.CommunityPostVM;
+import com.babybox.mock.CommunityPostVM;
 import com.babybox.viewmodel.PostVM;
 
 import retrofit.RetrofitError;

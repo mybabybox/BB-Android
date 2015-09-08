@@ -1,6 +1,8 @@
 package com.babybox.viewmodel;
 
 
+import com.babybox.mock.CommunityPostCommentVM;
+
 public class CommentVM {
     public Long id;
     public Long ownerId;

@@ -46,13 +46,13 @@
             android:name="com.babybox.activity.CategoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.NewsfeedActivity"
+            android:name=".mock.NewsfeedActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.NewPostActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.DetailActivity"
+            android:name=".mock.DetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.ProductActivity"
@@ -94,13 +94,13 @@
             android:name="com.babybox.activity.PrivacyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.PNCommunityActivity"
+            android:name=".mock.PNCommunityActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.PNAppDatesActivity"
+            android:name=".mock.PNAppDatesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.TopSchoolsActivity"
+            android:name=".mock.TopSchoolsActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

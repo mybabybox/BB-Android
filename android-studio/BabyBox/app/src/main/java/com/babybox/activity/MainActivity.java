@@ -19,7 +19,7 @@ import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.TrackedFragment;
 import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
-import com.babybox.fragment.SchoolsMainFragment;
+import com.babybox.mock.SchoolsMainFragment;
 import com.babybox.viewmodel.NotificationsParentVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;

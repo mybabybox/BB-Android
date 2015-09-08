@@ -41,8 +41,8 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.SharingUtil;
 import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.CommentPost;
-import com.babybox.viewmodel.CommentResponse;
+import com.babybox.mock.CommentPost;
+import com.babybox.mock.CommentResponse;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.PostVM;
 
@@ -67,10 +67,13 @@ public class ProductActivity extends TrackedFragmentActivity {
     private ImageView likeImage;
     private TextView likeText;
 
-    private PopupWindow commentPopup, emoPopup;
-    private TextView commentText, catNameText, timeText, numViewsText, numCommentsText;
+    private ImageView sellerImage;
+    private TextView sellerNameText;
 
+    private TextView commentText, catNameText, timeText, numViewsText, numCommentsText;
     private EditText commentEditText;
+
+    private PopupWindow commentPopup, emoPopup;
     private ImageView commentCancelButton, commentEmoImage;
     private Button commentSendButton;
 
@@ -116,6 +119,9 @@ public class ProductActivity extends TrackedFragmentActivity {
         likeLayout = (LinearLayout) findViewById(R.id.likeLayout);
         likeImage = (ImageView) findViewById(R.id.likeImage);
         likeText = (TextView) findViewById(R.id.likeText);
+
+        sellerImage = (ImageView) findViewById(R.id.sellerImage);
+        sellerNameText = (TextView) findViewById(R.id.sellerNameText);
 
         commentText = (TextView) findViewById(R.id.commentText);
         catNameText = (TextView) findViewById(R.id.catNameText);
@@ -196,6 +202,27 @@ public class ProductActivity extends TrackedFragmentActivity {
                         } else {
                             like(postId);
                         }
+                    }
+                });
+
+                ImageUtil.displayThumbnailProfileImage(post.getOwnerId(), sellerImage);
+                sellerNameText.setText(post.getPostedBy());
+
+                sellerImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(ProductActivity.this, UserProfileActivity.class);
+                        i.putExtra(ViewUtil.BUNDLE_KEY_ID, post.getOwnerId());
+                        ProductActivity.this.startActivity(i);
+                    }
+                });
+
+                sellerNameText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(ProductActivity.this, UserProfileActivity.class);
+                        i.putExtra(ViewUtil.BUNDLE_KEY_ID, post.getOwnerId());
+                        ProductActivity.this.startActivity(i);
                     }
                 });
 

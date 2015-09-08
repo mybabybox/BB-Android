@@ -24,11 +24,11 @@ public class ShareExternalServer {
 		try {
 			URL serverUrl = null;
 			try {
-				serverUrl = new URL(Config.APP_SERVER_URL);
+				serverUrl = new URL(GCMConfig.APP_SERVER_URL);
 			} catch (MalformedURLException e) {
 				Log.e("AppUtil", "URL Connection Error: "
-						+ Config.APP_SERVER_URL, e);
-				result = "Invalid URL: " + Config.APP_SERVER_URL;
+						+ GCMConfig.APP_SERVER_URL, e);
+				result = "Invalid URL: " + GCMConfig.APP_SERVER_URL;
 			}
 
 			StringBuilder postBody = new StringBuilder();

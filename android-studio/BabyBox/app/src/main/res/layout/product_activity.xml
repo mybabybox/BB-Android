@@ -207,14 +207,34 @@
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/sellerLayout"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_light_gray_border"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:id="@+id/sellerImage"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"></ImageView>
+
+                <TextView
+                    android:id="@+id/sellerNameText"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/sharp_pink"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/userPic"
+                    android:textSize="15dp"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:orientation="vertical"

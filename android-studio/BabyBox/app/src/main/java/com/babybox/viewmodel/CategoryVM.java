@@ -1,5 +1,8 @@
 package com.babybox.viewmodel;
 
+import com.babybox.mock.CommunitiesWidgetChildVM;
+import com.babybox.mock.CommunityVM;
+
 public class CategoryVM {
     public Long id;
     public String icon;
