@@ -24,7 +24,6 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:background="@color/view_bg">
 
             <LinearLayout
@@ -33,7 +32,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/productLayout"
                 android:background="@drawable/button_light_gray_border"
-                android:padding="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -48,13 +49,15 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/actionsLayout"
                     android:weightSum="10"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
 
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.6"
+                        android:layout_weight="1.2"
                         android:id="@+id/likeLayout"
                         android:layout_marginRight="5dp">
 
@@ -81,21 +84,23 @@
                         android:layout_height="match_parent"
                         android:text="@string/chat"
                         android:id="@+id/chatButton"
-                        android:layout_weight="4.2"
+                        android:layout_weight="4.4"
                         android:textColor="@color/white"
                         android:background="@drawable/button_gray"
                         android:textSize="18dp"
-                        android:layout_marginRight="10dp" />
+                        android:layout_marginRight="7dp"
+                        android:textStyle="bold" />
 
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:text="@string/buy"
                         android:id="@+id/buyButton"
-                        android:layout_weight="4.2"
+                        android:layout_weight="4.4"
                         android:textColor="@color/white"
                         android:background="@drawable/button_pink"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -103,7 +108,10 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -114,40 +122,38 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/titleText"
                             android:textColor="@color/dark_gray_2"
-                            android:textSize="18dp"
+                            android:textSize="16dp"
                             android:layout_alignParentLeft="true"
+                            android:layout_alignParentRight="false"
+                            android:layout_alignParentTop="true"
                             android:layout_toLeftOf="@+id/priceText" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/priceText"
-                            android:textSize="18dp"
+                            android:textSize="17dp"
                             android:textStyle="bold"
                             android:textColor="@color/green"
                             android:layout_alignParentRight="true"
                             android:layout_alignParentTop="true"
+                            android:layout_alignParentLeft="false"
                             android:layout_marginLeft="10dp" />
+
                     </RelativeLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/descText"
-                        android:textColor="@color/gray"
-                        android:layout_marginTop="15dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/catNameText"
-                        android:textColor="@color/gray"
-                        android:layout_marginTop="10dp" />
+                        android:textColor="@color/dark_gray"
+                        android:layout_marginTop="15dp"
+                        android:textSize="15dp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="15dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -166,9 +172,18 @@
                             android:layout_marginLeft="3dp"
                             android:layout_toRightOf="@+id/listedText" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/catNameText"
+                            android:textColor="@color/pink"
+                            android:textSize="14dp"
+                            android:layout_toRightOf="@+id/timeText"
+                            android:layout_marginLeft="10dp" />
+
                         <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
                             android:src="@drawable/view"
                             android:layout_gravity="center_vertical"
                             android:layout_toLeftOf="@+id/numViewsText"
@@ -197,7 +212,9 @@
                 android:layout_height="50dp"
                 android:id="@+id/sellerLayout"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_light_gray_border" />
+                android:background="@drawable/button_light_gray_border"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -205,7 +222,9 @@
                 android:layout_height="50dp"
                 android:id="@+id/likesLayout"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_light_gray_border" />
+                android:background="@drawable/button_light_gray_border"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -213,7 +232,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/commentsLayout"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_light_gray_border">
+                android:background="@drawable/button_light_gray_border"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -277,7 +298,9 @@
                 android:layout_height="100dp"
                 android:id="@+id/suggestionsLayout"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_light_gray_border" />
+                android:background="@drawable/button_light_gray_border"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
         </LinearLayout>
     </ScrollView>

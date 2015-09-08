@@ -34,6 +34,7 @@ import com.babybox.adapter.EmoticonListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.EmoticonCache;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.util.DateTimeUtil;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
@@ -60,14 +61,14 @@ public class ProductActivity extends TrackedFragmentActivity {
     private ImageView backImage, whatsappAction, copyLinkAction;
 
     private ImageView productImage;
-    private TextView titleText, descText;
+    private TextView titleText, descText, priceText;
     private Button chatButton, buyButton, sendButton;
     private LinearLayout likeLayout;
     private ImageView likeImage;
     private TextView likeText;
 
     private PopupWindow commentPopup, emoPopup;
-    private TextView commentText, catNameText, numViewsText, numCommentsText;
+    private TextView commentText, catNameText, timeText, numViewsText, numCommentsText;
 
     private EditText commentEditText;
     private ImageView commentCancelButton, commentEmoImage;
@@ -107,6 +108,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         productImage = (ImageView) findViewById(R.id.productImage);
         titleText = (TextView) findViewById(R.id.titleText);
         descText = (TextView) findViewById(R.id.descText);
+        priceText = (TextView) findViewById(R.id.priceText);
 
         chatButton = (Button) findViewById(R.id.chatButton);
         buyButton = (Button) findViewById(R.id.buyButton);
@@ -117,6 +119,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         commentText = (TextView) findViewById(R.id.commentText);
         catNameText = (TextView) findViewById(R.id.catNameText);
+        timeText = (TextView) findViewById(R.id.timeText);
         numViewsText = (TextView) findViewById(R.id.numViewsText);
         numCommentsText = (TextView) findViewById(R.id.numCommentsText);
 
@@ -170,6 +173,9 @@ public class ProductActivity extends TrackedFragmentActivity {
                 });
 
                 catNameText.setText(post.getCategoryName());
+                descText.setText(post.getDesc());
+                priceText.setText(ViewUtil.priceFormat(post.getPrice()));
+                timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));
                 numViewsText.setText(post.getNumViews() + "");
                 numCommentsText.setText(post.getNumComments() + " " + getString(R.string.comments));
 
