@@ -46,8 +46,8 @@ public class DefaultValues {
     public static final int PAGINATION_POPUP_WIDTH = 150;
     public static final int PAGINATION_POPUP_HEIGHT = 300;
 
-    public static final int MY_COMMUNITY_POPUP_WIDTH = 250;
-    public static final int MY_COMMUNITY_POPUP_HEIGHT = 350;
+    public static final int CATEGORY_PICKER_POPUP_WIDTH = 250;
+    public static final int CATEGORY_PICKER_POPUP_HEIGHT = 350;
 
     public static final int EMOTICON_POPUP_WIDTH = 300;
     public static final int EMOTICON_POPUP_HEIGHT = 100;

@@ -100,7 +100,7 @@ public class DetailActivity extends TrackedFragmentActivity {
         setContentView(R.layout.detail_activity);
 
         communityName = (TextView) findViewById(R.id.communityName);
-        communityIcon = (ImageView) findViewById(R.id.commIcon);
+        communityIcon = (ImageView) findViewById(R.id.catIcon);
         numPostViews = (TextView) findViewById(R.id.numPostViews);
         numPostComments = (TextView) findViewById(R.id.numPostComments);
 

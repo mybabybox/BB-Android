@@ -68,7 +68,7 @@
         android:layout_marginLeft="25dp">
 
         <ImageView
-            android:id="@+id/commIcon"
+            android:id="@+id/catIcon"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentBottom="true"
@@ -79,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:layout_toRightOf="@+id/commIcon"
+            android:layout_toRightOf="@+id/catIcon"
             android:textColor="@color/light_gray"
             android:textSize="14dp"
             android:layout_marginLeft="3dp"

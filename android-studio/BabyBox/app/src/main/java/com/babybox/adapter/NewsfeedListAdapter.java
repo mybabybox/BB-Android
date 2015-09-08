@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -88,7 +86,7 @@ public class NewsfeedListAdapter extends BaseAdapter {
         username = (TextView) convertView.findViewById(R.id.username);
         timeText = (TextView) convertView.findViewById(R.id.time);
         numComments = (TextView) convertView.findViewById(R.id.numComments);
-        communityIcon = (ImageView) convertView.findViewById(R.id.commIcon);
+        communityIcon = (ImageView) convertView.findViewById(R.id.catIcon);
         commName = (TextView) convertView.findViewById(R.id.commName);
 
         // images

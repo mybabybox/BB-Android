@@ -292,7 +292,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tipsLayout"
             android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="5dp">
 
             <LinearLayout
                 android:id="@+id/tips"

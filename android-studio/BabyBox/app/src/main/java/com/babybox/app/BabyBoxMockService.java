@@ -6,8 +6,12 @@ import com.babybox.viewmodel.CommunitiesParentVM;
 import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.CommunityVM;
+import com.babybox.viewmodel.NewPost;
+import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostArray;
+import com.babybox.viewmodel.PostResponse;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.ResponseStatusLiteVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -228,6 +232,25 @@ public class BabyBoxMockService extends BabyBoxService {
             @Override
             public void success(CommunityVM comm, Response response) {
                 callback.success(new CategoryVM(comm), response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
+
+    public void newPost(NewPostVM post, Callback<ResponseStatusLiteVM> cb) {
+        final Callback<ResponseStatusLiteVM> callback = cb;
+        NewPost newPost = new NewPost(post.catId, post.title, post.desc, true);
+        AppController.getApi().newCommunityPost(newPost, AppController.getInstance().getSessionId(), new Callback<PostResponse>() {
+            @Override
+            public void success(PostResponse postResponse, Response response) {
+                ResponseStatusLiteVM responseLite = new ResponseStatusLiteVM();
+                responseLite.id = postResponse.id;
+                responseLite.text = postResponse.text;
+                callback.success(responseLite, response);
             }
 
             @Override

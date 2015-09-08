@@ -18,7 +18,7 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <ListView
-        android:id="@+id/communityList"
+        android:id="@+id/categoryList"
         android:layout_below="@+id/actionbarTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

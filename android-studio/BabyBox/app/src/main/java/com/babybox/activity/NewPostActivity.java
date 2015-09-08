@@ -43,8 +43,9 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.EmoticonVM;
-import com.babybox.viewmodel.NewPost;
-import com.babybox.viewmodel.PostResponse;
+import com.babybox.viewmodel.NewPostVM;
+import com.babybox.viewmodel.ResponseStatusLiteVM;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -52,12 +53,12 @@ import retrofit.mime.TypedFile;
 
 public class NewPostActivity extends TrackedFragmentActivity {
 
-    protected RelativeLayout communityLayout;
-    protected LinearLayout selectCommunityLayout;
-    protected TextView selectCommunityText;
-    protected ImageView selectCommunityIcon;
-    protected TextView categoryName;
-    protected ImageView categoryIcon;
+    protected RelativeLayout catLayout;
+    protected LinearLayout selectCatLayout;
+    protected TextView selectCatText;
+    protected ImageView selectCatIcon;
+    protected TextView catName;
+    protected ImageView catIcon;
     protected ImageView backImage, browseImage, emoImage;
     protected TextView postTitle, postContent, postAction, editTextInFocus;
 
@@ -95,12 +96,12 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         backImage = (ImageView) findViewById(R.id.backImage);
         postAction = (TextView) findViewById(R.id.postAction);
-        communityLayout = (RelativeLayout) findViewById(R.id.commLayout1);
-        selectCommunityLayout = (LinearLayout) findViewById(R.id.selectCommunityLayout);
-        selectCommunityText = (TextView) findViewById(R.id.selectCommunityText);
-        selectCommunityIcon = (ImageView) findViewById(R.id.selectCommunityIcon);
-        categoryIcon = (ImageView) findViewById(R.id.commIcon);
-        categoryName = (TextView) findViewById(R.id.communityName);
+        catLayout = (RelativeLayout) findViewById(R.id.catLayout1);
+        selectCatLayout = (LinearLayout) findViewById(R.id.selectCatLayout);
+        selectCatText = (TextView) findViewById(R.id.selectCatText);
+        selectCatIcon = (ImageView) findViewById(R.id.selectCatIcon);
+        catIcon = (ImageView) findViewById(R.id.catIcon);
+        catName = (TextView) findViewById(R.id.catName);
         browseImage = (ImageView) findViewById(R.id.browseImage);
         emoImage = (ImageView) findViewById(R.id.emoImage);
         postTitle = (TextView) findViewById(R.id.postTitle);
@@ -122,18 +123,18 @@ public class NewPostActivity extends TrackedFragmentActivity {
             }
         });
 
-        Long commId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
-        if (commId == 0L) {
+        Long id = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
+        if (id == 0L) {
             catId = null;
-            communityLayout.setVisibility(View.VISIBLE);
+            catLayout.setVisibility(View.VISIBLE);
         } else {
-            catId = commId;
-            communityLayout.setVisibility(View.GONE);
+            catId = id;
+            catLayout.setVisibility(View.GONE);
         }
-        Log.d(this.getClass().getSimpleName(), "onCreate: communityId=" + commId);
+        Log.d(this.getClass().getSimpleName(), "onCreate: catId=" + catId);
 
-        updateSelectCommunityLayout();
-        selectCommunityLayout.setOnClickListener(new View.OnClickListener() {
+        updateSelectCatLayout();
+        selectCatLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initCategoryPopup();
@@ -188,17 +189,17 @@ public class NewPostActivity extends TrackedFragmentActivity {
         });
     }
 
-    protected void updateSelectCommunityLayout() {
+    protected void updateSelectCatLayout() {
         if (catId == null) {
-            selectCommunityText.setVisibility(View.VISIBLE);
-            selectCommunityIcon.setVisibility(View.VISIBLE);
-            categoryIcon.setVisibility(View.GONE);
-            categoryName.setVisibility(View.GONE);
+            selectCatText.setVisibility(View.VISIBLE);
+            selectCatIcon.setVisibility(View.VISIBLE);
+            catIcon.setVisibility(View.GONE);
+            catName.setVisibility(View.GONE);
         } else {
-            selectCommunityText.setVisibility(View.GONE);
-            selectCommunityIcon.setVisibility(View.GONE);
-            categoryIcon.setVisibility(View.VISIBLE);
-            categoryName.setVisibility(View.VISIBLE);
+            selectCatText.setVisibility(View.GONE);
+            selectCatIcon.setVisibility(View.GONE);
+            catIcon.setVisibility(View.VISIBLE);
+            catName.setVisibility(View.VISIBLE);
         }
     }
 
@@ -267,9 +268,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
         final boolean withPhotos = photos.size() > 0;
 
         Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title);
-        AppController.getApi().newCommunityPost(new NewPost(catId, title, content, withPhotos), AppController.getInstance().getSessionId(), new Callback<PostResponse>() {
+        AppController.getApiService().newPost(new NewPostVM(catId, title, content, 0), new Callback<ResponseStatusLiteVM>() {
             @Override
-            public void success(PostResponse postResponse, Response response) {
+            public void success(ResponseStatusLiteVM postResponse, Response response) {
                 postSuccess = true;
 
                 if (withPhotos) {
@@ -277,11 +278,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 } else {
                     complete();
                 }
-
-                /*Intent intent = new Intent(PostActivity.this,CommunityActivity.class);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1l));
-                intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE,"FromPostFragment");
-                startActivity(intent);*/
             }
 
             @Override
@@ -334,8 +330,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
             if (categoryPopup == null) {
                 categoryPopup = new PopupWindow(
                         layout,
-                        ViewUtil.getRealDimension(DefaultValues.MY_COMMUNITY_POPUP_WIDTH),
-                        ViewUtil.getRealDimension(DefaultValues.MY_COMMUNITY_POPUP_HEIGHT),
+                        ViewUtil.getRealDimension(DefaultValues.CATEGORY_PICKER_POPUP_WIDTH),
+                        ViewUtil.getRealDimension(DefaultValues.CATEGORY_PICKER_POPUP_HEIGHT),
                         true);
             }
 
@@ -344,7 +340,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             categoryPopup.setFocusable(true);
             categoryPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
-            ListView listView = (ListView) layout.findViewById(R.id.communityList);
+            ListView listView = (ListView) layout.findViewById(R.id.categoryList);
             adapter = new PopupCategoryListAdapter(this, CategoryCache.getCategories());
             listView.setAdapter(adapter);
 
@@ -354,16 +350,16 @@ public class NewPostActivity extends TrackedFragmentActivity {
                     CategoryVM category = adapter.getItem(position);
                     catId = category.getId();
 
-                    categoryName.setText(category.getName());
+                    catName.setText(category.getName());
                     int iconMapped = ImageMapping.map(category.getIcon());
                     if (iconMapped != -1) {
-                        categoryIcon.setImageDrawable(getResources().getDrawable(iconMapped));
+                        catIcon.setImageDrawable(getResources().getDrawable(iconMapped));
                     } else {
                         Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
-                        ImageUtil.displayCircleImage(category.getIcon(), categoryIcon);
+                        ImageUtil.displayCircleImage(category.getIcon(), catIcon);
                     }
 
-                    updateSelectCommunityLayout();
+                    updateSelectCatLayout();
                     categoryPopup.dismiss();
                     categoryPopup = null;
                     Log.d(this.getClass().getSimpleName(), "initCategoryPopup: listView.onItemClick: category="+category.getId()+"|"+category.getName());

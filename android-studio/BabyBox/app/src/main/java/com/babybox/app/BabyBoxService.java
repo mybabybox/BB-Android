@@ -3,7 +3,10 @@ package com.babybox.app;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.LocationVM;
+import com.babybox.viewmodel.NewPost;
+import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.ResponseStatusLiteVM;
 import com.babybox.viewmodel.UserVM;
 
 import java.util.List;
@@ -121,6 +124,10 @@ public class BabyBoxService {
 
     public void getPost(Long id, Callback<PostVM> cb) {
         api.getPost(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void newPost(NewPostVM post, Callback<ResponseStatusLiteVM> cb) {
+        api.newPost(post, AppController.getInstance().getSessionId(), cb);
     }
 
     // user profile

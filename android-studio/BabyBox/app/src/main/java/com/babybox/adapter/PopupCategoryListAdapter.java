@@ -16,11 +16,10 @@ import com.babybox.R;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.CommunitiesWidgetChildVM;
 
 public class PopupCategoryListAdapter extends BaseAdapter {
-    private ImageView communityIcon;
-    private TextView communityName;
+    private ImageView catIcon;
+    private TextView catName;
     private Activity activity;
     private List<CategoryVM> categories;
 
@@ -59,19 +58,19 @@ public class PopupCategoryListAdapter extends BaseAdapter {
         if (convertView == null)
             convertView = inflater.inflate(R.layout.category_popup_item, null);
 
-        communityIcon = (ImageView) convertView.findViewById(R.id.commIcon);
-        communityName = (TextView) convertView.findViewById(R.id.communityName);
+        catIcon = (ImageView) convertView.findViewById(R.id.catIcon);
+        catName = (TextView) convertView.findViewById(R.id.catName);
 
         CategoryVM item = categories.get(position);
 
-        communityName.setText(item.getName());
+        catName.setText(item.getName());
         int iconMapped = ImageMapping.map(item.getIcon());
         if (iconMapped != -1) {
-            //Log.d(this.getClass().getSimpleName(), "getView: replace source with local comm icon - " + commIcon);
-            communityIcon.setImageDrawable(activity.getResources().getDrawable(iconMapped));
+            //Log.d(this.getClass().getSimpleName(), "getView: replace source with local cat icon - " + catIcon);
+            catIcon.setImageDrawable(activity.getResources().getDrawable(iconMapped));
         } else {
-            Log.d(this.getClass().getSimpleName(), "getView: load comm icon from background - " + item.getIcon());
-            ImageUtil.displayCircleImage(item.getIcon(), communityIcon);
+            Log.d(this.getClass().getSimpleName(), "getView: load cat icon from background - " + item.getIcon());
+            ImageUtil.displayCircleImage(item.getIcon(), catIcon);
         }
 
         return convertView;
