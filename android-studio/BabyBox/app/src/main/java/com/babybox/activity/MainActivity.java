@@ -65,7 +65,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
         mInstance = this;
 
-        getActionBar().hide();
+        //getActionBar().show();
 
         homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
         homeImage = (ImageView) findViewById(R.id.homeImage);
@@ -137,8 +137,6 @@ public class MainActivity extends TrackedFragmentActivity {
     }
 
     public void pressHomeTab() {
-        getActionBar().show();
-
         if (!homeClicked) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             selectedFragment = new HomeMainFragment();
@@ -161,8 +159,6 @@ public class MainActivity extends TrackedFragmentActivity {
     }
 
     public void pressNotificationsTab() {
-        getActionBar().hide();
-
         if (!notificationsClicked) {
             /*
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -187,8 +183,6 @@ public class MainActivity extends TrackedFragmentActivity {
     }
 
     public void pressSearchTab() {
-        getActionBar().hide();
-
         if (!schoolsClicked) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             selectedFragment = new SchoolsMainFragment();
@@ -211,8 +205,6 @@ public class MainActivity extends TrackedFragmentActivity {
     }
 
     public void pressProfileTab() {
-        getActionBar().show();
-
         if (!profileClicked) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             selectedFragment = new ProfileMainFragment();

@@ -204,7 +204,7 @@
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_toRightOf="@+id/time"
-                    android:src="@drawable/like"
+                    android:src="@drawable/ic_like"
                     android:layout_gravity="center_vertical" />
 
                 <TextView

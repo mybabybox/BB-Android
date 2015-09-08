@@ -123,7 +123,7 @@ public class DetailActivity extends TrackedFragmentActivity {
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.detail_actionbar, null),
                 new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.WRAP_CONTENT,
+                        ActionBar.LayoutParams.MATCH_PARENT,
                         ActionBar.LayoutParams.MATCH_PARENT,
                         Gravity.CENTER
                 )
@@ -220,14 +220,6 @@ public class DetailActivity extends TrackedFragmentActivity {
                 }
 
                 setPageButtons(curPage);
-
-                // actionbar actions...
-                whatsappAction.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SharingUtil.shareToWhatapp(post, DetailActivity.this);
-                    }
-                });
 
                 bookmarkAction.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -369,7 +361,7 @@ public class DetailActivity extends TrackedFragmentActivity {
                 });
                 */
 
-                commentPostButton = (TextView) layout.findViewById(R.id.postButton);
+                commentPostButton = (TextView) layout.findViewById(R.id.sendButton);
                 commentPostButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -397,21 +389,6 @@ public class DetailActivity extends TrackedFragmentActivity {
                         }
                     }
                 });
-
-                if (commentImages.size() == 0) {
-                    commentImages.add((ImageView) layout.findViewById(R.id.commentImage1));
-                    commentImages.add((ImageView) layout.findViewById(R.id.commentImage2));
-                    commentImages.add((ImageView) layout.findViewById(R.id.commentImage3));
-
-                    for (ImageView commentImage : commentImages) {
-                        commentImage.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                removeCommentImage();
-                            }
-                        });
-                    }
-                }
 
                 commentEmoImage = (ImageView) layout.findViewById(R.id.emoImage);
                 commentEmoImage.setOnClickListener(new View.OnClickListener() {
@@ -681,17 +658,14 @@ public class DetailActivity extends TrackedFragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // comment out more options for now...
         //MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.activity_main_actions, menu);
+        //inflater.inflate(R.menu.product_action_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.a:
-                Log.d(this.getClass().getSimpleName(), "onOptionsItemSelected: "+item.getItemId());
-                return true;
-            case R.id.b:
+            case R.id.report:
                 Log.d(this.getClass().getSimpleName(), "onOptionsItemSelected: "+item.getItemId());
                 return true;
             default:

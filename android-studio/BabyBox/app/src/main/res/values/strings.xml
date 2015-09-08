@@ -91,6 +91,15 @@
     <string name="category_tips">Explore category with filters</string>
     <string name="my_profile_tips">Your own profile page with listed products</string>
 
+    <!-- Product page -->
+    <string name="like">Like</string>
+    <string name="unlike">Unlike</string>
+    <string name="likes">Likes</string>
+    <string name="comments">Comments</string>
+    <string name="chat">Chat</string>
+    <string name="buy">Buy</string>
+    <string name="listed">Listed</string>
+
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>
     <string name="main_tab_trending">Trending</string>
@@ -148,8 +157,6 @@
     <string name="timeago_yesterday">昨天</string>
     <string name="timeago_days">日前</string>
     <string name="delete">刪除</string>
-    <string name="like">讚好</string>
-    <string name="unlike">取消讚好</string>
     <string name="page_back">上頁</string>
     <string name="page_next">下頁</string>
     <string name="goto_page">前往頁數</string>

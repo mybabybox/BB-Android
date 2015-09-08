@@ -241,6 +241,28 @@ public class BabyBoxMockService extends BabyBoxService {
         });
     }
 
+    @Override
+    public void getPost(Long id, Callback<PostVM> cb) {
+        final Callback<PostVM> callback = cb;
+        AppController.getApi().qnaLanding(id, -1L, AppController.getInstance().getSessionId(), new Callback<CommunityPostVM>() {
+            @Override
+            public void success(CommunityPostVM post, Response response) {
+                if (!post.hasImage) {
+                    post.imgs = new Long[1];
+                    post.imgs[0] = postImages[ViewUtil.random(0, postImages.length - 1)];
+                    post.hasImage = true;
+                }
+                callback.success(new PostVM(post), response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
+
+    @Override
     public void newPost(NewPostVM post, Callback<ResponseStatusLiteVM> cb) {
         final Callback<ResponseStatusLiteVM> callback = cb;
         NewPost newPost = new NewPost(post.catId, post.title, post.desc, true);
@@ -251,6 +273,38 @@ public class BabyBoxMockService extends BabyBoxService {
                 responseLite.id = postResponse.id;
                 responseLite.text = postResponse.text;
                 callback.success(responseLite, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void likePost(Long id, Callback<Response> cb) {
+        final Callback<Response> callback = cb;
+        AppController.getApi().setLikePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                callback.success(response, response2);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void unlikePost(Long id, Callback<Response> cb) {
+        final Callback<Response> callback = cb;
+        AppController.getApi().setUnLikePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                callback.success(response, response2);
             }
 
             @Override

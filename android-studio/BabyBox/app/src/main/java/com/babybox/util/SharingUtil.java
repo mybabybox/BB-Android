@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.text.Html;
 import android.widget.Toast;
 
-import org.parceler.apache.commons.lang.StringUtils;
-
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.CommunitiesWidgetChildVM;
-import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.GameGiftVM;
-import com.babybox.viewmodel.PreNurseryVM;
+import com.babybox.viewmodel.PostVM;
 
 /**
  * Created by keithlei on 3/16/15.
@@ -44,16 +40,8 @@ public class SharingUtil {
         shareTo(createMessage(category), SharingType.WHATSAPP, context);
     }
 
-    public static void shareToWhatapp(CommunitiesWidgetChildVM community, Context context) {
-        shareTo(createMessage(community), SharingType.WHATSAPP, context);
-    }
-
-    public static void shareToWhatapp(CommunityPostVM post, Context context) {
+    public static void shareToWhatapp(PostVM post, Context context) {
         shareTo(createMessage(post), SharingType.WHATSAPP, context);
-    }
-
-    public static void shareToWhatapp(PreNurseryVM school, Context context) {
-        shareTo(createMessage(school), SharingType.WHATSAPP, context);
     }
 
     /**
@@ -117,34 +105,9 @@ public class SharingUtil {
         return message;
     }
 
-    public static String createMessage(CommunitiesWidgetChildVM community) {
-        String message = community.getDn();
-        String url = UrlUtil.createCommunityUrl(community);
-        message = message +
-                ViewUtil.HTML_LINE_BREAK +
-                url +
-                ViewUtil.HTML_LINE_BREAK +
-                SHARING_MESSAGE_NOTE;
-        return message;
-    }
-
-    public static String createMessage(CommunityPostVM post) {
-        String message = post.getPtl();
-        String url = UrlUtil.createPostLandingUrl(post);
-        message = message +
-                ViewUtil.HTML_LINE_BREAK +
-                url +
-                ViewUtil.HTML_LINE_BREAK +
-                SHARING_MESSAGE_NOTE;
-        return message;
-    }
-
-    public static String createMessage(PreNurseryVM school) {
-        String message = school.getN();
-        if (!StringUtils.isEmpty(school.getNe())) {
-            message += " "+school.getNe();
-        }
-        String url = UrlUtil.createSchoolUrl(school);
+    public static String createMessage(PostVM post) {
+        String message = post.getTitle();
+        String url = UrlUtil.createPostUrl(post);
         message = message +
                 ViewUtil.HTML_LINE_BREAK +
                 url +

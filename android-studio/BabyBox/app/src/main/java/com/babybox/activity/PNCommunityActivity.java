@@ -33,7 +33,7 @@ public class PNCommunityActivity extends TrackedFragmentActivity {
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.pn_community_actionbar, null),
                 new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.WRAP_CONTENT,
+                        ActionBar.LayoutParams.MATCH_PARENT,
                         ActionBar.LayoutParams.MATCH_PARENT,
                         Gravity.CENTER
                 )
@@ -45,14 +45,6 @@ public class PNCommunityActivity extends TrackedFragmentActivity {
         backImage = (ImageView) findViewById(R.id.backImage);
 
         getSchoolInfo(getIntent().getLongExtra("id", 0L));
-
-        // actionbar actions...
-        whatsappAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharingUtil.shareToWhatapp(schoolVM, PNCommunityActivity.this);
-            }
-        });
 
         bookmarkAction.setOnClickListener(new View.OnClickListener() {
             @Override

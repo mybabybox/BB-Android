@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.babybox.R;
-import com.babybox.activity.DetailActivity;
+import com.babybox.activity.ProductActivity;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
@@ -98,7 +98,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, DetailActivity.class);
+                Intent intent = new Intent(activity, ProductActivity.class);
                 if (item != null) {
                     intent.putExtra(ViewUtil.BUNDLE_KEY_POST_ID, item.getId());    // obsolete
                     intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getId());

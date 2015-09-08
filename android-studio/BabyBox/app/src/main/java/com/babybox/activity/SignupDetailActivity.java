@@ -81,7 +81,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.signup_actionbar, null),
                 new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.WRAP_CONTENT,
+                        ActionBar.LayoutParams.MATCH_PARENT,
                         ActionBar.LayoutParams.MATCH_PARENT,
                         Gravity.CENTER
                 )

@@ -140,56 +140,56 @@ public class ImageUtil {
     public static void displayCoverImage(long id, ImageView imageView) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayCoverImage: loading "+COVER_IMAGE_BY_ID_URL + id);
         Glide.clear(imageView);
-        displayImage(COVER_IMAGE_BY_ID_URL + id, imageView, null, false, true);
+        displayImage(COVER_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     public static void displayCoverImage(long id, ImageView imageView, RequestListener listener) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayCoverImage: loading "+COVER_IMAGE_BY_ID_URL + id);
-        displayImage(COVER_IMAGE_BY_ID_URL + id, imageView, listener, false, true);
+        displayImage(COVER_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     public static void displayThumbnailCoverImage(long id, ImageView imageView) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailCoverImage: loading "+THUMBNAIL_COVER_IMAGE_BY_ID_URL + id);
-        displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView, null, false, true);
+        displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     public static void displayThumbnailCoverImage(long id, ImageView imageView, RequestListener listener) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailCoverImage: loading "+THUMBNAIL_COVER_IMAGE_BY_ID_URL + id);
-        displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView, listener, false, true);
+        displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     // Profile image
 
     public static void displayProfileImage(long id, ImageView imageView) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayProfileImage: loading " + PROFILE_IMAGE_BY_ID_URL + id);
-        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, null, false, true);
+        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     public static void displayProfileImage(long id, ImageView imageView, RequestListener listener) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayProfileImage: loading " + PROFILE_IMAGE_BY_ID_URL + id);
-        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, false, true);
+        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailProfileImage: loading " + THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id);
-        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, false, true);
+        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView, RequestListener listener) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailProfileImage: loading " + THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id);
-        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, false, true);
+        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     // Post image
 
     public static void displayPostImage(long id, ImageView imageView) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayPostImage: loading " + POST_IMAGE_BY_ID_URL + id);
-        displayImage(POST_IMAGE_BY_ID_URL + id, imageView, null, true);
+        displayImage(POST_IMAGE_BY_ID_URL + id, imageView);
     }
 
     public static void displayPostImage(long id, ImageView imageView, RequestListener listener) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayPostImage: loading " + POST_IMAGE_BY_ID_URL + id);
-        displayImage(POST_IMAGE_BY_ID_URL + id, imageView, listener, true);
+        displayImage(POST_IMAGE_BY_ID_URL + id, imageView, listener);
     }
 
     public static void displayOriginalPostImage(long id, ImageView imageView) {
@@ -229,7 +229,7 @@ public class ImageUtil {
     }
 
     public static void displayImage(String url, ImageView imageView, RequestListener listener) {
-        displayImage(url, imageView, listener, false);
+        displayImage(url, imageView, listener, true);
     }
 
     public static void displayImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop) {
@@ -258,7 +258,7 @@ public class ImageUtil {
     }
 
     public static void displayCircleImage(String url, ImageView imageView, RequestListener listener) {
-        displayCircleImage(url, imageView, listener, false);
+        displayCircleImage(url, imageView, listener, true);
     }
 
     public static void displayCircleImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop) {
@@ -287,7 +287,7 @@ public class ImageUtil {
     }
 
     public static void displayRoundedImage(String url, ImageView imageView, RequestListener listener) {
-        displayRoundedImage(url, imageView, listener, false);
+        displayRoundedImage(url, imageView, listener, true);
     }
 
     public static void displayRoundedImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop) {
@@ -321,7 +321,7 @@ public class ImageUtil {
             builder = builder.listener(listener);
         }
         if (centerCrop) {
-            builder = builder.centerCrop();
+            builder = builder.fitCenter().centerCrop();
         }
         if (noCache) {
             builder = builder.diskCacheStrategy(DiskCacheStrategy.NONE);

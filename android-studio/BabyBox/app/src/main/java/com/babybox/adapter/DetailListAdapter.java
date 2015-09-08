@@ -119,10 +119,10 @@ public class DetailListAdapter extends BaseAdapter {
 
         // like
         if (item.isLike()) {
-            like.setImageResource(R.drawable.liked);
+            like.setImageResource(R.drawable.ic_liked);
             likeText.setTextColor(activity.getResources().getColor(R.color.like_blue));
         } else {
-            like.setImageResource(R.drawable.like);
+            like.setImageResource(R.drawable.ic_like);
             likeText.setTextColor(activity.getResources().getColor(R.color.gray));
         }
         if (item.getNol() >= 0) {
@@ -143,7 +143,7 @@ public class DetailListAdapter extends BaseAdapter {
                         unLikeComment(item.getId());
                     }
                     likeText.setTextColor(activity.getResources().getColor(R.color.gray));
-                    like.setImageResource(R.drawable.like);
+                    like.setImageResource(R.drawable.ic_like);
                     int total = item.getNol() - 1;
                     item.setNol(total);
                     numLike.setText(total + "");
@@ -155,7 +155,7 @@ public class DetailListAdapter extends BaseAdapter {
                         likeComment(item.getId());
                     }
                     likeText.setTextColor(activity.getResources().getColor(R.color.like_blue));
-                    like.setImageResource(R.drawable.liked);
+                    like.setImageResource(R.drawable.ic_liked);
                     int total = item.getNol() + 1;
                     item.setNol(total);
                     numLike.setText(total + "");

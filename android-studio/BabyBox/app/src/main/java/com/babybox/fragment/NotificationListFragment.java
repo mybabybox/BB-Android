@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.babybox.activity.ProductActivity;
 import com.babybox.util.ViewUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.babybox.R;
-import com.babybox.activity.DetailActivity;
 import com.babybox.adapter.NotificationListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
@@ -95,13 +95,11 @@ public class NotificationListFragment extends TrackedFragment {
                 NotificationVM item = adapter.getItem(position);
                 if (item != null) {
                     try {
-                        long postId = UrlUtil.parsePostLandingUrlId(item.getUrl().getOnClick());
-                        long commId = UrlUtil.parsePostLandingUrlCommId(item.getUrl().getOnClick());
-                        Log.d(NotificationListFragment.this.getClass().getSimpleName(), "click notif: postId="+postId+" commId="+commId);
+                        long postId = UrlUtil.parsePostUrlId(item.getUrl().getOnClick());
+                        Log.d(NotificationListFragment.this.getClass().getSimpleName(), "click notif: postId="+postId);
 
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
+                        Intent intent = new Intent(getActivity(), ProductActivity.class);
                         intent.putExtra(ViewUtil.BUNDLE_KEY_POST_ID, postId);
-                        intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, commId);
                         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromRequest");
                         startActivity(intent);
                     } catch (Exception e) {

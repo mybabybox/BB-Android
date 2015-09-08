@@ -106,7 +106,7 @@ public class RequestListFragment extends TrackedFragment {
 
                     if (item.getTp().equals("COMM_JOIN_APPROVED")) {
                         try {
-                            long commId = UrlUtil.parseCommunityUrlId(item.getUrl().getOnClick());
+                            long commId = UrlUtil.parseCategoryUrlId(item.getUrl().getOnClick());
                             Log.d(RequestListFragment.this.getClass().getSimpleName(), "click request: commId="+commId);
 
                             Intent intent = new Intent(getActivity(), CategoryActivity.class);

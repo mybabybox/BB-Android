@@ -5,11 +5,9 @@ import java.util.regex.Pattern;
 
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.CommunitiesWidgetChildVM;
-import com.babybox.viewmodel.CommunityPostVM;
 import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.GameGiftVM;
-import com.babybox.viewmodel.PreNurseryVM;
+import com.babybox.viewmodel.PostVM;
 
 /**
  * Created by keithlei on 3/16/15.
@@ -17,17 +15,14 @@ import com.babybox.viewmodel.PreNurseryVM;
 public class UrlUtil {
 
     private static final String CATEGORY_URL = AppController.BASE_URL + "/#!/category/%d";
-    private static final String COMMUNITY_URL = AppController.BASE_URL + "/#!/community/%d";
-    private static final String QNA_LANDING_URL = AppController.BASE_URL + "/#!/qna-landing/id/%d/communityId/%d";
-    private static final String SCHOOL_PN_URL = AppController.BASE_URL + "/schools#!/pn/%d";
-    private static final String SCHOOL_KG_URL = AppController.BASE_URL + "/schools#!/kg/%d";
+    private static final String POST_URL = AppController.BASE_URL + "/#!/post/%d";
     //private static final String ANDROID_APP_DOWNLOAD_URL = AppController.BASE_URL + "/#!/apps/android";
     private static final String ANDROID_APP_DOWNLOAD_URL = "https://goo.gl/gdHjty";
     private static final String REFERRAL_URL = AppController.BASE_URL + "/signup-code/%s";
     private static final String GAME_GIFT_URL = AppController.BASE_URL + "/#!/game-gift/%d";
 
-    private static String QNA_LANDING_URL_REGEX = ".*/qna-landing/id/(\\d+)/communityId/(\\d+)";
-    private static String COMMUNITY_URL_REGEX = ".*/community/(\\d+)";
+    private static String POST_URL_REGEX = ".*/post/(\\d+)";
+    private static String CATEGORY_URL_REGEX = ".*/category/(\\d+)";
 
     public static String createReferralUrl(GameAccountVM gameAccount) {
         return String.format(REFERRAL_URL, gameAccount.getPmcde());
@@ -41,32 +36,20 @@ public class UrlUtil {
         return String.format(CATEGORY_URL, category.getId());
     }
 
-    public static String createCommunityUrl(CommunitiesWidgetChildVM community) {
-        return String.format(COMMUNITY_URL, community.getId());
-    }
-
-    public static String createPostLandingUrl(CommunityPostVM post) {
-        return String.format(QNA_LANDING_URL, post.getId(), post.getCid());
-    }
-
-    public static String createSchoolUrl(PreNurseryVM school) {
-        return String.format(SCHOOL_PN_URL, school.getId());
+    public static String createPostUrl(PostVM post) {
+        return String.format(POST_URL, post.getId());
     }
 
     public static String createAndroidAppDownloadUrl() {
         return ANDROID_APP_DOWNLOAD_URL;
     }
 
-    public static long parseCommunityUrlId(String url) {
-        return parseUrlMatcher(COMMUNITY_URL_REGEX, url);
+    public static long parseCategoryUrlId(String url) {
+        return parseUrlMatcher(CATEGORY_URL_REGEX, url);
     }
 
-    public static long parsePostLandingUrlId(String url) {
-        return parseUrlMatcherAtPosition(QNA_LANDING_URL_REGEX, url, 1);
-    }
-
-    public static long parsePostLandingUrlCommId(String url) {
-        return parseUrlMatcherAtPosition(QNA_LANDING_URL_REGEX, url, 2);
+    public static long parsePostUrlId(String url) {
+        return parseUrlMatcher(POST_URL_REGEX, url);
     }
 
     /**

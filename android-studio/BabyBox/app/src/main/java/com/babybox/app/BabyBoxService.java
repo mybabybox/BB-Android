@@ -8,6 +8,7 @@ import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.ResponseStatusLiteVM;
 import com.babybox.viewmodel.UserVM;
+import com.squareup.okhttp.Call;
 
 import java.util.List;
 
@@ -112,7 +113,7 @@ public class BabyBoxService {
         api.getFollowings(offset, userId, AppController.getInstance().getSessionId(), cb);
     }
 
-    // category
+    // category + post + comments
 
     public void getCategories(Callback<List<CategoryVM>> cb) {
         api.getCategories(AppController.getInstance().getSessionId(), cb);
@@ -128,6 +129,22 @@ public class BabyBoxService {
 
     public void newPost(NewPostVM post, Callback<ResponseStatusLiteVM> cb) {
         api.newPost(post, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void followUser(Long userId, Callback<Response> cb) {
+        api.followUser(userId, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void unfollowUser(Long userId, Callback<Response> cb) {
+        api.unfollowUser(userId, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void likePost(Long id, Callback<Response> cb) {
+        api.likePost(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void unlikePost(Long id, Callback<Response> cb) {
+        api.unlikePost(id, AppController.getInstance().getSessionId(), cb);
     }
 
     // user profile

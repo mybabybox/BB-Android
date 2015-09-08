@@ -20,6 +20,13 @@
             android:scaleType="fitCenter"
             android:minHeight="85dp" />
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:layout_below="@+id/image"
+            android:id="@+id/bar1" />
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"

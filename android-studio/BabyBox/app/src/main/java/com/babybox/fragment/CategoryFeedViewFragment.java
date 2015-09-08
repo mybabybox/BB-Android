@@ -41,7 +41,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     private FeedFilter.FeedType feedType;
     private FeedFilter.FeedProductType productType;
 
-    private ImageView backImage, whatsappAction, linkCopyAction, newPostAction;
+    private ImageView backImage, whatsappAction, copyLinkAction, newPostAction;
 
     private Button popularFilterButton, newestFilterButton, priceLowHighFilterButton, priceHighLowFilterButton;
     private Button newFilterButton, usedFilterButton, allFilterButton;
@@ -65,7 +65,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         View actionBarView = getActivity().getActionBar().getCustomView();
         backImage = (ImageView) actionBarView.findViewById(R.id.backImage);
         whatsappAction = (ImageView) actionBarView.findViewById(R.id.whatsappAction);
-        linkCopyAction = (ImageView) actionBarView.findViewById(R.id.linkCopyAction);
+        copyLinkAction = (ImageView) actionBarView.findViewById(R.id.copyLinkAction);
         newPostAction = (ImageView) actionBarView.findViewById(R.id.newPostAction);
 
         backImage.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             }
         });
 
-        linkCopyAction.setOnClickListener(new View.OnClickListener() {
+        copyLinkAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (ViewUtil.copyToClipboard(UrlUtil.createCategoryUrl(category))) {

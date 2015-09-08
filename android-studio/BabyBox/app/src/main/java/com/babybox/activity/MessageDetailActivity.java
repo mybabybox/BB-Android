@@ -114,7 +114,13 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         loadMoreLayout = (RelativeLayout) listHeader.findViewById(R.id.loadMoreLayout);
 
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(R.layout.message_detail_actionbar);
+        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.message_detail_actionbar, null),
+                new ActionBar.LayoutParams(
+                        ActionBar.LayoutParams.MATCH_PARENT,
+                        ActionBar.LayoutParams.MATCH_PARENT,
+                        Gravity.CENTER
+                )
+        );
 
         commentEdit = (TextView) findViewById(R.id.commentEdit);
         mainFrameLayout = (FrameLayout) findViewById(R.id.mainFrameLayout);
@@ -266,7 +272,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                 });
                 */
 
-                commentPostButton = (TextView) layout.findViewById(R.id.postButton);
+                commentPostButton = (TextView) layout.findViewById(R.id.sendButton);
                 commentPostButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -295,10 +301,9 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     }
                 });
 
+                /*
                 if (commentImages.size() == 0) {
                     commentImages.add((ImageView) layout.findViewById(R.id.commentImage1));
-                    commentImages.add((ImageView) layout.findViewById(R.id.commentImage2));
-                    commentImages.add((ImageView) layout.findViewById(R.id.commentImage3));
 
                     for (ImageView commentImage : commentImages) {
                         commentImage.setOnClickListener(new View.OnClickListener() {
@@ -309,6 +314,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                         });
                     }
                 }
+                */
 
                 commentEmoImage = (ImageView) layout.findViewById(R.id.emoImage);
                 commentEmoImage.setOnClickListener(new View.OnClickListener() {

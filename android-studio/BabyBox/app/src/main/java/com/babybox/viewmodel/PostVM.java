@@ -30,7 +30,7 @@ public class PostVM {
     public boolean isOwner = false;
     public boolean showMore = false;
     public boolean isCommentable = false;
-    public boolean isLike = false;
+    public boolean isLiked = false;
 
     public boolean and = false;
     public boolean ios = false;
@@ -58,7 +58,7 @@ public class PostVM {
         this.isOwner = post.isO;
         this.showMore = post.showM;
         this.isCommentable = post.isC;
-        this.isLike = post.isLike;
+        this.isLiked = post.isLike;
         this.and = post.and;
         this.ios = post.ios;
         this.mob = post.mob;
@@ -265,12 +265,12 @@ public class PostVM {
         this.isCommentable = isCommentable;
     }
 
-    public boolean isLike() {
-        return isLike;
+    public boolean isLiked() {
+        return isLiked;
     }
 
-    public void setIsLike(boolean isLike) {
-        this.isLike = isLike;
+    public void setIsLiked(boolean isLiked) {
+        this.isLiked = isLiked;
     }
 
     public boolean isAndroid() {
