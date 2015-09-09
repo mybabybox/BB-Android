@@ -139,7 +139,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         UserVM user = UserInfoCache.getUser();
         setUserId(user.getId());
 
-        userName.setText(user.getDisplayName());
+        userNameText.setText(user.getDisplayName());
 
         ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override

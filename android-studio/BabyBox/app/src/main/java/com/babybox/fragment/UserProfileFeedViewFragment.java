@@ -33,7 +33,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     private static final String TAG = UserProfileFeedViewFragment.class.getName();
 
     protected ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
-    protected TextView userName, followersText, followingText, userInfoText;
+    protected TextView userNameText, followersText, followingText, userInfoText;
     protected LinearLayout userInfoLayout;
     protected RelativeLayout settingsLayout;
     protected Button editButton, followButton, ordersButton, collectionsButton, productsButton, likedButton;
@@ -59,7 +59,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        userName = (TextView) headerView.findViewById(R.id.usernameText);
+        userNameText = (TextView) headerView.findViewById(R.id.userNameText);
         coverImage = (ImageView) headerView.findViewById(R.id.coverImage);
         profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
         editCoverImage = (ImageView) headerView.findViewById(R.id.editCoverImage);
@@ -136,7 +136,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         AppController.getApi().getUserProfile(userId, AppController.getInstance().getSessionId(), new Callback<ProfileVM>() {
             @Override
             public void success(ProfileVM profile, retrofit.client.Response response) {
-                userName.setText(profile.getDn());
+                userNameText.setText(profile.getDn());
 
                 // admin only
                 /*

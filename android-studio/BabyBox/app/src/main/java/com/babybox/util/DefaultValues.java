@@ -56,6 +56,7 @@ public class DefaultValues {
     public static final int MAX_COMMENT_IMAGES = 3;
     public static final int MAX_MESSAGE_IMAGES = 1;
     public static final int MAX_POST_IMAGE_DIMENSION = 100;
+    public static final int MAX_COMMENTS_PREVIEW = 3;
 
     public static final int IMAGE_ROUNDED_RADIUS = 25;
     public static final int IMAGE_CIRCLE_RADIUS = 120;

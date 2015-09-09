@@ -283,11 +283,11 @@ public class PostVM {
         this.and = and;
     }
 
-    public boolean isIos() {
+    public boolean isIOS() {
         return ios;
     }
 
-    public void setIos(boolean ios) {
+    public void setIOS(boolean ios) {
         this.ios = ios;
     }
 

@@ -25,24 +25,29 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.babybox.R;
+import com.babybox.adapter.CommentListAdapter;
 import com.babybox.adapter.EmoticonListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.EmoticonCache;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
+import com.babybox.util.MessageUtil;
 import com.babybox.util.SharingUtil;
 import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.mock.CommentPost;
 import com.babybox.mock.CommentResponse;
+import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.PostVM;
 
@@ -73,9 +78,11 @@ public class ProductActivity extends TrackedFragmentActivity {
     private TextView commentText, catNameText, timeText, numViewsText, numCommentsText;
     private EditText commentEditText;
 
+    private ListView commentList;
+
     private PopupWindow commentPopup, emoPopup;
     private ImageView commentCancelButton, commentEmoImage;
-    private Button commentSendButton;
+    private TextView commentSendButton;
 
     private PostVM post;
     private long postId, catId;
@@ -129,6 +136,8 @@ public class ProductActivity extends TrackedFragmentActivity {
         numViewsText = (TextView) findViewById(R.id.numViewsText);
         numCommentsText = (TextView) findViewById(R.id.numCommentsText);
 
+        commentList = (ListView) findViewById(R.id.commentList);
+
         commentText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,10 +159,11 @@ public class ProductActivity extends TrackedFragmentActivity {
         postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L);
         catId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, 0L);
 
-        getProduct();
+        getProduct(postId);
+        getComments(postId);
     }
 
-    private void getProduct() {
+    private void getProduct(final Long postId) {
         ViewUtil.showSpinner(this);
 
         AppController.getApiService().getPost(postId, new Callback<PostVM>() {
@@ -165,7 +175,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 if (post.hasImage) {
                     ImageUtil.displayOriginalPostImage(post.images[0], productImage);
                 } else {
-                    Log.w(ProductActivity.class.getSimpleName(), "getProduct: postId="+post.id+" has no image!!");
+                    Log.w(ProductActivity.class.getSimpleName(), "getProduct: postId=" + post.id + " has no image!!");
                 }
 
                 catNameText.setOnClickListener(new View.OnClickListener() {
@@ -179,13 +189,15 @@ public class ProductActivity extends TrackedFragmentActivity {
                 });
 
                 catNameText.setText(post.getCategoryName());
-                descText.setText(post.getDesc());
                 priceText.setText(ViewUtil.priceFormat(post.getPrice()));
                 timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));
                 numViewsText.setText(post.getNumViews() + "");
                 numCommentsText.setText(post.getNumComments() + " " + getString(R.string.comments));
 
                 ViewUtil.setHtmlText(post.getTitle(), titleText, ProductActivity.this, true);
+                ViewUtil.setHtmlText(post.getDesc(), descText, ProductActivity.this, true, true);
+
+                // like
 
                 isLiked = post.isLiked();
                 if (isLiked) {
@@ -204,6 +216,31 @@ public class ProductActivity extends TrackedFragmentActivity {
                         }
                     }
                 });
+
+                // chat
+
+                if (post.getOwnerId().equals(UserInfoCache.getUser().getId())) {
+                    chatButton.setVisibility(View.GONE);
+                    buyButton.setVisibility(View.GONE);
+                } else {
+                    chatButton.setVisibility(View.VISIBLE);
+                    buyButton.setVisibility(View.VISIBLE);
+
+                    chatButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            MessageUtil.openConversation(post.getOwnerId(), ProductActivity.this);
+                        }
+                    });
+                    buyButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            MessageUtil.openConversation(post.getOwnerId(), ProductActivity.this);
+                        }
+                    });
+                }
+
+                // seller
 
                 ImageUtil.displayThumbnailProfileImage(post.getOwnerId(), sellerImage);
                 sellerNameText.setText(post.getPostedBy());
@@ -226,7 +263,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                // actionbar actions...
+                // actionbar
+
                 whatsappAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -266,6 +304,62 @@ public class ProductActivity extends TrackedFragmentActivity {
                 }, DefaultValues.DEFAULT_HANDLER_DELAY);
 
                 Log.e(ProductActivity.class.getSimpleName(), "getQnaDetail: failure", error);
+            }
+        });
+    }
+
+    private void getComments(final Long postId) {
+        ViewUtil.showSpinner(this);
+
+        AppController.getApiService().getComments(0, postId, new Callback<List<CommentVM>>() {
+            @Override
+            public void success(List<CommentVM> comments, Response response) {
+                if (comments == null || comments.size() == 0) {
+                    commentList.setVisibility(View.GONE);
+                } else {
+                    int start = Math.max(0, comments.size() - DefaultValues.MAX_COMMENTS_PREVIEW);
+                    CommentListAdapter adapter = new CommentListAdapter(ProductActivity.this, comments.subList(start, comments.size()));
+                    commentList.setAdapter(adapter);
+                    ViewUtil.setHeightBasedOnChildren(commentList);
+                    commentList.setVisibility(View.VISIBLE);
+                }
+                ViewUtil.stopSpinner(ProductActivity.this);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                ViewUtil.stopSpinner(ProductActivity.this);
+                Log.e(ProductActivity.class.getSimpleName(), "getComments: failure", error);
+            }
+        });
+    }
+
+    private void like(Long postId) {
+        AppController.getApiService().likePost(postId, new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
+                isLiked = true;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(ProductActivity.class.getSimpleName(), "like: failure", error);
+            }
+        });
+    }
+
+    private void unlike(Long postId) {
+        AppController.getApiService().unlikePost(postId, new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
+                isLiked = false;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(ProductActivity.class.getSimpleName(), "unlike: failure", error);
             }
         });
     }
@@ -370,7 +464,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 });
                 */
 
-                commentSendButton = (Button) layout.findViewById(R.id.sendButton);
+                commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
                 commentSendButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -378,7 +472,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                commentCancelButton = (ImageView) layout.findViewById(R.id.cancelButton);
+                commentCancelButton = (ImageView) layout.findViewById(R.id.commentCancelButton);
                 commentCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -416,13 +510,12 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         ViewUtil.showSpinner(this);
 
-        Log.d(this.getClass().getSimpleName(), "doComment: postId="+getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L)+" comment="+comment.substring(0, Math.min(5, comment.length())));
+        Log.d(this.getClass().getSimpleName(), "doComment: postId=" + getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L) + " comment=" + comment.substring(0, Math.min(5, comment.length())));
         AppController.getApi().answerOnQuestion(new CommentPost(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), comment, false), AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
             @Override
             public void success(CommentResponse array, Response response) {
-                //getComments(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), 0);  // reload page
+                getComments(postId);  // reload page
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_success), Toast.LENGTH_LONG).show();
-
                 reset();
             }
 
@@ -434,81 +527,6 @@ public class ProductActivity extends TrackedFragmentActivity {
             }
         });
     }
-
-    private void like(Long postId) {
-        AppController.getApiService().likePost(postId, new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-                ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
-                isLiked = true;
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "like: failure", error);
-            }
-        });
-    }
-
-    private void unlike(Long postId) {
-        AppController.getApiService().unlikePost(postId, new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-                ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
-                isLiked = false;
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "unlike: failure", error);
-            }
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // comment out more options for now...
-        //MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.product_action_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.report:
-                Log.d(this.getClass().getSimpleName(), "onOptionsItemSelected: "+item.getItemId());
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    /*
-    private void getComments(Long postID, final int offset) {
-        ViewUtil.showSpinner(this);
-
-        AppController.getApi().getComments(postID,offset,AppController.getInstance().getSessionId(),new Callback<List<CommunityPostCommentVM>>(){
-            @Override
-            public void success(List<CommunityPostCommentVM> commentVMs, Response response) {
-                List<CommunityPostCommentVM> communityPostCommentVMs = new ArrayList<CommunityPostCommentVM>();
-                if (offset == 0) {   // insert new_post itself for first page only
-                    postVm.imageLoaded = false;
-                    communityPostCommentVMs.add(postVm);
-                }
-                communityPostCommentVMs.addAll(commentVMs);
-
-                ViewUtil.stopSpinner(ProductActivity.this);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(ProductActivity.this);
-                Log.e(ProductActivity.class.getSimpleName(), "getComments: failure", error);
-            }
-        });
-    }
-    */
 
     private void initEmoticonPopup() {
         mainLayout.getForeground().setAlpha(20);
@@ -568,6 +586,25 @@ public class ProductActivity extends TrackedFragmentActivity {
         if (emoPopup != null) {
             emoPopup.dismiss();
             emoPopup = null;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // comment out more options for now...
+        //MenuInflater inflater = getMenuInflater();
+        //inflater.inflate(R.menu.product_action_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.report:
+                Log.d(this.getClass().getSimpleName(), "onOptionsItemSelected: "+item.getItemId());
+                return true;
+            default:
+                return false;
         }
     }
 

@@ -99,6 +99,7 @@
     <string name="chat">Chat</string>
     <string name="buy">Buy</string>
     <string name="listed">Listed</string>
+    <string name="post_comment_bar_hint">添加評論</string>
 
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>
@@ -134,7 +135,6 @@
     <string name="comment_delete_failed">暫時不能刪除回覆，請稍後重試</string>
     <string name="community_actionbar_title">社群話題</string>
     <string name="post_actionbar_title">話題詳情</string>
-    <string name="post_comment_bar_hint">回覆話題</string>
     <string name="from_community">社群:</string>
     <string name="new_post_select_pn_community">請選擇幼兒班討論區</string>
     <string name="new_post_select_kg_community">請選擇幼稚園討論區</string>

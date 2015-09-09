@@ -2,7 +2,9 @@ package com.babybox.app;
 
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
+import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.LocationVM;
+import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
@@ -129,6 +131,22 @@ public class BabyBoxService {
 
     public void newPost(NewPostVM post, Callback<ResponseStatusLiteVM> cb) {
         api.newPost(post, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void deletePost(Long id, Callback<Response> cb) {
+        api.deletePost(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getComments(int offset, Long postId, Callback<List<CommentVM>> cb) {
+        api.getComments(postId, offset, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void newComment(NewCommentVM comment, Callback<ResponseStatusLiteVM> cb) {
+        api.newComment(comment, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void deleteComment(Long commendId, Callback<Response> cb) {
+        api.deleteComment(commendId, AppController.getInstance().getSessionId(), cb);
     }
 
     public void followUser(Long userId, Callback<Response> cb) {

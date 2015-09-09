@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.babybox.R;
@@ -95,7 +96,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         holder.title.setText(item.getTitle());
         holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
 
-        holder.image.setOnClickListener(new View.OnClickListener() {
+        holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(activity, ProductActivity.class);
@@ -126,6 +127,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
      * View item.
      */
     class FeedViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout itemLayout;
         ImageView image;
         TextView title;
         TextView price;
@@ -133,6 +135,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         public FeedViewHolder(View holder) {
             super(holder);
 
+            itemLayout = (LinearLayout) holder.findViewById(R.id.itemLayout);
             image = (ImageView) holder.findViewById(R.id.image);
             title = (TextView) holder.findViewById(R.id.title);
             price = (TextView) holder.findViewById(R.id.price);

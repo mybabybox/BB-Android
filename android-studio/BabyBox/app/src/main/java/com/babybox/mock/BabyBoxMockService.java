@@ -5,6 +5,7 @@ import com.babybox.app.BabyBoxApi;
 import com.babybox.app.BabyBoxService;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
@@ -208,7 +209,7 @@ public class BabyBoxMockService extends BabyBoxService {
         AppController.getApi().getMyCommunities(AppController.getInstance().getSessionId(), new Callback<CommunitiesParentVM>() {
             @Override
             public void success(CommunitiesParentVM communitiesParentVM, Response response) {
-                List<CategoryVM> categories = new ArrayList<CategoryVM>();
+                List<CategoryVM> categories = new ArrayList<>();
                 for (CommunitiesWidgetChildVM comm : communitiesParentVM.getCommunities()) {
                     categories.add(new CategoryVM(comm));
                 }
@@ -270,6 +271,25 @@ public class BabyBoxMockService extends BabyBoxService {
                 responseLite.id = postResponse.id;
                 responseLite.text = postResponse.text;
                 callback.success(responseLite, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
+
+    public void getComments(int offset, Long postId, Callback<List<CommentVM>> cb) {
+        final Callback<List<CommentVM>> callback = cb;
+        AppController.getApi().getComments(postId, offset, AppController.getInstance().getSessionId(), new Callback<List<CommunityPostCommentVM>>() {
+            @Override
+            public void success(List<CommunityPostCommentVM> vms, Response response) {
+                List<CommentVM> comments = new ArrayList<>();
+                for (CommunityPostCommentVM vm : vms) {
+                    comments.add(new CommentVM(vm));
+                }
+                callback.success(comments, response);
             }
 
             @Override

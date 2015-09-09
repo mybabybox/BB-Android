@@ -31,7 +31,7 @@ public class HomeMainFragment extends TrackedFragment {
 
     private RelativeLayout profileLayout;
     private ImageView profileImage;
-    private TextView usernameText;
+    private TextView userNameText;
     private ImageView signInImage;
     private ImageView newPostIcon;
     private View actionBarView;
@@ -57,7 +57,7 @@ public class HomeMainFragment extends TrackedFragment {
 
         profileLayout = (RelativeLayout) actionBarView.findViewById(R.id.profileLayout);
         profileImage = (ImageView) actionBarView.findViewById(R.id.profileImage);
-        usernameText = (TextView) actionBarView.findViewById(R.id.usernameText);
+        userNameText = (TextView) actionBarView.findViewById(R.id.userNameText);
 
         newPostIcon = (ImageView) actionBarView.findViewById(R.id.newPostIcon);
         signInImage = (ImageView) actionBarView.findViewById(R.id.signInImage);
@@ -73,7 +73,7 @@ public class HomeMainFragment extends TrackedFragment {
 
         // profile
         ImageUtil.displayThumbnailProfileImage(UserInfoCache.getUser().getId(), profileImage);
-        usernameText.setText(UserInfoCache.getUser().getDisplayName());
+        userNameText.setText(UserInfoCache.getUser().getDisplayName());
 
         profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
