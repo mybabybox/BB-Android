@@ -6,6 +6,7 @@ import com.babybox.app.BabyBoxService;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommentVM;
+import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
@@ -290,6 +291,25 @@ public class BabyBoxMockService extends BabyBoxService {
                     comments.add(new CommentVM(vm));
                 }
                 callback.success(comments, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
+
+    public void newComment(NewCommentVM comment, Callback<ResponseStatusLiteVM> cb) {
+        final Callback<ResponseStatusLiteVM> callback = cb;
+        CommentPost newComment = new CommentPost(comment.postId, comment.desc, false);
+        AppController.getApi().answerOnQuestion(newComment, AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
+            @Override
+            public void success(CommentResponse commentResponse, Response response) {
+                ResponseStatusLiteVM responseLite = new ResponseStatusLiteVM();
+                responseLite.id = commentResponse.id;
+                responseLite.text = commentResponse.text;
+                callback.success(responseLite, response);
             }
 
             @Override

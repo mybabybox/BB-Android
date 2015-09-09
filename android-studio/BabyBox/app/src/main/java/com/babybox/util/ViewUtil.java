@@ -153,8 +153,9 @@ public class ViewUtil {
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int dividerHeight = listView.getDividerHeight() + 1;
         params.height = totalHeight +
-                (listView.getDividerHeight() * (adapter.getCount()-1)) +
+                (dividerHeight * (adapter.getCount() - 1)) +
                 ViewUtil.getRealDimension(5);  // extra margin
         listView.setLayoutParams(params);
         listView.requestLayout();

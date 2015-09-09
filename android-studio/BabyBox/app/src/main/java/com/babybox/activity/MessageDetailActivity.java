@@ -79,14 +79,15 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
     private List<File> photos = new ArrayList<>();
     private EmoticonListAdapter emoticonListAdapter;
 
-    private TextView commentPostButton, title;
-    private ImageView backImage, commentBrowseButton, commentCancelButton, commentEmoImage, profileButton;
+    private TextView title;
+    private ImageView backImage, profileButton;
     private List<MessageVM> messageVMList;
     private MessageListAdapter adapter;
     private ListView listView;
     private View listHeader;
     private RelativeLayout loadMoreLayout;
 
+    private Long conversationId;
     private Long offset = 1L;
     private Intent intent;
 
@@ -142,16 +143,18 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MessageDetailActivity.this, UserProfileActivity.class);
-                i.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra("uid",0l));
+                i.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra("uid", 0l));
                 startActivity(i);
             }
         });
 
-        getMessages(getIntent().getLongExtra("cid", 0l), 0l);
+        conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
+        getMessages(conversationId, 0l);
+
         loadMoreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadMoreMessages(getIntent().getLongExtra("cid",0l),offset);
+                loadMoreMessages(conversationId, offset);
                 offset++;
             }
         });
@@ -272,15 +275,15 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                 });
                 */
 
-                commentPostButton = (TextView) layout.findViewById(R.id.sendButton);
-                commentPostButton.setOnClickListener(new View.OnClickListener() {
+                TextView commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
+                commentSendButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         doMessage();
                     }
                 });
 
-                commentCancelButton = (ImageView) layout.findViewById(R.id.cancelButton);
+                ImageView commentCancelButton = (ImageView) layout.findViewById(R.id.commentCancelButton);
                 commentCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -289,7 +292,15 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                commentBrowseButton = (ImageView) layout.findViewById(R.id.browseImage);
+                ImageView commentEmoImage = (ImageView) layout.findViewById(R.id.emoImage);
+                commentEmoImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        initEmoticonPopup();
+                    }
+                });
+
+                ImageView commentBrowseButton = (ImageView) layout.findViewById(R.id.browseImage);
                 commentBrowseButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -301,9 +312,8 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                /*
                 if (commentImages.size() == 0) {
-                    commentImages.add((ImageView) layout.findViewById(R.id.commentImage1));
+                    commentImages.add((ImageView) layout.findViewById(R.id.commentImage));
 
                     for (ImageView commentImage : commentImages) {
                         commentImage.setOnClickListener(new View.OnClickListener() {
@@ -314,15 +324,6 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                         });
                     }
                 }
-                */
-
-                commentEmoImage = (ImageView) layout.findViewById(R.id.emoImage);
-                commentEmoImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        initEmoticonPopup();
-                    }
-                });
             }
 
             if (emoticonVMList.isEmpty() && EmoticonCache.getEmoticons().isEmpty()) {
@@ -436,7 +437,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
 
     private void doMessage() {
         String comment = commentEditText.getText().toString().trim();
-        if (StringUtils.isEmpty(comment)) {
+        if (StringUtils.isEmpty(comment) && commentImages.size() == 0) {
             Toast.makeText(MessageDetailActivity.this, MessageDetailActivity.this.getString(R.string.invalid_comment_body_empty), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -458,7 +459,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     JSONArray userGroupArray = obj.getJSONArray("message");
                     JSONObject object1 = userGroupArray.getJSONObject(0);
                     uploadPhotos(object1.getLong(ViewUtil.BUNDLE_KEY_ID));
-                    getMessages(getIntent().getLongExtra("cid", 0l),0l);
+                    getMessages(conversationId, 0l);
 
                     reset();
                 } catch (JSONException e) {
@@ -484,7 +485,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
             AppController.getApi().uploadMessagePhoto(AppController.getInstance().getSessionId(),commentId, typedFile, new Callback<Response>() {
                 @Override
                 public void success(Response array, Response response) {
-                    getMessages(getIntent().getLongExtra("cid", 0l),0l);
+                    getMessages(conversationId, 0l);
                 }
 
                 @Override
@@ -495,7 +496,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void getMessages(Long id,Long offset) {
+    private void getMessages(Long id, Long offset) {
         ViewUtil.showSpinner(MessageDetailActivity.this);
         AppController.getApi().getMessages(id, offset, AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override

@@ -45,11 +45,11 @@ import com.babybox.util.MessageUtil;
 import com.babybox.util.SharingUtil;
 import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
-import com.babybox.mock.CommentPost;
-import com.babybox.mock.CommentResponse;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.EmoticonVM;
+import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.ResponseStatusLiteVM;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
@@ -67,7 +67,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private ImageView productImage;
     private TextView titleText, descText, priceText;
-    private Button chatButton, buyButton, sendButton;
+    private Button chatButton, buyButton;
     private LinearLayout likeLayout;
     private ImageView likeImage;
     private TextView likeText;
@@ -81,8 +81,6 @@ public class ProductActivity extends TrackedFragmentActivity {
     private ListView commentList;
 
     private PopupWindow commentPopup, emoPopup;
-    private ImageView commentCancelButton, commentEmoImage;
-    private TextView commentSendButton;
 
     private PostVM post;
     private long postId, catId;
@@ -122,7 +120,6 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         chatButton = (Button) findViewById(R.id.chatButton);
         buyButton = (Button) findViewById(R.id.buyButton);
-        sendButton = (Button) findViewById(R.id.sendButton);
         likeLayout = (LinearLayout) findViewById(R.id.likeLayout);
         likeImage = (ImageView) findViewById(R.id.likeImage);
         likeText = (TextView) findViewById(R.id.likeText);
@@ -317,11 +314,11 @@ public class ProductActivity extends TrackedFragmentActivity {
                 if (comments == null || comments.size() == 0) {
                     commentList.setVisibility(View.GONE);
                 } else {
+                    commentList.setVisibility(View.VISIBLE);
                     int start = Math.max(0, comments.size() - DefaultValues.MAX_COMMENTS_PREVIEW);
                     CommentListAdapter adapter = new CommentListAdapter(ProductActivity.this, comments.subList(start, comments.size()));
                     commentList.setAdapter(adapter);
                     ViewUtil.setHeightBasedOnChildren(commentList);
-                    commentList.setVisibility(View.VISIBLE);
                 }
                 ViewUtil.stopSpinner(ProductActivity.this);
             }
@@ -464,7 +461,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 });
                 */
 
-                commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
+                TextView commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
                 commentSendButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -472,7 +469,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                commentCancelButton = (ImageView) layout.findViewById(R.id.commentCancelButton);
+                ImageView commentCancelButton = (ImageView) layout.findViewById(R.id.commentCancelButton);
                 commentCancelButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -481,13 +478,16 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                commentEmoImage = (ImageView) layout.findViewById(R.id.emoImage);
+                ImageView commentEmoImage = (ImageView) layout.findViewById(R.id.emoImage);
                 commentEmoImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         initEmoticonPopup();
                     }
                 });
+
+                ImageView commentBrowseImage = (ImageView) layout.findViewById(R.id.browseImage);
+                commentBrowseImage.setVisibility(View.GONE);
             }
 
             if (emoticonVMList.isEmpty() && EmoticonCache.getEmoticons().isEmpty()) {
@@ -510,10 +510,10 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         ViewUtil.showSpinner(this);
 
-        Log.d(this.getClass().getSimpleName(), "doComment: postId=" + getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L) + " comment=" + comment.substring(0, Math.min(5, comment.length())));
-        AppController.getApi().answerOnQuestion(new CommentPost(getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L), comment, false), AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
+        Log.d(this.getClass().getSimpleName(), "doComment: postId=" + postId + " comment=" + comment.substring(0, Math.min(5, comment.length())));
+        AppController.getApiService().newComment(new NewCommentVM(postId, comment, false), new Callback<ResponseStatusLiteVM>() {
             @Override
-            public void success(CommentResponse array, Response response) {
+            public void success(ResponseStatusLiteVM responseLite, Response response) {
                 getComments(postId);  // reload page
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_success), Toast.LENGTH_LONG).show();
                 reset();

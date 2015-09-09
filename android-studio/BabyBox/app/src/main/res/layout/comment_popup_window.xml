@@ -8,7 +8,7 @@
     android:elevation="5dp"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:paddingTop="5dp"
+    android:paddingTop="10dp"
     android:paddingBottom="10dp">
 
     <RelativeLayout
@@ -19,10 +19,11 @@
         android:layout_marginRight="5dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="false"
-            android:layout_centerVertical="true">
+            android:layout_centerVertical="true"
+            android:id="@+id/buttonsLayout">
 
             <ImageView
                 android:id="@+id/commentCancelButton"
@@ -39,8 +40,23 @@
                 android:src="@drawable/emo_smile"
                 android:layout_gravity="center_vertical" />
 
+            <ImageView
+                android:id="@+id/browseImage"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/browse"
+                android:layout_gravity="center_vertical" />
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/commentImage"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="bottom|left"
+            android:layout_toRightOf="@+id/buttonsLayout" />
 
         <TextView
             android:id="@+id/commentSendButton"

@@ -47,7 +47,7 @@ public class MessageUtil {
         Intent intent = new Intent(activity, MessageDetailActivity.class);
         intent.putExtra("user_name", userDisplayname);
         intent.putExtra("uid", userId);
-        intent.putExtra("cid", conversationId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
         activity.startActivity(intent);
     }
 }

@@ -198,26 +198,26 @@ public interface MyApi {
     public void getAllConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
 
     @GET("/get-messages/{id}/{offset}")
-    public void getMessages(@Path("id") Long id,@Path("offset") Long offset,@Query("key") String key, Callback<Response> cb);
+    public void getMessages(@Path("id") Long id, @Path("offset") Long offset,@Query("key") String key, Callback<Response> cb);
 
     @GET("/open-conversation/{id}")
     public void openConversation(@Path("id") Long id,@Query("key") String key, Callback<List<ConversationVM>> cb);
 
     @GET("/delete-conversation/{id}")
-    public void deleteConversation(@Path("id") Long id,@Query("key") String key, Callback<Response> cb);
+    public void deleteConversation(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
     @POST("/message/sendMsg")
-    public void sendMessage(@Body MessagePostVM message,@Query("key") String key, Callback<Response> cb);
+    public void sendMessage(@Body MessagePostVM message, @Query("key") String key, Callback<Response> cb);
 
     @GET("/get-unread-msg-count")
     public void getUnreadMessageCount(@Query("key") String key, Callback<MessageVM> cb);
 
     @GET("/image/get-message-image-by-id/{id} ")
-    public void getMessageImage(@Query("key") String key,@Part("messageId") long id, Callback<MessageVM> cb);
+    public void getMessageImage(@Query("key") String key, @Part("messageId") long id, Callback<MessageVM> cb);
 
     @Multipart
     @POST("/image/sendMessagePhoto") //a function in your api upload image for message
-    public void uploadMessagePhoto(@Query("key") String key,@Part("messageId") long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
+    public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
 
     //
     // Game APIs

@@ -19,15 +19,6 @@
             android:src="@drawable/back"
             android:layout_alignParentStart="true" />
 
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:textColor="#ffffff"
-            android:textSize="22dp" />
-
         <ImageView
             android:id="@+id/whatsappAction"
             android:layout_width="30dp"
