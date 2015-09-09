@@ -1,5 +1,6 @@
 package com.babybox.util;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -137,25 +138,25 @@ public class ViewUtil {
         return displayDimensions;
     }
 
-    public static void setHeightBasedOnChildren(ListView listView) {
+    public static void setHeightBasedOnChildren(Activity activity, ListView listView) {
         BaseAdapter adapter = (BaseAdapter) listView.getAdapter();
         if (adapter == null) {
             // pre-condition
             return;
         }
 
+        // http://stackoverflow.com/questions/19908003/getting-height-of-text-view-before-rendering-to-layout
+        int widthSpec = View.MeasureSpec.makeMeasureSpec(getDisplayDimensions(activity).width(), View.MeasureSpec.AT_MOST);
+        int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         int totalHeight = 0;
         for (int i = 0; i < adapter.getCount(); i++) {
             View item = adapter.getView(i, null, listView);
-            item.measure(0, 0);
+            item.measure(widthSpec, heightSpec);
             totalHeight += item.getMeasuredHeight();
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        int dividerHeight = listView.getDividerHeight() + 1;
-        params.height = totalHeight +
-                (dividerHeight * (adapter.getCount() - 1)) +
-                ViewUtil.getRealDimension(5);  // extra margin
+        params.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
     }

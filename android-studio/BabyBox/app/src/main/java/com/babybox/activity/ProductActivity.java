@@ -318,7 +318,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     int start = Math.max(0, comments.size() - DefaultValues.MAX_COMMENTS_PREVIEW);
                     CommentListAdapter adapter = new CommentListAdapter(ProductActivity.this, comments.subList(start, comments.size()));
                     commentList.setAdapter(adapter);
-                    ViewUtil.setHeightBasedOnChildren(commentList);
+                    ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
                 }
                 ViewUtil.stopSpinner(ProductActivity.this);
             }

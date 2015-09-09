@@ -106,15 +106,13 @@ public class BabyBoxMockService extends BabyBoxService {
                     for (CommunityPostVM post : posts) {
                         if (post.hasImage) {
                             array.add(new PostVM(post));
+                        } else {
+                            post.imgs = new Long[1];
+                            post.imgs[0] = postImages[ViewUtil.random(0, postImages.length - 1)];
+                            post.hasImage = true;
+                            array.add(new PostVM(post));    // dummy to continue endless scroll
                         }
                         feedTime = post.getUt();
-                    }
-                    if (posts.size() > 0 && array.size() == 0) {
-                        CommunityPostVM post = posts.get(0);
-                        post.imgs = new Long[1];
-                        post.imgs[0] = postImages[ViewUtil.random(0, postImages.length - 1)];
-                        post.hasImage = true;
-                        array.add(new PostVM(post));    // dummy to continue endless scroll
                     }
                     callback.success(array, response);
                 }

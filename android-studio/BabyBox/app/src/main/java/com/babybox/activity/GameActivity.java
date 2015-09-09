@@ -210,7 +210,7 @@ public class GameActivity extends TrackedFragmentActivity {
                 gameGifts.addAll(vms);
                 GameGiftListAdapter gameGiftListAdapter = new GameGiftListAdapter(GameActivity.this, gameGifts, gameAccount);
                 gameGiftList.setAdapter(gameGiftListAdapter);
-                ViewUtil.setHeightBasedOnChildren(gameGiftList);
+                ViewUtil.setHeightBasedOnChildren(GameActivity.this, gameGiftList);
                 ViewUtil.scrollTop(scrollView);
             }
 
@@ -229,7 +229,7 @@ public class GameActivity extends TrackedFragmentActivity {
                 gameTransactions.addAll(vms);
                 GameTransactionListAdapter gameTransactionListAdapter = new GameTransactionListAdapter(GameActivity.this, gameTransactions);
                 gameTransactionList.setAdapter(gameTransactionListAdapter);
-                ViewUtil.setHeightBasedOnChildren(gameTransactionList);
+                ViewUtil.setHeightBasedOnChildren(GameActivity.this, gameTransactionList);
                 ViewUtil.scrollTop(scrollView);
             }
 
@@ -248,7 +248,7 @@ public class GameActivity extends TrackedFragmentActivity {
                 gameTransactions.addAll(vms);
                 GameTransactionListAdapter gameTransactionListAdapter = new GameTransactionListAdapter(GameActivity.this, gameTransactions, true);
                 latestGameTransactionList.setAdapter(gameTransactionListAdapter);
-                ViewUtil.setHeightBasedOnChildren(latestGameTransactionList);
+                ViewUtil.setHeightBasedOnChildren(GameActivity.this, latestGameTransactionList);
                 ViewUtil.scrollTop(scrollView);
             }
 
