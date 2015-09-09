@@ -7,7 +7,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -216,7 +215,7 @@ public class ViewUtil {
     }
 
     public static void unselectFilterButtonStyle(Button button) {
-        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.dark_gray));
         button.setBackgroundResource(R.drawable.button_filter_unselect);
     }
 
