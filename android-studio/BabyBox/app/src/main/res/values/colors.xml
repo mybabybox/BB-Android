@@ -46,20 +46,4 @@
     <color name="game_title_border">#2EAB66</color>
     <color name="game_title_text">#556fb5</color>
 
-    <color name="schools_district">#CD8400</color>
-    <color name="schools_title">#1A20DC</color>
-    <color name="schools_info_text">#5F1B1B</color>
-    <color name="schools_info_box_bg">#FEFFF0</color>
-    <color name="schools_info_box_border">#D1D897</color>
-
-    <color name="pn_view_bg">#FCFAF8</color>
-    <color name="pn_actionbar_bg">#67BB67</color>
-    <color name="pn_box_border">#7BC77E</color>
-    <color name="pn_box_shadow">#8FB389</color>
-    <color name="pn_green">#57A857</color>
-    <color name="pn_text">#008000</color>
-    <color name="pn_text_light">#4B964B</color>
-    <color name="pn_bg">#EBFDEA</color>
-    <color name="pn_bg_light">#F3FDF2</color>
-
 </resources>

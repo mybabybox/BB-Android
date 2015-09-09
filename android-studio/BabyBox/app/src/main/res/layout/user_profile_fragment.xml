@@ -308,7 +308,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:background="@drawable/schools_info_box"
+                        android:background="@drawable/tips_box_pink"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
                         android:paddingBottom="5dp"

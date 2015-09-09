@@ -83,7 +83,7 @@
     <!-- Main -->
     <string name="tabset_home">Home</string>
     <string name="tabset_notifications">Notifs</string>
-    <string name="tabset_schools">Search</string>
+    <string name="tabset_search">Search</string>
     <string name="tabset_profile">Me</string>
 
     <!-- Tips -->
@@ -136,8 +136,6 @@
     <string name="community_actionbar_title">社群話題</string>
     <string name="post_actionbar_title">話題詳情</string>
     <string name="from_community">社群:</string>
-    <string name="new_post_select_pn_community">請選擇幼兒班討論區</string>
-    <string name="new_post_select_kg_community">請選擇幼稚園討論區</string>
     <string name="new_post_actionbar_title">新話題</string>
     <string name="new_post">發出</string>
     <string name="new_post_title">問題 / 分享⋯⋯</string>
@@ -244,105 +242,6 @@
     <string name="game_gifts_redeem_points_limit_per_user">每個用戶最多可換領 %1$d次</string>
     <string name="game_gifts_redeem_requested">我們已收到您的換領禮品要求~ 請按照「換領規則」聯絡我們</string>
     <string name="game_gifts_redeem_confirm">確定使用小豆豆換領禮品嗎?</string>
-
-    <!-- Schools tab -->
-    <string name="schools_tab_title_pn">幼兒班(PN班)</string>
-    <string name="schools_tab_title_kg">幼稚園(K班)</string>
-    <string name="schools_district_search">地區搜尋</string>
-    <string name="schools_newsfeed">最新討論</string>
-    <string name="schools_bookmarks">我的收藏</string>
-    <string name="schools_your_district">您的地區:</string>
-    <string name="schools_actionbar_title">詳情</string>
-    <string name="schools_application_date">申請日期</string>
-    <string name="schools_application_date_prefix">[申請日期]</string>
-    <string name="schools_ranking">最多媽媽關注</string>
-    <string name="schools_info_app_date">申請日期:</string>
-    <string name="schools_info_open_day">開放日:</string>
-    <string name="schools_info_coupon">學券申請:</string>
-    <string name="schools_info_type">學校類別:</string>
-    <string name="schools_info_curriculum">課程類別:</string>
-    <string name="schools_info_time">課堂時間:</string>
-    <string name="schools_info_pn">PN幼兒班:</string>
-    <string name="schools_info_org">辦學團體:</string>
-    <string name="schools_info_students_num">收錄人數:</string>
-    <string name="schools_info_tuition_half_day">半日班全年收費:</string>
-    <string name="schools_info_tuition_full_day">全日班全年收費:</string>
-    <string name="schools_info_data_asof">* 根據教育局提供的幼兒服務資料 (2013年9月資料)</string>
-    <string name="schools_info_school_fee_coupon">以下是兌換學劵後的全年學費 (期數)</string>
-    <string name="schools_info_curriculum_arrange">課程編排:</string>
-    <string name="schools_info_address">地址:</string>
-    <string name="schools_info_phone">電話:</string>
-    <string name="schools_info_url">網址:</string>
-    <string name="schools_info_gov_url">教局網址:</string>
-    <string name="schools_info_k1">幼兒 3-4歲</string>
-    <string name="schools_info_k2">低班 4-5歲</string>
-    <string name="schools_info_k3">高班 5-6歲</string>
-    <string name="schools_info_am">上午班</string>
-    <string name="schools_info_pm">下午班</string>
-    <string name="schools_info_wd">全日班</string>
-    <string name="schools_info_total">總數</string>
-    <string name="schools_info_summer_uniform">夏季校服</string>
-    <string name="schools_info_winter_uniform">冬季校服</string>
-    <string name="schools_info_schoolbag">書包</string>
-    <string name="schools_info_tea">茶點</string>
-    <string name="schools_info_textbooks">課本</string>
-    <string name="schools_info_workbooks">練習簿/作業</string>
-    <string name="schools_info_fee_note">全年學費(期數)</string>
-    <string name="schools_info_not_provide">沒有直接代辦</string>
-    <string name="schools_info_comm_welcome">歡迎和其他家長一起討論</string>
-    <string name="schools_search_hint">搜尋學校名稱(所有區)</string>
-    <string name="schools_search_text_1">搜尋</string>
-    <string name="schools_search_text_2">有</string>
-    <string name="schools_search_text_3">個結果</string>
-    <string name="schools_search_cancel">結束搜尋</string>
-    <string name="schools_search_too_many_results">由於搜尋結果太多，請修改搜尋字再重試。</string>
-
-    <string name="schools_filter_text_1">有</string>
-    <string name="schools_filter_text_2">間幼稚園提供幼兒班(PN班)</string>
-    <string name="schools_filter_text_3">幼兒服務 (PN班)</string>
-    <string name="schools_filter_text_4">間幼稚園</string>
-    <string name="schools_posts">話題 :</string>
-    <string name="schools_discuss_together">討論區</string>
-    <string name="schools_landing_title_important_dates">重要日期</string>
-    <string name="schools_landing_title_info">學校資料</string>
-    <string name="schools_landing_title_pn">幼兒班(PN班 2-3歲) 收生資料</string>
-    <string name="schools_landing_title_kg_1">學生人數</string>
-    <string name="schools_landing_title_kg_2">全年學費 (2014/15 學年資料)</string>
-    <string name="schools_landing_title_kg_3">主要代辦項目參考價目 (2013/14 學年)</string>
-    <string name="schools_landing_title_curriculum">課程資料</string>
-    <string name="schools_landing_title_contact">聯絡資料</string>
-    <string name="schools_landing_title_comm">討論區</string>
-    <string name="schools_landing_new_post">新話題</string>
-
-    <string name="filter_schools_all">全部</string>
-    <string name="filter_schools_yes">有</string>
-    <string name="filter_schools_no">沒有</string>
-    <string name="filter_schools_type_public">非牟利</string>
-    <string name="filter_schools_type_private">私立</string>
-    <string name="filter_schools_curriculum_local">本地</string>
-    <string name="filter_schools_curriculum_nonlocal">非本地</string>
-    <string name="filter_schools_time_am">上午</string>
-    <string name="filter_schools_time_pm">下午</string>
-    <string name="filter_schools_time_wd">全日</string>
-
-    <string name="schools_bookmark_title_pn_tips">還沒有收藏幼兒班~\n立即收藏，接收最新討論通知</string>
-    <string name="schools_bookmark_title_kg_tips">還沒有收藏幼稚園~\n立即收藏，接收最新討論通知</string>
-    <string name="schools_bookmark_title_prefix">收藏了</string>
-    <string name="schools_bookmark_title_pn">間幼兒班(PN班)</string>
-    <string name="schools_bookmark_title_kg">間幼稚園</string>
-
-    <string name="schools_app_dates_title_all">全部</string>
-    <string name="schools_app_dates_title_hk">香港</string>
-    <string name="schools_app_dates_title_kl">九龍</string>
-    <string name="schools_app_dates_title_nt">新界</string>
-    <string name="schools_app_dates_tips">資料由 babybox 會員提供，最終以幼稚園官方網站或請致電幼稚園為準</string>
-    <string name="schools_info_app_dates_tips">* 資料由 babybox 會員提供，最終以幼稚園官方網站或請致電幼稚園為準</string>
-
-    <string name="schools_top_pn_ranking">幼兒班排名</string>
-    <string name="schools_top_kg_ranking">幼稚園排名</string>
-    <string name="schools_top_viewed">最多閱覽次數</string>
-    <string name="schools_top_bookmarked">最多媽媽收藏</string>
-    <string name="schools_top_discussed">最多媽媽討論</string>
 
     <!-- Dialog -->
     <string name="cancel_new_post">退出發佈話題？</string>

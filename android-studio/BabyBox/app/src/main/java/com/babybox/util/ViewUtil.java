@@ -568,16 +568,6 @@ public class ViewUtil {
     }
 
     //
-    // Schools
-    //
-
-    public static String translateClassTime(String classTime, Resources resources) {
-        return classTime.replace("AM", resources.getString(R.string.filter_schools_time_am)).
-                replace("PM", resources.getString(R.string.filter_schools_time_pm)).
-                replace("WD", resources.getString(R.string.filter_schools_time_wd));
-    }
-
-    //
     // Start Activities
     //
 
@@ -590,5 +580,4 @@ public class ViewUtil {
             activity.startActivity(intent);
         }
     }
-
 }

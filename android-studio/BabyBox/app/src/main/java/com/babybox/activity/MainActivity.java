@@ -19,7 +19,6 @@ import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.TrackedFragment;
 import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
-import com.babybox.mock.SchoolsMainFragment;
 import com.babybox.viewmodel.NotificationsParentVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -35,15 +34,15 @@ public class MainActivity extends TrackedFragmentActivity {
     private ImageView notificationsImage;
     private TextView notificationsText;
 
-    private LinearLayout schoolsLayout;
-    private ImageView schoolsImage;
-    private TextView schoolsText;
+    private LinearLayout searchLayout;
+    private ImageView searchImage;
+    private TextView searchText;
 
     private LinearLayout profileLayout;
     private ImageView profileImage;
     private TextView profileText;
 
-    private boolean homeClicked = false, notificationsClicked = false, schoolsClicked = false, profileClicked = false;
+    private boolean homeClicked = false, notificationsClicked = false, searchClicked = false, profileClicked = false;
 
     private TextView notificationCount;
 
@@ -75,9 +74,9 @@ public class MainActivity extends TrackedFragmentActivity {
         notificationsImage = (ImageView) findViewById(R.id.notificationsImage);
         notificationsText = (TextView) findViewById(R.id.notificationsText);
 
-        schoolsLayout = (LinearLayout) findViewById(R.id.schoolsLayout);
-        schoolsImage = (ImageView) findViewById(R.id.schoolsImage);
-        schoolsText = (TextView) findViewById(R.id.schoolsText);
+        searchLayout = (LinearLayout) findViewById(R.id.searchLayout);
+        searchImage = (ImageView) findViewById(R.id.searchImage);
+        searchText = (TextView) findViewById(R.id.searchText);
 
         profileLayout = (LinearLayout) findViewById(R.id.profileLayout);
         profileImage = (ImageView) findViewById(R.id.profileImage);
@@ -100,10 +99,10 @@ public class MainActivity extends TrackedFragmentActivity {
             }
         });
 
-        schoolsLayout.setOnClickListener(new View.OnClickListener() {
+        searchLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Schools tab clicked");
+                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: search tab clicked");
                 pressSearchTab();
             }
         });
@@ -149,8 +148,8 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
         notificationsClicked = false;
 
-        setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag, R.color.dark_gray_2);
-        schoolsClicked = false;
+        setMenuButton(searchImage, searchText, R.drawable.mn_tag, R.color.dark_gray_2);
+        searchClicked = false;
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
@@ -173,8 +172,8 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif_sel, R.color.sharp_pink);
         notificationsClicked = true;
 
-        setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag, R.color.dark_gray_2);
-        schoolsClicked = false;
+        setMenuButton(searchImage, searchText, R.drawable.mn_tag, R.color.dark_gray_2);
+        searchClicked = false;
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
@@ -183,10 +182,12 @@ public class MainActivity extends TrackedFragmentActivity {
     }
 
     public void pressSearchTab() {
-        if (!schoolsClicked) {
+        if (!searchClicked) {
+            /*
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            selectedFragment = new SchoolsMainFragment();
+            selectedFragment = new SearchMainFragment();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
+            */
         }
 
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
@@ -195,8 +196,8 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
         notificationsClicked = false;
 
-        setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag_sel, R.color.sharp_pink);
-        schoolsClicked = true;
+        setMenuButton(searchImage, searchText, R.drawable.mn_tag_sel, R.color.sharp_pink);
+        searchClicked = true;
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
@@ -219,8 +220,8 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
         notificationsClicked = false;
 
-        setMenuButton(schoolsImage, schoolsText, R.drawable.mn_tag, R.color.dark_gray_2);
-        schoolsClicked = false;
+        setMenuButton(searchImage, searchText, R.drawable.mn_tag, R.color.dark_gray_2);
+        searchClicked = false;
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile_sel, R.color.sharp_pink);
         profileClicked = true;

@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:textSize="15dp"
-                android:textColor="@color/schools_title"
+                android:textColor="@color/dark_blue"
                 android:layout_centerVertical="true" />
 
             <ImageView

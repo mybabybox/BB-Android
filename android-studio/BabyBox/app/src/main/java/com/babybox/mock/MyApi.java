@@ -104,29 +104,12 @@ public interface MyApi {
     @POST("/image/upload-profile-photo")
     public void uploadProfilePhoto(@Part("profile-photo") TypedFile photo,@Query("key") String key, Callback<Response> cb);
 
-    @GET("/get-bookmark-summary") //a function in your api get bookmark summary
-    public void getBookmarkSummary(@Query("key") String key, Callback<BookmarkSummaryVM> cb);
-
     @GET("/get-headerBar-data")
     //a function in your api to get all header meta data (notifications and requests).
     public void getHeaderBarData(@Query("key") String key, Callback<NotificationsParentVM> cb);
 
     @GET("/mark-as-read/{ids}")
     public void markAsRead(@Path("ids")String ids, @Query("key") String key, Callback<Response> cb);
-
-    //'/accept-friend-request?friend_id=:id&notify_id=:notify_id'
-    @GET("/accept-friend-request") //a function in your api accept friend request.
-    public void acceptFriendRequest(@Query("friend_id") Long friend_id, @Query("notify_id") Long notify_id, @Query("key") String key, Callback<Response> cb);
-
-    //'/accept-join-request/:member_id/:group_id/:notify_id'
-    @GET("/accept-join-request/{member_id}/{group_id}/{notify_id}")
-    //a function in your api accept join request to Community
-    public void acceptCommJoinRequest(@Path("member_id") Long member_id, @Path("group_id") Long group_id, @Path("notify_id") Long notify_id, @Query("key") String key, Callback<Response> cb);
-
-    //'/accept-invite-request/:member_id/:group_id/:notify_id'
-    @GET("/accept-invite-request/{member_id}/{group_id}/{notify_id}")
-    //a function in your api accept invite request to Community
-    public void acceptCommInviteRequest(@Path("member_id") Long member_id, @Path("group_id") Long group_id, @Path("notify_id") Long notify_id, @Query("key") String key, Callback<Response> cb);
 
     //'/ignore-it/:notify_id'
     @GET("/ignore-it/{notify_id}") //a function in your api accept invite request to Community
@@ -146,49 +129,6 @@ public interface MyApi {
 
     @POST("/updateUserProfileData")
     public void updateUserProfileData(@Body UserProfileDataVM userProfileDataVM, @Query("key") String key, Callback<UserVM> cb);
-
-    //
-    // PN APIs
-    //
-    @GET("/get-pns-by-district/{id}")
-    public void getPNsByDistricts(@Path("id") Long id,@Query("key") String key, Callback<List<PreNurseryVM>> cb);
-
-    @GET("/search-pns-by-name/{query}")
-    public void searchPNsByName(@Path("query")String query,@Query("key") String key, Callback<List<PreNurseryVM>> cb);
-
-    @GET("/get-bookmarked-pns")
-    public void getBookmarkedPNs(@Query("key") String key, Callback<List<PreNurseryVM>> cb);
-
-    @GET("/get-bookmarked-pn-communities")
-    public void getBookmarkedPNCommunities(@Query("key") String key, Callback<CommunitiesParentVM> callback);
-
-    @GET("/get-pn-app-dates")
-    public void getPNAppDates(@Query("key") String key, Callback<List<PreNurseryVM>> cb);
-
-    @GET("/get-pnnewsfeeds/{offset}")
-    public void getPNNewsfeed(@Path("offset") Long offset, @Query("key") String key, Callback<PostArray> callback);
-
-    @GET("/get-pn-info/{id}")
-    public void getPNInfo(@Path("id") Long post_id,@Query("key") String key, Callback<PreNurseryVM> cb);
-
-    @GET("/bookmark-pn/{id}")
-    public void bookmarkPN(@Path("id") Long post_id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/unbookmark-pn/{id}")
-    public void unbookmarkPN(@Path("id") Long post_id, @Query("key") String key, Callback<Response> cb);
-
-    //
-    // Top schools APIs
-    //
-
-    @GET("/get-top-viewed-pns")
-    public void getTopViewedPNs(@Query("key") String key, Callback<List<PreNurseryVM>> cb);
-
-    @GET("/get-top-discussed-pns")
-    public void getTopDiscussedPNs(@Query("key") String key, Callback<List<PreNurseryVM>> cb);
-
-    @GET("/get-top-bookmarked-pns")
-    public void getTopBookmarkedPNs(@Query("key") String key, Callback<List<PreNurseryVM>> cb);
 
     //
     // Messages APIs

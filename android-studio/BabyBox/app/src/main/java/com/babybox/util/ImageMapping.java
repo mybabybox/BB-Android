@@ -70,18 +70,6 @@ public class ImageMapping {
         //imageMap.put("/assets/app/images/general/icons/community/stroller.png", R.drawable.ci_stroller);
         imageMap.put("/assets/app/images/general/icons/community/sun.png", R.drawable.ci_sun);
         imageMap.put("/assets/app/images/general/icons/community/teddy.png", R.drawable.ci_teddy);
-        imageMap.put("/assets/app/images/general/icons/zodiac/dog.png", R.drawable.ci_z_dog);
-        imageMap.put("/assets/app/images/general/icons/zodiac/dragon.png", R.drawable.ci_z_dragon);
-        imageMap.put("/assets/app/images/general/icons/zodiac/goat.png", R.drawable.ci_z_goat);
-        imageMap.put("/assets/app/images/general/icons/zodiac/horse.png", R.drawable.ci_z_horse);
-        imageMap.put("/assets/app/images/general/icons/zodiac/monkey.png", R.drawable.ci_z_monkey);
-        imageMap.put("/assets/app/images/general/icons/zodiac/ox.png", R.drawable.ci_z_ox);
-        imageMap.put("/assets/app/images/general/icons/zodiac/pig.png", R.drawable.ci_z_pig);
-        imageMap.put("/assets/app/images/general/icons/zodiac/rabbit.png", R.drawable.ci_z_rabbit);
-        imageMap.put("/assets/app/images/general/icons/zodiac/rat.png", R.drawable.ci_z_rat);
-        imageMap.put("/assets/app/images/general/icons/zodiac/rooster.png", R.drawable.ci_z_rooster);
-        imageMap.put("/assets/app/images/general/icons/zodiac/snake.png", R.drawable.ci_z_snake);
-        imageMap.put("/assets/app/images/general/icons/zodiac/tiger.png", R.drawable.ci_z_tiger);
 
         // Emoticons
         imageMap.put("/assets/app/images/emoticons/angel.png", R.drawable.emo_angel);
