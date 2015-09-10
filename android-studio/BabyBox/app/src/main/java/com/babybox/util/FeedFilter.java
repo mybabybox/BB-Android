@@ -7,7 +7,6 @@ public class FeedFilter {
 
     public enum FeedType {
         HOME_EXPLORE,
-        HOME_TRENDING,
         HOME_FOLLOWING,
         CATEGORY_POPULAR,
         CATEGORY_NEWEST,

@@ -65,11 +65,6 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
                         Long.valueOf(offset),
                         feedCallback);
                 break;
-            case HOME_TRENDING:
-                AppController.getApiService().getHomeTrendingFeed(
-                        Long.valueOf(offset),
-                        feedCallback);
-                break;
             case HOME_FOLLOWING:
                 AppController.getApiService().getHomeFollowingFeed(
                         Long.valueOf(offset),

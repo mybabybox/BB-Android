@@ -11,7 +11,6 @@ import com.babybox.viewmodel.MessagePostVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NotificationsParentVM;
-import com.babybox.viewmodel.ProfileVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserProfileDataVM;
 import com.babybox.viewmodel.UserVM;
@@ -55,8 +54,8 @@ public interface MyApi {
     public void newCommunityPost(@Body NewPost newPost, @Query("key") String key, Callback<PostResponse> cb);
 
     @Multipart
-    @POST("/image/uploadPostPhoto") //a function in your api upload image for comment
-    public void uploadPostPhoto(@Part("postId") String id, @Part("post-photo0") TypedFile photo, Callback<Response> cb);
+    @POST("/image/uploadPostPhoto")
+    public void uploadPostPhoto(@Part("postId") Long postId, @Part("post-photo0") TypedFile photo, Callback<Response> cb);
 
     @POST("/communityQnA/question/answer")
     public void answerOnQuestion(@Body CommentPost commentPost, @Query("key") String key, Callback<CommentResponse> cb);

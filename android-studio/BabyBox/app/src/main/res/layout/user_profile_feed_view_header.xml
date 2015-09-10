@@ -401,8 +401,8 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/liked"
-            android:id="@+id/likedButton"
+            android:text="@string/likes"
+            android:id="@+id/likesButton"
             android:textSize="15dp"
             android:layout_gravity="center"
             android:background="@drawable/button_profile_feed_unselect"

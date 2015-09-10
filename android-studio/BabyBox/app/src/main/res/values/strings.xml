@@ -110,9 +110,8 @@
     <string name="following">Following</string>
     <string name="followers">Followers</string>
     <string name="orders">My Orders</string>
-    <string name="collections">3\nCollections</string>
-    <string name="products">32\nProducts</string>
-    <string name="liked">5\nLiked</string>
+    <string name="collections">Collections</string>
+    <string name="products">Products</string>
     <string name="new_post_to_popup_title">發佈話題到</string>
     <string name="new_post_to">發佈到:</string>
     <string name="new_post_select_category">請選擇社群</string>

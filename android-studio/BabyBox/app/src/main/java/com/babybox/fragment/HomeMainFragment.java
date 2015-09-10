@@ -141,7 +141,6 @@ class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
 
     private static String[] TITLES = new String[] {
             AppController.getInstance().getString(R.string.main_tab_explore),
-            AppController.getInstance().getString(R.string.main_tab_trending),
             AppController.getInstance().getString(R.string.main_tab_following)
     };
 
@@ -161,7 +160,7 @@ class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.d(this.getClass().getSimpleName(), "getItem: item - " + position);
+        Log.d(this.getClass().getSimpleName(), "getItem: item position=" + position);
 
         Bundle bundle = new Bundle();
         TrackedFragment fragment = null;
@@ -172,19 +171,14 @@ class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
                 fragment = new HomeExploreFeedViewFragment();
                 break;
             }
-            // Trending
-            case 1: {
-                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_TRENDING.name());
-                fragment = new FeedViewFragment();
-                break;
-            }
             // Following
-            case 2: {
+            case 1: {
                 bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_FOLLOWING.name());
                 fragment = new FeedViewFragment();
                 break;
             }
             default: {
+                Log.e(this.getClass().getSimpleName(), "getItem: Unknown item position=" + position);
                 break;
             }
         }

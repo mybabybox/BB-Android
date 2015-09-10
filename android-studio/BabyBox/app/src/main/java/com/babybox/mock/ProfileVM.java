@@ -1,4 +1,4 @@
-package com.babybox.viewmodel;
+package com.babybox.mock;
 
 public class ProfileVM {
     public long id;
@@ -6,19 +6,8 @@ public class ProfileVM {
     public String yr;
     public String gd;
     public String a;
-    public long n_f;
     public long n_p;
-
     public long n_c;
-    //public List<User> l_f;
-
-    public boolean isf;
-    public boolean isP;
-
-    public boolean isfv = true;
-    public boolean isaV = true;
-    public boolean iscV = true;
-    public boolean isdV = true;
 
     // admin readonly fields
     public String n;
@@ -32,11 +21,10 @@ public class ProfileVM {
     public Long qc;
     public Long ac;
     public Long lc;
-    public Long wc;
 
     public boolean following = false;
-    public int numFollowers = 0;
-    public int numFollowing = 0;
+    public Long numFollowers = 0L;
+    public Long numFollowings = 0L;
 
     public long getId() {
         return id;
@@ -78,14 +66,6 @@ public class ProfileVM {
         this.a = a;
     }
 
-    public long getN_f() {
-        return n_f;
-    }
-
-    public void setN_f(long n_f) {
-        this.n_f = n_f;
-    }
-
     public long getN_p() {
         return n_p;
     }
@@ -100,54 +80,6 @@ public class ProfileVM {
 
     public void setN_c(long n_c) {
         this.n_c = n_c;
-    }
-
-    public boolean isIsf() {
-        return isf;
-    }
-
-    public void setIsf(boolean isf) {
-        this.isf = isf;
-    }
-
-    public boolean isP() {
-        return isP;
-    }
-
-    public void setP(boolean isP) {
-        this.isP = isP;
-    }
-
-    public boolean isIsfv() {
-        return isfv;
-    }
-
-    public void setIsfv(boolean isfv) {
-        this.isfv = isfv;
-    }
-
-    public boolean isIsaV() {
-        return isaV;
-    }
-
-    public void setIsaV(boolean isaV) {
-        this.isaV = isaV;
-    }
-
-    public boolean isIscV() {
-        return iscV;
-    }
-
-    public void setIscV(boolean iscV) {
-        this.iscV = iscV;
-    }
-
-    public boolean isIsdV() {
-        return isdV;
-    }
-
-    public void setIsdV(boolean isdV) {
-        this.isdV = isdV;
     }
 
     public String getN() {
@@ -236,14 +168,6 @@ public class ProfileVM {
 
     public void setLc(Long lc) {
         this.lc = lc;
-    }
-
-    public Long getWc() {
-        return wc;
-    }
-
-    public void setWc(Long wc) {
-        this.wc = wc;
     }
 
     @Override

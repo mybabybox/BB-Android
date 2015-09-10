@@ -49,7 +49,7 @@ import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
-import com.babybox.viewmodel.ResponseStatusLiteVM;
+import com.babybox.viewmodel.ResponseStatusVM;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
@@ -511,9 +511,9 @@ public class ProductActivity extends TrackedFragmentActivity {
         ViewUtil.showSpinner(this);
 
         Log.d(this.getClass().getSimpleName(), "doComment: postId=" + postId + " comment=" + comment.substring(0, Math.min(5, comment.length())));
-        AppController.getApiService().newComment(new NewCommentVM(postId, comment, false), new Callback<ResponseStatusLiteVM>() {
+        AppController.getApiService().newComment(new NewCommentVM(postId, comment, false), new Callback<ResponseStatusVM>() {
             @Override
-            public void success(ResponseStatusLiteVM responseLite, Response response) {
+            public void success(ResponseStatusVM responseStatus, Response response) {
                 getComments(postId);  // reload page
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_success), Toast.LENGTH_LONG).show();
                 reset();

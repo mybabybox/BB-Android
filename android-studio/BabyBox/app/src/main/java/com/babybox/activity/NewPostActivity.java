@@ -44,7 +44,7 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewPostVM;
-import com.babybox.viewmodel.ResponseStatusLiteVM;
+import com.babybox.viewmodel.ResponseStatusVM;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -268,13 +268,12 @@ public class NewPostActivity extends TrackedFragmentActivity {
         final boolean withPhotos = photos.size() > 0;
 
         Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title);
-        AppController.getApiService().newPost(new NewPostVM(catId, title, content, 0), new Callback<ResponseStatusLiteVM>() {
+        AppController.getApiService().newPost(new NewPostVM(catId, title, content, 0), new Callback<ResponseStatusVM>() {
             @Override
-            public void success(ResponseStatusLiteVM postResponse, Response response) {
+            public void success(ResponseStatusVM responseStatus, Response response) {
                 postSuccess = true;
-
                 if (withPhotos) {
-                    uploadPhotos(postResponse.getId());
+                    uploadPhotos(responseStatus.getObjId());
                 } else {
                     complete();
                 }
@@ -289,7 +288,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         });
     }
 
-    protected void uploadPhotos(String postId) {
+    protected void uploadPhotos(Long postId) {
         for (File photo : photos) {
             photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
             TypedFile typedFile = new TypedFile("application/octet-stream", photo);

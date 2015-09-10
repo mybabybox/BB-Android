@@ -1,11 +1,7 @@
 package com.babybox.viewmodel;
 
-import com.babybox.mock.CommunityPostCommentVM;
 import com.babybox.mock.CommunityPostVM;
 import com.babybox.util.ViewUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PostVM {
     public Long id;
@@ -19,7 +15,6 @@ public class PostVM {
     public boolean sold;
     public boolean hasImage = false;
     public int numComments;
-    public List<CommentVM> comments;
     public Long[] images;
     public String type;
     public String subType;
@@ -66,13 +61,6 @@ public class PostVM {
         this.mob = post.mob;
 
         this.price = ViewUtil.random(1, 500);
-
-        if (post.cs != null) {
-            this.comments = new ArrayList<>();
-            for (CommunityPostCommentVM comment : post.cs) {
-                this.comments.add(new CommentVM(comment));
-            }
-        }
     }
 
     public Long getId() {
@@ -161,14 +149,6 @@ public class PostVM {
 
     public void setNumComments(int numComments) {
         this.numComments = numComments;
-    }
-
-    public List<CommentVM> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentVM> comments) {
-        this.comments = comments;
     }
 
     public Long[] getImages() {

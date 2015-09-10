@@ -178,12 +178,24 @@ public class ViewUtil {
         }
     }
 
-    public static String followersFormat(int value) {
+    public static String followersFormat(Long value) {
         return value + " " + AppController.getInstance().getString(R.string.followers);
     }
 
-    public static String followingFormat(int value) {
+    public static String followingFormat(Long value) {
         return value + " " + AppController.getInstance().getString(R.string.following);
+    }
+
+    public static String productsTabFormat(Long value) {
+        return value + "\n" + AppController.getInstance().getString(R.string.products);
+    }
+
+    public static String likesTabFormat(Long value) {
+        return value + "\n" + AppController.getInstance().getString(R.string.likes);
+    }
+
+    public static String collectionsTabFormat(Long value) {
+        return value + "\n" + AppController.getInstance().getString(R.string.collections);
     }
 
     public static void selectLikeButtonStyle(ImageView image, TextView text, int likes) {

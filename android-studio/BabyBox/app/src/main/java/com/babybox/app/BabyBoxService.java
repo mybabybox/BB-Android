@@ -5,12 +5,11 @@ import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.NewCommentVM;
-import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
-import com.babybox.viewmodel.ResponseStatusLiteVM;
+import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserVM;
-import com.squareup.okhttp.Call;
+import com.babybox.viewmodel.UserVMLite;
 
 import java.util.List;
 
@@ -53,8 +52,12 @@ public class BabyBoxService {
         api.loginByFacebook(access_token, cb);
     }
 
-    public void getUserInfo(String access_token, Callback<UserVM> cb) {
+    public void getUser(String access_token, Callback<UserVM> cb) {
         api.getUserInfo(access_token, cb);
+    }
+
+    public void getUser(Long id, Callback<UserVM> cb) {
+        api.getUser(id, AppController.getInstance().getSessionId(), cb);
     }
 
     public void initNewUser(Callback<UserVM> cb) {
@@ -65,10 +68,6 @@ public class BabyBoxService {
 
     public void getHomeExploreFeed(Long offset, Callback<List<PostVM>> cb) {
         api.getHomeExploreFeed(offset, AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void getHomeTrendingFeed(Long offset, Callback<List<PostVM>> cb) {
-        api.getHomeTrendingFeed(offset, AppController.getInstance().getSessionId(), cb);
     }
 
     public void getHomeFollowingFeed(Long offset, Callback<List<PostVM>> cb) {
@@ -107,11 +106,11 @@ public class BabyBoxService {
         api.getUserCollectionFeed(offset, collectionId, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getFollowers(Long offset, Long userId, Callback<List<UserVM>> cb) {
+    public void getFollowers(Long offset, Long userId, Callback<List<UserVMLite>> cb) {
         api.getFollowers(offset, userId, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getFollowings(Long offset, Long userId, Callback<List<UserVM>> cb) {
+    public void getFollowings(Long offset, Long userId, Callback<List<UserVMLite>> cb) {
         api.getFollowings(offset, userId, AppController.getInstance().getSessionId(), cb);
     }
 
@@ -129,7 +128,7 @@ public class BabyBoxService {
         api.getPost(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void newPost(NewPostVM post, Callback<ResponseStatusLiteVM> cb) {
+    public void newPost(NewPostVM post, Callback<ResponseStatusVM> cb) {
         api.newPost(post, AppController.getInstance().getSessionId(), cb);
     }
 
@@ -141,7 +140,7 @@ public class BabyBoxService {
         api.getComments(postId, offset, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void newComment(NewCommentVM comment, Callback<ResponseStatusLiteVM> cb) {
+    public void newComment(NewCommentVM comment, Callback<ResponseStatusVM> cb) {
         api.newComment(comment, AppController.getInstance().getSessionId(), cb);
     }
 

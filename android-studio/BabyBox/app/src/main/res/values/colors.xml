@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- card view -->
+    <!--color name="cardview_shadow_start_color">#37000000</color-->
+    <!--color name="cardview_shadow_end_color">#03000000</color-->
+
+    <!-- custom -->
     <color name="white">#ffffff</color>
     <color name="admin_green">#038100</color>
     <color name="gray">#888</color>
@@ -45,5 +50,4 @@
     <color name="game_orange">#FF6600</color>
     <color name="game_title_border">#2EAB66</color>
     <color name="game_title_text">#556fb5</color>
-
 </resources>

@@ -18,7 +18,7 @@ import com.babybox.app.AppController;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.ProfileVM;
+import com.babybox.viewmodel.UserVM;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -36,7 +36,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     protected TextView userNameText, followersText, followingText, userInfoText;
     protected LinearLayout userInfoLayout;
     protected RelativeLayout settingsLayout;
-    protected Button editButton, followButton, ordersButton, collectionsButton, productsButton, likedButton;
+    protected Button editButton, followButton, ordersButton, collectionsButton, productsButton, likesButton;
 
     protected FrameLayout tipsLayout;
     protected TextView tipsDescText, tipsEndText;
@@ -77,7 +77,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
         collectionsButton = (Button) headerView.findViewById(R.id.collectionsButton);
         productsButton = (Button) headerView.findViewById(R.id.productsButton);
-        likedButton = (Button) headerView.findViewById(R.id.likedButton);
+        likesButton = (Button) headerView.findViewById(R.id.likesButton);
 
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
         dismissTipsButton = (ImageView) headerView.findViewById(R.id.dismissTipsButton);
@@ -117,7 +117,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
             }
         });
 
-        likedButton.setOnClickListener(new View.OnClickListener() {
+        likesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectFeedFilter(FeedFilter.FeedType.USER_LIKED);
@@ -133,20 +133,24 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
         setUserId(getArguments().getLong(ViewUtil.BUNDLE_KEY_ID));
 
-        AppController.getApi().getUserProfile(userId, AppController.getInstance().getSessionId(), new Callback<ProfileVM>() {
+        AppController.getApiService().getUser(userId, new Callback<UserVM>() {
             @Override
-            public void success(ProfileVM profile, retrofit.client.Response response) {
-                userNameText.setText(profile.getDn());
+            public void success(UserVM user, retrofit.client.Response response) {
+                userNameText.setText(user.getDisplayName());
 
                 // admin only
-                /*
                 if (AppController.isUserAdmin()) {
-                    userInfoText.setText(profile.toString());
+                    userInfoText.setText(user.toString());
                     userInfoLayout.setVisibility(View.VISIBLE);
                 } else {
                     userInfoLayout.setVisibility(View.GONE);
                 }
-                */
+                userInfoLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        userInfoLayout.setVisibility(View.GONE);
+                    }
+                });
 
                 ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
                     @Override
@@ -162,10 +166,10 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     }
                 });
 
-                followersText.setText(ViewUtil.followersFormat(profile.numFollowers));
-                followingText.setText(ViewUtil.followingFormat(profile.numFollowing));
+                followersText.setText(ViewUtil.followersFormat(user.numFollowers));
+                followingText.setText(ViewUtil.followingFormat(user.numFollowings));
 
-                following = profile.following;
+                following = user.isFollowing;
                 if (following) {
                     ViewUtil.selectFollowButtonStyle(followButton);
                 } else {
@@ -183,6 +187,9 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                         }
                     }
                 });
+
+                productsButton.setText(ViewUtil.productsTabFormat(user.numPosts));
+                likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
             }
 
             @Override
@@ -205,9 +212,9 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         }
 
         if (FeedFilter.FeedType.USER_LIKED.equals(feedType)) {
-            ViewUtil.selectProfileFeedButtonStyle(likedButton);
+            ViewUtil.selectProfileFeedButtonStyle(likesButton);
         } else {
-            ViewUtil.unselectProfileFeedButtonStyle(likedButton);
+            ViewUtil.unselectProfileFeedButtonStyle(likesButton);
         }
 
         this.feedType = feedType;

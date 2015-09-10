@@ -1,0 +1,94 @@
+package com.babybox.viewmodel;
+
+public class UserVMLite {
+    public Long id;
+    public long createdDate;
+    public String displayName;
+    public Long numFollowings = 0L;
+    public Long numFollowers = 0L;
+    public Long numPosts = 0L;
+    public Long numSold = 0L;
+    public Long numLikes = 0L;
+    public Long numCollections = 0L;
+    public boolean isFollowing = false;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public long getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(long createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Long getNumFollowings() {
+        return numFollowings;
+    }
+
+    public void setNumFollowings(Long numFollowings) {
+        this.numFollowings = numFollowings;
+    }
+
+    public Long getNumFollowers() {
+        return numFollowers;
+    }
+
+    public void setNumFollowers(Long numFollowers) {
+        this.numFollowers = numFollowers;
+    }
+
+    public Long getNumPosts() {
+        return numPosts;
+    }
+
+    public void setNumPosts(Long numPosts) {
+        this.numPosts = numPosts;
+    }
+
+    public Long getNumSold() {
+        return numSold;
+    }
+
+    public void setNumSold(Long numSold) {
+        this.numSold = numSold;
+    }
+
+    public Long getNumLikes() {
+        return numLikes;
+    }
+
+    public void setNumLikes(Long numLikes) {
+        this.numLikes = numLikes;
+    }
+
+    public Long getNumCollections() {
+        return numCollections;
+    }
+
+    public void setNumCollections(Long numCollections) {
+        this.numCollections = numCollections;
+    }
+
+    public boolean isFollowing() {
+        return isFollowing;
+    }
+
+    public void setIsFollowing(boolean isFollowing) {
+        this.isFollowing = isFollowing;
+    }
+}

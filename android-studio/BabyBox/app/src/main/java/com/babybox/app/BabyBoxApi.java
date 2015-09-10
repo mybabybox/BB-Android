@@ -15,11 +15,11 @@ import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.NotificationsParentVM;
 import com.babybox.viewmodel.PostVM;
-import com.babybox.viewmodel.ProfileVM;
-import com.babybox.viewmodel.ResponseStatusLiteVM;
+import com.babybox.mock.ProfileVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserProfileDataVM;
 import com.babybox.viewmodel.UserVM;
+import com.babybox.viewmodel.UserVMLite;
 
 import java.util.List;
 
@@ -79,6 +79,9 @@ public interface BabyBoxApi {
     @GET("/get-user-info")
     public void getUserInfo(@Query("key") String key, Callback<UserVM> cb);
 
+    @GET("/get-user/{id}")
+    public void getUser(@Path("id") Long id, @Query("key") String key, Callback<UserVM> cb);
+
     @GET("/image/getEmoticons")
     public void getEmoticons(@Query("key") String key, Callback<List<EmoticonVM>> cb);
 
@@ -88,9 +91,6 @@ public interface BabyBoxApi {
 
     @GET("/get-home-explore-feed/{offset}")
     public void getHomeExploreFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVM>> callback);
-
-    @GET("/get-home-trending-feed/{offset}")
-    public void getHomeTrendingFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVM>> callback);
 
     @GET("/get-home-following-feed/{offset}")
     public void getHomeFollowingFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVM>> callback);
@@ -125,10 +125,10 @@ public interface BabyBoxApi {
     public void getUserCollectionFeed(@Path("offset") Long offset, @Path("collectionId") Long collectionId, @Query("key") String key, Callback<List<PostVM>> callback);
 
     @GET("/followings/{userId}/{offset}")
-    public void getFollowings(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVM>> cb);
+    public void getFollowings(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
     @GET("/followers/{userId}/{offset}")
-    public void getFollowers(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVM>> cb);
+    public void getFollowers(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
     //
     // Category + post + comments
@@ -144,7 +144,7 @@ public interface BabyBoxApi {
     public void getPost(@Path("id") Long id, @Query("key") String key, Callback<PostVM> callback);
 
     @POST("/post/new")
-    public void newPost(@Body NewPostVM newPost, @Query("key") String key, Callback<ResponseStatusLiteVM> cb);
+    public void newPost(@Body NewPostVM newPost, @Query("key") String key, Callback<ResponseStatusVM> cb);
 
     @GET("/post/delete/{id}")
     public void deletePost(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
@@ -157,7 +157,7 @@ public interface BabyBoxApi {
     public void getComments(@Path("postId") Long postId, @Path("offset") int offset, @Query("key") String key, Callback<List<CommentVM>> cb);
 
     @POST("/comment/new")
-    public void newComment(@Body NewCommentVM newComment, @Query("key") String key, Callback<ResponseStatusLiteVM> cb);
+    public void newComment(@Body NewCommentVM newComment, @Query("key") String key, Callback<ResponseStatusVM> cb);
 
     @GET("/comment/delete/{id}")
     public void deleteComment(@Path("id") Long comment_id, @Query("key") String key, Callback<Response> cb);

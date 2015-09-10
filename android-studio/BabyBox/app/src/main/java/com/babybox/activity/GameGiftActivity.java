@@ -275,8 +275,8 @@ public class GameGiftActivity extends TrackedFragmentActivity {
     private void doRedeem(final long id) {
         AppController.getApi().redeemGameGift(id, AppController.getInstance().getSessionId(), new Callback<ResponseStatusVM>() {
             @Override
-            public void success(ResponseStatusVM responseStatusVM, Response response1) {
-                if (responseStatusVM.isSuccess()) {
+            public void success(ResponseStatusVM responseStatus, Response response1) {
+                if (responseStatus.isSuccess()) {
                     // change button state and alert
                     userGamePoints -= gameGift.getRp();
                     gameGift.setIsPending(true);
@@ -297,7 +297,7 @@ public class GameGiftActivity extends TrackedFragmentActivity {
 
                     ViewUtil.alertGameStatus(GameGiftActivity.this, getString(R.string.game_gifts_redeem_requested), -1, 5000);
                 } else {
-                    ViewUtil.alertGameStatus(GameGiftActivity.this, responseStatusVM.getMessages().get(0), -1, 5000);
+                    ViewUtil.alertGameStatus(GameGiftActivity.this, responseStatus.getMessages().get(0), -1, 5000);
                 }
             }
 

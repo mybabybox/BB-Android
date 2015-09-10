@@ -10,7 +10,8 @@ import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
-import com.babybox.viewmodel.ResponseStatusLiteVM;
+import com.babybox.viewmodel.ResponseStatusVM;
+import com.babybox.viewmodel.UserVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,46 @@ public class BabyBoxMockService extends BabyBoxService {
 
     public BabyBoxMockService(BabyBoxApi api) {
         super(api);
+    }
+
+    public void getUser(String access_token, Callback<UserVM> cb) {
+        api.getUserInfo(access_token, cb);
+        final Callback<UserVM> callback = cb;
+        api.getUserInfo(access_token, new Callback<UserVM>() {
+            @Override
+            public void success(UserVM user, Response response) {
+                user.numPosts = user.getQuestionsCount();
+                user.numSold = user.getAnswersCount();
+                user.numLikes = user.getAnswersCount();
+
+                user.isFollowing = false;
+                user.numFollowers = 0L;
+                user.numFollowings = 0L;
+                callback.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void getUser(Long id, Callback<UserVM> cb) {
+        final Callback<UserVM> callback = cb;
+        AppController.getApi().getUserProfile(id, AppController.getInstance().getSessionId(), new Callback<ProfileVM>() {
+            @Override
+            public void success(ProfileVM profile, Response response) {
+                UserVM user = new UserVM(profile);
+                callback.success(user, response);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
     }
 
     @Override
@@ -58,11 +99,6 @@ public class BabyBoxMockService extends BabyBoxService {
                 callback.failure(error);
             }
         });
-    }
-
-    @Override
-    public void getHomeTrendingFeed(Long offset, Callback<List<PostVM>> cb) {
-        getHomeExploreFeed(offset, cb);
     }
 
     @Override
@@ -254,16 +290,17 @@ public class BabyBoxMockService extends BabyBoxService {
     }
 
     @Override
-    public void newPost(NewPostVM post, Callback<ResponseStatusLiteVM> cb) {
-        final Callback<ResponseStatusLiteVM> callback = cb;
+    public void newPost(NewPostVM post, Callback<ResponseStatusVM> cb) {
+        final Callback<ResponseStatusVM> callback = cb;
         NewPost newPost = new NewPost(post.catId, post.title, post.desc, true);
         AppController.getApi().newCommunityPost(newPost, AppController.getInstance().getSessionId(), new Callback<PostResponse>() {
             @Override
             public void success(PostResponse postResponse, Response response) {
-                ResponseStatusLiteVM responseLite = new ResponseStatusLiteVM();
-                responseLite.id = postResponse.id;
-                responseLite.text = postResponse.text;
-                callback.success(responseLite, response);
+                ResponseStatusVM responseStatus = new ResponseStatusVM();
+                responseStatus.objId = Long.valueOf(postResponse.id);
+                responseStatus.messages = new ArrayList<>();
+                responseStatus.messages.add(postResponse.text);
+                callback.success(responseStatus, response);
             }
 
             @Override
@@ -292,16 +329,17 @@ public class BabyBoxMockService extends BabyBoxService {
         });
     }
 
-    public void newComment(NewCommentVM comment, Callback<ResponseStatusLiteVM> cb) {
-        final Callback<ResponseStatusLiteVM> callback = cb;
+    public void newComment(NewCommentVM comment, Callback<ResponseStatusVM> cb) {
+        final Callback<ResponseStatusVM> callback = cb;
         CommentPost newComment = new CommentPost(comment.postId, comment.desc, false);
         AppController.getApi().answerOnQuestion(newComment, AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
             @Override
             public void success(CommentResponse commentResponse, Response response) {
-                ResponseStatusLiteVM responseLite = new ResponseStatusLiteVM();
-                responseLite.id = commentResponse.id;
-                responseLite.text = commentResponse.text;
-                callback.success(responseLite, response);
+                ResponseStatusVM responseStatus = new ResponseStatusVM();
+                responseStatus.objId = Long.valueOf(commentResponse.id);
+                responseStatus.messages = new ArrayList<>();
+                responseStatus.messages.add(commentResponse.text);
+                callback.success(responseStatus, response);
             }
 
             @Override

@@ -124,7 +124,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
             }
         });
 
-        likedButton.setOnClickListener(new View.OnClickListener() {
+        likesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectFeedFilter(FeedFilter.FeedType.USER_LIKED);
@@ -156,7 +156,10 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         });
 
         followersText.setText(ViewUtil.followersFormat(user.numFollowers));
-        followingText.setText(ViewUtil.followingFormat(user.numFollowing));
+        followingText.setText(ViewUtil.followingFormat(user.numFollowings));
+
+        productsButton.setText(ViewUtil.productsTabFormat(user.numPosts));
+        likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
     }
 
     protected void uploadCoverImage(final long id){
