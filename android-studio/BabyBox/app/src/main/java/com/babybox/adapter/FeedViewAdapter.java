@@ -58,6 +58,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         return items.get(position);
     }
 
+    public boolean isEmpty() {
+        return items.size() == 0;
+    }
+
     @Override
     public int getItemCount() {
         if (hasHeader()) {

@@ -138,20 +138,6 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
             public void success(UserVM user, retrofit.client.Response response) {
                 userNameText.setText(user.getDisplayName());
 
-                // admin only
-                if (AppController.isUserAdmin()) {
-                    userInfoText.setText(user.toString());
-                    userInfoLayout.setVisibility(View.VISIBLE);
-                } else {
-                    userInfoLayout.setVisibility(View.GONE);
-                }
-                userInfoLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        userInfoLayout.setVisibility(View.GONE);
-                    }
-                });
-
                 ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
@@ -190,6 +176,20 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
                 productsButton.setText(ViewUtil.productsTabFormat(user.numPosts));
                 likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
+
+                // admin only
+                if (AppController.isUserAdmin()) {
+                    userInfoText.setText(user.toString());
+                    userInfoLayout.setVisibility(View.VISIBLE);
+                } else {
+                    userInfoLayout.setVisibility(View.GONE);
+                }
+                userInfoLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        userInfoLayout.setVisibility(View.GONE);
+                    }
+                });
             }
 
             @Override

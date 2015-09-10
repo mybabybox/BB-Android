@@ -34,7 +34,6 @@ public class BabyBoxMockService extends BabyBoxService {
     }
 
     public void getUser(String access_token, Callback<UserVM> cb) {
-        api.getUserInfo(access_token, cb);
         final Callback<UserVM> callback = cb;
         api.getUserInfo(access_token, new Callback<UserVM>() {
             @Override

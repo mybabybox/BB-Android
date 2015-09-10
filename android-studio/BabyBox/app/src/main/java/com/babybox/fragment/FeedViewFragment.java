@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
@@ -12,6 +13,8 @@ import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
+
+import org.parceler.apache.commons.collections.ListUtils;
 
 import java.util.List;
 

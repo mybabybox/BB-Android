@@ -99,7 +99,8 @@
     <string name="chat">Chat</string>
     <string name="buy">Buy</string>
     <string name="listed">Listed</string>
-    <string name="post_comment_bar_hint">添加評論</string>
+    <string name="comment_bar_hint">添加評論</string>
+    <string name="no_products">~ 暫沒有商品 ~</string>
 
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>

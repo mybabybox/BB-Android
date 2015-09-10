@@ -102,7 +102,7 @@ public class SharedPreferencesUtil {
 
     private void saveObject(String key, Object obj) {
         String json = new Gson().toJson(obj);
-        //Log.d(this.getClass().getSimpleName(), "[DEBUG] saveObject: key="+json);
+        //Log.d(this.getClass().getSimpleName(), "[DEBUG] saveObject: key="+key+" json="+json);
         this.prefs.edit().putString(key, json).commit();
     }
 

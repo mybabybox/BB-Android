@@ -38,6 +38,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected View headerView;
     protected View footerView;
+    protected View emptyView;
 
     protected PullToRefreshView pullListView;
 
@@ -72,8 +73,8 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
         View view = inflater.inflate(R.layout.feed_view_fragment, container, false);
 
-        footerView = inflater.inflate(R.layout.list_loading_footer, null);
         pullListView = (PullToRefreshView) view.findViewById(R.id.pull_to_refresh);
+        footerView = inflater.inflate(R.layout.list_loading_footer, null);
 
         items = new ArrayList<>();
 
@@ -103,6 +104,9 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
         // header
         headerView = getHeaderView(inflater);
+        if (headerView != null) {
+            emptyView = headerView.findViewById(R.id.emptyView);
+        }
 
         // adapter
         feedAdapter = new FeedViewAdapter(getActivity(), items, headerView);
@@ -209,6 +213,14 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
         items.addAll(posts);
         feedAdapter.notifyDataSetChanged();
+
+        if (emptyView != null) {
+            if (feedAdapter.isEmpty()) {
+                emptyView.setVisibility(View.VISIBLE);
+            } else {
+                emptyView.setVisibility(View.GONE);
+            }
+        }
 
         showFooter(false);
         if (posts == null || posts.size() == 0) {

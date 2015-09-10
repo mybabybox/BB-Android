@@ -90,7 +90,7 @@
             android:focusable="true"
             android:enabled="true"
             android:gravity="left|top"
-            android:hint="@string/post_comment_bar_hint"
+            android:hint="@string/comment_bar_hint"
             android:textSize="14dp"
             android:clickable="true"
             android:padding="3dp" />

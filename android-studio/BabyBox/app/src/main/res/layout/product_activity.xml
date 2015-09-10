@@ -225,14 +225,35 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"></ImageView>
 
-                <TextView
-                    android:id="@+id/sellerNameText"
-                    android:layout_width="wrap_content"
-                    android:textColor="@color/sharp_pink"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/userPic"
-                    android:textSize="15dp"
-                    android:layout_gravity="center_vertical" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/sellerNameText"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/sharp_pink"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginTop="10dp" />
+
+                    <Button
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/followButton"
+                        android:background="@drawable/button_pink_border"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="7dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/arrow_next"
+                        android:layout_marginRight="10dp"
+                        android:text="@string/follow"
+                        android:textColor="@color/light_pink"
+                        android:textSize="14dp"
+                        android:layout_alignParentRight="true"
+                        android:textAllCaps="false" />
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -301,7 +322,7 @@
                         android:background="@drawable/edit_text"
                         android:drawableLeft="@drawable/ic_reply"
                         android:layout_marginRight="10dp"
-                        android:text="@string/post_comment_bar_hint"
+                        android:text="@string/comment_bar_hint"
                         android:textSize="14dp"
                         android:textAlignment="center"
                         android:gravity="center_vertical"
