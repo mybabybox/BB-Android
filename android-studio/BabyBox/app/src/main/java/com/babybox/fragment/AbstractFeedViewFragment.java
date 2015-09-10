@@ -17,6 +17,7 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.PostVMLite;
 import com.yalantis.phoenix.PullToRefreshView;
 
 import org.parceler.apache.commons.lang.StringUtils;
@@ -33,7 +34,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     protected GridLayoutManager layoutManager;
 
     protected FeedFilter feedFilter;
-    protected List<PostVM> items;
+    protected List<PostVMLite> items;
 
     protected View headerView;
     protected View footerView;
@@ -197,7 +198,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         });
     }
 
-    protected void loadFeedItemsToList(List<PostVM> posts) {
+    protected void loadFeedItemsToList(List<PostVMLite> posts) {
         Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: size = " + posts.size());
 
         if (reload) {

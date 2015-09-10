@@ -169,17 +169,13 @@ public class ProductActivity extends TrackedFragmentActivity {
                 setPost(post);
 
                 // Show images in slider
-                if (post.hasImage) {
-                    ImageUtil.displayOriginalPostImage(post.images[0], productImage);
-                } else {
-                    Log.w(ProductActivity.class.getSimpleName(), "getProduct: postId=" + post.id + " has no image!!");
-                }
+                ImageUtil.displayOriginalPostImage(post.images[0], productImage);
 
                 catNameText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(ProductActivity.this, CategoryActivity.class);
-                        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, 0L));
+                        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, post.getCategoryId());
                         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromProductActivity");
                         startActivity(intent);
                     }

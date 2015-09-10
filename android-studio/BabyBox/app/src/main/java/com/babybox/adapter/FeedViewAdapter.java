@@ -15,6 +15,7 @@ import com.babybox.activity.ProductActivity;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.PostVMLite;
 
 import java.util.List;
 
@@ -31,9 +32,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
     private Activity activity;
 
-    private List<PostVM> items;
+    private List<PostVMLite> items;
 
-    public FeedViewAdapter(Activity activity, List<PostVM> items, View header) {
+    public FeedViewAdapter(Activity activity, List<PostVMLite> items, View header) {
         this.activity = activity;
         this.items = items;
         this.headerView = header;
@@ -50,7 +51,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         return false;
     }
 
-    public PostVM getItem(int position) {
+    public PostVMLite getItem(int position) {
         if (hasHeader()) {
             return items.get(position - 1);
         }
@@ -82,16 +83,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             return;
         }
 
-        final PostVM item = getItem(position);
+        final PostVMLite item = getItem(position);
 
-        // NOTE: need to load images from UIL cache each time as ListAdapter items are being recycled...
-        //       without this item will not show images correctly
-        if (item.hasImage) {
-            //Log.d(this.getClass().getSimpleName(), "getView: load " + item.getImages().length + " images to post #" + position + " - " + item.getTitle());
-            loadImage(item.getImages()[0], holder.image);
-        } else {
-            holder.image.setImageDrawable(activity.getResources().getDrawable(R.drawable.image_loading));
-        }
+        loadImage(item.getImages()[0], holder.image);
 
         holder.title.setText(item.getTitle());
         holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
@@ -103,7 +97,6 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
                 if (item != null) {
                     intent.putExtra(ViewUtil.BUNDLE_KEY_POST_ID, item.getId());    // obsolete
                     intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getId());
-                    intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, item.getCategoryId());
                     intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromFeedView");
                     activity.startActivity(intent);
                 }

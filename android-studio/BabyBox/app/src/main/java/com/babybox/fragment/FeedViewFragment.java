@@ -11,6 +11,7 @@ import com.babybox.app.AppController;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.PostVMLite;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
 
     private static final String TAG = FeedViewFragment.class.getName();
 
-    protected Callback<List<PostVM>> feedCallback;
+    protected Callback<List<PostVMLite>> feedCallback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,9 +33,9 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
     }
 
     protected void initCallback() {
-        feedCallback = new Callback<List<PostVM>>() {
+        feedCallback = new Callback<List<PostVMLite>>() {
             @Override
-            public void success(final List<PostVM> posts, Response response) {
+            public void success(final List<PostVMLite> posts, Response response) {
                 loadFeedItemsToList(posts);
                 ViewUtil.stopSpinner(getActivity());
             }

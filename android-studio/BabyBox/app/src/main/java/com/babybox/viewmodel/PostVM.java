@@ -3,31 +3,16 @@ package com.babybox.viewmodel;
 import com.babybox.mock.CommunityPostVM;
 import com.babybox.util.ViewUtil;
 
-public class PostVM {
-    public Long id;
+public class PostVM extends PostVMLite {
     public Long ownerId;
     public String postedBy;
     public long createdDate;
     public long updatedDate;
-    public String title;
     public String desc;
-    public double price;
-    public boolean sold;
-    public boolean hasImage = false;
-    public int numComments;
-    public Long[] images;
-    public String type;
-    public String subType;
     public String categoryType;
     public String categoryName;
     public String categoryIcon;
     public Long categoryId;
-    public int numViews;
-    public int numLikes;
-    public boolean isOwner = false;
-    public boolean showMore = false;
-    public boolean isCommentable = false;
-    public boolean isLiked = false;
 
     public boolean and = false;
     public boolean ios = false;
@@ -41,11 +26,9 @@ public class PostVM {
         this.updatedDate = post.ut;
         this.title = post.ptl;
         this.desc = post.pt;
-        this.hasImage = post.hasImage;
         this.numComments = post.n_c;
         this.images = post.imgs;
         this.type = post.type;
-        this.subType = post.subtype;
         this.categoryType = post.ctyp;
         this.categoryName = post.cn;
         this.categoryIcon = post.ci;
@@ -53,22 +36,11 @@ public class PostVM {
         this.numViews = post.nov;
         this.numLikes = post.nol;
         this.isOwner = post.isO;
-        this.showMore = post.showM;
-        this.isCommentable = post.isC;
         this.isLiked = post.isLike;
         this.and = post.and;
         this.ios = post.ios;
         this.mob = post.mob;
-
         this.price = ViewUtil.random(1, 500);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getOwnerId() {
@@ -103,14 +75,6 @@ public class PostVM {
         this.updatedDate = updatedDate;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDesc() {
         return desc;
     }
@@ -119,60 +83,12 @@ public class PostVM {
         this.desc = desc;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public boolean isSold() {
-        return sold;
-    }
-
-    public void setSold(boolean sold) {
-        this.sold = sold;
-    }
-
-    public boolean isHasImage() {
-        return hasImage;
-    }
-
-    public void setHasImage(boolean hasImage) {
-        this.hasImage = hasImage;
-    }
-
-    public int getNumComments() {
-        return numComments;
-    }
-
-    public void setNumComments(int numComments) {
-        this.numComments = numComments;
-    }
-
-    public Long[] getImages() {
-        return images;
-    }
-
-    public void setImages(Long[] imgs) {
-        this.images = imgs;
-    }
-
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getSubType() {
-        return subType;
-    }
-
-    public void setSubType(String subType) {
-        this.subType = subType;
     }
 
     public String getCategoryType() {
@@ -205,54 +121,6 @@ public class PostVM {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public int getNumViews() {
-        return numViews;
-    }
-
-    public void setNumViews(int numViews) {
-        this.numViews = numViews;
-    }
-
-    public int getNumLikes() {
-        return numLikes;
-    }
-
-    public void setNumLikes(int numLikes) {
-        this.numLikes = numLikes;
-    }
-
-    public boolean isOwner() {
-        return isOwner;
-    }
-
-    public void setIsOwner(boolean isOwner) {
-        this.isOwner = isOwner;
-    }
-
-    public boolean isShowMore() {
-        return showMore;
-    }
-
-    public void setShowMore(boolean showMore) {
-        this.showMore = showMore;
-    }
-
-    public boolean isCommentable() {
-        return isCommentable;
-    }
-
-    public void setIsCommentable(boolean isCommentable) {
-        this.isCommentable = isCommentable;
-    }
-
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-    public void setIsLiked(boolean isLiked) {
-        this.isLiked = isLiked;
     }
 
     public boolean isAndroid() {

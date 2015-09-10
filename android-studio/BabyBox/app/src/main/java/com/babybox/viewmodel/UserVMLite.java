@@ -2,7 +2,6 @@ package com.babybox.viewmodel;
 
 public class UserVMLite {
     public Long id;
-    public long createdDate;
     public String displayName;
     public Long numFollowings = 0L;
     public Long numFollowers = 0L;
@@ -26,14 +25,6 @@ public class UserVMLite {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
-    }
-
-    public long getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(long createdDate) {
-        this.createdDate = createdDate;
     }
 
     public Long getNumFollowings() {

@@ -3,6 +3,7 @@ package com.babybox.viewmodel;
 import com.babybox.mock.ProfileVM;
 
 public class UserVM extends UserVMLite {
+    public long createdDate;
     public String email;
     public String aboutMe;
     public String firstName;
@@ -47,6 +48,14 @@ public class UserVM extends UserVMLite {
         this.isFollowing = profile.following;
         this.numFollowers = profile.numFollowers;
         this.numFollowings = profile.numFollowings;
+    }
+
+    public long getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(long createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getEmail() {

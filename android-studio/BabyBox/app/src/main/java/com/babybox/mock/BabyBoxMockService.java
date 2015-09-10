@@ -10,6 +10,7 @@ import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserVM;
 
@@ -73,12 +74,12 @@ public class BabyBoxMockService extends BabyBoxService {
     }
 
     @Override
-    public void getHomeExploreFeed(Long offset, Callback<List<PostVM>> cb) {
-        final Callback<List<PostVM>> callback = cb;
+    public void getHomeExploreFeed(Long offset, Callback<List<PostVMLite>> cb) {
+        final Callback<List<PostVMLite>> callback = cb;
         AppController.getApi().getNewsfeed(offset, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
             @Override
             public void success(PostArray posts, Response response) {
-                List<PostVM> array = new ArrayList<>();
+                List<PostVMLite> array = new ArrayList<>();
                 for (CommunityPostVM post : posts.posts) {
                     if (post.hasImage) {
                         array.add(new PostVM(post));
@@ -102,19 +103,19 @@ public class BabyBoxMockService extends BabyBoxService {
     }
 
     @Override
-    public void getHomeFollowingFeed(Long offset, Callback<List<PostVM>> cb) {
+    public void getHomeFollowingFeed(Long offset, Callback<List<PostVMLite>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
     @Override
-    public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
-        final Callback<List<PostVM>> callback = cb;
+    public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<List<PostVMLite>> cb) {
+        final Callback<List<PostVMLite>> callback = cb;
         if (offset == 0) {
             feedTime = 0;
             AppController.getApi().getCommunityInitialPosts(id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
                 @Override
                 public void success(PostArray posts, Response response) {
-                    List<PostVM> array = new ArrayList<>();
+                    List<PostVMLite> array = new ArrayList<>();
                     for (CommunityPostVM post : posts.posts) {
                         if (post.hasImage) {
                             array.add(new PostVM(post));
@@ -138,7 +139,7 @@ public class BabyBoxMockService extends BabyBoxService {
             AppController.getApi().getCommunityNextPosts(id, feedTime + "", AppController.getInstance().getSessionId(), new Callback<List<CommunityPostVM>>() {
                 @Override
                 public void success(List<CommunityPostVM> posts, Response response) {
-                    List<PostVM> array = new ArrayList<>();
+                    List<PostVMLite> array = new ArrayList<>();
                     for (CommunityPostVM post : posts) {
                         if (post.hasImage) {
                             array.add(new PostVM(post));
@@ -162,26 +163,26 @@ public class BabyBoxMockService extends BabyBoxService {
     }
 
     @Override
-    public void getCategoryNewestFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
+    public void getCategoryNewestFeed(Long offset, Long id, String productType, Callback<List<PostVMLite>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
     @Override
-    public void getCategoryPriceLowHighFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
+    public void getCategoryPriceLowHighFeed(Long offset, Long id, String productType, Callback<List<PostVMLite>> cb) {
         getCategoryPopularFeed(offset, id, productType, cb);
     }
 
     @Override
-    public void getCategoryPriceHighLowFeed(Long offset, Long id, String productType, Callback<List<PostVM>> cb) {
+    public void getCategoryPriceHighLowFeed(Long offset, Long id, String productType, Callback<List<PostVMLite>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 
-    public void getUserPostedFeed(Long offset, Long id, Callback<List<PostVM>> cb) {
-        final Callback<List<PostVM>> callback = cb;
+    public void getUserPostedFeed(Long offset, Long id, Callback<List<PostVMLite>> cb) {
+        final Callback<List<PostVMLite>> callback = cb;
         AppController.getApi().getUserPosts(offset, id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
             @Override
             public void success(PostArray posts, Response response) {
-                List<PostVM> array = new ArrayList<>();
+                List<PostVMLite> array = new ArrayList<>();
                 for (CommunityPostVM post : posts.posts) {
                     if (post.hasImage) {
                         array.add(new PostVM(post));
@@ -202,12 +203,12 @@ public class BabyBoxMockService extends BabyBoxService {
         });
     }
 
-    public void getUserLikedFeed(Long offset, Long id, Callback<List<PostVM>> cb) {
-        final Callback<List<PostVM>> callback = cb;
+    public void getUserLikedFeed(Long offset, Long id, Callback<List<PostVMLite>> cb) {
+        final Callback<List<PostVMLite>> callback = cb;
         AppController.getApi().getUserComments(offset, id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
             @Override
             public void success(PostArray posts, Response response) {
-                List<PostVM> array = new ArrayList<>();
+                List<PostVMLite> array = new ArrayList<>();
                 for (CommunityPostVM post : posts.posts) {
                     if (post.hasImage) {
                         array.add(new PostVM(post));
@@ -228,7 +229,7 @@ public class BabyBoxMockService extends BabyBoxService {
         });
     }
 
-    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<List<PostVM>> cb) {
+    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<List<PostVMLite>> cb) {
         getHomeExploreFeed(offset, cb);
     }
 

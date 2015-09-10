@@ -16,6 +16,7 @@ import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.NotificationsParentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.mock.ProfileVM;
+import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserProfileDataVM;
 import com.babybox.viewmodel.UserVM;
@@ -90,39 +91,39 @@ public interface BabyBoxApi {
     //
 
     @GET("/get-home-explore-feed/{offset}")
-    public void getHomeExploreFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getHomeExploreFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     @GET("/get-home-following-feed/{offset}")
-    public void getHomeFollowingFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getHomeFollowingFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     //
     // Category feeds
     //
 
     @GET("/get-category-popular-feed/{id}/{productType}/{offset}")
-    public void getCategoryPopularFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getCategoryPopularFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     @GET("/get-category-newest-feed/{id}/{productType}/{offset}")
-    public void getCategoryNewestFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getCategoryNewestFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     @GET("/get-category-price-low-high-feed/{id}/{productType}/{offset}")
-    public void getCategoryPriceLowHighFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getCategoryPriceLowHighFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     @GET("/get-category-price-high-low-feed/{id}/{productType}/{offset}")
-    public void getCategoryPriceHighLowFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getCategoryPriceHighLowFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     //
     // User feeds
     //
 
     @GET("/get-user-posted-feed/{id}/{offset}")
-    public void getUserPostedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getUserPostedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     @GET("/get-user-liked-feed/{id}/{offset}")
-    public void getUserLikedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getUserLikedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     @GET("/get-user-collection-feed/{collectionId}/{offset}")
-    public void getUserCollectionFeed(@Path("offset") Long offset, @Path("collectionId") Long collectionId, @Query("key") String key, Callback<List<PostVM>> callback);
+    public void getUserCollectionFeed(@Path("offset") Long offset, @Path("collectionId") Long collectionId, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     @GET("/followings/{userId}/{offset}")
     public void getFollowings(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
