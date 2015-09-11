@@ -200,7 +200,7 @@ public class ViewUtil {
 
     public static void selectLikeButtonStyle(ImageView image, TextView text, int likes) {
         image.setImageResource(R.drawable.ic_liked);
-        text.setText((likes + 1) + "");
+        text.setText(likes+"");
         text.setTextColor(AppController.getInstance().getResources().getColor(R.color.pink));
     }
 
@@ -208,6 +208,18 @@ public class ViewUtil {
         image.setImageResource(R.drawable.ic_like);
         text.setText(AppController.getInstance().getString(R.string.like));
         text.setTextColor(AppController.getInstance().getResources().getColor(R.color.dark_gray));
+    }
+
+    public static void selectLikeTipsStyle(ImageView image, TextView text, int likes) {
+        image.setImageResource(R.drawable.ic_liked);
+        text.setText(likes+"");
+        text.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
+    }
+
+    public static void unselectLikeTipsStyle(ImageView image, TextView text, int likes) {
+        image.setImageResource(R.drawable.ic_like);
+        text.setText(likes+"");
+        text.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
     }
 
     public static void selectFollowButtonStyle(Button button) {

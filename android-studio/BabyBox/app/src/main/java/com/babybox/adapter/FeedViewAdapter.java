@@ -3,6 +3,7 @@ package com.babybox.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,17 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.activity.ProductActivity;
+import com.babybox.app.AppController;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * http://blog.sqisland.com/2014/12/recyclerview-grid-with-header.html
@@ -99,10 +105,28 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             public void onClick(View view) {
                 Intent intent = new Intent(activity, ProductActivity.class);
                 if (item != null) {
-                    intent.putExtra(ViewUtil.BUNDLE_KEY_POST_ID, item.getId());    // obsolete
                     intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getId());
                     intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromFeedView");
                     activity.startActivity(intent);
+                }
+            }
+        });
+
+        // like
+
+        if (item.isLiked()) {
+            ViewUtil.selectLikeTipsStyle(holder.likeImage, holder.likeText, item.getNumLikes());
+        } else {
+            ViewUtil.unselectLikeTipsStyle(holder.likeImage, holder.likeText, item.getNumLikes());
+        }
+
+        holder.likeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (item.isLiked) {
+                    unlike(item, holder);
+                } else {
+                    like(item, holder);
                 }
             }
         });
@@ -120,6 +144,38 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         ImageUtil.displayPostImage(imageId, imageView);
     }
 
+    private void like(final PostVMLite post, final FeedViewHolder holder) {
+        AppController.getApiService().likePost(post.id, new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                post.isLiked = true;
+                post.numLikes++;
+                ViewUtil.selectLikeTipsStyle(holder.likeImage, holder.likeText, post.getNumLikes());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(ProductActivity.class.getSimpleName(), "like: failure", error);
+            }
+        });
+    }
+
+    private void unlike(final PostVMLite post, final FeedViewHolder holder) {
+        AppController.getApiService().unlikePost(post.id, new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                post.isLiked = false;
+                post.numLikes--;
+                ViewUtil.unselectLikeTipsStyle(holder.likeImage, holder.likeText, post.getNumLikes());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(ProductActivity.class.getSimpleName(), "unlike: failure", error);
+            }
+        });
+    }
+
     /**
      * View item.
      */
@@ -128,6 +184,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         ImageView image;
         TextView title;
         TextView price;
+        LinearLayout likeLayout;
+        ImageView likeImage;
+        TextView likeText;
+
 
         public FeedViewHolder(View holder) {
             super(holder);
@@ -136,6 +196,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             image = (ImageView) holder.findViewById(R.id.image);
             title = (TextView) holder.findViewById(R.id.title);
             price = (TextView) holder.findViewById(R.id.price);
+            likeLayout = (LinearLayout) holder.findViewById(R.id.likeLayout);
+            likeImage = (ImageView) holder.findViewById(R.id.likeImage);
+            likeText = (TextView) holder.findViewById(R.id.likeText);
         }
     }
 }

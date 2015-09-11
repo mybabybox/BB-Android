@@ -50,18 +50,6 @@ public class UserVM extends UserVMLite {
         this.numFollowings = profile.numFollowings;
     }
 
-    public void merge(UserVMLite user) {
-        this.id = user.id;
-        this.displayName = user.displayName;
-        this.numFollowings = user.numFollowings;
-        this.numFollowers = user.numFollowers;
-        this.numPosts = user.numPosts;
-        this.numSold = user.numSold;
-        this.numLikes = user.numLikes;
-        this.numCollections = user.numCollections;
-        this.isFollowing = user.isFollowing;
-    }
-
     public long getCreatedDate() {
         return createdDate;
     }

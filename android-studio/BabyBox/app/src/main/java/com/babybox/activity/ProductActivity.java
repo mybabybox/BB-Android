@@ -82,16 +82,10 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private PopupWindow commentPopup, emoPopup;
 
-    private PostVM post;
-    private long postId, catId;
-    private Boolean isLiked = false;
+    private long postId;
 
     private List<EmoticonVM> emoticonVMList = new ArrayList<>();
     private EmoticonListAdapter emoticonListAdapter;
-
-    private void setPost(PostVM post) {
-        this.post = post;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -153,8 +147,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         //getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
         //getActionBar().setTitle("Details");
 
-        postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_POST_ID, 0L);
-        catId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, 0L);
+        postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
 
         getProduct(postId);
         getComments(postId);
@@ -166,8 +159,6 @@ public class ProductActivity extends TrackedFragmentActivity {
         AppController.getApiService().getPost(postId, new Callback<PostVM>() {
             @Override
             public void success(final PostVM post, Response response) {
-                setPost(post);
-
                 // Show images in slider
                 ImageUtil.displayOriginalPostImage(post.images[0], productImage);
 
@@ -192,8 +183,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // like
 
-                isLiked = post.isLiked();
-                if (isLiked) {
+                if (post.isLiked()) {
                     ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
                 } else {
                     ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
@@ -202,10 +192,10 @@ public class ProductActivity extends TrackedFragmentActivity {
                 likeLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (isLiked) {
-                            unlike(postId);
+                        if (post.isLiked) {
+                            unlike(post);
                         } else {
-                            like(postId);
+                            like(post);
                         }
                     }
                 });
@@ -327,12 +317,13 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void like(Long postId) {
-        AppController.getApiService().likePost(postId, new Callback<Response>() {
+    private void like(final PostVM post) {
+        AppController.getApiService().likePost(post.id, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
+                post.isLiked = true;
+                post.numLikes++;
                 ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
-                isLiked = true;
             }
 
             @Override
@@ -342,12 +333,13 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void unlike(Long postId) {
-        AppController.getApiService().unlikePost(postId, new Callback<Response>() {
+    private void unlike(final PostVM post) {
+        AppController.getApiService().unlikePost(post.id, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
+                post.isLiked = false;
+                post.numLikes--;
                 ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
-                isLiked = false;
             }
 
             @Override
