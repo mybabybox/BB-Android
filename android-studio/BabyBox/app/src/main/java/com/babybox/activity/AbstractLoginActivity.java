@@ -103,6 +103,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                 ViewUtil.alert(AbstractLoginActivity.this,
                         getString(R.string.login_error_title),
                         getString(R.string.login_error_message));
+                        // + "\n" + e.getLocalizedMessage());
                 e.printStackTrace();
             }
         });
@@ -139,6 +140,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                 ViewUtil.alert(AbstractLoginActivity.this,
                         getString(R.string.login_error_title),
                         getString(R.string.login_error_message));
+                        // + "\n" + ViewUtil.getResponseBody(error.getResponse()));
                 Log.e(AbstractLoginActivity.class.getSimpleName(), "doLoginUsingAccessToken: failure", error);
             }
         });

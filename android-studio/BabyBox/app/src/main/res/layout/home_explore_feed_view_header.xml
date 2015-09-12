@@ -54,13 +54,13 @@
 
     </FrameLayout>
 
-    <com.babybox.fragment.HomeCategoryViewPager
+    <com.babybox.util.AdaptiveViewPager
         android:id="@+id/catPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tipsLayout"
         android:layout_marginTop="10dp">
-    </com.babybox.fragment.HomeCategoryViewPager>
+    </com.babybox.util.AdaptiveViewPager>
 
     <!--android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/catPager"
