@@ -14,12 +14,17 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.babybox.R;
+import com.babybox.activity.LoginActivity;
 import com.babybox.mock.BabyBoxMockService;
 import com.babybox.mock.MyApi;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
@@ -176,20 +181,22 @@ public class AppController extends Application {
         SharedPreferencesUtil.getInstance().clearAll();
     }
 
-    public void exitApp() {
-        Log.d(this.getClass().getSimpleName(), "exitApp");
+    public void logout() {
+        Log.d(this.getClass().getSimpleName(), "logout");
 
-        Intent i = new Intent(Intent.ACTION_MAIN);
-        i.addCategory(Intent.CATEGORY_HOME);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //i.putExtra("EXIT", true);
-        //i.setClass(this, LoginActivity.class);
-        startActivity(i);
+        // clear session and exit
+        AppController.getInstance().clearAll();
+        AppController.getInstance().clearPreferences();
 
-        // exit
-        android.os.Process.killProcess(android.os.Process.myPid());
+        // log out from FB
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        if (AccessToken.getCurrentAccessToken() != null) {
+            LoginManager.getInstance().logOut();
+        }
 
-        System.exit(1);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public static boolean isOnline() {

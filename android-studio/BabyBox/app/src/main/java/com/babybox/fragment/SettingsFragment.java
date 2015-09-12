@@ -34,16 +34,8 @@ public class SettingsFragment extends TrackedFragment {
                         .setCancelable(false)
                         .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                // clear session and exit
-                                AppController.getInstance().clearAll();
-                                AppController.getInstance().clearPreferences();
-
-                                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
+                                AppController.getInstance().logout();
                                 getActivity().finish();
-
-                                //AppController.getInstance().exitApp();
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

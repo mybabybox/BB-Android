@@ -22,7 +22,9 @@ import android.util.Log;
 import android.view.View;
 
 // FB API v4.0
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
@@ -62,15 +64,9 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
         this.facebookButton = facebookButton;
     }
 
-    // Your Facebook APP ID
-    protected static String APP_ID = "798543453496777"; // Replace with your App ID
-
     protected static final String[] REQUEST_FACEBOOK_PERMISSIONS = {
             "public_profile","email","user_friends"
     };
-
-    // Instance of Facebook Class
-    //protected Facebook facebook = new Facebook(APP_ID);
 
     // FB API v4.0
     protected CallbackManager callbackManager;
@@ -80,7 +76,6 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
         super.onCreate(savedInstanceState);
 
         // FB API v4.0
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
@@ -102,9 +97,17 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                 stopSpinner();
                 ViewUtil.alert(AbstractLoginActivity.this,
                         getString(R.string.login_error_title),
-                        getString(R.string.login_error_message));
-                        // + "\n" + e.getLocalizedMessage());
+                        getString(R.string.login_error_message)
+                                + "\n" + e.getLocalizedMessage());
                 e.printStackTrace();
+
+                // FB API v4.0 - FB log out previous user to allow login again
+                if (e instanceof FacebookAuthorizationException) {
+                    if (AccessToken.getCurrentAccessToken() != null) {
+                        Log.e(AbstractLoginActivity.class.getSimpleName(), "FacebookCallback.onError: Log out existing valid access token");
+                        LoginManager.getInstance().logOut();
+                    }
+                }
             }
         });
 
@@ -139,8 +142,8 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                 stopSpinner();
                 ViewUtil.alert(AbstractLoginActivity.this,
                         getString(R.string.login_error_title),
-                        getString(R.string.login_error_message));
-                        // + "\n" + ViewUtil.getResponseBody(error.getResponse()));
+                        getString(R.string.login_error_message)
+                                + "\n" + ViewUtil.getResponseBody(error.getResponse()));
                 Log.e(AbstractLoginActivity.class.getSimpleName(), "doLoginUsingAccessToken: failure", error);
             }
         });
@@ -195,9 +198,11 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
 
         if (loginButton != null) {
             loginButton.setEnabled(!show);
+            loginButton.setAlpha(show? 0.8F : 1.0F);
         }
         if (facebookButton != null) {
             facebookButton.setEnabled(!show);
+            facebookButton.setAlpha(show? 0.8F : 1.0F);
         }
     }
 }
