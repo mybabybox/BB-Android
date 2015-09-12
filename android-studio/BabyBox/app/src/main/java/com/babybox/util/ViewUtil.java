@@ -211,13 +211,13 @@ public class ViewUtil {
     }
 
     public static void selectLikeTipsStyle(ImageView image, TextView text, int likes) {
-        image.setImageResource(R.drawable.ic_liked);
+        image.setImageResource(R.drawable.ic_liked_tips);
         text.setText(likes+"");
         text.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
     }
 
     public static void unselectLikeTipsStyle(ImageView image, TextView text, int likes) {
-        image.setImageResource(R.drawable.ic_like);
+        image.setImageResource(R.drawable.ic_like_tips);
         text.setText(likes+"");
         text.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
     }
