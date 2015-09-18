@@ -127,7 +127,7 @@ public class NotificationListFragment extends TrackedFragment {
         }
     }
     private void markAsRead(String ids){
-        AppController.getApi().markAsRead(ids,AppController.getInstance().getSessionId(),new Callback<Response>() {
+        AppController.getMockApi().markAsRead(ids,AppController.getInstance().getSessionId(),new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
 

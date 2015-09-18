@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.babybox.R;
 import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
-import com.babybox.mock.CommunityPostCommentVM;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
@@ -158,147 +157,8 @@ public class CommentListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void loadImages(final CommunityPostCommentVM item, final LinearLayout layout) {
-        layout.removeAllViewsInLayout();
-
-        Log.d(this.getClass().getSimpleName(), "loadImages: "+item.getImgs().length+" images");
-        for (Long imageId : item.getImgs()) {
-            final ImageView postImage = new ImageView(this.activity);
-            postImage.setAdjustViewBounds(true);
-            postImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            postImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10));
-            layout.addView(postImage);
-
-            /*
-            postImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ViewUtil.fullscreenImagePopup(DetailListAdapter.this, source);
-                }
-            });
-            */
-
-            // obsolete
-            /*
-            String source = activity.getResources().getString(R.string.base_url) + "/image/get-original-post-image-by-id/" + imageId;
-            Log.d(this.getClass().getSimpleName(), "loadImages: source - "+source);
-            new LoadPostImage().execute(source, postImage);
-            */
-
-            ImageUtil.displayOriginalPostImage(imageId, postImage);
-            /*
-            ImageUtil.displayOriginalPostImage(imageId, postImage, new RequestListener<String, GlideBitmapDrawable>() {
-                @Override
-                public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
-                    postImage.setVisibility(View.GONE);
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                    Bitmap loadedImage = resource.getBitmap();
-                    if (loadedImage != null) {
-                        Log.d(DetailListAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
-
-                        int width = loadedImage.getWidth();
-                        int height = loadedImage.getHeight();
-
-                        // always stretch to screen width
-                        int displayWidth = ViewUtil.getDisplayDimensions(DetailListAdapter.this.activity).width();
-                        float scaleAspect = (float)displayWidth / (float)width;
-                        width = displayWidth;
-                        height = (int)(height * scaleAspect);
-
-                        Log.d(DetailListAdapter.class.getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
-
-                        Drawable d = new BitmapDrawable(
-                                DetailListAdapter.this.activity.getResources(),
-                                Bitmap.createScaledBitmap(loadedImage, width, height, false));
-                        postImage.setImageDrawable(d);
-                        postImage.setVisibility(View.VISIBLE);
-                    }
-                    return true;
-                }
-            });
-            */
-        }
-        item.imageLoaded = true;
-    }
-
-    private void likeComment(Long id) {
-        AppController.getApi().setLikeComment(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(CommentListAdapter.class.getSimpleName(), "likeComment: failure", error);
-            }
-        });
-    }
-
-    private void unLikeComment(Long id) {
-        AppController.getApi().setUnLikeComment(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(CommentListAdapter.class.getSimpleName(), "unLikeComment: failure", error);
-            }
-        });
-    }
-
-    private void likePost(Long id) {
-        AppController.getApi().setLikePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(CommentListAdapter.class.getSimpleName(), "likePost: failure", error);
-            }
-        });
-    }
-
-    private void unLikePost(Long id) {
-        AppController.getApi().setUnLikePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(CommentListAdapter.class.getSimpleName(), "unLikePost: failure", error);
-            }
-        });
-    }
-
-    private void deletePost(Long id) {
-        AppController.getApi().deletePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-                Toast.makeText(inflater.getContext(), CommentListAdapter.this.activity.getString(R.string.post_delete_success), Toast.LENGTH_SHORT).show();
-                CommentListAdapter.this.activity.finish();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(inflater.getContext(), CommentListAdapter.this.activity.getString(R.string.post_delete_failed), Toast.LENGTH_SHORT).show();
-                Log.e(CommentListAdapter.class.getSimpleName(), "deletePost: failure", error);
-            }
-        });
-    }
-
     private void deleteComment(Long id, final int position) {
-        AppController.getApi().deleteComment(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getMockApi().deleteComment(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 Toast.makeText(inflater.getContext(), CommentListAdapter.this.activity.getString(R.string.comment_delete_success), Toast.LENGTH_SHORT).show();

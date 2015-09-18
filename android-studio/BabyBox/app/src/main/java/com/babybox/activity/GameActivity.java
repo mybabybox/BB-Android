@@ -171,7 +171,7 @@ public class GameActivity extends TrackedFragmentActivity {
     }
 
     private void signInForToday() {
-        AppController.getApi().signInForToday(AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getMockApi().signInForToday(AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
                 signInImage.setImageDrawable(getResources().getDrawable(R.drawable.game_signed_in));
@@ -203,7 +203,7 @@ public class GameActivity extends TrackedFragmentActivity {
     }
 
     private void getGameGifts(final GameAccountVM gameAccount) {
-        AppController.getApi().getAllGameGifts(AppController.getInstance().getSessionId(), new Callback<List<GameGiftVM>>() {
+        AppController.getMockApi().getAllGameGifts(AppController.getInstance().getSessionId(), new Callback<List<GameGiftVM>>() {
             @Override
             public void success(List<GameGiftVM> vms, Response response) {
                 List<GameGiftVM> gameGifts = new ArrayList<>();
@@ -222,7 +222,7 @@ public class GameActivity extends TrackedFragmentActivity {
     }
 
     private void getGameTransactions() {
-        AppController.getApi().getGameTransactions(0L, AppController.getInstance().getSessionId(), new Callback<List<GameTransactionVM>>() {
+        AppController.getMockApi().getGameTransactions(0L, AppController.getInstance().getSessionId(), new Callback<List<GameTransactionVM>>() {
             @Override
             public void success(List<GameTransactionVM> vms, Response response) {
                 List<GameTransactionVM> gameTransactions = new ArrayList<>();
@@ -241,7 +241,7 @@ public class GameActivity extends TrackedFragmentActivity {
     }
 
     private void getLatestGameTransactions() {
-        AppController.getApi().getLatestGameTransactions(AppController.getInstance().getSessionId(), new Callback<List<GameTransactionVM>>() {
+        AppController.getMockApi().getLatestGameTransactions(AppController.getInstance().getSessionId(), new Callback<List<GameTransactionVM>>() {
             @Override
             public void success(List<GameTransactionVM> vms, Response response) {
                 List<GameTransactionVM> gameTransactions = new ArrayList<>();

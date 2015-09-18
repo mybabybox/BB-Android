@@ -58,7 +58,7 @@ public class BabyBoxMockService extends BabyBoxService {
     @Override
     public void getUser(Long id, Callback<UserVM> cb) {
         final Callback<UserVM> callback = cb;
-        AppController.getApi().getUserProfile(id, AppController.getInstance().getSessionId(), new Callback<ProfileVM>() {
+        AppController.getMockApi().getUserProfile(id, AppController.getInstance().getSessionId(), new Callback<ProfileVM>() {
             @Override
             public void success(ProfileVM profile, Response response) {
                 UserVM user = new UserVM(profile);
@@ -75,7 +75,7 @@ public class BabyBoxMockService extends BabyBoxService {
     @Override
     public void getHomeExploreFeed(Long offset, Callback<List<PostVMLite>> cb) {
         final Callback<List<PostVMLite>> callback = cb;
-        AppController.getApi().getNewsfeed(offset, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
+        AppController.getMockApi().getNewsfeed(offset, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
             @Override
             public void success(PostArray posts, Response response) {
                 List<PostVMLite> array = new ArrayList<>();
@@ -111,7 +111,7 @@ public class BabyBoxMockService extends BabyBoxService {
         final Callback<List<PostVMLite>> callback = cb;
         if (offset == 0) {
             feedTime = 0;
-            AppController.getApi().getCommunityInitialPosts(id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
+            AppController.getMockApi().getCommunityInitialPosts(id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
                 @Override
                 public void success(PostArray posts, Response response) {
                     List<PostVMLite> array = new ArrayList<>();
@@ -135,7 +135,7 @@ public class BabyBoxMockService extends BabyBoxService {
                 }
             });
         } else {
-            AppController.getApi().getCommunityNextPosts(id, feedTime + "", AppController.getInstance().getSessionId(), new Callback<List<CommunityPostVM>>() {
+            AppController.getMockApi().getCommunityNextPosts(id, feedTime + "", AppController.getInstance().getSessionId(), new Callback<List<CommunityPostVM>>() {
                 @Override
                 public void success(List<CommunityPostVM> posts, Response response) {
                     List<PostVMLite> array = new ArrayList<>();
@@ -178,7 +178,7 @@ public class BabyBoxMockService extends BabyBoxService {
 
     public void getUserPostedFeed(Long offset, Long id, Callback<List<PostVMLite>> cb) {
         final Callback<List<PostVMLite>> callback = cb;
-        AppController.getApi().getUserPosts(offset, id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
+        AppController.getMockApi().getUserPosts(offset, id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
             @Override
             public void success(PostArray posts, Response response) {
                 List<PostVMLite> array = new ArrayList<>();
@@ -204,7 +204,7 @@ public class BabyBoxMockService extends BabyBoxService {
 
     public void getUserLikedFeed(Long offset, Long id, Callback<List<PostVMLite>> cb) {
         final Callback<List<PostVMLite>> callback = cb;
-        AppController.getApi().getUserComments(offset, id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
+        AppController.getMockApi().getUserComments(offset, id, AppController.getInstance().getSessionId(), new Callback<PostArray>() {
             @Override
             public void success(PostArray posts, Response response) {
                 List<PostVMLite> array = new ArrayList<>();
@@ -235,7 +235,7 @@ public class BabyBoxMockService extends BabyBoxService {
     @Override
     public void getCategories(Callback<List<CategoryVM>> cb) {
         final Callback<List<CategoryVM>> callback = cb;
-        AppController.getApi().getMyCommunities(AppController.getInstance().getSessionId(), new Callback<CommunitiesParentVM>() {
+        AppController.getMockApi().getMyCommunities(AppController.getInstance().getSessionId(), new Callback<CommunitiesParentVM>() {
             @Override
             public void success(CommunitiesParentVM communitiesParentVM, Response response) {
                 List<CategoryVM> categories = new ArrayList<>();
@@ -255,7 +255,7 @@ public class BabyBoxMockService extends BabyBoxService {
     @Override
     public void getCategory(Long id, Callback<CategoryVM> cb) {
         final Callback<CategoryVM> callback = cb;
-        AppController.getApi().getCommunity(id, AppController.getInstance().getSessionId(), new Callback<CommunityVM>() {
+        AppController.getMockApi().getCommunity(id, AppController.getInstance().getSessionId(), new Callback<CommunityVM>() {
             @Override
             public void success(CommunityVM comm, Response response) {
                 callback.success(new CategoryVM(comm), response);
@@ -271,7 +271,7 @@ public class BabyBoxMockService extends BabyBoxService {
     @Override
     public void getPost(Long id, Callback<PostVM> cb) {
         final Callback<PostVM> callback = cb;
-        AppController.getApi().qnaLanding(id, -1L, AppController.getInstance().getSessionId(), new Callback<CommunityPostVM>() {
+        AppController.getMockApi().qnaLanding(id, -1L, AppController.getInstance().getSessionId(), new Callback<CommunityPostVM>() {
             @Override
             public void success(CommunityPostVM post, Response response) {
                 if (!post.hasImage) {
@@ -293,7 +293,7 @@ public class BabyBoxMockService extends BabyBoxService {
     public void newPost(NewPostVM post, Callback<ResponseStatusVM> cb) {
         final Callback<ResponseStatusVM> callback = cb;
         NewPost newPost = new NewPost(post.catId, post.title, post.desc, true);
-        AppController.getApi().newCommunityPost(newPost, AppController.getInstance().getSessionId(), new Callback<PostResponse>() {
+        AppController.getMockApi().newCommunityPost(newPost, AppController.getInstance().getSessionId(), new Callback<PostResponse>() {
             @Override
             public void success(PostResponse postResponse, Response response) {
                 ResponseStatusVM responseStatus = new ResponseStatusVM();
@@ -312,7 +312,7 @@ public class BabyBoxMockService extends BabyBoxService {
 
     public void getComments(int offset, Long postId, Callback<List<CommentVM>> cb) {
         final Callback<List<CommentVM>> callback = cb;
-        AppController.getApi().getComments(postId, offset, AppController.getInstance().getSessionId(), new Callback<List<CommunityPostCommentVM>>() {
+        AppController.getMockApi().getComments(postId, offset, AppController.getInstance().getSessionId(), new Callback<List<CommunityPostCommentVM>>() {
             @Override
             public void success(List<CommunityPostCommentVM> vms, Response response) {
                 List<CommentVM> comments = new ArrayList<>();
@@ -332,7 +332,7 @@ public class BabyBoxMockService extends BabyBoxService {
     public void newComment(NewCommentVM comment, Callback<ResponseStatusVM> cb) {
         final Callback<ResponseStatusVM> callback = cb;
         CommentPost newComment = new CommentPost(comment.postId, comment.desc, false);
-        AppController.getApi().answerOnQuestion(newComment, AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
+        AppController.getMockApi().answerOnQuestion(newComment, AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
             @Override
             public void success(CommentResponse commentResponse, Response response) {
                 ResponseStatusVM responseStatus = new ResponseStatusVM();
@@ -352,7 +352,7 @@ public class BabyBoxMockService extends BabyBoxService {
     @Override
     public void likePost(Long id, Callback<Response> cb) {
         final Callback<Response> callback = cb;
-        AppController.getApi().setLikePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getMockApi().setLikePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 callback.success(response, response2);
@@ -368,7 +368,7 @@ public class BabyBoxMockService extends BabyBoxService {
     @Override
     public void unlikePost(Long id, Callback<Response> cb) {
         final Callback<Response> callback = cb;
-        AppController.getApi().setUnLikePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getMockApi().setUnLikePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 callback.success(response, response2);

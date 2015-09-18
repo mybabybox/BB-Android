@@ -97,7 +97,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
         loadImage(item.getImages()[0], holder.image);
 
-        holder.title.setText(item.getTitle());
+        ViewUtil.setHtmlText(item.getTitle(), holder.title, activity, true);
         holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
 
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {

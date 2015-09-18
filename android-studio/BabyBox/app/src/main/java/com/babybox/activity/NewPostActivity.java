@@ -292,7 +292,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         for (File photo : photos) {
             photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
             TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-            AppController.getApi().uploadPostPhoto(postId, typedFile, new Callback<Response>() {
+            AppController.getMockApi().uploadPostPhoto(postId, typedFile, new Callback<Response>() {
                 @Override
                 public void success(Response array, retrofit.client.Response response) {
                     imageUploadSuccessCount++;

@@ -8,6 +8,8 @@ public class PostVMLite {
     public Long[] images;
     public String type;
     public int numLikes;
+    public int numChats;
+    public int numBuys;
     public int numComments;
     public int numViews;
     public boolean isOwner = false;
@@ -43,6 +45,22 @@ public class PostVMLite {
 
     public void setSold(boolean sold) {
         this.sold = sold;
+    }
+
+    public int getNumChats() {
+        return numChats;
+    }
+
+    public void setNumChats(int numChats) {
+        this.numChats = numChats;
+    }
+
+    public int getNumBuys() {
+        return numBuys;
+    }
+
+    public void setNumBuys(int numBuys) {
+        this.numBuys = numBuys;
     }
 
     public int getNumComments() {

@@ -21,7 +21,6 @@ public class DefaultValues {
     public static final int DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD = 0;
     public static final int DEFAULT_INFINITE_SCROLL_DELAY = 500;
     public static final int DEFAULT_INFINITE_SCROLL_COUNT = 10;
-    public static final int DEFAULT_PAGINATION_COUNT = 10;
 
     public static final int CONVERSATION_LAST_MESSAGE_COUNT = 50;
     public static final int CONVERSATION_MESSAGE_COUNT = 10;

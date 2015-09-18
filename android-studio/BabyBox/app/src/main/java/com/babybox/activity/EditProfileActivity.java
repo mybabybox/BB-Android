@@ -169,7 +169,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
 
     private void updateUserProfileData(UserProfileDataVM userProfileDataVM){
         ViewUtil.showSpinner(this);
-        AppController.getApi().updateUserProfileData(userProfileDataVM, AppController.getInstance().getSessionId(), new Callback<UserVM>() {
+        AppController.getMockApi().updateUserProfileData(userProfileDataVM, AppController.getInstance().getSessionId(), new Callback<UserVM>() {
             @Override
             public void success(UserVM userVM, Response response) {
                 UserInfoCache.refresh(new Callback<UserVM>() {

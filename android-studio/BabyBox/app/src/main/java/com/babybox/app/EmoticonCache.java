@@ -30,7 +30,7 @@ public class EmoticonCache {
     public static void refresh(final Callback<List<EmoticonVM>> callback) {
         Log.d(EmoticonCache.class.getSimpleName(), "refresh");
 
-        AppController.getApi().getEmoticons(AppController.getInstance().getSessionId(), new Callback<List<EmoticonVM>>() {
+        AppController.getMockApi().getEmoticons(AppController.getInstance().getSessionId(), new Callback<List<EmoticonVM>>() {
             @Override
             public void success(List<EmoticonVM> vms, Response response) {
                 emoticons = vms;

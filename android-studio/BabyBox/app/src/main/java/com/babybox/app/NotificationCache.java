@@ -27,7 +27,7 @@ public class NotificationCache {
     public static void refresh(final Callback<NotificationsParentVM> callback) {
         Log.d(NotificationCache.class.getSimpleName(), "refresh");
 
-        AppController.getApi().getHeaderBarData(AppController.getInstance().getSessionId(), new Callback<NotificationsParentVM>() {
+        AppController.getMockApi().getHeaderBarData(AppController.getInstance().getSessionId(), new Callback<NotificationsParentVM>() {
             @Override
             public void success(NotificationsParentVM vm, Response response) {
                 Log.d(NotificationCache.class.getSimpleName(), "refresh.success: user=" + vm.getName() + " request=" + vm.getRequestCounts() + " notif=" + vm.getNotifyCounts());

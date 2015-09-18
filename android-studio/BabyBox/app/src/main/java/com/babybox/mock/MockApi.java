@@ -27,7 +27,7 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
-public interface MyApi {
+public interface MockApi {
 
     @GET("/get-newsfeeds/{offset}") //a function in your api to get all the Newsfeed list
     public void getNewsfeed(@Path("offset") Long offset, @Query("key") String key, Callback<PostArray> callback);
@@ -69,12 +69,6 @@ public interface MyApi {
 
     @GET("/unbookmark-post/{post_id}")
     public void setUnBookmark(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/like-comment/{comment_id}")
-    public void setLikeComment(@Path("comment_id") Long comment_id, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/unlike-comment/{comment_id}")
-    public void setUnLikeComment(@Path("comment_id") Long comment_id, @Query("key") String key, Callback<Response> cb);
 
     @GET("/like-post/{post_id}")
     public void setLikePost(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);

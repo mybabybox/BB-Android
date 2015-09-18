@@ -443,7 +443,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         }
 
         Log.d(this.getClass().getSimpleName(), "doMessage: receiverId=" + getIntent().getLongExtra("uid", 0L) + " message=" + comment.substring(0, Math.min(5, comment.length())));
-        AppController.getApi().sendMessage(new MessagePostVM(getIntent().getLongExtra("uid", 0l), comment, true), AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getMockApi().sendMessage(new MessagePostVM(getIntent().getLongExtra("uid", 0l), comment, true), AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
                 String responseVm = "";
@@ -482,7 +482,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         for (File photo : photos) {
             photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
             TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-            AppController.getApi().uploadMessagePhoto(AppController.getInstance().getSessionId(),commentId, typedFile, new Callback<Response>() {
+            AppController.getMockApi().uploadMessagePhoto(AppController.getInstance().getSessionId(),commentId, typedFile, new Callback<Response>() {
                 @Override
                 public void success(Response array, Response response) {
                     getMessages(conversationId, 0l);
@@ -498,7 +498,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
 
     private void getMessages(Long id, Long offset) {
         ViewUtil.showSpinner(MessageDetailActivity.this);
-        AppController.getApi().getMessages(id, offset, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getMockApi().getMessages(id, offset, AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
                 String responseVm = "";
@@ -563,7 +563,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
 
     private void loadMoreMessages(Long id,Long offset) {
         ViewUtil.showSpinner(MessageDetailActivity.this);
-        AppController.getApi().getMessages(id, offset, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getMockApi().getMessages(id, offset, AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
                 listHeader.setVisibility(View.INVISIBLE);

@@ -94,16 +94,6 @@ public class ImageMapping {
         imageMap.put("/assets/app/images/emoticons/tongue.png", R.drawable.emo_tongue);
         imageMap.put("/assets/app/images/emoticons/wacko.png", R.drawable.emo_wacko);
         imageMap.put("/assets/app/images/emoticons/wink.png", R.drawable.emo_wink);
-
-        // Game gift images
-        imageMap.put("/assets/app/images/game/gifts/mannings.jpg", R.drawable.game_gift_mannings);
-        imageMap.put("/assets/app/images/game/gifts/mannings-thumb.jpg", R.drawable.game_gift_mannings);
-        imageMap.put("/assets/app/images/game/gifts/sogo.jpg", R.drawable.game_gift_sogo);
-        imageMap.put("/assets/app/images/game/gifts/sogo-thumb.jpg", R.drawable.game_gift_sogo);
-        imageMap.put("/assets/app/images/game/gifts/yata.jpg", R.drawable.game_gift_yata);
-        imageMap.put("/assets/app/images/game/gifts/yata-thumb.jpg", R.drawable.game_gift_yata);
-        imageMap.put("/assets/app/images/game/gifts/wellcome.jpg", R.drawable.game_gift_wellcome);
-        imageMap.put("/assets/app/images/game/gifts/wellcome-thumb.jpg", R.drawable.game_gift_wellcome);
     }
 
     private ImageMapping() {}

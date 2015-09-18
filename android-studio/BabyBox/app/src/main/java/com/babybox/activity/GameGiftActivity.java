@@ -132,7 +132,7 @@ public class GameGiftActivity extends TrackedFragmentActivity {
     private void getGameGift(long id) {
         Log.d(GameGiftActivity.class.getSimpleName(), "getGameGift: id=" + id);
         ViewUtil.showSpinner(this);
-        AppController.getApi().getGameGiftInfo(id, AppController.getInstance().getSessionId(), new Callback<GameGiftVM>() {
+        AppController.getMockApi().getGameGiftInfo(id, AppController.getInstance().getSessionId(), new Callback<GameGiftVM>() {
             @Override
             public void success(final GameGiftVM gameGiftVM, Response response) {
                 gameGift = gameGiftVM;
@@ -273,7 +273,7 @@ public class GameGiftActivity extends TrackedFragmentActivity {
     }
 
     private void doRedeem(final long id) {
-        AppController.getApi().redeemGameGift(id, AppController.getInstance().getSessionId(), new Callback<ResponseStatusVM>() {
+        AppController.getMockApi().redeemGameGift(id, AppController.getInstance().getSessionId(), new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response1) {
                 if (responseStatus.isSuccess()) {

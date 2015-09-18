@@ -18,7 +18,7 @@ import retrofit.client.Response;
 public class MessageUtil {
 
     public static void openConversation(final long userId, final Activity activity) {
-        AppController.getApi().openConversation(userId, AppController.getInstance().getSessionId(), new Callback<List<ConversationVM>>() {
+        AppController.getMockApi().openConversation(userId, AppController.getInstance().getSessionId(), new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> conversationVMs, Response response1) {
                 if (conversationVMs == null || conversationVMs.size() < 1) {

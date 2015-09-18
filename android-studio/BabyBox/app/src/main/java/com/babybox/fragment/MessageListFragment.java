@@ -99,7 +99,7 @@ public class MessageListFragment extends TrackedFragment {
 
     private void getAllConversations() {
         ViewUtil.showSpinner(getActivity());
-        AppController.getApi().getAllConversations(AppController.getInstance().getSessionId(), new Callback<List<ConversationVM>>() {
+        AppController.getMockApi().getAllConversations(AppController.getInstance().getSessionId(), new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> conversationVMs, Response response) {
                 conversationVMList = conversationVMs;
@@ -124,7 +124,7 @@ public class MessageListFragment extends TrackedFragment {
 
     private void deleteConversation(Long id) {
         ViewUtil.showSpinner(getActivity());
-        AppController.getApi().deleteConversation(id,AppController.getInstance().getSessionId(),new Callback<Response>() {
+        AppController.getMockApi().deleteConversation(id,AppController.getInstance().getSessionId(),new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
                 getAllConversations();

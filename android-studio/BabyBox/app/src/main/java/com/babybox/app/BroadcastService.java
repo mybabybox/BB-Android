@@ -64,7 +64,7 @@ public class BroadcastService extends Service {
     	Log.d(TAG, "entered DisplayLoggingInfo");
 
         if((Long)AppController.getInstance().getConversationId() != null) {
-            AppController.getApi().getMessages(AppController.getInstance().getConversationId(), 0l, AppController.getInstance().getSessionId(), new Callback<Response>() {
+            AppController.getMockApi().getMessages(AppController.getInstance().getConversationId(), 0l, AppController.getInstance().getSessionId(), new Callback<Response>() {
                 @Override
                 public void success(Response response, Response response2) {
                     System.out.println("service success::::");

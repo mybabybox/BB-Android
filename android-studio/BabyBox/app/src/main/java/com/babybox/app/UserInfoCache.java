@@ -58,7 +58,7 @@ public class UserInfoCache {
             }
         });
 
-        AppController.getApi().getGameAccount(sessionId, new Callback<GameAccountVM>() {
+        AppController.getMockApi().getGameAccount(sessionId, new Callback<GameAccountVM>() {
             @Override
             public void success(GameAccountVM gameAccountVM, retrofit.client.Response response) {
                 gameAccount = gameAccountVM;
