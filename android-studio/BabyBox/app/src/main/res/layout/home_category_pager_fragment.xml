@@ -18,14 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="10"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="3dp">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
                 android:id="@+id/cat1"
-                android:layout_marginRight="5dp">
+                android:layout_marginRight="3dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -41,13 +41,13 @@
 
                         <ImageView
                             android:id="@+id/image1"
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
                 android:id="@+id/cat2"
-                android:layout_marginRight="5dp">
+                android:layout_marginRight="3dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -92,13 +92,13 @@
 
                         <ImageView
                             android:id="@+id/image2"
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -142,13 +142,13 @@
 
                         <ImageView
                             android:id="@+id/image3"
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -179,14 +179,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="10"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="3dp">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
                 android:id="@+id/cat4"
-                android:layout_marginRight="5dp">
+                android:layout_marginRight="3dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -202,13 +202,13 @@
 
                         <ImageView
                             android:id="@+id/image4"
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -237,7 +237,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
                 android:id="@+id/cat5"
-                android:layout_marginRight="5dp">
+                android:layout_marginRight="3dp">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -253,13 +253,13 @@
 
                         <ImageView
                             android:id="@+id/image5"
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -303,13 +303,13 @@
 
                         <ImageView
                             android:id="@+id/image6"
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:scaleType="fitCenter"></ImageView>
 
                         <View
-                            android:layout_width="105dp"
-                            android:layout_height="105dp"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
                     </FrameLayout>
@@ -328,6 +328,167 @@
                     android:textColor="@color/white"
                     android:gravity="center_horizontal"
                     android:layout_alignBottom="@+id/card6"
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="10"
+            android:layout_marginBottom="8dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.33"
+                android:id="@+id/cat7"
+                android:layout_marginRight="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card7"
+                    android:layout_centerHorizontal="true">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image7"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/name7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="@color/dark_gray_2"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="6"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"
+                    android:layout_alignBottom="@+id/card7"
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.33"
+                android:id="@+id/cat8"
+                android:layout_marginRight="3dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card8"
+                    android:layout_centerHorizontal="true">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image8"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/name8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="@color/dark_gray_2"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="6"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"
+                    android:layout_alignBottom="@+id/card8"
+                    android:paddingBottom="5dp"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.33"
+                android:id="@+id/cat9">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="2dp"
+                    android:id="@+id/card9"
+                    android:layout_centerHorizontal="true">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/image9"
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
+                            android:scaleType="fitCenter"></ImageView>
+
+                        <View
+                            android:layout_width="108dp"
+                            android:layout_height="108dp"
+                            android:background="@drawable/gradient_bottom"></View>
+
+                    </FrameLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/name9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:shadowColor="@color/dark_gray_2"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="6"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"
+                    android:layout_alignBottom="@+id/card9"
                     android:paddingBottom="5dp"
                     android:layout_centerHorizontal="true" />
 

@@ -77,6 +77,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private TextView commentText, catNameText, timeText, numViewsText, numCommentsText;
     private EditText commentEditText;
+    private Button sendButton;
 
     private ListView commentList;
 
@@ -122,6 +123,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         sellerNameText = (TextView) findViewById(R.id.sellerNameText);
 
         commentText = (TextView) findViewById(R.id.commentText);
+        sendButton = (Button) findViewById(R.id.sendButton);
         catNameText = (TextView) findViewById(R.id.catNameText);
         timeText = (TextView) findViewById(R.id.timeText);
         numViewsText = (TextView) findViewById(R.id.numViewsText);
@@ -130,6 +132,13 @@ public class ProductActivity extends TrackedFragmentActivity {
         commentList = (ListView) findViewById(R.id.commentList);
 
         commentText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initCommentPopup();
+            }
+        });
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initCommentPopup();

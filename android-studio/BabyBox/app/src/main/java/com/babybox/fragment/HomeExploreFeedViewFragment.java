@@ -83,7 +83,7 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
 class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {
 
-    public static final int CATEGORIES_PER_PAGE = 6;
+    public static final int CATEGORIES_PER_PAGE = 9;
 
     private String title;
 
