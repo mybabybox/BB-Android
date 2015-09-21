@@ -101,6 +101,19 @@
     <string name="no_products">~ 暫沒有商品 ~</string>
     <string name="no_product_comments">~ 沒有評論 ~</string>
 
+    <string name="new_post_actionbar_title">刊登商品</string>
+    <string name="new_post">發出</string>
+    <string name="new_post_price">價格($):</string>
+    <string name="new_post_price_hint">請輸入價格</string>
+    <string name="new_post_to_popup_title">請選擇分類</string>
+    <string name="new_post_to">分類:</string>
+    <string name="new_post_select_category">請選擇分類</string>
+    <string name="new_post_title">你要賣的是?</string>
+    <string name="new_post_body">商品詳情</string>
+    <string name="new_post_max_images">最多可加入4張圖</string>
+    <string name="new_post_success">成功刊登商品</string>
+    <string name="new_post_failed">暫時不能刊登商品，請稍後重試</string>
+
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>
     <string name="main_tab_trending">Trending</string>
@@ -112,9 +125,6 @@
     <string name="orders">My Orders</string>
     <string name="collections">Collections</string>
     <string name="products">Products</string>
-    <string name="new_post_to_popup_title">發佈話題到</string>
-    <string name="new_post_to">發佈到:</string>
-    <string name="new_post_select_category">請選擇社群</string>
 
     <!-- Category tab -->
     <string name="filter_popular">Popular</string>
@@ -135,13 +145,6 @@
     <string name="community_actionbar_title">社群話題</string>
     <string name="post_actionbar_title">話題詳情</string>
     <string name="from_community">社群:</string>
-    <string name="new_post_actionbar_title">新話題</string>
-    <string name="new_post">發出</string>
-    <string name="new_post_title">問題 / 分享⋯⋯</string>
-    <string name="new_post_body">加些詳情</string>
-    <string name="new_post_max_images">最多可加入3張圖</string>
-    <string name="new_post_success">成功發佈話題</string>
-    <string name="new_post_failed">暫時不能發佈話題，請稍後重試</string>
     <string name="comment_max_images">最多可加入3張圖</string>
     <string name="comment_success">成功回覆話題</string>
     <string name="comment_failed">暫時不能回覆話題，請稍後重試</string>
@@ -243,9 +246,9 @@
     <string name="game_gifts_redeem_confirm">確定使用小豆豆換領禮品嗎?</string>
 
     <!-- Dialog -->
-    <string name="cancel_new_post">退出發佈話題？</string>
+    <string name="cancel_new_post">退出刊登商品？</string>
     <string name="exit_app">是否退出 babybox？</string>
-    <string name="logout_message">確定登出？</string>
+    <string name="logout_message">確定登出 babybox？</string>
     <string name="yes">是</string>
     <string name="no">取消</string>
     <string name="confirm">確定</string>
@@ -253,7 +256,8 @@
 
     <!-- Validation -->
     <string name="invalid_post_title_empty">請填寫標題</string>
-    <string name="invalid_post_body_empty">請填寫內容</string>
+    <string name="invalid_post_desc_empty">請填寫內容</string>
+    <string name="invalid_post_price_empty">請填寫價格</string>
     <string name="invalid_comment_body_empty">請填寫內容</string>
 
 </resources>

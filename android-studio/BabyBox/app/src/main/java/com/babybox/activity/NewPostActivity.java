@@ -60,7 +60,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected TextView catName;
     protected ImageView catIcon;
     protected ImageView backImage, browseImage, emoImage;
-    protected TextView postTitle, postContent, postAction, editTextInFocus;
+    protected TextView titleEdit, descEdit, priceEdit, postAction, editTextInFocus;
 
     protected String selectedImagePath = null;
     protected Uri selectedImageUri = null;
@@ -96,7 +96,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         backImage = (ImageView) findViewById(R.id.backImage);
         postAction = (TextView) findViewById(R.id.postAction);
-        catLayout = (RelativeLayout) findViewById(R.id.catLayout1);
+        catLayout = (RelativeLayout) findViewById(R.id.catLayout);
         selectCatLayout = (LinearLayout) findViewById(R.id.selectCatLayout);
         selectCatText = (TextView) findViewById(R.id.selectCatText);
         selectCatIcon = (ImageView) findViewById(R.id.selectCatIcon);
@@ -104,22 +104,26 @@ public class NewPostActivity extends TrackedFragmentActivity {
         catName = (TextView) findViewById(R.id.catName);
         browseImage = (ImageView) findViewById(R.id.browseImage);
         emoImage = (ImageView) findViewById(R.id.emoImage);
-        postTitle = (TextView) findViewById(R.id.postTitle);
-        postContent = (TextView) findViewById(R.id.postContent);
-        editTextInFocus = postContent;
+        titleEdit = (TextView) findViewById(R.id.titleEdit);
+        descEdit = (TextView) findViewById(R.id.descEdit);
+        priceEdit = (TextView) findViewById(R.id.priceEdit);
+        editTextInFocus = titleEdit;
 
-        postTitle.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        titleEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    editTextInFocus = postTitle;
+                if (hasFocus) {
+                    editTextInFocus = titleEdit;
+                }
             }
         });
-        postContent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        descEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    editTextInFocus = postContent;
+                if (hasFocus) {
+                    editTextInFocus = descEdit;
+                }
             }
         });
 
@@ -245,16 +249,22 @@ public class NewPostActivity extends TrackedFragmentActivity {
     }
 
     protected void doPost() {
-        String title = postTitle.getText().toString().trim();
-        String content = postContent.getText().toString().trim();
+        String title = titleEdit.getText().toString().trim();
+        String desc = descEdit.getText().toString().trim();
+        String price = priceEdit.getText().toString().trim();
 
         if (StringUtils.isEmpty(title)) {
             Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_title_empty), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (StringUtils.isEmpty(content)) {
-            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_body_empty), Toast.LENGTH_SHORT).show();
+        if (StringUtils.isEmpty(desc)) {
+            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (StringUtils.isEmpty(price)) {
+            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_price_empty), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -268,7 +278,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         final boolean withPhotos = photos.size() > 0;
 
         Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title);
-        AppController.getApiService().newPost(new NewPostVM(catId, title, content, 0), new Callback<ResponseStatusVM>() {
+        AppController.getApiService().newPost(new NewPostVM(catId, title, desc, 0), new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
                 postSuccess = true;
@@ -418,11 +428,12 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     @Override
     public void onBackPressed() {
-        String title = postTitle.getText().toString();
-        String content = postContent.getText().toString();
+        String title = titleEdit.getText().toString().trim();
+        String desc = descEdit.getText().toString().trim();
+        String price = priceEdit.getText().toString().trim();
 
         if (postSuccess ||
-                (StringUtils.isEmpty(title) && StringUtils.isEmpty(content))) {
+                (StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
             super.onBackPressed();
             if (categoryPopup != null) {
                 categoryPopup.dismiss();

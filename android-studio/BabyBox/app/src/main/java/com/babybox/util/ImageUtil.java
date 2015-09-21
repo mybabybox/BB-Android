@@ -244,8 +244,8 @@ public class ImageUtil {
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))
-                .placeholder(R.drawable.image_loading)
-                .error(R.drawable.image_loading)
+                .placeholder(R.drawable.img_loading)
+                .error(R.drawable.img_loading)
                 .crossFade(300);
 
         displayImage(builder, imageView, listener, centerCrop, noCache, null);
@@ -273,8 +273,8 @@ public class ImageUtil {
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))
-                .placeholder(R.drawable.image_loading)
-                .error(R.drawable.image_loading)
+                .placeholder(R.drawable.img_loading)
+                .error(R.drawable.img_loading)
                 .dontAnimate();
 
         displayImage(builder, imageView, listener, centerCrop, noCache, circleTransform);
@@ -302,8 +302,8 @@ public class ImageUtil {
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))
-                .placeholder(R.drawable.image_loading)
-                .error(R.drawable.image_loading)
+                .placeholder(R.drawable.img_loading)
+                .error(R.drawable.img_loading)
                 .dontAnimate();
 
         displayImage(builder, imageView, listener, centerCrop, noCache, roundedTransform);
