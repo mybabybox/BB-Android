@@ -18,7 +18,7 @@
             android:src="@drawable/back" />
 
         <TextView
-            android:id="@+id/actionbarTitle"
+            android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

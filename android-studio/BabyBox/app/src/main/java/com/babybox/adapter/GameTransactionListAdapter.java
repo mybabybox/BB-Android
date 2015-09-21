@@ -88,9 +88,7 @@ public class GameTransactionListAdapter extends BaseAdapter {
             gameTransactionText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(activity, UserProfileActivity.class);
-                    intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getUid());
-                    activity.startActivity(intent);
+                    ViewUtil.startUserProfileActivity(activity, item.getUid(), "");
                 }
             });
         } else {

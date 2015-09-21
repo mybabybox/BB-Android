@@ -1,7 +1,6 @@
 package com.babybox.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +65,7 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
                 catLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewUtil.startCategoryActivity(getActivity(), category, "FromHomeCategoryPagerFragment");
+                        ViewUtil.startCategoryActivity(getActivity(), category.getId(), "FromHomeCategoryPagerFragment");
                     }
                 });
                 catLayout.setVisibility(View.VISIBLE);

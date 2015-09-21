@@ -31,7 +31,7 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
         setContentView(R.layout.child_layout_view);
 
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.my_actionbar, null),
+        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.view_actionbar, null),
                 new ActionBar.LayoutParams(
                         ActionBar.LayoutParams.MATCH_PARENT,
                         ActionBar.LayoutParams.MATCH_PARENT,
@@ -39,7 +39,7 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
                 )
         );
 
-        titleText = (TextView) findViewById(R.id.actionbarTitle);
+        titleText = (TextView) findViewById(R.id.titleText);
 
         Bundle bundle = new Bundle();
         TrackedFragment fragment = null;

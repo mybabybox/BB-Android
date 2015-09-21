@@ -424,7 +424,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/bar4"
-        android:id="@+id/emptyView"
+        android:id="@+id/noItemView"
         android:background="@color/feed_bg"
         android:visibility="gone">
 
@@ -432,7 +432,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_products"
-            android:id="@+id/emptyText"
+            android:id="@+id/noItemText"
             android:textSize="20dp"
             android:textColor="@color/light_gray"
             android:layout_marginTop="50dp"

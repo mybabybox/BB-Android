@@ -130,7 +130,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         intent = new Intent(this, BroadcastService.class);
 
         listView = (ListView)findViewById(R.id.messageList);
-        title = (TextView) findViewById(R.id.actionbarTitle);
+        title = (TextView) findViewById(R.id.titleText);
 
         listView.addHeaderView(listHeader);
         listHeader.setVisibility(View.INVISIBLE);
@@ -142,9 +142,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MessageDetailActivity.this, UserProfileActivity.class);
-                i.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra("uid", 0l));
-                startActivity(i);
+                ViewUtil.startUserProfileActivity(MessageDetailActivity.this, getIntent().getLongExtra("uid", 0l), "");
             }
         });
 

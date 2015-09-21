@@ -10,7 +10,7 @@
 
     <!-- Settings -->
     <string name="app_name">babybox</string>
-    <string name="app_desc">babybox - Things you want and love</string>
+    <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">798543453496777</string>
     <!--string name="facebook_app_id">1469031873403459</string-->
     <string name="base_url">http://192.168.1.135:9000</string>
@@ -99,6 +99,7 @@
     <string name="listed">Listed</string>
     <string name="comment_bar_hint">添加評論</string>
     <string name="no_products">~ 暫沒有商品 ~</string>
+    <string name="no_product_comments">~ 沒有評論 ~</string>
 
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>

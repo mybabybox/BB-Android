@@ -103,12 +103,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, ProductActivity.class);
-                if (item != null) {
-                    intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getId());
-                    intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromFeedView");
-                    activity.startActivity(intent);
-                }
+                ViewUtil.startProductActivity(activity, item.getId(), "FromFeedView");
             }
         });
 

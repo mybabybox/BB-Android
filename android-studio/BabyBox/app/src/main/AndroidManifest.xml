@@ -52,6 +52,9 @@
             android:name="com.babybox.activity.ProductActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.babybox.activity.ProductCommentsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.babybox.activity.UserProfileActivity"
             android:screenOrientation="portrait" />
         <activity

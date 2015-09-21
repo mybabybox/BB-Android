@@ -34,12 +34,6 @@ public class ImageMapping {
         imageMap.put("/assets/app/images/general/icons/community/ball.png", R.drawable.ci_ball);
         imageMap.put("/assets/app/images/general/icons/community/balloons.png", R.drawable.ci_balloons);
         imageMap.put("/assets/app/images/general/icons/community/bath.png", R.drawable.ci_bath);
-        imageMap.put("/assets/app/images/general/icons/community/bean_blue.png", R.drawable.ci_bean_blue);
-        imageMap.put("/assets/app/images/general/icons/community/bean_green.png", R.drawable.ci_bean_green);
-        imageMap.put("/assets/app/images/general/icons/community/bean_orange.png", R.drawable.ci_bean_orange);
-        imageMap.put("/assets/app/images/general/icons/community/bean_red.png", R.drawable.ci_bean_red);
-        imageMap.put("/assets/app/images/general/icons/community/bean_yellow.png", R.drawable.ci_bean_yellow);
-        //imageMap.put("/assets/app/images/general/icons/community/beans.png", R.drawable.ci_beans);
         imageMap.put("/assets/app/images/general/icons/community/bed.png", R.drawable.ci_bed);
         imageMap.put("/assets/app/images/general/icons/community/book.png", R.drawable.ci_book);
         imageMap.put("/assets/app/images/general/icons/community/bottle.png", R.drawable.ci_bottle);

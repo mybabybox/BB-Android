@@ -35,7 +35,7 @@ public abstract class AbstractWebViewActivity extends TrackedFragmentActivity {
         setContentView(R.layout.webview_activity);
         
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.my_actionbar, null),
+        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.view_actionbar, null),
                 new ActionBar.LayoutParams(
                         ActionBar.LayoutParams.MATCH_PARENT,
                         ActionBar.LayoutParams.MATCH_PARENT,
@@ -43,7 +43,7 @@ public abstract class AbstractWebViewActivity extends TrackedFragmentActivity {
                 )
         );
 
-        TextView titleText = (TextView) findViewById(R.id.actionbarTitle);
+        TextView titleText = (TextView) findViewById(R.id.titleText);
         titleText.setText(getActionBarTitle());
 
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);

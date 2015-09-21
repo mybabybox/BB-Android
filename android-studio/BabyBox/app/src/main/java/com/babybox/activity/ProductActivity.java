@@ -3,7 +3,6 @@ package com.babybox.activity;
 import android.app.ActionBar;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -27,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,6 +74,9 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private ImageView sellerImage;
     private TextView sellerNameText;
+
+    private RelativeLayout moreCommentsLayout;
+    private ImageView moreCommentsImage;
 
     private TextView commentText, catNameText, timeText, numViewsText, numCommentsText;
     private EditText commentEditText;
@@ -129,6 +132,9 @@ public class ProductActivity extends TrackedFragmentActivity {
         numViewsText = (TextView) findViewById(R.id.numViewsText);
         numCommentsText = (TextView) findViewById(R.id.numCommentsText);
 
+        moreCommentsLayout = (RelativeLayout) findViewById(R.id.moreCommentsLayout);
+        moreCommentsImage = (ImageView) findViewById(R.id.moreCommentsImage);
+
         commentList = (ListView) findViewById(R.id.commentList);
 
         commentText.setOnClickListener(new View.OnClickListener() {
@@ -174,10 +180,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 catNameText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(ProductActivity.this, CategoryActivity.class);
-                        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, post.getCategoryId());
-                        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromProductActivity");
-                        startActivity(intent);
+                        ViewUtil.startCategoryActivity(ProductActivity.this, post.getCategoryId(), "FromProductActivity");
                     }
                 });
 
@@ -240,18 +243,14 @@ public class ProductActivity extends TrackedFragmentActivity {
                 sellerImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(ProductActivity.this, UserProfileActivity.class);
-                        i.putExtra(ViewUtil.BUNDLE_KEY_ID, post.getOwnerId());
-                        ProductActivity.this.startActivity(i);
+                        ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId(), "");
                     }
                 });
 
                 sellerNameText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(ProductActivity.this, UserProfileActivity.class);
-                        i.putExtra(ViewUtil.BUNDLE_KEY_ID, post.getOwnerId());
-                        ProductActivity.this.startActivity(i);
+                        ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId(), "");
                     }
                 });
 
@@ -303,18 +302,32 @@ public class ProductActivity extends TrackedFragmentActivity {
     private void getComments(final Long postId) {
         ViewUtil.showSpinner(this);
 
-        AppController.getApiService().getComments(0, postId, new Callback<List<CommentVM>>() {
+        commentList.setVisibility(View.GONE);
+        moreCommentsImage.setVisibility(View.GONE);
+
+        int offset = 0;     // mock testing
+        AppController.getApiService().getComments(offset, postId, new Callback<List<CommentVM>>() {
             @Override
             public void success(List<CommentVM> comments, Response response) {
-                if (comments == null || comments.size() == 0) {
-                    commentList.setVisibility(View.GONE);
-                } else {
+                if (comments != null && comments.size() > 0) {
                     commentList.setVisibility(View.VISIBLE);
-                    int start = Math.max(0, comments.size() - DefaultValues.MAX_COMMENTS_PREVIEW);
-                    CommentListAdapter adapter = new CommentListAdapter(ProductActivity.this, comments.subList(start, comments.size()));
+                    CommentListAdapter adapter = new CommentListAdapter(
+                            ProductActivity.this,
+                            ViewUtil.getLastComments(comments, DefaultValues.MAX_COMMENTS_PREVIEW));
                     commentList.setAdapter(adapter);
                     ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
+
+                    if (comments.size() > DefaultValues.MAX_COMMENTS_PREVIEW) {
+                        moreCommentsImage.setVisibility(View.VISIBLE);
+                        moreCommentsLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ViewUtil.startProductCommentsActivity(ProductActivity.this, postId);
+                            }
+                        });
+                    }
                 }
+
                 ViewUtil.stopSpinner(ProductActivity.this);
             }
 

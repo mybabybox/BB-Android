@@ -134,18 +134,14 @@ public class CommentListAdapter extends BaseAdapter {
         userNameText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(activity, UserProfileActivity.class);
-                i.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getOwnerId());
-                activity.startActivity(i);
+                ViewUtil.startUserProfileActivity(activity, item.getOwnerId(), "");
             }
         });
 
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(activity, UserProfileActivity.class);
-                i.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getOwnerId());
-                activity.startActivity(i);
+                ViewUtil.startUserProfileActivity(activity, item.getOwnerId(), "");
             }
         });
 
@@ -158,7 +154,7 @@ public class CommentListAdapter extends BaseAdapter {
     }
 
     private void deleteComment(Long id, final int position) {
-        AppController.getMockApi().deleteComment(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getApiService().deleteComment(id, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 Toast.makeText(inflater.getContext(), CommentListAdapter.this.activity.getString(R.string.comment_delete_success), Toast.LENGTH_SHORT).show();

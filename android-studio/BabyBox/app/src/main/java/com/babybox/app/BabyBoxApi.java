@@ -148,7 +148,7 @@ public interface BabyBoxApi {
     public void newPost(@Body NewPostVM newPost, @Query("key") String key, Callback<ResponseStatusVM> cb);
 
     @GET("/post/delete/{id}")
-    public void deletePost(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
+    public void deletePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
     @Multipart
     @POST("/image/upload-post-image")

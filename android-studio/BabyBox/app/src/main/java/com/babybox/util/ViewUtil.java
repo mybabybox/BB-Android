@@ -1,6 +1,5 @@
 package com.babybox.util;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -42,14 +41,18 @@ import org.parceler.apache.commons.lang.StringUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
+import com.babybox.activity.ProductActivity;
+import com.babybox.activity.ProductCommentsActivity;
+import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
 import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.mock.CommunityPostVM;
+import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.PostVM;
 
 import retrofit.RetrofitError;
@@ -176,6 +179,11 @@ public class ViewUtil {
         } else {
             scrollView.fullScroll(View.FOCUS_UP);
         }
+    }
+
+    public static List<CommentVM> getLastComments(List<CommentVM> comments, int n) {
+        int start = Math.max(0, comments.size() - n);
+        return comments.subList(start, comments.size());
     }
 
     public static String followersFormat(Long value) {
@@ -576,32 +584,38 @@ public class ViewUtil {
                 post.getNumViews() > DefaultValues.HOT_POST_NOV;
     }
 
-    public static boolean isNewPost(CommunityPostVM post) {
-        return post.getN_c() <= DefaultValues.NEW_POST_NOC &&
-                DateTimeUtil.getDaysAgo(post.t) <= DefaultValues.NEW_POST_DAYS_AGO;
-    }
-
-    public static boolean isHotPost(CommunityPostVM post) {
-        return post.getN_c() > DefaultValues.HOT_POST_NOC ||
-                post.getNol() > DefaultValues.HOT_POST_NOL ||
-                post.getNov() > DefaultValues.HOT_POST_NOV;
-    }
-
-    public static boolean isImagePost(CommunityPostVM post) {
-        return post.isHasImage();
-    }
-
     //
     // Start Activities
     //
 
-    public static void startCategoryActivity(Activity activity, CategoryVM category, String source) {
-        if (category != null) {
-            Log.d(ViewUtil.class.getSimpleName(), "startCategoryActivity with catId - " + category.getId());
-            Intent intent = new Intent(activity, CategoryActivity.class);
-            intent.putExtra(ViewUtil.BUNDLE_KEY_ID, category.getId());
-            intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
-            activity.startActivity(intent);
-        }
+    public static void startCategoryActivity(Activity activity, Long catId, String source) {
+        Log.d(ViewUtil.class.getSimpleName(), "startCategoryActivity with catId - " + catId);
+        Intent intent = new Intent(activity, CategoryActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, catId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
+        activity.startActivity(intent);
+    }
+
+    public static void startProductActivity(Activity activity, Long postId, String source) {
+        Log.d(ViewUtil.class.getSimpleName(), "startProductActivity with postId - " + postId);
+        Intent intent = new Intent(activity, ProductActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
+        activity.startActivity(intent);
+    }
+
+    public static void startUserProfileActivity(Activity activity, Long userId, String source) {
+        Log.d(ViewUtil.class.getSimpleName(), "startUserProfileActivity with userId - " + userId);
+        Intent intent = new Intent(activity, UserProfileActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
+        activity.startActivity(intent);
+    }
+
+    public static void startProductCommentsActivity(Activity activity, Long postId) {
+        Log.d(ViewUtil.class.getSimpleName(), "startProductCommentsActivity with userId - " + postId);
+        Intent intent = new Intent(activity, ProductCommentsActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
+        activity.startActivity(intent);
     }
 }

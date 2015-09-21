@@ -38,7 +38,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected View headerView;
     protected View footerView;
-    protected View emptyView;
+    protected View noItemView;
 
     protected PullToRefreshView pullListView;
 
@@ -105,7 +105,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         // header
         headerView = getHeaderView(inflater);
         if (headerView != null) {
-            emptyView = headerView.findViewById(R.id.emptyView);
+            noItemView = headerView.findViewById(R.id.noItemView);
         }
 
         // adapter
@@ -214,11 +214,11 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         items.addAll(posts);
         feedAdapter.notifyDataSetChanged();
 
-        if (emptyView != null) {
+        if (noItemView != null) {
             if (feedAdapter.isEmpty()) {
-                emptyView.setVisibility(View.VISIBLE);
+                noItemView.setVisibility(View.VISIBLE);
             } else {
-                emptyView.setVisibility(View.GONE);
+                noItemView.setVisibility(View.GONE);
             }
         }
 

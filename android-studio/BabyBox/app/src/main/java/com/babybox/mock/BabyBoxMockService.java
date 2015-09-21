@@ -380,6 +380,38 @@ public class BabyBoxMockService extends BabyBoxService {
             }
         });
     }
+
+    @Override
+    public void deletePost(Long id, Callback<Response> cb) {
+        final Callback<Response> callback = cb;
+        AppController.getMockApi().deletePost(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                callback.success(response, response2);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
+
+    @Override
+    public void deleteComment(Long id, Callback<Response> cb) {
+        final Callback<Response> callback = cb;
+        AppController.getMockApi().deleteComment(id, AppController.getInstance().getSessionId(), new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                callback.success(response, response2);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                callback.failure(error);
+            }
+        });
+    }
 }
 
 

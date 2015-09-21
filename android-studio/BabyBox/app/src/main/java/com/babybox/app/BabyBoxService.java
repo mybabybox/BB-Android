@@ -145,16 +145,16 @@ public class BabyBoxService {
         api.newComment(comment, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void deleteComment(Long commendId, Callback<Response> cb) {
-        api.deleteComment(commendId, AppController.getInstance().getSessionId(), cb);
+    public void deleteComment(Long id, Callback<Response> cb) {
+        api.deleteComment(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void followUser(Long userId, Callback<Response> cb) {
-        api.followUser(userId, AppController.getInstance().getSessionId(), cb);
+    public void followUser(Long id, Callback<Response> cb) {
+        api.followUser(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void unfollowUser(Long userId, Callback<Response> cb) {
-        api.unfollowUser(userId, AppController.getInstance().getSessionId(), cb);
+    public void unfollowUser(Long id, Callback<Response> cb) {
+        api.unfollowUser(id, AppController.getInstance().getSessionId(), cb);
     }
 
     public void likePost(Long id, Callback<Response> cb) {
