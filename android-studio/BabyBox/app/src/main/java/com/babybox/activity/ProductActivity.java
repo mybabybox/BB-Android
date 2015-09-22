@@ -76,7 +76,6 @@ public class ProductActivity extends TrackedFragmentActivity {
     private LinearLayout dotsLayout;
     private List<ImageView> dots = new ArrayList<>();
 
-    private ImageView productImage;
     private TextView titleText, descText, priceText;
     private Button chatButton, buyButton;
     private LinearLayout likeLayout;
@@ -125,7 +124,6 @@ public class ProductActivity extends TrackedFragmentActivity {
         imagePager = (AdaptiveViewPager) findViewById(R.id.imagePager);
         dotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
 
-        productImage = (ImageView) findViewById(R.id.productImage);
         titleText = (TextView) findViewById(R.id.titleText);
         descText = (TextView) findViewById(R.id.descText);
         priceText = (TextView) findViewById(R.id.priceText);

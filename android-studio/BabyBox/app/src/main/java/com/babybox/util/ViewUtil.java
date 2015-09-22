@@ -124,6 +124,7 @@ public class ViewUtil {
         for (int i = 0; i < numPages; i++) {
             ImageView dot = new ImageView(activity);
             dot.setImageDrawable(AppController.getInstance().getResources().getDrawable(imageResource));
+            //dot.setAlpha(80F);
 
             int dimension = ViewUtil.getRealDimension(PAGER_INDICATOR_DOT_DIMENSION);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dimension, dimension);
