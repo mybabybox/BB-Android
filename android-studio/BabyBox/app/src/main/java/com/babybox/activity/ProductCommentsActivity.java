@@ -39,13 +39,13 @@ public class ProductCommentsActivity extends AbstractListViewActivity {
     }
 
     @Override
-    protected void loadListItems(final Long objId, final int offset) {
+    protected void loadListItems(final Long objId, final Long offset) {
         ViewUtil.showSpinner(this);
 
         AppController.getApiService().getComments(offset, objId, new Callback<List<CommentVM>>() {
             @Override
             public void success(List<CommentVM> comments, Response response) {
-                Log.d(ProductCommentsActivity.class.getSimpleName(), "loadListItems: offset=" + offset +
+                Log.d(ProductCommentsActivity.class.getSimpleName(), "loadListItems.getComments: offset=" + offset +
                         " size=" + (comments == null? 0 : comments.size()));
 
                 if (offset == 0 && (comments == null || comments.size() == 0)) {
@@ -64,7 +64,7 @@ public class ProductCommentsActivity extends AbstractListViewActivity {
             @Override
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(ProductCommentsActivity.this);
-                Log.e(ProductActivity.class.getSimpleName(), "getComments: failure", error);
+                Log.e(ProductCommentsActivity.class.getSimpleName(), "loadListItems.getComments: failure", error);
             }
         });
     }

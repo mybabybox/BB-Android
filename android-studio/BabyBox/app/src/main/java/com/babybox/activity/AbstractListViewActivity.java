@@ -2,7 +2,6 @@ package com.babybox.activity;
 
 import android.app.ActionBar;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.BaseAdapter;
@@ -30,7 +29,7 @@ public abstract class AbstractListViewActivity extends TrackedFragmentActivity {
 
     abstract protected BaseAdapter getListAdapter();
 
-    abstract protected void loadListItems(Long objId, int offset);
+    abstract protected void loadListItems(Long objId, Long offset);
 
     protected void showNoItemText() {
         noItemText.setVisibility(View.VISIBLE);
@@ -75,10 +74,10 @@ public abstract class AbstractListViewActivity extends TrackedFragmentActivity {
                 DefaultValues.DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD, false, false) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                loadListItems(objId, page - 1);
+                loadListItems(objId, page - 1L);
             }
         });
 
-        loadListItems(objId, 0);
+        loadListItems(objId, 0L);
     }
 }

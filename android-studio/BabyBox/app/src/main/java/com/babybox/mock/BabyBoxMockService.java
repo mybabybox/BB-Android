@@ -310,7 +310,7 @@ public class BabyBoxMockService extends BabyBoxService {
         });
     }
 
-    public void getComments(int offset, Long postId, Callback<List<CommentVM>> cb) {
+    public void getComments(Long offset, Long postId, Callback<List<CommentVM>> cb) {
         final Callback<List<CommentVM>> callback = cb;
         AppController.getMockApi().getComments(postId, offset, AppController.getInstance().getSessionId(), new Callback<List<CommunityPostCommentVM>>() {
             @Override

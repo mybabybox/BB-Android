@@ -210,8 +210,8 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/following"
-            android:id="@+id/followingText"
+            android:text="@string/followings"
+            android:id="@+id/followingsText"
             android:layout_weight="3.33"
             android:layout_gravity="center"
             android:gravity="center"

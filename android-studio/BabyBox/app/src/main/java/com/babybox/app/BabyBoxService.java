@@ -137,7 +137,7 @@ public class BabyBoxService {
         api.deletePost(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getComments(int offset, Long postId, Callback<List<CommentVM>> cb) {
+    public void getComments(Long offset, Long postId, Callback<List<CommentVM>> cb) {
         api.getComments(postId, offset, AppController.getInstance().getSessionId(), cb);
     }
 

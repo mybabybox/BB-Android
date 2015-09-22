@@ -250,8 +250,8 @@ public class ViewUtil {
         return value + " " + AppController.getInstance().getString(R.string.followers);
     }
 
-    public static String followingFormat(Long value) {
-        return value + " " + AppController.getInstance().getString(R.string.following);
+    public static String followingsFormat(Long value) {
+        return value + " " + AppController.getInstance().getString(R.string.followings);
     }
 
     public static String productsTabFormat(Long value) {
@@ -293,7 +293,7 @@ public class ViewUtil {
     public static void selectFollowButtonStyle(Button button) {
         button.setTextColor(AppController.getInstance().getResources().getColor(R.color.white));
         button.setBackgroundResource(R.drawable.button_following);
-        button.setText(R.string.following);
+        button.setText(R.string.followings);
     }
 
     public static void unselectFollowButtonStyle(Button button) {

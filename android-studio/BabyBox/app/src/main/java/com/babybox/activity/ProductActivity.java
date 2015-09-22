@@ -322,7 +322,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         commentList.setVisibility(View.GONE);
         moreCommentsImage.setVisibility(View.GONE);
 
-        int offset = 0;     // mock testing
+        Long offset = 0L;     // mock testing
         AppController.getApiService().getComments(offset, postId, new Callback<List<CommentVM>>() {
             @Override
             public void success(List<CommentVM> comments, Response response) {

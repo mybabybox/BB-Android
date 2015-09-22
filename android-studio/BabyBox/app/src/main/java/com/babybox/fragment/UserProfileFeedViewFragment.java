@@ -33,7 +33,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     private static final String TAG = UserProfileFeedViewFragment.class.getName();
 
     protected ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
-    protected TextView userNameText, followersText, followingText, userInfoText;
+    protected TextView userNameText, followersText, followingsText, userInfoText;
     protected LinearLayout userInfoLayout;
     protected RelativeLayout settingsLayout;
     protected Button editButton, followButton, ordersButton, collectionsButton, productsButton, likesButton;
@@ -70,7 +70,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         settingsIcon = (ImageView) headerView.findViewById(R.id.settingsIcon);
 
         followersText = (TextView) headerView.findViewById(R.id.followersText);
-        followingText = (TextView) headerView.findViewById(R.id.followingText);
+        followingsText = (TextView) headerView.findViewById(R.id.followingsText);
 
         followButton = (Button) headerView.findViewById(R.id.followButton);
         ordersButton = (Button) headerView.findViewById(R.id.ordersButton);
@@ -153,7 +153,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                 });
 
                 followersText.setText(ViewUtil.followersFormat(user.numFollowers));
-                followingText.setText(ViewUtil.followingFormat(user.numFollowings));
+                followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
 
                 following = user.isFollowing;
                 if (following) {

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.babybox.R;
-import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;

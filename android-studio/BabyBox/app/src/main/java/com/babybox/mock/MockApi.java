@@ -48,7 +48,7 @@ public interface MockApi {
     public void qnaLanding(@Path("qnaId") Long qnaId, @Path("communityId") Long communityId, @Query("key") String key, Callback<CommunityPostVM> callback);
 
     @GET("/comments/{id}/{offset}")
-    public void getComments(@Path("id")Long post_id,@Path("offset") int offset, @Query("key") String key, Callback<List<CommunityPostCommentVM>> cb);
+    public void getComments(@Path("id")Long post_id,@Path("offset") Long offset, @Query("key") String key, Callback<List<CommunityPostCommentVM>> cb);
 
     @POST("/communityQnA/question/post")
     public void newCommunityPost(@Body NewPost newPost, @Query("key") String key, Callback<PostResponse> cb);

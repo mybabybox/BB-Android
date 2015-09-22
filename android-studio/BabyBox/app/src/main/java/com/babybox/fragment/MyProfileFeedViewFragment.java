@@ -156,7 +156,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         });
 
         followersText.setText(ViewUtil.followersFormat(user.numFollowers));
-        followingText.setText(ViewUtil.followingFormat(user.numFollowings));
+        followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
 
         productsButton.setText(ViewUtil.productsTabFormat(user.numPosts));
         likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));

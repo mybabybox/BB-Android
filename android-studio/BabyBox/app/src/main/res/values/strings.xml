@@ -13,7 +13,7 @@
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">798543453496777</string>
     <!--string name="facebook_app_id">1469031873403459</string-->
-    <string name="base_url">http://192.168.1.140:9000</string>
+    <string name="base_url">http://192.168.1.1:9000</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>
@@ -120,7 +120,7 @@
     <string name="main_tab_following">Following</string>
     <string name="suggest_for_you">Suggest For You</string>
     <string name="follow">Follow</string>
-    <string name="following">Following</string>
+    <string name="followings">Following</string>
     <string name="followers">Followers</string>
     <string name="orders">My Orders</string>
     <string name="collections">Collections</string>
@@ -188,9 +188,9 @@
     <string name="request_actionbar_title">邀請</string>
     <string name="notification_actionbar_title">通知</string>
     <string name="no_notification">- 沒有訊息 -</string>
-    <string name="questions_title">發佈的話題</string>
-    <string name="answers_title">回覆的話題</string>
-    <string name="bookmarks_title">我的收藏</string>
+
+    <string name="no_followers">~ No Followers ~</string>
+    <string name="no_followings">~ No Followings ~</string>
 
     <string name="pm_actionbar_title">私人訊息</string>
     <string name="pm_user">私人訊息</string>

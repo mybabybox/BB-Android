@@ -155,7 +155,7 @@ public interface BabyBoxApi {
     public void uploadPostImage(@Part("id") String id, @Part("post-image") TypedFile image, Callback<Response> cb);
 
     @GET("/comments/{postId}/{offset}")
-    public void getComments(@Path("postId") Long postId, @Path("offset") int offset, @Query("key") String key, Callback<List<CommentVM>> cb);
+    public void getComments(@Path("postId") Long postId, @Path("offset") Long offset, @Query("key") String key, Callback<List<CommentVM>> cb);
 
     @POST("/comment/new")
     public void newComment(@Body NewCommentVM newComment, @Query("key") String key, Callback<ResponseStatusVM> cb);
