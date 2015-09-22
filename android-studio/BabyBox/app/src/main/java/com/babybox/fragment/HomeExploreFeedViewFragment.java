@@ -19,16 +19,17 @@ import com.babybox.util.ViewUtil;
 import com.babybox.view.AdaptiveViewPager;
 import com.babybox.viewmodel.CategoryVM;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
     private static final String TAG = HomeExploreFeedViewFragment.class.getName();
 
-    private AdaptiveViewPager viewPager;
-    private HomeCategoryPagerAdapter adapter;
-
+    private AdaptiveViewPager catPager;
+    private HomeCategoryPagerAdapter catPagerAdapter;
     private LinearLayout dotsLayout;
+    private List<ImageView> dots = new ArrayList<>();
 
     private FrameLayout tipsLayout;
     private ImageView dismissTipsButton;
@@ -45,15 +46,15 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        viewPager = (AdaptiveViewPager) getHeaderView(inflater).findViewById(R.id.catPager);
-        dotsLayout = (LinearLayout) getHeaderView(inflater).findViewById(R.id.dots);
+        catPager = (AdaptiveViewPager) getHeaderView(inflater).findViewById(R.id.catPager);
+        dotsLayout = (LinearLayout) getHeaderView(inflater).findViewById(R.id.dotsLayout);
 
         int pageMargin = ViewUtil.getRealDimension(0);
-        viewPager.setPageMargin(pageMargin);
+        catPager.setPageMargin(pageMargin);
 
         // init adapter
-        adapter = new HomeCategoryPagerAdapter(getChildFragmentManager());
-        viewPager.setAdapter(adapter);
+        catPagerAdapter = new HomeCategoryPagerAdapter(getChildFragmentManager());
+        catPager.setAdapter(catPagerAdapter);
 
         // tips
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
@@ -72,10 +73,10 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
             });
         }
 
-        viewPager.setCurrentItem(0);
+        catPager.setCurrentItem(0);
 
         // pager indicator
-        addDots(adapter.getCount(), dotsLayout, viewPager);
+        ViewUtil.addDots(getActivity(), catPagerAdapter.getCount(), dotsLayout, dots, catPager);
 
         return view;
     }

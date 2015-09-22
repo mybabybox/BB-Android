@@ -24,6 +24,13 @@ public class UrlUtil {
     private static String POST_URL_REGEX = ".*/post/(\\d+)";
     private static String CATEGORY_URL_REGEX = ".*/category/(\\d+)";
 
+    public static String getFullUrl(String url) {
+        if (!url.startsWith(AppController.BASE_URL)) {
+            url = AppController.BASE_URL + url;
+        }
+        return url;
+    }
+
     public static String createReferralUrl(GameAccountVM gameAccount) {
         return String.format(REFERRAL_URL, gameAccount.getPmcde());
     }

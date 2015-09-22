@@ -7,6 +7,9 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -37,14 +40,17 @@ import com.babybox.app.AppController;
 import com.babybox.app.EmoticonCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
+import com.babybox.fragment.ProductImagePagerFragment;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.MessageUtil;
+import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.SharingUtil;
 import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
+import com.babybox.view.AdaptiveViewPager;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewCommentVM;
@@ -64,6 +70,11 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private FrameLayout mainLayout;
     private ImageView backImage, whatsappAction, copyLinkAction;
+
+    private AdaptiveViewPager imagePager;
+    private ProductImagePagerAdapter imagePagerAdapter;
+    private LinearLayout dotsLayout;
+    private List<ImageView> dots = new ArrayList<>();
 
     private ImageView productImage;
     private TextView titleText, descText, priceText;
@@ -110,6 +121,9 @@ public class ProductActivity extends TrackedFragmentActivity {
         backImage = (ImageView) findViewById(R.id.backImage);
         whatsappAction = (ImageView) findViewById(R.id.whatsappAction);
         copyLinkAction = (ImageView) findViewById(R.id.copyLinkAction);
+
+        imagePager = (AdaptiveViewPager) findViewById(R.id.imagePager);
+        dotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
 
         productImage = (ImageView) findViewById(R.id.productImage);
         titleText = (TextView) findViewById(R.id.titleText);
@@ -174,8 +188,13 @@ public class ProductActivity extends TrackedFragmentActivity {
         AppController.getApiService().getPost(postId, new Callback<PostVM>() {
             @Override
             public void success(final PostVM post, Response response) {
-                // Show images in slider
-                ImageUtil.displayOriginalPostImage(post.images[0], productImage);
+                // Image slider
+                if (post.images != null) {
+                    imagePagerAdapter = new ProductImagePagerAdapter(getSupportFragmentManager(), post.images);
+                    imagePager.setAdapter(imagePagerAdapter);
+                    imagePager.setCurrentItem(0);
+                    ViewUtil.addDots(ProductActivity.this, imagePagerAdapter.getCount(), dotsLayout, dots, imagePager);
+                }
 
                 catNameText.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -623,5 +642,49 @@ public class ProductActivity extends TrackedFragmentActivity {
         super.onBackPressed();
 
         reset();
+    }
+}
+
+class ProductImagePagerAdapter extends FragmentStatePagerAdapter {
+
+    private Long[] images;
+
+    public ProductImagePagerAdapter(FragmentManager fm, Long[] images) {
+        super(fm);
+        this.images = images;
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return "";
+    }
+
+    @Override
+    public int getCount() {
+        return images == null? 0 : images.length;
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        Log.d(this.getClass().getSimpleName(), "getItem: item - " + position);
+        switch (position) {
+            default: {
+                ProductImagePagerFragment fragment = new ProductImagePagerFragment();
+                fragment.setImageId(images[position]);
+                return fragment;
+            }
+        }
+    }
+
+    /**
+     * HACK... returns POSITION_NONE will refresh pager more frequent than needed... but works in this case
+     * http://stackoverflow.com/questions/12510404/reorder-pages-in-fragmentstatepageradapter-using-getitempositionobject-object
+     *
+     * @param object
+     * @return
+     */
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 }

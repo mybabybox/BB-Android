@@ -85,7 +85,7 @@ public class MessageListAdapter extends BaseAdapter {
         messageImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //ViewUtil.fullscreenImagePopup(activity, AppController.BASE_URL + "/image/get-original-private-image-by-id/"+m.getImgs());
+                ViewUtil.fullscreenImagePopup(activity, ImageUtil.ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + m.getImgs());
             }
         });
 

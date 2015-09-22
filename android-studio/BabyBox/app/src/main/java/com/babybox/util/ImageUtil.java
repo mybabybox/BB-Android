@@ -237,10 +237,7 @@ public class ImageUtil {
     }
 
     public static void displayImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
-        if (!url.startsWith(AppController.BASE_URL)) {
-            url = AppController.BASE_URL + url;
-        }
-
+        url = UrlUtil.getFullUrl(url);
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))
@@ -266,10 +263,7 @@ public class ImageUtil {
     }
 
     public static void displayCircleImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
-        if (!url.startsWith(AppController.BASE_URL)) {
-            url = AppController.BASE_URL + url;
-        }
-
+        url = UrlUtil.getFullUrl(url);
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))
@@ -295,10 +289,7 @@ public class ImageUtil {
     }
 
     public static void displayRoundedImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
-        if (!url.startsWith(AppController.BASE_URL)) {
-            url = AppController.BASE_URL + url;
-        }
-
+        url = UrlUtil.getFullUrl(url);
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))

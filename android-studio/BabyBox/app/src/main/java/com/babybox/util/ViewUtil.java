@@ -7,11 +7,14 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Selection;
@@ -30,6 +33,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
@@ -51,7 +55,6 @@ import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
 import com.babybox.fragment.AbstractFeedViewFragment;
-import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.PostVM;
 
@@ -61,6 +64,8 @@ import retrofit.RetrofitError;
  * Created by keithlei on 3/16/15.
  */
 public class ViewUtil {
+
+    public static final int PAGER_INDICATOR_DOT_DIMENSION = 10;
 
     public static final String BUNDLE_KEY_LOGIN_KEY = "loginKey";
     public static final String BUNDLE_KEY_ID = "id";
@@ -105,6 +110,60 @@ public class ViewUtil {
     //
     // View
     //
+
+    public static void addDots(Activity activity, final int numPages, LinearLayout dotsLayout, final List<ImageView> dots, ViewPager viewPager) {
+        if (dotsLayout == null) {
+            return;
+        }
+
+        Log.d(ViewUtil.class.getSimpleName(), "addDots: numPages="+numPages);
+
+        dotsLayout.removeAllViews();
+
+        int imageResource = R.drawable.ic_dot_sel;      // select the first dot by default
+        for (int i = 0; i < numPages; i++) {
+            ImageView dot = new ImageView(activity);
+            dot.setImageDrawable(AppController.getInstance().getResources().getDrawable(imageResource));
+
+            int dimension = ViewUtil.getRealDimension(PAGER_INDICATOR_DOT_DIMENSION);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dimension, dimension);
+            params.gravity = Gravity.CENTER_VERTICAL;
+            dotsLayout.addView(dot, params);
+
+            dots.add(dot);
+            imageResource = R.drawable.ic_dot;
+        }
+
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                selectDot(position, numPages, dots);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+        dotsLayout.setVisibility(numPages > 1? View.VISIBLE : View.GONE);
+    }
+
+    public static void selectDot(int index, int numPages, List<ImageView> dots) {
+        if (dots.size() == 0) {
+            return;
+        }
+
+        Resources res = AppController.getInstance().getResources();
+        for (int i = 0; i < numPages; i++) {
+            int drawableId = (i == index)? R.drawable.ic_dot_sel : R.drawable.ic_dot;
+            Drawable drawable = res.getDrawable(drawableId);
+            dots.get(i).setImageDrawable(drawable);
+        }
+    }
 
     public static void showSpinner(Activity activity) {
         if (activity != null) {
