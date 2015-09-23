@@ -11,8 +11,8 @@
     <!-- Settings -->
     <string name="app_name">babybox</string>
     <string name="app_desc">babybox - 媽媽即賣即買</string>
-    <string name="facebook_app_id">798543453496777</string>
-    <!--string name="facebook_app_id">1469031873403459</string-->
+    <!--string name="facebook_app_id">798543453496777</string-->
+    <string name="facebook_app_id">1469031873403459</string>
     <string name="base_url">http://192.168.1.1:9000</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
@@ -136,16 +136,14 @@
     <string name="filter_used">Used</string>
 
     <!-- Community tab -->
-    <string name="post_delete_confirm">確定刪除話題?</string>
-    <string name="post_not_found">尋找不到此話題。話題可能已被刪除</string>
-    <string name="post_delete_success">成功刪除話題</string>
-    <string name="post_delete_failed">暫時不能刪除話題，請稍後重試</string>
-    <string name="comment_delete_success">成功刪除回覆</string>
-    <string name="comment_delete_failed">暫時不能刪除回覆，請稍後重試</string>
-    <string name="community_actionbar_title">社群話題</string>
-    <string name="post_actionbar_title">話題詳情</string>
+    <string name="post_delete_confirm">確定刪除?</string>
+    <string name="post_not_found">尋找不到此商品。可能已被刪除</string>
+    <string name="post_delete_success">成功刪除</string>
+    <string name="post_delete_failed">暫時不能刪除，請稍後重試</string>
+    <string name="comment_delete_success">成功刪除</string>
+    <string name="comment_delete_failed">暫時不能刪除，請稍後重試</string>
+    <string name="post_actionbar_title">商品詳情</string>
     <string name="from_community">社群:</string>
-    <string name="comment_max_images">最多可加入3張圖</string>
     <string name="comment_success">成功回覆話題</string>
     <string name="comment_failed">暫時不能回覆話題，請稍後重試</string>
     <string name="photo_select">請選擇圖片</string>

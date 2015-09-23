@@ -162,7 +162,7 @@ public class CommentListAdapter extends BaseAdapter {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(inflater.getContext(), CommentListAdapter.this.activity.getString(R.string.comment_delete_success), Toast.LENGTH_SHORT).show();
+                Toast.makeText(inflater.getContext(), CommentListAdapter.this.activity.getString(R.string.comment_delete_failed), Toast.LENGTH_SHORT).show();
                 error.printStackTrace();
                 Log.e(CommentListAdapter.class.getSimpleName(), "deleteComment: failure", error);
             }

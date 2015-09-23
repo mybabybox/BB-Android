@@ -1,8 +1,10 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -88,7 +90,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private RelativeLayout moreCommentsLayout;
     private ImageView moreCommentsImage;
 
-    private TextView commentText, catNameText, timeText, numViewsText, numCommentsText;
+    private TextView commentText, catNameText, timeText, numViewsText, numCommentsText, deleteText;
     private EditText commentEditText;
     private Button sendButton;
 
@@ -143,6 +145,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         timeText = (TextView) findViewById(R.id.timeText);
         numViewsText = (TextView) findViewById(R.id.numViewsText);
         numCommentsText = (TextView) findViewById(R.id.numCommentsText);
+        deleteText = (TextView) findViewById(R.id.deleteText);
 
         moreCommentsLayout = (RelativeLayout) findViewById(R.id.moreCommentsLayout);
         moreCommentsImage = (ImageView) findViewById(R.id.moreCommentsImage);
@@ -194,6 +197,15 @@ public class ProductActivity extends TrackedFragmentActivity {
                     ViewUtil.addDots(ProductActivity.this, imagePagerAdapter.getCount(), dotsLayout, dots, imagePager);
                 }
 
+                // details
+                ViewUtil.setHtmlText(post.getTitle(), titleText, ProductActivity.this, true);
+                ViewUtil.setHtmlText(post.getDesc(), descText, ProductActivity.this, true, true);
+                catNameText.setText(post.getCategoryName());
+                priceText.setText(ViewUtil.priceFormat(post.getPrice()));
+                timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));
+                numViewsText.setText(post.getNumViews() + "");
+                numCommentsText.setText(post.getNumComments() + " " + getString(R.string.comments));
+
                 catNameText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -201,17 +213,41 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                catNameText.setText(post.getCategoryName());
-                priceText.setText(ViewUtil.priceFormat(post.getPrice()));
-                timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));
-                numViewsText.setText(post.getNumViews() + "");
-                numCommentsText.setText(post.getNumComments() + " " + getString(R.string.comments));
+                // delete
+                if (post.isOwner() || (AppController.isUserAdmin())) {
+                    if (post.isOwner()) {
+                        deleteText.setTextColor(getResources().getColor(R.color.gray));
+                    } else if (AppController.isUserAdmin()) {
+                        deleteText.setTextColor(getResources().getColor(R.color.admin_green));
+                    }
+                    deleteText.setVisibility(View.VISIBLE);
 
-                ViewUtil.setHtmlText(post.getTitle(), titleText, ProductActivity.this, true);
-                ViewUtil.setHtmlText(post.getDesc(), descText, ProductActivity.this, true, true);
+                    deleteText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProductActivity.this);
+                            alertDialogBuilder.setMessage(getString(R.string.post_delete_confirm));
+                            alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deletePost(post.getId());
+                                }
+                            });
+                            alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }
+                    });
+                } else {
+                    deleteText.setVisibility(View.GONE);
+                }
 
                 // like
-
                 if (post.isLiked()) {
                     ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
                 } else {
@@ -599,6 +635,22 @@ public class ProductActivity extends TrackedFragmentActivity {
         } catch (Exception e) {
             Log.e(this.getClass().getSimpleName(), "initEmoticonPopup: failure", e);
         }
+    }
+
+    private void deletePost(Long id) {
+        AppController.getApiService().deletePost(id, new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                Toast.makeText(ProductActivity.this, getString(R.string.post_delete_success), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(ProductActivity.this, getString(R.string.post_delete_failed), Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+                Log.e(CommentListAdapter.class.getSimpleName(), "deletePost: failure", error);
+            }
+        });
     }
 
     private void reset() {
