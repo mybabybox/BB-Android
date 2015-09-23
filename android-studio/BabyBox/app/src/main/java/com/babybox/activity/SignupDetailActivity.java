@@ -414,7 +414,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        LoginActivity.startLoginActivity(SignupDetailActivity.this);
+        ViewUtil.startLoginActivity(this);
     }
 
     private void setBirthdays() {

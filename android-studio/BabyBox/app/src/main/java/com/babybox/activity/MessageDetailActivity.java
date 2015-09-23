@@ -324,14 +324,8 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                 }
             }
 
-            if (emoticonVMList.isEmpty() && EmoticonCache.getEmoticons().isEmpty()) {
-                EmoticonCache.refresh();
-            }
-
             commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
             ViewUtil.popupInputMethodWindow(this);
-
-            //Log.d(this.getClass().getSimpleName(), "initCommentPopup: " + selectedImagePath);
         } catch (Exception e) {
             Log.e(MessageDetailActivity.class.getSimpleName(), "initCommentPopup: exception", e);
         }

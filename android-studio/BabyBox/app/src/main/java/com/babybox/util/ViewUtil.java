@@ -49,8 +49,10 @@ import java.util.List;
 
 import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
+import com.babybox.activity.LoginActivity;
 import com.babybox.activity.ProductActivity;
 import com.babybox.activity.ProductCommentsActivity;
+import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
@@ -648,8 +650,18 @@ public class ViewUtil {
     // Start Activities
     //
 
+    public static void startLoginActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, LoginActivity.class));
+        activity.finish();
+    }
+
+    public static void startSplashActivity(Activity activity, String key) {
+        Intent intent = new Intent(activity, SplashActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY, key);
+        activity.startActivity(intent);
+    }
+
     public static void startCategoryActivity(Activity activity, Long catId, String source) {
-        Log.d(ViewUtil.class.getSimpleName(), "startCategoryActivity with catId - " + catId);
         Intent intent = new Intent(activity, CategoryActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, catId);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
@@ -657,7 +669,6 @@ public class ViewUtil {
     }
 
     public static void startProductActivity(Activity activity, Long postId, String source) {
-        Log.d(ViewUtil.class.getSimpleName(), "startProductActivity with postId - " + postId);
         Intent intent = new Intent(activity, ProductActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
@@ -665,7 +676,6 @@ public class ViewUtil {
     }
 
     public static void startUserProfileActivity(Activity activity, Long userId, String source) {
-        Log.d(ViewUtil.class.getSimpleName(), "startUserProfileActivity with userId - " + userId);
         Intent intent = new Intent(activity, UserProfileActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
@@ -673,7 +683,6 @@ public class ViewUtil {
     }
 
     public static void startProductCommentsActivity(Activity activity, Long postId) {
-        Log.d(ViewUtil.class.getSimpleName(), "startProductCommentsActivity with userId - " + postId);
         Intent intent = new Intent(activity, ProductCommentsActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
         activity.startActivity(intent);

@@ -517,10 +517,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                 commentBrowseImage.setVisibility(View.GONE);
             }
 
-            if (emoticonVMList.isEmpty() && EmoticonCache.getEmoticons().isEmpty()) {
-                EmoticonCache.refresh();
-            }
-
             commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
             ViewUtil.popupInputMethodWindow(this);
         } catch (Exception e) {

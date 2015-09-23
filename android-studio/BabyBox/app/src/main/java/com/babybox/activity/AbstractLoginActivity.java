@@ -36,6 +36,8 @@ import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.ViewUtil;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
 import java.util.Arrays;
 
 import retrofit.Callback;
@@ -110,10 +112,49 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                 }
             }
         });
-
     }
 
-    protected void loginToFacebook() {
+    protected void emailLogin(String username, String password) {
+        showSpinner();
+
+        AppController.getApiService().login(username, password, new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                if (!saveToSession(response)) {
+                    ViewUtil.alert(AbstractLoginActivity.this,
+                            getString(R.string.login_error_title),
+                            getString(R.string.login_error_message));
+                }
+                stopSpinner();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                stopSpinner();
+                if (error.getResponse() != null &&
+                        error.getResponse().getStatus() == 400) {
+                    String errorMsg = ViewUtil.getResponseBody(error.getResponse());
+                    if (!StringUtils.isEmpty(errorMsg)) {
+                        ViewUtil.alert(AbstractLoginActivity.this,
+                                getString(R.string.login_error_title),
+                                errorMsg);
+                    } else {
+                        ViewUtil.alert(AbstractLoginActivity.this,
+                                getString(R.string.login_error_title),
+                                getString(R.string.login_id_error_message));
+                    }
+                } else {
+                    ViewUtil.alert(AbstractLoginActivity.this,
+                            getString(R.string.login_error_title),
+                            getString(R.string.login_error_message));
+                }
+
+                Log.e(LoginActivity.class.getSimpleName(), "api.login: failure", error);
+            }
+        });
+    }
+
+    protected void facebookLogin() {
         //showSpinner();
 
         // FB API v4.0
@@ -158,10 +199,8 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
         Log.d(this.getClass().getSimpleName(), "saveToSession: sessionID - " + key);
         AppController.getInstance().saveSessionId(key);
 
-        Intent intent = new Intent(this, SplashActivity.class);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromLoginActivity");
-        intent.putExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY, key);
-        startActivity(intent);
+        ViewUtil.startSplashActivity(this, key);
+
         finish();
 
         return true;

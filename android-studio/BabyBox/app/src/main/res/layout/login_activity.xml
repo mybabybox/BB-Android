@@ -53,7 +53,7 @@
             android:layout_height="wrap_content">
 
             <FrameLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_width="25dp"
@@ -64,9 +64,13 @@
                     android:baselineAlignBottom="false"
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="7dp"
-                    android:adjustViewBounds="false" />
+                    android:adjustViewBounds="false"
+                    android:scaleType="fitCenter"
+                    android:id="@+id/loginUserImage"
+                    android:elevation="1dp" />
                 <EditText
                     android:hint="您的電郵"
+                    android:textColorHint="@color/light_gray"
                     android:textColor="@color/input_text"
                     android:id="@+id/userName"
                     android:layout_marginLeft="20dp"
@@ -82,10 +86,10 @@
                     android:textSize="20dp"
                     android:background="@color/white"
                     android:alpha="0.9"
-                    android:elevation="-5dp"
                     android:autoText="false"
                     android:clickable="false"
-                    android:textIsSelectable="false" />
+                    android:textIsSelectable="false"
+                    android:ellipsize="start" />
             </FrameLayout>
             <FrameLayout
                 android:layout_width="fill_parent"
@@ -98,9 +102,13 @@
                     android:layout_marginLeft="30dp"
                     android:baselineAlignBottom="false"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginTop="7dp" />
+                    android:layout_marginTop="7dp"
+                    android:scaleType="fitCenter"
+                    android:id="@+id/loginLockImage"
+                    android:elevation="1dp" />
                 <EditText
                     android:textColor="@color/input_text"
+                    android:textColorHint="@color/light_gray"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="15dp"
@@ -118,8 +126,8 @@
                     android:textSize="20dp"
                     android:background="@color/white"
                     android:alpha="0.9"
-                    android:elevation="-5dp"
-                    android:textIsSelectable="false" />
+                    android:textIsSelectable="false"
+                    android:ellipsize="start" />
             </FrameLayout>
             <TextView
                 android:id="@+id/buttonLogin"

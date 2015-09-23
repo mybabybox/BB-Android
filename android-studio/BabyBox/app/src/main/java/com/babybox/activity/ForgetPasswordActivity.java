@@ -1,6 +1,7 @@
 package com.babybox.activity;
 
 import com.babybox.R;
+import com.babybox.util.ViewUtil;
 
 public class ForgetPasswordActivity extends AbstractWebViewActivity {
 
@@ -15,6 +16,6 @@ public class ForgetPasswordActivity extends AbstractWebViewActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        LoginActivity.startLoginActivity(this);
+        ViewUtil.startLoginActivity(this);
     }
 }

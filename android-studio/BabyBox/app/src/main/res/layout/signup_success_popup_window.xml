@@ -51,8 +51,7 @@
             android:layout_below="@+id/displaynameNoteText"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:textStyle="bold"
-            android:layout_alignParentEnd="false" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

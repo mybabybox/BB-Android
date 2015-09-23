@@ -10,12 +10,11 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:indeterminate="true"
         android:indeterminateDrawable="@drawable/progress_spinner"
         android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"></ProgressBar>
+        android:layout_centerInParent="true"></ProgressBar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,9 +91,40 @@
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/imagesLayout"
+        android:id="@+id/browseLayout"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+            android:id="@+id/emoImage"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/emo_smile"
+            android:layout_toLeftOf="@+id/browseImage"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/browseImage"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/browse"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
     <View
         android:id="@+id/bar1"
-        android:layout_below="@+id/imagesLayout"
+        android:layout_below="@+id/browseLayout"
         android:background="@drawable/bar1"
         android:layout_width="match_parent"
         android:layout_height="0.8dp" />
@@ -304,33 +334,6 @@
         android:layout_width="match_parent"
         android:layout_height="0.8dp" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/catLayout">
-
-        <ImageView
-            android:id="@+id/emoImage"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/emo_smile"
-            android:layout_toLeftOf="@+id/browseImage"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="5dp" />
-
-        <ImageView
-            android:id="@+id/browseImage"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/browse"
-            android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_vertical" />
-    </LinearLayout>
 </RelativeLayout>
 
 

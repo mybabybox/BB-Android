@@ -181,10 +181,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
             }
         });
 
-        if (emoticonVMList.isEmpty() && EmoticonCache.getEmoticons().isEmpty()) {
-            EmoticonCache.refresh();
-        }
-
         postAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

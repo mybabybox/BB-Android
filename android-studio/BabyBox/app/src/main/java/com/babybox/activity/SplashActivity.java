@@ -14,6 +14,7 @@ import org.parceler.apache.commons.lang.StringUtils;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.babybox.app.CategoryCache;
 import com.babybox.app.NotificationCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
@@ -24,8 +25,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 
 public class SplashActivity extends TrackedFragmentActivity {
-
-    private boolean fromLoginActivity = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,15 +42,12 @@ public class SplashActivity extends TrackedFragmentActivity {
         String sessionId = AppController.getInstance().getSessionId();
 
         Intent intent = getIntent();
-        if (intent != null &&
-                intent.getStringExtra(ViewUtil.BUNDLE_KEY_SOURCE) != null &&
-                intent.getStringExtra(ViewUtil.BUNDLE_KEY_SOURCE).equals("FromLoginActivity")) {
-            fromLoginActivity = true;
+        if (intent != null && !StringUtils.isEmpty(intent.getStringExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY))) {
             sessionId = intent.getStringExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY);
         }
 
         if (sessionId == null) {
-            LoginActivity.startLoginActivity(SplashActivity.this);
+            ViewUtil.startLoginActivity(this);
         } else {
             Log.d(this.getClass().getSimpleName(), "onStart: sessionID - " + sessionId);
             startMainActivity(sessionId);
@@ -70,7 +66,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                 if (user.getId() == -1) {
                     Toast.makeText(SplashActivity.this, "Cannot find user. Please login again.", Toast.LENGTH_LONG).show();
                     AppController.getInstance().clearPreferences();
-                    LoginActivity.startLoginActivity(SplashActivity.this);
+                    ViewUtil.startLoginActivity(SplashActivity.this);
                 }
 
                 // new user flow
@@ -78,20 +74,21 @@ public class SplashActivity extends TrackedFragmentActivity {
                     if (!user.isEmailValidated()) {
                         Toast.makeText(SplashActivity.this, SplashActivity.this.getString(R.string.signup_error_email_unverified)+user.email, Toast.LENGTH_LONG).show();
                         AppController.getInstance().clearPreferences();
-                        LoginActivity.startLoginActivity(SplashActivity.this);
+                        ViewUtil.startLoginActivity(SplashActivity.this);
                     } else {
                         Intent intent = new Intent(SplashActivity.this, SignupDetailActivity.class);
                         intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, user.firstName);
                         startActivity(intent);
                         finish();
                     }
+                // login successful
                 } else {
                     // save to preferences
                     if (AppController.getInstance().getSessionId() == null) {
                         AppController.getInstance().saveSessionId(sessionId);
                     }
 
-                    //AppController.initCaches();
+                    CategoryCache.refresh();    // temp
                     NotificationCache.refresh();
 
                     // display splash
@@ -117,7 +114,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                             getString(R.string.login_error_message),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    LoginActivity.startLoginActivity(SplashActivity.this);
+                                    ViewUtil.startLoginActivity(SplashActivity.this);
                                 }
                             });
                 }

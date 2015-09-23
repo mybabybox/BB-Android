@@ -21,6 +21,8 @@
         android:id="@+id/categoryList"
         android:layout_below="@+id/titleText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:background="@color/white">
     </ListView>
 </RelativeLayout>

@@ -102,7 +102,7 @@ public class SignupActivity extends AbstractLoginActivity {
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginToFacebook();
+                facebookLogin();
             }
         });
 
@@ -158,7 +158,7 @@ public class SignupActivity extends AbstractLoginActivity {
             signupSuccessPopup.dismiss();
             signupSuccessPopup = null;
         }
-        LoginActivity.startLoginActivity(this);
+        ViewUtil.startLoginActivity(this);
     }
 
     private void showErrorMessage(boolean show) {

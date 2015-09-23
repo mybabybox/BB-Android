@@ -38,7 +38,8 @@
                 android:layout_height="22dp"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/emo_smile"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/browseImage"

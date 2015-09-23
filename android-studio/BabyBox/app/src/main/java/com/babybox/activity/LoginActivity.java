@@ -1,24 +1,16 @@
 package com.babybox.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.parceler.apache.commons.lang.StringUtils;
-
 import com.babybox.R;
 import com.babybox.app.AppController;
-import com.babybox.util.ViewUtil;
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class LoginActivity extends AbstractLoginActivity {
 
@@ -35,6 +27,11 @@ public class LoginActivity extends AbstractLoginActivity {
 
         setContentView(R.layout.login_activity);
 
+        ImageView loginUserImage = (ImageView) findViewById(R.id.loginUserImage);
+        loginUserImage.bringToFront();
+        ImageView loginLockImage = (ImageView) findViewById(R.id.loginLockImage);
+        loginLockImage.bringToFront();
+
         username = (EditText) findViewById(R.id.userName);
         password = (EditText) findViewById(R.id.password);
         facebookButton = (ImageView) findViewById(R.id.buttonFbLogin);
@@ -44,48 +41,6 @@ public class LoginActivity extends AbstractLoginActivity {
 
         setLoginButton(loginButton);
         setFacebookButton(facebookButton);
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                showSpinner();
-
-                AppController.getApiService().login(username.getText().toString(), password.getText().toString(), new Callback<Response>() {
-                    @Override
-                    public void success(Response response, Response response2) {
-                        if (!saveToSession(response)) {
-                            ViewUtil.alert(LoginActivity.this,
-                                    getString(R.string.login_error_title),
-                                    getString(R.string.login_error_message));
-                        }
-                        stopSpinner();
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        stopSpinner();
-                        if (error.getResponse() != null &&
-                                error.getResponse().getStatus() == 400) {
-                            String errorMsg = ViewUtil.getResponseBody(error.getResponse());
-                            if (!StringUtils.isEmpty(errorMsg)) {
-                                ViewUtil.alert(LoginActivity.this,
-                                        getString(R.string.login_error_title),
-                                        errorMsg);
-                            } else {
-                                ViewUtil.alert(LoginActivity.this,
-                                        getString(R.string.login_error_title),
-                                        getString(R.string.login_id_error_message));
-                            }
-                        } else {
-                            ViewUtil.alert(LoginActivity.this,
-                                    getString(R.string.login_error_title),
-                                    getString(R.string.login_error_message));
-                        }
-
-                        Log.e(LoginActivity.class.getSimpleName(), "api.login: failure", error);
-                    }
-                });
-            }
-        });
 
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,39 +58,18 @@ public class LoginActivity extends AbstractLoginActivity {
             }
         });
 
-        /*
-         * Login my_community_fragment Click event
-		 * */
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                emailLogin(username.getText().toString(), password.getText().toString());
+            }
+        });
+
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginToFacebook();
+                facebookLogin();
             }
         });
-    }
-
-    @Override
-    protected boolean saveToSession(Response response) {
-        if (response == null) {
-            return false;
-        }
-
-        String key = ViewUtil.getResponseBody(response);
-        Log.d(this.getClass().getSimpleName(), "saveToSession: sessionID - " + key);
-        AppController.getInstance().saveSessionId(key);
-
-        Intent intent = new Intent(this, SplashActivity.class);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromLoginActivity");
-        intent.putExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY, key);
-        startActivity(intent);
-        finish();
-
-        return true;
-    }
-
-    public static void startLoginActivity(Activity activity) {
-        activity.startActivity(new Intent(activity, LoginActivity.class));
-        activity.finish();
     }
 
     @Override

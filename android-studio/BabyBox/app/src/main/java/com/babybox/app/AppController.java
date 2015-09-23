@@ -86,14 +86,10 @@ public class AppController extends Application {
     }
 
     public static synchronized MockApi getMockApi() {
-        if (mockApi == null)
-            init();
         return mockApi;
     }
 
     public static synchronized BabyBoxService getApiService() {
-        if (apiService == null)
-            init();
         return apiService;
     }
 
@@ -156,8 +152,8 @@ public class AppController extends Application {
 
     public static void initStaticCaches() {
         DistrictCache.refresh();
-        EmoticonCache.refresh();
         CategoryCache.refresh();
+        //EmoticonCache.refresh();
     }
 
     /**
