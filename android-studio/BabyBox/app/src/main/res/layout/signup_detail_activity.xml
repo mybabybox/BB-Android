@@ -36,14 +36,15 @@
             <TextView
                 android:id="@+id/titleText"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:textSize="28dp"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
                 android:textColor="@color/dark_gray_3"
                 android:gravity="left"
                 android:layout_marginLeft="25dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginRight="25dp"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:text="@string/signup_details_greeting" />
 
             <LinearLayout
                 android:id="@+id/displaynameLayout"

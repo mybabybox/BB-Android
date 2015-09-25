@@ -130,7 +130,8 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                     @Override
                     public void run() {
                         pullListView.setRefreshing(false);
-                        refreshView();
+                        reloadFeed(getFeedFilter());
+                        onRefreshView();
                     }
                 }, DefaultValues.PULL_TO_REFRESH_DELAY);
             }
@@ -235,8 +236,8 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         feedAdapter.notifyDataSetChanged();
     }
 
-    protected void refreshView() {
-        reloadFeed(getFeedFilter());
+    protected void onRefreshView() {
+
     }
 
     protected void setFooterText(int text) {

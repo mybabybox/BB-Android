@@ -76,9 +76,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                         AppController.getInstance().clearPreferences();
                         ViewUtil.startLoginActivity(SplashActivity.this);
                     } else {
-                        Intent intent = new Intent(SplashActivity.this, SignupDetailActivity.class);
-                        intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, user.firstName);
-                        startActivity(intent);
+                        ViewUtil.startSignupDetailActivity(SplashActivity.this, user.firstName);
                         finish();
                     }
                 // login successful

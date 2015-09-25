@@ -52,6 +52,7 @@ import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.LoginActivity;
 import com.babybox.activity.ProductActivity;
 import com.babybox.activity.ProductCommentsActivity;
+import com.babybox.activity.SignupDetailActivity;
 import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
@@ -653,6 +654,12 @@ public class ViewUtil {
     public static void startLoginActivity(Activity activity) {
         activity.startActivity(new Intent(activity, LoginActivity.class));
         activity.finish();
+    }
+
+    public static void startSignupDetailActivity(Activity activity, String username) {
+        Intent intent = new Intent(activity, SignupDetailActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, username);
+        activity.startActivity(intent);
     }
 
     public static void startSplashActivity(Activity activity, String key) {

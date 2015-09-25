@@ -23,12 +23,13 @@ public class ImageMapping {
     static {
         imageMap = new HashMap<>();
 
-        imageMap.put("/assets/app/images/general/icons/community/rainbow.png", R.drawable.cat_preg);
-        imageMap.put("/assets/app/images/general/icons/community/stroller.png", R.drawable.cat_toys);
-        imageMap.put("/assets/app/images/general/icons/community/beans.png", R.drawable.cat_clothes);
-        imageMap.put("/assets/app/images/general/icons/community/mom.png", R.drawable.cat_books);
+        imageMap.put("/assets/app/images/general/icons/community/rainbow.png", R.drawable.cat_toys);
+        imageMap.put("/assets/app/images/general/icons/community/stroller.png", R.drawable.cat_books);
+        imageMap.put("/assets/app/images/general/icons/community/beans.png", R.drawable.cat_other);
         imageMap.put("/assets/app/images/general/icons/community/grad_hat.png", R.drawable.cat_beauty);
-        imageMap.put("/assets/app/images/general/icons/community/shirt.png", R.drawable.cat_other);
+        imageMap.put("/assets/app/images/general/icons/community/shirt.png", R.drawable.cat_clothes);
+        imageMap.put("/assets/app/images/general/icons/zodiac/snake.png", R.drawable.cat_preg);
+        imageMap.put("/assets/app/images/general/icons/community/mom.png", R.drawable.cat_books);
 
         // Community icons
         imageMap.put("/assets/app/images/general/icons/community/ball.png", R.drawable.ci_ball);

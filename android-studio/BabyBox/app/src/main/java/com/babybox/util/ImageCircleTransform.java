@@ -44,7 +44,7 @@ public class ImageCircleTransform extends BitmapTransformation {
             //source.recycle();
         }
 
-        Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_4444);
 
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();

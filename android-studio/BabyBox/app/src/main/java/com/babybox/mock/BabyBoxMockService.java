@@ -26,7 +26,7 @@ public class BabyBoxMockService extends BabyBoxService {
     private long feedTime;
 
     private Long[] postImages = new Long[] {
-            580L, 726L, 753L, 754L, 755L, 775L, 776L, 790L, 814L, 815L, 816L, 817L, 820L, 821L, 1484L, 1481L
+            580L, 726L, 753L, 754L, 755L, 775L, 776L, 790L, 814L, 815L, 816L, 817L, 820L, 821L
     };
 
     public BabyBoxMockService(BabyBoxApi api) {

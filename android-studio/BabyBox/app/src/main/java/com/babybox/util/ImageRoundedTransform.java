@@ -45,7 +45,7 @@ public class ImageRoundedTransform extends BitmapTransformation {
         int width = source.getWidth();
         int height = source.getHeight();
 
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
 
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint();
