@@ -29,6 +29,9 @@ public class ImageMapping {
         imageMap.put("/assets/app/images/general/icons/community/grad_hat.png", R.drawable.cat_beauty);
         imageMap.put("/assets/app/images/general/icons/community/shirt.png", R.drawable.cat_clothes);
         imageMap.put("/assets/app/images/general/icons/zodiac/snake.png", R.drawable.cat_preg);
+        imageMap.put("/assets/app/images/general/icons/zodiac/goat.png", R.drawable.cat_preg);
+        imageMap.put("/assets/app/images/general/icons/zodiac/horse.png", R.drawable.cat_preg);
+        imageMap.put("/assets/app/images/general/icons/zodiac/dragon.png", R.drawable.cat_preg);
         imageMap.put("/assets/app/images/general/icons/community/mom.png", R.drawable.cat_books);
 
         // Community icons

@@ -135,60 +135,70 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
         setUserId(getArguments().getLong(ViewUtil.BUNDLE_KEY_ID));
 
-        UserVM user = UserInfoCache.getUser();
-
-        userNameText.setText(user.getDisplayName());
-
-        ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
+        AppController.getApiService().getUser(userId, new Callback<UserVM>() {
             @Override
-            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
-                ViewUtil.stopSpinner(getActivity());
-                return false;
-            }
+            public void success(UserVM user, retrofit.client.Response response) {
 
-            @Override
-            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                ViewUtil.stopSpinner(getActivity());
-                return false;
-            }
-        });
+                userNameText.setText(user.getDisplayName());
 
-        followersText.setText(ViewUtil.followersFormat(user.numFollowers));
-        followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
+                ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                        ViewUtil.stopSpinner(getActivity());
+                        return false;
+                    }
 
-        following = user.isFollowing;
-        if (following) {
-            ViewUtil.selectFollowButtonStyle(followButton);
-        } else {
-            ViewUtil.unselectFollowButtonStyle(followButton);
-        }
+                    @Override
+                    public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        ViewUtil.stopSpinner(getActivity());
+                        return false;
+                    }
+                });
 
-        followButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                following = !following;
+                followersText.setText(ViewUtil.followersFormat(user.numFollowers));
+                followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
+
+                following = user.isFollowing;
                 if (following) {
                     ViewUtil.selectFollowButtonStyle(followButton);
                 } else {
                     ViewUtil.unselectFollowButtonStyle(followButton);
                 }
+
+                followButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        following = !following;
+                        if (following) {
+                            ViewUtil.selectFollowButtonStyle(followButton);
+                        } else {
+                            ViewUtil.unselectFollowButtonStyle(followButton);
+                        }
+                    }
+                });
+
+                productsButton.setText(ViewUtil.productsTabFormat(user.numPosts));
+                likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
+
+                // admin only
+                if (AppController.isUserAdmin()) {
+                    userInfoText.setText(user.toString());
+                    userInfoLayout.setVisibility(View.VISIBLE);
+                } else {
+                    userInfoLayout.setVisibility(View.GONE);
+                }
+                userInfoLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        userInfoLayout.setVisibility(View.GONE);
+                    }
+                });
             }
-        });
 
-        productsButton.setText(ViewUtil.productsTabFormat(user.numPosts));
-        likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
-
-        // admin only
-        if (AppController.isUserAdmin()) {
-            userInfoText.setText(user.toString());
-            userInfoLayout.setVisibility(View.VISIBLE);
-        } else {
-            userInfoLayout.setVisibility(View.GONE);
-        }
-        userInfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                userInfoLayout.setVisibility(View.GONE);
+            public void failure(RetrofitError error) {
+                Log.e(UserProfileFeedViewFragment.class.getSimpleName(), "getUserProfile: failure", error);
+                ViewUtil.stopSpinner(getActivity());
             }
         });
     }
@@ -225,17 +235,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
     @Override
     protected void onRefreshView() {
-        UserInfoCache.refresh(new Callback<UserVM>() {
-            @Override
-            public void success(UserVM userVM, Response response) {
-                initUserProfile();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(UserProfileFeedViewFragment.class.getSimpleName(), "onRefreshView: failure", error);
-            }
-        }, null);
+        initUserProfile();
     }
 
     @Override
