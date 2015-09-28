@@ -50,4 +50,10 @@
     <color name="game_orange">#FF6600</color>
     <color name="game_title_border">#2EAB66</color>
     <color name="game_title_text">#556fb5</color>
+
+    <color name="crop__button_bar">#f3f3f3</color>
+    <color name="crop__button_text">#666666</color>
+    <color name="crop__selector_pressed">#1a000000</color>
+    <color name="crop__selector_focused">#77000000</color>
+
 </resources>

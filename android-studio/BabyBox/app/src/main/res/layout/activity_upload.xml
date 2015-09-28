@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#ffffff"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/choose_photo"
+        android:text="Choose Photo"
+        android:layout_centerInParent="true"
+        android:onClick="startGallery"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
