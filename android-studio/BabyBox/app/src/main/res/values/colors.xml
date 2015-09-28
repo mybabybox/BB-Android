@@ -32,7 +32,7 @@
     <color name="signup_blue">#8379F1</color>
     <color name="input_text">#111</color>
     <color name="view_bg">#F9F7F5</color>
-    <color name="feed_bg">#F6F4F2</color>
+    <color name="feed_bg">#F4F2F0</color>
     <color name="feed_item_bg">#ffffff</color>
     <color name="feed_item_border">#c2c3c8</color>
     <color name="like_blue">#3334FE</color>
