@@ -69,9 +69,10 @@
         <item name="android:drawableLeft">@drawable/crop__ic_cancel</item>
         <item name="android:text">@string/crop__cancel</item>
     </style>
-    <style name="Crop.ActionButtonText.Ignore">
+
+    <!--style name="Crop.ActionButtonText.Ignore">
         <item name="android:drawableLeft">@drawable/crop__ic_cancel</item>
         <item name="android:text">@string/crop__ignore</item>
-    </style>
+    </style-->
 
 </resources>

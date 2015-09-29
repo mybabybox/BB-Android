@@ -42,9 +42,6 @@ public class DefaultValues {
     public static final int LISTVIEW_SLIDE_IN_ANIM_START = 10;
     public static final int LISTVIEW_SCROLL_FRICTION_SCALE_FACTOR = 2;
 
-    public static final int PAGINATION_POPUP_WIDTH = 150;
-    public static final int PAGINATION_POPUP_HEIGHT = 300;
-
     public static final int CATEGORY_PICKER_POPUP_WIDTH = 250;
     public static final int CATEGORY_PICKER_POPUP_HEIGHT = 350;
 

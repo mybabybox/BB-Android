@@ -123,8 +123,6 @@ public class PhotoActivity extends Activity {
 		//ignore_btn = (ImageView) findViewById(R.id.ignore_btn);
         ignore_btn = (Button) findViewById(R.id.ignore_btn);
 
-        System.out.println("photo activity:::::::::");
-
 		loading_dialog = new LoadingDialog(PhotoActivity.this);
 
 		effect_box = (LinearLayout) findViewById(R.id.effects_holder);
@@ -166,29 +164,18 @@ public class PhotoActivity extends Activity {
 		cdepth_value = (SeekBar) findViewById(R.id.cdepth_value);
 		cdepth_label = (TextView) findViewById(R.id.cdepth_label);
 
-
-
-
 		if (savedInstanceState == null) {
             source_id = getIntent().getExtras().getInt(Constants.EXTRA_KEY_IMAGE_SOURCE);
 			imageUri = getIntent().getData();
-            System.out.println("clicked id::::"+source_id);
-            System.out.println("clicked imageUri ::::"+imageUri);
 
             ignore_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     onClickSave(view);
-
-
                 }
             });
 
-
-
-
-				effects = new ArrayList<String>();
+			effects = new ArrayList<>();
 			try {
 				loadImage();
 			} catch (Exception e) {
@@ -1114,9 +1101,7 @@ public class PhotoActivity extends Activity {
 			if (save_status) {
 
 				/*int counter = 0;
-                System.out.println("fileName::::::::"+imageUrl);
-                System.out.println("fileName::::::::"+imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf(".")));
-				String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("."));
+                String fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1, imageUrl.lastIndexOf("."));
 
 				File path = Environment.getExternalStoragePublicDirectory(
 						Environment.DIRECTORY_PICTURES);
@@ -1135,10 +1120,10 @@ public class PhotoActivity extends Activity {
 				}
 
 				outputURL = file.getAbsolutePath();
-*/
+				*/
 
                 String root = Environment.getExternalStorageDirectory().toString();
-                File myDir = new File(root + "/saved_images");
+                File myDir = new File(root + "/" + getString(R.string.app_name));
                 myDir.mkdirs();
                 Random generator = new Random();
                 int n = 10000;
@@ -1146,8 +1131,6 @@ public class PhotoActivity extends Activity {
                 String fname = "Image-"+ n +".jpg";
                 File file = new File (myDir, fname);
 
-                System.out.println("path:::::"+file.getPath());
-                System.out.println("path:::::"+file.toURI());
                 if (file.exists ()) file.delete ();
                 try {
                     FileOutputStream out = new FileOutputStream(file);
@@ -1234,9 +1217,6 @@ public class PhotoActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-
-        System.out.println("In PhotoActivity back..");
-
 		if (apply_set.getVisibility() == View.VISIBLE){
 			cancelSelectedEffect(null);
 		} else {
@@ -1425,8 +1405,6 @@ public class PhotoActivity extends Activity {
 
     public void onClickIgore(View view) {
         finish();
-
-
     }
 
 	@Override

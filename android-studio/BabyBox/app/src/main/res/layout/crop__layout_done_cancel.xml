@@ -12,10 +12,11 @@
         style="@style/Crop.ActionButton">
         <TextView style="@style/Crop.ActionButtonText.Done" />
     </FrameLayout>
-    <FrameLayout
+
+    <!--FrameLayout
         android:id="@+id/btn_ignore"
         style="@style/Crop.ActionButton">
         <TextView style="@style/Crop.ActionButtonText.Ignore" />
-    </FrameLayout>
+    </FrameLayout-->
 
 </LinearLayout>

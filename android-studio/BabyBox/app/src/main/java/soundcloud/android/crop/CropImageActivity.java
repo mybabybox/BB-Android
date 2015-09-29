@@ -120,11 +120,13 @@ public class CropImageActivity extends MonitoredActivity {
             }
         });
 
+        /*
         findViewById(R.id.btn_ignore).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onIgnoreClicked();
             }
         });
+        */
     }
 
     private void loadInput() {
@@ -447,7 +449,6 @@ public class CropImageActivity extends MonitoredActivity {
 
     private void onIgnoreClicked(){
         Intent intent = new Intent(this, PhotoActivity.class);
-        System.out.println("called::::::::::"+sourceUri);
         intent.setData(sourceUri);
         intent.putExtra(Constants.EXTRA_KEY_IMAGE_SOURCE, 2);
         startActivity(intent);
@@ -455,7 +456,6 @@ public class CropImageActivity extends MonitoredActivity {
 
     @Override
     public void onBackPressed(){
-        System.out.println("in CropImageActivity back::::");
         super.onBackPressed();
     }
 
