@@ -98,9 +98,9 @@
         <activity
             android:name="com.babybox.activity.PrivacyActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="soundcloud.android.crop.CropImageActivity" />
+            android:name="com.babybox.image.crop.CropImageActivity" />
+
         <activity
             android:name="org.appsroid.fxpro.MainActivity"
             android:screenOrientation="portrait"

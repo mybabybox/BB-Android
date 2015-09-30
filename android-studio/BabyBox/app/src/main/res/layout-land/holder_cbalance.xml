@@ -28,7 +28,7 @@
             android:text="@string/redP"
             android:textSize="18sp" />
 
-        <android.widget.VerticalSeekBar
+        <com.babybox.view.VerticalSeekBar
             android:id="@+id/bRed_value"
             style="@style/SeekBarAppThemeColorize"
             android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
             android:text="@string/greenP"
             android:textSize="18sp" />
 
-        <android.widget.VerticalSeekBar
+        <com.babybox.view.VerticalSeekBar
             android:id="@+id/bGreen_value"
             style="@style/SeekBarAppThemeGreen"
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:text="@string/blueP"
             android:textSize="18sp" />
 
-        <android.widget.VerticalSeekBar
+        <com.babybox.view.VerticalSeekBar
             android:id="@+id/bBlue_value"
             style="@style/SeekBarAppThemeBlue"
             android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package soundcloud.android.crop;
+package com.babybox.image.crop;
 
 import android.content.Context;
 import android.graphics.Canvas;

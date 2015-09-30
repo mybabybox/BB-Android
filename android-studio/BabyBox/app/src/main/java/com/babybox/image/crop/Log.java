@@ -1,4 +1,4 @@
-package soundcloud.android.crop;
+package com.babybox.image.crop;
 
 class Log {
 

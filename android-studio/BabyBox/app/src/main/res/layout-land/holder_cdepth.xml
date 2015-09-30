@@ -29,7 +29,7 @@
             android:text="@string/cdepth"
             android:textSize="18sp" />
 
-        <android.widget.VerticalSeekBar
+        <com.babybox.view.VerticalSeekBar
             android:id="@+id/cdepth_value"
             style="@style/SeekBarAppThemeColorize"
             android:layout_width="wrap_content"

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package soundcloud.android.crop;
+package com.babybox.image.crop;
 
 import android.annotation.TargetApi;
 import android.content.Intent;

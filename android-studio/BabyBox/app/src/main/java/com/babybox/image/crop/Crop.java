@@ -1,4 +1,4 @@
-package soundcloud.android.crop;
+package com.babybox.image.crop;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

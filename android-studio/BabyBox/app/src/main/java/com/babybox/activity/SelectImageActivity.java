@@ -13,7 +13,7 @@ import org.appsroid.fxpro.library.Constants;
 
 import java.io.File;
 
-import soundcloud.android.crop.Crop;
+import com.babybox.image.crop.Crop;
 
 
 public class SelectImageActivity extends Activity {
