@@ -10,8 +10,6 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.parceler.apache.commons.lang.StringUtils;
-
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
@@ -21,6 +19,9 @@ import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.UserVM;
+
+import org.parceler.apache.commons.lang.StringUtils;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 
@@ -102,6 +103,8 @@ public class SplashActivity extends TrackedFragmentActivity {
             @Override
             public void failure(RetrofitError error) {
                 AppController.getInstance().clearPreferences();
+
+                System.out.println("user info cache::::"+error.getResponse().getUrl());
 
                 if (RetrofitError.Kind.NETWORK.equals(error.getKind().name()) ||
                         RetrofitError.Kind.HTTP.equals(error.getKind().name())) {

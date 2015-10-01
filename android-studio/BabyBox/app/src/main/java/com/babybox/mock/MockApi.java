@@ -60,6 +60,16 @@ public interface MockApi {
     @POST("/communityQnA/question/answer")
     public void answerOnQuestion(@Body CommentPost commentPost, @Query("key") String key, Callback<CommentResponse> cb);
 
+    @Multipart
+    @POST("/image/uploadCommentPhoto") //a function in your api upload image for comment
+    public void uploadCommentPhoto(@Part("commentId") String id, @Part("comment-photo0") TypedFile photo, Callback<Response> cb);
+
+    @GET("/bookmark-post/{post_id}")
+    public void setBookmark(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
+
+    @GET("/unbookmark-post/{post_id}")
+    public void setUnBookmark(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
+
     @GET("/like-post/{post_id}")
     public void setLikePost(@Path("post_id") Long post_id, @Query("key") String key, Callback<Response> cb);
 
@@ -88,6 +98,7 @@ public interface MockApi {
     public void uploadProfilePhoto(@Part("profile-photo") TypedFile photo,@Query("key") String key, Callback<Response> cb);
 
     @GET("/get-headerBar-data")
+    //a function in your api to get all header meta data (notifications and requests).
     public void getHeaderBarData(@Query("key") String key, Callback<NotificationsParentVM> cb);
 
     @GET("/mark-as-read/{ids}")

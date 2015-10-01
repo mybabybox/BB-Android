@@ -7,8 +7,6 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.NewCommentVM;
-import com.babybox.viewmodel.NewPost;
-import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
@@ -289,7 +287,7 @@ public class BabyBoxMockService extends BabyBoxService {
         });
     }
 
-    @Override
+   /* @Override
     public void newPost(NewPostVM post, Callback<ResponseStatusVM> cb) {
         final Callback<ResponseStatusVM> callback = cb;
         NewPost newPost = new NewPost(post.catId, post.title, post.desc, true);
@@ -308,7 +306,7 @@ public class BabyBoxMockService extends BabyBoxService {
                 callback.failure(error);
             }
         });
-    }
+    }*/
 
     public void getComments(Long offset, Long postId, Callback<List<CommentVM>> cb) {
         final Callback<List<CommentVM>> callback = cb;

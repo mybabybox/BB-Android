@@ -24,12 +24,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.parceler.apache.commons.lang.StringUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.babybox.R;
 import com.babybox.adapter.EmoticonListAdapter;
 import com.babybox.adapter.PopupCategoryListAdapter;
@@ -37,8 +31,8 @@ import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
 import com.babybox.app.EmoticonCache;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.util.ImageMapping;
 import com.babybox.util.DefaultValues;
+import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
@@ -46,10 +40,20 @@ import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.MultipartTypedOutput;
 import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 public class NewPostActivity extends TrackedFragmentActivity {
 
@@ -271,22 +275,49 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         ViewUtil.showSpinner(this);
 
+        Map<String, TypedFile> files = new HashMap<String, TypedFile>();
+        List<TypedFile> typedFiles = new ArrayList<>();
         final boolean withPhotos = photos.size() > 0;
+        int i = 0;
+        MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
+        for (File photo : photos) {
+            TypedFile typedFile = new TypedFile("application/octet-stream", photo);
+            multipartTypedOutput.addPart("post-image"+i,typedFile);
+            i++;
+            /*photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
+            TypedFile typedFile = new TypedFile("application/octet-stream", photo);
+            typedFiles.add(typedFile);
+            files.put("dheevara"+i, typedFile);
+            i++;*/
+        }
+
+        multipartTypedOutput.addPart("title", new TypedString(title));
+        multipartTypedOutput.addPart("catId", new TypedString(catId+""));
+        multipartTypedOutput.addPart("desc", new TypedString(desc));
+        multipartTypedOutput.addPart("price", new TypedString(price));
+
+
+
+        System.out.println("dopost Succcesss:::::::"+typedFiles.size());
 
         Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title);
-        AppController.getApiService().newPost(new NewPostVM(catId, title, desc, 0), new Callback<ResponseStatusVM>() {
+        AppController.getApiService().newPost(multipartTypedOutput,new NewPostVM(catId, title, desc, 0), new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
                 postSuccess = true;
-                if (withPhotos) {
+                complete();
+                System.out.println("dopost Succcesss:::::::");
+                /*if (withPhotos) {
                     uploadPhotos(responseStatus.getObjId());
                 } else {
                     complete();
-                }
+                }*/
             }
 
             @Override
             public void failure(RetrofitError error) {
+                error.printStackTrace();
+                System.out.println("do post :::::"+error.getUrl());
                 ViewUtil.stopSpinner(NewPostActivity.this);
                 Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_failed), Toast.LENGTH_SHORT).show();
                 Log.e(NewPostActivity.class.getSimpleName(), "doPost: failure", error);

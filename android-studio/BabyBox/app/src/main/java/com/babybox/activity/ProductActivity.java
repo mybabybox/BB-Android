@@ -48,7 +48,6 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.MessageUtil;
-import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.SharingUtil;
 import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
@@ -97,8 +96,11 @@ public class ProductActivity extends TrackedFragmentActivity {
     private ListView commentList;
 
     private PopupWindow commentPopup, emoPopup;
+    private Button followButton;
 
     private long postId;
+    private long ownerId;
+    private boolean isFollowing;
 
     private List<EmoticonVM> emoticonVMList = new ArrayList<>();
     private EmoticonListAdapter emoticonListAdapter;
@@ -136,6 +138,8 @@ public class ProductActivity extends TrackedFragmentActivity {
         likeImage = (ImageView) findViewById(R.id.likeImage);
         likeText = (TextView) findViewById(R.id.likeText);
 
+        followButton = (Button) findViewById(R.id.followButton);
+
         sellerImage = (ImageView) findViewById(R.id.sellerImage);
         sellerNameText = (TextView) findViewById(R.id.sellerNameText);
 
@@ -156,6 +160,18 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View v) {
                 initCommentPopup();
+            }
+        });
+
+        followButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    if(isFollowing){
+                        unFollow(ownerId);
+
+                    }else{
+                        follow(ownerId);
+                    }
             }
         });
 
@@ -189,6 +205,19 @@ public class ProductActivity extends TrackedFragmentActivity {
         AppController.getApiService().getPost(postId, new Callback<PostVM>() {
             @Override
             public void success(final PostVM post, Response response) {
+                ownerId = post.getOwnerId();
+
+                if(UserInfoCache.getUser().getId() == ownerId)
+                    followButton.setVisibility(View.GONE);
+
+                isFollowing = post.isFollowdByUser();
+
+                if(isFollowing){
+                    ViewUtil.selectFollowButtonStyle(followButton);
+                }else{
+                    ViewUtil.unselectFollowButtonStyle(followButton);
+                }
+
                 // Image slider
                 if (post.images != null) {
                     imagePagerAdapter = new ProductImagePagerAdapter(getSupportFragmentManager(), post.images);
@@ -666,9 +695,6 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // comment out more options for now...
-        //MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.product_action_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -688,6 +714,35 @@ public class ProductActivity extends TrackedFragmentActivity {
         super.onBackPressed();
 
         reset();
+    }
+
+    public void follow(Long id){
+        AppController.getApiService().followUser(id,new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                ViewUtil.selectFollowButtonStyle(followButton);
+                isFollowing = true;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+            }
+        });
+    }
+    public void unFollow(Long id){
+        AppController.getApiService().unfollowUser(id,new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                ViewUtil.unselectFollowButtonStyle(followButton);
+                isFollowing = false;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+            }
+        });
     }
 }
 

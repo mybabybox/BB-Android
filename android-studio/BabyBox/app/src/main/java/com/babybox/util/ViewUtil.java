@@ -40,13 +40,6 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import org.parceler.apache.commons.lang.StringUtils;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.List;
-
 import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.LoginActivity;
@@ -60,6 +53,13 @@ import com.babybox.app.MyImageGetter;
 import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.PostVM;
+
+import org.parceler.apache.commons.lang.StringUtils;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
 
 import retrofit.RetrofitError;
 

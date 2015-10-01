@@ -35,6 +35,7 @@ import retrofit.http.POST;
 import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import retrofit.mime.MultipartTypedOutput;
 import retrofit.mime.TypedFile;
 
 public interface BabyBoxApi {
@@ -85,6 +86,9 @@ public interface BabyBoxApi {
 
     @GET("/image/getEmoticons")
     public void getEmoticons(@Query("key") String key, Callback<List<EmoticonVM>> cb);
+
+    @GET("/get-all-feed-products")
+    public void getAllProducts(@Query("key") String key,Callback<List<PostVMLite>> cb);
 
     //
     // Home feeds
@@ -144,8 +148,9 @@ public interface BabyBoxApi {
     @GET("/post/{id}")
     public void getPost(@Path("id") Long id, @Query("key") String key, Callback<PostVM> callback);
 
-    @POST("/post/new")
-    public void newPost(@Body NewPostVM newPost, @Query("key") String key, Callback<ResponseStatusVM> cb);
+    //@Multipart
+    @POST("/mobile/post/new")
+    public void newPost(@Body MultipartTypedOutput attachments/*,@Part("asd") NewPostVM newPost*/, @Query("key") String key, Callback<ResponseStatusVM> cb);
 
     @GET("/post/delete/{id}")
     public void deletePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);

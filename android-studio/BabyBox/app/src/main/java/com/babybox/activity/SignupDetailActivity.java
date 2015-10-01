@@ -18,12 +18,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.parceler.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.DistrictCache;
@@ -33,6 +27,13 @@ import com.babybox.util.ValidationUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.UserVM;
+
+import org.parceler.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;

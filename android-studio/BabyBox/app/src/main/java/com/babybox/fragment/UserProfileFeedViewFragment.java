@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
-import com.babybox.app.UserInfoCache;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
@@ -137,7 +136,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
         AppController.getApiService().getUser(userId, new Callback<UserVM>() {
             @Override
-            public void success(UserVM user, retrofit.client.Response response) {
+            public void success(final UserVM user, retrofit.client.Response response) {
 
                 userNameText.setText(user.getDisplayName());
 
@@ -155,7 +154,10 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     }
                 });
 
+                System.out.println("user followers ::"+user.numFollowers);
+                System.out.println("following :: "+user.isFollowing);
                 followersText.setText(ViewUtil.followersFormat(user.numFollowers));
+
                 followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
 
                 following = user.isFollowing;
@@ -165,14 +167,17 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     ViewUtil.unselectFollowButtonStyle(followButton);
                 }
 
+
                 followButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        following = !following;
+                        //following = !following;
                         if (following) {
-                            ViewUtil.selectFollowButtonStyle(followButton);
+                            unFollow(user.getId());
+                           // ViewUtil.selectFollowButtonStyle(followButton);
                         } else {
-                            ViewUtil.unselectFollowButtonStyle(followButton);
+                            follow(user.getId());
+                            //ViewUtil.unselectFollowButtonStyle(followButton);
                         }
                     }
                 });
@@ -252,4 +257,36 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
             throw new RuntimeException(e);
         }
     }
+
+    public void follow(Long id){
+        AppController.getApiService().followUser(id,new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                System.out.println("follow.....");
+                ViewUtil.selectFollowButtonStyle(followButton);
+                following = true;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+            }
+        });
+    }
+    public void unFollow(Long id){
+        AppController.getApiService().unfollowUser(id,new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                System.out.println("unfollow.....");
+                ViewUtil.unselectFollowButtonStyle(followButton);
+                following = false;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+            }
+        });
+    }
+
 }

@@ -15,24 +15,23 @@ import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.activity.LoginActivity;
-import com.babybox.mock.BabyBoxMockService;
 import com.babybox.mock.MockApi;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
-import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
-import retrofit.RestAdapter;
-import retrofit.client.OkClient;
-
-import org.acra.*;
-import org.acra.annotation.*;
+import org.acra.ReportField;
+import org.acra.ReportingInteractionMode;
+import org.acra.annotation.ReportsCrashes;
 
 import java.security.MessageDigest;
 import java.util.List;
+
+import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 
 /**
  * ARCA config
@@ -140,7 +139,7 @@ public class AppController extends Application {
                     .setEndpoint(BASE_URL)
                     .setClient(new OkClient()).build();
             BabyBoxApi api = restAdapter.create(BabyBoxApi.class);
-            apiService = new BabyBoxMockService(api);
+            apiService = new BabyBoxService(api);
         }
 
         ImageUtil.init();

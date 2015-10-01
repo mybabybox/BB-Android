@@ -16,6 +16,7 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.client.Response;
+import retrofit.mime.MultipartTypedOutput;
 
 public class BabyBoxService {
 
@@ -63,6 +64,10 @@ public class BabyBoxService {
 
     public void initNewUser(Callback<UserVM> cb) {
         api.initNewUser(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getAllProducts(Callback<List<PostVMLite>> cb){
+        api.getAllProducts(AppController.getInstance().getSessionId(),cb);
     }
 
     // home feeds
@@ -129,8 +134,8 @@ public class BabyBoxService {
         api.getPost(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void newPost(NewPostVM post, Callback<ResponseStatusVM> cb) {
-        api.newPost(post, AppController.getInstance().getSessionId(), cb);
+    public void newPost(MultipartTypedOutput attachments,NewPostVM post, Callback<ResponseStatusVM> cb) {
+        api.newPost(attachments,/*post,*/AppController.getInstance().getSessionId(), cb);
     }
 
     public void deletePost(Long id, Callback<Response> cb) {

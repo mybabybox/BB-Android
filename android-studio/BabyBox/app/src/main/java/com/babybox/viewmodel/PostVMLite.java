@@ -14,6 +14,16 @@ public class PostVMLite {
     public int numViews;
     public boolean isOwner = false;
     public boolean isLiked = false;
+    public long offset;
+
+
+    public long getOffset() {
+        return offset;
+    }
+
+    public void setOffset(long offset) {
+        this.offset = offset;
+    }
 
     public Long getId() {
         return id;

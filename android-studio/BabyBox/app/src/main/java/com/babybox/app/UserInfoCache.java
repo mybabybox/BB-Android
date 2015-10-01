@@ -42,6 +42,7 @@ public class UserInfoCache {
         AppController.getApiService().getUser(sessionId, new Callback<UserVM>() {
             @Override
             public void success(UserVM userVM, retrofit.client.Response response) {
+                System.out.println("in userinfo success:::::");
                 userInfo = userVM;
                 SharedPreferencesUtil.getInstance().saveUserInfo(userVM);
                 if (userCallback != null) {
@@ -51,6 +52,7 @@ public class UserInfoCache {
 
             @Override
             public void failure(RetrofitError error) {
+                System.out.println("in userinfo failure:::::");
                 if (userCallback != null) {
                     userCallback.failure(error);
                 }

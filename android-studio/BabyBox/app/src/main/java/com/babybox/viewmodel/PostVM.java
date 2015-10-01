@@ -14,6 +14,8 @@ public class PostVM extends PostVMLite {
     public String categoryIcon;
     public Long categoryId;
 
+
+    public boolean isFollowdByUser = false;
     public boolean and = false;
     public boolean ios = false;
     public boolean mob = false;
@@ -41,6 +43,14 @@ public class PostVM extends PostVMLite {
         this.ios = post.ios;
         this.mob = post.mob;
         this.price = ViewUtil.random(1, 500);
+    }
+
+    public boolean isFollowdByUser() {
+        return isFollowdByUser;
+    }
+
+    public void setFollowdByUser(boolean isFollowdByUser) {
+        this.isFollowdByUser = isFollowdByUser;
     }
 
     public Long getOwnerId() {
