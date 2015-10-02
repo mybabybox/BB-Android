@@ -7,8 +7,8 @@ import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.GameGiftVM;
 import com.babybox.viewmodel.GameTransactionVM;
-import com.babybox.viewmodel.MessagePostVM;
 import com.babybox.viewmodel.MessageVM;
+import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.NewPost;
 import com.babybox.viewmodel.NotificationsParentVM;
 import com.babybox.viewmodel.ResponseStatusVM;
@@ -140,7 +140,7 @@ public interface MockApi {
     public void deleteConversation(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
     @POST("/message/sendMsg")
-    public void sendMessage(@Body MessagePostVM message, @Query("key") String key, Callback<Response> cb);
+    public void sendMessage(@Body NewMessageVM message, @Query("key") String key, Callback<Response> cb);
 
     @GET("/get-unread-msg-count")
     public void getUnreadMessageCount(@Query("key") String key, Callback<MessageVM> cb);
@@ -149,7 +149,7 @@ public interface MockApi {
     public void getMessageImage(@Query("key") String key, @Part("messageId") long id, Callback<MessageVM> cb);
 
     @Multipart
-    @POST("/image/sendMessagePhoto") //a function in your api upload image for message
+    @POST("/image/sendMessagePhoto")
     public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
 
     //

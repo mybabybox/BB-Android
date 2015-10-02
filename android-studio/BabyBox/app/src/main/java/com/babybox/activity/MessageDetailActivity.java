@@ -20,10 +20,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -46,18 +44,14 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.babybox.R;
-import com.babybox.adapter.EmoticonListAdapter;
 import com.babybox.adapter.MessageListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.BroadcastService;
-import com.babybox.app.EmoticonCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.DefaultValues;
-import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.EmoticonVM;
-import com.babybox.viewmodel.MessagePostVM;
+import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.MessageVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -70,14 +64,12 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
     private TextView commentEdit;
     private FrameLayout mainFrameLayout;
     private EditText commentEditText;
-    private PopupWindow commentPopup, emoPopup;
+    private PopupWindow commentPopup;
     private String selectedImagePath = null;
     private Uri selectedImageUri = null;
 
-    private List<EmoticonVM> emoticonVMList = new ArrayList<>();
     private List<ImageView> commentImages = new ArrayList<>();
     private List<File> photos = new ArrayList<>();
-    private EmoticonListAdapter emoticonListAdapter;
 
     private TextView title;
     private ImageView backImage, profileButton;
@@ -88,8 +80,9 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
     private RelativeLayout loadMoreLayout;
 
     private Long conversationId;
+    private Long receiverId;
+    private String receiverName;
     private Long offset = 1L;
-    private Intent intent;
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -127,7 +120,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         mainFrameLayout = (FrameLayout) findViewById(R.id.mainFrameLayout);
         profileButton = (ImageView) findViewById(R.id.profileButton);
 
-        intent = new Intent(this, BroadcastService.class);
+        Intent intent = new Intent(this, BroadcastService.class);
 
         listView = (ListView)findViewById(R.id.messageList);
         title = (TextView) findViewById(R.id.titleText);
@@ -137,16 +130,19 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
 
         messageVMList = new ArrayList<>();
 
-        title.setText(getIntent().getStringExtra("user_name"));
+        conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
+        receiverId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_USER_ID, 0l);
+        receiverName = getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_USER_NAME);
+
+        title.setText(receiverName);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewUtil.startUserProfileActivity(MessageDetailActivity.this, getIntent().getLongExtra("uid", 0l), "");
+                ViewUtil.startUserProfileActivity(MessageDetailActivity.this, receiverId, "");
             }
         });
 
-        conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
         getMessages(conversationId, 0l);
 
         loadMoreLayout.setOnClickListener(new View.OnClickListener() {
@@ -290,14 +286,6 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                ImageView commentEmoImage = (ImageView) layout.findViewById(R.id.emoImage);
-                commentEmoImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        initEmoticonPopup();
-                    }
-                });
-
                 ImageView commentBrowseButton = (ImageView) layout.findViewById(R.id.browseImage);
                 commentBrowseButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -376,57 +364,6 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void initEmoticonPopup() {
-        mainFrameLayout.getForeground().setAlpha(20);
-        mainFrameLayout.getForeground().setColorFilter(R.color.gray, PorterDuff.Mode.OVERLAY);
-
-        try {
-            //We need to get the instance of the LayoutInflater, use the context of this activity
-            LayoutInflater inflater = (LayoutInflater) MessageDetailActivity.this
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            //Inflate the view from a predefined XML layout
-            View layout = inflater.inflate(R.layout.emoticon_popup_window,
-                    (ViewGroup) findViewById(R.id.popupElement));
-
-            // hide soft keyboard when select emoticon
-            ViewUtil.hideInputMethodWindow(this, layout);
-
-            if (emoPopup == null) {
-                emoPopup = new PopupWindow(
-                        layout,
-                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH),
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        true);
-            }
-
-            emoPopup.setBackgroundDrawable(new BitmapDrawable(getResources(), ""));
-            emoPopup.setOutsideTouchable(false);
-            emoPopup.setFocusable(true);
-            emoPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-            if (emoticonVMList.isEmpty()) {
-                emoticonVMList = EmoticonCache.getEmoticons();
-            }
-            emoticonListAdapter = new EmoticonListAdapter(this,emoticonVMList);
-
-            GridView gridView = (GridView) layout.findViewById(R.id.emoGrid);
-            gridView.setAdapter(emoticonListAdapter);
-
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    ImageMapping.insertEmoticon(emoticonVMList.get(i), commentEditText);
-                    emoPopup.dismiss();
-                    emoPopup = null;
-                    ViewUtil.popupInputMethodWindow(MessageDetailActivity.this);
-                }
-            });
-        } catch (Exception e) {
-            Log.e(MessageDetailActivity.class.getSimpleName(), "initEmoticonPopup: exception", e);
-        }
-    }
-
     private void doMessage() {
         String comment = commentEditText.getText().toString().trim();
         if (StringUtils.isEmpty(comment) && commentImages.size() == 0) {
@@ -434,23 +371,28 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
             return;
         }
 
-        Log.d(this.getClass().getSimpleName(), "doMessage: receiverId=" + getIntent().getLongExtra("uid", 0L) + " message=" + comment.substring(0, Math.min(5, comment.length())));
-        AppController.getMockApi().sendMessage(new MessagePostVM(getIntent().getLongExtra("uid", 0l), comment, true), AppController.getInstance().getSessionId(), new Callback<Response>() {
+        Log.d(this.getClass().getSimpleName(), "doMessage: receiverId=" + receiverId + " message=" + comment.substring(0, Math.min(5, comment.length())));
+
+        final boolean withPhotos = photos.size() > 0;
+        NewMessageVM newMessage = new NewMessageVM(conversationId, receiverId, comment, withPhotos);
+        AppController.getMockApi().sendMessage(newMessage, AppController.getInstance().getSessionId(), new Callback<Response>() {
             @Override
-            public void success(Response response, Response response1) {
-                String responseVm = "";
-                TypedInput body = response.getBody();
+            public void success(Response responseMap, Response response) {
+                String responseVM = "";
+                TypedInput body = responseMap.getBody();
                 try {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(body.in()));
                     String line;
                     while ((line = reader.readLine()) != null) {
-                        responseVm = responseVm + line;
+                        responseVM = responseVM + line;
                     }
 
-                    JSONObject obj = new JSONObject(responseVm);
-                    JSONArray userGroupArray = obj.getJSONArray("message");
-                    JSONObject object1 = userGroupArray.getJSONObject(0);
-                    uploadPhotos(object1.getLong(ViewUtil.BUNDLE_KEY_ID));
+                    if (withPhotos) {
+                        JSONObject obj = new JSONObject(responseVM);
+                        Long messageId = obj.getLong("id");
+                        uploadPhotos(messageId);
+                    }
+
                     getMessages(conversationId, 0l);
 
                     reset();
@@ -470,11 +412,11 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void uploadPhotos(long commentId) {
+    private void uploadPhotos(long messageId) {
         for (File photo : photos) {
             photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
             TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-            AppController.getMockApi().uploadMessagePhoto(AppController.getInstance().getSessionId(),commentId, typedFile, new Callback<Response>() {
+            AppController.getMockApi().uploadMessagePhoto(AppController.getInstance().getSessionId(), messageId, typedFile, new Callback<Response>() {
                 @Override
                 public void success(Response array, Response response) {
                     getMessages(conversationId, 0l);
@@ -625,10 +567,6 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         if (commentPopup != null) {
             commentPopup.dismiss();
             commentPopup = null;
-        }
-        if (emoPopup != null) {
-            emoPopup.dismiss();
-            emoPopup = null;
         }
         resetCommentImages();
     }

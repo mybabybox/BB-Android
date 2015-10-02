@@ -329,7 +329,7 @@ public class BabyBoxMockService extends BabyBoxService {
 
     public void newComment(NewCommentVM comment, Callback<ResponseStatusVM> cb) {
         final Callback<ResponseStatusVM> callback = cb;
-        CommentPost newComment = new CommentPost(comment.postId, comment.desc, false);
+        CommentPost newComment = new CommentPost(comment.postId, comment.body, false);
         AppController.getMockApi().answerOnQuestion(newComment, AppController.getInstance().getSessionId(), new Callback<CommentResponse>() {
             @Override
             public void success(CommentResponse commentResponse, Response response) {

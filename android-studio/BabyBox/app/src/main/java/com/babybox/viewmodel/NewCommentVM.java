@@ -2,15 +2,12 @@ package com.babybox.viewmodel;
 
 public class NewCommentVM {
     public Long postId;
-    public String desc;
-    boolean withPhotos;
+    public String body;
     boolean android;
 
-    public NewCommentVM(Long postId, String desc, boolean withPhotos) {
+    public NewCommentVM(Long postId, String body) {
         this.postId = postId;
-        this.desc = desc;
-        this.withPhotos = withPhotos;
+        this.body = body;
         this.android = true;
     }
-
 }

@@ -6,7 +6,7 @@ public class PostVMLite {
     public double price;
     public boolean sold;
     public Long[] images;
-    public String type;
+    public String postType;
     public int numLikes;
     public int numChats;
     public int numBuys;
@@ -15,7 +15,6 @@ public class PostVMLite {
     public boolean isOwner = false;
     public boolean isLiked = false;
     public long offset;
-
 
     public long getOffset() {
         return offset;
@@ -89,12 +88,12 @@ public class PostVMLite {
         this.images = imgs;
     }
 
-    public String getType() {
-        return type;
+    public String getPostType() {
+        return postType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPostType(String postType) {
+        this.postType = postType;
     }
 
     public int getNumViews() {

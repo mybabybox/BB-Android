@@ -45,9 +45,9 @@ public class MessageUtil {
     public static void startMessageDetailActivity(long conversationId,  long userId, String userDisplayname, final Activity activity) {
         Log.d(MessageUtil.class.getSimpleName(), "startMessageDetailActivity with userId - " + userId);
         Intent intent = new Intent(activity, MessageDetailActivity.class);
-        intent.putExtra("user_name", userDisplayname);
-        intent.putExtra("uid", userId);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_USER_ID, userId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_USER_NAME, userDisplayname);
         activity.startActivity(intent);
     }
 }

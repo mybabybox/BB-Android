@@ -9,10 +9,9 @@ import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.GameGiftVM;
 import com.babybox.viewmodel.GameTransactionVM;
 import com.babybox.viewmodel.LocationVM;
-import com.babybox.viewmodel.MessagePostVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
-import com.babybox.viewmodel.NewPostVM;
+import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.NotificationsParentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.mock.ProfileVM;
@@ -224,23 +223,23 @@ public interface BabyBoxApi {
     @GET("/get-messages/{id}/{offset}")
     public void getMessages(@Path("id") Long id, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/open-conversation/{id}")
-    public void openConversation(@Path("id") Long id, @Query("key") String key, Callback<List<ConversationVM>> cb);
+    @GET("/open-conversation/{postId}/{userId}")
+    public void openConversation(@Path("postId") Long postId, @Path("userId") Long userId, @Query("key") String key, Callback<ConversationVM> cb);
 
     @GET("/delete-conversation/{id}")
     public void deleteConversation(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @POST("/message/sendMsg")
-    public void sendMessage(@Body MessagePostVM message, @Query("key") String key, Callback<Response> cb);
+    @POST("/message/new")
+    public void sendMessage(@Body NewMessageVM message, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/get-unread-msg-count")
+    @GET("/get-unread-message-count")
     public void getUnreadMessageCount(@Query("key") String key, Callback<MessageVM> cb);
 
-    @GET("/image/get-message-image-by-id/{id} ")
+    @GET("/image/get-message-image/{id} ")
     public void getMessageImage(@Query("key") String key, @Part("messageId") long id, Callback<MessageVM> cb);
 
     @Multipart
-    @POST("/image/sendMessagePhoto") //a function in your api upload image for message
+    @POST("/image/upload-message-photo")
     public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
 
     //

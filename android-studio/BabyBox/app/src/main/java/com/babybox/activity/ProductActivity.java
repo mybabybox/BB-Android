@@ -210,7 +210,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 if(UserInfoCache.getUser().getId() == ownerId)
                     followButton.setVisibility(View.GONE);
 
-                isFollowing = post.isFollowdByUser();
+                isFollowing = post.isFollowingOwner();
 
                 if(isFollowing){
                     ViewUtil.selectFollowButtonStyle(followButton);
@@ -599,7 +599,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         ViewUtil.showSpinner(this);
 
         Log.d(this.getClass().getSimpleName(), "doComment: postId=" + postId + " comment=" + comment.substring(0, Math.min(5, comment.length())));
-        AppController.getApiService().newComment(new NewCommentVM(postId, comment, false), new Callback<ResponseStatusVM>() {
+        AppController.getApiService().newComment(new NewCommentVM(postId, comment), new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
                 getComments(postId);  // reload page

@@ -13,12 +13,11 @@ public class PostVM extends PostVMLite {
     public String categoryName;
     public String categoryIcon;
     public Long categoryId;
+    public boolean isFollowingOwner = false;
 
-
-    public boolean isFollowdByUser = false;
-    public boolean and = false;
+    public boolean mobile = false;
+    public boolean android = false;
     public boolean ios = false;
-    public boolean mob = false;
 
     public PostVM(CommunityPostVM post) {
         this.id = post.id;
@@ -30,7 +29,7 @@ public class PostVM extends PostVMLite {
         this.desc = post.pt;
         this.numComments = post.n_c;
         this.images = post.imgs;
-        this.type = post.type;
+        this.postType = post.type;
         this.categoryType = post.ctyp;
         this.categoryName = post.cn;
         this.categoryIcon = post.ci;
@@ -39,18 +38,18 @@ public class PostVM extends PostVMLite {
         this.numLikes = post.nol;
         this.isOwner = post.isO;
         this.isLiked = post.isLike;
-        this.and = post.and;
+        this.mobile = post.mob;
+        this.android = post.and;
         this.ios = post.ios;
-        this.mob = post.mob;
         this.price = ViewUtil.random(1, 500);
     }
 
-    public boolean isFollowdByUser() {
-        return isFollowdByUser;
+    public boolean isFollowingOwner() {
+        return isFollowingOwner;
     }
 
-    public void setFollowdByUser(boolean isFollowdByUser) {
-        this.isFollowdByUser = isFollowdByUser;
+    public void setFollowingOwner(boolean isFollowingOwner) {
+        this.isFollowingOwner = isFollowingOwner;
     }
 
     public Long getOwnerId() {
@@ -93,14 +92,6 @@ public class PostVM extends PostVMLite {
         this.desc = desc;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getCategoryType() {
         return categoryType;
     }
@@ -134,11 +125,11 @@ public class PostVM extends PostVMLite {
     }
 
     public boolean isAndroid() {
-        return and;
+        return android;
     }
 
-    public void setAndroid(boolean and) {
-        this.and = and;
+    public void setAndroid(boolean android) {
+        this.android = android;
     }
 
     public boolean isIOS() {
@@ -150,10 +141,10 @@ public class PostVM extends PostVMLite {
     }
 
     public boolean isMobile() {
-        return mob;
+        return mobile;
     }
 
-    public void setMobile(boolean mob) {
-        this.mob = mob;
+    public void setMobile(boolean mobile) {
+        this.mobile = mobile;
     }
 }

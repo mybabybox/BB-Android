@@ -251,7 +251,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected void doPost() {
         String title = titleEdit.getText().toString().trim();
         String desc = descEdit.getText().toString().trim();
-        String price = priceEdit.getText().toString().trim();
+        String priceValue = priceEdit.getText().toString().trim();
 
         if (StringUtils.isEmpty(title)) {
             Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_title_empty), Toast.LENGTH_SHORT).show();
@@ -263,8 +263,16 @@ public class NewPostActivity extends TrackedFragmentActivity {
             return;
         }
 
-        if (StringUtils.isEmpty(price)) {
+        if (StringUtils.isEmpty(priceValue)) {
             Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_price_empty), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Long price = 0L;
+        try {
+            price = Long.valueOf(priceValue);
+        } catch (NumberFormatException e) {
+            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_price_not_number), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -275,38 +283,29 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         ViewUtil.showSpinner(this);
 
-        Map<String, TypedFile> files = new HashMap<String, TypedFile>();
         List<TypedFile> typedFiles = new ArrayList<>();
-        final boolean withPhotos = photos.size() > 0;
+
         int i = 0;
         MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
         for (File photo : photos) {
             TypedFile typedFile = new TypedFile("application/octet-stream", photo);
             multipartTypedOutput.addPart("post-image"+i,typedFile);
             i++;
-            /*photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
-            TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-            typedFiles.add(typedFile);
-            files.put("dheevara"+i, typedFile);
-            i++;*/
         }
 
         multipartTypedOutput.addPart("title", new TypedString(title));
         multipartTypedOutput.addPart("catId", new TypedString(catId+""));
         multipartTypedOutput.addPart("desc", new TypedString(desc));
-        multipartTypedOutput.addPart("price", new TypedString(price));
+        multipartTypedOutput.addPart("price", new TypedString(priceValue));
 
-
-
-        System.out.println("dopost Succcesss:::::::"+typedFiles.size());
-
-        Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title);
-        AppController.getApiService().newPost(multipartTypedOutput,new NewPostVM(catId, title, desc, 0), new Callback<ResponseStatusVM>() {
+        Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + typedFiles.size());
+        NewPostVM newPost = new NewPostVM(catId, title, desc, price);
+        AppController.getApiService().newPost(multipartTypedOutput, newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
                 postSuccess = true;
                 complete();
-                System.out.println("dopost Succcesss:::::::");
+
                 /*if (withPhotos) {
                     uploadPhotos(responseStatus.getObjId());
                 } else {
@@ -317,7 +316,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
             @Override
             public void failure(RetrofitError error) {
                 error.printStackTrace();
-                System.out.println("do post :::::"+error.getUrl());
                 ViewUtil.stopSpinner(NewPostActivity.this);
                 Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_failed), Toast.LENGTH_SHORT).show();
                 Log.e(NewPostActivity.class.getSimpleName(), "doPost: failure", error);

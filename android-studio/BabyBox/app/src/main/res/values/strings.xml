@@ -12,7 +12,7 @@
     <string name="app_name">babybox</string>
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">1469031873403459</string>
-    <string name="base_url">http://192.168.1.140:9000</string>
+    <string name="base_url">http://192.168.1.106:9000</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>
@@ -255,6 +255,7 @@
     <string name="invalid_post_title_empty">請填寫標題</string>
     <string name="invalid_post_desc_empty">請填寫內容</string>
     <string name="invalid_post_price_empty">請填寫價格</string>
+    <string name="invalid_post_price_not_number">價格需為數字</string>
     <string name="invalid_comment_body_empty">請填寫內容</string>
 
     <!-- Image processing library -->

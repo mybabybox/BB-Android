@@ -50,9 +50,9 @@ public class MessageListFragment extends TrackedFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ConversationVM item = adapter.getItem(i);
                 Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
-                intent.putExtra("user_name",item.getNm());
-                intent.putExtra("uid",item.getUid());
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ID,item.getId());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_USER_NAME, item.getNm());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_USER_ID, item.getUid());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getId());
 
                 AppController.getInstance().setConversationId(item.getId());
                 startActivity(intent);

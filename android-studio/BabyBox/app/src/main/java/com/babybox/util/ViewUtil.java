@@ -72,7 +72,8 @@ public class ViewUtil {
 
     public static final String BUNDLE_KEY_LOGIN_KEY = "loginKey";
     public static final String BUNDLE_KEY_ID = "id";
-    public static final String BUNDLE_KEY_OWNER_ID = "ownerId";
+    public static final String BUNDLE_KEY_USER_ID = "userId";
+    public static final String BUNDLE_KEY_USER_NAME = "userName";
     public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
     public static final String BUNDLE_KEY_POST_ID = "postId";
     public static final String BUNDLE_KEY_SOURCE = "flag";
