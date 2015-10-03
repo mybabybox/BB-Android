@@ -45,10 +45,9 @@ public class MyImageGetter implements Html.ImageGetter{
     public Drawable getDrawable(String source) {
         LevelListDrawable d = new LevelListDrawable();
 
-        int emoticon = ImageMapping.map(source);
-        if (emoticon != -1) {
-            //Log.d(this.getClass().getSimpleName(), "getDrawable: replace source with emoticon - " + source);
-            Drawable emo = activity.getResources().getDrawable(emoticon);
+        int resId = ImageMapping.map(source);
+        if (resId != -1) {
+            Drawable emo = activity.getResources().getDrawable(resId);
             d.addLevel(0, 0, emo);
             d.setBounds(0, 0, emoticonWidth, emoticonHeight);
         } else {

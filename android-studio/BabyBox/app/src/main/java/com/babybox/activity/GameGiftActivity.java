@@ -167,10 +167,9 @@ public class GameGiftActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                int imageMapped = ImageMapping.map(gameGiftVM.getIm());
-                if (imageMapped != -1) {
-                    //Log.d(this.getClass().getSimpleName(), "getGameGift: replace source with local game gift image - " + imageMapped);
-                    gameGiftImage.setImageDrawable(getResources().getDrawable(imageMapped));
+                int resId = ImageMapping.map(gameGiftVM.getIm());
+                if (resId != -1) {
+                    gameGiftImage.setImageDrawable(getResources().getDrawable(resId));
                 } else {
                     Log.d(this.getClass().getSimpleName(), "getGameGift: load game gift image from background - " + gameGiftVM.getIm());
                     ImageUtil.displayImage(gameGiftVM.getIm(), gameGiftImage);

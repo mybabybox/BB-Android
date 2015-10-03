@@ -12,7 +12,6 @@ public class PostVMLite {
     public int numBuys;
     public int numComments;
     public int numViews;
-    public boolean isOwner = false;
     public boolean isLiked = false;
     public long offset;
 
@@ -110,14 +109,6 @@ public class PostVMLite {
 
     public void setNumLikes(int numLikes) {
         this.numLikes = numLikes;
-    }
-
-    public boolean isOwner() {
-        return isOwner;
-    }
-
-    public void setIsOwner(boolean isOwner) {
-        this.isOwner = isOwner;
     }
 
     public boolean isLiked() {

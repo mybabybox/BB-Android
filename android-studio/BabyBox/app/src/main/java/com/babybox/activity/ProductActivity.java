@@ -37,15 +37,12 @@ import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.adapter.CommentListAdapter;
-import com.babybox.adapter.EmoticonListAdapter;
 import com.babybox.app.AppController;
-import com.babybox.app.EmoticonCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
 import com.babybox.fragment.ProductImagePagerFragment;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.DefaultValues;
-import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.MessageUtil;
 import com.babybox.util.SharingUtil;
@@ -53,7 +50,6 @@ import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.view.AdaptiveViewPager;
 import com.babybox.viewmodel.CommentVM;
-import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
@@ -95,15 +91,13 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private ListView commentList;
 
-    private PopupWindow commentPopup, emoPopup;
+    private PopupWindow commentPopup;
     private Button followButton;
 
+    private PostVM post;
     private long postId;
     private long ownerId;
     private boolean isFollowing;
-
-    private List<EmoticonVM> emoticonVMList = new ArrayList<>();
-    private EmoticonListAdapter emoticonListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -199,22 +193,28 @@ public class ProductActivity extends TrackedFragmentActivity {
         getComments(postId);
     }
 
+    private void setPost(PostVM post) {
+        this.post = post;
+    }
+
     private void getProduct(final Long postId) {
         ViewUtil.showSpinner(this);
 
         AppController.getApiService().getPost(postId, new Callback<PostVM>() {
             @Override
             public void success(final PostVM post, Response response) {
+                setPost(post);
+
                 ownerId = post.getOwnerId();
 
-                if(UserInfoCache.getUser().getId() == ownerId)
+                if (UserInfoCache.getUser().getId() == ownerId)
                     followButton.setVisibility(View.GONE);
 
                 isFollowing = post.isFollowingOwner();
 
-                if(isFollowing){
+                if (isFollowing) {
                     ViewUtil.selectFollowButtonStyle(followButton);
-                }else{
+                } else {
                     ViewUtil.unselectFollowButtonStyle(followButton);
                 }
 
@@ -228,7 +228,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // details
                 ViewUtil.setHtmlText(post.getTitle(), titleText, ProductActivity.this, true);
-                ViewUtil.setHtmlText(post.getDesc(), descText, ProductActivity.this, true, true);
+                ViewUtil.setHtmlText(post.getBody(), descText, ProductActivity.this, true, true);
                 catNameText.setText(post.getCategoryName());
                 priceText.setText(ViewUtil.priceFormat(post.getPrice()));
                 timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));
@@ -376,7 +376,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 }, DefaultValues.DEFAULT_HANDLER_DELAY);
 
-                Log.e(ProductActivity.class.getSimpleName(), "getQnaDetail: failure", error);
+                Log.e(ProductActivity.class.getSimpleName(), "getPost: failure", error);
             }
         });
     }
@@ -570,14 +570,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                ImageView commentEmoImage = (ImageView) layout.findViewById(R.id.emoImage);
-                commentEmoImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        initEmoticonPopup();
-                    }
-                });
-
                 ImageView commentBrowseImage = (ImageView) layout.findViewById(R.id.browseImage);
                 commentBrowseImage.setVisibility(View.GONE);
             }
@@ -602,6 +594,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         AppController.getApiService().newComment(new NewCommentVM(postId, comment), new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
+                numCommentsText.setText((post.getNumComments()+1) + " " + getString(R.string.comments));
                 getComments(postId);  // reload page
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_success), Toast.LENGTH_LONG).show();
                 reset();
@@ -609,61 +602,11 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(ProductActivity.this.getClass().getSimpleName(), "doComment.api.answerOnQuestion: failed with error", error);
+                Log.e(ProductActivity.this.getClass().getSimpleName(), "doComment.api.newComment: failed with error", error);
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_failed), Toast.LENGTH_SHORT).show();
                 reset();
             }
         });
-    }
-
-    private void initEmoticonPopup() {
-        mainLayout.getForeground().setAlpha(20);
-        mainLayout.getForeground().setColorFilter(R.color.light_gray, PorterDuff.Mode.OVERLAY);
-
-        try {
-            //We need to get the instance of the LayoutInflater, use the context of this activity
-            LayoutInflater inflater = (LayoutInflater) ProductActivity.this
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            //Inflate the view from a predefined XML layout
-            View layout = inflater.inflate(R.layout.emoticon_popup_window,
-                    (ViewGroup) findViewById(R.id.popupElement));
-
-            // hide soft keyboard when select emoticon
-            ViewUtil.hideInputMethodWindow(this, layout);
-
-            if (emoPopup == null) {
-                emoPopup = new PopupWindow(layout,
-                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH),
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        true);
-            }
-
-            emoPopup.setBackgroundDrawable(new BitmapDrawable(getResources(), ""));
-            emoPopup.setOutsideTouchable(false);
-            emoPopup.setFocusable(true);
-            emoPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-            if (emoticonVMList.isEmpty()) {
-                emoticonVMList = EmoticonCache.getEmoticons();
-            }
-            emoticonListAdapter = new EmoticonListAdapter(this,emoticonVMList);
-
-            GridView gridView = (GridView) layout.findViewById(R.id.emoGrid);
-            gridView.setAdapter(emoticonListAdapter);
-
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    ImageMapping.insertEmoticon(emoticonVMList.get(i), commentEditText);
-                    emoPopup.dismiss();
-                    emoPopup = null;
-                    ViewUtil.popupInputMethodWindow(ProductActivity.this);
-                }
-            });
-        } catch (Exception e) {
-            Log.e(this.getClass().getSimpleName(), "initEmoticonPopup: failure", e);
-        }
     }
 
     private void deletePost(Long id) {
@@ -686,10 +629,6 @@ public class ProductActivity extends TrackedFragmentActivity {
         if (commentPopup != null) {
             commentPopup.dismiss();
             commentPopup = null;
-        }
-        if (emoPopup != null) {
-            emoPopup.dismiss();
-            emoPopup = null;
         }
     }
 

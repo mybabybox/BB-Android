@@ -53,10 +53,9 @@ public class EmoticonListAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.emoticon_grid_item, null);
 
         imageView = (ImageView) view.findViewById(R.id.emoImage);
-        int iconMapped = ImageMapping.map(emoticonVMList.get(i).getUrl());
-        if (iconMapped != -1) {
-            //Log.d(this.getClass().getSimpleName(), "getQnaDetail: replace source with local comm icon - " + commIcon);
-            imageView.setImageDrawable(activity.getResources().getDrawable(iconMapped));
+        int resId = ImageMapping.map(emoticonVMList.get(i).getUrl());
+        if (resId != -1) {
+            imageView.setImageDrawable(activity.getResources().getDrawable(resId));
         } else {
             Log.d(this.getClass().getSimpleName(), "getView: load emoticon from background - " + emoticonVMList.get(i).getUrl());
             ImageUtil.displayImage(emoticonVMList.get(i).getUrl(), imageView);

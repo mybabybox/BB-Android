@@ -18,6 +18,7 @@ import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageMapping;
+import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.SharingUtil;
 import com.babybox.util.UrlUtil;
@@ -274,16 +275,15 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     }
 
     private void setCategory(Long catId) {
-        category = null;
-        for (CategoryVM cat : CategoryCache.getCategories()) {
-            if (cat.getId().equals(catId)) {
-                Log.d(this.getClass().getSimpleName(), "onCreateView: set currentCategory [catId=" + catId + "] [category=" + cat.name + "|" + cat.getId() + "]");
-                category = cat;
-                catNameText.setText(category.name);
-                catDescText.setText(category.description);
-                catImage.setImageDrawable(getResources().getDrawable(ImageMapping.map(category.icon)));
-                break;
-            }
+        category = CategoryCache.getCategory(catId);
+        catNameText.setText(category.name);
+        catDescText.setText(category.description);
+        int resId = ImageMapping.map(category.getIcon());
+        if (resId != -1) {
+            catImage.setImageDrawable(getResources().getDrawable(resId));
+        } else {
+            Log.d(this.getClass().getSimpleName(), "initLayout: cat=" + category.getName() + " load image from background - " + category.getIcon());
+            ImageUtil.displayImage(category.getIcon(), catImage);
         }
     }
 

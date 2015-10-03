@@ -8,11 +8,13 @@ public class PostVM extends PostVMLite {
     public String postedBy;
     public long createdDate;
     public long updatedDate;
-    public String desc;
+    public String body;
     public String categoryType;
     public String categoryName;
     public String categoryIcon;
     public Long categoryId;
+
+    public boolean isOwner = false;
     public boolean isFollowingOwner = false;
 
     public boolean mobile = false;
@@ -26,7 +28,7 @@ public class PostVM extends PostVMLite {
         this.createdDate = post.t;
         this.updatedDate = post.ut;
         this.title = post.ptl;
-        this.desc = post.pt;
+        this.body = post.pt;
         this.numComments = post.n_c;
         this.images = post.imgs;
         this.postType = post.type;
@@ -42,14 +44,6 @@ public class PostVM extends PostVMLite {
         this.android = post.and;
         this.ios = post.ios;
         this.price = ViewUtil.random(1, 500);
-    }
-
-    public boolean isFollowingOwner() {
-        return isFollowingOwner;
-    }
-
-    public void setFollowingOwner(boolean isFollowingOwner) {
-        this.isFollowingOwner = isFollowingOwner;
     }
 
     public Long getOwnerId() {
@@ -84,12 +78,12 @@ public class PostVM extends PostVMLite {
         this.updatedDate = updatedDate;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getBody() {
+        return body;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public String getCategoryType() {
@@ -122,6 +116,22 @@ public class PostVM extends PostVMLite {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public boolean isOwner() {
+        return isOwner;
+    }
+
+    public void setIsOwner(boolean isOwner) {
+        this.isOwner = isOwner;
+    }
+
+    public boolean isFollowingOwner() {
+        return isFollowingOwner;
+    }
+
+    public void setFollowingOwner(boolean isFollowingOwner) {
+        this.isFollowingOwner = isFollowingOwner;
     }
 
     public boolean isAndroid() {

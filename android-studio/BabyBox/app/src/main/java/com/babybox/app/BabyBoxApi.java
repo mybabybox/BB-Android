@@ -147,9 +147,8 @@ public interface BabyBoxApi {
     @GET("/post/{id}")
     public void getPost(@Path("id") Long id, @Query("key") String key, Callback<PostVM> callback);
 
-    //@Multipart
     @POST("/mobile/post/new")
-    public void newPost(@Body MultipartTypedOutput attachments/*,@Part("asd") NewPostVM newPost*/, @Query("key") String key, Callback<ResponseStatusVM> cb);
+    public void newPost(@Body MultipartTypedOutput attachments /*,@Part("asd") NewPostVM newPost*/, @Query("key") String key, Callback<ResponseStatusVM> cb);
 
     @GET("/post/delete/{id}")
     public void deletePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);

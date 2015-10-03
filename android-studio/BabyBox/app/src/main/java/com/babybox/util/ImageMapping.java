@@ -28,10 +28,10 @@ public class ImageMapping {
         imageMap.put("/assets/app/images/category/cat_clothes.png", R.drawable.cat_clothes);
         imageMap.put("/assets/app/images/category/cat_food.png", R.drawable.cat_food);
         imageMap.put("/assets/app/images/category/cat_home.png", R.drawable.cat_home);
-        //imageMap.put("/assets/app/images/category/cat_other.png", R.drawable.cat_other);
-        //imageMap.put("/assets/app/images/category/cat_preg.png", R.drawable.cat_preg);
-        //imageMap.put("/assets/app/images/category/cat_toys.png", R.drawable.cat_toys);
-        //imageMap.put("/assets/app/images/category/cat_utils.png", R.drawable.cat_utils);
+        imageMap.put("/assets/app/images/category/cat_other.png", R.drawable.cat_other);
+        imageMap.put("/assets/app/images/category/cat_preg.png", R.drawable.cat_preg);
+        imageMap.put("/assets/app/images/category/cat_toys.png", R.drawable.cat_toys);
+        imageMap.put("/assets/app/images/category/cat_utils.png", R.drawable.cat_utils);
 
         // Emoticons
         imageMap.put("/assets/app/images/emoticons/angel.png", R.drawable.emo_angel);

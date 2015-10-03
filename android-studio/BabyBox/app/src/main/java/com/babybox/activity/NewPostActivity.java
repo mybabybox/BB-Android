@@ -44,9 +44,7 @@ import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -250,7 +248,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     protected void doPost() {
         String title = titleEdit.getText().toString().trim();
-        String desc = descEdit.getText().toString().trim();
+        String body = descEdit.getText().toString().trim();
         String priceValue = priceEdit.getText().toString().trim();
 
         if (StringUtils.isEmpty(title)) {
@@ -258,7 +256,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             return;
         }
 
-        if (StringUtils.isEmpty(desc)) {
+        if (StringUtils.isEmpty(body)) {
             Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -295,11 +293,11 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         multipartTypedOutput.addPart("title", new TypedString(title));
         multipartTypedOutput.addPart("catId", new TypedString(catId+""));
-        multipartTypedOutput.addPart("desc", new TypedString(desc));
+        multipartTypedOutput.addPart("body", new TypedString(body));
         multipartTypedOutput.addPart("price", new TypedString(priceValue));
 
         Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + typedFiles.size());
-        NewPostVM newPost = new NewPostVM(catId, title, desc, price);
+        NewPostVM newPost = new NewPostVM(catId, title, body, price);
         AppController.getApiService().newPost(multipartTypedOutput, newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
@@ -385,12 +383,12 @@ public class NewPostActivity extends TrackedFragmentActivity {
                     catId = category.getId();
 
                     catName.setText(category.getName());
-                    int iconMapped = ImageMapping.map(category.getIcon());
-                    if (iconMapped != -1) {
-                        catIcon.setImageDrawable(getResources().getDrawable(iconMapped));
+                    int resId = ImageMapping.map(category.getIcon());
+                    if (resId != -1) {
+                        catIcon.setImageDrawable(getResources().getDrawable(resId));
                     } else {
                         Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
-                        ImageUtil.displayCircleImage(category.getIcon(), catIcon);
+                        ImageUtil.displayImage(category.getIcon(), catIcon);
                     }
 
                     updateSelectCatLayout();

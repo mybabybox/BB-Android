@@ -171,7 +171,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
         photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
         TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-        AppController.getMockApi().uploadCoverPhoto(typedFile, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getApiService().uploadCoverPhoto(typedFile, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 new Handler().postDelayed(new Runnable() {

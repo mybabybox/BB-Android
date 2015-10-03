@@ -136,8 +136,8 @@ public class BabyBoxService {
         api.getPost(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void newPost(MultipartTypedOutput attachments,NewPostVM post, Callback<ResponseStatusVM> cb) {
-        api.newPost(attachments,/*post,*/AppController.getInstance().getSessionId(), cb);
+    public void newPost(MultipartTypedOutput attachments, NewPostVM post, Callback<ResponseStatusVM> cb) {
+        api.newPost(attachments, AppController.getInstance().getSessionId(), cb);
     }
 
     public void deletePost(Long id, Callback<Response> cb) {

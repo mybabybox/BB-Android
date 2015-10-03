@@ -57,6 +57,15 @@ public class CategoryCache {
         return categories;
     }
 
+    public static CategoryVM getCategory(Long id) {
+        for (CategoryVM cat : CategoryCache.getCategories()) {
+            if (cat.getId().equals(id)) {
+                return cat;
+            }
+        }
+        return null;
+    }
+
     public static void clear() {
         SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.CATEGORIES);
     }

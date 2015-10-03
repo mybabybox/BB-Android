@@ -76,10 +76,9 @@ public class GameGiftListAdapter extends BaseAdapter {
 
         final GameGiftVM item = items.get(position);
 
-        int imageMapped = ImageMapping.map(item.getImt());
-        if (imageMapped != -1) {
-            //Log.d(this.getClass().getSimpleName(), "getView: replace source with local game gift image - " + imageMapped);
-            gameGiftImage.setImageDrawable(activity.getResources().getDrawable(imageMapped));
+        int resId = ImageMapping.map(item.getImt());
+        if (resId != -1) {
+            gameGiftImage.setImageDrawable(activity.getResources().getDrawable(resId));
         } else {
             Log.d(this.getClass().getSimpleName(), "getView: load game gift image from background - " + item.getImt());
             ImageUtil.displayImage(item.getImt(), gameGiftImage);
