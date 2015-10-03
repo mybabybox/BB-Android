@@ -9,6 +9,7 @@ import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
+import com.babybox.viewmodel.UserProfileDataVM;
 import com.babybox.viewmodel.UserVM;
 import com.babybox.viewmodel.UserVMLite;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.client.Response;
 import retrofit.mime.MultipartTypedOutput;
+import retrofit.mime.TypedFile;
 
 public class BabyBoxService {
 
@@ -67,7 +69,7 @@ public class BabyBoxService {
     }
 
     public void getAllProducts(Callback<List<PostVMLite>> cb){
-        api.getAllProducts(AppController.getInstance().getSessionId(),cb);
+        api.getAllProducts(AppController.getInstance().getSessionId(), cb);
     }
 
     // home feeds
@@ -171,6 +173,18 @@ public class BabyBoxService {
     }
 
     // user profile
+
+    public void uploadCoverPhoto(TypedFile photo, Callback<Response> cb) {
+        api.uploadCoverPhoto(photo, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void uploadProfilePhoto(TypedFile photo, Callback<Response> cb) {
+        api.uploadProfilePhoto(photo, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void updateUserProfileData(UserProfileDataVM userProfileDataVM, Callback<UserVM> cb) {
+        api.updateUserProfileData(userProfileDataVM, AppController.getInstance().getSessionId(), cb);
+    }
 
     public void getCollections(Long userId, Callback<List<CollectionVM>> cb) {
         api.getCollections(userId, AppController.getInstance().getSessionId(), cb);

@@ -23,51 +23,15 @@ public class ImageMapping {
     static {
         imageMap = new HashMap<>();
 
-        imageMap.put("/assets/app/images/general/icons/community/rainbow.png", R.drawable.cat_toys);
-        imageMap.put("/assets/app/images/general/icons/community/stroller.png", R.drawable.cat_books);
-        imageMap.put("/assets/app/images/general/icons/community/beans.png", R.drawable.cat_other);
-        imageMap.put("/assets/app/images/general/icons/community/grad_hat.png", R.drawable.cat_beauty);
-        imageMap.put("/assets/app/images/general/icons/community/shirt.png", R.drawable.cat_clothes);
-        imageMap.put("/assets/app/images/general/icons/zodiac/snake.png", R.drawable.cat_preg);
-        imageMap.put("/assets/app/images/general/icons/zodiac/goat.png", R.drawable.cat_preg);
-        imageMap.put("/assets/app/images/general/icons/zodiac/horse.png", R.drawable.cat_preg);
-        imageMap.put("/assets/app/images/general/icons/zodiac/dragon.png", R.drawable.cat_preg);
-        imageMap.put("/assets/app/images/general/icons/community/mom.png", R.drawable.cat_books);
-
-        // Community icons
-        imageMap.put("/assets/app/images/general/icons/community/ball.png", R.drawable.ci_ball);
-        imageMap.put("/assets/app/images/general/icons/community/balloons.png", R.drawable.ci_balloons);
-        imageMap.put("/assets/app/images/general/icons/community/bath.png", R.drawable.ci_bath);
-        imageMap.put("/assets/app/images/general/icons/community/bed.png", R.drawable.ci_bed);
-        imageMap.put("/assets/app/images/general/icons/community/book.png", R.drawable.ci_book);
-        imageMap.put("/assets/app/images/general/icons/community/bottle.png", R.drawable.ci_bottle);
-        imageMap.put("/assets/app/images/general/icons/community/boy.png", R.drawable.ci_boy);
-        imageMap.put("/assets/app/images/general/icons/community/camera.png", R.drawable.ci_camera);
-        imageMap.put("/assets/app/images/general/icons/community/cat.png", R.drawable.ci_cat);
-        imageMap.put("/assets/app/images/general/icons/community/cloud.png", R.drawable.ci_cloud);
-        imageMap.put("/assets/app/images/general/icons/community/dad.png", R.drawable.ci_dad);
-        imageMap.put("/assets/app/images/general/icons/community/feedback.png", R.drawable.ci_feedback);
-        imageMap.put("/assets/app/images/general/icons/community/gift_box.png", R.drawable.ci_gift_box);
-        imageMap.put("/assets/app/images/general/icons/community/girl.png", R.drawable.ci_girl);
-        //imageMap.put("/assets/app/images/general/icons/community/grad_hat.png", R.drawable.ci_grad_hat);
-        imageMap.put("/assets/app/images/general/icons/community/helmet.png", R.drawable.ci_helmet);
-        imageMap.put("/assets/app/images/general/icons/community/home.png", R.drawable.ci_home);
-        imageMap.put("/assets/app/images/general/icons/community/icecream.png", R.drawable.ci_icecream);
-        imageMap.put("/assets/app/images/general/icons/community/loc_area.png", R.drawable.ci_loc_area);
-        imageMap.put("/assets/app/images/general/icons/community/loc_city.png", R.drawable.ci_loc_city);
-        imageMap.put("/assets/app/images/general/icons/community/loc_district.png", R.drawable.ci_loc_district);
-        //imageMap.put("/assets/app/images/general/icons/community/mom.png", R.drawable.ci_mom);
-        imageMap.put("/assets/app/images/general/icons/community/music_note.png", R.drawable.ci_music_note);
-        imageMap.put("/assets/app/images/general/icons/community/palette.png", R.drawable.ci_palette);
-        imageMap.put("/assets/app/images/general/icons/community/plane.png", R.drawable.ci_plane);
-        //imageMap.put("/assets/app/images/general/icons/community/rainbow.png", R.drawable.ci_rainbow);
-        //imageMap.put("/assets/app/images/general/icons/community/shirt.png", R.drawable.ci_shirt);
-        imageMap.put("/assets/app/images/general/icons/community/shopping_bag.png", R.drawable.ci_shopping_bag);
-        imageMap.put("/assets/app/images/general/icons/community/spoon_fork.png", R.drawable.ci_spoon_fork);
-        imageMap.put("/assets/app/images/general/icons/community/sports.png", R.drawable.ci_sports);
-        //imageMap.put("/assets/app/images/general/icons/community/stroller.png", R.drawable.ci_stroller);
-        imageMap.put("/assets/app/images/general/icons/community/sun.png", R.drawable.ci_sun);
-        imageMap.put("/assets/app/images/general/icons/community/teddy.png", R.drawable.ci_teddy);
+        imageMap.put("/assets/app/images/category/cat_beauty.png", R.drawable.cat_beauty);
+        imageMap.put("/assets/app/images/category/cat_books.png", R.drawable.cat_books);
+        imageMap.put("/assets/app/images/category/cat_clothes.png", R.drawable.cat_clothes);
+        imageMap.put("/assets/app/images/category/cat_food.png", R.drawable.cat_food);
+        imageMap.put("/assets/app/images/category/cat_home.png", R.drawable.cat_home);
+        //imageMap.put("/assets/app/images/category/cat_other.png", R.drawable.cat_other);
+        //imageMap.put("/assets/app/images/category/cat_preg.png", R.drawable.cat_preg);
+        //imageMap.put("/assets/app/images/category/cat_toys.png", R.drawable.cat_toys);
+        //imageMap.put("/assets/app/images/category/cat_utils.png", R.drawable.cat_utils);
 
         // Emoticons
         imageMap.put("/assets/app/images/emoticons/angel.png", R.drawable.emo_angel);

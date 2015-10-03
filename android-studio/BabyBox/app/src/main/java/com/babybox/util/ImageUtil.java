@@ -45,17 +45,14 @@ public class ImageUtil {
 
     public static final int IMAGE_COMPRESS_QUALITY = 85;
 
-    public static final String COMMUNITY_COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-cover-community-image-by-id/";
-    public static final String THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-cover-community-image-by-id/";
     public static final String COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-cover-image-by-id/";
     public static final String THUMBNAIL_COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-cover-image-by-id/";
     public static final String PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-profile-image-by-id/";
-    public static final String THUMBNAIL_PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-image-by-id/";
+    public static final String THUMBNAIL_PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-profile-image-by-id/";
     public static final String POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-post-image-by-id/";
     public static final String ORIGINAL_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-original-post-image-by-id/";
-    //public static final String COMMENT_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-comment-image-by-id/";
     public static final String MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-message-image-by-id/";
-    public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-original-private-image-by-id/";
+    public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-original-message-image-by-id/";
 
     private static ImageCircleTransform circleTransform =
             new ImageCircleTransform(AppController.getInstance());
@@ -111,28 +108,6 @@ public class ImageUtil {
                 }
             }
         }
-    }
-
-    // Community cover image
-
-    public static void displayCommunityCoverImage(long id, ImageView imageView) {
-        //Log.d(ImageUtil.class.getSimpleName(), "displayCommunityCoverImage: loading "+COMMUNITY_COVER_IMAGE_BY_ID_URL + id);
-        displayImage(COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView);
-    }
-
-    public static void displayCommunityCoverImage(long id, ImageView imageView, RequestListener listener) {
-        //Log.d(ImageUtil.class.getSimpleName(), "displayCommunityCoverImage: loading "+COMMUNITY_COVER_IMAGE_BY_ID_URL + id);
-        displayImage(COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView, listener);
-    }
-
-    public static void displayThumbnailCommunityCoverImage(long id, ImageView imageView) {
-        //Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailCommunityCoverImage: loading " + THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL + id);
-        displayImage(THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView);
-    }
-
-    public static void displayThumbnailCommunityCoverImage(long id, ImageView imageView, RequestListener listener) {
-        //Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailCommunityCoverImage: loading " + THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL + id);
-        displayImage(THUMBNAIL_COMMUNITY_COVER_IMAGE_BY_ID_URL + id, imageView, listener);
     }
 
     // Cover image

@@ -43,7 +43,6 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
     protected String selectedImagePath = null;
     protected Uri selectedImageUri = null;
     protected boolean coverImageClicked = false, profileImageClicked = false;
-    protected boolean hasProfileImage = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -158,7 +157,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         followersText.setText(ViewUtil.followersFormat(user.numFollowers));
         followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
 
-        productsButton.setText(ViewUtil.productsTabFormat(user.numPosts));
+        productsButton.setText(ViewUtil.productsTabFormat(user.numProducts));
         likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
     }
 
@@ -211,17 +210,9 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
         photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
         TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-        AppController.getMockApi().uploadProfilePhoto(typedFile, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        AppController.getApiService().uploadProfilePhoto(typedFile, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
-                if (!hasProfileImage) {
-                    hasProfileImage = true;
-                    tipsLayout.setVisibility(View.GONE);
-                    ViewUtil.alertGameStatus(getActivity(),
-                            getActivity().getString(R.string.game_upload_profile_pic_title),
-                            GameConstants.POINTS_UPLOAD_PROFILE_PHOTO);
-                }
-
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         ImageUtil.displayProfileImage(id, profileImage, new RequestListener<String, GlideBitmapDrawable>() {

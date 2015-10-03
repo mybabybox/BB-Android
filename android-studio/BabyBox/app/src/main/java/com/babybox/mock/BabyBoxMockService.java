@@ -36,9 +36,9 @@ public class BabyBoxMockService extends BabyBoxService {
         api.getUserInfo(access_token, new Callback<UserVM>() {
             @Override
             public void success(UserVM user, Response response) {
-                user.numPosts = user.getQuestionsCount();
-                user.numSold = user.getAnswersCount();
-                user.numLikes = user.getAnswersCount();
+                user.numProducts = 0L;
+                user.numStories = 0L;
+                user.numLikes = 0L;
 
                 user.isFollowing = false;
                 user.numFollowers = 0L;

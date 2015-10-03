@@ -3,7 +3,6 @@ package com.babybox.viewmodel;
 import com.babybox.mock.ProfileVM;
 
 public class UserVM extends UserVMLite {
-    public long createdDate;
     public String email;
     public String aboutMe;
     public String firstName;
@@ -13,6 +12,7 @@ public class UserVM extends UserVMLite {
     public LocationVM location;
 
     // admin readyonly fields
+    public long createdDate;
     public String lastLogin;
     public Long totalLogin;
     public boolean isLoggedIn = false;
@@ -20,15 +20,6 @@ public class UserVM extends UserVMLite {
     public boolean emailValidated = false;
     public boolean newUser = false;
     public boolean isAdmin = false;
-
-    // obsolete
-    public boolean isSA = false;
-    public boolean isBA = false;
-    public boolean isCA = false;
-    public boolean isE = false;
-    public Long questionsCount;
-    public Long answersCount;
-    public boolean enableSignInForToday = false;
 
     public UserVM(ProfileVM profile) {
         this.id = profile.id;
@@ -41,8 +32,8 @@ public class UserVM extends UserVMLite {
         //this.createdDate = profile.sd;
         this.lastLogin = profile.ll;
         this.totalLogin = profile.tl;
-        this.numPosts = profile.qc;
-        this.numSold = profile.ac;
+        this.numProducts = profile.qc;
+        this.numStories = profile.qc;
         this.numLikes = profile.ac;
 
         this.isFollowing = profile.following;
@@ -170,64 +161,6 @@ public class UserVM extends UserVMLite {
         this.isAdmin = isAdmin;
     }
 
-    // obsolete
-
-    public boolean isSA() {
-        return isSA;
-    }
-
-    public void setIsSA(boolean isSA) {
-        this.isSA = isSA;
-    }
-
-    public boolean isBA() {
-        return isBA;
-    }
-
-    public void setIsBA(boolean isBA) {
-        this.isBA = isBA;
-    }
-
-    public boolean isCA() {
-        return isCA;
-    }
-
-    public void setIsCA(boolean isCA) {
-        this.isCA = isCA;
-    }
-
-    public boolean isE() {
-        return isE;
-    }
-
-    public void setIsE(boolean isE) {
-        this.isE = isE;
-    }
-
-    public Long getQuestionsCount() {
-        return questionsCount;
-    }
-
-    public void setQuestionsCount(Long questionsCount) {
-        this.questionsCount = questionsCount;
-    }
-
-    public Long getAnswersCount() {
-        return answersCount;
-    }
-
-    public void setAnswersCount(Long answersCount) {
-        this.answersCount = answersCount;
-    }
-
-    public boolean isEnableSignInForToday() {
-        return enableSignInForToday;
-    }
-
-    public void setEnableSignInForToday(boolean enableSignInForToday) {
-        this.enableSignInForToday = enableSignInForToday;
-    }
-
     @Override
     public String toString() {
         return "id=" + id + "\n" +
@@ -239,8 +172,8 @@ public class UserVM extends UserVMLite {
                 "totalLogin=" + totalLogin + "\n" +
                 "numFollowers=" + numFollowers + "\n" +
                 "numFollowings=" + numFollowings + "\n" +
-                "numPosts=" + numPosts + "\n" +
-                "numSold=" + numSold;
+                "numProducts=" + numProducts + "\n" +
+                "numStories=" + numStories;
     }
 }
 

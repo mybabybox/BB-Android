@@ -134,7 +134,7 @@ public class GameActivity extends TrackedFragmentActivity {
                     @Override
                     public void onClick(View v) {
                         if (!signedIn) {
-                            signInForToday();
+
                         }
                     }
                 });
@@ -166,38 +166,6 @@ public class GameActivity extends TrackedFragmentActivity {
             public void failure(RetrofitError error) {
                 Log.e(GameActivity.class.getSimpleName(), "getGameAccount: failure", error);
                 ViewUtil.stopSpinner(GameActivity.this);
-            }
-        });
-    }
-
-    private void signInForToday() {
-        AppController.getMockApi().signInForToday(AppController.getInstance().getSessionId(), new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response1) {
-                signInImage.setImageDrawable(getResources().getDrawable(R.drawable.game_signed_in));
-                UserInfoCache.getUser().setEnableSignInForToday(false);
-                signedIn = true;
-
-                // update cache
-                UserInfoCache.getGameAccount().setGmpt(
-                        UserInfoCache.getGameAccount().getGmpt() + GameConstants.POINTS_DAILY_SIGNIN
-                );
-
-                // alert
-                final Dialog dialog = ViewUtil.alertGameStatus(GameActivity.this,
-                        getString(R.string.game_daily_signin_title), GameConstants.POINTS_DAILY_SIGNIN);
-
-                // refresh parent activity
-                Intent intent = new Intent();
-                intent.putExtra(ViewUtil.INTENT_VALUE_REFRESH, true);
-                setResult(RESULT_OK, intent);
-
-                refresh();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(GameActivity.class.getSimpleName(), "signIn: failure", error);
             }
         });
     }

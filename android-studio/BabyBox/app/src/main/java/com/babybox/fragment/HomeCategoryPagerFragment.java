@@ -1,6 +1,7 @@
 package com.babybox.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.TrackedFragment;
 import com.babybox.util.ImageMapping;
+import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 
@@ -60,6 +62,9 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
                 int resId = ImageMapping.map(category.getIcon());
                 if (resId != -1) {
                     image.setImageDrawable(getActivity().getResources().getDrawable(resId));
+                } else {
+                    Log.d(this.getClass().getSimpleName(), "initLayout: cat=" + category.getName() + " load image from background - " + category.getIcon());
+                    ImageUtil.displayImage(category.getIcon(), image);
                 }
 
                 catLayout.setOnClickListener(new View.OnClickListener() {

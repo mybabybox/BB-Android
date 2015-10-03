@@ -104,8 +104,6 @@ public class SplashActivity extends TrackedFragmentActivity {
             public void failure(RetrofitError error) {
                 AppController.getInstance().clearPreferences();
 
-                System.out.println("user info cache::::"+error.getResponse().getUrl());
-
                 if (RetrofitError.Kind.NETWORK.equals(error.getKind().name()) ||
                         RetrofitError.Kind.HTTP.equals(error.getKind().name())) {
                     showNetworkProblemAlert();

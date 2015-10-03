@@ -607,6 +607,10 @@ public class ViewUtil {
     //
 
     public static String getResponseBody(retrofit.client.Response response) {
+        if (response == null || response.getBody() == null) {
+            return "";
+        }
+
         BufferedReader reader = null;
         StringBuilder sb = new StringBuilder();
         try {

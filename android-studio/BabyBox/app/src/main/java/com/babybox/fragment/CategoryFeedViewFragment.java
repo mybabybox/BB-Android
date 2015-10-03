@@ -280,7 +280,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
                 Log.d(this.getClass().getSimpleName(), "onCreateView: set currentCategory [catId=" + catId + "] [category=" + cat.name + "|" + cat.getId() + "]");
                 category = cat;
                 catNameText.setText(category.name);
-                catDescText.setText(category.desc);
+                catDescText.setText(category.description);
                 catImage.setImageDrawable(getResources().getDrawable(ImageMapping.map(category.icon)));
                 break;
             }

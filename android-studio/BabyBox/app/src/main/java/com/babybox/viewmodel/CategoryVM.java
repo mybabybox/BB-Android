@@ -7,9 +7,8 @@ public class CategoryVM {
     public Long id;
     public String icon;
     public String name;
-    public String desc;
-    public Boolean system;
-    public String type;
+    public String description;
+    public String categoryType;
     public int seq;
 
     // TEMP - for api testing
@@ -17,9 +16,8 @@ public class CategoryVM {
         this.id = comm.id;
         this.icon = comm.gi;
         this.name = comm.dn;
-        this.desc = comm.msg;
-        this.system = comm.sys;
-        this.type = comm.tp;
+        this.description = comm.msg;
+        this.categoryType = comm.tp;
     }
 
     // TEMP - for api testing
@@ -27,9 +25,8 @@ public class CategoryVM {
         this.id = comm.id;
         this.icon = comm.icon;
         this.name = comm.n;
-        this.desc = comm.d;
-        this.system = comm.sys;
-        this.type = "";
+        this.description = comm.d;
+        this.categoryType = "";
     }
 
     public Long getId() {
@@ -56,28 +53,20 @@ public class CategoryVM {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Boolean isSystem() {
-        return system;
+    public String getCategoryType() {
+        return categoryType;
     }
 
-    public void setSystem(Boolean system) {
-        this.system = system;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
+    public void setCategoryType(String categoryType) {
+        this.categoryType = categoryType;
     }
 
     public int getSeq() {

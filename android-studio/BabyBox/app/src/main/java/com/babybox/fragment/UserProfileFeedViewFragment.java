@@ -182,7 +182,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     }
                 });
 
-                productsButton.setText(ViewUtil.productsTabFormat(user.numPosts));
+                productsButton.setText(ViewUtil.productsTabFormat(user.numProducts));
                 likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
 
                 // admin only

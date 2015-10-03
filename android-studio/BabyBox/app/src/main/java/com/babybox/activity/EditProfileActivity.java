@@ -150,7 +150,11 @@ public class EditProfileActivity extends TrackedFragmentActivity {
         locationSpinner.setAdapter(locationAdapter);
 
         // set previous value
-        pos = locationAdapter.getPosition(AppController.getUserLocation().getDisplayName());
+        if (AppController.getUserLocation() == null) {
+            pos = 0;
+        } else {
+            pos = locationAdapter.getPosition(AppController.getUserLocation().getDisplayName());
+        }
         locationSpinner.setSelection(pos);
     }
 
@@ -169,7 +173,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
 
     private void updateUserProfileData(UserProfileDataVM userProfileDataVM){
         ViewUtil.showSpinner(this);
-        AppController.getMockApi().updateUserProfileData(userProfileDataVM, AppController.getInstance().getSessionId(), new Callback<UserVM>() {
+        AppController.getApiService().updateUserProfileData(userProfileDataVM, new Callback<UserVM>() {
             @Override
             public void success(UserVM userVM, Response response) {
                 UserInfoCache.refresh(new Callback<UserVM>() {
