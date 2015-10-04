@@ -62,6 +62,14 @@ import retrofit.client.OkClient;
         logcatFilterByPid = true)
 public class AppController extends Application {
 
+    public enum DeviceType {
+        NA,
+        ANDROID,
+        IOS,
+        WEB,
+        WAP
+    }
+
     public static final String TAG = AppController.class.getSimpleName();
     public static String BASE_URL;
 

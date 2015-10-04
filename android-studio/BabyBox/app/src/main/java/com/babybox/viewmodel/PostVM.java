@@ -5,7 +5,7 @@ import com.babybox.util.ViewUtil;
 
 public class PostVM extends PostVMLite {
     public Long ownerId;
-    public String postedBy;
+    public String ownerName;
     public long createdDate;
     public long updatedDate;
     public String body;
@@ -17,14 +17,12 @@ public class PostVM extends PostVMLite {
     public boolean isOwner = false;
     public boolean isFollowingOwner = false;
 
-    public boolean mobile = false;
-    public boolean android = false;
-    public boolean ios = false;
+    public String deviceType;
 
     public PostVM(CommunityPostVM post) {
         this.id = post.id;
         this.ownerId = post.oid;
-        this.postedBy = post.p;
+        this.ownerName = post.p;
         this.createdDate = post.t;
         this.updatedDate = post.ut;
         this.title = post.ptl;
@@ -40,9 +38,6 @@ public class PostVM extends PostVMLite {
         this.numLikes = post.nol;
         this.isOwner = post.isO;
         this.isLiked = post.isLike;
-        this.mobile = post.mob;
-        this.android = post.and;
-        this.ios = post.ios;
         this.price = ViewUtil.random(1, 500);
     }
 
@@ -54,12 +49,12 @@ public class PostVM extends PostVMLite {
         this.ownerId = ownerId;
     }
 
-    public String getPostedBy() {
-        return postedBy;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setPostedBy(String postedBy) {
-        this.postedBy = postedBy;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public long getCreatedDate() {
@@ -134,27 +129,11 @@ public class PostVM extends PostVMLite {
         this.isFollowingOwner = isFollowingOwner;
     }
 
-    public boolean isAndroid() {
-        return android;
+    public String getDeviceType() {
+        return deviceType;
     }
 
-    public void setAndroid(boolean android) {
-        this.android = android;
-    }
-
-    public boolean isIOS() {
-        return ios;
-    }
-
-    public void setIOS(boolean ios) {
-        this.ios = ios;
-    }
-
-    public boolean isMobile() {
-        return mobile;
-    }
-
-    public void setMobile(boolean mobile) {
-        this.mobile = mobile;
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 }

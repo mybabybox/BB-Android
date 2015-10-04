@@ -22,11 +22,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -320,7 +318,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 // seller
 
                 ImageUtil.displayThumbnailProfileImage(post.getOwnerId(), sellerImage);
-                sellerNameText.setText(post.getPostedBy());
+                sellerNameText.setText(post.getOwnerName());
 
                 sellerImage.setOnClickListener(new View.OnClickListener() {
                     @Override

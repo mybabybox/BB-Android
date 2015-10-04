@@ -126,9 +126,9 @@ public class CommentListAdapter extends BaseAdapter {
             deleteText.setVisibility(View.GONE);
         }
 
-        ViewUtil.setHtmlText(item.getDesc(), commentText, activity, true, true);
+        ViewUtil.setHtmlText(item.getBody(), commentText, activity, true, true);
 
-        userNameText.setText(item.getPostedBy());
+        userNameText.setText(item.getOwnerName());
         userNameText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

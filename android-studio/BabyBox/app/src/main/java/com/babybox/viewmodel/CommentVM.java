@@ -1,20 +1,18 @@
 package com.babybox.viewmodel;
 
-
 import com.babybox.mock.CommunityPostCommentVM;
 
 public class CommentVM {
     public Long id;
     public Long ownerId;
-    public String postedBy;
+    public String ownerName;
     public Long createdDate;
     public boolean hasImage = false;
     public Long[] images;
-    public String desc;
+    public String body;
     public int seq;
 
     public boolean isOwner = false;
-    public boolean isLike = false;     // filled outside
 
     public boolean and = false;
     public boolean ios = false;
@@ -26,14 +24,13 @@ public class CommentVM {
     public CommentVM(CommunityPostCommentVM comment) {
         this.id = comment.id;
         this.ownerId = comment.oid;
-        this.postedBy = comment.on;
+        this.ownerName = comment.on;
         this.createdDate = comment.cd;
         this.hasImage = comment.hasImage;
         this.images = comment.imgs;
-        this.desc = comment.d;
+        this.body = comment.d;
         this.seq = comment.n;
         this.isOwner = comment.isO;
-        this.isLike = comment.isLike;
         this.and = comment.and;
         this.ios = comment.ios;
         this.mob = comment.mob;
@@ -57,12 +54,12 @@ public class CommentVM {
         this.ownerId = ownerId;
     }
 
-    public String getPostedBy() {
-        return postedBy;
+    public String getOwnerName() {
+        return ownerName;
     }
 
-    public void setPostedBy(String postedBy) {
-        this.postedBy = postedBy;
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public Long getCreatedDate() {
@@ -89,12 +86,12 @@ public class CommentVM {
         this.images = images;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getBody() {
+        return body;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public int getSeq() {
@@ -111,14 +108,6 @@ public class CommentVM {
 
     public void setIsOwner(boolean isOwner) {
         this.isOwner = isOwner;
-    }
-
-    public boolean isLike() {
-        return isLike;
-    }
-
-    public void setIsLike(boolean isLike) {
-        this.isLike = isLike;
     }
 
     public boolean isAndroid() {
