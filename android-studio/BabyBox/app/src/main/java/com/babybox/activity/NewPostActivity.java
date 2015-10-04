@@ -295,6 +295,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         multipartTypedOutput.addPart("catId", new TypedString(catId+""));
         multipartTypedOutput.addPart("body", new TypedString(body));
         multipartTypedOutput.addPart("price", new TypedString(priceValue));
+        multipartTypedOutput.addPart("deviceType", new TypedString(Boolean.TRUE.toString()));
 
         Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + typedFiles.size());
         NewPostVM newPost = new NewPostVM(catId, title, body, price);
