@@ -137,7 +137,6 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         AppController.getApiService().getUser(userId, new Callback<UserVM>() {
             @Override
             public void success(final UserVM user, retrofit.client.Response response) {
-
                 userNameText.setText(user.getDisplayName());
 
                 ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
@@ -154,10 +153,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     }
                 });
 
-                System.out.println("user followers ::"+user.numFollowers);
-                System.out.println("following :: "+user.isFollowing);
                 followersText.setText(ViewUtil.followersFormat(user.numFollowers));
-
                 followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
 
                 following = user.isFollowing;
@@ -167,17 +163,13 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     ViewUtil.unselectFollowButtonStyle(followButton);
                 }
 
-
                 followButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //following = !following;
                         if (following) {
                             unFollow(user.getId());
-                           // ViewUtil.selectFollowButtonStyle(followButton);
                         } else {
                             follow(user.getId());
-                            //ViewUtil.unselectFollowButtonStyle(followButton);
                         }
                     }
                 });
@@ -262,7 +254,6 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         AppController.getApiService().followUser(id,new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
-                System.out.println("follow.....");
                 ViewUtil.selectFollowButtonStyle(followButton);
                 following = true;
             }
@@ -273,11 +264,11 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
             }
         });
     }
+
     public void unFollow(Long id){
         AppController.getApiService().unfollowUser(id,new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
-                System.out.println("unfollow.....");
                 ViewUtil.unselectFollowButtonStyle(followButton);
                 following = false;
             }
@@ -288,5 +279,4 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
             }
         });
     }
-
 }

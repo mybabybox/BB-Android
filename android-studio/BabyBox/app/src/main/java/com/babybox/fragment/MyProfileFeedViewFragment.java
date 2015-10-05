@@ -131,11 +131,9 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         });
     }
 
-    @Override
-    protected void initUserProfile() {
+    private void setUserProfile(UserVM user) {
         ViewUtil.showSpinner(getActivity());
 
-        UserVM user = UserInfoCache.getUser();
         setUserId(user.getId());
 
         userNameText.setText(user.getDisplayName());
@@ -161,7 +159,32 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
     }
 
-    protected void uploadCoverImage(final long id){
+    @Override
+    protected void initUserProfile() {
+        UserVM user = UserInfoCache.getUser();
+        setUserProfile(user);
+    }
+
+    @Override
+    protected void onRefreshView() {
+        ViewUtil.showSpinner(getActivity());
+
+        UserInfoCache.refresh(new Callback<UserVM>() {
+            @Override
+            public void success(UserVM user, Response response) {
+                setUserProfile(user);
+                ViewUtil.stopSpinner(getActivity());
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                ViewUtil.stopSpinner(getActivity());
+                Log.e(EditProfileActivity.class.getSimpleName(), "onRefreshView: failure", error);
+            }
+        }, null);
+    }
+
+    protected void uploadCoverImage(final long id) {
         ViewUtil.showSpinner(getActivity());
 
         Log.d(this.getClass().getSimpleName(), "changeCoverPhoto: Id=" + id);
