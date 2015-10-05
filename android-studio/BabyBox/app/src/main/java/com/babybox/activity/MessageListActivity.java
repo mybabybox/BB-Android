@@ -139,7 +139,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             }
         });
 
-        getMessages(conversationId);
+        loadMessages(conversationId);
 
         loadMoreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -412,13 +412,14 @@ public class MessageListActivity extends TrackedFragmentActivity {
         }
     }
 
-    private List<MessageVM> parseMessages(String responseBody) {
-        List<MessageVM> messages = new ArrayList<>();
+    private int parseAndAddMessages(String responseBody) {
+        int count = 0;
         try {
             JSONObject obj = new JSONObject(responseBody);
 
             JSONArray messagesObj = obj.getJSONArray(GCMConfig.MESSAGE_KEY);
-            for (int i = 0; i < messagesObj.length(); i++) {
+            count = messagesObj.length();
+            for (int i = 0; i < count; i++) {
                 JSONObject messageObj = messagesObj.getJSONObject(i);
                 Log.d(MessageListActivity.class.getSimpleName(), "getMessages.api.getMessages: message["+i+"]="+messageObj.toString());
                 MessageVM vm = new MessageVM(messageObj);
@@ -433,24 +434,24 @@ public class MessageListActivity extends TrackedFragmentActivity {
         } catch (JSONException e) {
             Log.e(MessageListActivity.class.getSimpleName(), "getMessages.api.getMessages: exception", e);
         }
-        return messages;
+        return count;
     }
 
-    private void getMessages(Long conversationId) {
+    private void loadMessages(Long conversationId) {
         ViewUtil.showSpinner(MessageListActivity.this);
         AppController.getApiService().getMessages(conversationId, 0L, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 listHeader.setVisibility(View.INVISIBLE);
 
+                messages.clear();
+
                 String responseBody = ViewUtil.getResponseBody(responseObject);
-                List<MessageVM> vms = parseMessages(responseBody);
-                if (vms.size() >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
+                int count = parseAndAddMessages(responseBody);
+                if (count >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
                     listHeader.setVisibility(View.VISIBLE);
                 }
 
-                messages.clear();
-                messages.addAll(vms);
                 adapter = new MessageListAdapter(MessageListActivity.this, messages);
                 listView.setAdapter(adapter);
 
@@ -473,19 +474,17 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 listHeader.setVisibility(View.INVISIBLE);
 
                 String responseBody = ViewUtil.getResponseBody(responseObject);
-                List<MessageVM> vms = parseMessages(responseBody);
-                if (messages.size() >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
+                int count = parseAndAddMessages(responseBody);
+                if (count >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
                     listHeader.setVisibility(View.VISIBLE);
                 }
 
-                messages.clear();
-                messages.addAll(vms);
                 adapter.notifyDataSetChanged();
 
                 // restore previous listView position
                 View childView = listView.getChildAt(0);
                 int top = (childView == null)? 0 : (childView.getTop() - listView.getPaddingTop());
-                listView.setSelectionFromTop(messages.size(), top);
+                listView.setSelectionFromTop(count, top);
 
                 ViewUtil.stopSpinner(MessageListActivity.this);
             }
