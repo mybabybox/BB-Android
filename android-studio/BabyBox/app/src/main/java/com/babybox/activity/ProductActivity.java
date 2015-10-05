@@ -1,6 +1,7 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -36,6 +37,7 @@ import android.widget.Toast;
 import com.babybox.R;
 import com.babybox.adapter.CommentListAdapter;
 import com.babybox.app.AppController;
+import com.babybox.app.ConversationCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
 import com.babybox.fragment.ProductImagePagerFragment;
@@ -48,6 +50,7 @@ import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.view.AdaptiveViewPager;
 import com.babybox.viewmodel.CommentVM;
+import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
@@ -304,13 +307,13 @@ public class ProductActivity extends TrackedFragmentActivity {
                     chatButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            MessageUtil.openConversation(post.getOwnerId(), ProductActivity.this);
+                            openConversation(post.id, ProductActivity.this);
                         }
                     });
                     buyButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            MessageUtil.openConversation(post.getOwnerId(), ProductActivity.this);
+                            openConversation(post.id, ProductActivity.this);
                         }
                     });
                 }
@@ -323,14 +326,14 @@ public class ProductActivity extends TrackedFragmentActivity {
                 sellerImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId(), "");
+                        ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId());
                     }
                 });
 
                 sellerNameText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId(), "");
+                        ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId());
                     }
                 });
 
@@ -375,6 +378,25 @@ public class ProductActivity extends TrackedFragmentActivity {
                 }, DefaultValues.DEFAULT_HANDLER_DELAY);
 
                 Log.e(ProductActivity.class.getSimpleName(), "getPost: failure", error);
+            }
+        });
+    }
+
+    private void openConversation(final Long postId, final Activity activity) {
+        ConversationCache.open(postId, new Callback<ConversationVM>() {
+            @Override
+            public void success(ConversationVM conversationVM, Response response1) {
+                if (conversationVM != null) {
+                    ViewUtil.startMessageListActivity(activity, conversationVM.getId());
+                } else {
+                    Toast.makeText(activity, activity.getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(activity, activity.getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
+                Log.e(MessageUtil.class.getSimpleName(), "openConversation: failure", error);
             }
         });
     }

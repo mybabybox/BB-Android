@@ -5,6 +5,7 @@ import android.util.Log;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.viewmodel.CategoryVM;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -13,7 +14,7 @@ import retrofit.client.Response;
 
 public class CategoryCache {
 
-    private static List<CategoryVM> categories;
+    private static List<CategoryVM> categories = new ArrayList<>();;
 
     private CategoryCache() {}
 
@@ -46,7 +47,7 @@ public class CategoryCache {
                 if (callback != null) {
                     callback.failure(error);
                 }
-                Log.e(DistrictCache.class.getSimpleName(), "refresh: failure", error);
+                Log.e(CategoryCache.class.getSimpleName(), "refresh: failure", error);
             }
         });
     }

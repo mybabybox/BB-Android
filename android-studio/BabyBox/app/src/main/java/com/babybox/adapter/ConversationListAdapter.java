@@ -58,7 +58,7 @@ public class ConversationListAdapter extends BaseAdapter {
         ConversationVM item = conversationVMs.get(i);
         RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.conversationLayout);
 
-        if (item.getUr() != 0) {
+        if (item.getUnread() != 0) {
             layout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
         }
         senderText = (TextView) view.findViewById(R.id.senderText);
@@ -66,13 +66,13 @@ public class ConversationListAdapter extends BaseAdapter {
         firstMessageText = (TextView) view.findViewById(R.id.firstMessageText);
         userPicture = (ImageView) view.findViewById(R.id.userPicture);
 
-        ImageUtil.displayThumbnailProfileImage(item.getUid(), userPicture);
+        ImageUtil.displayThumbnailProfileImage(item.getUserId(), userPicture);
 
-        senderText.setText(item.getNm());
-        dateText.setText(DateTimeUtil.getTimeAgo(item.getLmd()));
-        ViewUtil.setHtmlText(item.getLm(), firstMessageText, activity);
+        senderText.setText(item.getUserName());
+        dateText.setText(DateTimeUtil.getTimeAgo(item.getLastMessageDate()));
+        ViewUtil.setHtmlText(item.getLastMessage(), firstMessageText, activity);
 
-        Log.d(this.getClass().getSimpleName(), item.getLm());
+        Log.d(this.getClass().getSimpleName(), item.getLastMessage());
 
         return  view;
     }

@@ -2,6 +2,7 @@ package com.babybox.app;
 
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.babybox.util.SharedPreferencesUtil;
@@ -12,7 +13,7 @@ import retrofit.client.Response;
 
 public class DistrictCache {
 
-    private static List<LocationVM> districts;
+    private static List<LocationVM> districts  = new ArrayList<>();;
 
     private DistrictCache() {}
 

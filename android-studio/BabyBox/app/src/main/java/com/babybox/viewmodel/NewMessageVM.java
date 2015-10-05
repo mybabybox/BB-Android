@@ -1,17 +1,17 @@
 package com.babybox.viewmodel;
 
+import com.babybox.app.AppController;
+
 public class NewMessageVM {
     public Long conversationId;
-    public Long receiverId;
-    public String msgText;
+    public String body;
     public boolean withPhotos;
-    public boolean android;
+    public String deviceType;
 
-    public NewMessageVM(Long conversationId, Long receiverId, String msgText, boolean withPhotos) {
+    public NewMessageVM(Long conversationId, String body, boolean withPhotos) {
         this.conversationId = conversationId;
-        this.receiverId = receiverId;
-        this.msgText = msgText;
+        this.body = body;
         this.withPhotos = withPhotos;
-        this.android = true;
+        this.deviceType = AppController.DeviceType.ANDROID.name();
     }
 }

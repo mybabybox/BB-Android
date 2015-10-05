@@ -3,8 +3,11 @@ package com.babybox.app;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
+import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.LocationVM;
+import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
+import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
@@ -17,6 +20,13 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.client.Response;
+import retrofit.http.Body;
+import retrofit.http.GET;
+import retrofit.http.Multipart;
+import retrofit.http.POST;
+import retrofit.http.Part;
+import retrofit.http.Path;
+import retrofit.http.Query;
 import retrofit.mime.MultipartTypedOutput;
 import retrofit.mime.TypedFile;
 
@@ -192,6 +202,40 @@ public class BabyBoxService {
 
     public void getCollection(Long id, Callback<CollectionVM> cb) {
         api.getCollection(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    // conversation
+
+    public void getAllConversations(Callback<List<ConversationVM>> cb) {
+        api.getAllConversations(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getMessages(Long conversationId, Long offset, Callback<Response> cb) {
+        api.getMessages(conversationId, offset, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void openConversation(Long postId, Callback<ConversationVM> cb) {
+        api.openConversation(postId, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void deleteConversation(Long id, Callback<Response> cb) {
+        api.deleteConversation(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void newMessage(NewMessageVM message, Callback<Response> cb) {
+        api.newMessage(message, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getUnreadMessageCount(Callback<MessageVM> cb) {
+        api.getUnreadMessageCount(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getMessageImage(long id, Callback<MessageVM> cb) {
+        api.getMessageImage(AppController.getInstance().getSessionId(), id, cb);
+    }
+
+    public void uploadMessagePhoto(Long id, TypedFile photo, Callback<Response> cb) {
+        api.uploadMessagePhoto(AppController.getInstance().getSessionId(), id, photo, cb);
     }
 }
 

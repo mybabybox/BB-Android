@@ -43,6 +43,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.LoginActivity;
+import com.babybox.activity.MessageListActivity;
 import com.babybox.activity.ProductActivity;
 import com.babybox.activity.ProductCommentsActivity;
 import com.babybox.activity.SignupDetailActivity;
@@ -72,8 +73,6 @@ public class ViewUtil {
 
     public static final String BUNDLE_KEY_LOGIN_KEY = "loginKey";
     public static final String BUNDLE_KEY_ID = "id";
-    public static final String BUNDLE_KEY_USER_ID = "userId";
-    public static final String BUNDLE_KEY_USER_NAME = "userName";
     public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
     public static final String BUNDLE_KEY_POST_ID = "postId";
     public static final String BUNDLE_KEY_SOURCE = "flag";
@@ -687,16 +686,21 @@ public class ViewUtil {
         activity.startActivity(intent);
     }
 
-    public static void startUserProfileActivity(Activity activity, Long userId, String source) {
+    public static void startUserProfileActivity(Activity activity, Long userId) {
         Intent intent = new Intent(activity, UserProfileActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
         activity.startActivity(intent);
     }
 
     public static void startProductCommentsActivity(Activity activity, Long postId) {
         Intent intent = new Intent(activity, ProductCommentsActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
+        activity.startActivity(intent);
+    }
+
+    public static void startMessageListActivity(Activity activity, Long conversationId) {
+        Intent intent = new Intent(activity, MessageListActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
         activity.startActivity(intent);
     }
 }

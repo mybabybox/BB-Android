@@ -209,23 +209,23 @@ public interface BabyBoxApi {
     public void getCollection(@Path("id") Long id, @Query("key") String key, Callback<CollectionVM> cb);
 
     //
-    // Messages
+    // Conversation
     //
 
     @GET("/get-all-conversations")
     public void getAllConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
 
-    @GET("/get-messages/{id}/{offset}")
-    public void getMessages(@Path("id") Long id, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
+    @GET("/get-messages/{conversationId}/{offset}")
+    public void getMessages(@Path("conversationId") Long conversationId, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/open-conversation/{postId}/{userId}")
-    public void openConversation(@Path("postId") Long postId, @Path("userId") Long userId, @Query("key") String key, Callback<ConversationVM> cb);
+    @GET("/open-conversation/{postId}")
+    public void openConversation(@Path("postId") Long postId, @Query("key") String key, Callback<ConversationVM> cb);
 
     @GET("/delete-conversation/{id}")
     public void deleteConversation(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
     @POST("/message/new")
-    public void sendMessage(@Body NewMessageVM message, @Query("key") String key, Callback<Response> cb);
+    public void newMessage(@Body NewMessageVM message, @Query("key") String key, Callback<Response> cb);
 
     @GET("/get-unread-message-count")
     public void getUnreadMessageCount(@Query("key") String key, Callback<MessageVM> cb);

@@ -77,16 +77,7 @@ public class AppController extends Application {
     private static BabyBoxService apiService;
     private static MockApi mockApi;
 
-    private long conversationId;
     public List<MessageVM> messageVMList;
-
-    public long getConversationId() {
-        return conversationId;
-    }
-
-    public void setConversationId(long conversationId) {
-        this.conversationId = conversationId;
-    }
 
     public static synchronized AppController getInstance() {
         return mInstance;
@@ -161,6 +152,11 @@ public class AppController extends Application {
         DistrictCache.refresh();
         CategoryCache.refresh();
         //EmoticonCache.refresh();
+    }
+
+    public static void initUserCaches() {
+        NotificationCache.refresh();
+        ConversationCache.refresh();
     }
 
     /**

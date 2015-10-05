@@ -50,32 +50,32 @@ public class MessageListAdapter extends BaseAdapter {
         if (inflater == null)
             inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        final MessageVM m = messageVMs.get(position);
+        final MessageVM message = messageVMs.get(position);
 
-        Long userId1 = UserInfoCache.getUser().getId();
-        Long userId2 = m.getSuid();
+        Long user1Id = UserInfoCache.getUser().getId();
+        Long user2Id = message.getSenderId();
 
         // Identifying the message owner
-        if (userId1.longValue() == userId2.longValue()) {
+        if (user1Id.longValue() == user2Id.longValue()) {
             // message belongs to you, so load the right aligned layout
             convertView = inflater.inflate(R.layout.list_item_message_right, null);
         } else {
             // message belongs to other person, load the left aligned layout
             convertView = inflater.inflate(R.layout.list_item_message_left, null);
             senderImage = (ImageView) convertView.findViewById(R.id.senderImage);
-            ImageUtil.displayThumbnailProfileImage(m.getSuid(), senderImage);
+            ImageUtil.displayThumbnailProfileImage(message.getSenderId(), senderImage);
         }
 
         TextView txtMsg = (TextView) convertView.findViewById(R.id.txtMsg);
         TextView dateMsg = (TextView) convertView.findViewById(R.id.messageDate);
-        ViewUtil.setHtmlText(m.getTxt(), txtMsg, activity, true, true);
+        ViewUtil.setHtmlText(message.getBody(), txtMsg, activity, true, true);
 
-        dateMsg.setText(DateTimeUtil.getTimeAgo(m.getCd()));
+        dateMsg.setText(DateTimeUtil.getTimeAgo(message.getCreatedDate()));
 
         messageImages = (ImageView) convertView.findViewById(R.id.messageImages);
-        if(m.isHasImage()) {
-            if(m.getImgs()!=null) {
-                loadImages(m, messageImages);
+        if(message.hasImage()) {
+            if (message.getImage() != null) {
+                loadImages(message, messageImages);
             }
             messageImages.setVisibility(View.VISIBLE);
         } else {
@@ -85,7 +85,7 @@ public class MessageListAdapter extends BaseAdapter {
         messageImages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewUtil.fullscreenImagePopup(activity, ImageUtil.ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + m.getImgs());
+                ViewUtil.fullscreenImagePopup(activity, ImageUtil.ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + message.getImage());
             }
         });
 
@@ -98,7 +98,7 @@ public class MessageListAdapter extends BaseAdapter {
         messageImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         messageImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10));
 
-        ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage);
+        ImageUtil.displayOriginalMessageImage(item.getImage(), messageImage);
         /*
         ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override

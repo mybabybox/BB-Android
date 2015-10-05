@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.TrackedFragment;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.fragment.MessageListFragment;
+import com.babybox.fragment.ConversationListFragment;
 import com.babybox.fragment.SettingsFragment;
 import com.babybox.fragment.NotificationListFragment;
 import com.babybox.fragment.RequestListFragment;
@@ -62,7 +62,7 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
                 break;
             case "messages":
                 titleText.setText(getString(R.string.pm_actionbar_title));
-                fragment = new MessageListFragment();
+                fragment = new ConversationListFragment();
                 break;
             case "":
                 titleText.setText(getString(R.string.orders));

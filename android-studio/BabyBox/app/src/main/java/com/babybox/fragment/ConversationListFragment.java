@@ -16,9 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.babybox.R;
-import com.babybox.activity.MessageDetailActivity;
+import com.babybox.activity.MessageListActivity;
 import com.babybox.adapter.ConversationListAdapter;
 import com.babybox.app.AppController;
+import com.babybox.app.ConversationCache;
 import com.babybox.app.TrackedFragment;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
@@ -26,9 +27,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class MessageListFragment extends TrackedFragment {
+public class ConversationListFragment extends TrackedFragment {
 
-    private static final String TAG = MessageListFragment.class.getName();
+    private static final String TAG = ConversationListFragment.class.getName();
     private ListView listView;
     private TextView tipText;
     private ConversationListAdapter adapter;
@@ -38,7 +39,7 @@ public class MessageListFragment extends TrackedFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.message_list_fragment, container, false);
+        View view = inflater.inflate(R.layout.conversation_list_fragment, container, false);
 
         tipText = (TextView) view.findViewById(R.id.tipText);
         listView = (ListView) view.findViewById(R.id.conversationList);
@@ -49,13 +50,7 @@ public class MessageListFragment extends TrackedFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ConversationVM item = adapter.getItem(i);
-                Intent intent = new Intent(getActivity(), MessageDetailActivity.class);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_USER_NAME, item.getNm());
-                intent.putExtra(ViewUtil.BUNDLE_KEY_USER_ID, item.getUid());
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getId());
-
-                AppController.getInstance().setConversationId(item.getId());
-                startActivity(intent);
+                ViewUtil.startMessageListActivity(getActivity(), item.id);
             }
         });
 
@@ -89,7 +84,7 @@ public class MessageListFragment extends TrackedFragment {
     @Override
     public void onStart() {
         super.onStart();
-        getAllConversations();
+        //getAllConversations();
     }
 
     @Override
@@ -99,7 +94,7 @@ public class MessageListFragment extends TrackedFragment {
 
     private void getAllConversations() {
         ViewUtil.showSpinner(getActivity());
-        AppController.getMockApi().getAllConversations(AppController.getInstance().getSessionId(), new Callback<List<ConversationVM>>() {
+        ConversationCache.refresh(new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> conversationVMs, Response response) {
                 conversationVMList = conversationVMs;
@@ -117,24 +112,29 @@ public class MessageListFragment extends TrackedFragment {
             @Override
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(getActivity());
-                Log.e(MessageListFragment.class.getSimpleName(), "getAllConversations: failure", error);
+                Log.e(ConversationListFragment.class.getSimpleName(), "getAllConversations: failure", error);
             }
         });
     }
 
-    private void deleteConversation(Long id) {
+    private void deleteConversation(final Long id) {
         ViewUtil.showSpinner(getActivity());
-        AppController.getMockApi().deleteConversation(id,AppController.getInstance().getSessionId(),new Callback<Response>() {
+        AppController.getApiService().deleteConversation(id, new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
-                getAllConversations();
+                for (ConversationVM conversation : conversationVMList) {
+                    if (conversation.id == id) {
+                        conversationVMList.remove(conversation);
+                    }
+                }
+                adapter.notifyDataSetChanged();
                 ViewUtil.stopSpinner(getActivity());
             }
 
             @Override
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(getActivity());
-                Log.e(MessageListFragment.class.getSimpleName(), "deleteConversation: failure", error);
+                Log.e(ConversationListFragment.class.getSimpleName(), "deleteConversation: failure", error);
             }
         });
     }

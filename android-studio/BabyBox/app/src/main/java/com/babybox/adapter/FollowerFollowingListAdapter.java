@@ -70,14 +70,14 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
         userNameText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewUtil.startUserProfileActivity(activity, item.getId(), "");
+                ViewUtil.startUserProfileActivity(activity, item.getId());
             }
         });
 
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewUtil.startUserProfileActivity(activity, item.getId(), "");
+                ViewUtil.startUserProfileActivity(activity, item.getId());
             }
         });
 

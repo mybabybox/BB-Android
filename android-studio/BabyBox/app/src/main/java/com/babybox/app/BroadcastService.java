@@ -63,8 +63,8 @@ public class BroadcastService extends Service {
     private void DisplayLoggingInfo() {
     	Log.d(TAG, "entered DisplayLoggingInfo");
 
-        if((Long)AppController.getInstance().getConversationId() != null) {
-            AppController.getMockApi().getMessages(AppController.getInstance().getConversationId(), 0l, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        if (ConversationCache.getOpenedConversation() != null) {
+            AppController.getApiService().getMessages(ConversationCache.getOpenedConversation().id, 0l, new Callback<Response>() {
                 @Override
                 public void success(Response response, Response response2) {
                     System.out.println("service success::::");
@@ -81,29 +81,17 @@ public class BroadcastService extends Service {
 
                         JSONObject obj = new JSONObject(responseVm);
 
-                        JSONArray userGroupArray = obj.getJSONArray("message");
+                        JSONArray userGroupArray = obj.getJSONArray(GCMConfig.MESSAGE_KEY);
 
                         for (int i = 0; i < userGroupArray.length(); i++) {
-                            JSONObject object1 = userGroupArray.getJSONObject(i);
-                            MessageVM vm = new MessageVM();
-                            vm.setId(object1.getLong("id"));
-                            vm.setHasImage(object1.getBoolean("hasImage"));
-                            vm.setSnm(object1.getString("snm"));
-                            vm.setSuid(object1.getLong("suid"));
-                            vm.setCd(object1.getLong("cd"));
-                            vm.setTxt(object1.getString("txt"));
-
-                            if (!object1.isNull("imgs")) {
-                                System.out.println("fill image:::" + object1.getLong("imgs"));
-                                vm.setImgs(object1.getLong("imgs"));
-                            }
+                            JSONObject jsonObj = userGroupArray.getJSONObject(i);
+                            MessageVM vm = new MessageVM(jsonObj);
                             messageVMList.add(vm);
                         }
 
                         Collections.sort(messageVMList, new Comparator<MessageVM>() {
                             public int compare(MessageVM m1, MessageVM m2) {
-                                //return Long.compare(m1.getCd(), m2.getCd());
-                                return ((Long)m1.getCd()).compareTo(m2.getCd());
+                                return ((Long)m1.getCreatedDate()).compareTo(m2.getCreatedDate());
                             }
                         });
 
@@ -131,7 +119,6 @@ public class BroadcastService extends Service {
         }
     }
 
-
 	@Override
 	public IBinder onBind(Intent intent) {
 		return null;
@@ -142,7 +129,4 @@ public class BroadcastService extends Service {
         handler.removeCallbacks(sendUpdatesToUI);		
 		super.onDestroy();
 	}
-
-
-
 }

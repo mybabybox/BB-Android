@@ -1,28 +1,33 @@
 package com.babybox.viewmodel;
 
-public class MessageVM {
-    public String snm;
-    public Long suid;
+import android.util.Log;
+
+import com.babybox.util.ViewUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class MessageVM implements Comparable<MessageVM> {
     public Long id;
-    public long cd;
-    public String txt;
-    public boolean hasImage=false;
-    public Long imgs;
+    public Long createdDate;
+    public Long senderId;
+    public String senderName;
+    public String body;
+    public boolean hasImage = false;
+    public Long image;
 
-    public String getSnm() {
-        return snm;
-    }
-
-    public void setSnm(String snm) {
-        this.snm = snm;
-    }
-
-    public Long getSuid() {
-        return suid;
-    }
-
-    public void setSuid(Long suid) {
-        this.suid = suid;
+    public MessageVM(JSONObject jsonObj) {
+        try {
+            this.id = jsonObj.getLong("id");
+            this.senderId = jsonObj.getLong("senderId");
+            this.senderName = jsonObj.getString("senderName");
+            this.createdDate = jsonObj.getLong("createdDate");
+            this.body = jsonObj.getString("body");
+            this.image = jsonObj.getLong("image");
+            this.hasImage = jsonObj.getBoolean("hasImage");
+        } catch (JSONException e) {
+            Log.e(this.getClass().getSimpleName(), "Error construct message: exception", e);
+        }
     }
 
     public Long getId() {
@@ -33,23 +38,39 @@ public class MessageVM {
         this.id = id;
     }
 
-    public long getCd() {
-        return cd;
+    public Long getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCd(long cd) {
-        this.cd = cd;
+    public void setCreatedDate(Long createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public String getTxt() {
-        return txt;
+    public Long getSenderId() {
+        return senderId;
     }
 
-    public void setTxt(String txt) {
-        this.txt = txt;
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
     }
 
-    public boolean isHasImage() {
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public boolean hasImage() {
         return hasImage;
     }
 
@@ -57,11 +78,31 @@ public class MessageVM {
         this.hasImage = hasImage;
     }
 
-    public Long getImgs() {
-        return imgs;
+    public Long getImage() {
+        return image;
     }
 
-    public void setImgs(Long imgs) {
-        this.imgs = imgs;
+    public void setImage(Long image) {
+        this.image = image;
+    }
+
+    @Override
+    public int compareTo(MessageVM o) {
+        return this.getCreatedDate().compareTo(o.getCreatedDate());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null)
+            return false;
+
+        if (other == this)
+            return true;
+
+        if (!(other instanceof MessageVM))
+            return false;
+
+        MessageVM o = (MessageVM) other;
+        return this.id.equals(o.id);
     }
 }

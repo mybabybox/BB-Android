@@ -1,33 +1,18 @@
 package com.babybox.viewmodel;
 
-public class ConversationVM {
-    public String nm;
-    public Long uid;
+public class ConversationVM implements Comparable<ConversationVM> {
     public Long id;
-    public Long lmd;
-    public Boolean isToday;
-    public String lm;
+    public Long postId;
+    public Long postImage;
+    public String postTitle;
+    public Long postPrice;
+    public Long userId;
+    public String userName;
+    public Long lastMessageDate;
+    public String lastMessage;
+    public Long unread = 0L;
     public Boolean isRead = false;
-    public Long mc = 0L;
-    public Boolean hm = false;
-    public int ur;
-
-
-    public String getNm() {
-        return nm;
-    }
-
-    public void setNm(String nm) {
-        this.nm = nm;
-    }
-
-    public Long getUid() {
-        return uid;
-    }
-
-    public void setUid(Long uid) {
-        this.uid = uid;
-    }
+    public Boolean isToday;
 
     public Long getId() {
         return id;
@@ -37,28 +22,76 @@ public class ConversationVM {
         this.id = id;
     }
 
-    public Long getLmd() {
-        return lmd;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setLmd(Long lmd) {
-        this.lmd = lmd;
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
-    public Boolean isToday() {
-        return isToday;
+    public Long getPostImage() {
+        return postImage;
     }
 
-    public void setIsToday(Boolean isToday) {
-        this.isToday = isToday;
+    public void setPostImage(Long postImage) {
+        this.postImage = postImage;
     }
 
-    public String getLm() {
-        return lm;
+    public String getPostTitle() {
+        return postTitle;
     }
 
-    public void setLm(String lm) {
-        this.lm = lm;
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
+    }
+
+    public Long getPostPrice() {
+        return postPrice;
+    }
+
+    public void setPostPrice(Long postPrice) {
+        this.postPrice = postPrice;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Long getLastMessageDate() {
+        return lastMessageDate;
+    }
+
+    public void setLastMessageDate(Long lastMessageDate) {
+        this.lastMessageDate = lastMessageDate;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    public Long getUnread() {
+        return unread;
+    }
+
+    public void setUnread(Long unread) {
+        this.unread = unread;
     }
 
     public Boolean isRead() {
@@ -69,27 +102,31 @@ public class ConversationVM {
         this.isRead = isRead;
     }
 
-    public Long getMc() {
-        return mc;
+    public Boolean isToday() {
+        return isToday;
     }
 
-    public void setMc(Long mc) {
-        this.mc = mc;
+    public void setIsToday(Boolean isToday) {
+        this.isToday = isToday;
     }
 
-    public Boolean getHm() {
-        return hm;
+    @Override
+    public int compareTo(ConversationVM o) {
+        return this.getLastMessageDate().compareTo(o.getLastMessageDate());
     }
 
-    public void setHm(Boolean hm) {
-        this.hm = hm;
-    }
+    @Override
+    public boolean equals(Object other) {
+        if (other == null)
+            return false;
 
-    public int getUr() {
-        return ur;
-    }
+        if (other == this)
+            return true;
 
-    public void setUr(int ur) {
-        this.ur = ur;
+        if (!(other instanceof ConversationVM))
+            return false;
+
+        ConversationVM o = (ConversationVM) other;
+        return this.id.equals(o.id);
     }
 }

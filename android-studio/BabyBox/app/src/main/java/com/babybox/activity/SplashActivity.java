@@ -87,8 +87,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                         AppController.getInstance().saveSessionId(sessionId);
                     }
 
-                    CategoryCache.refresh();    // temp
-                    NotificationCache.refresh();
+                    AppController.initUserCaches();
 
                     // display splash
                     new Handler().postDelayed(new Runnable() {

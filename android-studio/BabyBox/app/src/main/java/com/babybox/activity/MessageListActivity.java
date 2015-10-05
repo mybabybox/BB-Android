@@ -47,7 +47,10 @@ import com.babybox.R;
 import com.babybox.adapter.MessageListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.BroadcastService;
+import com.babybox.app.ConversationCache;
+import com.babybox.app.GCMConfig;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
@@ -59,7 +62,7 @@ import retrofit.client.Response;
 import retrofit.mime.TypedFile;
 import retrofit.mime.TypedInput;
 
-public class MessageDetailActivity extends TrackedFragmentActivity {
+public class MessageListActivity extends TrackedFragmentActivity {
 
     private TextView commentEdit;
     private FrameLayout mainFrameLayout;
@@ -80,8 +83,6 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
     private RelativeLayout loadMoreLayout;
 
     private Long conversationId;
-    private Long receiverId;
-    private String receiverName;
     private Long offset = 1L;
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -101,14 +102,14 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.message_detail_activity);
+        setContentView(R.layout.message_list_activity);
 
         LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
-        listHeader = layoutInflater.inflate(R.layout.message_detail_list_header, null);
+        listHeader = layoutInflater.inflate(R.layout.message_list_header, null);
         loadMoreLayout = (RelativeLayout) listHeader.findViewById(R.id.loadMoreLayout);
 
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.message_detail_actionbar, null),
+        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.message_list_actionbar, null),
                 new ActionBar.LayoutParams(
                         ActionBar.LayoutParams.MATCH_PARENT,
                         ActionBar.LayoutParams.MATCH_PARENT,
@@ -131,19 +132,17 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         messageVMList = new ArrayList<>();
 
         conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
-        receiverId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_USER_ID, 0l);
-        receiverName = getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_USER_NAME);
 
-        title.setText(receiverName);
+        title.setText(ConversationCache.getOpenedConversation().getUserName());
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewUtil.startUserProfileActivity(MessageDetailActivity.this, receiverId, "");
+                ViewUtil.startUserProfileActivity(MessageListActivity.this, ConversationCache.getOpenedConversation().getUserId());
             }
         });
 
-        getMessages(conversationId, 0l);
+        getMessages(conversationId);
 
         loadMoreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +173,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         mainFrameLayout.getForeground().setColorFilter(R.color.gray, PorterDuff.Mode.OVERLAY);
 
         try {
-            LayoutInflater inflater = (LayoutInflater) MessageDetailActivity.this
+            LayoutInflater inflater = (LayoutInflater) MessageListActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             final View layout = inflater.inflate(R.layout.comment_popup_window,
@@ -205,12 +204,12 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                 commentEditText.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        Log.d(MessageDetailActivity.this.getClass().getSimpleName(), "onLongClick");
+                        Log.d(MessageListActivity.this.getClass().getSimpleName(), "onLongClick");
                         startActionMode(new ActionMode.Callback() {
                             final int PASTE_MENU_ITEM_ID = 0;
 
                             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                                Log.d(MessageDetailActivity.this.getClass().getSimpleName(), "onPrepareActionMode");
+                                Log.d(MessageListActivity.this.getClass().getSimpleName(), "onPrepareActionMode");
                                 return true;
                             }
 
@@ -218,14 +217,14 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                             }
 
                             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                                Log.d(MessageDetailActivity.this.getClass().getSimpleName(), "onCreateActionMode: menu size=" + menu.size());
+                                Log.d(MessageListActivity.this.getClass().getSimpleName(), "onCreateActionMode: menu size=" + menu.size());
                                 menu.add(0, PASTE_MENU_ITEM_ID, 0, "Paste");
                                 menu.setQwertyMode(false);
                                 return true;
                             }
 
                             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                                Log.d(MessageDetailActivity.this.getClass().getSimpleName(), "onActionItemClicked: item clicked=" + item.getItemId() + " title=" + item.getTitle());
+                                Log.d(MessageListActivity.this.getClass().getSimpleName(), "onActionItemClicked: item clicked=" + item.getItemId() + " title=" + item.getTitle());
                                 switch (item.getItemId()) {
                                     case PASTE_MENU_ITEM_ID:
                                         final ClipboardManager clipBoard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
@@ -239,7 +238,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
 
                                 // popup again
                                 commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
-                                ViewUtil.popupInputMethodWindow(MessageDetailActivity.this);
+                                ViewUtil.popupInputMethodWindow(MessageListActivity.this);
                                 return true;
                             }
                         });
@@ -291,9 +290,9 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                     @Override
                     public void onClick(View v) {
                         if (photos.size() == DefaultValues.MAX_MESSAGE_IMAGES) {
-                            Toast.makeText(MessageDetailActivity.this, MessageDetailActivity.this.getString(R.string.pm_max_images), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_max_images), Toast.LENGTH_SHORT).show();
                         } else {
-                            ImageUtil.openPhotoPicker(MessageDetailActivity.this);
+                            ImageUtil.openPhotoPicker(MessageListActivity.this);
                         }
                     }
                 });
@@ -315,7 +314,7 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
             commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
             ViewUtil.popupInputMethodWindow(this);
         } catch (Exception e) {
-            Log.e(MessageDetailActivity.class.getSimpleName(), "initCommentPopup: exception", e);
+            Log.e(MessageListActivity.class.getSimpleName(), "initCommentPopup: exception", e);
         }
     }
 
@@ -333,10 +332,10 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
             if (bitmap != null) {
                 setCommentImage(bitmap);
             } else {
-                Toast.makeText(MessageDetailActivity.this, MessageDetailActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(MessageDetailActivity.this, MessageDetailActivity.this.getString(R.string.photo_not_found), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.photo_not_found), Toast.LENGTH_SHORT).show();
         }
 
         // pop back soft keyboard
@@ -367,15 +366,15 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
     private void doMessage() {
         String comment = commentEditText.getText().toString().trim();
         if (StringUtils.isEmpty(comment) && commentImages.size() == 0) {
-            Toast.makeText(MessageDetailActivity.this, MessageDetailActivity.this.getString(R.string.invalid_comment_body_empty), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.invalid_comment_body_empty), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Log.d(this.getClass().getSimpleName(), "doMessage: receiverId=" + receiverId + " message=" + comment.substring(0, Math.min(5, comment.length())));
+        Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
 
         final boolean withPhotos = photos.size() > 0;
-        NewMessageVM newMessage = new NewMessageVM(conversationId, receiverId, comment, withPhotos);
-        AppController.getMockApi().sendMessage(newMessage, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        NewMessageVM newMessage = new NewMessageVM(conversationId, comment, withPhotos);
+        AppController.getApiService().newMessage(newMessage, new Callback<Response>() {
             @Override
             public void success(Response responseMap, Response response) {
                 String responseVM = "";
@@ -393,20 +392,20 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
                         uploadPhotos(messageId);
                     }
 
-                    getMessages(conversationId, 0l);
+                    getMessages(conversationId);
 
                     reset();
                 } catch (JSONException e) {
-                    Log.e(MessageDetailActivity.class.getSimpleName(), "doMessage.api.sendMessage: exception", e);
+                    Log.e(MessageListActivity.class.getSimpleName(), "doMessage.api.sendMessage: exception", e);
                 } catch (IOException e) {
-                    Log.e(MessageDetailActivity.class.getSimpleName(), "doMessage.api.sendMessage: exception", e);
+                    Log.e(MessageListActivity.class.getSimpleName(), "doMessage.api.sendMessage: exception", e);
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageDetailActivity.this.getClass().getSimpleName(), "doMessage.api.sendMessage: failed with error", error);
-                Toast.makeText(MessageDetailActivity.this, MessageDetailActivity.this.getString(R.string.pm_send_failed), Toast.LENGTH_SHORT).show();
+                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doMessage.api.sendMessage: failed with error", error);
+                Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_send_failed), Toast.LENGTH_SHORT).show();
                 reset();
             }
         });
@@ -416,149 +415,101 @@ public class MessageDetailActivity extends TrackedFragmentActivity {
         for (File photo : photos) {
             photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
             TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-            AppController.getMockApi().uploadMessagePhoto(AppController.getInstance().getSessionId(), messageId, typedFile, new Callback<Response>() {
+            AppController.getApiService().uploadMessagePhoto(messageId, typedFile, new Callback<Response>() {
                 @Override
                 public void success(Response array, Response response) {
-                    getMessages(conversationId, 0l);
+                    getMessages(conversationId);
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.e(MessageDetailActivity.class.getSimpleName(), "uploadPhotos.api.uploadMessagePhoto: failure", error);
+                    Log.e(MessageListActivity.class.getSimpleName(), "uploadPhotos.api.uploadMessagePhoto: failure", error);
                 }
             });
         }
     }
 
-    private void getMessages(Long id, Long offset) {
-        ViewUtil.showSpinner(MessageDetailActivity.this);
-        AppController.getMockApi().getMessages(id, offset, AppController.getInstance().getSessionId(), new Callback<Response>() {
+    private List<MessageVM> parseMessages(String responseBody) {
+        List<MessageVM> messages = new ArrayList<>();
+        try {
+            JSONObject obj = new JSONObject(responseBody);
+
+            JSONArray userGroupArray = obj.getJSONArray(GCMConfig.MESSAGE_KEY);
+            for (int i = 0; i < userGroupArray.length(); i++) {
+                JSONObject jsonObj = userGroupArray.getJSONObject(i);
+                MessageVM vm = new MessageVM(jsonObj);
+                messages.add(vm);
+            }
+
+            Collections.sort(messages, new Comparator<MessageVM>() {
+                public int compare(MessageVM m1, MessageVM m2) {
+                    return m1.getCreatedDate().compareTo(m2.getCreatedDate());
+                }
+            });
+        } catch (JSONException e) {
+            Log.e(MessageListActivity.class.getSimpleName(), "getMessages.api.getMessages: exception", e);
+        }
+        return messages;
+    }
+
+    private void getMessages(Long conversationId) {
+        ViewUtil.showSpinner(MessageListActivity.this);
+        AppController.getApiService().getMessages(conversationId, offset, new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
-                String responseVm = "";
-                TypedInput body = response.getBody();
-                messageVMList.clear();
-                try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(body.in()));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        responseVm = responseVm + line;
-                    }
+                listHeader.setVisibility(View.INVISIBLE);
 
-                    JSONObject obj = new JSONObject(responseVm);
-
-                    JSONArray userGroupArray = obj.getJSONArray("message");
-                    for (int i = 0; i < userGroupArray.length(); i++) {
-                        JSONObject object1 = userGroupArray.getJSONObject(i);
-                        MessageVM vm = new MessageVM();
-                        vm.setId(object1.getLong(ViewUtil.BUNDLE_KEY_ID));
-                        vm.setHasImage(object1.getBoolean("hasImage"));
-                        vm.setSnm(object1.getString("snm"));
-                        vm.setSuid(object1.getLong("suid"));
-                        vm.setCd(object1.getLong("cd"));
-                        vm.setTxt(object1.getString("txt"));
-
-                        if (!object1.isNull("imgs")) {
-                            System.out.println("fill image:::" + object1.getLong("imgs"));
-                            vm.setImgs(object1.getLong("imgs"));
-                        }
-                        messageVMList.add(vm);
-
-                        if (messageVMList.size() >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
-                            listHeader.setVisibility(View.VISIBLE);
-                        }
-                    }
-
-                    Collections.sort(messageVMList, new Comparator<MessageVM>() {
-                        public int compare(MessageVM m1, MessageVM m2) {
-                            //return Long.compare(m1.getCd(), m2.getCd());
-                            return ((Long)m1.getCd()).compareTo(m2.getCd());
-                        }
-                    });
-
-                    adapter = new MessageListAdapter(MessageDetailActivity.this, messageVMList);
-                    listView.setAdapter(adapter);
-                } catch (IOException e) {
-                    Log.e(MessageDetailActivity.class.getSimpleName(), "getMessages.api.getMessages: exception", e);
-                } catch (JSONException e) {
-                    Log.e(MessageDetailActivity.class.getSimpleName(), "getMessages.api.getMessages: exception", e);
+                String responseBody = ViewUtil.getResponseBody(response);
+                List<MessageVM> messages = parseMessages(responseBody);
+                if (messages.size() >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
+                    listHeader.setVisibility(View.VISIBLE);
                 }
 
-                ViewUtil.stopSpinner(MessageDetailActivity.this);
+                messageVMList.clear();
+                messageVMList.addAll(messages);
+                adapter = new MessageListAdapter(MessageListActivity.this, messageVMList);
+                listView.setAdapter(adapter);
+
+                ViewUtil.stopSpinner(MessageListActivity.this);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(MessageDetailActivity.this);
-                Log.e(MessageDetailActivity.class.getSimpleName(), "getMessages.api.getMessages: failure", error);
+                ViewUtil.stopSpinner(MessageListActivity.this);
+                Log.e(MessageListActivity.class.getSimpleName(), "getMessages.api.getMessages: failure", error);
             }
         });
     }
 
     private void loadMoreMessages(Long id,Long offset) {
-        ViewUtil.showSpinner(MessageDetailActivity.this);
-        AppController.getMockApi().getMessages(id, offset, AppController.getInstance().getSessionId(), new Callback<Response>() {
+        ViewUtil.showSpinner(MessageListActivity.this);
+        AppController.getApiService().getMessages(id, offset, new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
                 listHeader.setVisibility(View.INVISIBLE);
-                String responseVm = "";
-                TypedInput body = response.getBody();
-                try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(body.in()));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        responseVm = responseVm + line;
-                    }
 
-                    JSONObject obj = new JSONObject(responseVm);
-
-                    JSONArray userGroupArray = obj.getJSONArray("message");
-                    for (int i = 0; i < userGroupArray.length(); i++) {
-                        JSONObject object1 = userGroupArray.getJSONObject(i);
-                        MessageVM vm = new MessageVM();
-                        vm.setId(object1.getLong(ViewUtil.BUNDLE_KEY_ID));
-                        vm.setHasImage(object1.getBoolean("hasImage"));
-                        vm.setSnm(object1.getString("snm"));
-                        vm.setSuid(object1.getLong("suid"));
-                        vm.setCd(object1.getLong("cd"));
-                        vm.setTxt(object1.getString("txt"));
-
-                        if(!object1.isNull("imgs")) {
-                            vm.setImgs(object1.getLong("imgs"));
-                        }
-                        messageVMList.add(vm);
-
-                        if (userGroupArray.length() == DefaultValues.CONVERSATION_MESSAGE_COUNT) {
-                            listHeader.setVisibility(View.VISIBLE);
-                        }
-                    }
-
-                    Collections.sort(messageVMList, new Comparator<MessageVM>() {
-                        public int compare(MessageVM m1, MessageVM m2) {
-                            //return Long.compare(m1.getCd(), m2.getCd());
-                            return ((Long) m1.getCd()).compareTo(m2.getCd());
-                        }
-                    });
-
-                    adapter.notifyDataSetChanged();
-
-                    // restore previous listView position
-                    View childView = listView.getChildAt(0);
-                    int top = (childView == null)? 0 : (childView.getTop() - listView.getPaddingTop());
-                    listView.setSelectionFromTop(userGroupArray.length(), top);
-                } catch (IOException e) {
-                    Log.e(MessageDetailActivity.class.getSimpleName(), "loadMoreMessages.api.getMessages: exception", e);
-                } catch (JSONException e) {
-                    Log.e(MessageDetailActivity.class.getSimpleName(), "loadMoreMessages.api.getMessages: exception", e);
+                String responseBody = ViewUtil.getResponseBody(response);
+                List<MessageVM> messages = parseMessages(responseBody);
+                if (messages.size() >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
+                    listHeader.setVisibility(View.VISIBLE);
                 }
 
-                ViewUtil.stopSpinner(MessageDetailActivity.this);
+                messageVMList.clear();
+                messageVMList.addAll(messages);
+                adapter.notifyDataSetChanged();
+
+                // restore previous listView position
+                View childView = listView.getChildAt(0);
+                int top = (childView == null)? 0 : (childView.getTop() - listView.getPaddingTop());
+                listView.setSelectionFromTop(messages.size(), top);
+
+                ViewUtil.stopSpinner(MessageListActivity.this);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(MessageDetailActivity.this);
-                Log.e(MessageDetailActivity.class.getSimpleName(), "loadMoreMessages.api.getMessages: failure", error);
+                ViewUtil.stopSpinner(MessageListActivity.this);
+                Log.e(MessageListActivity.class.getSimpleName(), "loadMoreMessages.api.getMessages: failure", error);
             }
         });
     }

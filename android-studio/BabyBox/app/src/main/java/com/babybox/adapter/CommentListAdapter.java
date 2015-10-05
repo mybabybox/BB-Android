@@ -132,14 +132,14 @@ public class CommentListAdapter extends BaseAdapter {
         userNameText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewUtil.startUserProfileActivity(activity, item.getOwnerId(), "");
+                ViewUtil.startUserProfileActivity(activity, item.getOwnerId());
             }
         });
 
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewUtil.startUserProfileActivity(activity, item.getOwnerId(), "");
+                ViewUtil.startUserProfileActivity(activity, item.getOwnerId());
             }
         });
 

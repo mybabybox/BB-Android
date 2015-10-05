@@ -12,8 +12,8 @@ public class UserVM extends UserVMLite {
     public LocationVM location;
 
     // admin readyonly fields
-    public long createdDate;
-    public String lastLogin;
+    public Long createdDate;
+    public Long lastLogin;
     public Long totalLogin;
     public boolean isLoggedIn = false;
     public boolean isFbLogin = false;
@@ -30,7 +30,7 @@ public class UserVM extends UserVMLite {
         this.emailValidated = profile.vl;
         this.email = profile.em;
         //this.createdDate = profile.sd;
-        this.lastLogin = profile.ll;
+        //this.lastLogin = profile.ll;
         this.totalLogin = profile.tl;
         this.numProducts = profile.qc;
         this.numStories = profile.qc;
@@ -45,7 +45,7 @@ public class UserVM extends UserVMLite {
         return createdDate;
     }
 
-    public void setCreatedDate(long createdDate) {
+    public void setCreatedDate(Long createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -113,11 +113,11 @@ public class UserVM extends UserVMLite {
         this.totalLogin = totalLogin;
     }
 
-    public String getLastLogin() {
+    public Long getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(String lastLogin) {
+    public void setLastLogin(Long lastLogin) {
         this.lastLogin = lastLogin;
     }
 
