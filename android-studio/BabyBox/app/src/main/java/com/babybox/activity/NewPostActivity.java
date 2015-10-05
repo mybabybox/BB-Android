@@ -241,7 +241,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected void removePostImage(){
         if (photos.size() > 0) {
             int toRemove = photos.size()-1;
-            postImages.get(toRemove).setImageDrawable(null);
+            postImages.get(toRemove).setImageDrawable(getResources().getDrawable(R.drawable.img_camera));
             photos.remove(toRemove);
         }
     }
@@ -320,29 +320,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 Log.e(NewPostActivity.class.getSimpleName(), "doPost: failure", error);
             }
         });
-    }
-
-    protected void uploadPhotos(Long postId) {
-        for (File photo : photos) {
-            photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
-            TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-            AppController.getMockApi().uploadPostPhoto(postId, typedFile, new Callback<Response>() {
-                @Override
-                public void success(Response array, retrofit.client.Response response) {
-                    imageUploadSuccessCount++;
-                    if (imageUploadSuccessCount >= photos.size()) {
-                        imageUploadSuccessCount = 0;
-                        complete();
-                    }
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    ViewUtil.stopSpinner(NewPostActivity.this);
-                    Log.e(NewPostActivity.class.getSimpleName(), "uploadPhotos: failure", error);
-                }
-            });
-        }
     }
 
     protected void complete() {

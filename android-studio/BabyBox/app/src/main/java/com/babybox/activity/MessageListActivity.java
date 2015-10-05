@@ -50,10 +50,10 @@ import com.babybox.app.BroadcastService;
 import com.babybox.app.ConversationCache;
 import com.babybox.app.GCMConfig;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
+import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.MessageVM;
 import retrofit.Callback;
@@ -132,13 +132,14 @@ public class MessageListActivity extends TrackedFragmentActivity {
         messageVMList = new ArrayList<>();
 
         conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
+        final ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
 
-        title.setText(ConversationCache.getOpenedConversation().getUserName());
+        title.setText(conversation.getUserName());
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewUtil.startUserProfileActivity(MessageListActivity.this, ConversationCache.getOpenedConversation().getUserId());
+                ViewUtil.startUserProfileActivity(MessageListActivity.this, conversation.getUserId());
             }
         });
 
@@ -454,7 +455,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
     private void getMessages(Long conversationId) {
         ViewUtil.showSpinner(MessageListActivity.this);
-        AppController.getApiService().getMessages(conversationId, offset, new Callback<Response>() {
+        AppController.getApiService().getMessages(conversationId, 0L, new Callback<Response>() {
             @Override
             public void success(Response response, Response response1) {
                 listHeader.setVisibility(View.INVISIBLE);
@@ -481,7 +482,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void loadMoreMessages(Long id,Long offset) {
+    private void loadMoreMessages(Long id, Long offset) {
         ViewUtil.showSpinner(MessageListActivity.this);
         AppController.getApiService().getMessages(id, offset, new Callback<Response>() {
             @Override

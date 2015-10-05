@@ -4,6 +4,7 @@ import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationVM;
+import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
@@ -20,12 +21,6 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.client.Response;
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.Multipart;
-import retrofit.http.POST;
-import retrofit.http.Part;
-import retrofit.http.Path;
 import retrofit.http.Query;
 import retrofit.mime.MultipartTypedOutput;
 import retrofit.mime.TypedFile;
@@ -56,6 +51,10 @@ public class BabyBoxService {
 
     public void getAllDistricts(Callback<List<LocationVM>> cb) {
         api.getAllDistricts(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getEmoticons(Callback<List<EmoticonVM>> cb) {
+        api.getEmoticons(AppController.getInstance().getSessionId(), cb);
     }
 
     public void login(String email, String password, Callback<Response> cb) {

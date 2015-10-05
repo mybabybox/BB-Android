@@ -89,14 +89,6 @@ public interface MockApi {
     @GET("/profile/{id}")
     public void getUserProfile(@Path("id") Long id, @Query("key") String key, Callback<ProfileVM> cb);
 
-    @Multipart
-    @POST("/image/upload-cover-photo")
-    public void uploadCoverPhoto(@Part("profile-photo") TypedFile photo,@Query("key") String key, Callback<Response> cb);
-
-    @Multipart
-    @POST("/image/upload-profile-photo")
-    public void uploadProfilePhoto(@Part("profile-photo") TypedFile photo,@Query("key") String key, Callback<Response> cb);
-
     @GET("/get-headerBar-data")
     //a function in your api to get all header meta data (notifications and requests).
     public void getHeaderBarData(@Query("key") String key, Callback<NotificationsParentVM> cb);
@@ -104,60 +96,15 @@ public interface MockApi {
     @GET("/mark-as-read/{ids}")
     public void markAsRead(@Path("ids")String ids, @Query("key") String key, Callback<Response> cb);
 
-    //'/ignore-it/:notify_id'
-    @GET("/ignore-it/{notify_id}") //a function in your api accept invite request to Community
-    public void ignoreIt(@Path("notify_id") Long notify_id, @Query("key") String key, Callback<Response> cb);
-
     @GET("/get-user-newsfeeds-posts/{offset}/{id}")
     public void getUserPosts(@Path("offset") Long offset,@Path("id") Long id, @Query("key") String key, Callback<PostArray> cb);
 
     @GET("/get-user-newsfeeds-comments/{offset}/{id}")
     public void getUserComments(@Path("offset") Long offset,@Path("id") Long id, @Query("key") String key, Callback<PostArray> cb);
 
-    @GET("/get-bookmarked-posts/{offset}")
-    public void getBookmarkedPosts(@Path("offset") Long offset,@Query("key") String key, Callback<List<CommunityPostVM>> cb);
-
-    @GET("/image/getEmoticons")
-    public void getEmoticons(@Query("key") String key, Callback<List<EmoticonVM>> cb);
-
-    @POST("/updateUserProfileData")
-    public void updateUserProfileData(@Body UserProfileDataVM userProfileDataVM, @Query("key") String key, Callback<UserVM> cb);
-
-    //
-    // Messages APIs
-    //
-
-    @GET("/get-all-conversations")
-    public void getAllConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
-
-    @GET("/get-messages/{id}/{offset}")
-    public void getMessages(@Path("id") Long id, @Path("offset") Long offset,@Query("key") String key, Callback<Response> cb);
-
-    @GET("/open-conversation/{id}")
-    public void openConversation(@Path("id") Long id,@Query("key") String key, Callback<List<ConversationVM>> cb);
-
-    @GET("/delete-conversation/{id}")
-    public void deleteConversation(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
-
-    @POST("/message/sendMsg")
-    public void sendMessage(@Body NewMessageVM message, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/get-unread-msg-count")
-    public void getUnreadMessageCount(@Query("key") String key, Callback<MessageVM> cb);
-
-    @GET("/image/get-message-image-by-id/{id} ")
-    public void getMessageImage(@Query("key") String key, @Part("messageId") long id, Callback<MessageVM> cb);
-
-    @Multipart
-    @POST("/image/sendMessagePhoto")
-    public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
-
     //
     // Game APIs
     //
-
-    @POST("/sign-in-for-today")
-    public void signInForToday(@Query("key") String key, Callback<Response> cb);
 
     @GET("/get-gameaccount")
     public void getGameAccount(@Query("key") String key, Callback<GameAccountVM> cb);

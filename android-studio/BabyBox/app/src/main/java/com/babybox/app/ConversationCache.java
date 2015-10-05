@@ -129,6 +129,12 @@ public class ConversationCache {
         return openedConversation;
     }
 
+    public static ConversationVM getOpenedConversation(Long id) {
+        ConversationVM conversation = getConversation(id);
+        openedConversation = conversation;
+        return openedConversation;
+    }
+
     public static void clear() {
         SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.CONVERSATIONS);
     }

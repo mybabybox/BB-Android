@@ -153,10 +153,6 @@ public interface BabyBoxApi {
     @GET("/post/delete/{id}")
     public void deletePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @Multipart
-    @POST("/image/upload-post-image")
-    public void uploadPostImage(@Part("id") String id, @Part("post-image") TypedFile image, Callback<Response> cb);
-
     @GET("/comments/{postId}/{offset}")
     public void getComments(@Path("postId") Long postId, @Path("offset") Long offset, @Query("key") String key, Callback<List<CommentVM>> cb);
 
