@@ -2,11 +2,13 @@ package com.babybox.app;
 
 import android.util.Log;
 
-import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.viewmodel.ConversationVM;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -14,7 +16,8 @@ import retrofit.client.Response;
 
 public class ConversationCache {
 
-    private static List<ConversationVM> conversations = new ArrayList<>();
+    private static SortedSet<ConversationVM> conversations = new TreeSet<ConversationVM>() {
+    };
 
     private static ConversationVM openedConversation;
 
@@ -37,8 +40,8 @@ public class ConversationCache {
         AppController.getApiService().getAllConversations(new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> vms, Response response) {
-                conversations = vms;
-                SharedPreferencesUtil.getInstance().saveConversations(vms);
+                conversations.addAll(vms);
+
                 if (callback != null) {
                     callback.success(vms, response);
                 }
@@ -66,7 +69,6 @@ public class ConversationCache {
                     conversations.add(conversationVM);
                 }
 
-                SharedPreferencesUtil.getInstance().saveConversations(conversations);
                 if (callback != null) {
                     callback.success(conversationVM, response);
                 }
@@ -94,7 +96,6 @@ public class ConversationCache {
                     }
                 }
 
-                SharedPreferencesUtil.getInstance().saveConversations(conversations);
                 if (callback != null) {
                     callback.success(responseObject, response);
                 }
@@ -111,9 +112,7 @@ public class ConversationCache {
     }
 
     public static List<ConversationVM> getConversations() {
-        if (conversations == null)
-            conversations = SharedPreferencesUtil.getInstance().getConversations();
-        return conversations;
+        return new ArrayList(conversations);
     }
 
     public static ConversationVM getConversation(Long id) {
@@ -136,6 +135,7 @@ public class ConversationCache {
     }
 
     public static void clear() {
-        SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.CONVERSATIONS);
+        conversations.clear();
+        openedConversation = null;
     }
 }

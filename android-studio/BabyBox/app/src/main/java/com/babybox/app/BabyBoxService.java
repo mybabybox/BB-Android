@@ -221,7 +221,7 @@ public class BabyBoxService {
         api.deleteConversation(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void newMessage(NewMessageVM message, Callback<Response> cb) {
+    public void newMessage(NewMessageVM message, Callback<MessageVM> cb) {
         api.newMessage(message, AppController.getInstance().getSessionId(), cb);
     }
 

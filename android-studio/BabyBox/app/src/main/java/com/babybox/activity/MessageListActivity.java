@@ -34,10 +34,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.apache.commons.lang.StringUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -60,7 +57,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.TypedFile;
-import retrofit.mime.TypedInput;
 
 public class MessageListActivity extends TrackedFragmentActivity {
 
@@ -76,11 +72,13 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
     private TextView title;
     private ImageView backImage, profileButton;
-    private List<MessageVM> messageVMList;
-    private MessageListAdapter adapter;
+
     private ListView listView;
     private View listHeader;
     private RelativeLayout loadMoreLayout;
+
+    private List<MessageVM> messages = new ArrayList<>();
+    private MessageListAdapter adapter;
 
     private Long conversationId;
     private Long offset = 1L;
@@ -89,9 +87,9 @@ public class MessageListActivity extends TrackedFragmentActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             System.out.println("in receiver:::");
-            messageVMList.clear();
-            messageVMList.addAll(AppController.getInstance().messageVMList);
-            System.out.println("in rec size::"+messageVMList.size());
+            messages.clear();
+            messages.addAll(AppController.getInstance().messageVMList);
+            System.out.println("in rec size::"+messages.size());
             adapter.notifyDataSetChanged();
             // adapter = new MessageListAdapter(MessageDetailActivity.this, messageVMList);
             //listView.setAdapter(adapter);
@@ -128,8 +126,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
         listView.addHeaderView(listHeader);
         listHeader.setVisibility(View.INVISIBLE);
-
-        messageVMList = new ArrayList<>();
 
         conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
         final ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
@@ -365,42 +361,28 @@ public class MessageListActivity extends TrackedFragmentActivity {
     }
 
     private void doMessage() {
-        String comment = commentEditText.getText().toString().trim();
-        if (StringUtils.isEmpty(comment) && commentImages.size() == 0) {
+        final boolean withPhotos = photos.size() > 0;
+        String body = commentEditText.getText().toString().trim();
+        if (StringUtils.isEmpty(body) && !withPhotos) {
             Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.invalid_comment_body_empty), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
+        //Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
 
-        final boolean withPhotos = photos.size() > 0;
-        NewMessageVM newMessage = new NewMessageVM(conversationId, comment, withPhotos);
-        AppController.getApiService().newMessage(newMessage, new Callback<Response>() {
+        NewMessageVM newMessage = new NewMessageVM(conversationId, body, withPhotos);
+        AppController.getApiService().newMessage(newMessage, new Callback<MessageVM>() {
             @Override
-            public void success(Response responseMap, Response response) {
-                String responseVM = "";
-                TypedInput body = responseMap.getBody();
-                try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(body.in()));
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        responseVM = responseVM + line;
-                    }
-
-                    if (withPhotos) {
-                        JSONObject obj = new JSONObject(responseVM);
-                        Long messageId = obj.getLong("id");
-                        uploadPhotos(messageId);
-                    }
-
-                    getMessages(conversationId);
-
-                    reset();
-                } catch (JSONException e) {
-                    Log.e(MessageListActivity.class.getSimpleName(), "doMessage.api.sendMessage: exception", e);
-                } catch (IOException e) {
-                    Log.e(MessageListActivity.class.getSimpleName(), "doMessage.api.sendMessage: exception", e);
+            public void success(MessageVM message, Response response) {
+                if (withPhotos) {
+                    uploadPhotos(message.id);
                 }
+
+                messages.add(message);
+                adapter.notifyDataSetChanged();
+                listView.smoothScrollToPosition(messages.size());
+
+                reset();
             }
 
             @Override
@@ -418,8 +400,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
             TypedFile typedFile = new TypedFile("application/octet-stream", photo);
             AppController.getApiService().uploadMessagePhoto(messageId, typedFile, new Callback<Response>() {
                 @Override
-                public void success(Response array, Response response) {
-                    getMessages(conversationId);
+                public void success(Response responseObject, Response response) {
+
                 }
 
                 @Override
@@ -435,10 +417,11 @@ public class MessageListActivity extends TrackedFragmentActivity {
         try {
             JSONObject obj = new JSONObject(responseBody);
 
-            JSONArray userGroupArray = obj.getJSONArray(GCMConfig.MESSAGE_KEY);
-            for (int i = 0; i < userGroupArray.length(); i++) {
-                JSONObject jsonObj = userGroupArray.getJSONObject(i);
-                MessageVM vm = new MessageVM(jsonObj);
+            JSONArray messagesObj = obj.getJSONArray(GCMConfig.MESSAGE_KEY);
+            for (int i = 0; i < messagesObj.length(); i++) {
+                JSONObject messageObj = messagesObj.getJSONObject(i);
+                Log.d(MessageListActivity.class.getSimpleName(), "getMessages.api.getMessages: message["+i+"]="+messageObj.toString());
+                MessageVM vm = new MessageVM(messageObj);
                 messages.add(vm);
             }
 
@@ -457,18 +440,18 @@ public class MessageListActivity extends TrackedFragmentActivity {
         ViewUtil.showSpinner(MessageListActivity.this);
         AppController.getApiService().getMessages(conversationId, 0L, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response1) {
+            public void success(Response responseObject, Response response) {
                 listHeader.setVisibility(View.INVISIBLE);
 
-                String responseBody = ViewUtil.getResponseBody(response);
-                List<MessageVM> messages = parseMessages(responseBody);
-                if (messages.size() >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
+                String responseBody = ViewUtil.getResponseBody(responseObject);
+                List<MessageVM> vms = parseMessages(responseBody);
+                if (vms.size() >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
                     listHeader.setVisibility(View.VISIBLE);
                 }
 
-                messageVMList.clear();
-                messageVMList.addAll(messages);
-                adapter = new MessageListAdapter(MessageListActivity.this, messageVMList);
+                messages.clear();
+                messages.addAll(vms);
+                adapter = new MessageListAdapter(MessageListActivity.this, messages);
                 listView.setAdapter(adapter);
 
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -486,17 +469,17 @@ public class MessageListActivity extends TrackedFragmentActivity {
         ViewUtil.showSpinner(MessageListActivity.this);
         AppController.getApiService().getMessages(id, offset, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response1) {
+            public void success(Response responseObject, Response response) {
                 listHeader.setVisibility(View.INVISIBLE);
 
-                String responseBody = ViewUtil.getResponseBody(response);
-                List<MessageVM> messages = parseMessages(responseBody);
+                String responseBody = ViewUtil.getResponseBody(responseObject);
+                List<MessageVM> vms = parseMessages(responseBody);
                 if (messages.size() >= DefaultValues.CONVERSATION_MESSAGE_COUNT) {
                     listHeader.setVisibility(View.VISIBLE);
                 }
 
-                messageVMList.clear();
-                messageVMList.addAll(messages);
+                messages.clear();
+                messages.addAll(vms);
                 adapter.notifyDataSetChanged();
 
                 // restore previous listView position
@@ -520,6 +503,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             commentPopup.dismiss();
             commentPopup = null;
         }
+        commentEditText.setText("");
         resetCommentImages();
     }
 
@@ -539,9 +523,3 @@ public class MessageListActivity extends TrackedFragmentActivity {
         //stopService(intent);
     }
 }
-
-
-
-
-
-

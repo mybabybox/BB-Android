@@ -1,5 +1,7 @@
 package com.babybox.app;
 
+import android.os.Message;
+
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
@@ -221,7 +223,7 @@ public interface BabyBoxApi {
     public void deleteConversation(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
     @POST("/message/new")
-    public void newMessage(@Body NewMessageVM message, @Query("key") String key, Callback<Response> cb);
+    public void newMessage(@Body NewMessageVM message, @Query("key") String key, Callback<MessageVM> cb);
 
     @GET("/get-unread-message-count")
     public void getUnreadMessageCount(@Query("key") String key, Callback<MessageVM> cb);
