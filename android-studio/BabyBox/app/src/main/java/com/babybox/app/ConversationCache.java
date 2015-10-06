@@ -5,7 +5,6 @@ import android.util.Log;
 import com.babybox.viewmodel.ConversationVM;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -58,7 +57,7 @@ public class ConversationCache {
     }
 
     public static void open(final Long postId, final Callback<ConversationVM> callback) {
-        Log.d(ConversationCache.class.getSimpleName(), "open");
+        Log.d(ConversationCache.class.getSimpleName(), "open: post="+postId);
 
         AppController.getApiService().openConversation(postId, new Callback<ConversationVM>() {
             @Override

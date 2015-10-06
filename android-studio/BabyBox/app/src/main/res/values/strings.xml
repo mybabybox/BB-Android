@@ -12,7 +12,7 @@
     <string name="app_name">babybox</string>
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">1469031873403459</string>
-    <string name="base_url">http://192.168.1.137:9000</string>
+    <string name="base_url">http://192.168.1.124:9000</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>
@@ -88,31 +88,6 @@
     <string name="category_tips">Explore category with filters</string>
     <string name="my_profile_tips">Your own profile page with listed products</string>
 
-    <!-- Product page -->
-    <string name="like">Like</string>
-    <string name="unlike">Unlike</string>
-    <string name="likes">Likes</string>
-    <string name="comments">Comments</string>
-    <string name="chat">Chat</string>
-    <string name="buy">Buy</string>
-    <string name="listed">Listed</string>
-    <string name="comment_bar_hint">添加評論</string>
-    <string name="no_products">~ 暫沒有商品 ~</string>
-    <string name="no_product_comments">~ 沒有評論 ~</string>
-
-    <string name="new_post_actionbar_title">刊登商品</string>
-    <string name="new_post">發出</string>
-    <string name="new_post_price">價格($):</string>
-    <string name="new_post_price_hint">請輸入價格</string>
-    <string name="new_post_to_popup_title">請選擇分類</string>
-    <string name="new_post_to">分類:</string>
-    <string name="new_post_select_category">請選擇分類</string>
-    <string name="new_post_title">你要賣的是?</string>
-    <string name="new_post_body">商品詳情</string>
-    <string name="new_post_max_images">最多可加入4張圖</string>
-    <string name="new_post_success">成功刊登商品</string>
-    <string name="new_post_failed">暫時不能刊登商品，請稍後重試</string>
-
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>
     <string name="main_tab_trending">Trending</string>
@@ -134,7 +109,32 @@
     <string name="filter_new">New</string>
     <string name="filter_used">Used</string>
 
-    <!-- Community tab -->
+    <!-- Product page -->
+    <string name="like">Like</string>
+    <string name="unlike">Unlike</string>
+    <string name="likes">Likes</string>
+    <string name="comments">Comments</string>
+    <string name="chat">Chat</string>
+    <string name="buy">Buy</string>
+    <string name="listed">Listed</string>
+    <string name="comment_bar_hint">添加評論</string>
+    <string name="product_sold">已售</string>
+    <string name="no_products">~ 暫沒有商品 ~</string>
+    <string name="no_product_comments">~ 沒有評論 ~</string>
+
+    <string name="new_post_actionbar_title">刊登商品</string>
+    <string name="new_post">發出</string>
+    <string name="new_post_price">價格($):</string>
+    <string name="new_post_price_hint">請輸入價格</string>
+    <string name="new_post_to_popup_title">請選擇分類</string>
+    <string name="new_post_to">分類:</string>
+    <string name="new_post_select_category">請選擇分類</string>
+    <string name="new_post_title">你要賣的是?</string>
+    <string name="new_post_body">商品詳情</string>
+    <string name="new_post_max_images">最多可加入4張圖</string>
+    <string name="new_post_success">成功刊登商品</string>
+    <string name="new_post_failed">暫時不能刊登商品，請稍後重試</string>
+
     <string name="post_delete_confirm">確定刪除?</string>
     <string name="post_not_found">尋找不到此商品。可能已被刪除</string>
     <string name="post_delete_success">成功刪除</string>
@@ -142,7 +142,6 @@
     <string name="comment_delete_success">成功刪除</string>
     <string name="comment_delete_failed">暫時不能刪除，請稍後重試</string>
     <string name="post_actionbar_title">商品詳情</string>
-    <string name="from_community">社群:</string>
     <string name="comment_success">成功回覆話題</string>
     <string name="comment_failed">暫時不能回覆話題，請稍後重試</string>
     <string name="photo_select">請選擇圖片</string>

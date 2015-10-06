@@ -51,8 +51,10 @@ public class ImageUtil {
     public static final String THUMBNAIL_PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-profile-image-by-id/";
     public static final String POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-post-image-by-id/";
     public static final String ORIGINAL_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-original-post-image-by-id/";
+    public static final String MINI_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-mini-post-image-by-id/";
     public static final String MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-message-image-by-id/";
     public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-original-message-image-by-id/";
+    public static final String MINI_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-mini-message-image-by-id/";
 
     private static ImageCircleTransform circleTransform =
             new ImageCircleTransform(AppController.getInstance());
@@ -177,6 +179,16 @@ public class ImageUtil {
         displayImage(ORIGINAL_POST_IMAGE_BY_ID_URL + id, imageView, listener);
     }
 
+    public static void displayMiniPostImage(long id, ImageView imageView) {
+        //Log.d(ImageUtil.class.getSimpleName(), "displayMiniPostImage: loading " + MINI_POST_IMAGE_BY_ID_URL + id);
+        displayImage(MINI_POST_IMAGE_BY_ID_URL + id, imageView);
+    }
+
+    public static void displayMiniPostImage(long id, ImageView imageView, RequestListener listener) {
+        //Log.d(ImageUtil.class.getSimpleName(), "displayMiniPostImage: loading " + MINI_POST_IMAGE_BY_ID_URL + id);
+        displayImage(MINI_POST_IMAGE_BY_ID_URL + id, imageView, listener);
+    }
+
     public static void displayMessageImage(long id, ImageView imageView) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayMessageImage: loading " + MESSAGE_IMAGE_BY_ID_URL + id);
         displayImage(MESSAGE_IMAGE_BY_ID_URL + id, imageView);
@@ -195,6 +207,16 @@ public class ImageUtil {
     public static void displayOriginalMessageImage(long id, ImageView imageView, RequestListener listener) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayOriginalMessageImage: loading "+ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id);
         displayImage(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id, imageView, listener);
+    }
+
+    public static void displayMiniMessageImage(long id, ImageView imageView) {
+        //Log.d(ImageUtil.class.getSimpleName(), "displayOriginalMessageImage: loading "+MINI_MESSAGE_IMAGE_BY_ID_URL + id);
+        displayImage(MINI_MESSAGE_IMAGE_BY_ID_URL + id, imageView);
+    }
+
+    public static void displayMiniMessageImage(long id, ImageView imageView, RequestListener listener) {
+        //Log.d(ImageUtil.class.getSimpleName(), "displayOriginalMessageImage: loading "+MINI_MESSAGE_IMAGE_BY_ID_URL + id);
+        displayImage(MINI_MESSAGE_IMAGE_BY_ID_URL + id, imageView, listener);
     }
 
     // Default image

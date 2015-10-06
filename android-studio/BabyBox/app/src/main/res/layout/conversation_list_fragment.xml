@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/feed_bg"
-    android:paddingTop="10dp"
     tools:context=".MainActivity">
 
     <TextView
@@ -16,9 +15,9 @@
 
     <ListView
         android:id="@+id/conversationList"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:divider="@color/feed_bg"
-        android:dividerHeight="10dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@drawable/bar1"
+        android:dividerHeight="0.8dp" />
 
 </RelativeLayout>

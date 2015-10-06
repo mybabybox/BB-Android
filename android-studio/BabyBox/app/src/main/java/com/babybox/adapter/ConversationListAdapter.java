@@ -23,8 +23,8 @@ public class ConversationListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<ConversationVM> conversationVMs;
-    private ImageView userPicture;
-    private TextView senderText,firstMessageText,dateText;
+    private ImageView userImage, postImage;
+    private TextView userText, postTitleText, lastMessageText, soldText, dateText;
 
     public ConversationListAdapter(Activity activity, List<ConversationVM> conversationVMs) {
         this.activity = activity;
@@ -61,16 +61,23 @@ public class ConversationListAdapter extends BaseAdapter {
         if (item.getUnread() != 0) {
             layout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
         }
-        senderText = (TextView) view.findViewById(R.id.senderText);
+
+        userText = (TextView) view.findViewById(R.id.userText);
+        postTitleText = (TextView) view.findViewById(R.id.postTitleText);
+        lastMessageText = (TextView) view.findViewById(R.id.lastMessageText);
+        soldText = (TextView) view.findViewById(R.id.soldText);
         dateText = (TextView) view.findViewById(R.id.dateText);
-        firstMessageText = (TextView) view.findViewById(R.id.firstMessageText);
-        userPicture = (ImageView) view.findViewById(R.id.userPicture);
+        userImage = (ImageView) view.findViewById(R.id.userImage);
+        postImage = (ImageView) view.findViewById(R.id.postImage);
 
-        ImageUtil.displayThumbnailProfileImage(item.getUserId(), userPicture);
+        ImageUtil.displayThumbnailProfileImage(item.getUserId(), userImage);
+        ImageUtil.displayPostImage(item.getPostImage(), postImage);
 
-        senderText.setText(item.getUserName());
+        userText.setText(item.getUserName());
+        postTitleText.setText(item.getPostTitle());
         dateText.setText(DateTimeUtil.getTimeAgo(item.getLastMessageDate()));
-        ViewUtil.setHtmlText(item.getLastMessage(), firstMessageText, activity);
+        ViewUtil.setHtmlText(item.getLastMessage(), lastMessageText, activity);
+        soldText.setVisibility(item.postSold? View.VISIBLE : View.GONE);
 
         Log.d(this.getClass().getSimpleName(), item.getLastMessage());
 

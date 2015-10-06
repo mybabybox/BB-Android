@@ -6,6 +6,7 @@ public class ConversationVM implements Comparable<ConversationVM> {
     public Long postImage;
     public String postTitle;
     public Long postPrice;
+    public Boolean postSold;
     public Long userId;
     public String userName;
     public Long lastMessageDate;
@@ -52,6 +53,14 @@ public class ConversationVM implements Comparable<ConversationVM> {
 
     public void setPostPrice(Long postPrice) {
         this.postPrice = postPrice;
+    }
+
+    public Boolean isPostSold() {
+        return postSold;
+    }
+
+    public void setPostSold(Boolean postSold) {
+        this.postSold = postSold;
     }
 
     public Long getUserId() {
