@@ -213,6 +213,9 @@ public interface BabyBoxApi {
     @GET("/get-all-conversations")
     public void getAllConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
 
+    @GET("/get-conversation/{id}")
+    public void getConversation(@Path("id") Long id, @Query("key") String key, Callback<ConversationVM> cb);
+
     @GET("/get-messages/{conversationId}/{offset}")
     public void getMessages(@Path("conversationId") Long conversationId, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
 

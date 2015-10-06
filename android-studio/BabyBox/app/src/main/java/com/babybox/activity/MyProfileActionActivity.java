@@ -1,7 +1,9 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.View;
@@ -83,6 +85,15 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
                 onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        Fragment fragment = (Fragment) getSupportFragmentManager().findFragmentById(R.id.childLayout);
+        if(fragment != null){
+            fragment.onActivityResult(requestCode, resultCode, intent);
+        }
     }
 }
 

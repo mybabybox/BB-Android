@@ -209,6 +209,10 @@ public class BabyBoxService {
         api.getAllConversations(AppController.getInstance().getSessionId(), cb);
     }
 
+    public void getConversation(Long id, Callback<ConversationVM> cb) {
+        api.getConversation(id, AppController.getInstance().getSessionId(), cb);
+    }
+
     public void getMessages(Long conversationId, Long offset, Callback<Response> cb) {
         api.getMessages(conversationId, offset, AppController.getInstance().getSessionId(), cb);
     }

@@ -33,7 +33,8 @@
             android:layout_below="@+id/userPicture"
             android:layout_gravity="center"
             android:singleLine="true"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp" />
     </LinearLayout>
 
     <LinearLayout

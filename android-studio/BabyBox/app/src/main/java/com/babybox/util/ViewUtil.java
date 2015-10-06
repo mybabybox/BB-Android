@@ -86,8 +86,10 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_ARG3 = "arg3";
 
     public static final String INTENT_VALUE_REFRESH = "refresh";
+    public static final String INTENT_VALUE_ID = "id";
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
     public static final int SELECT_IMAGE_REQUEST_CODE = 2;
+    public static final int MESSAGE_LIST_ACTIVITY_REQUEST_CODE = 2;
 
     public static final String HTML_LINE_BREAK = "<br>";
 
@@ -702,5 +704,11 @@ public class ViewUtil {
         Intent intent = new Intent(activity, MessageListActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
         activity.startActivity(intent);
+    }
+
+    public static void startMessageListActivityForResult(Activity activity, Long conversationId) {
+        Intent intent = new Intent(activity, MessageListActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
+        activity.startActivityForResult(intent, MESSAGE_LIST_ACTIVITY_REQUEST_CODE);
     }
 }

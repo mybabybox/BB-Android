@@ -285,14 +285,12 @@
         android:layout_height="wrap_content"
         android:id="@+id/dividerLayout"
         android:layout_below="@+id/bar2"
-        android:layout_margin="10dp">
+        android:layout_margin="15dp">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tipsLayout"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp">
+            android:id="@+id/tipsLayout">
 
             <LinearLayout
                 android:id="@+id/tips"
@@ -304,9 +302,7 @@
                 android:paddingRight="15dp"
                 android:paddingBottom="12dp"
                 android:layout_below="@+id/viewBar"
-                android:paddingTop="12dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp">
+                android:paddingTop="12dp">
 
                 <ImageView
                     android:id="@+id/mascot"
@@ -333,8 +329,7 @@
                 android:layout_height="24dp"
                 android:src="@drawable/ic_close"
                 android:layout_gravity="right|top"
-                android:padding="6dp"
-                android:layout_marginRight="10dp" />
+                android:padding="6dp" />
 
         </FrameLayout>
 

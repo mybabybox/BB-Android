@@ -1,5 +1,6 @@
 package com.babybox.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import com.babybox.adapter.ConversationListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.ConversationCache;
 import com.babybox.app.TrackedFragment;
+import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
 import retrofit.Callback;
@@ -33,7 +35,6 @@ public class ConversationListFragment extends TrackedFragment {
     private ListView listView;
     private TextView tipText;
     private ConversationListAdapter adapter;
-    private List<ConversationVM> conversationVMList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class ConversationListFragment extends TrackedFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ConversationVM item = adapter.getItem(i);
-                ViewUtil.startMessageListActivity(getActivity(), item.id);
+                ViewUtil.startMessageListActivityForResult(getActivity(), item.id);
             }
         });
 
@@ -84,25 +85,67 @@ public class ConversationListFragment extends TrackedFragment {
     @Override
     public void onStart() {
         super.onStart();
-        //getAllConversations();
+
+        /*
+        if (adapter != null) {
+            Log.d(ConversationListFragment.class.getSimpleName(), "onStart");
+            ConversationCache.sortConversations();
+            adapter.notifyDataSetChanged();
+        }
+        */
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        /*
+        if (adapter != null) {
+            Log.d(ConversationListFragment.class.getSimpleName(), "onResume");
+            ConversationCache.sortConversations();
+            adapter.notifyDataSetChanged();
+        }
+        */
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(this.getClass().getSimpleName(), "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
+
+        if (requestCode == ViewUtil.MESSAGE_LIST_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK &&
+                data != null && adapter != null) {
+            Long conversationId = data.getLongExtra(ViewUtil.INTENT_VALUE_ID, -1L);
+
+            Log.d(this.getClass().getSimpleName(), "onActivityResult: conversationId=" + conversationId);
+            if (conversationId != -1L) {
+                ConversationCache.update(conversationId, new Callback<ConversationVM>() {
+                    @Override
+                    public void success(ConversationVM conversation, Response response) {
+                        adapter.notifyDataSetChanged();
+                        ViewUtil.stopSpinner(getActivity());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        ViewUtil.stopSpinner(getActivity());
+                        Log.e(ConversationListFragment.class.getSimpleName(), "onActivityResult: failure", error);
+                    }
+                });
+            }
+        }
     }
 
     private void getAllConversations() {
         ViewUtil.showSpinner(getActivity());
         ConversationCache.refresh(new Callback<List<ConversationVM>>() {
             @Override
-            public void success(List<ConversationVM> conversationVMs, Response response) {
-                conversationVMList = conversationVMs;
-
-                if (conversationVMList.size() == 0) {
+            public void success(List<ConversationVM> conversations, Response response) {
+                Log.d(ConversationListFragment.class.getSimpleName(), "getAllConversations: success");
+                if (conversations.size() == 0) {
                     tipText.setVisibility(View.VISIBLE);
                 } else {
-                    adapter = new ConversationListAdapter(getActivity(), conversationVMList);
+                    adapter = new ConversationListAdapter(getActivity(), ConversationCache.getConversations());
                     listView.setAdapter(adapter);
                 }
 
@@ -119,14 +162,9 @@ public class ConversationListFragment extends TrackedFragment {
 
     private void deleteConversation(final Long id) {
         ViewUtil.showSpinner(getActivity());
-        AppController.getApiService().deleteConversation(id, new Callback<Response>() {
+        ConversationCache.delete(id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response1) {
-                for (ConversationVM conversation : conversationVMList) {
-                    if (conversation.id == id) {
-                        conversationVMList.remove(conversation);
-                    }
-                }
+            public void success(Response responseObject, Response response) {
                 adapter.notifyDataSetChanged();
                 ViewUtil.stopSpinner(getActivity());
             }

@@ -60,7 +60,7 @@ import retrofit.mime.TypedFile;
 
 public class MessageListActivity extends TrackedFragmentActivity {
 
-    private TextView commentEdit;
+    private TextView postTitleText, postPriceText, commentEdit;
     private FrameLayout mainFrameLayout;
     private EditText commentEditText;
     private PopupWindow commentPopup;
@@ -70,12 +70,12 @@ public class MessageListActivity extends TrackedFragmentActivity {
     private List<ImageView> commentImages = new ArrayList<>();
     private List<File> photos = new ArrayList<>();
 
-    private TextView title;
-    private ImageView backImage, profileButton;
+    private TextView titleText;
+    private ImageView backImage, profileButton, postImage;
 
     private ListView listView;
     private View listHeader;
-    private RelativeLayout loadMoreLayout;
+    private RelativeLayout postLayout, loadMoreLayout;
 
     private List<MessageVM> messages = new ArrayList<>();
     private MessageListAdapter adapter;
@@ -115,22 +115,34 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 )
         );
 
-        commentEdit = (TextView) findViewById(R.id.commentEdit);
-        mainFrameLayout = (FrameLayout) findViewById(R.id.mainFrameLayout);
-        profileButton = (ImageView) findViewById(R.id.profileButton);
-
         Intent intent = new Intent(this, BroadcastService.class);
 
         listView = (ListView)findViewById(R.id.messageList);
-        title = (TextView) findViewById(R.id.titleText);
+        titleText = (TextView) findViewById(R.id.titleText);
+
+        postLayout = (RelativeLayout) findViewById(R.id.postLayout);
+        postImage = (ImageView) findViewById(R.id.postImage);
+        postTitleText = (TextView) findViewById(R.id.postTitleText);
+        postPriceText = (TextView) findViewById(R.id.postPriceText);
+
+        mainFrameLayout = (FrameLayout) findViewById(R.id.mainFrameLayout);
+        profileButton = (ImageView) findViewById(R.id.profileButton);
+        commentEdit = (TextView) findViewById(R.id.commentEdit);
+
+        // conversation
+        conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
+        final ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
+
+        titleText.setText(conversation.getUserName());
+        postTitleText.setText(conversation.getPostTitle());
+        postPriceText.setText(ViewUtil.priceFormat(conversation.getPostPrice()));
+        ImageUtil.displayPostImage(conversation.getPostImage(), postImage);
 
         listView.addHeaderView(listHeader);
         listHeader.setVisibility(View.INVISIBLE);
 
-        conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
-        final ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
-
-        title.setText(conversation.getUserName());
+        // load messages
+        loadMessages(conversationId);
 
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +151,12 @@ public class MessageListActivity extends TrackedFragmentActivity {
             }
         });
 
-        loadMessages(conversationId);
+        postLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewUtil.startProductActivity(MessageListActivity.this, conversation.getPostId(), "FromMessageList");
+            }
+        });
 
         loadMoreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,6 +332,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         }
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
                 data != null && photos.size() < DefaultValues.MAX_MESSAGE_IMAGES) {
@@ -381,6 +399,10 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 messages.add(message);
                 adapter.notifyDataSetChanged();
                 listView.smoothScrollToPosition(messages.size());
+
+                Intent i = new Intent();
+                i.putExtra(ViewUtil.INTENT_VALUE_ID, conversationId);
+                setResult(RESULT_OK, i);
 
                 reset();
             }

@@ -83,5 +83,4 @@ public class ConversationListAdapter extends BaseAdapter {
 
         return  view;
     }
-
 }

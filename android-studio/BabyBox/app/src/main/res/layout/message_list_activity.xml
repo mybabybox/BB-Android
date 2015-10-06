@@ -18,14 +18,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/view_bg"
+            android:id="@+id/postLayout">
+
+            <ImageView
+                android:id="@+id/postImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:id="@+id/postTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="18dp"
+                android:layout_toRightOf="@+id/postImage"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/postPriceText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="16dp"
+                android:layout_toRightOf="@+id/postImage"
+                android:layout_below="@+id/postTitleText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1.2dp"
+                android:background="@drawable/bar1"
+                android:id="@+id/bar1"
+                android:layout_alignParentBottom="true" />
+
+        </RelativeLayout>
+
         <ListView
             android:id="@+id/messageList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/feed_bg"
             android:stackFromBottom="true"
-            android:layout_marginBottom="50dp"
-            android:divider="@null">
+            android:layout_marginBottom="45dp"
+            android:divider="@null"
+            android:layout_marginTop="62dp">
         </ListView>
 
         <LinearLayout
