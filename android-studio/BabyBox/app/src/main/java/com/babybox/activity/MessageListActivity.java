@@ -56,6 +56,7 @@ import com.babybox.viewmodel.MessageVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.mime.MultipartTypedOutput;
 import retrofit.mime.TypedFile;
 
 public class MessageListActivity extends TrackedFragmentActivity {
@@ -388,14 +389,10 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
         //Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
 
-        NewMessageVM newMessage = new NewMessageVM(conversationId, body, withPhotos);
+        NewMessageVM newMessage = new NewMessageVM(conversationId, body, photos);
         AppController.getApiService().newMessage(newMessage, new Callback<MessageVM>() {
             @Override
             public void success(MessageVM message, Response response) {
-                if (withPhotos) {
-                    uploadPhotos(message.id);
-                }
-
                 messages.add(message);
                 adapter.notifyDataSetChanged();
                 listView.smoothScrollToPosition(messages.size());
@@ -409,29 +406,11 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doMessage.api.sendMessage: failed with error", error);
+                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doMessage.api.newMessage: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_send_failed), Toast.LENGTH_SHORT).show();
                 reset();
             }
         });
-    }
-
-    private void uploadPhotos(long messageId) {
-        for (File photo : photos) {
-            photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
-            TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-            AppController.getApiService().uploadMessagePhoto(messageId, typedFile, new Callback<Response>() {
-                @Override
-                public void success(Response responseObject, Response response) {
-
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    Log.e(MessageListActivity.class.getSimpleName(), "uploadPhotos.api.uploadMessagePhoto: failure", error);
-                }
-            });
-        }
     }
 
     private int parseAndAddMessages(String responseBody) {

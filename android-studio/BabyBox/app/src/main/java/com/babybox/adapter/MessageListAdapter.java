@@ -21,7 +21,7 @@ public class MessageListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<MessageVM> messageVMs;
-    private ImageView messageImages;
+    private ImageView messageImage;
     private ImageView senderImage;
 
     public MessageListAdapter(Activity activity, List<MessageVM> messageVMs) {
@@ -72,17 +72,17 @@ public class MessageListAdapter extends BaseAdapter {
 
         dateMsg.setText(DateTimeUtil.getTimeAgo(message.getCreatedDate()));
 
-        messageImages = (ImageView) convertView.findViewById(R.id.messageImages);
+        messageImage = (ImageView) convertView.findViewById(R.id.messageImages);
         if(message.hasImage()) {
             if (message.getImage() != null) {
-                loadImages(message, messageImages);
+                loadImages(message, messageImage);
             }
-            messageImages.setVisibility(View.VISIBLE);
+            messageImage.setVisibility(View.VISIBLE);
         } else {
-            messageImages.setVisibility(View.GONE);
+            messageImage.setVisibility(View.GONE);
         }
 
-        messageImages.setOnClickListener(new View.OnClickListener() {
+        messageImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ViewUtil.fullscreenImagePopup(activity, ImageUtil.ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + message.getImage());

@@ -78,7 +78,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected PopupCategoryListAdapter adapter;
 
     protected boolean postSuccess = false;
-    protected int imageUploadSuccessCount = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,14 +128,14 @@ public class NewPostActivity extends TrackedFragmentActivity {
             }
         });
 
-        Long id = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
-        if (id == 0L) {
+        Long id = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
+        if (id == null || id == 0L) {
             catId = null;
-            catLayout.setVisibility(View.VISIBLE);
         } else {
             catId = id;
-            catLayout.setVisibility(View.GONE);
+            initCategoryLayout(CategoryCache.getCategory(id));
         }
+
         Log.d(this.getClass().getSimpleName(), "onCreate: catId=" + catId);
 
         updateSelectCatLayout();
@@ -281,35 +280,14 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         ViewUtil.showSpinner(this);
 
-        List<TypedFile> typedFiles = new ArrayList<>();
+        Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + photos.size());
 
-        int i = 0;
-        MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
-        for (File photo : photos) {
-            TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-            multipartTypedOutput.addPart("post-image"+i,typedFile);
-            i++;
-        }
-
-        multipartTypedOutput.addPart("title", new TypedString(title));
-        multipartTypedOutput.addPart("catId", new TypedString(catId+""));
-        multipartTypedOutput.addPart("body", new TypedString(body));
-        multipartTypedOutput.addPart("price", new TypedString(priceValue));
-        multipartTypedOutput.addPart("deviceType", new TypedString(Boolean.TRUE.toString()));
-
-        Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + typedFiles.size());
-        NewPostVM newPost = new NewPostVM(catId, title, body, price);
-        AppController.getApiService().newPost(multipartTypedOutput, newPost, new Callback<ResponseStatusVM>() {
+        NewPostVM newPost = new NewPostVM(catId, title, body, price, photos);
+        AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
                 postSuccess = true;
                 complete();
-
-                /*if (withPhotos) {
-                    uploadPhotos(responseStatus.getObjId());
-                } else {
-                    complete();
-                }*/
             }
 
             @Override
@@ -359,15 +337,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     CategoryVM category = adapter.getItem(position);
                     catId = category.getId();
-
-                    catName.setText(category.getName());
-                    int resId = ImageMapping.map(category.getIcon());
-                    if (resId != -1) {
-                        catIcon.setImageDrawable(getResources().getDrawable(resId));
-                    } else {
-                        Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
-                        ImageUtil.displayImage(category.getIcon(), catIcon);
-                    }
+                    initCategoryLayout(category);
 
                     updateSelectCatLayout();
                     categoryPopup.dismiss();
@@ -377,6 +347,17 @@ public class NewPostActivity extends TrackedFragmentActivity {
             });
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void initCategoryLayout(CategoryVM category) {
+        catName.setText(category.getName());
+        int resId = ImageMapping.map(category.getIcon());
+        if (resId != -1) {
+            catIcon.setImageDrawable(getResources().getDrawable(resId));
+        } else {
+            Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
+            ImageUtil.displayImage(category.getIcon(), catIcon);
         }
     }
 

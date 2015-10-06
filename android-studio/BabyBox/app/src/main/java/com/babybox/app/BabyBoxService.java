@@ -21,7 +21,6 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.client.Response;
-import retrofit.http.Query;
 import retrofit.mime.MultipartTypedOutput;
 import retrofit.mime.TypedFile;
 
@@ -145,8 +144,8 @@ public class BabyBoxService {
         api.getPost(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void newPost(MultipartTypedOutput attachments, NewPostVM post, Callback<ResponseStatusVM> cb) {
-        api.newPost(attachments, AppController.getInstance().getSessionId(), cb);
+    public void newPost(NewPostVM post, Callback<ResponseStatusVM> cb) {
+        api.newPost(post.toMultipart(), AppController.getInstance().getSessionId(), cb);
     }
 
     public void deletePost(Long id, Callback<Response> cb) {
@@ -226,7 +225,7 @@ public class BabyBoxService {
     }
 
     public void newMessage(NewMessageVM message, Callback<MessageVM> cb) {
-        api.newMessage(message, AppController.getInstance().getSessionId(), cb);
+        api.newMessage(message.toMultipart(), AppController.getInstance().getSessionId(), cb);
     }
 
     public void getUnreadMessageCount(Callback<MessageVM> cb) {

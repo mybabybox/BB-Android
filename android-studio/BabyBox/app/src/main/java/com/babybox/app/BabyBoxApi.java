@@ -1,7 +1,5 @@
 package com.babybox.app;
 
-import android.os.Message;
-
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
@@ -33,6 +31,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
+import retrofit.http.Part;
 import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -150,7 +149,7 @@ public interface BabyBoxApi {
     public void getPost(@Path("id") Long id, @Query("key") String key, Callback<PostVM> callback);
 
     @POST("/mobile/post/new")
-    public void newPost(@Body MultipartTypedOutput attachments /*,@Part("asd") NewPostVM newPost*/, @Query("key") String key, Callback<ResponseStatusVM> cb);
+    public void newPost(@Body MultipartTypedOutput attachments, /*@Body NewPostVM newPost,*/ @Query("key") String key, Callback<ResponseStatusVM> cb);
 
     @GET("/post/delete/{id}")
     public void deletePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
@@ -226,7 +225,7 @@ public interface BabyBoxApi {
     public void deleteConversation(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
     @POST("/message/new")
-    public void newMessage(@Body NewMessageVM message, @Query("key") String key, Callback<MessageVM> cb);
+    public void newMessage(@Body MultipartTypedOutput attachments, /*@Body NewMessageVM message,*/ @Query("key") String key, Callback<MessageVM> cb);
 
     @GET("/get-unread-message-count")
     public void getUnreadMessageCount(@Query("key") String key, Callback<MessageVM> cb);

@@ -43,7 +43,7 @@ public class ImageUtil {
     public static final int IMAGE_UPLOAD_MAX_WIDTH = 1024;
     public static final int IMAGE_UPLOAD_MAX_HEIGHT = 1024;
 
-    public static final int IMAGE_COMPRESS_QUALITY = 85;
+    public static final int IMAGE_COMPRESS_QUALITY = 80;
 
     public static final String COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-cover-image-by-id/";
     public static final String THUMBNAIL_COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-cover-image-by-id/";
