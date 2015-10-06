@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.multidex.MultiDex;
 import android.util.Base64;
 import android.util.Log;
@@ -28,6 +29,7 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.RestAdapter;
@@ -78,6 +80,8 @@ public class AppController extends Application {
     private static MockApi mockApi;
 
     public List<MessageVM> messageVMList;
+    public List<Uri> pathList = new ArrayList<>();
+    public ArrayList<String> realPathList = new ArrayList<>();
 
     public static synchronized AppController getInstance() {
         return mInstance;

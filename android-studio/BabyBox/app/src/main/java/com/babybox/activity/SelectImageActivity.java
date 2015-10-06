@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.babybox.R;
+import com.babybox.image.crop.Crop;
+import com.babybox.util.ViewUtil;
 
 import org.appsroid.fxpro.PhotoActivity;
 import org.appsroid.fxpro.library.Constants;
 
 import java.io.File;
-
-import com.babybox.image.crop.Crop;
 
 
 public class SelectImageActivity extends Activity {
@@ -44,7 +44,10 @@ public class SelectImageActivity extends Activity {
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
             Intent i = new Intent(SelectImageActivity.this, PhotoActivity.class);
+            i.putExtra("id",getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
             i.putExtra(Constants.EXTRA_KEY_IMAGE_SOURCE, 2);
+            System.out.println("size::in::select:::"+getIntent().getIntExtra("size",0));
+            i.putExtra("size",getIntent().getIntExtra("size",0));
             i.setData(Crop.getOutput(result));
             startActivity(i);
             finish();

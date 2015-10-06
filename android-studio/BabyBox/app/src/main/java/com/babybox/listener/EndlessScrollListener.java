@@ -39,12 +39,19 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
             // Do something
             current_page++;
+            // Need to check fr accuracy.
+            Long offset = (Long) recyclerView.getChildAt(visibleItemCount - 1).getTag();
+            System.out.println("offset::::::::::"+offset);
 
-            onLoadMore(current_page);
+            if(offset == null)
+                offset = (long)current_page;
+
+            onLoadMore(offset);
+            //onLoadMore(current_page);
 
             loading = true;
         }
     }
 
-    public abstract void onLoadMore(int current_page);
+    public abstract void onLoadMore(Long current_page);
 }

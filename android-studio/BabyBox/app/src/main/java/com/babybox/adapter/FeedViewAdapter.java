@@ -1,7 +1,6 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import com.babybox.activity.ProductActivity;
 import com.babybox.app.AppController;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 
 import java.util.List;
@@ -95,7 +93,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
         final PostVMLite item = getItem(position);
 
-        loadImage(item.getImages()[0], holder.image);
+
+        if(item.getImages().length != 0)
+            loadImage(item.getImages()[0], holder.image);
 
         ViewUtil.setHtmlText(item.getTitle(), holder.title, activity, true);
         holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
@@ -107,8 +107,11 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             }
         });
 
-        // like
+        ((View)holder.itemLayout.getParent()).setTag(item.getOffset());
 
+        long s = item.getOffset();
+        //holder.itemLayout.setTag(item.getOffset());
+        // like
         if (item.isLiked()) {
             ViewUtil.selectLikeTipsStyle(holder.likeImage, holder.likeText, item.getNumLikes());
         } else {
@@ -126,6 +129,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             }
         });
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -194,6 +198,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             likeLayout = (LinearLayout) holder.findViewById(R.id.likeLayout);
             likeImage = (ImageView) holder.findViewById(R.id.likeImage);
             likeText = (TextView) holder.findViewById(R.id.likeText);
+        }
+
+        void setTag(long score) {
+            itemLayout.setTag(score);
         }
     }
 }

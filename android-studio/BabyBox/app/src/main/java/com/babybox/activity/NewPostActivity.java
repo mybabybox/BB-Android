@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -40,6 +41,8 @@ import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
+import org.appsroid.fxpro.library.Constants;
+import org.appsroid.fxpro.library.Toaster;
 import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
@@ -78,6 +81,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected PopupCategoryListAdapter adapter;
 
     protected boolean postSuccess = false;
+    protected int imageUploadSuccessCount = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,14 +132,15 @@ public class NewPostActivity extends TrackedFragmentActivity {
             }
         });
 
-        Long id = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
-        if (id == null || id == 0L) {
+
+        Long id = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
+        if (id == 0L) {
             catId = null;
+            catLayout.setVisibility(View.VISIBLE);
         } else {
             catId = id;
-            initCategoryLayout(CategoryCache.getCategory(id));
+            catLayout.setVisibility(View.GONE);
         }
-
         Log.d(this.getClass().getSimpleName(), "onCreate: catId=" + catId);
 
         updateSelectCatLayout();
@@ -156,24 +161,30 @@ public class NewPostActivity extends TrackedFragmentActivity {
         browseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageUtil.openPhotoPicker(NewPostActivity.this);
+                //ImageUtil.openPhotoPicker(NewPostActivity.this);
+                displayGallery();
             }
         });
 
-        if (postImages.size() == 0) {
-            postImages.add((ImageView) findViewById(R.id.postImage1));
-            postImages.add((ImageView) findViewById(R.id.postImage2));
-            postImages.add((ImageView) findViewById(R.id.postImage3));
 
-            for (ImageView postImage : postImages) {
-                postImage.setOnClickListener(new View.OnClickListener() {
+        if(getIntent().getIntExtra("size",0) == 0)
+            if (postImages.size() == 0) {
+                postImages.add((ImageView) findViewById(R.id.postImage1));
+                postImages.add((ImageView) findViewById(R.id.postImage2));
+                postImages.add((ImageView) findViewById(R.id.postImage3));
+
+               for (ImageView postImage : postImages) {
+                    postImage.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        removePostImage();
-                    }
+                            removePostImage();
+                        }
                 });
+             }
             }
-        }
+
+        if(getIntent().getData() != null)
+            setPostImage();
 
         emoImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,11 +215,24 @@ public class NewPostActivity extends TrackedFragmentActivity {
         }
     }
 
+    private void displayGallery() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) && !Environment.getExternalStorageState().equals(Environment.MEDIA_CHECKING)) {
+            Intent intent = new Intent();
+            intent.setType("image/jpeg");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, Constants.REQUEST_GALLERY);
+        } else {
+            Toaster.make(getApplicationContext(), R.string.no_media);
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
+        System.out.println("call...");
+        /*if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
                 data != null && photos.size() < DefaultValues.MAX_POST_IMAGES) {
-
+*/
+            System.out.println("call...1::");
             selectedImageUri = data.getData();
             selectedImagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
 
@@ -217,24 +241,44 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
             Bitmap bitmap = ImageUtil.resizeAsPreviewThumbnail(selectedImagePath);
             if (bitmap != null) {
-                setPostImage(bitmap);
+                displayPhotoActivity();
+              //  setPostImage(bitmap);
             } else {
                 Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
             }
-        } else {
+       /* } else {
             Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_not_found), Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         // pop back soft keyboard
         ViewUtil.popupInputMethodWindow(this);
     }
 
-    protected void setPostImage(Bitmap bp){
-        ImageView postImage = postImages.get(photos.size());
-        postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
-        postImage.setVisibility(View.VISIBLE);
-        File photo = new File(ImageUtil.getRealPathFromUri(this, selectedImageUri));
-        photos.add(photo);
+
+    protected void setPostImage(){
+            System.out.println("uri:::::::"+getIntent().getData());
+            System.out.println("outputURL:::::::"+getIntent().getStringExtra("outputURL"));
+            System.out.println("size:::::::"+getIntent().getIntExtra("size", 0));
+            System.out.println("photos:::::::"+photos.size());
+
+        //ImageView postImage = postImages.get(getIntent().getIntExtra("size",0));
+        //postImage.setImageURI(getIntent().getData());
+       // postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
+        if(AppController.getInstance().pathList.size() != 0)
+            for(int i=0; i<AppController.getInstance().pathList.size(); i++){
+                ImageView imageView = postImages.get(i);
+                imageView.setImageURI(AppController.getInstance().pathList.get(i));
+            }
+
+
+       // File photo = new File(ImageUtil.getRealPathFromUri(this, selectedImageUri));
+       if(AppController.getInstance().realPathList.size() != 0)
+        for(String outputURL : AppController.getInstance().realPathList) {
+            File photo = new File(outputURL);
+            photos.add(photo);
+        }
+
+        System.out.println("photos:::::::"+photos.size());
     }
 
     protected void removePostImage(){
@@ -243,6 +287,18 @@ public class NewPostActivity extends TrackedFragmentActivity {
             postImages.get(toRemove).setImageDrawable(getResources().getDrawable(R.drawable.img_camera));
             photos.remove(toRemove);
         }
+    }
+
+    private void displayPhotoActivity() {
+        Intent intent = new Intent(getApplicationContext(), SelectImageActivity.class);
+        intent.putExtra(Constants.EXTRA_KEY_IMAGE_SOURCE, 2);
+        intent.setData(selectedImageUri);
+        intent.putExtra("id",getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
+        System.out.println("photos::::::::"+photos.size());
+        intent.putExtra("size",photos.size());
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+        finish();
     }
 
     protected void doPost() {
@@ -280,19 +336,38 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         ViewUtil.showSpinner(this);
 
-        Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + photos.size());
+        List<TypedFile> typedFiles = new ArrayList<>();
 
-        NewPostVM newPost = new NewPostVM(catId, title, body, price, photos);
-        AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
+        int i = 0;
+        MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
+        for (File photo : photos) {
+            TypedFile typedFile = new TypedFile("application/octet-stream", photo);
+            multipartTypedOutput.addPart("post-image"+i,typedFile);
+            i++;
+        }
+
+        multipartTypedOutput.addPart("title", new TypedString(title));
+        multipartTypedOutput.addPart("catId", new TypedString(catId+""));
+        multipartTypedOutput.addPart("body", new TypedString(body));
+        multipartTypedOutput.addPart("price", new TypedString(priceValue));
+        multipartTypedOutput.addPart("deviceType", new TypedString(Boolean.TRUE.toString()));
+
+        Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + typedFiles.size());
+        NewPostVM newPost = new NewPostVM(catId, title, body, price);
+        AppController.getApiService().newPost(multipartTypedOutput, newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
                 postSuccess = true;
+                AppController.getInstance().realPathList.clear();
+                AppController.getInstance().pathList.clear();
                 complete();
             }
 
             @Override
             public void failure(RetrofitError error) {
                 error.printStackTrace();
+                AppController.getInstance().realPathList.clear();
+                AppController.getInstance().pathList.clear();
                 ViewUtil.stopSpinner(NewPostActivity.this);
                 Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_failed), Toast.LENGTH_SHORT).show();
                 Log.e(NewPostActivity.class.getSimpleName(), "doPost: failure", error);
@@ -337,7 +412,15 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     CategoryVM category = adapter.getItem(position);
                     catId = category.getId();
-                    initCategoryLayout(category);
+
+                    catName.setText(category.getName());
+                    int resId = ImageMapping.map(category.getIcon());
+                    if (resId != -1) {
+                        catIcon.setImageDrawable(getResources().getDrawable(resId));
+                    } else {
+                        Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
+                        ImageUtil.displayImage(category.getIcon(), catIcon);
+                    }
 
                     updateSelectCatLayout();
                     categoryPopup.dismiss();
@@ -347,17 +430,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
             });
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    private void initCategoryLayout(CategoryVM category) {
-        catName.setText(category.getName());
-        int resId = ImageMapping.map(category.getIcon());
-        if (resId != -1) {
-            catIcon.setImageDrawable(getResources().getDrawable(resId));
-        } else {
-            Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
-            ImageUtil.displayImage(category.getIcon(), catIcon);
         }
     }
 
