@@ -38,16 +38,21 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
             // End has been reached
 
             // Do something
-            current_page++;
+
             // Need to check fr accuracy.
-            Long offset = (Long) recyclerView.getChildAt(visibleItemCount - 1).getTag();
+            Long offset = (Long) recyclerView.getChildAt(totalItemCount - 1).getTag();
             System.out.println("offset::::::::::"+offset);
 
-            if(offset == null)
-                offset = (long)current_page;
 
-            onLoadMore(offset);
-            //onLoadMore(current_page);
+
+            if(offset == 0) {
+                current_page++;
+                onLoadMore((long)current_page);
+                System.out.println(current_page+" ::::: offset:::::::::: "+offset);
+            } else {
+                offset++;   //TODO:loadFeed(Long.valueOf(page - 1), getFeedFilter()) we are decrementing page value in loadFeed function
+                onLoadMore(offset);
+            }
 
             loading = true;
         }
