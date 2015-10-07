@@ -87,9 +87,12 @@ public class ViewUtil {
 
     public static final String INTENT_VALUE_REFRESH = "refresh";
     public static final String INTENT_VALUE_ID = "id";
+
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
     public static final int SELECT_IMAGE_REQUEST_CODE = 2;
-    public static final int MESSAGE_LIST_ACTIVITY_REQUEST_CODE = 2;
+    public static final int CROP_IMAGE_REQUEST_CODE = 3;
+    public static final int PROCESS_IMAGE_REQUEST_CODE = 4;
+    public static final int MESSAGE_LIST_ACTIVITY_REQUEST_CODE = 5;
 
     public static final String HTML_LINE_BREAK = "<br>";
 

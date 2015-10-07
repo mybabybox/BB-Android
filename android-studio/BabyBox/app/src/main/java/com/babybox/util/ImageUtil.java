@@ -30,6 +30,9 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.signature.StringSignature;
 
+import org.appsroid.fxpro.library.Constants;
+import org.appsroid.fxpro.library.Toaster;
+
 /**
  * http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
  */
@@ -339,6 +342,18 @@ public class ImageUtil {
     }
 
     // Select photo
+
+    public static void openPhotoGallery(Activity activity) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) &&
+                !Environment.getExternalStorageState().equals(Environment.MEDIA_CHECKING)) {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            activity.startActivityForResult(intent, ViewUtil.SELECT_IMAGE_REQUEST_CODE);
+        } else {
+            ViewUtil.alert(activity, activity.getString(R.string.no_media));
+        }
+    }
 
     public static void openPhotoPicker(Activity activity) {
         openPhotoPicker(activity, activity.getString(R.string.photo_select));

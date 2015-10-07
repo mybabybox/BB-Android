@@ -21,15 +21,11 @@
 
         <!--service android:name=".app.BroadcastService" /-->
 
-        <!--Add following line to check Image Processing Functionality
-                android:name=".activity.UploadPhotoActivity" instead of
-                android:name=".activity.SplashActivity"-->
         <activity
             android:name="com.babybox.activity.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:noHistory="false"
-            android:largeHeap="true"
+            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -107,7 +103,9 @@
             android:name="com.babybox.activity.PrivacyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.image.crop.CropImageActivity" />
+            android:name="com.babybox.image.crop.CropImageActivity"
+            android:largeHeap="true"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="org.appsroid.fxpro.MainActivity"

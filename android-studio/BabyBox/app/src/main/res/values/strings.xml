@@ -12,7 +12,8 @@
     <string name="app_name">babybox</string>
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">1469031873403459</string>
-    <string name="base_url">http://192.168.1.124:9000</string>
+    <!--string name="base_url">http://192.168.1.125:9000</string-->
+    <string name="base_url">http://www.baby-box.hk</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>
@@ -268,7 +269,7 @@
     <string name="please_wait">Please wait</string>
     <string name="exit_prompt">Are you sure that you want to close editor?</string>
 
-    <string name="no_media">Error: your SD-Card is not available.</string>
+    <string name="no_media">Your photo gallery is not available</string>
 
     <string name="saved">Please find your image at:\n:url:"</string>
     <string name="save_failed">Oops! please try again.</string>
