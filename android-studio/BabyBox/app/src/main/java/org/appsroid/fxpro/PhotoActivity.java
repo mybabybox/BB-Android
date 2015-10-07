@@ -26,7 +26,9 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.babybox.R;
-import com.babybox.activity.UploadPhotoActivity;
+import com.babybox.activity.NewPostActivity;
+import com.babybox.app.AppController;
+import com.babybox.util.ViewUtil;
 
 import org.appsroid.fxpro.bitmap.BitmapLoader;
 import org.appsroid.fxpro.bitmap.BitmapProcessing;
@@ -105,6 +107,7 @@ public class PhotoActivity extends Activity {
 	private Button crop_image;
 
 	private String outputURL = null;
+	private String realOutputURL = null;
 
 	private SeekBar cdepth_value;
 	private TextView cdepth_label;
@@ -1130,6 +1133,8 @@ public class PhotoActivity extends Activity {
                 n = generator.nextInt(n);
                 String fname = "Image-"+ n +".jpg";
                 File file = new File (myDir, fname);
+                outputURL = file.getAbsolutePath();
+
 
                 if (file.exists ()) file.delete ();
                 try {
@@ -1260,7 +1265,15 @@ public class PhotoActivity extends Activity {
 			hideLoading();
 		}
 
-		Intent intent = new Intent(getApplicationContext(), UploadPhotoActivity.class);
+		Intent intent = new Intent(getApplicationContext(), NewPostActivity.class);
+        AppController.getInstance().pathList.add(Uri.parse(outputURL));
+        AppController.getInstance().realPathList.add(outputURL);
+        System.out.println("output url ::"+outputURL);
+        intent.putExtra("id",getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
+        intent.setData(Uri.parse(outputURL));
+        intent.putExtra("outputURL",outputURL);
+        System.out.println("size::in::photo:::"+getIntent().getIntExtra("size", 0));
+        intent.putExtra("size",getIntent().getIntExtra("size", 0));
 		startActivity(intent);
 		overridePendingTransition(0, 0);
 

@@ -4,27 +4,40 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.babybox.R;
+import com.babybox.app.AppController;
 import com.babybox.image.crop.Crop;
 import com.babybox.util.ViewUtil;
 
-import org.appsroid.fxpro.PhotoActivity;
 import org.appsroid.fxpro.library.Constants;
 
 import java.io.File;
+import java.util.Random;
 
 public class SelectImageActivity extends Activity {
     final int SELECT_PICTURE = 3;
+    public String outputUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select);
 
-        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/" + getString(R.string.app_name));
+        myDir.mkdirs();
+        Random generator = new Random();
+        int n = 10000;
+        n = generator.nextInt(n);
+        String fname = "Image-"+ n +".jpg";
+        File file = new File (myDir, fname);
+        outputUrl = file.getAbsolutePath();
+
+        Uri destination = Uri.fromFile(file);
         Crop.of(getIntent().getData(), destination).asSquare().start(this);
     }
 
@@ -43,11 +56,13 @@ public class SelectImageActivity extends Activity {
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
-            Intent i = new Intent(SelectImageActivity.this, PhotoActivity.class);
+            Intent i = new Intent(SelectImageActivity.this, NewPostActivity.class);
             i.putExtra("id",getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
             i.putExtra(Constants.EXTRA_KEY_IMAGE_SOURCE, 2);
             i.putExtra("size", getIntent().getIntExtra("size", 0));
-            i.setData(Crop.getOutput(result));
+            AppController.getInstance().pathList.add(Uri.parse(outputUrl));
+            AppController.getInstance().realPathList.add(outputUrl);
+            i.setData(Uri.parse(outputUrl));
             Log.d(this.getClass().getSimpleName(), "handleCrop: size=" + getIntent().getIntExtra("size", 0));
             startActivity(i);
             finish();

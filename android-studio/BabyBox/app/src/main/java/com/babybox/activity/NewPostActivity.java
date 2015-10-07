@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -42,7 +41,6 @@ import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
 import org.appsroid.fxpro.library.Constants;
-import org.appsroid.fxpro.library.Toaster;
 import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
@@ -160,7 +158,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             }
         });
 
-        if (getIntent().getIntExtra("size",0) == 0) {
+
             if (postImages.size() == 0) {
                 postImages.add((ImageView) findViewById(R.id.postImage1));
                 postImages.add((ImageView) findViewById(R.id.postImage2));
@@ -175,7 +173,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
                     });
                 }
             }
-        }
+
+        if(getIntent().getData() != null)
+            setPostImage();
 
         emoImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,8 +222,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
                 Bitmap bitmap = ImageUtil.resizeAsPreviewThumbnail(selectedImagePath);
                 if (bitmap != null) {
-                    setPostImage(bitmap);
-                    //displayPhotoActivity();
+                    //setPostImage(bitmap);
+                    displayPhotoActivity();
                 } else {
                     Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
                 }
@@ -251,6 +251,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
         Log.d(this.getClass().getSimpleName(), "outputURL=" + getIntent().getStringExtra("outputURL"));
         Log.d(this.getClass().getSimpleName(), "size=" + getIntent().getIntExtra("size", 0));
         Log.d(this.getClass().getSimpleName(), "photos=" + photos.size());
+        Log.d(this.getClass().getSimpleName(), "pathlist=" + AppController.getInstance().pathList.size());
+        Log.d(this.getClass().getSimpleName(), "realpath=" + AppController.getInstance().realPathList.size());
+
 
         // ImageView postImage = postImages.get(getIntent().getIntExtra("size",0));
         // postImage.setImageURI(getIntent().getData());
@@ -259,6 +262,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             for (int i = 0; i < AppController.getInstance().pathList.size(); i++) {
                 ImageView imageView = postImages.get(i);
                 imageView.setImageURI(AppController.getInstance().pathList.get(i));
+                Log.d(this.getClass().getSimpleName(), "path::::=" + AppController.getInstance().realPathList.get(i));
             }
         }
 
@@ -287,7 +291,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         intent.putExtra("size",photos.size());
         startActivityForResult(intent, ViewUtil.CROP_IMAGE_REQUEST_CODE);
         overridePendingTransition(0, 0);
-        //finish();
+        finish();
     }
 
     protected void doPost() {
