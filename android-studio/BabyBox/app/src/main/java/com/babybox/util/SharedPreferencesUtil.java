@@ -70,22 +70,32 @@ public class SharedPreferencesUtil {
     }
 
     public void saveUserInfo(UserVM userInfo) {
+        if (userInfo == null)
+            return;
         this.saveObject(USER_INFO, userInfo);
     }
 
     public void saveGameAccount(GameAccountVM gameAccount) {
+        if (gameAccount == null)
+            return;
         this.saveObject(GAME_ACCOUNT, gameAccount);
     }
 
     public void saveDistricts(List<LocationVM> districts) {
+        if (districts == null || districts.size() == 0)
+            return;
         this.saveObject(DISTRICTS, districts);
     }
 
     public void saveEmoticons(List<EmoticonVM> emoticons) {
+        if (emoticons == null || emoticons.size() == 0)
+            return;
         this.saveObject(EMOTICONS, emoticons);
     }
 
     public void saveCategories(List<CategoryVM> categories) {
+        if (categories == null || categories.size() == 0)
+            return;
         this.saveObject(CATEGORIES, categories);
     }
 

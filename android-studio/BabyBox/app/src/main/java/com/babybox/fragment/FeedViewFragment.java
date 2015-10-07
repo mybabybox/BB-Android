@@ -45,8 +45,11 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
 
             @Override
             public void failure(RetrofitError error) {
-                setFooterText(R.string.list_loading_error);
-                Log.e(FeedViewFragment.class.getSimpleName(), "getFeed: failure", error);
+                //setFooterText(R.string.list_loading_error);
+                ViewUtil.alert(getActivity(), getActivity().getString(R.string.list_loading_error)+"\n[FeedFilter]\n"+
+                        getFeedFilter().toString()+"\n[Error]\n"+
+                        error.getLocalizedMessage());
+                Log.e(FeedViewFragment.class.getSimpleName(), "getFeed: failure feedFilter=\n"+getFeedFilter().toString(), error);
                 ViewUtil.stopSpinner(getActivity());
             }
         };

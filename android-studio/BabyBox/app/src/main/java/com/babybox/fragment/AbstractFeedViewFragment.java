@@ -204,7 +204,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void loadFeedItemsToList(List<PostVMLite> posts) {
-        Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: size = " + posts.size());
+        Log.d(this.getClass().getSimpleName(), "loadFeedItemsToList: size=" + posts.size()+"\n"+getFeedFilter().toString());
 
         if (reload) {
             clearFeedItems();

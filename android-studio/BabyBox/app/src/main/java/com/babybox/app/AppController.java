@@ -24,6 +24,7 @@ import com.babybox.viewmodel.MessageVM;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
+import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
@@ -149,7 +150,7 @@ public class AppController extends Application {
 
         initStaticCaches();
 
-        //ACRA.init(getInstance());
+        ACRA.init(getInstance());
     }
 
     public static void initStaticCaches() {

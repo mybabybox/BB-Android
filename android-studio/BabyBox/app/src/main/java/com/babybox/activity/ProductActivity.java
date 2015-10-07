@@ -213,8 +213,6 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 isFollowing = post.isFollowingOwner();
 
-                System.out.println("following:::::::::"+isFollowing);
-
                 if (isFollowing) {
                     ViewUtil.selectFollowButtonStyle(followButton);
                 } else {
@@ -681,7 +679,6 @@ public class ProductActivity extends TrackedFragmentActivity {
         AppController.getApiService().followUser(id,new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
-                System.out.println("follow..");
                 ViewUtil.selectFollowButtonStyle(followButton);
                 isFollowing = true;
             }
@@ -696,7 +693,6 @@ public class ProductActivity extends TrackedFragmentActivity {
         AppController.getApiService().unfollowUser(id,new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
-                System.out.println("unfollow..");
                 ViewUtil.unselectFollowButtonStyle(followButton);
                 isFollowing = false;
             }
