@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ import com.babybox.app.AppController;
 import com.babybox.app.ConversationCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
+import com.babybox.fragment.AbstractFeedViewFragment;
+import com.babybox.fragment.AbstractFeedViewFragment.ItemChangedState;
 import com.babybox.fragment.ProductImagePagerFragment;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.DefaultValues;
@@ -53,10 +56,12 @@ import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,12 +166,11 @@ public class ProductActivity extends TrackedFragmentActivity {
         followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if(isFollowing){
-                        unFollow(ownerId);
-
-                    }else{
-                        follow(ownerId);
-                    }
+                if (isFollowing) {
+                    unFollow(ownerId);
+                } else {
+                    follow(ownerId);
+                }
             }
         });
 
@@ -441,6 +445,13 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
     }
 
+    private void setIntentResult(ItemChangedState itemChangedState, PostVMLite post) {
+        Intent i = new Intent();
+        i.putExtra(ViewUtil.INTENT_VALUE_ITEM_CHANGED_STATE, itemChangedState.name());
+        i.putExtra(ViewUtil.INTENT_VALUE_OBJECT, post);
+        setResult(RESULT_OK, i);
+    }
+
     private void like(final PostVM post) {
         AppController.getApiService().likePost(post.id, new Callback<Response>() {
             @Override
@@ -448,6 +459,9 @@ public class ProductActivity extends TrackedFragmentActivity {
                 post.isLiked = true;
                 post.numLikes++;
                 ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
+
+                // pass back to feed view to handle
+                setIntentResult(ItemChangedState.ITEM_UPDATED, post);
             }
 
             @Override
@@ -464,6 +478,9 @@ public class ProductActivity extends TrackedFragmentActivity {
                 post.isLiked = false;
                 post.numLikes--;
                 ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
+
+                // pass back to feed view to handle
+                setIntentResult(ItemChangedState.ITEM_UPDATED, post);
             }
 
             @Override
@@ -634,6 +651,9 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void success(Response response, Response response2) {
                 Toast.makeText(ProductActivity.this, getString(R.string.post_delete_success), Toast.LENGTH_SHORT).show();
+
+                // pass back to feed view to handle
+                setIntentResult(ItemChangedState.ITEM_REMOVED, null);
             }
 
             @Override

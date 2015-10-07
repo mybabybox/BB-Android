@@ -1,5 +1,7 @@
 package com.babybox.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,19 +13,26 @@ import android.view.ViewGroup;
 
 import com.babybox.R;
 import com.babybox.adapter.FeedViewAdapter;
+import com.babybox.app.ConversationCache;
 import com.babybox.app.TrackedFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
+import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.yalantis.phoenix.PullToRefreshView;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
@@ -44,6 +53,12 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected boolean reload = false;
 
+    public enum ItemChangedState {
+        ITEM_UPDATED,
+        ITEM_ADDED,
+        ITEM_REMOVED
+    }
+
     abstract protected void loadFeed(Long offset, FeedFilter feedFilter);
 
     public boolean hasHeader() {
@@ -59,12 +74,17 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void setFeedFilter(FeedFilter feedFilter) {
-        Log.d(this.getClass().getSimpleName(), "setFeedFilter: feedFilter\n"+feedFilter.toString());
+        Log.d(this.getClass().getSimpleName(), "setFeedFilter: feedFilter\n" + feedFilter.toString());
         this.feedFilter = feedFilter;
     }
 
     protected View getHeaderView(LayoutInflater inflater) {
         return null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -247,5 +267,57 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     protected void showFooter(boolean show) {
         footerView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(this.getClass().getSimpleName(), "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
+
+        if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK &&
+                data != null && feedAdapter != null) {
+
+            // changed state
+            ItemChangedState itemChangedState = null;
+            try {
+                itemChangedState = Enum.valueOf(ItemChangedState.class, data.getStringExtra(ViewUtil.INTENT_VALUE_ITEM_CHANGED_STATE));
+            } catch (Exception e) {
+            }
+
+            // item
+            PostVMLite feedPost = null;
+            Serializable obj = data.getSerializableExtra(ViewUtil.INTENT_VALUE_OBJECT);
+            if (obj != null) {
+                try {
+                    feedPost = (PostVMLite) obj;
+                } catch (ClassCastException e) {
+                }
+            }
+
+            int position = feedAdapter.getClickedPosition();
+            PostVMLite item = feedAdapter.getItem(position);
+            if (itemChangedState == ItemChangedState.ITEM_UPDATED) {
+                if (feedPost != null) {
+                    Log.d(this.getClass().getSimpleName(), "onResume: feedAdapter ITEM_UPDATED=" + position + " post=" + feedPost.id);
+
+                    item.title = feedPost.title;
+                    item.price = feedPost.price;
+                    item.isLiked = feedPost.isLiked;
+                    item.numLikes = feedPost.numLikes;
+                    feedAdapter.notifyItemChanged(position);
+                }
+            }
+
+            // TODO: handle add / remove item
+            /*
+            else if (itemChangedState == ItemChangedState.ITEM_ADDED) {
+                Log.d(this.getClass().getSimpleName(), "onResume: feedAdapter ITEM_ADDED="+position);
+                feedAdapter.notifyItemInserted(position);
+            } else if (itemChangedState == ItemChangedState.ITEM_REMOVED) {
+                Log.d(this.getClass().getSimpleName(), "onResume: feedAdapter ITEM_REMOVED="+position);
+                feedAdapter.notifyItemRemoved(position);
+            }
+            */
+        }
     }
 }

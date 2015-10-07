@@ -222,8 +222,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
                 Bitmap bitmap = ImageUtil.resizeAsPreviewThumbnail(selectedImagePath);
                 if (bitmap != null) {
-                    //setPostImage(bitmap);
-                    displayPhotoActivity();
+                    setPostImage(bitmap);
+                    //displayPhotoActivity();
                 } else {
                     Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
                 }

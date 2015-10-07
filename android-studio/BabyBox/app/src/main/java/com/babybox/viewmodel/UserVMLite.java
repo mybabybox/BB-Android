@@ -1,6 +1,8 @@
 package com.babybox.viewmodel;
 
-public class UserVMLite {
+import java.io.Serializable;
+
+public class UserVMLite implements Serializable {
     public Long id;
     public String displayName;
     public Long numFollowings = 0L;

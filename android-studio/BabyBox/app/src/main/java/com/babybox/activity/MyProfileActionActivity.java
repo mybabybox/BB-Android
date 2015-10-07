@@ -88,11 +88,11 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        Fragment fragment = (Fragment) getSupportFragmentManager().findFragmentById(R.id.childLayout);
-        if(fragment != null){
-            fragment.onActivityResult(requestCode, resultCode, intent);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment != null)
+                fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

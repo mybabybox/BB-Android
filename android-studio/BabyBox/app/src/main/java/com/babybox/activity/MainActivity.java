@@ -273,7 +273,8 @@ public class MainActivity extends TrackedFragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            fragment.onActivityResult(requestCode, resultCode, data);
+            if (fragment != null)
+                fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -285,7 +286,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
         long count = notificationsParentVM.getRequestCounts() + notificationsParentVM.getNotifyCounts()+notificationsParentVM.getMessageCount();
 
-        Log.d(this.getClass().getSimpleName(), "setUnreadNotificationsCount: requestCount="+notificationsParentVM.getRequestCounts()+" notifCount="+notificationsParentVM.getNotifyCounts());
+        Log.d(this.getClass().getSimpleName(), "setUnreadNotificationsCount: requestCount=" + notificationsParentVM.getRequestCounts() + " notifCount=" + notificationsParentVM.getNotifyCounts());
 
         if(count == 0) {
             notificationCount.setVisibility(View.INVISIBLE);

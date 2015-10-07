@@ -167,11 +167,11 @@ public class ProfileMainFragment extends TrackedFragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        Fragment fragment = (Fragment) getChildFragmentManager().findFragmentByTag("profile");
-        if(fragment != null){
-            fragment.onActivityResult(requestCode, resultCode, intent);
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getChildFragmentManager().getFragments()) {
+            if (fragment != null)
+                fragment.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

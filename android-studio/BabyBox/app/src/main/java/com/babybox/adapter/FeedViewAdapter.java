@@ -38,10 +38,22 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
     private List<PostVMLite> items;
 
+    private int clickedPosition = -1;
+
+    /**
+     *
+     * @param activity
+     * @param items
+     * @param header
+     */
     public FeedViewAdapter(Activity activity, List<PostVMLite> items, View header) {
         this.activity = activity;
         this.items = items;
         this.headerView = header;
+    }
+
+    public int getClickedPosition() {
+        return clickedPosition;
     }
 
     public boolean hasHeader() {
@@ -93,7 +105,6 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
         final PostVMLite item = getItem(position);
 
-
         if(item.getImages().length != 0)
             loadImage(item.getImages()[0], holder.image);
 
@@ -103,14 +114,14 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewUtil.startProductActivity(activity, item.getId(), "FromFeedView");
+                clickedPosition = position;
+                ViewUtil.startProductActivityForResult(activity, item.getId(), "FromFeedView");
             }
         });
 
         ((View)holder.itemLayout.getParent()).setTag(item.getOffset());
-
-        long s = item.getOffset();
         //holder.itemLayout.setTag(item.getOffset());
+
         // like
         if (item.isLiked()) {
             ViewUtil.selectLikeTipsStyle(holder.likeImage, holder.likeText, item.getNumLikes());
@@ -129,7 +140,6 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             }
         });
     }
-
 
     @Override
     public int getItemViewType(int position) {

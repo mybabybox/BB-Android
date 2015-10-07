@@ -54,6 +54,7 @@ import com.babybox.app.MyImageGetter;
 import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.PostVMLite;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
@@ -73,9 +74,7 @@ public class ViewUtil {
 
     public static final String BUNDLE_KEY_LOGIN_KEY = "loginKey";
     public static final String BUNDLE_KEY_ID = "id";
-    public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
-    public static final String BUNDLE_KEY_POST_ID = "postId";
-    public static final String BUNDLE_KEY_SOURCE = "flag";
+    public static final String BUNDLE_KEY_SOURCE = "source";
     public static final String BUNDLE_KEY_FEED_TYPE = "feedType";
     public static final String BUNDLE_KEY_FEED_PRODUCT_TYPE = "feedProductType";
     public static final String BUNDLE_KEY_ACTION_TYPE = "actionType";
@@ -87,12 +86,13 @@ public class ViewUtil {
 
     public static final String INTENT_VALUE_REFRESH = "refresh";
     public static final String INTENT_VALUE_ID = "id";
+    public static final String INTENT_VALUE_ITEM_CHANGED_STATE = "itemChangedState";
+    public static final String INTENT_VALUE_OBJECT = "object";
 
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
     public static final int SELECT_IMAGE_REQUEST_CODE = 2;
     public static final int CROP_IMAGE_REQUEST_CODE = 3;
     public static final int PROCESS_IMAGE_REQUEST_CODE = 4;
-    public static final int MESSAGE_LIST_ACTIVITY_REQUEST_CODE = 5;
 
     public static final String HTML_LINE_BREAK = "<br>";
 
@@ -691,6 +691,13 @@ public class ViewUtil {
         activity.startActivity(intent);
     }
 
+    public static void startProductActivityForResult(Activity activity, Long postId, String source) {
+        Intent intent = new Intent(activity, ProductActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
+        activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
+    }
+
     public static void startUserProfileActivity(Activity activity, Long userId) {
         Intent intent = new Intent(activity, UserProfileActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
@@ -712,6 +719,6 @@ public class ViewUtil {
     public static void startMessageListActivityForResult(Activity activity, Long conversationId) {
         Intent intent = new Intent(activity, MessageListActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
-        activity.startActivityForResult(intent, MESSAGE_LIST_ACTIVITY_REQUEST_CODE);
+        activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
     }
 }

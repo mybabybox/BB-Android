@@ -113,7 +113,7 @@ public class ConversationListFragment extends TrackedFragment {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(this.getClass().getSimpleName(), "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
 
-        if (requestCode == ViewUtil.MESSAGE_LIST_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK &&
+        if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK &&
                 data != null && adapter != null) {
             Long conversationId = data.getLongExtra(ViewUtil.INTENT_VALUE_ID, -1L);
 

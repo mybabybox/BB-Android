@@ -131,6 +131,15 @@ public class HomeMainFragment extends TrackedFragment {
 
         return view;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getChildFragmentManager().getFragments()) {
+            if (fragment != null)
+                fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }
 
 /**

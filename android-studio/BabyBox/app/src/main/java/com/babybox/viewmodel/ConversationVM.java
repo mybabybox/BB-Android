@@ -1,6 +1,8 @@
 package com.babybox.viewmodel;
 
-public class ConversationVM implements Comparable<ConversationVM> {
+import java.io.Serializable;
+
+public class ConversationVM implements Serializable, Comparable<ConversationVM> {
     public Long id;
     public Long postId;
     public Long postImage;

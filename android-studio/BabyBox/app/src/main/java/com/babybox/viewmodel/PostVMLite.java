@@ -1,6 +1,8 @@
 package com.babybox.viewmodel;
 
-public class PostVMLite {
+import java.io.Serializable;
+
+public class PostVMLite implements Serializable {
     public Long id;
     public String title;
     public double price;

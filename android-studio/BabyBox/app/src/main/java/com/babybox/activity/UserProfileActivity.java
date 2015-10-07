@@ -1,7 +1,9 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.View;
@@ -49,6 +51,15 @@ public class UserProfileActivity extends TrackedFragmentActivity {
         UserProfileFeedViewFragment profileFragment = new UserProfileFeedViewFragment();
         profileFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.placeHolder, profileFragment).commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment != null)
+                fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
 
