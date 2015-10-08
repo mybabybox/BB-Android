@@ -36,9 +36,6 @@ import android.view.WindowManager;
 
 import com.babybox.R;
 
-import org.appsroid.fxpro.PhotoActivity;
-import org.appsroid.fxpro.library.Constants;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -445,13 +442,6 @@ public class CropImageActivity extends MonitoredActivity {
 
     private void setResultException(Throwable throwable) {
         setResult(Crop.RESULT_ERROR, new Intent().putExtra(Crop.Extra.ERROR, throwable));
-    }
-
-    private void onIgnoreClicked(){
-        Intent intent = new Intent(this, PhotoActivity.class);
-        intent.setData(sourceUri);
-        intent.putExtra(Constants.EXTRA_KEY_IMAGE_SOURCE, 2);
-        startActivity(intent);
     }
 
     @Override

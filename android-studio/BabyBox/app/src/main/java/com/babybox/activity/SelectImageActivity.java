@@ -13,8 +13,6 @@ import com.babybox.app.AppController;
 import com.babybox.image.crop.Crop;
 import com.babybox.util.ViewUtil;
 
-import org.appsroid.fxpro.library.Constants;
-
 import java.io.File;
 import java.util.Random;
 
@@ -57,8 +55,8 @@ public class SelectImageActivity extends Activity {
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
             Intent i = new Intent(SelectImageActivity.this, NewPostActivity.class);
-            i.putExtra("id",getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
-            i.putExtra(Constants.EXTRA_KEY_IMAGE_SOURCE, 2);
+            i.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
+            i.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
             i.putExtra("size", getIntent().getIntExtra("size", 0));
             AppController.getInstance().pathList.add(Uri.parse(outputUrl));
             AppController.getInstance().realPathList.add(outputUrl);

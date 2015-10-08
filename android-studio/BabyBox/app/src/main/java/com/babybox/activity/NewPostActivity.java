@@ -40,7 +40,6 @@ import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
-import org.appsroid.fxpro.library.Constants;
 import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
@@ -285,7 +284,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     private void displayPhotoActivity() {
         Intent intent = new Intent(this, SelectImageActivity.class);
-        intent.putExtra(Constants.EXTRA_KEY_IMAGE_SOURCE, 2);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
         intent.setData(selectedImageUri);
         intent.putExtra("id", getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
         intent.putExtra("size",photos.size());

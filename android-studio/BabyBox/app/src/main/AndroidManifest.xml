@@ -107,16 +107,6 @@
             android:largeHeap="true"
             android:screenOrientation="portrait" />
 
-        <activity
-            android:name="org.appsroid.fxpro.MainActivity"
-            android:screenOrientation="portrait"
-            android:noHistory="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="org.appsroid.fxpro.PhotoActivity"
-            android:screenOrientation="portrait"
-            android:noHistory="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"

@@ -30,9 +30,6 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.signature.StringSignature;
 
-import org.appsroid.fxpro.library.Constants;
-import org.appsroid.fxpro.library.Toaster;
-
 /**
  * http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
  */
