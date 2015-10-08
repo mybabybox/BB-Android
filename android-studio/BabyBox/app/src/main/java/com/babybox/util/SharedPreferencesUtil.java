@@ -43,9 +43,6 @@ public class SharedPreferencesUtil {
         HOME_FOLLOWING_TIPS,
         CATEGORY_TIPS,
         MY_PROFILE_TIPS,
-
-        // OBSOLETE...
-        MY_NEWSFEED_TIPS
     }
 
     private static SharedPreferencesUtil instance = null;
@@ -67,6 +64,14 @@ public class SharedPreferencesUtil {
 
     public void setScreenViewed(Screen screen) {
         saveBoolean(screen.name(), true);
+    }
+
+    public void saveSessionId(String sessionId) {
+        this.saveString(SharedPreferencesUtil.SESSION_ID, sessionId);
+    }
+
+    public String getSessionId() {
+        return this.getString(SharedPreferencesUtil.SESSION_ID);
     }
 
     public void saveUserInfo(UserVM userInfo) {

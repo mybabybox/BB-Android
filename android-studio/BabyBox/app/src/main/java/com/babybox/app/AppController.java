@@ -128,6 +128,14 @@ public class AppController extends Application {
         //printKeyHashForFacebook();
     }
 
+    public void saveSessionId(String sessionId) {
+        SharedPreferencesUtil.getInstance().saveString(SharedPreferencesUtil.SESSION_ID, sessionId);
+    }
+
+    public String getSessionId() {
+        return SharedPreferencesUtil.getInstance().getString(SharedPreferencesUtil.SESSION_ID);
+    }
+
     public static void init() {
         BASE_URL = getInstance().getString(R.string.base_url);
 
@@ -173,16 +181,9 @@ public class AppController extends Application {
         UserInfoCache.clear();
     }
 
-    public void saveSessionId(String sessionId) {
-        SharedPreferencesUtil.getInstance().saveString(SharedPreferencesUtil.SESSION_ID, sessionId);
-    }
-
-    public String getSessionId() {
-        return SharedPreferencesUtil.getInstance().getString(SharedPreferencesUtil.SESSION_ID);
-    }
-
-    public void clearPreferences() {
-        SharedPreferencesUtil.getInstance().clearAll();
+    public void clearUserSession() {
+        UserInfoCache.clear();
+        SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.SESSION_ID);
     }
 
     public void logout() {
@@ -190,7 +191,7 @@ public class AppController extends Application {
 
         // clear session and exit
         AppController.getInstance().clearAll();
-        AppController.getInstance().clearPreferences();
+        AppController.getInstance().clearUserSession();
 
         // log out from FB
         FacebookSdk.sdkInitialize(getApplicationContext());

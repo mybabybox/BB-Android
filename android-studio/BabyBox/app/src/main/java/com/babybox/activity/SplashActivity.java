@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
-import com.babybox.app.CategoryCache;
-import com.babybox.app.NotificationCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
@@ -66,7 +64,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                 // clear session id, redirect to login page
                 if (user.getId() == -1) {
                     Toast.makeText(SplashActivity.this, "Cannot find user. Please login again.", Toast.LENGTH_LONG).show();
-                    AppController.getInstance().clearPreferences();
+                    AppController.getInstance().clearUserSession();
                     ViewUtil.startLoginActivity(SplashActivity.this);
                 }
 
@@ -74,7 +72,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                 if(user.isNewUser() || StringUtils.isEmpty(user.getDisplayName())) {
                     if (!user.isEmailValidated()) {
                         Toast.makeText(SplashActivity.this, SplashActivity.this.getString(R.string.signup_error_email_unverified)+user.email, Toast.LENGTH_LONG).show();
-                        AppController.getInstance().clearPreferences();
+                        AppController.getInstance().clearUserSession();
                         ViewUtil.startLoginActivity(SplashActivity.this);
                     } else {
                         ViewUtil.startSignupDetailActivity(SplashActivity.this, user.firstName);
@@ -101,7 +99,7 @@ public class SplashActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                AppController.getInstance().clearPreferences();
+                AppController.getInstance().clearUserSession();
 
                 if (RetrofitError.Kind.NETWORK.equals(error.getKind().name()) ||
                         RetrofitError.Kind.HTTP.equals(error.getKind().name())) {
