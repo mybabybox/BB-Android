@@ -296,9 +296,13 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
             if (itemChangedState == ItemChangedState.ITEM_UPDATED) {
                 int position = feedAdapter.getClickedPosition();
+                if (position == -1 || feedAdapter.getItemCount() == 0) {
+                    return;
+                }
+
                 PostVMLite item = feedAdapter.getItem(position);
                 if (feedPost != null) {
-                    Log.d(this.getClass().getSimpleName(), "onResume: feedAdapter ITEM_UPDATED=" + position + " post=" + feedPost.id);
+                    Log.d(this.getClass().getSimpleName(), "onActivityResult: feedAdapter ITEM_UPDATED=" + position + " post=" + feedPost.id);
 
                     item.title = feedPost.title;
                     item.price = feedPost.price;

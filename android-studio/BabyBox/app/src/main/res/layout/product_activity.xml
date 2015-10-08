@@ -40,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    z<com.babybox.view.AdaptiveViewPager
+                    <com.babybox.view.AdaptiveViewPager
                         android:id="@+id/imagePager"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -106,7 +106,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="8.8"
                         android:id="@+id/buyerButtonsLayout"
-                        android:weightSum="10">
+                        android:weightSum="10"
+                        android:visibility="gone">
 
                         <Button
                             android:layout_width="0dp"
@@ -118,7 +119,8 @@
                             android:textSize="18dp"
                             android:layout_marginRight="7dp"
                             android:textStyle="bold"
-                            android:text="@string/chat" />
+                            android:text="@string/chat"
+                            android:textAllCaps="false" />
 
                         <Button
                             android:layout_width="0dp"
@@ -129,7 +131,9 @@
                             android:textColor="@color/white"
                             android:background="@drawable/button_pink"
                             android:textSize="18dp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textAllCaps="false" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -138,7 +142,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="8.8"
                         android:id="@+id/sellerButtonsLayout"
-                        android:weightSum="10">
+                        android:weightSum="10"
+                        android:visibility="gone">
 
                         <Button
                             android:layout_width="0dp"
@@ -150,7 +155,8 @@
                             android:textSize="18dp"
                             android:layout_marginRight="7dp"
                             android:textStyle="bold"
-                            android:text="@string/view_chats" />
+                            android:text="@string/view_chats"
+                            android:textAllCaps="false" />
 
                         <Button
                             android:layout_width="0dp"
@@ -161,7 +167,8 @@
                             android:background="@drawable/button_green"
                             android:textSize="18dp"
                             android:textStyle="bold"
-                            android:layout_weight="5" />
+                            android:layout_weight="5"
+                            android:textAllCaps="false" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -170,7 +177,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="8.8"
                         android:id="@+id/buyerSoldButtonsLayout"
-                        android:weightSum="10">
+                        android:weightSum="10"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="0dp"
@@ -183,7 +191,8 @@
                             android:textStyle="bold"
                             android:text="@string/sold"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="20dp" />
+                            android:layout_marginRight="20dp"
+                            android:gravity="center" />
 
                     </LinearLayout>
 
@@ -193,7 +202,8 @@
                         android:layout_height="match_parent"
                         android:layout_weight="8.8"
                         android:id="@+id/sellerSoldButtonsLayout"
-                        android:weightSum="10">
+                        android:weightSum="10"
+                        android:visibility="gone">
 
                         <Button
                             android:layout_width="0dp"
@@ -206,7 +216,8 @@
                             android:textStyle="bold"
                             android:text="@string/sold_view_chats"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginRight="20dp" />
+                            android:layout_marginRight="20dp"
+                            android:textAllCaps="false" />
 
                     </LinearLayout>
 
