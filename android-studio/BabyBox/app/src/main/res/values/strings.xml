@@ -116,9 +116,11 @@
     <string name="comments">Comments</string>
     <string name="chat">Chat</string>
     <string name="buy">Buy</string>
+    <string name="view_chats">View Chats</string>
+    <string name="sold">Sold</string>
+    <string name="sold_view_chats">Sold - View Chats</string>
     <string name="listed">Listed</string>
     <string name="comment_bar_hint">添加評論</string>
-    <string name="product_sold">已售</string>
     <string name="no_products">~ 暫沒有商品 ~</string>
     <string name="no_product_comments">~ 沒有評論 ~</string>
 
@@ -136,6 +138,7 @@
     <string name="new_post_failed">暫時不能刊登商品，請稍後重試</string>
 
     <string name="post_delete_confirm">確定刪除?</string>
+    <string name="post_sold_confirm">商品更改為已售後，不會收到買家訊息。\n確定商品已售?</string>
     <string name="post_not_found">尋找不到此商品。可能已被刪除</string>
     <string name="post_delete_success">成功刪除</string>
     <string name="post_delete_failed">暫時不能刪除，請稍後重試</string>

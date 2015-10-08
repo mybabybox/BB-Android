@@ -1,7 +1,6 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -41,7 +40,6 @@ import com.babybox.app.AppController;
 import com.babybox.app.ConversationCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
-import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.fragment.AbstractFeedViewFragment.ItemChangedState;
 import com.babybox.fragment.ProductImagePagerFragment;
 import com.babybox.util.DateTimeUtil;
@@ -61,7 +59,6 @@ import com.babybox.viewmodel.ResponseStatusVM;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,8 +77,8 @@ public class ProductActivity extends TrackedFragmentActivity {
     private List<ImageView> dots = new ArrayList<>();
 
     private TextView titleText, descText, priceText;
-    private Button chatButton, buyButton;
-    private LinearLayout likeLayout;
+    private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
+    private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, soldButtonsLayout;
     private ImageView likeImage;
     private TextView likeText;
 
@@ -104,6 +101,8 @@ public class ProductActivity extends TrackedFragmentActivity {
     private long postId;
     private long ownerId;
     private boolean isFollowing;
+
+    private boolean pending = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,8 +131,17 @@ public class ProductActivity extends TrackedFragmentActivity {
         descText = (TextView) findViewById(R.id.descText);
         priceText = (TextView) findViewById(R.id.priceText);
 
+        buyerButtonsLayout = (LinearLayout) findViewById(R.id.buyerButtonsLayout);
         chatButton = (Button) findViewById(R.id.chatButton);
         buyButton = (Button) findViewById(R.id.buyButton);
+
+        sellerButtonsLayout = (LinearLayout) findViewById(R.id.sellerButtonsLayout);
+        viewChatsButton = (Button) findViewById(R.id.viewChatsButton);
+        soldButton = (Button) findViewById(R.id.soldButton);
+
+        soldButtonsLayout = (LinearLayout) findViewById(R.id.soldButtonsLayout);
+        soldViewChatsButton = (Button) findViewById(R.id.soldViewChatsButton);
+
         likeLayout = (LinearLayout) findViewById(R.id.likeLayout);
         likeImage = (ImageView) findViewById(R.id.likeImage);
         likeText = (TextView) findViewById(R.id.likeText);
@@ -167,7 +175,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View view) {
                 if (isFollowing) {
-                    unFollow(ownerId);
+                    unfollow(ownerId);
                 } else {
                     follow(ownerId);
                 }
@@ -224,6 +232,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 }
 
                 // Image slider
+
                 if (post.images != null) {
                     imagePagerAdapter = new ProductImagePagerAdapter(getSupportFragmentManager(), post.images);
                     imagePager.setAdapter(imagePagerAdapter);
@@ -232,6 +241,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 }
 
                 // details
+
                 ViewUtil.setHtmlText(post.getTitle(), titleText, ProductActivity.this, true);
                 ViewUtil.setHtmlText(post.getBody(), descText, ProductActivity.this, true, true);
                 catNameText.setText(post.getCategoryName());
@@ -247,7 +257,27 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
+                // like
+
+                if (post.isLiked()) {
+                    ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
+                } else {
+                    ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
+                }
+
+                likeLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (post.isLiked) {
+                            unlike(post);
+                        } else {
+                            like(post);
+                        }
+                    }
+                });
+
                 // delete
+
                 if (post.isOwner() || (AppController.isUserAdmin())) {
                     if (post.isOwner()) {
                         deleteText.setTextColor(getResources().getColor(R.color.gray));
@@ -281,46 +311,63 @@ public class ProductActivity extends TrackedFragmentActivity {
                     deleteText.setVisibility(View.GONE);
                 }
 
-                // like
-                if (post.isLiked()) {
-                    ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
-                } else {
-                    ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
-                }
+                // action buttons
 
-                likeLayout.setOnClickListener(new View.OnClickListener() {
+                initActionsLayout();
+
+                // buyer actions
+
+                chatButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        if (post.isLiked) {
-                            unlike(post);
-                        } else {
-                            like(post);
-                        }
+                    public void onClick(View view) {
+                        openConversation(post.id);
+                    }
+                });
+                buyButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        openConversation(post.id);
                     }
                 });
 
-                // chat
+                // seller actions
 
-                if (post.getOwnerId().equals(UserInfoCache.getUser().getId())) {
-                    chatButton.setVisibility(View.GONE);
-                    buyButton.setVisibility(View.GONE);
-                } else {
-                    chatButton.setVisibility(View.VISIBLE);
-                    buyButton.setVisibility(View.VISIBLE);
+                viewChatsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getConversations(post.id);
+                    }
+                });
+                soldButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProductActivity.this);
+                        alertDialogBuilder.setMessage(getString(R.string.post_sold_confirm));
+                        alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sold(post);
+                            }
+                        });
+                        alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                    chatButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            openConversation(post.id, ProductActivity.this);
-                        }
-                    });
-                    buyButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            openConversation(post.id, ProductActivity.this);
-                        }
-                    });
-                }
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+                });
+
+                // sold actions
+
+                soldViewChatsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getConversations(post.id);
+                    }
+                });
 
                 // seller
 
@@ -349,7 +396,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                         SharingUtil.shareToWhatapp(post, ProductActivity.this);
                     }
                 });
-
                 copyLinkAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -386,21 +432,65 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void openConversation(final Long postId, final Activity activity) {
+    private void initActionsLayout() {
+        if (AppController.isUserAdmin()) {
+            buyerButtonsLayout.setVisibility(View.GONE);
+            sellerButtonsLayout.setVisibility(View.GONE);
+            soldButtonsLayout.setVisibility(View.VISIBLE);
+        } else if (post.isOwner()) {
+            if (post.isSold()) {
+                buyerButtonsLayout.setVisibility(View.GONE);
+                sellerButtonsLayout.setVisibility(View.GONE);
+                soldButtonsLayout.setVisibility(View.VISIBLE);
+            } else {
+                buyerButtonsLayout.setVisibility(View.GONE);
+                sellerButtonsLayout.setVisibility(View.VISIBLE);
+                soldButtonsLayout.setVisibility(View.GONE);
+            }
+        } else {
+            buyerButtonsLayout.setVisibility(View.VISIBLE);
+            sellerButtonsLayout.setVisibility(View.GONE);
+            soldButtonsLayout.setVisibility(View.GONE);
+        }
+    }
+
+    private void setIntentResult(ItemChangedState itemChangedState, PostVMLite post) {
+        Intent i = new Intent();
+        i.putExtra(ViewUtil.INTENT_VALUE_ITEM_CHANGED_STATE, itemChangedState.name());
+        i.putExtra(ViewUtil.INTENT_VALUE_OBJECT, post);
+        setResult(RESULT_OK, i);
+    }
+
+    private void openConversation(final Long postId) {
         ConversationCache.open(postId, new Callback<ConversationVM>() {
             @Override
             public void success(ConversationVM conversationVM, Response response1) {
                 if (conversationVM != null) {
-                    ViewUtil.startMessageListActivity(activity, conversationVM.getId());
+                    ViewUtil.startMessageListActivity(ProductActivity.this, conversationVM.getId());
                 } else {
-                    Toast.makeText(activity, activity.getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(activity, activity.getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
                 Log.e(MessageUtil.class.getSimpleName(), "openConversation: failure", error);
+            }
+        });
+    }
+
+    private void getConversations(final Long postId) {
+        AppController.getApiService().getPostConversations(postId, new Callback<List<ConversationVM>>() {
+            @Override
+            public void success(List<ConversationVM> conversationVMs, Response response1) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
+                Log.e(MessageUtil.class.getSimpleName(), "getConversations: failure", error);
             }
         });
     }
@@ -445,47 +535,76 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void setIntentResult(ItemChangedState itemChangedState, PostVMLite post) {
-        Intent i = new Intent();
-        i.putExtra(ViewUtil.INTENT_VALUE_ITEM_CHANGED_STATE, itemChangedState.name());
-        i.putExtra(ViewUtil.INTENT_VALUE_OBJECT, post);
-        setResult(RESULT_OK, i);
+    private void sold(final PostVM post) {
+        if (pending) {
+            return;
+        }
+
+        pending = true;
+        AppController.getApiService().soldPost(post.id, new Callback<Response>() {
+            @Override
+            public void success(Response response, Response response2) {
+                post.sold = true;
+                initActionsLayout();
+                pending = false;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(ProductActivity.class.getSimpleName(), "sold: failure", error);
+                pending = false;
+            }
+        });
     }
 
     private void like(final PostVM post) {
+        if (pending) {
+            return;
+        }
+
+        pending = true;
         AppController.getApiService().likePost(post.id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 post.isLiked = true;
                 post.numLikes++;
                 ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
 
                 // pass back to feed view to handle
                 setIntentResult(ItemChangedState.ITEM_UPDATED, post);
+                pending = false;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Log.e(ProductActivity.class.getSimpleName(), "like: failure", error);
+                pending = false;
             }
         });
     }
 
     private void unlike(final PostVM post) {
+        if (pending) {
+            return;
+        }
+
+        pending = true;
         AppController.getApiService().unlikePost(post.id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 post.isLiked = false;
                 post.numLikes--;
                 ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
 
                 // pass back to feed view to handle
                 setIntentResult(ItemChangedState.ITEM_UPDATED, post);
+                pending = false;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Log.e(ProductActivity.class.getSimpleName(), "unlike: failure", error);
+                pending = false;
             }
         });
     }
@@ -619,6 +738,12 @@ public class ProductActivity extends TrackedFragmentActivity {
     }
 
     private void doComment() {
+        if (pending) {
+            return;
+        }
+
+        pending = true;
+
         String comment = commentEditText.getText().toString().trim();
         if (StringUtils.isEmpty(comment)) {
             Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.invalid_comment_body_empty), Toast.LENGTH_SHORT).show();
@@ -635,6 +760,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 getComments(postId);  // reload page
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_success), Toast.LENGTH_LONG).show();
                 reset();
+                pending = false;
             }
 
             @Override
@@ -642,11 +768,17 @@ public class ProductActivity extends TrackedFragmentActivity {
                 Log.e(ProductActivity.this.getClass().getSimpleName(), "doComment.api.newComment: failed with error", error);
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_failed), Toast.LENGTH_SHORT).show();
                 reset();
+                pending = false;
             }
         });
     }
 
     private void deletePost(Long id) {
+        if (pending) {
+            return;
+        }
+
+        pending = true;
         AppController.getApiService().deletePost(id, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
@@ -654,13 +786,14 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // pass back to feed view to handle
                 setIntentResult(ItemChangedState.ITEM_REMOVED, null);
+                pending = false;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(ProductActivity.this, getString(R.string.post_delete_failed), Toast.LENGTH_SHORT).show();
-                error.printStackTrace();
                 Log.e(CommentListAdapter.class.getSimpleName(), "deletePost: failure", error);
+                pending = false;
             }
         });
     }
@@ -696,20 +829,32 @@ public class ProductActivity extends TrackedFragmentActivity {
     }
 
     public void follow(Long id){
+        if (pending) {
+            return;
+        }
+
+        pending = true;
         AppController.getApiService().followUser(id,new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 ViewUtil.selectFollowButtonStyle(followButton);
                 isFollowing = true;
+                pending = false;
             }
 
             @Override
             public void failure(RetrofitError error) {
-                error.printStackTrace();
+                Log.e(CommentListAdapter.class.getSimpleName(), "follow: failure", error);
+                pending = false;
             }
         });
     }
-    public void unFollow(Long id){
+    public void unfollow(Long id){
+        if (pending) {
+            return;
+        }
+
+        pending = true;
         AppController.getApiService().unfollowUser(id,new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
@@ -719,7 +864,8 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                error.printStackTrace();
+                Log.e(CommentListAdapter.class.getSimpleName(), "unfollow: failure", error);
+                pending = false;
             }
         });
     }

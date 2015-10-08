@@ -100,28 +100,92 @@
                             android:textColor="@color/dark_gray" />
                     </LinearLayout>
 
-                    <Button
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:text="@string/chat"
-                        android:id="@+id/chatButton"
-                        android:layout_weight="4.4"
-                        android:textColor="@color/white"
-                        android:background="@drawable/button_gray"
-                        android:textSize="18dp"
-                        android:layout_marginRight="7dp"
-                        android:textStyle="bold" />
+                        android:layout_weight="8.8"
+                        android:id="@+id/buyerButtonsLayout"
+                        android:weightSum="10">
 
-                    <Button
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/chatButton"
+                            android:layout_weight="5"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_gray"
+                            android:textSize="18dp"
+                            android:layout_marginRight="7dp"
+                            android:textStyle="bold"
+                            android:text="@string/chat" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/buy"
+                            android:id="@+id/buyButton"
+                            android:layout_weight="5"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_pink"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:text="@string/buy"
-                        android:id="@+id/buyButton"
-                        android:layout_weight="4.4"
-                        android:textColor="@color/white"
-                        android:background="@drawable/button_pink"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+                        android:layout_weight="8.8"
+                        android:id="@+id/sellerButtonsLayout"
+                        android:weightSum="10">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/viewChatsButton"
+                            android:layout_weight="5"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_gray"
+                            android:textSize="18dp"
+                            android:layout_marginRight="7dp"
+                            android:textStyle="bold"
+                            android:text="@string/view_chats" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/sold"
+                            android:id="@+id/soldButton"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_green"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:layout_weight="5" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8.8"
+                        android:id="@+id/soldButtonsLayout"
+                        android:weightSum="10">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/soldViewChatsButton"
+                            android:layout_weight="10"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_green"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:text="@string/sold_view_chats"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

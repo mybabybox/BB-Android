@@ -169,6 +169,9 @@ public interface BabyBoxApi {
     @GET("/unlike-post/{id}")
     public void unlikePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
+    @GET("/sold-post/{id}")
+    public void soldPost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
+
     @GET("/follow-user/{id}")
     public void followUser(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
@@ -211,6 +214,9 @@ public interface BabyBoxApi {
 
     @GET("/get-all-conversations")
     public void getAllConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
+
+    @GET("/get-post-conversations/{id}")
+    public void getPostConversations(@Path("id") Long id, @Query("key") String key, Callback<List<ConversationVM>> cb);
 
     @GET("/get-conversation/{id}")
     public void getConversation(@Path("id") Long id, @Query("key") String key, Callback<ConversationVM> cb);

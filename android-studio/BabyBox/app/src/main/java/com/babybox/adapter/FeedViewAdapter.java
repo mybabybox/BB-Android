@@ -40,6 +40,8 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
     private int clickedPosition = -1;
 
+    private boolean pending = false;
+
     /**
      *
      * @param activity
@@ -119,11 +121,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             }
         });
 
-        if(getItem(items.size()) != null) {
+        if (getItem(items.size()) != null) {
             ((View) holder.itemLayout.getParent()).setTag(getItem(items.size()).getOffset());
+            //holder.itemLayout.setTag(item.getOffset());
         }
-
-        //holder.itemLayout.setTag(item.getOffset());
 
         // like
         if (item.isLiked()) {
@@ -157,33 +158,47 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
     }
 
     private void like(final PostVMLite post, final FeedViewHolder holder) {
+        if (pending) {
+            return;
+        }
+
+        pending = true;
         AppController.getApiService().likePost(post.id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 post.isLiked = true;
                 post.numLikes++;
                 ViewUtil.selectLikeTipsStyle(holder.likeImage, holder.likeText, post.getNumLikes());
+                pending = false;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Log.e(ProductActivity.class.getSimpleName(), "like: failure", error);
+                pending = false;
             }
         });
     }
 
     private void unlike(final PostVMLite post, final FeedViewHolder holder) {
+        if (pending) {
+            return;
+        }
+
+        pending = true;
         AppController.getApiService().unlikePost(post.id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 post.isLiked = false;
                 post.numLikes--;
                 ViewUtil.unselectLikeTipsStyle(holder.likeImage, holder.likeText, post.getNumLikes());
+                pending = false;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Log.e(ProductActivity.class.getSimpleName(), "unlike: failure", error);
+                pending = false;
             }
         });
     }

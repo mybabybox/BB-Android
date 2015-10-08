@@ -180,6 +180,10 @@ public class BabyBoxService {
         api.unlikePost(id, AppController.getInstance().getSessionId(), cb);
     }
 
+    public void soldPost(Long id, Callback<Response> cb) {
+        api.soldPost(id, AppController.getInstance().getSessionId(), cb);
+    }
+
     // user profile
 
     public void uploadCoverPhoto(TypedFile photo, Callback<Response> cb) {
@@ -206,6 +210,10 @@ public class BabyBoxService {
 
     public void getAllConversations(Callback<List<ConversationVM>> cb) {
         api.getAllConversations(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getPostConversations(Long id, Callback<List<ConversationVM>> cb) {
+        api.getPostConversations(id, AppController.getInstance().getSessionId(), cb);
     }
 
     public void getConversation(Long id, Callback<ConversationVM> cb) {
