@@ -76,9 +76,9 @@ public class ProductActivity extends TrackedFragmentActivity {
     private LinearLayout dotsLayout;
     private List<ImageView> dots = new ArrayList<>();
 
-    private TextView titleText, descText, priceText;
+    private TextView titleText, descText, priceText, soldText;
     private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
-    private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, soldButtonsLayout;
+    private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout;
     private ImageView likeImage;
     private TextView likeText;
 
@@ -139,7 +139,10 @@ public class ProductActivity extends TrackedFragmentActivity {
         viewChatsButton = (Button) findViewById(R.id.viewChatsButton);
         soldButton = (Button) findViewById(R.id.soldButton);
 
-        soldButtonsLayout = (LinearLayout) findViewById(R.id.soldButtonsLayout);
+        buyerSoldButtonsLayout = (LinearLayout) findViewById(R.id.buyerSoldButtonsLayout);
+        soldText = (TextView) findViewById(R.id.soldText);
+
+        sellerSoldButtonsLayout = (LinearLayout) findViewById(R.id.sellerSoldButtonsLayout);
         soldViewChatsButton = (Button) findViewById(R.id.soldViewChatsButton);
 
         likeLayout = (LinearLayout) findViewById(R.id.likeLayout);
@@ -436,21 +439,32 @@ public class ProductActivity extends TrackedFragmentActivity {
         if (AppController.isUserAdmin()) {
             buyerButtonsLayout.setVisibility(View.GONE);
             sellerButtonsLayout.setVisibility(View.GONE);
-            soldButtonsLayout.setVisibility(View.VISIBLE);
+            buyerSoldButtonsLayout.setVisibility(View.GONE);
+            sellerSoldButtonsLayout.setVisibility(View.VISIBLE);
         } else if (post.isOwner()) {
             if (post.isSold()) {
                 buyerButtonsLayout.setVisibility(View.GONE);
                 sellerButtonsLayout.setVisibility(View.GONE);
-                soldButtonsLayout.setVisibility(View.VISIBLE);
+                buyerSoldButtonsLayout.setVisibility(View.GONE);
+                sellerSoldButtonsLayout.setVisibility(View.VISIBLE);
             } else {
                 buyerButtonsLayout.setVisibility(View.GONE);
                 sellerButtonsLayout.setVisibility(View.VISIBLE);
-                soldButtonsLayout.setVisibility(View.GONE);
+                buyerSoldButtonsLayout.setVisibility(View.GONE);
+                sellerSoldButtonsLayout.setVisibility(View.GONE);
             }
         } else {
-            buyerButtonsLayout.setVisibility(View.VISIBLE);
-            sellerButtonsLayout.setVisibility(View.GONE);
-            soldButtonsLayout.setVisibility(View.GONE);
+            if (post.isSold()) {
+                buyerButtonsLayout.setVisibility(View.GONE);
+                sellerButtonsLayout.setVisibility(View.GONE);
+                buyerSoldButtonsLayout.setVisibility(View.VISIBLE);
+                sellerSoldButtonsLayout.setVisibility(View.GONE);
+            } else {
+                buyerButtonsLayout.setVisibility(View.VISIBLE);
+                sellerButtonsLayout.setVisibility(View.GONE);
+                buyerSoldButtonsLayout.setVisibility(View.GONE);
+                sellerSoldButtonsLayout.setVisibility(View.GONE);
+            }
         }
     }
 
