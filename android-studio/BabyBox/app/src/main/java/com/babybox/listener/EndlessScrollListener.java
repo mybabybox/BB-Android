@@ -40,6 +40,11 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
             // Do something
 
             // Need to check fr accuracy.
+			 
+            if(recyclerView.getChildAt(totalItemCount  - 1) == null) {
+                return;
+
+            }
             Long offset = (Long) recyclerView.getChildAt(totalItemCount - 1).getTag();
             System.out.println("offset::::::::::"+offset);
 
