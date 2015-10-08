@@ -26,7 +26,7 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         visibleItemCount = recyclerView.getChildCount();
         totalItemCount = mLinearLayoutManager.getItemCount();
         firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-
+        int totalItem = totalItemCount - previousTotal;
         if (loading) {
             if (totalItemCount > previousTotal) {
                 loading = false;
@@ -40,22 +40,19 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
             // Do something
 
             // Need to check fr accuracy.
-			 
-            if(recyclerView.getChildAt(totalItemCount  - 1) == null) {
+
+            Long offset = 0L;
+            if(recyclerView.getChildAt(visibleItemCount  - 1) == null) {
                 return;
-
             }
-            Long offset = (Long) recyclerView.getChildAt(totalItemCount - 1).getTag();
-            System.out.println("offset::::::::::"+offset);
+            offset = (Long) recyclerView.getChildAt(visibleItemCount - 1).getTag();
 
-
-
-            if(offset == 0) {
+            if(offset != null)
+            if( offset == 0) {
                 current_page++;
                 onLoadMore((long)current_page);
-                System.out.println(current_page+" ::::: offset:::::::::: "+offset);
             } else {
-                offset++;   //TODO:loadFeed(Long.valueOf(page - 1), getFeedFilter()) we are decrementing page value in loadFeed function
+                offset= offset+1;   //TODO:loadFeed(Long.valueOf(page - 1), getFeedFilter()) we are decrementing page value in loadFeed function
                 onLoadMore(offset);
             }
 

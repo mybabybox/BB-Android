@@ -119,7 +119,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             }
         });
 
-        ((View)holder.itemLayout.getParent()).setTag(item.getOffset());
+        if(getItem(items.size()) != null) {
+            ((View) holder.itemLayout.getParent()).setTag(getItem(items.size()).getOffset());
+        }
+
         //holder.itemLayout.setTag(item.getOffset());
 
         // like
