@@ -91,7 +91,7 @@ public class GameGiftListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, GameGiftActivity.class);
-                intent.putExtra("id", item.getId());
+                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, item.getId());
                 intent.putExtra("userGamePoints", gameAccount.getGmpt());
                 activity.startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
             }

@@ -80,6 +80,7 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_ACTION_TYPE = "actionType";
     public static final String BUNDLE_KEY_LISTS = "lists";
     public static final String BUNDLE_KEY_IMAGE_SOURCE = "imageSource";
+    public static final String BUNDLE_KEY_INDEX = "index";
 
     public static final String BUNDLE_KEY_ARG1 = "arg1";
     public static final String BUNDLE_KEY_ARG2 = "arg2";

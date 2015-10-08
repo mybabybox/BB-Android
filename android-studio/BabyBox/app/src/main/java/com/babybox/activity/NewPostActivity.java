@@ -247,21 +247,20 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     protected void setPostImage(){
         Log.d(this.getClass().getSimpleName(), "uri="+getIntent().getData());
-        Log.d(this.getClass().getSimpleName(), "outputURL=" + getIntent().getStringExtra("outputURL"));
-        Log.d(this.getClass().getSimpleName(), "size=" + getIntent().getIntExtra("size", 0));
+        Log.d(this.getClass().getSimpleName(), "size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
         Log.d(this.getClass().getSimpleName(), "photos=" + photos.size());
         Log.d(this.getClass().getSimpleName(), "pathlist=" + AppController.getInstance().pathList.size());
         Log.d(this.getClass().getSimpleName(), "realpath=" + AppController.getInstance().realPathList.size());
 
 
-        // ImageView postImage = postImages.get(getIntent().getIntExtra("size",0));
+        // ImageView postImage = postImages.get(getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX,0));
         // postImage.setImageURI(getIntent().getData());
         // postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
         if (AppController.getInstance().pathList.size() != 0) {
             for (int i = 0; i < AppController.getInstance().pathList.size(); i++) {
                 ImageView imageView = postImages.get(i);
                 imageView.setImageURI(AppController.getInstance().pathList.get(i));
-                Log.d(this.getClass().getSimpleName(), "path::::=" + AppController.getInstance().realPathList.get(i));
+                Log.d(this.getClass().getSimpleName(), "path=" + AppController.getInstance().realPathList.get(i));
             }
         }
 
@@ -285,9 +284,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
     private void displayPhotoActivity() {
         Intent intent = new Intent(this, SelectImageActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
+        intent.putExtra(ViewUtil.BUNDLE_KEY_INDEX,photos.size());
         intent.setData(selectedImageUri);
-        intent.putExtra("id", getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
-        intent.putExtra("size",photos.size());
         startActivityForResult(intent, ViewUtil.CROP_IMAGE_REQUEST_CODE);
         overridePendingTransition(0, 0);
         finish();

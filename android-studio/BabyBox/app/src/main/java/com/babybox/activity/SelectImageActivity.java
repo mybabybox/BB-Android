@@ -13,6 +13,8 @@ import com.babybox.app.AppController;
 import com.babybox.image.crop.Crop;
 import com.babybox.util.ViewUtil;
 
+import org.joda.time.DateTime;
+
 import java.io.File;
 import java.util.Random;
 
@@ -26,13 +28,13 @@ public class SelectImageActivity extends Activity {
         setContentView(R.layout.select);
 
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/" + getString(R.string.app_name));
-        myDir.mkdirs();
-        Random generator = new Random();
-        int n = 10000;
-        n = generator.nextInt(n);
-        String fname = "Image-"+ n +".jpg";
-        File file = new File (myDir, fname);
+        File imageFolder = new File(root + "/" + getString(R.string.app_name));
+        if (!imageFolder.exists()) {
+            imageFolder.mkdirs();
+        }
+        String now = String.valueOf(new DateTime().getSecondOfDay());
+        String fname = "Image-"+now+".jpg";
+        File file = new File (imageFolder, fname);
         outputUrl = file.getAbsolutePath();
 
         Uri destination = Uri.fromFile(file);
@@ -57,11 +59,11 @@ public class SelectImageActivity extends Activity {
             Intent i = new Intent(SelectImageActivity.this, NewPostActivity.class);
             i.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
             i.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
-            i.putExtra("size", getIntent().getIntExtra("size", 0));
+            i.putExtra(ViewUtil.BUNDLE_KEY_INDEX, getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
             AppController.getInstance().pathList.add(Uri.parse(outputUrl));
             AppController.getInstance().realPathList.add(outputUrl);
             i.setData(Uri.parse(outputUrl));
-            Log.d(this.getClass().getSimpleName(), "handleCrop: size=" + getIntent().getIntExtra("size", 0));
+            Log.d(this.getClass().getSimpleName(), "handleCrop: size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
             startActivity(i);
             finish();
         } else if (resultCode == Crop.RESULT_ERROR) {
