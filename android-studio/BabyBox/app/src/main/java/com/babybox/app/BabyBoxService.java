@@ -130,6 +130,13 @@ public class BabyBoxService {
         api.getFollowings(offset, userId, AppController.getInstance().getSessionId(), cb);
     }
 
+    // post feed
+
+    public void getPostSuggestFeed(Long id, Callback<List<PostVMLite>> cb) {
+        // TODO: TEMP!!!
+        api.getUserLikedFeed(0L, UserInfoCache.getUser().id, AppController.getInstance().getSessionId(), cb);
+    }
+
     // category + post + comments
 
     public void getCategories(Callback<List<CategoryVM>> cb) {

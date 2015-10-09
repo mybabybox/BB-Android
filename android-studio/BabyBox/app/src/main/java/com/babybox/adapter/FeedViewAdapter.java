@@ -80,6 +80,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         return items.size() == 0;
     }
 
+    public PostVMLite getLastItem() {
+        return getItem(getItemCount() - 1);
+    }
+
     @Override
     public int getItemCount() {
         if (hasHeader()) {
@@ -121,8 +125,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             }
         });
 
-        if (getItem(items.size()) != null) {
-            ((View) holder.itemLayout.getParent()).setTag(getItem(items.size()).getOffset());
+        PostVMLite lastItem = getLastItem();
+        if (lastItem != null) {
+            ((View) holder.itemLayout.getParent()).setTag(lastItem.getOffset());
             //holder.itemLayout.setTag(item.getOffset());
         }
 

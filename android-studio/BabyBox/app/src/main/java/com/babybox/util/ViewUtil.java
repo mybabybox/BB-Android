@@ -77,6 +77,7 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_SOURCE = "source";
     public static final String BUNDLE_KEY_FEED_TYPE = "feedType";
     public static final String BUNDLE_KEY_FEED_PRODUCT_TYPE = "feedProductType";
+    public static final String BUNDLE_KEY_FEED_OBJECT_ID = "feedObjectId";
     public static final String BUNDLE_KEY_ACTION_TYPE = "actionType";
     public static final String BUNDLE_KEY_LISTS = "lists";
     public static final String BUNDLE_KEY_IMAGE_SOURCE = "imageSource";
@@ -254,6 +255,10 @@ public class ViewUtil {
     public static List<CommentVM> getLastComments(List<CommentVM> comments, int n) {
         int start = Math.max(0, comments.size() - n);
         return comments.subList(start, comments.size());
+    }
+
+    public static String sellerFollowersFormat(Long value) {
+        return AppController.getInstance().getString(R.string.followers) + ": " + value;
     }
 
     public static String followersFormat(Long value) {

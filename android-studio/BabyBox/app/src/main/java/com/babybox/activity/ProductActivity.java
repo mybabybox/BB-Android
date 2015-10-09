@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -38,12 +39,15 @@ import com.babybox.R;
 import com.babybox.adapter.CommentListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.ConversationCache;
+import com.babybox.app.TrackedFragment;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
 import com.babybox.fragment.AbstractFeedViewFragment.ItemChangedState;
+import com.babybox.fragment.FeedViewFragment;
 import com.babybox.fragment.ProductImagePagerFragment;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.DefaultValues;
+import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.MessageUtil;
 import com.babybox.util.SharingUtil;
@@ -83,7 +87,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private TextView likeText;
 
     private ImageView sellerImage;
-    private TextView sellerNameText;
+    private TextView sellerNameText, sellerFollowersText;
 
     private RelativeLayout moreCommentsLayout;
     private ImageView moreCommentsImage;
@@ -153,6 +157,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         sellerImage = (ImageView) findViewById(R.id.sellerImage);
         sellerNameText = (TextView) findViewById(R.id.sellerNameText);
+        sellerFollowersText = (TextView) findViewById(R.id.sellerFollowersText);
 
         commentText = (TextView) findViewById(R.id.commentText);
         sendButton = (Button) findViewById(R.id.sendButton);
@@ -376,6 +381,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 ImageUtil.displayThumbnailProfileImage(post.getOwnerId(), sellerImage);
                 sellerNameText.setText(post.getOwnerName());
+                sellerFollowersText.setText(ViewUtil.followersFormat(post.getOwnerNumFollowers()));
 
                 sellerImage.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -390,6 +396,17 @@ public class ProductActivity extends TrackedFragmentActivity {
                         ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId());
                     }
                 });
+
+                // suggestions
+
+                Bundle bundle = new Bundle();
+                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.POST_SUGGEST.name());
+                bundle.putLong(ViewUtil.BUNDLE_KEY_ID, postId);
+                FeedViewFragment fragment = new FeedViewFragment();
+                fragment.setArguments(bundle);
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.childLayout, fragment).commit();
 
                 // actionbar
 

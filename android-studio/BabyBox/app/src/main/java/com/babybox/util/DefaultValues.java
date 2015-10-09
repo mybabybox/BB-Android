@@ -35,9 +35,9 @@ public class DefaultValues {
 
     public static final int PULL_TO_REFRESH_DELAY = 100;
 
-    public static final int FEEDVIEW_ITEM_TOP_MARGIN = 10;
-    public static final int FEEDVIEW_ITEM_BOTTOM_MARGIN = 2;
-    public static final int FEEDVIEW_ITEM_SIDE_MARGIN = 6;
+    public static final int FEEDVIEW_ITEM_TOP_MARGIN = 5;
+    public static final int FEEDVIEW_ITEM_BOTTOM_MARGIN = 5;
+    public static final int FEEDVIEW_ITEM_SIDE_MARGIN = 5;
 
     public static final int LISTVIEW_SLIDE_IN_ANIM_START = 10;
     public static final int LISTVIEW_SCROLL_FRICTION_SCALE_FACTOR = 2;

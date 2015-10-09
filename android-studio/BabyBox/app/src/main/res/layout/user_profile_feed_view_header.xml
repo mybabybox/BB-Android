@@ -285,12 +285,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/dividerLayout"
         android:layout_below="@+id/bar2"
-        android:layout_margin="15dp">
+        android:layout_margin="10dp">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tipsLayout">
+            android:id="@+id/tipsLayout"
+            android:layout_margin="5dp">
 
             <LinearLayout
                 android:id="@+id/tips"

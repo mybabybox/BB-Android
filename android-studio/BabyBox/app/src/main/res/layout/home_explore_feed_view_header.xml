@@ -107,9 +107,11 @@
         android:layout_height="wrap_content"
         android:text="@string/suggest_for_you"
         android:layout_below="@+id/viewBar2"
-        android:textColor="@color/dark_gray"
+        android:textColor="@color/gray"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:textSize="15dp" />
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp" />
 
 </RelativeLayout>

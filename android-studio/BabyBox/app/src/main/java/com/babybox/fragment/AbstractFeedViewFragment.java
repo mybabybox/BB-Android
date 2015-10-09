@@ -296,7 +296,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
             if (itemChangedState == ItemChangedState.ITEM_UPDATED) {
                 int position = feedAdapter.getClickedPosition();
-                if (position == -1 || feedAdapter.getItemCount() == 0) {
+                if (position == -1 || feedAdapter.isEmpty()) {
                     return;
                 }
 

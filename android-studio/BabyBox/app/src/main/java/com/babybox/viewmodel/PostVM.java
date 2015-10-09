@@ -6,6 +6,7 @@ import com.babybox.util.ViewUtil;
 public class PostVM extends PostVMLite {
     public Long ownerId;
     public String ownerName;
+    public Long ownerNumFollowers;
     public long createdDate;
     public long updatedDate;
     public String body;
@@ -55,6 +56,14 @@ public class PostVM extends PostVMLite {
 
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
+    }
+
+    public Long getOwnerNumFollowers() {
+        return ownerNumFollowers;
+    }
+
+    public void setOwnerNumFollowers(Long ownerNumFollowers) {
+        this.ownerNumFollowers = ownerNumFollowers;
     }
 
     public long getCreatedDate() {
