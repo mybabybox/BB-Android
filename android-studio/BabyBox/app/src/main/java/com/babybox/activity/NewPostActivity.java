@@ -173,7 +173,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 }
             }
 
-        if(getIntent().getData() != null)
+        if(AppController.getInstance().cropUri != null)
             setPostImage();
 
         emoImage.setOnClickListener(new View.OnClickListener() {
@@ -211,6 +211,11 @@ public class NewPostActivity extends TrackedFragmentActivity {
             Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_max_images), Toast.LENGTH_SHORT).show();
         }
 
+        if(resultCode == 0){
+            photos.clear();
+            setPostImage();
+        }
+
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE) {
                 selectedImageUri = data.getData();
@@ -229,9 +234,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
                 setPostImage();
             }
-        } else {
+        }/* else {
             Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_not_found), Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         // pop back soft keyboard
         ViewUtil.popupInputMethodWindow(this);
@@ -289,7 +294,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         intent.setData(selectedImageUri);
         startActivityForResult(intent, ViewUtil.CROP_IMAGE_REQUEST_CODE);
         overridePendingTransition(0, 0);
-        finish();
+        //finish();
     }
 
     protected void doPost() {

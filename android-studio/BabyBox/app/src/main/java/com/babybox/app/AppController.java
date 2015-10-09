@@ -83,6 +83,7 @@ public class AppController extends Application {
     public List<MessageVM> messageVMList;
     public List<Uri> pathList = new ArrayList<>();
     public ArrayList<String> realPathList = new ArrayList<>();
+    public Uri cropUri;
 
     public static synchronized AppController getInstance() {
         return mInstance;

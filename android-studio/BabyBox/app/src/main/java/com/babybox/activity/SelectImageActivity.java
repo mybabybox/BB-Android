@@ -42,6 +42,10 @@ public class SelectImageActivity extends Activity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == 0){
+            finish();
+        }
+
         if (requestCode == SELECT_PICTURE) {
             beginCrop(data.getData());
         } else if (requestCode == Crop.REQUEST_CROP) {
@@ -56,15 +60,16 @@ public class SelectImageActivity extends Activity {
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
-            Intent i = new Intent(SelectImageActivity.this, NewPostActivity.class);
+            /*Intent i = new Intent(SelectImageActivity.this, NewPostActivity.class);
             i.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
             i.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
-            i.putExtra(ViewUtil.BUNDLE_KEY_INDEX, getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
+            i.putExtra(ViewUtil.BUNDLE_KEY_INDEX, getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));*/
             AppController.getInstance().pathList.add(Uri.parse(outputUrl));
             AppController.getInstance().realPathList.add(outputUrl);
-            i.setData(Uri.parse(outputUrl));
+            //i.setData(Uri.parse(outputUrl));
             Log.d(this.getClass().getSimpleName(), "handleCrop: size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
-            startActivity(i);
+            //startActivity(i);
+            AppController.getInstance().cropUri = Uri.parse(outputUrl);
             finish();
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
@@ -73,7 +78,9 @@ public class SelectImageActivity extends Activity {
 
     @Override
     public void onBackPressed(){
-        super.onBackPressed();
+        /*Intent intent = new Intent(this,NewPostActivity.class);
+        startActivity(intent);*/
         finish();
+//        super.onBackPressed();
     }
 }
