@@ -880,6 +880,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             }
         });
     }
+
     public void unfollow(Long id){
         if (pending) {
             return;
@@ -891,6 +892,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             public void success(Response response, Response response2) {
                 ViewUtil.unselectFollowButtonStyle(followButton);
                 isFollowing = false;
+                pending = false;
             }
 
             @Override
