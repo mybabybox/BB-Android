@@ -16,7 +16,6 @@ import com.babybox.util.ViewUtil;
 import org.joda.time.DateTime;
 
 import java.io.File;
-import java.util.Random;
 
 public class SelectImageActivity extends Activity {
     final int SELECT_PICTURE = 3;
@@ -60,15 +59,9 @@ public class SelectImageActivity extends Activity {
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
-            /*Intent i = new Intent(SelectImageActivity.this, NewPostActivity.class);
-            i.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
-            i.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
-            i.putExtra(ViewUtil.BUNDLE_KEY_INDEX, getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));*/
             AppController.getInstance().pathList.add(Uri.parse(outputUrl));
             AppController.getInstance().realPathList.add(outputUrl);
-            //i.setData(Uri.parse(outputUrl));
             Log.d(this.getClass().getSimpleName(), "handleCrop: size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
-            //startActivity(i);
             AppController.getInstance().cropUri = Uri.parse(outputUrl);
             finish();
         } else if (resultCode == Crop.RESULT_ERROR) {
@@ -78,9 +71,6 @@ public class SelectImageActivity extends Activity {
 
     @Override
     public void onBackPressed(){
-        /*Intent intent = new Intent(this,NewPostActivity.class);
-        startActivity(intent);*/
-        finish();
-//        super.onBackPressed();
+        super.onBackPressed();
     }
 }
