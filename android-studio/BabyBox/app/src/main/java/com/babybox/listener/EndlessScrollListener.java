@@ -66,30 +66,28 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
 
         if (firstVisibleItem == 0) {
-            if(!mControlsVisible) {
-                onShow();
+            if (!mControlsVisible) {
+                onScrollDown();
                 mControlsVisible = true;
             }
         } else {
             if (mScrolledDistance > HIDE_THRESHOLD && mControlsVisible) {
-                onHide();
+                onScrollUp();
                 mControlsVisible = false;
                 mScrolledDistance = 0;
             } else if (mScrolledDistance < -HIDE_THRESHOLD && !mControlsVisible) {
-                onShow();
+                onScrollDown();
                 mControlsVisible = true;
                 mScrolledDistance = 0;
             }
         }
-        if((mControlsVisible && dy>0) || (!mControlsVisible && dy<0)) {
+
+        if ((mControlsVisible && dy>0) || (!mControlsVisible && dy<0)) {
             mScrolledDistance += dy;
         }
-
-
-
     }
 
     public abstract void onLoadMore(Long current_page);
-    public abstract void onHide();
-    public abstract void onShow();
+    public abstract void onScrollUp();
+    public abstract void onScrollDown();
 }

@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -251,7 +253,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     }
 
     public void follow(Long id){
-        AppController.getApiService().followUser(id,new Callback<Response>() {
+        AppController.getApiService().followUser(id, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 ViewUtil.selectFollowButtonStyle(followButton);
@@ -266,7 +268,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     }
 
     public void unFollow(Long id){
-        AppController.getApiService().unfollowUser(id,new Callback<Response>() {
+        AppController.getApiService().unfollowUser(id, new Callback<Response>() {
             @Override
             public void success(Response response, Response response2) {
                 ViewUtil.unselectFollowButtonStyle(followButton);
@@ -278,5 +280,19 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                 error.printStackTrace();
             }
         });
+    }
+
+    public void onScrollUp() {
+        LinearLayout bottomBarLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBarLayout);
+        if (bottomBarLayout != null) {
+            bottomBarLayout.animate().translationY(bottomBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+        }
+    }
+
+    public void onScrollDown() {
+        LinearLayout bottomBarLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBarLayout);
+        if (bottomBarLayout != null) {
+            bottomBarLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        }
     }
 }

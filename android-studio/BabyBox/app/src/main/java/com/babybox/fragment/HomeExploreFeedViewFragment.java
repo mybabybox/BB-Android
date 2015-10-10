@@ -83,16 +83,18 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
         return view;
     }
 
-    public void showViews()
-    {
-        LinearLayout homeLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBar);
-        homeLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+    public void onScrollUp() {
+        LinearLayout bottomBarLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBarLayout);
+        if (bottomBarLayout != null) {
+            bottomBarLayout.animate().translationY(bottomBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+        }
+    }
 
-    };
-
-    public void hideViews(){
-        LinearLayout homeLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBar);
-        homeLayout.animate().translationY(homeLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+    public void onScrollDown() {
+        LinearLayout bottomBarLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBarLayout);
+        if (bottomBarLayout != null) {
+            bottomBarLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        }
     }
 }
 
