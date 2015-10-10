@@ -83,7 +83,7 @@
 
     <!-- Main -->
     <string name="tabset_home">Home</string>
-    <string name="tabset_notifications">Notifs</string>
+    <string name="tabset_notification">Messages</string>
     <string name="tabset_search">Search</string>
     <string name="tabset_profile">Me</string>
 
@@ -104,7 +104,11 @@
     <string name="collections">Collections</string>
     <string name="products">Products</string>
 
-    <!-- Category tab -->
+    <!-- Notification tab -->
+    <string name="notification_tab_conversation">Message</string>
+    <string name="notification_tab_activity">Activity</string>
+
+    <!-- Category page -->
     <string name="filter_popular">Popular</string>
     <string name="filter_newest">Newest</string>
     <string name="filter_price_low_high">$ ⇾ $$</string>

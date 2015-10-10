@@ -126,11 +126,6 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
                         feedFilter.objId,
                         feedCallback);
                 break;
-            case POST_SUGGEST:
-                AppController.getApiService().getPostSuggestFeed(
-                        feedFilter.objId,
-                        feedCallback);
-                break;
             default:
                 Log.w(this.getClass().getSimpleName(), "loadFeed: unknown default case with key - " + feedFilter.feedType.name());
         }

@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -97,6 +98,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private Button sendButton;
 
     private ListView commentList;
+    private GridView suggestedProductsGrid;
 
     private PopupWindow commentPopup;
     private Button followButton;
@@ -171,6 +173,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         moreCommentsImage = (ImageView) findViewById(R.id.moreCommentsImage);
 
         commentList = (ListView) findViewById(R.id.commentList);
+        //suggestedProductsGrid = (GridView) findViewById((R.id.suggestedProductsGrid));
 
         commentText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,10 +215,37 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         getProduct(postId);
         getComments(postId);
+        getSuggestedProducts(postId);
     }
 
     private void setPost(PostVM post) {
         this.post = post;
+    }
+
+    private void getSuggestedProducts(final Long postId) {
+        /*
+        suggestedProductsGrid.setVisibility(View.GONE);
+        moreCommentsImage.setVisibility(View.GONE);
+
+        AppController.getApiService().getSuggestedPosts(postId, new Callback<List<PostVMLite>>() {
+            @Override
+            public void success(List<PostVMLite> posts, Response response) {
+                if (posts != null && posts.size() > 0) {
+                    suggestedProductGrid.setVisibility(View.VISIBLE);
+                    PostGridAdapter adapter = new PostGridAdapter(
+                            ProductActivity.this,
+                            posts);
+                    suggestedProductGrid.setAdapter(adapter);
+                    //ViewUtil.setHeightBasedOnChildren(ProductActivity.this, suggestedProductGrid);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(ProductActivity.class.getSimpleName(), "getSuggestedProducts: failure", error);
+            }
+        });
+        */
     }
 
     private void getProduct(final Long postId) {
@@ -397,17 +427,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                // suggestions
-
-                Bundle bundle = new Bundle();
-                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.POST_SUGGEST.name());
-                bundle.putLong(ViewUtil.BUNDLE_KEY_ID, postId);
-                FeedViewFragment fragment = new FeedViewFragment();
-                fragment.setArguments(bundle);
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.childLayout, fragment).commit();
-
                 // actionbar
 
                 whatsappAction.setOnClickListener(new View.OnClickListener() {
@@ -527,8 +546,6 @@ public class ProductActivity extends TrackedFragmentActivity {
     }
 
     private void getComments(final Long postId) {
-        ViewUtil.showSpinner(this);
-
         commentList.setVisibility(View.GONE);
         moreCommentsImage.setVisibility(View.GONE);
 
@@ -554,13 +571,10 @@ public class ProductActivity extends TrackedFragmentActivity {
                         });
                     }
                 }
-
-                ViewUtil.stopSpinner(ProductActivity.this);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(ProductActivity.this);
                 Log.e(ProductActivity.class.getSimpleName(), "getComments: failure", error);
             }
         });

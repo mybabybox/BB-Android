@@ -24,7 +24,7 @@ public class ConversationListAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<ConversationVM> conversationVMs;
     private ImageView userImage, postImage;
-    private TextView userText, postTitleText, lastMessageText, soldText, dateText;
+    private TextView userText, postTitleText, lastMessageText, soldText, dateText, unreadCountText;
 
     public ConversationListAdapter(Activity activity, List<ConversationVM> conversationVMs) {
         this.activity = activity;
@@ -55,20 +55,24 @@ public class ConversationListAdapter extends BaseAdapter {
         if (view == null)
             view = inflater.inflate(R.layout.conversation_list_item, null);
 
-        ConversationVM item = conversationVMs.get(i);
-        RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.conversationLayout);
-
-        if (item.getUnread() != 0) {
-            layout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
-        }
-
         userText = (TextView) view.findViewById(R.id.userText);
         postTitleText = (TextView) view.findViewById(R.id.postTitleText);
         lastMessageText = (TextView) view.findViewById(R.id.lastMessageText);
         soldText = (TextView) view.findViewById(R.id.soldText);
         dateText = (TextView) view.findViewById(R.id.dateText);
+        unreadCountText = (TextView) view.findViewById(R.id.unreadCountText);
         userImage = (ImageView) view.findViewById(R.id.userImage);
         postImage = (ImageView) view.findViewById(R.id.postImage);
+
+        ConversationVM item = conversationVMs.get(i);
+
+        if (item.getUnread() != 0) {
+            RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.conversationLayout);
+            layout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
+        }
+
+        unreadCountText.setText(item.getUnread()+"");
+        unreadCountText.setVisibility(item.getUnread() > 0? View.VISIBLE : View.GONE);
 
         ImageUtil.displayThumbnailProfileImage(item.getUserId(), userImage);
         ImageUtil.displayPostImage(item.getPostImage(), postImage);

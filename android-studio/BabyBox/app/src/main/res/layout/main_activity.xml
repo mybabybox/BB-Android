@@ -50,7 +50,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/homeLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="25"
+                    android:layout_weight="34"
                     android:gravity="center">
 
                     <ImageView
@@ -74,49 +74,23 @@
                     android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/notificationsLayout"
+                    android:id="@+id/notificationLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="25"
+                    android:layout_weight="33"
                     android:gravity="center">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:id="@+id/notificationsImage"
+                        android:id="@+id/notificationImage"
                         android:src="@drawable/mn_notif"
                         android:layout_gravity="center" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tabset_notifications"
-                        android:id="@+id/notificationsText"
-                        android:textSize="15dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="2dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/searchLayout"
-                    android:background="@color/main_menubar_bg"
-                    android:layout_weight="25"
-                    android:gravity="center" >
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:id="@+id/searchImage"
-                        android:src="@drawable/mn_tag"
-                        android:layout_gravity="center" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tabset_search"
-                        android:id="@+id/searchText"
+                        android:text="@string/tabset_notification"
+                        android:id="@+id/notificationText"
                         android:textSize="15dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="2dp" />
@@ -128,7 +102,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/profileLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="25"
+                    android:layout_weight="33"
                     android:gravity="center" >
 
                     <ImageView
