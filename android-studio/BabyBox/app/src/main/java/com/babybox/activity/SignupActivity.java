@@ -126,23 +126,27 @@ public class SignupActivity extends AbstractLoginActivity {
         });
     }
 
-    private void signUp(String lname,String fname,String email,String password,String repeatPassword) {
+    private void signUp(final String lname, final String fname, final String email, final String password, final String repeatPassword) {
         showErrorMessage(false);
 
         showSpinner();
         AppController.getApiService().signUp(lname, fname, email, password, repeatPassword, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 stopSpinner();
-                if (response.getStatus() == 200) {
-                    initSuccessPopup();
+                if (responseObject.getStatus() == DefaultValues.HTTP_STATUS_OK) {
+                    if (DefaultValues.EMAIL_SIGNUP_VERIFICATION_REQUIRED) {
+                        initSuccessPopup();
+                    } else {
+                        emailLogin(email, password);
+                    }
                 }
             }
 
             @Override
             public void failure(RetrofitError error) {
                 stopSpinner();
-                if (error.getResponse().getStatus() == 400) {
+                if (error.getResponse().getStatus() == DefaultValues.HTTP_STATUS_BAD_REQUEST) {
                     showErrorMessage(true);
                 }
                 Log.e(SignupActivity.class.getSimpleName(), "signUp: failure", error);
@@ -193,7 +197,7 @@ public class SignupActivity extends AbstractLoginActivity {
             valid = false;
         if (!ValidationUtil.hasText(firstName))
             valid = false;
-        if (!ValidationUtil.hasText(email) || !ValidationUtil.isEmailAddress(email))
+        if (!ValidationUtil.hasText(email) || !ValidationUtil.isEmailValid(email))
             valid = false;
         if (!ValidationUtil.hasText(password))
             valid = false;

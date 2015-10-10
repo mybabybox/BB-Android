@@ -34,6 +34,9 @@ public class DistrictCache {
         AppController.getApiService().getAllDistricts(new Callback<List<LocationVM>>() {
             @Override
             public void success(List<LocationVM> vms, Response response) {
+                if (vms == null || vms.size() == 0)
+                    return;
+                
                 districts = vms;
                 SharedPreferencesUtil.getInstance().saveDistricts(vms);
                 if (callback != null) {

@@ -14,7 +14,7 @@ import com.babybox.app.AppController;
 
 public class LoginActivity extends AbstractLoginActivity {
 
-    private EditText username = null;
+    private EditText email = null;
     private EditText password = null;
     private TextView loginButton;
     private ImageView facebookButton;
@@ -32,7 +32,7 @@ public class LoginActivity extends AbstractLoginActivity {
         ImageView loginLockImage = (ImageView) findViewById(R.id.loginLockImage);
         loginLockImage.bringToFront();
 
-        username = (EditText) findViewById(R.id.userName);
+        email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
         facebookButton = (ImageView) findViewById(R.id.buttonFbLogin);
         loginButton = (TextView) findViewById(R.id.buttonLogin);
@@ -60,7 +60,7 @@ public class LoginActivity extends AbstractLoginActivity {
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                emailLogin(username.getText().toString(), password.getText().toString());
+                emailLogin(email.getText().toString(), password.getText().toString());
             }
         });
 

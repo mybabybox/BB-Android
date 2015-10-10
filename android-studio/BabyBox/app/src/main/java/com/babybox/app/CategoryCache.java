@@ -35,6 +35,9 @@ public class CategoryCache {
         AppController.getApiService().getCategories(new Callback<List<CategoryVM>>() {
             @Override
             public void success(List<CategoryVM> vms, Response response) {
+                if (vms == null || vms.size() == 0)
+                    return;
+
                 categories = vms;
                 SharedPreferencesUtil.getInstance().saveCategories(vms);
                 if (callback != null) {

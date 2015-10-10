@@ -72,7 +72,7 @@
                     android:hint="您的電郵"
                     android:textColorHint="@color/light_gray"
                     android:textColor="@color/input_text"
-                    android:id="@+id/userName"
+                    android:id="@+id/email"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_width="match_parent"

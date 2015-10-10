@@ -34,6 +34,9 @@ public class EmoticonCache {
         AppController.getApiService().getEmoticons(new Callback<List<EmoticonVM>>() {
             @Override
             public void success(List<EmoticonVM> vms, Response response) {
+                if (vms == null || vms.size() == 0)
+                    return;
+
                 emoticons = vms;
                 SharedPreferencesUtil.getInstance().saveEmoticons(vms);
                 if (callback != null) {

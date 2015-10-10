@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 
 // FB API v4.0
+import com.babybox.util.DefaultValues;
 import com.babybox.util.SharedPreferencesUtil;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -133,7 +134,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
             public void failure(RetrofitError error) {
                 stopSpinner();
                 if (error.getResponse() != null &&
-                        error.getResponse().getStatus() == 400) {
+                        error.getResponse().getStatus() == DefaultValues.HTTP_STATUS_BAD_REQUEST) {
                     String errorMsg = ViewUtil.getResponseBody(error.getResponse());
                     if (!StringUtils.isEmpty(errorMsg)) {
                         ViewUtil.alert(AbstractLoginActivity.this,

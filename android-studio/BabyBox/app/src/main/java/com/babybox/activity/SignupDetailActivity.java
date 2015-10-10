@@ -448,8 +448,8 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
     private boolean isValid(){
         boolean valid = true;
         String error = "";
-        if (!ValidationUtil.hasText(displayName)) {
-            error = ValidationUtil.appendError(error, getString(R.string.signup_details_error_displayname_not_entered));
+        if (!ValidationUtil.isUserDisplaynameValid(displayName)) {
+            error = ValidationUtil.appendError(error, getString(R.string.signup_details_error_displayname_format));
             valid = false;
         }
         if (locationId == -1) {

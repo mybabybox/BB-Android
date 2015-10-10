@@ -13,7 +13,6 @@
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="base_url">http://192.168.1.125:9000</string>
-    <!--string name="base_url">http://www.baby-box.hk</string-->
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>
@@ -49,6 +48,9 @@
     <string name="signup_error_please_check">請檢查輸入資料</string>
     <string name="signup_error_field_required">必須填寫</string>
     <string name="signup_error_email_format">電郵格式不對</string>
+    <string name="signup_error_displayname_no_space">顯示名稱不可以有空格</string>
+    <string name="signup_error_displayname_format">顯示名稱可以輸入英文字母、數字 和 _ . -</string>
+    <string name="signup_error_displayname_min_max_char">顯示名稱最小2個字、最多20個字</string>
 
     <string name="signup_details_greeting">歡迎成為 babybox 會員</string>
     <string name="signup_details_greeting_note">請給我們一分鐘來完成登記，您所提供的資料是以便我們能把您加入到最相關的社群</string>
@@ -73,6 +75,7 @@
     <string name="signup_details_error_info">請檢查已輸入資料。再重試</string>
     <string name="signup_details_error_displayname_already_exists">已被選用。請選擇另一個顯示名稱重試</string>
     <string name="signup_details_error_displayname_not_entered">請填寫顯示名稱</string>
+    <string name="signup_details_error_displayname_format">顯示名稱格式不對</string>
     <string name="signup_details_error_name_not_entered">請填寫姓名</string>
     <string name="signup_details_error_location_not_entered">請選擇地區</string>
     <string name="signup_details_error_status_not_entered">請選擇您現在是</string>

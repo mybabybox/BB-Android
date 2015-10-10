@@ -11,6 +11,13 @@ import com.babybox.app.AppController;
  */
 public class DefaultValues {
 
+    // Email signup need verification email
+    public static final boolean EMAIL_SIGNUP_VERIFICATION_REQUIRED = false;
+
+    // Http return code
+    public static final int HTTP_STATUS_OK = 200;
+    public static final int HTTP_STATUS_BAD_REQUEST = 400;
+
     // Default feeds
     public static final FeedFilter.FeedType DEFAULT_HOME_FEED_TYPE = FeedFilter.FeedType.HOME_EXPLORE;
     public static final FeedFilter.FeedType DEFAULT_CATEGORY_FEED_TYPE = FeedFilter.FeedType.CATEGORY_POPULAR;
@@ -29,11 +36,11 @@ public class DefaultValues {
     // UI
     public static final int MIN_CHAR_SIGNUP_PASSWORD = 4;
 
-    public static final int SPLASH_DISPLAY_MILLIS = 100;
+    public static final int SPLASH_DISPLAY_MILLIS = 250;
     public static final int DEFAULT_CONNECTION_TIMEOUT_MILLIS = 3000;
     public static final int DEFAULT_HANDLER_DELAY = 100;
 
-    public static final int PULL_TO_REFRESH_DELAY = 100;
+    public static final int PULL_TO_REFRESH_DELAY = 250;
 
     public static final int FEEDVIEW_ITEM_TOP_MARGIN = 5;
     public static final int FEEDVIEW_ITEM_BOTTOM_MARGIN = 5;

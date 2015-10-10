@@ -3,6 +3,8 @@ package com.babybox.app;
 import android.content.Context;
 import android.util.Log;
 
+import com.babybox.util.DefaultValues;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -59,7 +61,7 @@ public class ShareExternalServer {
 				out.close();
 
 				int status = httpCon.getResponseCode();
-				if (status == 200) {
+				if (status == DefaultValues.HTTP_STATUS_OK) {
 					result = "RegId shared with Application Server. RegId: "
 							+ regId;
 				} else {
