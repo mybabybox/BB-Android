@@ -15,11 +15,12 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.NotificationCache;
-import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.TrackedFragment;
+import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
 import com.babybox.viewmodel.NotificationsParentVM;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -27,18 +28,23 @@ import retrofit.client.Response;
 public class MainActivity extends TrackedFragmentActivity {
 
     private LinearLayout homeLayout;
+    public LinearLayout bottomLayout;
     private ImageView homeImage;
     private TextView homeText;
 
-    private LinearLayout notificationLayout;
-    private ImageView notificationImage;
-    private TextView notificationText;
+    private LinearLayout notificationsLayout;
+    private ImageView notificationsImage;
+    private TextView notificationsText;
+
+    private LinearLayout searchLayout;
+    private ImageView searchImage;
+    private TextView searchText;
 
     private LinearLayout profileLayout;
     private ImageView profileImage;
     private TextView profileText;
 
-    private boolean homeClicked = false, notificationClicked = false, profileClicked = false;
+    private boolean homeClicked = false, notificationsClicked = false, searchClicked = false, profileClicked = false;
 
     private TextView notificationCount;
 
@@ -66,9 +72,15 @@ public class MainActivity extends TrackedFragmentActivity {
         homeImage = (ImageView) findViewById(R.id.homeImage);
         homeText = (TextView) findViewById(R.id.homeText);
 
-        notificationLayout = (LinearLayout) findViewById(R.id.notificationLayout);
-        notificationImage = (ImageView) findViewById(R.id.notificationImage);
-        notificationText = (TextView) findViewById(R.id.notificationText);
+        bottomLayout = (LinearLayout) findViewById(R.id.bottomBar);
+
+        notificationsLayout = (LinearLayout) findViewById(R.id.notificationsLayout);
+        notificationsImage = (ImageView) findViewById(R.id.notificationsImage);
+        notificationsText = (TextView) findViewById(R.id.notificationsText);
+
+        searchLayout = (LinearLayout) findViewById(R.id.searchLayout);
+        searchImage = (ImageView) findViewById(R.id.searchImage);
+        searchText = (TextView) findViewById(R.id.searchText);
 
         profileLayout = (LinearLayout) findViewById(R.id.profileLayout);
         profileImage = (ImageView) findViewById(R.id.profileImage);
@@ -83,11 +95,19 @@ public class MainActivity extends TrackedFragmentActivity {
             }
         });
 
-        notificationLayout.setOnClickListener(new View.OnClickListener() {
+        notificationsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: notification tab clicked");
-                pressnotificationTab();
+                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Notifications tab clicked");
+                pressNotificationsTab();
+            }
+        });
+
+        searchLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: search tab clicked");
+                pressSearchTab();
             }
         });
 
@@ -108,8 +128,8 @@ public class MainActivity extends TrackedFragmentActivity {
 
         NotificationCache.refresh(new Callback<NotificationsParentVM>() {
             @Override
-            public void success(NotificationsParentVM vm, Response response) {
-                setUnreadNotificationCount();
+            public void success(NotificationsParentVM notificationsParentVM, Response response) {
+                setUnreadNotificationsCount();
             }
 
             @Override
@@ -129,17 +149,20 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(homeImage, homeText, R.drawable.mn_home_sel, R.color.sharp_pink);
         homeClicked = true;
 
-        setMenuButton(notificationImage, notificationText, R.drawable.mn_notif, R.color.dark_gray_2);
-        notificationClicked = false;
+        setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
+        notificationsClicked = false;
+
+        setMenuButton(searchImage, searchText, R.drawable.mn_tag, R.color.dark_gray_2);
+        searchClicked = false;
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
 
-        setUnreadNotificationCount();
+        setUnreadNotificationsCount();
     }
 
-    public void pressnotificationTab() {
-        if (!notificationClicked) {
+    public void pressNotificationsTab() {
+        if (!notificationsClicked) {
             /*
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             selectedFragment = new NotificationMainFragment();
@@ -150,13 +173,40 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
         homeClicked = false;
 
-        setMenuButton(notificationImage, notificationText, R.drawable.mn_notif_sel, R.color.sharp_pink);
-        notificationClicked = true;
+        setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif_sel, R.color.sharp_pink);
+        notificationsClicked = true;
+
+        setMenuButton(searchImage, searchText, R.drawable.mn_tag, R.color.dark_gray_2);
+        searchClicked = false;
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
 
-        setUnreadNotificationCount();
+        setUnreadNotificationsCount();
+    }
+
+    public void pressSearchTab() {
+        if (!searchClicked) {
+            /*
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            selectedFragment = new SearchMainFragment();
+            fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
+            */
+        }
+
+        setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
+        homeClicked = false;
+
+        setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
+        notificationsClicked = false;
+
+        setMenuButton(searchImage, searchText, R.drawable.mn_tag_sel, R.color.sharp_pink);
+        searchClicked = true;
+
+        setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
+        profileClicked = false;
+
+        setUnreadNotificationsCount();
     }
 
     public void pressProfileTab() {
@@ -171,13 +221,16 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
         homeClicked = false;
 
-        setMenuButton(notificationImage, notificationText, R.drawable.mn_notif, R.color.dark_gray_2);
-        notificationClicked = false;
+        setMenuButton(notificationsImage, notificationsText, R.drawable.mn_notif, R.color.dark_gray_2);
+        notificationsClicked = false;
+
+        setMenuButton(searchImage, searchText, R.drawable.mn_tag, R.color.dark_gray_2);
+        searchClicked = false;
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile_sel, R.color.sharp_pink);
         profileClicked = true;
 
-        setUnreadNotificationCount();
+        setUnreadNotificationsCount();
     }
 
     private void setMenuButton(ImageView imageView, TextView textView, int image, int textColor) {
@@ -229,7 +282,7 @@ public class MainActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void setUnreadNotificationCount() {
+    private void setUnreadNotificationsCount() {
         NotificationsParentVM notificationsParentVM = NotificationCache.getNotifications();
         if (notificationsParentVM == null) {
             return;
@@ -237,7 +290,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
         long count = notificationsParentVM.getRequestCounts() + notificationsParentVM.getNotifyCounts()+notificationsParentVM.getMessageCount();
 
-        Log.d(this.getClass().getSimpleName(), "setUnreadNotificationCount: requestCount=" + notificationsParentVM.getRequestCounts() + " notifCount=" + notificationsParentVM.getNotifyCounts());
+        Log.d(this.getClass().getSimpleName(), "setUnreadNotificationsCount: requestCount=" + notificationsParentVM.getRequestCounts() + " notifCount=" + notificationsParentVM.getNotifyCounts());
 
         if(count == 0) {
             notificationCount.setVisibility(View.INVISIBLE);
@@ -246,5 +299,6 @@ public class MainActivity extends TrackedFragmentActivity {
             notificationCount.setText(count+"");
         }
     }
+
 }
 

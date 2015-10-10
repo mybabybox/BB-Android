@@ -61,6 +61,9 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     abstract protected void loadFeed(Long offset, FeedFilter feedFilter);
 
+    public void hideViews(){};
+    public void showViews(){};
+
     public boolean hasHeader() {
         return headerView != null;
     }
@@ -219,6 +222,16 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
             @Override
             public void onLoadMore(Long page) {
                 loadFeed(Long.valueOf(page - 1), getFeedFilter());
+            }
+
+            @Override
+            public void onHide() {
+                showViews();
+            }
+
+            @Override
+            public void onShow() {
+                hideViews();
             }
         });
     }
