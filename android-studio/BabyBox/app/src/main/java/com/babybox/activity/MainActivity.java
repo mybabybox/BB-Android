@@ -15,11 +15,12 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.NotificationCache;
-import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.TrackedFragment;
+import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
 import com.babybox.viewmodel.NotificationsParentVM;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -27,6 +28,7 @@ import retrofit.client.Response;
 public class MainActivity extends TrackedFragmentActivity {
 
     private LinearLayout homeLayout;
+    public LinearLayout bottomLayout;
     private ImageView homeImage;
     private TextView homeText;
 
@@ -69,6 +71,8 @@ public class MainActivity extends TrackedFragmentActivity {
         homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
         homeImage = (ImageView) findViewById(R.id.homeImage);
         homeText = (TextView) findViewById(R.id.homeText);
+
+        bottomLayout = (LinearLayout) findViewById(R.id.bottomBar);
 
         notificationsLayout = (LinearLayout) findViewById(R.id.notificationsLayout);
         notificationsImage = (ImageView) findViewById(R.id.notificationsImage);
@@ -295,5 +299,6 @@ public class MainActivity extends TrackedFragmentActivity {
             notificationCount.setText(count+"");
         }
     }
+
 }
 

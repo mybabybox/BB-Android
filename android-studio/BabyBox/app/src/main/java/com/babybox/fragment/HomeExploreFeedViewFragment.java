@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -79,6 +81,18 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
         ViewUtil.addDots(getActivity(), catPagerAdapter.getCount(), dotsLayout, dots, catPager);
 
         return view;
+    }
+
+    public void showViews()
+    {
+        LinearLayout homeLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBar);
+        homeLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+
+    };
+
+    public void hideViews(){
+        LinearLayout homeLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBar);
+        homeLayout.animate().translationY(homeLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
     }
 }
 

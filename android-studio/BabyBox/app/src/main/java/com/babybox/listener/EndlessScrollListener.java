@@ -13,6 +13,11 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
     private int current_page = 1;
 
+    private static final int HIDE_THRESHOLD = 20;
+
+    private int mScrolledDistance = 0;
+    private boolean mControlsVisible = true;
+
     private LinearLayoutManager mLinearLayoutManager;
 
     public EndlessScrollListener(LinearLayoutManager linearLayoutManager) {
@@ -58,7 +63,33 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
             loading = true;
         }
+
+
+        if (firstVisibleItem == 0) {
+            if(!mControlsVisible) {
+                onShow();
+                mControlsVisible = true;
+            }
+        } else {
+            if (mScrolledDistance > HIDE_THRESHOLD && mControlsVisible) {
+                onHide();
+                mControlsVisible = false;
+                mScrolledDistance = 0;
+            } else if (mScrolledDistance < -HIDE_THRESHOLD && !mControlsVisible) {
+                onShow();
+                mControlsVisible = true;
+                mScrolledDistance = 0;
+            }
+        }
+        if((mControlsVisible && dy>0) || (!mControlsVisible && dy<0)) {
+            mScrolledDistance += dy;
+        }
+
+
+
     }
 
     public abstract void onLoadMore(Long current_page);
+    public abstract void onHide();
+    public abstract void onShow();
 }
