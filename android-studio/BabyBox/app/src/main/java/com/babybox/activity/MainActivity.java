@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,8 +29,8 @@ import retrofit.client.Response;
 
 public class MainActivity extends TrackedFragmentActivity {
 
+    private LinearLayout bottomBarLayout;
     private LinearLayout homeLayout;
-    public LinearLayout bottomLayout;
     private ImageView homeImage;
     private TextView homeText;
 
@@ -64,11 +66,11 @@ public class MainActivity extends TrackedFragmentActivity {
 
         //getActionBar().show();
 
+        bottomBarLayout = (LinearLayout) findViewById(R.id.bottomBarLayout);
+
         homeLayout = (LinearLayout) findViewById(R.id.homeLayout);
         homeImage = (ImageView) findViewById(R.id.homeImage);
         homeText = (TextView) findViewById(R.id.homeText);
-
-        bottomLayout = (LinearLayout) findViewById(R.id.bottomBar);
 
         notificationLayout = (LinearLayout) findViewById(R.id.notificationLayout);
         notificationImage = (ImageView) findViewById(R.id.notificationImage);
@@ -251,5 +253,16 @@ public class MainActivity extends TrackedFragmentActivity {
         }
     }
 
+    public void showBottomMenuBar(boolean show) {
+        if (bottomBarLayout == null) {
+            return;
+        }
+
+        if (show) {
+            bottomBarLayout.animate().translationY(bottomBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+        } else {
+            bottomBarLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        }
+    }
 }
 

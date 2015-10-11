@@ -14,8 +14,6 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
     public Long lastMessageDate;
     public String lastMessage;
     public Long unread = 0L;
-    public Boolean isRead = false;
-    public Boolean isToday;
 
     public Long getId() {
         return id;
@@ -103,22 +101,6 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
 
     public void setUnread(Long unread) {
         this.unread = unread;
-    }
-
-    public Boolean isRead() {
-        return isRead;
-    }
-
-    public void setIsRead(Boolean isRead) {
-        this.isRead = isRead;
-    }
-
-    public Boolean isToday() {
-        return isToday;
-    }
-
-    public void setIsToday(Boolean isToday) {
-        this.isToday = isToday;
     }
 
     @Override

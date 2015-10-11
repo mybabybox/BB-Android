@@ -19,6 +19,7 @@
     <color name="light_pink">#FF99B8</color>
     <color name="light_pink_2">#FFC7D2</color>
     <color name="light_pink_3">#FFEAED</color>
+    <color name="light_pink_4">#FFF2EF</color>
     <color name="yellow">#F3F300</color>
     <color name="light_yellow">#fffff0</color>
     <color name="orange">#FFA500</color>
@@ -44,7 +45,7 @@
     <color name="actionbar_bg_light">#FFAEC0</color>
     <color name="actionbar_selected_text">#FF76A4</color>
 
-    <color name="game_view_bg">#F2FFFC</color>
+    <color name="game_pink">#F2FFFC</color>
     <color name="game_box_border">#7ACFF2</color>
     <color name="game_box_border_light">#A2E7E7</color>
     <color name="game_orange">#FF6600</color>

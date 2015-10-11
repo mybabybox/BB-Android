@@ -44,43 +44,60 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
             // Do something
 
-            // Need to check fr accuracy.
-
-            Long offset = 0L;
-            if(recyclerView.getChildAt(visibleItemCount  - 1) == null) {
+            // Need to check for accuracy.
+            if (recyclerView.getChildAt(visibleItemCount - 1) == null) {
                 return;
             }
-            offset = (Long) recyclerView.getChildAt(visibleItemCount - 1).getTag();
 
-            if(offset != null)
-            if( offset == 0) {
-                current_page++;
-                onLoadMore((long)current_page);
-            } else {
-                offset= offset+1;   //TODO:loadFeed(Long.valueOf(page - 1), getFeedFilter()) we are decrementing page value in loadFeed function
-                onLoadMore(offset);
+            Long offset = 0L;
+            offset = (Long) recyclerView.getChildAt(visibleItemCount - 1).getTag();
+            if(offset != null) {
+                if( offset == 0) {
+                    current_page++;
+                    onLoadMore((long)current_page);
+                } else {
+                    offset = offset+1;   //TODO:loadFeed(Long.valueOf(page - 1), getFeedFilter()) we are decrementing page value in loadFeed function
+                    onLoadMore(offset);
+                }
             }
 
             loading = true;
         }
 
+        // show / hide controls trigger
+        int threshold = HIDE_THRESHOLD;
+        if (firstVisibleItem == 0) {
+            threshold = HIDE_THRESHOLD * 10;
+        }
 
+        if (mScrolledDistance > threshold && mControlsVisible) {
+            onScrollUp();
+            mControlsVisible = false;
+            mScrolledDistance = 0;
+        } else if (mScrolledDistance < -threshold && !mControlsVisible) {
+            onScrollDown();
+            mControlsVisible = true;
+            mScrolledDistance = 0;
+        }
+
+        /*
         if (firstVisibleItem == 0) {
             if (!mControlsVisible) {
                 onScrollDown();
                 mControlsVisible = true;
             }
         } else {
-            if (mScrolledDistance > HIDE_THRESHOLD && mControlsVisible) {
+            if (mScrolledDistance > threshold && mControlsVisible) {
                 onScrollUp();
                 mControlsVisible = false;
                 mScrolledDistance = 0;
-            } else if (mScrolledDistance < -HIDE_THRESHOLD && !mControlsVisible) {
+            } else if (mScrolledDistance < -threshold && !mControlsVisible) {
                 onScrollDown();
                 mControlsVisible = true;
                 mScrolledDistance = 0;
             }
         }
+        */
 
         if ((mControlsVisible && dy>0) || (!mControlsVisible && dy<0)) {
             mScrolledDistance += dy;

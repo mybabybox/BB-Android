@@ -71,7 +71,7 @@ public class SelectImageActivity extends Activity {
 
     @Override
     public void onBackPressed(){
-        finish();
-//        super.onBackPressed();
+        super.onBackPressed();
+        //finish();
     }
 }

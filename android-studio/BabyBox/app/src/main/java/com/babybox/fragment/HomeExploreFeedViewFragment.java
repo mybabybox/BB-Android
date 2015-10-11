@@ -8,13 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.babybox.R;
+import com.babybox.activity.MainActivity;
 import com.babybox.app.CategoryCache;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
@@ -83,18 +82,14 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
         return view;
     }
 
+    @Override
     public void onScrollUp() {
-        LinearLayout bottomBarLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBarLayout);
-        if (bottomBarLayout != null) {
-            bottomBarLayout.animate().translationY(bottomBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
-        }
+        MainActivity.getInstance().showBottomMenuBar(true);
     }
 
+    @Override
     public void onScrollDown() {
-        LinearLayout bottomBarLayout = (LinearLayout) getActivity().findViewById(R.id.bottomBarLayout);
-        if (bottomBarLayout != null) {
-            bottomBarLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-        }
+        MainActivity.getInstance().showBottomMenuBar(false);
     }
 }
 

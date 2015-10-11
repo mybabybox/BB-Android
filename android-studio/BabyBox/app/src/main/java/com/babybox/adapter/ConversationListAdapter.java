@@ -23,6 +23,8 @@ public class ConversationListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
     private List<ConversationVM> conversationVMs;
+
+    private RelativeLayout conversationLayout;
     private ImageView userImage, postImage;
     private TextView userText, postTitleText, lastMessageText, soldText, dateText, unreadCountText;
 
@@ -55,6 +57,7 @@ public class ConversationListAdapter extends BaseAdapter {
         if (view == null)
             view = inflater.inflate(R.layout.conversation_list_item, null);
 
+        conversationLayout = (RelativeLayout) view.findViewById(R.id.conversationLayout);
         userText = (TextView) view.findViewById(R.id.userText);
         postTitleText = (TextView) view.findViewById(R.id.postTitleText);
         lastMessageText = (TextView) view.findViewById(R.id.lastMessageText);
@@ -66,9 +69,11 @@ public class ConversationListAdapter extends BaseAdapter {
 
         ConversationVM item = conversationVMs.get(i);
 
-        if (item.getUnread() != 0) {
-            RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.conversationLayout);
-            layout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
+        Log.d(this.getClass().getSimpleName(), "["+i+"|Id="+item.id+"] "+item.getPostTitle()+" unread="+item.getUnread());
+        if (item.getUnread() > 0) {
+            conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
+        } else {
+            conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.color.white));
         }
 
         unreadCountText.setText(item.getUnread()+"");
