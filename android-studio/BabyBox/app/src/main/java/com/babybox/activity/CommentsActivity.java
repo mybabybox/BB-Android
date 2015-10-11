@@ -16,7 +16,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class ProductCommentsActivity extends AbstractListViewActivity {
+public class CommentsActivity extends AbstractListViewActivity {
 
     private List<CommentVM> items;
 
@@ -35,7 +35,7 @@ public class ProductCommentsActivity extends AbstractListViewActivity {
         if (items == null) {
             items = new ArrayList<>();
         }
-        return new CommentListAdapter(ProductCommentsActivity.this, items);
+        return new CommentListAdapter(CommentsActivity.this, items);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ProductCommentsActivity extends AbstractListViewActivity {
         AppController.getApiService().getComments(offset, objId, new Callback<List<CommentVM>>() {
             @Override
             public void success(List<CommentVM> comments, Response response) {
-                Log.d(ProductCommentsActivity.class.getSimpleName(), "loadListItems.getComments: offset=" + offset +
+                Log.d(CommentsActivity.class.getSimpleName(), "loadListItems.getComments: offset=" + offset +
                         " size=" + (comments == null? 0 : comments.size()));
 
                 if (offset == 0 && (comments == null || comments.size() == 0)) {
@@ -58,13 +58,13 @@ public class ProductCommentsActivity extends AbstractListViewActivity {
                     listAdapter.notifyDataSetChanged();
                 }
 
-                ViewUtil.stopSpinner(ProductCommentsActivity.this);
+                ViewUtil.stopSpinner(CommentsActivity.this);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(ProductCommentsActivity.this);
-                Log.e(ProductCommentsActivity.class.getSimpleName(), "loadListItems.getComments: failure", error);
+                ViewUtil.stopSpinner(CommentsActivity.this);
+                Log.e(CommentsActivity.class.getSimpleName(), "loadListItems.getComments: failure", error);
             }
         });
     }

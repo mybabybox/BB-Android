@@ -41,7 +41,6 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     protected Button editButton, followButton, ordersButton, collectionsButton, productsButton, likesButton;
 
     protected FrameLayout tipsLayout;
-    protected TextView tipsDescText, tipsEndText;
     protected ImageView dismissTipsButton;
 
     private boolean following;
@@ -155,7 +154,20 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                 });
 
                 followersText.setText(ViewUtil.followersFormat(user.numFollowers));
+                followersText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ViewUtil.startFollowersActivity(getActivity(), userId);
+                    }
+                });
+
                 followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
+                followingsText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ViewUtil.startFollowingsActivity(getActivity(), userId);
+                    }
+                });
 
                 following = user.isFollowing;
                 if (following) {

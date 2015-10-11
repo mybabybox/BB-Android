@@ -153,7 +153,21 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         });
 
         followersText.setText(ViewUtil.followersFormat(user.numFollowers));
+        followersText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewUtil.startFollowersActivity(getActivity(), userId);
+            }
+        });
+
         followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
+        followingsText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewUtil.startFollowingsActivity(getActivity(), userId);
+            }
+        });
+
 
         productsButton.setText(ViewUtil.productsTabFormat(user.numProducts));
         likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));

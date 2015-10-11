@@ -42,10 +42,12 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
+import com.babybox.activity.FollowersActivity;
+import com.babybox.activity.FollowingsActivity;
 import com.babybox.activity.LoginActivity;
 import com.babybox.activity.MessageListActivity;
 import com.babybox.activity.ProductActivity;
-import com.babybox.activity.ProductCommentsActivity;
+import com.babybox.activity.CommentsActivity;
 import com.babybox.activity.SignupDetailActivity;
 import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
@@ -54,7 +56,6 @@ import com.babybox.app.MyImageGetter;
 import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.PostVM;
-import com.babybox.viewmodel.PostVMLite;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
@@ -252,7 +253,7 @@ public class ViewUtil {
         }
     }
 
-    public static List<CommentVM> getLastComments(List<CommentVM> comments, int n) {
+    public static List<CommentVM> getLatestComments(List<CommentVM> comments, int n) {
         int start = Math.max(0, comments.size() - n);
         return comments.subList(start, comments.size());
     }
@@ -711,8 +712,20 @@ public class ViewUtil {
         activity.startActivity(intent);
     }
 
-    public static void startProductCommentsActivity(Activity activity, Long postId) {
-        Intent intent = new Intent(activity, ProductCommentsActivity.class);
+    public static void startFollowersActivity(Activity activity, Long userId) {
+        Intent intent = new Intent(activity, FollowersActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
+        activity.startActivity(intent);
+    }
+
+    public static void startFollowingsActivity(Activity activity, Long userId) {
+        Intent intent = new Intent(activity, FollowingsActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
+        activity.startActivity(intent);
+    }
+
+    public static void startCommentsActivity(Activity activity, Long postId) {
+        Intent intent = new Intent(activity, CommentsActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
         activity.startActivity(intent);
     }

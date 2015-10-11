@@ -13,7 +13,6 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -40,15 +39,12 @@ import com.babybox.R;
 import com.babybox.adapter.CommentListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.ConversationCache;
-import com.babybox.app.TrackedFragment;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
 import com.babybox.fragment.AbstractFeedViewFragment.ItemChangedState;
-import com.babybox.fragment.FeedViewFragment;
 import com.babybox.fragment.ProductImagePagerFragment;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.DefaultValues;
-import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.MessageUtil;
 import com.babybox.util.SharingUtil;
@@ -62,6 +58,7 @@ import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 
+import org.joda.time.DateTime;
 import org.parceler.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -107,6 +104,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private long postId;
     private long ownerId;
     private boolean isFollowing;
+    private CommentListAdapter commentListAdapter;
 
     private boolean pending = false;
 
@@ -214,7 +212,6 @@ public class ProductActivity extends TrackedFragmentActivity {
         postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
 
         getProduct(postId);
-        getComments(postId);
         getSuggestedProducts(postId);
     }
 
@@ -427,6 +424,25 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
+                // comments
+                List<CommentVM> comments = post.getComments();
+                if (comments != null && comments.size() > 0) {
+                    commentList.setVisibility(View.VISIBLE);
+                    commentListAdapter = new CommentListAdapter(ProductActivity.this, comments);
+                    commentList.setAdapter(commentListAdapter);
+                    ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
+
+                    if (post.getNumComments() > comments.size()) {
+                        moreCommentsImage.setVisibility(View.VISIBLE);
+                        moreCommentsLayout.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                ViewUtil.startCommentsActivity(ProductActivity.this, postId);
+                            }
+                        });
+                    }
+                }
+
                 // actionbar
 
                 whatsappAction.setOnClickListener(new View.OnClickListener() {
@@ -541,41 +557,6 @@ public class ProductActivity extends TrackedFragmentActivity {
             public void failure(RetrofitError error) {
                 Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
                 Log.e(MessageUtil.class.getSimpleName(), "getConversations: failure", error);
-            }
-        });
-    }
-
-    private void getComments(final Long postId) {
-        commentList.setVisibility(View.GONE);
-        moreCommentsImage.setVisibility(View.GONE);
-
-        Long offset = 0L;     // mock testing
-        AppController.getApiService().getComments(offset, postId, new Callback<List<CommentVM>>() {
-            @Override
-            public void success(List<CommentVM> comments, Response response) {
-                if (comments != null && comments.size() > 0) {
-                    commentList.setVisibility(View.VISIBLE);
-                    CommentListAdapter adapter = new CommentListAdapter(
-                            ProductActivity.this,
-                            ViewUtil.getLastComments(comments, DefaultValues.MAX_COMMENTS_PREVIEW));
-                    commentList.setAdapter(adapter);
-                    ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
-
-                    if (comments.size() > DefaultValues.MAX_COMMENTS_PREVIEW) {
-                        moreCommentsImage.setVisibility(View.VISIBLE);
-                        moreCommentsLayout.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                ViewUtil.startProductCommentsActivity(ProductActivity.this, postId);
-                            }
-                        });
-                    }
-                }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "getComments: failure", error);
             }
         });
     }
@@ -787,8 +768,6 @@ public class ProductActivity extends TrackedFragmentActivity {
             return;
         }
 
-        pending = true;
-
         String comment = commentEditText.getText().toString().trim();
         if (StringUtils.isEmpty(comment)) {
             Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.invalid_comment_body_empty), Toast.LENGTH_SHORT).show();
@@ -798,14 +777,18 @@ public class ProductActivity extends TrackedFragmentActivity {
         ViewUtil.showSpinner(this);
 
         Log.d(this.getClass().getSimpleName(), "doComment: postId=" + postId + " comment=" + comment.substring(0, Math.min(5, comment.length())));
-        AppController.getApiService().newComment(new NewCommentVM(postId, comment), new Callback<ResponseStatusVM>() {
+
+        pending = true;
+        final NewCommentVM newComment = new NewCommentVM(postId, comment);
+        AppController.getApiService().newComment(newComment, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
-                numCommentsText.setText((post.getNumComments()+1) + " " + getString(R.string.comments));
-                getComments(postId);  // reload page
+                numCommentsText.setText((post.getNumComments() + 1) + " " + getString(R.string.comments));
+                updateCommentList(responseStatus.objId, newComment.body);
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_success), Toast.LENGTH_LONG).show();
                 reset();
                 pending = false;
+                ViewUtil.stopSpinner(ProductActivity.this);
             }
 
             @Override
@@ -814,8 +797,23 @@ public class ProductActivity extends TrackedFragmentActivity {
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_failed), Toast.LENGTH_SHORT).show();
                 reset();
                 pending = false;
+                ViewUtil.stopSpinner(ProductActivity.this);
             }
         });
+    }
+
+    private void updateCommentList(Long commentId, String body) {
+        CommentVM comment = new CommentVM();
+        comment.id = commentId;
+        comment.createdDate = new DateTime().getMillis();
+        comment.ownerId = UserInfoCache.getUser().id;
+        comment.ownerName = UserInfoCache.getUser().displayName;
+        comment.body = body;
+        comment.deviceType = AppController.DeviceType.ANDROID.name();
+
+        post.comments.add(comment);
+        commentListAdapter.notifyDataSetChanged();
+        ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
     }
 
     private void deletePost(Long id) {
@@ -837,7 +835,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(ProductActivity.this, getString(R.string.post_delete_failed), Toast.LENGTH_SHORT).show();
-                Log.e(CommentListAdapter.class.getSimpleName(), "deletePost: failure", error);
+                Log.e(ProductActivity.class.getSimpleName(), "deletePost: failure", error);
                 pending = false;
             }
         });
@@ -889,7 +887,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(CommentListAdapter.class.getSimpleName(), "follow: failure", error);
+                Log.e(ProductActivity.class.getSimpleName(), "follow: failure", error);
                 pending = false;
             }
         });
@@ -911,7 +909,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(CommentListAdapter.class.getSimpleName(), "unfollow: failure", error);
+                Log.e(ProductActivity.class.getSimpleName(), "unfollow: failure", error);
                 pending = false;
             }
         });

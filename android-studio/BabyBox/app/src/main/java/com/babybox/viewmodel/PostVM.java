@@ -1,7 +1,6 @@
 package com.babybox.viewmodel;
 
-import com.babybox.mock.CommunityPostVM;
-import com.babybox.util.ViewUtil;
+import java.util.List;
 
 public class PostVM extends PostVMLite {
     public Long ownerId;
@@ -14,33 +13,12 @@ public class PostVM extends PostVMLite {
     public String categoryName;
     public String categoryIcon;
     public Long categoryId;
+    public List<CommentVM> comments;
 
     public boolean isOwner = false;
     public boolean isFollowingOwner = false;
 
     public String deviceType;
-
-    public PostVM(CommunityPostVM post) {
-        this.id = post.id;
-        this.ownerId = post.oid;
-        this.ownerName = post.p;
-        this.createdDate = post.t;
-        this.updatedDate = post.ut;
-        this.title = post.ptl;
-        this.body = post.pt;
-        this.numComments = post.n_c;
-        this.images = post.imgs;
-        this.postType = post.type;
-        this.categoryType = post.ctyp;
-        this.categoryName = post.cn;
-        this.categoryIcon = post.ci;
-        this.categoryId = post.cid;
-        this.numViews = post.nov;
-        this.numLikes = post.nol;
-        this.isOwner = post.isO;
-        this.isLiked = post.isLike;
-        this.price = ViewUtil.random(1, 500);
-    }
 
     public Long getOwnerId() {
         return ownerId;
@@ -120,6 +98,14 @@ public class PostVM extends PostVMLite {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public List<CommentVM> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentVM> comments) {
+        this.comments = comments;
     }
 
     public boolean isOwner() {

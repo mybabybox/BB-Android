@@ -1,42 +1,15 @@
 package com.babybox.viewmodel;
 
-import com.babybox.mock.CommunityPostCommentVM;
-
 public class CommentVM {
     public Long id;
+    public Long createdDate;
     public Long ownerId;
     public String ownerName;
-    public Long createdDate;
-    public boolean hasImage = false;
-    public Long[] images;
     public String body;
-    public int seq;
 
     public boolean isOwner = false;
 
-    public boolean and = false;
-    public boolean ios = false;
-    public boolean mob = false;
-
-    // helper state
-    public boolean imageLoaded = false;
-
-    public CommentVM(CommunityPostCommentVM comment) {
-        this.id = comment.id;
-        this.ownerId = comment.oid;
-        this.ownerName = comment.on;
-        this.createdDate = comment.cd;
-        this.hasImage = comment.hasImage;
-        this.images = comment.imgs;
-        this.body = comment.d;
-        this.seq = comment.n;
-        this.isOwner = comment.isO;
-        this.and = comment.and;
-        this.ios = comment.ios;
-        this.mob = comment.mob;
-
-        this.imageLoaded = comment.imageLoaded;
-    }
+    public String deviceType;
 
     public Long getId() {
         return id;
@@ -70,36 +43,12 @@ public class CommentVM {
         this.createdDate = createdDate;
     }
 
-    public boolean isHasImage() {
-        return hasImage;
-    }
-
-    public void setHasImage(boolean hasImage) {
-        this.hasImage = hasImage;
-    }
-
-    public Long[] getImages() {
-        return images;
-    }
-
-    public void setImages(Long[] images) {
-        this.images = images;
-    }
-
     public String getBody() {
         return body;
     }
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public int getSeq() {
-        return seq;
-    }
-
-    public void setSeq(int seq) {
-        this.seq = seq;
     }
 
     public boolean isOwner() {
@@ -110,27 +59,11 @@ public class CommentVM {
         this.isOwner = isOwner;
     }
 
-    public boolean isAndroid() {
-        return and;
+    public String getDeviceType() {
+        return deviceType;
     }
 
-    public void setAndroid(boolean and) {
-        this.and = and;
-    }
-
-    public boolean isIOS() {
-        return ios;
-    }
-
-    public void setIOS(boolean ios) {
-        this.ios = ios;
-    }
-
-    public boolean isMobile() {
-        return mob;
-    }
-
-    public void setMobile(boolean mob) {
-        this.mob = mob;
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 }

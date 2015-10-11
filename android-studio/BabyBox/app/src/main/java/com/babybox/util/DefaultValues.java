@@ -25,7 +25,7 @@ public class DefaultValues {
     public static final FeedFilter.FeedProductType DEFAULT_FEED_PRODUCT_TYPE = FeedFilter.FeedProductType.ALL;
 
     // From server
-    public static final int DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD = 0;
+    public static final int DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD = 1;
     public static final int DEFAULT_INFINITE_SCROLL_DELAY = 500;
     public static final int DEFAULT_INFINITE_SCROLL_COUNT = 10;
 
@@ -58,7 +58,7 @@ public class DefaultValues {
     public static final int MAX_POST_IMAGES = 4;
     public static final int MAX_MESSAGE_IMAGES = 1;
     public static final int MAX_POST_IMAGE_DIMENSION = 100;
-    public static final int MAX_COMMENTS_PREVIEW = 3;
+    public static final int LATEST_COMMENTS_COUNT = 3;
 
     public static final int IMAGE_ROUNDED_RADIUS = 25;
     public static final int IMAGE_CIRCLE_RADIUS = 120;
@@ -70,11 +70,4 @@ public class DefaultValues {
     public static final int HOT_POST_NOC = 5;
 
     public static final int DEFAULT_PARENT_BIRTH_YEAR = 9999;
-
-    public static final List<String> FILTER_MY_COMM_TYPE = Arrays.asList(
-            new String[] {"BUSINESS"}
-    );
-    public static final List<String> FILTER_MY_COMM_TARGETING_INFO = Arrays.asList(
-            new String[] {"FEEDBACK"}
-    );
 }

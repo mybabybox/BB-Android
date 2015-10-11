@@ -83,9 +83,9 @@ public class CommentListAdapter extends BaseAdapter {
             ImageView androidIcon = (ImageView) convertView.findViewById(R.id.androidIcon);
             ImageView iosIcon = (ImageView) convertView.findViewById(R.id.iosIcon);
             ImageView mobileIcon = (ImageView) convertView.findViewById(R.id.mobileIcon);
-            androidIcon.setVisibility(item.isAndroid()? View.VISIBLE : View.GONE);
-            iosIcon.setVisibility(item.isIOS()? View.VISIBLE : View.GONE);
-            mobileIcon.setVisibility(item.isMobile()? View.VISIBLE : View.GONE);
+            androidIcon.setVisibility(AppController.DeviceType.ANDROID.name().equals(item.deviceType)? View.VISIBLE : View.GONE);
+            iosIcon.setVisibility(AppController.DeviceType.IOS.name().equals(item.deviceType)? View.VISIBLE : View.GONE);
+            mobileIcon.setVisibility(AppController.DeviceType.WAP.name().equals(item.deviceType)? View.VISIBLE : View.GONE);
             adminLayout.setVisibility(View.VISIBLE);
         } else {
             adminLayout.setVisibility(View.GONE);
@@ -163,7 +163,6 @@ public class CommentListAdapter extends BaseAdapter {
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(inflater.getContext(), CommentListAdapter.this.activity.getString(R.string.comment_delete_failed), Toast.LENGTH_SHORT).show();
-                error.printStackTrace();
                 Log.e(CommentListAdapter.class.getSimpleName(), "deleteComment: failure", error);
             }
         });

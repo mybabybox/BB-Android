@@ -64,13 +64,19 @@
             android:name="com.babybox.activity.ProductActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.ProductCommentsActivity"
+            android:name=".activity.CommentsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.UserProfileActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.EditProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.babybox.activity.FollowersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.babybox.activity.FollowingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MessageListActivity"
