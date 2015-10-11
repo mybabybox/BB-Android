@@ -1,5 +1,6 @@
 package com.babybox.viewmodel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostVM extends PostVMLite {
@@ -13,7 +14,7 @@ public class PostVM extends PostVMLite {
     public String categoryName;
     public String categoryIcon;
     public Long categoryId;
-    public List<CommentVM> comments;
+    public List<CommentVM> comments = new ArrayList<>();
 
     public boolean isOwner = false;
     public boolean isFollowingOwner = false;

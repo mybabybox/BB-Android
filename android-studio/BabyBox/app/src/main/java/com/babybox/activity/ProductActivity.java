@@ -426,22 +426,19 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // comments
                 List<CommentVM> comments = post.getComments();
-                if (comments != null && comments.size() > 0) {
-                    commentList.setVisibility(View.VISIBLE);
-                    commentListAdapter = new CommentListAdapter(ProductActivity.this, comments);
-                    commentList.setAdapter(commentListAdapter);
-                    ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
-
-                    if (post.getNumComments() > comments.size()) {
-                        moreCommentsImage.setVisibility(View.VISIBLE);
-                        moreCommentsLayout.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                ViewUtil.startCommentsActivity(ProductActivity.this, postId);
-                            }
-                        });
-                    }
+                commentListAdapter = new CommentListAdapter(ProductActivity.this, comments);
+                commentList.setAdapter(commentListAdapter);
+                ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
+                if (post.getNumComments() > comments.size()) {
+                    moreCommentsImage.setVisibility(View.VISIBLE);
+                    moreCommentsLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            ViewUtil.startCommentsActivity(ProductActivity.this, postId);
+                        }
+                    });
                 }
+                commentList.setVisibility(View.VISIBLE);
 
                 // actionbar
 
@@ -811,6 +808,9 @@ public class ProductActivity extends TrackedFragmentActivity {
         comment.body = body;
         comment.deviceType = AppController.DeviceType.ANDROID.name();
 
+        if (post.comments == null) {
+            post.comments = new ArrayList<>();
+        }
         post.comments.add(comment);
         commentListAdapter.notifyDataSetChanged();
         ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
