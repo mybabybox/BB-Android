@@ -49,9 +49,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_marginTop="15dp"
-                android:src="@drawable/facebook_login"
-                android:focusableInTouchMode="true"
-                android:focusable="true" />
+                android:src="@drawable/login_facebook"
+                android:focusableInTouchMode="false"
+                android:focusable="false" />
 
             <TextView
                 android:id="@+id/displaynameNoteText"
@@ -75,125 +75,143 @@
                 android:layout_marginTop="15dp"
                 android:scaleType="fitXY" />
 
-            <TextView
-                android:id="@+id/signupText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/signup_email_title"
-                android:textSize="15dp"
-                android:layout_below="@+id/dashLine"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/dark_gray"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="35dp"
-                android:layout_marginRight="35dp" />
-
-            <TextView
-                android:id="@+id/errorMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/signup_error_email_already_exists"
-                android:textColor="#ffff0202"
-                android:textSize="16dp"
-                android:layout_toRightOf="@+id/signupText"
-                android:layout_alignParentTop="false"
-                android:layout_alignBaseline="@+id/signupText"
-                android:gravity="right"
-                android:layout_marginRight="35dp"
-                android:textStyle="bold"
-                android:visibility="invisible" />
-
             <LinearLayout
-                android:id="@+id/editLayout"
-                android:layout_below="@+id/signupText"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="35dp"
-                android:layout_marginLeft="35dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:id="@+id/emailLayout"
+                android:layout_below="@+id/dashLine"
+                android:minHeight="300dp">
+
+                <TextView
+                    android:id="@+id/signupText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signup_email_title"
+                    android:textSize="15dp"
+                    android:layout_below="@+id/dashLine"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/dark_gray"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="35dp" />
+
+                <TextView
+                    android:id="@+id/errorMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signup_error_email_already_exists"
+                    android:textColor="@color/red"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/emailButton"
+                    android:layout_below="@+id/signupText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/login_email"
+                    android:focusableInTouchMode="false"
+                    android:focusable="false" />
 
                 <LinearLayout
+                    android:id="@+id/emailEditLayout"
+                    android:layout_below="@+id/signupText"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="35dp"
+                    android:layout_marginLeft="35dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/lastNameEditText"
+                            android:layout_weight=".5"
+                            android:hint="@string/signup_lastname_hint"
+                            android:textSize="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edit_text_round"
+                            android:layout_marginRight="5dp"
+                            android:singleLine="true" />
+                        <EditText
+                            android:id="@+id/firstNameEditText"
+                            android:layout_weight=".5"
+                            android:hint="@string/signup_firstname_hint"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edit_text_round"
+                            android:singleLine="true" />
+                    </LinearLayout>
 
                     <EditText
-                        android:id="@+id/lastNameEditText"
-                        android:layout_weight=".5"
-                        android:hint="@string/signup_lastname_hint"
+                        android:id="@+id/emailEditText"
+                        android:layout_marginTop="15dp"
                         android:textSize="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/edit_text_round"
-                        android:layout_marginRight="5dp"
+                        android:hint="@string/signup_email_hint"
                         android:singleLine="true" />
                     <EditText
-                        android:id="@+id/firstNameEditText"
-                        android:layout_weight=".5"
-                        android:hint="@string/signup_firstname_hint"
-                        android:layout_marginLeft="5dp"
+                        android:id="@+id/passwordEditText"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:hint="@string/signup_password_hint"
+                        android:textSize="16dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_round"
+                        android:singleLine="true"
+                        android:password="true" />
+                    <EditText
+                        android:id="@+id/repeatPasswordEditText"
+                        android:layout_marginTop="15dp"
+                        android:hint="@string/signup_password_confirm_hint"
                         android:textSize="16dp"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/edit_text_round"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:password="true" />
+
+                    <Button
+                        android:id="@+id/signupButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/editLayout"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="25dp"
+                        android:text="@string/signup"
+                        android:background="@drawable/button_signup"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginRight="35dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
                 </LinearLayout>
-
-                <EditText
-                    android:id="@+id/emailEditText"
-                    android:layout_marginTop="15dp"
-                    android:textSize="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/edit_text_round"
-                    android:hint="@string/signup_email_hint"
-                    android:singleLine="true" />
-                <EditText
-                    android:id="@+id/passwordEditText"
-                    android:layout_marginTop="15dp"
-                    android:layout_width="match_parent"
-                    android:hint="@string/signup_password_hint"
-                    android:textSize="16dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/edit_text_round"
-                    android:singleLine="true"
-                    android:password="true" />
-                <EditText
-                    android:id="@+id/repeatPasswordEditText"
-                    android:layout_marginTop="15dp"
-                    android:hint="@string/signup_password_confirm_hint"
-                    android:textSize="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/edit_text_round"
-                    android:singleLine="true"
-                    android:password="true" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/signupButton"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_below="@+id/editLayout"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="25dp"
-                android:text="@string/signup"
-                android:background="@drawable/button_signup"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="50dp"
-                android:textSize="20dp"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/checkboxLayout"
                 android:orientation="horizontal"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/signupButton"
+                android:layout_marginTop="35dp"
+                android:layout_below="@+id/emailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="35dp">
+                android:layout_marginBottom="50dp">
 
                 <CheckBox
                     android:id="@+id/termsCheckbox"
@@ -219,6 +237,7 @@
                     android:textColor="@color/dark_gray"
                     android:checked="true" />
             </LinearLayout>
+
         </RelativeLayout>
     </ScrollView>
 

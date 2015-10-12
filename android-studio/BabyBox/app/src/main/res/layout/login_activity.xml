@@ -195,7 +195,7 @@
             android:id="@+id/buttonFbLogin"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:src="@drawable/facebook_login"/>
+            android:src="@drawable/login_facebook"/>
     </RelativeLayout>
 
 </RelativeLayout>

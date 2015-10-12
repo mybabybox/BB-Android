@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,8 @@ public class SignupActivity extends AbstractLoginActivity {
     private EditText lastName,firstName,email,password,repeatPassword;
     private Button signupButton;
     private PopupWindow signupSuccessPopup;
-    private ImageView facebookButton;
+    private ImageView facebookButton, emailButton;
+    private LinearLayout emailEditLayout;
     private TextView errorMessage;
     private CheckBox termsCheckbox, privacyCheckbox;
 
@@ -61,6 +63,8 @@ public class SignupActivity extends AbstractLoginActivity {
         repeatPassword = (EditText) findViewById(R.id.repeatPasswordEditText);
         signupButton = (Button) findViewById(R.id.signupButton);
         facebookButton = (ImageView) findViewById(R.id.facebookButton);
+        emailButton = (ImageView) findViewById(R.id.emailButton);
+        emailEditLayout = (LinearLayout) findViewById(R.id.emailEditLayout);
         errorMessage = (TextView) findViewById(R.id.errorMessage);
         termsCheckbox = (CheckBox) findViewById(R.id.termsCheckbox);
         privacyCheckbox = (CheckBox) findViewById(R.id.privacyCheckbox);
@@ -68,23 +72,11 @@ public class SignupActivity extends AbstractLoginActivity {
         setLoginButton(signupButton);
         setFacebookButton(facebookButton);
 
-        termsCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        emailButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    Intent intent=new Intent(SignupActivity.this,TermsActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        privacyCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    Intent intent=new Intent(SignupActivity.this,PrivacyActivity.class);
-                    startActivity(intent);
-                }
+            public void onClick(View view) {
+                emailEditLayout.setVisibility(View.VISIBLE);
+                emailButton.setVisibility(View.GONE);
             }
         });
 
@@ -94,7 +86,7 @@ public class SignupActivity extends AbstractLoginActivity {
                 if (isValid()) {
                     signUp(lastName.getText().toString(), firstName.getText().toString(), email.getText().toString(), password.getText().toString(), repeatPassword.getText().toString());
                 } else {
-                    Toast.makeText(SignupActivity.this,getString(R.string.signup_error_please_check),Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignupActivity.this, getString(R.string.signup_error_please_check), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -122,6 +114,26 @@ public class SignupActivity extends AbstractLoginActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 //Validation.isEmailAddress(email, true);
+            }
+        });
+
+        termsCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    Intent intent = new Intent(SignupActivity.this, TermsActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        privacyCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    Intent intent = new Intent(SignupActivity.this, PrivacyActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
