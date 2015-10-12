@@ -58,7 +58,8 @@ public class UserInfoCache {
             }
         });
 
-        AppController.getMockApi().getGameAccount(sessionId, new Callback<GameAccountVM>() {
+        /*
+        AppController.getApiService().getGameAccount(sessionId, new Callback<GameAccountVM>() {
             @Override
             public void success(GameAccountVM gameAccountVM, retrofit.client.Response response) {
                 gameAccount = gameAccountVM;
@@ -76,6 +77,7 @@ public class UserInfoCache {
                 Log.e(UserInfoCache.class.getSimpleName(), "refresh.api.getGameAccount: failure", error);
             }
         });
+        */
     }
 
     public static UserVM getUser() {

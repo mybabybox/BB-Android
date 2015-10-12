@@ -236,9 +236,6 @@ public interface BabyBoxApi {
     @POST("/message/new")
     public void newMessage(@Body MultipartTypedOutput attachments, /*@Body NewMessageVM message,*/ @Query("key") String key, Callback<MessageVM> cb);
 
-    @GET("/get-unread-message-count")
-    public void getUnreadMessageCount(@Query("key") String key, Callback<MessageVM> cb);
-
     @GET("/image/get-message-image/{id} ")
     public void getMessageImage(@Query("key") String key, @Part("messageId") long id, Callback<MessageVM> cb);
 

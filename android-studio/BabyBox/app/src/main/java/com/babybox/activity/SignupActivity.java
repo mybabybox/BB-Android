@@ -140,6 +140,7 @@ public class SignupActivity extends AbstractLoginActivity {
 
     private void signUp(final String lname, final String fname, final String email, final String password, final String repeatPassword) {
         showErrorMessage(false);
+        ViewUtil.hideInputMethodWindow(this, signupButton);
 
         showSpinner();
         AppController.getApiService().signUp(lname, fname, email, password, repeatPassword, new Callback<Response>() {
@@ -178,10 +179,12 @@ public class SignupActivity extends AbstractLoginActivity {
     }
 
     private void showErrorMessage(boolean show) {
-        if (show)
+        if (show) {
             errorMessage.setVisibility(View.VISIBLE);
-        else
+            errorMessage.requestFocus();
+        } else {
             errorMessage.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void initSuccessPopup() {

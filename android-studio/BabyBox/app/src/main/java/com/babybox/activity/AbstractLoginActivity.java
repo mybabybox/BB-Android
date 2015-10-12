@@ -121,8 +121,8 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
 
         AppController.getApiService().login(username, password, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
-                if (!saveToSession(response)) {
+            public void success(Response responseObject, Response response) {
+                if (!saveToSession(responseObject)) {
                     ViewUtil.alert(AbstractLoginActivity.this,
                             getString(R.string.login_error_title),
                             getString(R.string.login_error_message));

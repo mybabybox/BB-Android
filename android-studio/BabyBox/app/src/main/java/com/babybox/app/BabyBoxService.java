@@ -254,10 +254,6 @@ public class BabyBoxService {
         api.newMessage(message.toMultipart(), AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getUnreadMessageCount(Callback<MessageVM> cb) {
-        api.getUnreadMessageCount(AppController.getInstance().getSessionId(), cb);
-    }
-
     public void getMessageImage(long id, Callback<MessageVM> cb) {
         api.getMessageImage(AppController.getInstance().getSessionId(), id, cb);
     }
