@@ -61,13 +61,9 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     abstract protected void loadFeed(Long offset, FeedFilter feedFilter);
 
-    public void onScrollUp() {
-        // implemented in subclass
-    }
+    abstract protected void onScrollUp();
 
-    public void onScrollDown() {
-        // implemented in subclass
-    }
+    abstract protected void onScrollDown();
 
     public boolean hasHeader() {
         return headerView != null;

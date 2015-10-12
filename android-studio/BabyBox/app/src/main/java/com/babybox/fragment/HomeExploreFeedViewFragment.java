@@ -81,16 +81,6 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
         return view;
     }
-
-    @Override
-    public void onScrollUp() {
-        MainActivity.getInstance().showBottomMenuBar(true);
-    }
-
-    @Override
-    public void onScrollDown() {
-        MainActivity.getInstance().showBottomMenuBar(false);
-    }
 }
 
 class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {

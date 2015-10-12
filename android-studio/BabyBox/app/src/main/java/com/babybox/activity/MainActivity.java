@@ -1,5 +1,6 @@
 package com.babybox.activity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import com.babybox.app.TrackedFragment;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
+import com.babybox.listener.EndlessScrollListener;
 import com.babybox.viewmodel.NotificationsParentVM;
 
 import retrofit.Callback;
@@ -46,6 +48,8 @@ public class MainActivity extends TrackedFragmentActivity {
 
     private TextView notificationCount;
 
+    private boolean showBottomMenuBar = true;
+
     private TrackedFragment selectedFragment;
 
     private static MainActivity mInstance;
@@ -63,8 +67,6 @@ public class MainActivity extends TrackedFragmentActivity {
         setContentView(R.layout.main_activity);
 
         mInstance = this;
-
-        //getActionBar().show();
 
         bottomBarLayout = (LinearLayout) findViewById(R.id.bottomBarLayout);
 
@@ -198,6 +200,12 @@ public class MainActivity extends TrackedFragmentActivity {
         }
 
         if (isTaskRoot()) {
+            if (!showBottomMenuBar) {
+                showBottomMenuBar(true);
+                EndlessScrollListener.reset();  // ugly...
+                return;
+            }
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.exit_app)
                     .setCancelable(false)
@@ -253,16 +261,30 @@ public class MainActivity extends TrackedFragmentActivity {
         }
     }
 
+    public void showActionBar(boolean show) {
+        ActionBar actionBar = getActionBar();
+        if (actionBar == null) {
+            return;
+        }
+
+        if (show) {
+            actionBar.show();
+        } else {
+            actionBar.hide();
+        }
+    }
+
     public void showBottomMenuBar(boolean show) {
         if (bottomBarLayout == null) {
             return;
         }
 
         if (show) {
-            bottomBarLayout.animate().translationY(bottomBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
-        } else {
             bottomBarLayout.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+        } else {
+            bottomBarLayout.animate().translationY(bottomBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
         }
+        showBottomMenuBar = show;
     }
 }
 

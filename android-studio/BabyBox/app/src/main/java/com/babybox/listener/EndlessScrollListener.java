@@ -15,8 +15,8 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
     private static final int HIDE_THRESHOLD = 20;
 
-    private int mScrolledDistance = 0;
-    private boolean mControlsVisible = true;
+    private static int mScrolledDistance = 0;
+    private static boolean mControlsVisible = true;
 
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -67,15 +67,15 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         // show / hide controls trigger
         int threshold = HIDE_THRESHOLD;
         if (firstVisibleItem == 0) {
-            threshold = HIDE_THRESHOLD * 10;
+            threshold = HIDE_THRESHOLD * 5;
         }
 
         if (mScrolledDistance > threshold && mControlsVisible) {
-            onScrollUp();
+            onScrollDown();
             mControlsVisible = false;
             mScrolledDistance = 0;
         } else if (mScrolledDistance < -threshold && !mControlsVisible) {
-            onScrollDown();
+            onScrollUp();
             mControlsVisible = true;
             mScrolledDistance = 0;
         }
@@ -83,16 +83,16 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         /*
         if (firstVisibleItem == 0) {
             if (!mControlsVisible) {
-                onScrollDown();
+                onScrollUp();
                 mControlsVisible = true;
             }
         } else {
             if (mScrolledDistance > threshold && mControlsVisible) {
-                onScrollUp();
+                onScrollDown();
                 mControlsVisible = false;
                 mScrolledDistance = 0;
             } else if (mScrolledDistance < -threshold && !mControlsVisible) {
-                onScrollDown();
+                onScrollUp();
                 mControlsVisible = true;
                 mScrolledDistance = 0;
             }
@@ -102,6 +102,11 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
         if ((mControlsVisible && dy>0) || (!mControlsVisible && dy<0)) {
             mScrolledDistance += dy;
         }
+    }
+
+    public static void reset() {
+        mControlsVisible = true;
+        mScrolledDistance = 0;
     }
 
     public abstract void onLoadMore(Long current_page);

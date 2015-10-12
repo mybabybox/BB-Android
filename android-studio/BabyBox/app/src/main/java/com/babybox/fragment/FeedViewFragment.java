@@ -1,6 +1,9 @@
 package com.babybox.fragment;
 
+import android.app.ActionBar;
+import android.app.Notification;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.babybox.R;
+import com.babybox.activity.MainActivity;
 import com.babybox.app.AppController;
+import com.babybox.util.DefaultValues;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVM;
@@ -129,5 +134,15 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
             default:
                 Log.w(this.getClass().getSimpleName(), "loadFeed: unknown default case with key - " + feedFilter.feedType.name());
         }
+    }
+
+    @Override
+    protected void onScrollUp() {
+        MainActivity.getInstance().showBottomMenuBar(true);
+    }
+
+    @Override
+    protected void onScrollDown() {
+        MainActivity.getInstance().showBottomMenuBar(false);
     }
 }

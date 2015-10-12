@@ -429,6 +429,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                 commentListAdapter = new CommentListAdapter(ProductActivity.this, comments);
                 commentList.setAdapter(commentListAdapter);
                 ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
+
+                moreCommentsImage.setVisibility(View.GONE);
                 if (post.getNumComments() > comments.size()) {
                     moreCommentsImage.setVisibility(View.VISIBLE);
                     moreCommentsLayout.setOnClickListener(new View.OnClickListener() {

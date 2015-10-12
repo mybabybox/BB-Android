@@ -292,14 +292,4 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
             }
         });
     }
-
-    @Override
-    public void onScrollUp() {
-        MainActivity.getInstance().showBottomMenuBar(true);
-    }
-
-    @Override
-    public void onScrollDown() {
-        MainActivity.getInstance().showBottomMenuBar(false);
-    }
 }
