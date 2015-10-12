@@ -295,8 +295,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
         if (isTaskRoot()) {
             if (!showBottomMenuBar) {
-                showBottomMenuBar(true);
-                EndlessScrollListener.setScrollReset();
+                resetControls();
                 return;
             }
 
@@ -379,6 +378,11 @@ public class MainActivity extends TrackedFragmentActivity {
             bottomBarLayout.animate().translationY(bottomBarLayout.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
         }
         showBottomMenuBar = show;
+    }
+
+    public void resetControls() {
+        showBottomMenuBar(true);
+        EndlessScrollListener.setScrollReset();
     }
 }
 

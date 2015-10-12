@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.babybox.R;
+import com.babybox.activity.MainActivity;
 import com.google.analytics.tracking.android.EasyTracker;
 
 public abstract class TrackedFragmentActivity extends FragmentActivity {
@@ -29,16 +30,21 @@ public abstract class TrackedFragmentActivity extends FragmentActivity {
     public void onStart() {
         super.onStart();
         Log.d(this.getClass().getSimpleName(), "[DEBUG] activityStart");
-        if (tracked)
+        if (tracked) {
             getTracker().activityStart(this);
+        }
+        if (MainActivity.getInstance() != null) {
+            MainActivity.getInstance().resetControls();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
         Log.d(this.getClass().getSimpleName(), "[DEBUG] activityStop");
-        if (tracked)
+        if (tracked) {
             getTracker().activityStop(this);
+        }
     }
 
     //
