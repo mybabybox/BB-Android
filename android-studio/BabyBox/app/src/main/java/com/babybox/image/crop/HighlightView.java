@@ -51,7 +51,7 @@ class HighlightView {
     public static final int MOVE             = (1 << 5);
 
     private static final int DEFAULT_HIGHLIGHT_COLOR = 0xFF33B5E5;
-    private static final float HANDLE_RADIUS_DP = 12f;
+    private static final float HANDLE_RADIUS_DP = 8f;
     private static final float OUTLINE_DP = 2f;
 
     enum ModifyMode { None, Move, Grow }
@@ -72,7 +72,7 @@ class HighlightView {
     private int highlightColor;
 
     private ModifyMode modifyMode = ModifyMode.None;
-    private HandleMode handleMode = HandleMode.Changing;
+    private HandleMode handleMode = HandleMode.Always;
     private boolean maintainAspectRatio;
     private float initialAspectRatio;
     private float handleRadius;
@@ -93,7 +93,7 @@ class HighlightView {
             showCircle = attributes.getBoolean(R.styleable.CropImageView_showCircle, false);
             highlightColor = attributes.getColor(R.styleable.CropImageView_highlightColor,
                     DEFAULT_HIGHLIGHT_COLOR);
-            handleMode = HandleMode.values()[attributes.getInt(R.styleable.CropImageView_showHandles, 0)];
+            handleMode = HandleMode.values()[attributes.getInt(R.styleable.CropImageView_showHandles, HandleMode.Always.ordinal())];
         } finally {
             attributes.recycle();
         }

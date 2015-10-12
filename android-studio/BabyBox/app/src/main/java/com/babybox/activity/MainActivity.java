@@ -163,7 +163,7 @@ public class MainActivity extends TrackedFragmentActivity {
         activityText = (TextView) findViewById(R.id.activityText);
 
         profileLayout = (LinearLayout) findViewById(R.id.profileLayout);
-        profileImage = (ImageView) findViewById(R.id.userImage);
+        profileImage = (ImageView) findViewById(R.id.profileImage);
         profileText = (TextView) findViewById(R.id.profileText);
         notificationCount = (TextView) findViewById(R.id.notificationCount);
 

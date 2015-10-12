@@ -46,6 +46,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class CropImageActivity extends MonitoredActivity {
 
+    private static final int SIZE_DEFAULT_IN_PERCENT = 100;
     private static final int SIZE_DEFAULT = 2048;
     private static final int SIZE_LIMIT = 4096;
 
@@ -238,7 +239,9 @@ public class CropImageActivity extends MonitoredActivity {
             Rect imageRect = new Rect(0, 0, width, height);
 
             // Make the default size about 4/5 of the width or height
-            int cropWidth = Math.min(width, height) * 4 / 5;
+            //int cropWidth = Math.min(width, height) * 4 / 5;
+
+            int cropWidth = Math.min(width, height) * SIZE_DEFAULT_IN_PERCENT / 100;
             @SuppressWarnings("SuspiciousNameCombination")
             int cropHeight = cropWidth;
 

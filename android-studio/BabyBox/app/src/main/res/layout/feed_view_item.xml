@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="2dp">
+    card_view:cardElevation="1.5dp">
 
     <LinearLayout
         android:id="@+id/itemLayout"
@@ -22,7 +22,7 @@
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="0.8dp"
+            android:layout_height="0.5dp"
             android:background="@drawable/bar1"
             android:layout_below="@+id/image"
             android:id="@+id/bar1" />
