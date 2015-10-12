@@ -202,7 +202,7 @@ public class MainActivity extends TrackedFragmentActivity {
         if (isTaskRoot()) {
             if (!showBottomMenuBar) {
                 showBottomMenuBar(true);
-                EndlessScrollListener.reset();  // ugly...
+                EndlessScrollListener.setScrollReset();
                 return;
             }
 

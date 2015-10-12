@@ -138,11 +138,11 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
 
     @Override
     protected void onScrollUp() {
-        MainActivity.getInstance().showBottomMenuBar(true);
+        // implemented in subclass
     }
 
     @Override
     protected void onScrollDown() {
-        MainActivity.getInstance().showBottomMenuBar(false);
+        // implemented in subclass
     }
 }
