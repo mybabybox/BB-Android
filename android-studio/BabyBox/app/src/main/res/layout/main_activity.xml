@@ -85,7 +85,7 @@
                     android:orientation="horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/notificationLayout"
+                    android:id="@+id/activityLayout"
                     android:background="@color/main_menubar_bg"
                     android:layout_weight="33.3"
                     android:gravity="center">
@@ -93,15 +93,15 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:id="@+id/notificationImage"
+                        android:id="@+id/activityImage"
                         android:src="@drawable/mn_notif"
                         android:layout_gravity="center" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tabset_notification"
-                        android:id="@+id/notificationText"
+                        android:text="@string/tabset_activity"
+                        android:id="@+id/activityText"
                         android:textSize="15dp"
                         android:layout_gravity="center"
                         android:layout_marginLeft="2dp" />
@@ -119,7 +119,7 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:id="@+id/profileImage"
+                        android:id="@+id/userImage"
                         android:src="@drawable/mn_profile"
                         android:layout_gravity="center" />
 

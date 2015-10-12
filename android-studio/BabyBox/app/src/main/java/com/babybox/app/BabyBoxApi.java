@@ -193,12 +193,6 @@ public interface BabyBoxApi {
     @POST("/image/upload-profile-photo")
     public void uploadProfilePhoto(@Part("profile-photo") TypedFile photo, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/get-notifs")
-    public void getNotifs(@Query("key") String key, Callback<NotificationsParentVM> cb);
-
-    @GET("/read-notifs/{ids}")
-    public void readNotifs(@Path("ids") String ids, @Query("key") String key, Callback<Response> cb);
-
     @POST("/updateUserProfileData")
     public void updateUserProfileData(@Body UserProfileDataVM userProfileDataVM, @Query("key") String key, Callback<UserVM> cb);
 
@@ -207,6 +201,15 @@ public interface BabyBoxApi {
 
     @GET("/collection/{id}")
     public void getCollection(@Path("id") Long id, @Query("key") String key, Callback<CollectionVM> cb);
+
+    //@GET("/get-notification-counts")
+    //public void getNotificationCounts(@Query("key") String key, Callback<NotificationCountVM> cb);
+
+    //@GET("/activities")
+    //public void getActivities(@Query("key") String key, Callback<List<ActivityVM>> cb);
+
+    @GET("/read-activities")
+    public void readActivities(@Query("key") String key, Callback<Response> cb);
 
     //
     // Conversation
@@ -246,9 +249,6 @@ public interface BabyBoxApi {
     //
     // Game
     //
-
-    @POST("/sign-in-for-today")
-    public void signInForToday(@Query("key") String key, Callback<Response> cb);
 
     @GET("/get-gameaccount")
     public void getGameAccount(@Query("key") String key, Callback<GameAccountVM> cb);

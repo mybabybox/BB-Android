@@ -55,7 +55,7 @@
 
                 <ImageView
                     android:scaleType="fitXY"
-                    android:id="@+id/profileImage"
+                    android:id="@+id/userImage"
                     android:layout_width="85dp"
                     android:layout_height="85dp" />
 

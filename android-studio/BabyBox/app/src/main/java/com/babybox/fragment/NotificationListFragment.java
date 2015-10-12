@@ -1,6 +1,5 @@
 package com.babybox.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.babybox.activity.ProductActivity;
 import com.babybox.util.ViewUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,7 +37,8 @@ import retrofit.client.Response;
 public class NotificationListFragment extends TrackedFragment {
 
     private static final String TAG = NotificationListFragment.class.getName();
-    NotificationListAdapter adapter;
+
+    private NotificationListAdapter adapter;
     private ListView listView;
     private TextView tipText;
 
@@ -76,10 +75,11 @@ public class NotificationListFragment extends TrackedFragment {
             e.printStackTrace();
         }
 
-        if(ids.length() != 0)
-            markAsRead(ids.toString());
+        if (ids.length() != 0) {
+            markAsRead();
+        }
 
-        if(notificationVMs.size() == 0){
+        if (notificationVMs.size() == 0) {
             tipText.setVisibility(View.VISIBLE);
         } else {
             adapter = new NotificationListAdapter(getActivity(), notificationVMs);
@@ -122,16 +122,17 @@ public class NotificationListFragment extends TrackedFragment {
             throw new RuntimeException(e);
         }
     }
-    private void markAsRead(String ids){
-        AppController.getMockApi().markAsRead(ids,AppController.getInstance().getSessionId(),new Callback<Response>() {
+
+    private void markAsRead() {
+        AppController.getApiService().readActivities(new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
 
             }
 
             @Override
             public void failure(RetrofitError error) {
-                error.printStackTrace();
+                Log.e(NotificationListFragment.this.getClass().getSimpleName(), "markAsRead: failure", error);
             }
         });
     }

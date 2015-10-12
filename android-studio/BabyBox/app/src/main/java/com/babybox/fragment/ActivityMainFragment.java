@@ -10,39 +10,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.babybox.R;
-import com.babybox.activity.GameActivity;
-import com.babybox.activity.MainActivity;
-import com.babybox.activity.NewPostActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
-import com.babybox.app.UserInfoCache;
 import com.babybox.util.FeedFilter;
-import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
-public class HomeMainFragment extends TrackedFragment {
+public class ActivityMainFragment extends TrackedFragment {
 
     private ViewPager viewPager;
-    private HomeMainPagerAdapter adapter;
+    private ActivityMainPagerAdapter adapter;
     private PagerSlidingTabStrip tabs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.home_main_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_main_fragment, container, false);
 
         // pager
 
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.homeTabs);
         viewPager = (ViewPager) view.findViewById(R.id.homePager);
-        adapter = new HomeMainPagerAdapter(getChildFragmentManager());
+        adapter = new ActivityMainPagerAdapter(getChildFragmentManager());
 
         int pageMargin = ViewUtil.getRealDimension(0);
         viewPager.setPageMargin(pageMargin);
@@ -79,14 +71,14 @@ public class HomeMainFragment extends TrackedFragment {
  * https://guides.codepath.com/android/Sliding-Tabs-with-PagerSlidingTabStrip
  * https://android-arsenal.com/details/1/1100
  */
-class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
+class ActivityMainPagerAdapter extends FragmentStatePagerAdapter {
 
     private static String[] TITLES = new String[] {
             AppController.getInstance().getString(R.string.main_tab_explore),
             AppController.getInstance().getString(R.string.main_tab_following)
     };
 
-    public HomeMainPagerAdapter(FragmentManager fm) {
+    public ActivityMainPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -132,4 +124,3 @@ class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
         return fragment;
     }
 }
-

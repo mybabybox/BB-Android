@@ -1,5 +1,6 @@
 package com.babybox.fragment;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -62,7 +63,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
         userNameText = (TextView) headerView.findViewById(R.id.userNameText);
         coverImage = (ImageView) headerView.findViewById(R.id.coverImage);
-        profileImage = (ImageView) headerView.findViewById(R.id.profileImage);
+        profileImage = (ImageView) headerView.findViewById(R.id.userImage);
         editCoverImage = (ImageView) headerView.findViewById(R.id.editCoverImage);
         editProfileImage = (ImageView) headerView.findViewById(R.id.editProfileImage);
 
@@ -137,6 +138,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         AppController.getApiService().getUser(userId, new Callback<UserVM>() {
             @Override
             public void success(final UserVM user, retrofit.client.Response response) {
+                setActionBarTitle(user.getDisplayName());
                 userNameText.setText(user.getDisplayName());
 
                 ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {

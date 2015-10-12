@@ -1,8 +1,12 @@
 package com.babybox.app;
 
+import android.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
+import com.babybox.R;
 import com.google.analytics.tracking.android.EasyTracker;
 
 public abstract class TrackedFragmentActivity extends FragmentActivity {
@@ -35,5 +39,20 @@ public abstract class TrackedFragmentActivity extends FragmentActivity {
         Log.d(this.getClass().getSimpleName(), "[DEBUG] activityStop");
         if (tracked)
             getTracker().activityStop(this);
+    }
+
+    //
+    // UI helper
+    //
+
+    protected void setActionBarTitle(String title) {
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            View actionBarView = actionBar.getCustomView();
+            TextView titleText = (TextView) actionBarView.findViewById(R.id.titleText);
+            if (titleText != null) {
+                titleText.setText(title);
+            }
+        }
     }
 }

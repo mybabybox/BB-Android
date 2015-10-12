@@ -83,7 +83,7 @@
 
     <!-- Main -->
     <string name="tabset_home">Home</string>
-    <string name="tabset_notification">Messages</string>
+    <string name="tabset_activity">Activity</string>
     <string name="tabset_search">Search</string>
     <string name="tabset_profile">Me</string>
 
@@ -103,10 +103,6 @@
     <string name="orders">My Orders</string>
     <string name="collections">Collections</string>
     <string name="products">Products</string>
-
-    <!-- Notification tab -->
-    <string name="notification_tab_conversation">Message</string>
-    <string name="notification_tab_activity">Activity</string>
 
     <!-- Category page -->
     <string name="filter_popular">Popular</string>
@@ -200,8 +196,7 @@
     <string name="no_followers">~ No Followers ~</string>
     <string name="no_followings">~ No Followings ~</string>
 
-    <string name="pm_actionbar_title">私人訊息</string>
-    <string name="pm_user">私人訊息</string>
+    <string name="pm_actionbar_title">訊息</string>
     <string name="pm_max_images">最多可加入1張圖</string>
     <string name="pm_load_more">加載訊息</string>
     <string name="pm_start_failed">暫時不能開啟訊息，請稍後重試</string>
@@ -252,7 +247,7 @@
 
     <!-- Dialog -->
     <string name="cancel_new_post">退出刊登商品？</string>
-    <string name="exit_app">是否退出 babybox？</string>
+    <string name="exit_app">退出 babybox？</string>
     <string name="logout_message">確定登出 babybox？</string>
     <string name="yes">是</string>
     <string name="no">取消</string>

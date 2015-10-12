@@ -75,8 +75,8 @@ public class RequestListFragment extends TrackedFragment {
             e.printStackTrace();
         }
 
-        if (ids.length()!=0) {
-            markAsRead(ids.toString());
+        if (ids.length() != 0) {
+            markAsRead();
         }
 
         if (notificationVMs.size() == 0) {
@@ -120,10 +120,10 @@ public class RequestListFragment extends TrackedFragment {
         return view;
     }
 
-    private void markAsRead(String ids){
-        AppController.getMockApi().markAsRead(ids,AppController.getInstance().getSessionId(),new Callback<Response>() {
+    private void markAsRead(){
+        AppController.getApiService().readActivities(new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
 
             }
 

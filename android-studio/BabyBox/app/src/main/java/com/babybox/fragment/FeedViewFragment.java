@@ -1,25 +1,16 @@
 package com.babybox.fragment;
 
-import android.app.ActionBar;
-import android.app.Notification;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.babybox.R;
-import com.babybox.activity.MainActivity;
 import com.babybox.app.AppController;
-import com.babybox.util.DefaultValues;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
-
-import org.parceler.apache.commons.collections.ListUtils;
 
 import java.util.List;
 

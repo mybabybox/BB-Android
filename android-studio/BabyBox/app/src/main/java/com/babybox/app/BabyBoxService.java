@@ -21,7 +21,6 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.client.Response;
-import retrofit.mime.MultipartTypedOutput;
 import retrofit.mime.TypedFile;
 
 public class BabyBoxService {
@@ -209,6 +208,20 @@ public class BabyBoxService {
 
     public void getCollection(Long id, Callback<CollectionVM> cb) {
         api.getCollection(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    /*
+    public void getNotificationCounts(Callback<NotificationCountVM> cb) {
+        api.getNotificationCounts(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getActivites(Callback<List<ActivityVM>> cb) {
+        api.getActivities(AppController.getInstance().getSessionId(), cb);
+    }
+    */
+
+    public void readActivities(Callback<Response> cb) {
+        api.readActivities(AppController.getInstance().getSessionId(), cb);
     }
 
     // conversation

@@ -8,13 +8,13 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/profileLayout"
+        android:id="@+id/userLayout"
         android:visibility="visible"
         android:paddingBottom="0dp"
         android:layout_centerVertical="true">
 
         <ImageView
-            android:id="@+id/profileImage"
+            android:id="@+id/userImage"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="15dp"
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/userNameText"
-            android:layout_toRightOf="@+id/profileImage"
+            android:layout_toRightOf="@+id/userImage"
             android:layout_centerVertical="true"
             android:textColor="@color/white"
             android:textSize="16dp" />
@@ -45,16 +45,52 @@
             android:id="@+id/signInImage"
             android:src="@drawable/game_sign_in_s"
             android:layout_gravity="center_vertical"
-            android:layout_toLeftOf="@+id/newPostIcon"
+            android:layout_toLeftOf="@+id/chatLayout"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="15dp"
+            android:visibility="gone" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/chatLayout"
+            android:layout_toLeftOf="@+id/newPostIcon"
+            android:layout_marginRight="15dp">
+
+            <ImageView
+                android:id="@+id/chatImage"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/w_message"
+                android:layout_toLeftOf="@+id/setting"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:id="@+id/chatCountText"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:text="0"
+                android:textSize="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:background="@drawable/badge_circle"
+                android:layout_alignTop="@+id/setting"
+                android:layout_alignRight="@+id/chatImage"
+                android:layout_alignEnd="@+id/chatImage"
+                android:gravity="center"
+                android:layout_gravity="center|right"
+                android:layout_marginBottom="7dp"
+                android:visibility="invisible" />
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/newPostIcon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="20dp"
             android:src="@drawable/new_post"
             android:layout_alignParentRight="true" />
     </RelativeLayout>
