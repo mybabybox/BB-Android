@@ -1,6 +1,8 @@
 package com.babybox.viewmodel;
 
-public class CommentVM {
+import java.io.Serializable;
+
+public class CommentVM implements Serializable {
     public Long id;
     public Long createdDate;
     public Long ownerId;

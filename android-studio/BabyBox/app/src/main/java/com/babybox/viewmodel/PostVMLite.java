@@ -7,8 +7,9 @@ public class PostVMLite implements Serializable {
     public String title;
     public double price;
     public boolean sold;
-    public Long[] images;
     public String postType;
+    public Long[] images;
+    public Boolean hasImage = false;
     public int numLikes;
     public int numChats;
     public int numBuys;
@@ -16,6 +17,10 @@ public class PostVMLite implements Serializable {
     public int numViews;
     public boolean isLiked = false;
     public long offset;
+
+    // admin fields
+    public long baseScore = 0L;
+    public long timeScore = 0L;
 
     public long getOffset() {
         return offset;
@@ -89,6 +94,14 @@ public class PostVMLite implements Serializable {
         this.images = imgs;
     }
 
+    public Boolean isHasImage() {
+        return hasImage;
+    }
+
+    public void setHasImage(Boolean hasImage) {
+        this.hasImage = hasImage;
+    }
+
     public String getPostType() {
         return postType;
     }
@@ -119,5 +132,21 @@ public class PostVMLite implements Serializable {
 
     public void setIsLiked(boolean isLiked) {
         this.isLiked = isLiked;
+    }
+
+    public long getBaseScore() {
+        return baseScore;
+    }
+
+    public void setBaseScore(long baseScore) {
+        this.baseScore = baseScore;
+    }
+
+    public long getTimeScore() {
+        return timeScore;
+    }
+
+    public void setTimeScore(long timeScore) {
+        this.timeScore = timeScore;
     }
 }

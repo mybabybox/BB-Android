@@ -2,12 +2,12 @@ package com.babybox.viewmodel;
 
 import android.util.Log;
 
-import com.babybox.util.ViewUtil;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MessageVM implements Comparable<MessageVM> {
+import java.io.Serializable;
+
+public class MessageVM implements Serializable, Comparable<MessageVM> {
     public Long id;
     public Long createdDate;
     public Long senderId;

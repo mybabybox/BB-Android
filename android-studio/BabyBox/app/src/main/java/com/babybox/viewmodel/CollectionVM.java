@@ -1,6 +1,8 @@
 package com.babybox.viewmodel;
 
-public class CollectionVM {
+import java.io.Serializable;
+
+public class CollectionVM implements Serializable {
     public Long id;
     public String name;
     public String desc;

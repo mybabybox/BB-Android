@@ -425,7 +425,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 });
 
                 // comments
-                List<CommentVM> comments = post.getComments();
+                List<CommentVM> comments = post.getLatestComments();
                 commentListAdapter = new CommentListAdapter(ProductActivity.this, comments);
                 commentList.setAdapter(commentListAdapter);
                 ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
@@ -810,10 +810,10 @@ public class ProductActivity extends TrackedFragmentActivity {
         comment.body = body;
         comment.deviceType = AppController.DeviceType.ANDROID.name();
 
-        if (post.comments == null) {
-            post.comments = new ArrayList<>();
+        if (post.latestComments == null) {
+            post.latestComments = new ArrayList<>();
         }
-        post.comments.add(comment);
+        post.latestComments.add(comment);
         commentListAdapter.notifyDataSetChanged();
         ViewUtil.setHeightBasedOnChildren(ProductActivity.this, commentList);
     }
