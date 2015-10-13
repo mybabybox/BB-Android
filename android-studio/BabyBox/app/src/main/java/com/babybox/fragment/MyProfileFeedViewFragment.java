@@ -19,7 +19,6 @@ import com.babybox.app.AppController;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.FeedFilter;
-import com.babybox.util.GameConstants;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
@@ -280,7 +279,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE) {
+        if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE) {
             if (data == null)
                 return;
 

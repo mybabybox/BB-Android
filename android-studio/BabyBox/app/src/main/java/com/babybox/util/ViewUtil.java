@@ -94,7 +94,11 @@ public class ViewUtil {
     public static final String INTENT_VALUE_OBJECT = "object";
 
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
-    public static final int SELECT_IMAGE_REQUEST_CODE = 2;
+
+    //public static final int SELECT_IMAGE_REQUEST_CODE = 2;
+    public static final int SELECT_GALLERY_IMAGE_REQUEST_CODE = 2;
+    public static final int SELECT_CAMERA_IMAGE_REQUEST_CODE = 1;
+
     public static final int CROP_IMAGE_REQUEST_CODE = 3;
     public static final int PROCESS_IMAGE_REQUEST_CODE = 4;
 
