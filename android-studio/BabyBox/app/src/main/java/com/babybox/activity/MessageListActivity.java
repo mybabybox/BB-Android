@@ -29,17 +29,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.parceler.apache.commons.lang.StringUtils;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import com.babybox.R;
 import com.babybox.adapter.MessageListAdapter;
 import com.babybox.app.AppController;
@@ -51,13 +40,23 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
-import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.MessageVM;
+import com.babybox.viewmodel.NewMessageVM;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.parceler.apache.commons.lang.StringUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit.mime.MultipartTypedOutput;
-import retrofit.mime.TypedFile;
 
 public class MessageListActivity extends TrackedFragmentActivity {
 
@@ -335,7 +334,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ViewUtil.SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
+        if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
                 data != null && photos.size() < DefaultValues.MAX_MESSAGE_IMAGES) {
 
             selectedImageUri = data.getData();

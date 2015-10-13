@@ -2,6 +2,7 @@ package com.babybox.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -13,22 +14,22 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.bumptech.glide.Glide;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.bumptech.glide.DrawableRequestBuilder;
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.signature.StringSignature;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
@@ -39,6 +40,9 @@ public class ImageUtil {
 
     public static final int PREVIEW_THUMBNAIL_MAX_WIDTH = 350;
     public static final int PREVIEW_THUMBNAIL_MAX_HEIGHT = 350;
+
+    public static final int GALLERY_PICTURE = 2;
+    public static final int REQUEST_CAMERA = 1;
 
     public static final int IMAGE_UPLOAD_MAX_WIDTH = 1024;
     public static final int IMAGE_UPLOAD_MAX_HEIGHT = 1024;
@@ -346,14 +350,15 @@ public class ImageUtil {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            activity.startActivityForResult(intent, ViewUtil.SELECT_IMAGE_REQUEST_CODE);
+            activity.startActivityForResult(intent, ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE);
         } else {
             ViewUtil.alert(activity, activity.getString(R.string.no_media));
         }
     }
 
     public static void openPhotoPicker(Activity activity) {
-        openPhotoPicker(activity, activity.getString(R.string.photo_select));
+        //openPhotoPicker(activity, activity.getString(R.string.photo_select));
+        choosePhotoFrom(activity);
     }
 
     public static void openPhotoPicker(Activity activity, String title) {
@@ -362,7 +367,37 @@ public class ImageUtil {
         intent.setData(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         //intent.setType("image/*");
         //intent.setAction(Intent.ACTION_GET_CONTENT);
-        activity.startActivityForResult(Intent.createChooser(intent, title), ViewUtil.SELECT_IMAGE_REQUEST_CODE);
+        activity.startActivityForResult(Intent.createChooser(intent, title), ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE);
+    }
+
+    public static void choosePhotoFrom(final Activity activity){
+        AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(activity);
+        myAlertDialog.setTitle("Pictures Option");
+        myAlertDialog.setMessage("Select Picture Mode");
+
+        myAlertDialog.setPositiveButton("Gallery", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface arg0, int arg1)
+            {
+                /*Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+                intent.setType("image*//*");
+                intent.putExtra("return-data", true);*/
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_PICK);
+                intent.setData(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                activity.startActivityForResult(intent, GALLERY_PICTURE);
+            }
+        });
+
+        myAlertDialog.setNegativeButton("Camera", new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface arg0, int arg1)
+            {
+                Intent intent  = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                activity.startActivityForResult(intent, REQUEST_CAMERA);
+            }
+        });
+        myAlertDialog.show();
     }
 
     public static String getRealPathFromUri(Context context, Uri contentUri) {
