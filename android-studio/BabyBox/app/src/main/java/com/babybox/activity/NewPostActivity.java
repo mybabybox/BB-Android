@@ -173,8 +173,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 }
             }
 
-        if(AppController.getInstance().cropUri != null)
+        if(AppController.getInstance().cropUri != null) {
             setPostImage();
+        }
 
         emoImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,9 +208,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        System.out.println("request code :: "+requestCode);
-        System.out.println("result code :: "+resultCode);
-        System.out.println("data :: " + data);
         if (photos.size() >= DefaultValues.MAX_POST_IMAGES) {
             Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_max_images), Toast.LENGTH_SHORT).show();
         }
@@ -266,8 +264,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
         if (AppController.getInstance().pathList.size() != 0) {
             for (int i = 0; i < AppController.getInstance().pathList.size(); i++) {
                 ImageView imageView = postImages.get(i);
-                imageView.setImageBitmap(ImageUtil.resizeAsPreviewThumbnail(AppController.getInstance().realPathList.get(i)));
-                //imageView.setImageURI(AppController.getInstance().pathList.get(i));
+                //imageView.setImageBitmap(ImageUtil.resizeAsPreviewThumbnail(AppController.getInstance().realPathList.get(i)));
+                imageView.setImageURI(AppController.getInstance().pathList.get(i));
                 Log.d(this.getClass().getSimpleName(), "path=" + AppController.getInstance().realPathList.get(i));
             }
         }
@@ -286,6 +284,14 @@ public class NewPostActivity extends TrackedFragmentActivity {
             int toRemove = photos.size()-1;
             postImages.get(toRemove).setImageDrawable(getResources().getDrawable(R.drawable.img_camera));
             photos.remove(toRemove);
+        }
+        if(AppController.getInstance().pathList.size() > 0){
+            int toRemove1 = AppController.getInstance().pathList.size() - 1;
+            AppController.getInstance().pathList.remove(toRemove1);
+        }
+        if(AppController.getInstance().realPathList.size() > 0){
+            int toRemove1 = AppController.getInstance().realPathList.size() - 1;
+            AppController.getInstance().realPathList.remove(toRemove1);
         }
     }
 
@@ -472,6 +478,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
         String title = titleEdit.getText().toString().trim();
         String desc = descEdit.getText().toString().trim();
         String price = priceEdit.getText().toString().trim();
+
+        AppController.getInstance().pathList.clear();
 
         if (postSuccess ||
                 (StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
