@@ -202,6 +202,8 @@
     <string name="pm_load_more">加載訊息</string>
     <string name="pm_start_failed">暫時不能開啟訊息，請稍後重試</string>
     <string name="pm_send_failed">暫時不能發出訊息，請稍後重試</string>
+    <string name="pm_buy_confirm">Hi, I want to buy it!\nChat with Seller now</string>
+    <string name="pm_buy_message">Hi, I want to buy it</string>
 
     <string name="game_title">積分中心</string>
     <string name="game_rules_title">積分規則</string>

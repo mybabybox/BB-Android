@@ -355,13 +355,29 @@ public class ProductActivity extends TrackedFragmentActivity {
                 chatButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openConversation(post.id);
+                        openConversation(post.id, false);
                     }
                 });
+
                 buyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openConversation(post.id);
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProductActivity.this);
+                        alertDialogBuilder.setMessage(getString(R.string.pm_buy_confirm));
+                        alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                openConversation(post.id, true);
+                            }
+                        });
+                        alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
                     }
                 });
 
@@ -526,12 +542,12 @@ public class ProductActivity extends TrackedFragmentActivity {
         setResult(RESULT_OK, intent);
     }
 
-    private void openConversation(final Long postId) {
+    private void openConversation(final Long postId, final boolean buy) {
         ConversationCache.open(postId, new Callback<ConversationVM>() {
             @Override
             public void success(ConversationVM conversationVM, Response response1) {
                 if (conversationVM != null) {
-                    ViewUtil.startMessageListActivity(ProductActivity.this, conversationVM.getId());
+                    ViewUtil.startMessageListActivity(ProductActivity.this, conversationVM.getId(), buy);
                 } else {
                     Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
                 }

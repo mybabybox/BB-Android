@@ -57,7 +57,7 @@ public class ConversationListFragment extends TrackedFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openedConversation = adapter.getItem(i);
-                ViewUtil.startMessageListActivity(getActivity(), openedConversation.id);
+                ViewUtil.startMessageListActivity(getActivity(), openedConversation.id, false);
             }
         });
 

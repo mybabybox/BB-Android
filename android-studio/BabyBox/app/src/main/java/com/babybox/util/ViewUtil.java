@@ -741,9 +741,10 @@ public class ViewUtil {
         activity.startActivity(intent);
     }
 
-    public static void startMessageListActivity(Activity activity, Long conversationId) {
+    public static void startMessageListActivity(Activity activity, Long conversationId, boolean buy) {
         Intent intent = new Intent(activity, MessageListActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, buy);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
     }

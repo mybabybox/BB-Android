@@ -130,7 +130,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         commentEdit = (TextView) findViewById(R.id.commentEdit);
 
         // conversation
-        conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0l);
+        conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
         final ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
 
         titleText.setText(conversation.getUserName());
@@ -378,6 +378,14 @@ public class MessageListActivity extends TrackedFragmentActivity {
         }
     }
 
+    private void doBuy() {
+        initCommentPopup();
+        if (commentEditText != null) {
+            commentEditText.setText(getString(R.string.pm_buy_message));
+            doMessage();
+        }
+    }
+
     private void doMessage() {
         final boolean withPhotos = photos.size() > 0;
         String body = commentEditText.getText().toString().trim();
@@ -451,6 +459,12 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
                 adapter = new MessageListAdapter(MessageListActivity.this, messages);
                 listView.setAdapter(adapter);
+
+                // send a buy message to seller
+                boolean buy = getIntent().getBooleanExtra(ViewUtil.BUNDLE_KEY_ARG1, false);
+                if (buy) {
+                    doBuy();
+                }
 
                 ViewUtil.stopSpinner(MessageListActivity.this);
             }
