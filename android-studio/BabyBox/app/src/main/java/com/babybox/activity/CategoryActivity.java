@@ -45,6 +45,16 @@ public class CategoryActivity extends TrackedFragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
+            if (refresh) {
+                // refresh parent activity
+                ViewUtil.setActivityResult(this, true);
+                finish();
+            }
+        }
+
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment != null)
                 fragment.onActivityResult(requestCode, resultCode, data);

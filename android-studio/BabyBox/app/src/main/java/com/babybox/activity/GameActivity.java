@@ -1,7 +1,6 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -243,14 +242,12 @@ public class GameActivity extends TrackedFragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK){
-            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_VALUE_REFRESH, false);
+            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
             if (refresh) {
                 refresh();
 
                 // refresh parent activity
-                Intent intent = new Intent();
-                intent.putExtra(ViewUtil.INTENT_VALUE_REFRESH, true);
-                setResult(RESULT_OK, intent);
+                ViewUtil.setActivityResult(this, true);
             }
         }
     }

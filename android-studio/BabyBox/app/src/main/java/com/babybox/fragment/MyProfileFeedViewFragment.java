@@ -59,7 +59,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         editCoverImage.setVisibility(View.VISIBLE);
         editProfileImage.setVisibility(View.VISIBLE);
         settingsLayout.setVisibility(View.VISIBLE);
-        ordersButton.setVisibility(View.VISIBLE);
+        editButton.setVisibility(View.VISIBLE);
         ViewUtil.showTips(SharedPreferencesUtil.Screen.MY_PROFILE_TIPS, tipsLayout, dismissTipsButton);
 
         // actions
@@ -104,14 +104,6 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
                 Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
                 intent.putExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE, "settings");
                 startActivity(intent);
-            }
-        });
-
-        ordersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(getActivity(), MyOrdersActivity.class);
-                //startActivity(intent);
             }
         });
 
@@ -209,7 +201,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         TypedFile typedFile = new TypedFile("application/octet-stream", photo);
         AppController.getApiService().uploadCoverPhoto(typedFile, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         ImageUtil.displayCoverImage(id, coverImage, new RequestListener<String, GlideBitmapDrawable>() {
@@ -248,7 +240,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         TypedFile typedFile = new TypedFile("application/octet-stream", photo);
         AppController.getApiService().uploadProfilePhoto(typedFile, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         ImageUtil.displayProfileImage(id, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
@@ -305,14 +297,12 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         }
 
         if(requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_VALUE_REFRESH, false);
+            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
             if (refresh) {
                 initUserProfile();
 
                 // refresh parent activity
-                Intent intent = new Intent();
-                intent.putExtra(ViewUtil.INTENT_VALUE_REFRESH, true);
-                getActivity().setResult(Activity.RESULT_OK, intent);
+                ViewUtil.setActivityResult(getActivity(), true);
             }
         }
     }

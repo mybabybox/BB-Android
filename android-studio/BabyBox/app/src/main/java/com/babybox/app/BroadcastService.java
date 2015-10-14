@@ -66,10 +66,10 @@ public class BroadcastService extends Service {
         if (ConversationCache.getOpenedConversation() != null) {
             AppController.getApiService().getMessages(ConversationCache.getOpenedConversation().id, 0l, new Callback<Response>() {
                 @Override
-                public void success(Response response, Response response2) {
+                public void success(Response responseObject, Response response) {
                     System.out.println("service success::::");
                     String responseVm = "";
-                    TypedInput body = response.getBody();
+                    TypedInput body = responseObject.getBody();
                     messageVMList.clear();
                     try {
                         BufferedReader reader = new BufferedReader(new InputStreamReader(body.in()));

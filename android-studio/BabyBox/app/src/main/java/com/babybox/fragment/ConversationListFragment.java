@@ -57,7 +57,7 @@ public class ConversationListFragment extends TrackedFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openedConversation = adapter.getItem(i);
-                ViewUtil.startMessageListActivityForResult(getActivity(), openedConversation.id);
+                ViewUtil.startMessageListActivity(getActivity(), openedConversation.id);
             }
         });
 
@@ -138,13 +138,12 @@ public class ConversationListFragment extends TrackedFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(this.getClass().getSimpleName(), "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
 
         if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE &&
                 resultCode == Activity.RESULT_OK &&
                 data != null && adapter != null) {
 
-            Long conversationId = data.getLongExtra(ViewUtil.INTENT_VALUE_ID, -1L);
+            Long conversationId = data.getLongExtra(ViewUtil.INTENT_RESULT_ID, -1L);
 
             Log.d(this.getClass().getSimpleName(), "onActivityResult: conversationId=" + conversationId);
             if (conversationId != -1L) {

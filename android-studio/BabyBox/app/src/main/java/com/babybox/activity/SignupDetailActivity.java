@@ -269,7 +269,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
                     year1, month1, day1, year2, month2, day2, year3, month3, day3,
                     new Callback<Response>() {
                         @Override
-                        public void success(Response response, Response response2) {
+                        public void success(Response responseObject, Response response) {
                             Log.d(SignupDetailActivity.class.getSimpleName(), "submitDetails: api.signUpInfo.success");
                             initNewUser();
                         }

@@ -121,7 +121,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             @Override
             public void onClick(View view) {
                 clickedPosition = position;
-                ViewUtil.startProductActivityForResult(activity, item.getId(), "FromFeedView");
+                ViewUtil.startProductActivity(activity, item.getId());
             }
         });
 

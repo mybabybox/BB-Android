@@ -42,9 +42,8 @@ public class MainActivity extends TrackedFragmentActivity {
     private ImageView userImage;
     private TextView userNameText;
     private ImageView signInImage;
-    private ImageView newPostIcon;
 
-    private ViewGroup chatLayout;
+    private ViewGroup chatLayout, newPostLayout;
     private TextView chatCountText;
     private LinearLayout bottomBarLayout;
 
@@ -99,7 +98,7 @@ public class MainActivity extends TrackedFragmentActivity {
         signInImage = (ImageView) actionBarView.findViewById(R.id.signInImage);
         chatCountText = (TextView) actionBarView.findViewById(R.id.chatCountText);
         chatLayout = (ViewGroup) actionBarView.findViewById(R.id.chatLayout);
-        newPostIcon = (ImageView) actionBarView.findViewById(R.id.newPostIcon);
+        newPostLayout = (ViewGroup) actionBarView.findViewById(R.id.newPostLayout);
 
         /*
         new Handler().postDelayed(new Runnable() {
@@ -139,13 +138,10 @@ public class MainActivity extends TrackedFragmentActivity {
             }
         });
 
-        newPostIcon.setOnClickListener(new View.OnClickListener() {
+        newPostLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NewPostActivity.class);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, "FromMainActivity");
-                startActivity(intent);
+                ViewUtil.startNewPostActivity(MainActivity.this, 0L);
             }
         });
 
@@ -262,7 +258,11 @@ public class MainActivity extends TrackedFragmentActivity {
     }
 
     public void pressProfileTab() {
-        if (!profileClicked) {
+        pressProfileTab(false);
+    }
+
+    public void pressProfileTab(boolean refresh) {
+        if (!profileClicked || refresh) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             selectedFragment = new ProfileMainFragment();
             selectedFragment.setTrackedOnce();
@@ -330,6 +330,16 @@ public class MainActivity extends TrackedFragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
+            if (refresh) {
+                pressProfileTab(true);
+            }
+
+            return;     // handled... dont trickle down to fragments
+        }
+
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             if (fragment != null)
                 fragment.onActivityResult(requestCode, resultCode, data);

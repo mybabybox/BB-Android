@@ -13,14 +13,11 @@ import android.view.ViewGroup;
 
 import com.babybox.R;
 import com.babybox.adapter.FeedViewAdapter;
-import com.babybox.app.ConversationCache;
 import com.babybox.app.TrackedFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.ConversationVM;
-import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.yalantis.phoenix.PullToRefreshView;
 
@@ -29,10 +26,6 @@ import org.parceler.apache.commons.lang.StringUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
@@ -294,13 +287,13 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
             // changed state
             ItemChangedState itemChangedState = null;
             try {
-                itemChangedState = Enum.valueOf(ItemChangedState.class, data.getStringExtra(ViewUtil.INTENT_VALUE_ITEM_CHANGED_STATE));
+                itemChangedState = Enum.valueOf(ItemChangedState.class, data.getStringExtra(ViewUtil.INTENT_RESULT_ITEM_CHANGED_STATE));
             } catch (Exception e) {
             }
 
             // item
             PostVMLite feedPost = null;
-            Serializable obj = data.getSerializableExtra(ViewUtil.INTENT_VALUE_OBJECT);
+            Serializable obj = data.getSerializableExtra(ViewUtil.INTENT_RESULT_OBJECT);
             if (obj != null) {
                 try {
                     feedPost = (PostVMLite) obj;

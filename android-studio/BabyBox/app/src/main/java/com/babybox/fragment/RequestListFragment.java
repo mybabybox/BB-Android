@@ -108,7 +108,7 @@ public class RequestListFragment extends TrackedFragment {
                         try {
                             long commId = UrlUtil.parseCategoryUrlId(item.getUrl().getOnClick());
                             Log.d(RequestListFragment.this.getClass().getSimpleName(), "click request: commId="+commId);
-                            ViewUtil.startCategoryActivity(getActivity(), commId, "FromRequest");
+                            ViewUtil.startCategoryActivity(getActivity(), commId);
                         } catch (Exception e) {
                             Log.e(RequestListFragment.this.getClass().getSimpleName(), "Failed to parse comm id from url", e);
                         }

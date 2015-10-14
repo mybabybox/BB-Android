@@ -154,7 +154,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         postLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewUtil.startProductActivity(MessageListActivity.this, conversation.getPostId(), "FromMessageList");
+                ViewUtil.startProductActivity(MessageListActivity.this, conversation.getPostId());
             }
         });
 
@@ -396,10 +396,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 adapter.notifyDataSetChanged();
                 listView.smoothScrollToPosition(messages.size());
 
-                Intent i = new Intent();
-                i.putExtra(ViewUtil.INTENT_VALUE_ID, conversationId);
-                setResult(RESULT_OK, i);
-
+                ViewUtil.setActivityResult(MessageListActivity.this, conversationId);
                 reset();
             }
 

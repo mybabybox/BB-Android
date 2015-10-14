@@ -97,9 +97,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         newPostAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewPostActivity.class);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ID, catId);
-                startActivity(intent);
+                ViewUtil.startNewPostActivity(getActivity(), catId);
             }
         });
 

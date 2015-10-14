@@ -169,11 +169,11 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
         Log.d(this.getClass().getSimpleName(), "doLoginUsingAccessToken: access_token - " + access_token);
         AppController.getApiService().loginByFacebook(access_token, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 stopSpinner();
 
                 Log.d(this.getClass().getSimpleName(), "doLoginUsingAccessToken.success");
-                if (!saveToSession(response)) {
+                if (!saveToSession(responseObject)) {
                     ViewUtil.alert(AbstractLoginActivity.this,
                             getString(R.string.login_error_title),
                             getString(R.string.login_error_message));

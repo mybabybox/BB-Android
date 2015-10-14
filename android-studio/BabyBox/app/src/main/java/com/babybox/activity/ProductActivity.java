@@ -288,7 +288,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 catNameText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewUtil.startCategoryActivity(ProductActivity.this, post.getCategoryId(), "FromProductActivity");
+                        ViewUtil.startCategoryActivity(ProductActivity.this, post.getCategoryId());
                     }
                 });
 
@@ -519,11 +519,11 @@ public class ProductActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void setIntentResult(ItemChangedState itemChangedState, PostVMLite post) {
-        Intent i = new Intent();
-        i.putExtra(ViewUtil.INTENT_VALUE_ITEM_CHANGED_STATE, itemChangedState.name());
-        i.putExtra(ViewUtil.INTENT_VALUE_OBJECT, post);
-        setResult(RESULT_OK, i);
+    private void setActivityResult(ItemChangedState itemChangedState, PostVMLite post) {
+        Intent intent = new Intent();
+        intent.putExtra(ViewUtil.INTENT_RESULT_ITEM_CHANGED_STATE, itemChangedState.name());
+        intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT, post);
+        setResult(RESULT_OK, intent);
     }
 
     private void openConversation(final Long postId) {
@@ -568,7 +568,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         pending = true;
         AppController.getApiService().soldPost(post.id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 post.sold = true;
                 initActionsLayout();
                 pending = false;
@@ -596,7 +596,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
 
                 // pass back to feed view to handle
-                setIntentResult(ItemChangedState.ITEM_UPDATED, post);
+                setActivityResult(ItemChangedState.ITEM_UPDATED, post);
                 pending = false;
             }
 
@@ -622,7 +622,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
 
                 // pass back to feed view to handle
-                setIntentResult(ItemChangedState.ITEM_UPDATED, post);
+                setActivityResult(ItemChangedState.ITEM_UPDATED, post);
                 pending = false;
             }
 
@@ -826,11 +826,11 @@ public class ProductActivity extends TrackedFragmentActivity {
         pending = true;
         AppController.getApiService().deletePost(id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 Toast.makeText(ProductActivity.this, getString(R.string.post_delete_success), Toast.LENGTH_SHORT).show();
 
                 // pass back to feed view to handle
-                setIntentResult(ItemChangedState.ITEM_REMOVED, null);
+                setActivityResult(ItemChangedState.ITEM_REMOVED, null);
                 pending = false;
             }
 
@@ -881,7 +881,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         pending = true;
         AppController.getApiService().followUser(id,new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 ViewUtil.selectFollowButtonStyle(followButton);
                 isFollowing = true;
                 pending = false;
@@ -903,7 +903,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         pending = true;
         AppController.getApiService().unfollowUser(id,new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 ViewUtil.unselectFollowButtonStyle(followButton);
                 isFollowing = false;
                 pending = false;

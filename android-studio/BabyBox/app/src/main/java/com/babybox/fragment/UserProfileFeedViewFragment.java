@@ -39,7 +39,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     protected TextView userNameText, followersText, followingsText, userInfoText;
     protected LinearLayout userInfoLayout;
     protected RelativeLayout settingsLayout;
-    protected Button editButton, followButton, ordersButton, collectionsButton, productsButton, likesButton;
+    protected Button editButton, followButton, collectionsButton, productsButton, likesButton;
 
     protected FrameLayout tipsLayout;
     protected ImageView dismissTipsButton;
@@ -68,14 +68,13 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         editProfileImage = (ImageView) headerView.findViewById(R.id.editProfileImage);
 
         settingsLayout = (RelativeLayout) headerView.findViewById(R.id.settingsLayout);
-        editButton = (Button) headerView.findViewById(R.id.editButton);
         settingsIcon = (ImageView) headerView.findViewById(R.id.settingsIcon);
 
         followersText = (TextView) headerView.findViewById(R.id.followersText);
         followingsText = (TextView) headerView.findViewById(R.id.followingsText);
 
         followButton = (Button) headerView.findViewById(R.id.followButton);
-        ordersButton = (Button) headerView.findViewById(R.id.ordersButton);
+        editButton = (Button) headerView.findViewById(R.id.editButton);
 
         collectionsButton = (Button) headerView.findViewById(R.id.collectionsButton);
         productsButton = (Button) headerView.findViewById(R.id.productsButton);
@@ -104,7 +103,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         editCoverImage.setVisibility(View.GONE);
         editProfileImage.setVisibility(View.GONE);
         settingsLayout.setVisibility(View.GONE);
-        ordersButton.setVisibility(View.GONE);
+        editButton.setVisibility(View.GONE);
         tipsLayout.setVisibility(View.GONE);
         userInfoLayout.setVisibility(View.GONE);
 
@@ -268,7 +267,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     public void follow(Long id){
         AppController.getApiService().followUser(id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 ViewUtil.selectFollowButtonStyle(followButton);
                 following = true;
             }
@@ -283,7 +282,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     public void unFollow(Long id){
         AppController.getApiService().unfollowUser(id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 ViewUtil.unselectFollowButtonStyle(followButton);
                 following = false;
             }

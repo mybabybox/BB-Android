@@ -34,8 +34,6 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
 
     private List<UserVMLite> users;
 
-    private boolean following;
-
     public FollowerFollowingListAdapter(Activity activity, List<UserVMLite> users) {
         this.activity = activity;
         this.users = users;
@@ -100,8 +98,7 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
         ImageUtil.displayThumbnailProfileImage(item.getId(), userImage);
 
         // follow
-        following = item.isFollowing;
-        if (following) {
+        if (item.isFollowing) {
             ViewUtil.selectFollowButtonStyle(followButton);
         } else {
             ViewUtil.unselectFollowButtonStyle(followButton);
@@ -110,10 +107,10 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
         followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (following) {
-                    unFollow(item.getId());
+                if (item.isFollowing) {
+                    unFollow(item);
                 } else {
-                    follow(item.getId());
+                    follow(item);
                 }
             }
         });
@@ -121,12 +118,13 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void follow(Long id){
-        AppController.getApiService().followUser(id, new Callback<Response>() {
+    public void follow(final UserVMLite user){
+        AppController.getApiService().followUser(user.id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 ViewUtil.selectFollowButtonStyle(followButton);
-                following = true;
+                user.isFollowing = true;
+                notifyDataSetChanged();
             }
 
             @Override
@@ -136,12 +134,13 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
         });
     }
 
-    public void unFollow(Long id){
-        AppController.getApiService().unfollowUser(id, new Callback<Response>() {
+    public void unFollow(final UserVMLite user){
+        AppController.getApiService().unfollowUser(user.id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 ViewUtil.unselectFollowButtonStyle(followButton);
-                following = false;
+                user.isFollowing = false;
+                notifyDataSetChanged();
             }
 
             @Override

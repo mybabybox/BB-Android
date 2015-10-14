@@ -70,7 +70,7 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
                 catLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewUtil.startCategoryActivity(getActivity(), category.getId(), "FromHomeCategoryPagerFragment");
+                        ViewUtil.startCategoryActivity(getActivity(), category.getId());
                     }
                 });
                 catLayout.setVisibility(View.VISIBLE);

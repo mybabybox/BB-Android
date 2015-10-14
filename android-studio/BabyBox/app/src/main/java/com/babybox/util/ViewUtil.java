@@ -46,6 +46,7 @@ import com.babybox.activity.FollowersActivity;
 import com.babybox.activity.FollowingsActivity;
 import com.babybox.activity.LoginActivity;
 import com.babybox.activity.MessageListActivity;
+import com.babybox.activity.NewPostActivity;
 import com.babybox.activity.ProductActivity;
 import com.babybox.activity.CommentsActivity;
 import com.babybox.activity.SignupDetailActivity;
@@ -88,10 +89,10 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_ARG2 = "arg2";
     public static final String BUNDLE_KEY_ARG3 = "arg3";
 
-    public static final String INTENT_VALUE_REFRESH = "refresh";
-    public static final String INTENT_VALUE_ID = "id";
-    public static final String INTENT_VALUE_ITEM_CHANGED_STATE = "itemChangedState";
-    public static final String INTENT_VALUE_OBJECT = "object";
+    public static final String INTENT_RESULT_REFRESH = "refresh";
+    public static final String INTENT_RESULT_ID = "id";
+    public static final String INTENT_RESULT_ITEM_CHANGED_STATE = "itemChangedState";
+    public static final String INTENT_RESULT_OBJECT = "object";
 
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
 
@@ -680,69 +681,90 @@ public class ViewUtil {
     public static void startSignupDetailActivity(Activity activity, String username) {
         Intent intent = new Intent(activity, SignupDetailActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, username);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
 
     public static void startSplashActivity(Activity activity, String key) {
         Intent intent = new Intent(activity, SplashActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY, key);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
 
-    public static void startCategoryActivity(Activity activity, Long catId, String source) {
+    public static void startNewPostActivity(Activity activity, Long catId) {
+        Intent intent = new Intent(activity, NewPostActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, catId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
+        activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
+    }
+
+    public static void startCategoryActivity(Activity activity, Long catId) {
         Intent intent = new Intent(activity, CategoryActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, catId);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
-        activity.startActivity(intent);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
+        activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
     }
 
-    public static void startProductActivity(Activity activity, Long postId, String source) {
+    public static void startProductActivity(Activity activity, Long postId) {
         Intent intent = new Intent(activity, ProductActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
-        activity.startActivity(intent);
-    }
-
-    public static void startProductActivityForResult(Activity activity, Long postId, String source) {
-        Intent intent = new Intent(activity, ProductActivity.class);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, source);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
     }
 
     public static void startUserProfileActivity(Activity activity, Long userId) {
         Intent intent = new Intent(activity, UserProfileActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
 
     public static void startFollowersActivity(Activity activity, Long userId) {
         Intent intent = new Intent(activity, FollowersActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
 
     public static void startFollowingsActivity(Activity activity, Long userId) {
         Intent intent = new Intent(activity, FollowingsActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
 
     public static void startCommentsActivity(Activity activity, Long postId) {
         Intent intent = new Intent(activity, CommentsActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
 
     public static void startMessageListActivity(Activity activity, Long conversationId) {
         Intent intent = new Intent(activity, MessageListActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
-        activity.startActivity(intent);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
+        activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
     }
 
-    public static void startMessageListActivityForResult(Activity activity, Long conversationId) {
-        Intent intent = new Intent(activity, MessageListActivity.class);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversationId);
-        activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
+    public static void setActivityResult(Activity activity, Long id) {
+        setActivityResult(activity, id, null);
+    }
+
+    public static void setActivityResult(Activity activity, Boolean refresh) {
+        setActivityResult(activity, null, refresh);
+    }
+
+    public static void setActivityResult(Activity activity, Long id, Boolean refresh) {
+        Intent intent = new Intent();
+        if (id != null && id != -1L) {
+            intent.putExtra(ViewUtil.INTENT_RESULT_ID, id);
+        }
+        if (refresh != null) {
+            intent.putExtra(ViewUtil.INTENT_RESULT_REFRESH, refresh);
+        }
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
+        activity.setResult(Activity.RESULT_OK, intent);
     }
 }

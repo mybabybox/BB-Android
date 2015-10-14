@@ -366,10 +366,10 @@ public class NewPostActivity extends TrackedFragmentActivity {
     }
 
     protected void complete() {
-        ViewUtil.stopSpinner(this);
-        onBackPressed();
-        finish();
         Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_success), Toast.LENGTH_LONG).show();
+        ViewUtil.stopSpinner(this);
+        ViewUtil.setActivityResult(this, true);
+        finish();
     }
 
     private void initCategoryLayout(CategoryVM category) {

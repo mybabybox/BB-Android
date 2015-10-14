@@ -154,7 +154,7 @@ public class CommentListAdapter extends BaseAdapter {
     private void deleteComment(Long id, final int position) {
         AppController.getApiService().deleteComment(id, new Callback<Response>() {
             @Override
-            public void success(Response response, Response response2) {
+            public void success(Response responseObject, Response response) {
                 Toast.makeText(inflater.getContext(), CommentListAdapter.this.activity.getString(R.string.comment_delete_success), Toast.LENGTH_SHORT).show();
                 CommentListAdapter.this.comments.remove(position);
                 CommentListAdapter.this.notifyDataSetChanged();

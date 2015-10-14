@@ -290,10 +290,7 @@ public class GameGiftActivity extends TrackedFragmentActivity {
                     );
 
                     // refresh parent activity
-                    Intent intent = new Intent();
-                    intent.putExtra(ViewUtil.INTENT_VALUE_REFRESH, true);
-                    setResult(RESULT_OK, intent);
-
+                    ViewUtil.setActivityResult(GameGiftActivity.this, true);
                     ViewUtil.alertGameStatus(GameGiftActivity.this, getString(R.string.game_gifts_redeem_requested), -1, 5000);
                 } else {
                     ViewUtil.alertGameStatus(GameGiftActivity.this, responseStatus.getMessages().get(0), -1, 5000);

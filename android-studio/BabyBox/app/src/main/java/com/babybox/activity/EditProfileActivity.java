@@ -180,12 +180,8 @@ public class EditProfileActivity extends TrackedFragmentActivity {
                     @Override
                     public void success(UserVM userVM, Response response) {
                         // refresh parent activity
-                        Intent intent = new Intent();
-                        intent.putExtra(ViewUtil.INTENT_VALUE_REFRESH, true);
-                        setResult(RESULT_OK, intent);
-
+                        ViewUtil.setActivityResult(EditProfileActivity.this, true);
                         ViewUtil.stopSpinner(EditProfileActivity.this);
-
                         finish();
                     }
 
