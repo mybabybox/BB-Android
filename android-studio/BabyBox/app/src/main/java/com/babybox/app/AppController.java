@@ -155,6 +155,8 @@ public class AppController extends Application {
             apiService = new BabyBoxService(api);
         }
 
+        SharedPreferencesUtil.getInstance();
+
         ImageUtil.init();
 
         initStaticCaches();

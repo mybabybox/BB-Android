@@ -2,6 +2,7 @@ package com.babybox.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.ConversationVM;
@@ -49,11 +50,12 @@ public class SharedPreferencesUtil {
     private SharedPreferences prefs;
 
     private SharedPreferencesUtil() {
-        this.prefs = AppController.getInstance().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        //this.prefs = AppController.getInstance().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(AppController.getInstance());
     }
 
     public static SharedPreferencesUtil getInstance() {
-        if(instance == null)
+        if (instance == null && AppController.getInstance() != null)
             instance = new SharedPreferencesUtil();
         return instance;
     }
@@ -105,21 +107,29 @@ public class SharedPreferencesUtil {
     }
 
     public void saveString(String key, String value) {
-        this.prefs.edit().putString(key, value).commit();
+        SharedPreferences.Editor editor = this.prefs.edit();
+        editor.putString(key, value);
+        editor.commit();
     }
 
     public void saveLong(String key, Long value) {
-        this.prefs.edit().putLong(key, value).commit();
+        SharedPreferences.Editor editor = this.prefs.edit();
+        editor.putLong(key, value);
+        editor.commit();
     }
 
     public void saveBoolean(String key, Boolean value) {
-        this.prefs.edit().putBoolean(key, value).commit();
+        SharedPreferences.Editor editor = this.prefs.edit();
+        editor.putBoolean(key, value);
+        editor.commit();
     }
 
     private void saveObject(String key, Object obj) {
         String json = new Gson().toJson(obj);
         //Log.d(this.getClass().getSimpleName(), "[DEBUG] saveObject: key="+key+" json="+json);
-        this.prefs.edit().putString(key, json).commit();
+        SharedPreferences.Editor editor = this.prefs.edit();
+        editor.putString(key, json);
+        editor.commit();
     }
 
     //
@@ -181,10 +191,14 @@ public class SharedPreferencesUtil {
     }
 
     public void clear(String key) {
-        this.prefs.edit().remove(key).commit();
+        SharedPreferences.Editor editor = this.prefs.edit();
+        editor.remove(key);
+        editor.commit();
     }
 
     public void clearAll() {
-        this.prefs.edit().clear().commit();
+        SharedPreferences.Editor editor = this.prefs.edit();
+        editor.clear();
+        editor.commit();
     }
 }
