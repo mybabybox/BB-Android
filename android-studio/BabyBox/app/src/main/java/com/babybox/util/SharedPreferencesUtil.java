@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.babybox.R;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ import com.babybox.viewmodel.UserVM;
  */
 public class SharedPreferencesUtil {
     public static final String TAG = SharedPreferencesUtil.class.getSimpleName();
-    public static final String PREFS = "prefs";
+    public static final String PREFS = AppController.getInstance().getString(R.string.app_name)+"-prefs";
 
     public static final String FB_ACCESS_TOKEN = "access_token";
     public static final String FB_ACCESS_EXPIRES = "access_expires";

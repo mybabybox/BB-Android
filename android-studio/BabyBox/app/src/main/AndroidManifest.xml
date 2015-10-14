@@ -82,6 +82,9 @@
             android:name="com.babybox.activity.FollowingsActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.ConversationListActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.MessageListActivity"
             android:screenOrientation="portrait" />
         <activity

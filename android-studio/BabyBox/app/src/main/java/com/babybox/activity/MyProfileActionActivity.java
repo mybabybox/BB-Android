@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.TrackedFragment;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.fragment.ConversationListFragment;
 import com.babybox.fragment.SettingsFragment;
 import com.babybox.fragment.NotificationListFragment;
 import com.babybox.fragment.RequestListFragment;
@@ -61,14 +60,6 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
             case "settings":
                 titleText.setText(getString(R.string.settings_actionbar_title));
                 fragment = new SettingsFragment();
-                break;
-            case "messages":
-                titleText.setText(getString(R.string.pm_actionbar_title));
-                fragment = new ConversationListFragment();
-                break;
-            case "":
-                titleText.setText(getString(R.string.orders));
-                //fragment = new MyOrdersFragment();
                 break;
         }
 

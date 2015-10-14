@@ -42,6 +42,7 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
+import com.babybox.activity.ConversationListActivity;
 import com.babybox.activity.FollowersActivity;
 import com.babybox.activity.FollowingsActivity;
 import com.babybox.activity.LoginActivity;
@@ -738,6 +739,11 @@ public class ViewUtil {
         Intent intent = new Intent(activity, CommentsActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
+        activity.startActivity(intent);
+    }
+
+    public static void startConversationListActivity(Activity activity) {
+        Intent intent = new Intent(activity, ConversationListActivity.class);
         activity.startActivity(intent);
     }
 

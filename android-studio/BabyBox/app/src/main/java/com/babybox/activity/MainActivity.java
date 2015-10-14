@@ -132,9 +132,7 @@ public class MainActivity extends TrackedFragmentActivity {
         chatLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MyProfileActionActivity.class);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE, "messages");
-                startActivity(intent);
+                ViewUtil.startConversationListActivity(MainActivity.this);
             }
         });
 

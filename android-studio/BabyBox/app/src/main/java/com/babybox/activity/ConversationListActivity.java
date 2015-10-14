@@ -1,36 +1,72 @@
-package com.babybox.fragment;
+package com.babybox.activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import java.util.List;
+import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.adapter.ConversationListAdapter;
+import com.babybox.adapter.MessageListAdapter;
+import com.babybox.app.AppController;
+import com.babybox.app.BroadcastService;
 import com.babybox.app.ConversationCache;
-import com.babybox.app.TrackedFragment;
+import com.babybox.app.GCMConfig;
+import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.DefaultValues;
+import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
+import com.babybox.viewmodel.MessageVM;
+import com.babybox.viewmodel.NewMessageVM;
 import com.yalantis.phoenix.PullToRefreshView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.parceler.apache.commons.lang.StringUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class ConversationListFragment extends TrackedFragment {
+public class ConversationListActivity extends TrackedFragmentActivity {
 
-    private static final String TAG = ConversationListFragment.class.getName();
+    private static final String TAG = ConversationListActivity.class.getName();
     private ListView listView;
     private TextView tipText;
 
@@ -40,16 +76,25 @@ public class ConversationListFragment extends TrackedFragment {
 
     private ConversationVM openedConversation = null;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        View view = inflater.inflate(R.layout.conversation_list_fragment, container, false);
+        setContentView(R.layout.conversation_list_activity);
 
-        pullListView = (PullToRefreshView) view.findViewById(R.id.pull_to_refresh);
+        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.view_actionbar, null),
+                new ActionBar.LayoutParams(
+                        ActionBar.LayoutParams.MATCH_PARENT,
+                        ActionBar.LayoutParams.MATCH_PARENT,
+                        Gravity.CENTER
+                )
+        );
+        setActionBarTitle(getString(R.string.pm_actionbar_title));
 
-        tipText = (TextView) view.findViewById(R.id.tipText);
-        listView = (ListView) view.findViewById(R.id.conversationList);
+        pullListView = (PullToRefreshView) findViewById(R.id.pull_to_refresh);
+
+        tipText = (TextView) findViewById(R.id.tipText);
+        listView = (ListView) findViewById(R.id.conversationList);
 
         getAllConversations();
 
@@ -57,7 +102,7 @@ public class ConversationListFragment extends TrackedFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openedConversation = adapter.getItem(i);
-                ViewUtil.startMessageListActivity(getActivity(), openedConversation.id, false);
+                ViewUtil.startMessageListActivity(ConversationListActivity.this, openedConversation.id, false);
             }
         });
 
@@ -65,15 +110,15 @@ public class ConversationListFragment extends TrackedFragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final ConversationVM item = adapter.getItem(i);
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setMessage(getActivity().getString(R.string.post_delete_confirm));
-                alertDialogBuilder.setPositiveButton(getActivity().getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ConversationListActivity.this);
+                alertDialogBuilder.setMessage(ConversationListActivity.this.getString(R.string.post_delete_confirm));
+                alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteConversation(item.getId());
                     }
                 });
-                alertDialogBuilder.setNegativeButton(getActivity().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -98,8 +143,6 @@ public class ConversationListFragment extends TrackedFragment {
                 }, DefaultValues.PULL_TO_REFRESH_DELAY);
             }
         });
-
-        return view;
     }
 
     private void markRead(ConversationVM conversation) {
@@ -136,7 +179,7 @@ public class ConversationListFragment extends TrackedFragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE &&
@@ -152,13 +195,13 @@ public class ConversationListFragment extends TrackedFragment {
                     @Override
                     public void success(ConversationVM conversation, Response response) {
                         adapter.notifyDataSetChanged();
-                        ViewUtil.stopSpinner(getActivity());
+                        ViewUtil.stopSpinner(ConversationListActivity.this);
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        ViewUtil.stopSpinner(getActivity());
-                        Log.e(ConversationListFragment.class.getSimpleName(), "onActivityResult: failure", error);
+                        ViewUtil.stopSpinner(ConversationListActivity.this);
+                        Log.e(ConversationListActivity.class.getSimpleName(), "onActivityResult: failure", error);
                     }
                 });
             }
@@ -169,42 +212,42 @@ public class ConversationListFragment extends TrackedFragment {
     }
 
     private void getAllConversations() {
-        ViewUtil.showSpinner(getActivity());
+        ViewUtil.showSpinner(this);
         ConversationCache.refresh(new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> conversations, Response response) {
-                Log.d(ConversationListFragment.class.getSimpleName(), "getAllConversations: success");
+                Log.d(ConversationListActivity.class.getSimpleName(), "getAllConversations: success");
                 if (conversations.size() == 0) {
                     tipText.setVisibility(View.VISIBLE);
                 } else {
-                    adapter = new ConversationListAdapter(getActivity(), ConversationCache.getConversations());
+                    adapter = new ConversationListAdapter(ConversationListActivity.this, ConversationCache.getConversations());
                     listView.setAdapter(adapter);
                 }
 
-                ViewUtil.stopSpinner(getActivity());
+                ViewUtil.stopSpinner(ConversationListActivity.this);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(getActivity());
-                Log.e(ConversationListFragment.class.getSimpleName(), "getAllConversations: failure", error);
+                ViewUtil.stopSpinner(ConversationListActivity.this);
+                Log.e(ConversationListActivity.class.getSimpleName(), "getAllConversations: failure", error);
             }
         });
     }
 
     private void deleteConversation(final Long id) {
-        ViewUtil.showSpinner(getActivity());
+        ViewUtil.showSpinner(this);
         ConversationCache.delete(id, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 adapter.notifyDataSetChanged();
-                ViewUtil.stopSpinner(getActivity());
+                ViewUtil.stopSpinner(ConversationListActivity.this);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(getActivity());
-                Log.e(ConversationListFragment.class.getSimpleName(), "deleteConversation: failure", error);
+                ViewUtil.stopSpinner(ConversationListActivity.this);
+                Log.e(ConversationListActivity.class.getSimpleName(), "deleteConversation: failure", error);
             }
         });
     }
