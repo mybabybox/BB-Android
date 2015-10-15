@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class ConversationListAdapter extends BaseAdapter {
     private boolean showPost;
 
     private RelativeLayout conversationLayout;
+    private LinearLayout postImageLayout;
     private ImageView userImage, postImage;
     private TextView userText, postTitleText, lastMessageText, soldText, dateText, unreadCountText;
 
@@ -71,6 +73,7 @@ public class ConversationListAdapter extends BaseAdapter {
         dateText = (TextView) view.findViewById(R.id.dateText);
         unreadCountText = (TextView) view.findViewById(R.id.unreadCountText);
         userImage = (ImageView) view.findViewById(R.id.userImage);
+        postImageLayout = (LinearLayout) view.findViewById(R.id.postImageLayout);
         postImage = (ImageView) view.findViewById(R.id.postImage);
 
         ConversationVM item = conversations.get(i);
@@ -87,17 +90,17 @@ public class ConversationListAdapter extends BaseAdapter {
 
         ImageUtil.displayThumbnailProfileImage(item.getUserId(), userImage);
         if (showPost) {
-            postImage.setVisibility(View.VISIBLE);
+            postImageLayout.setVisibility(View.VISIBLE);
             ImageUtil.displayPostImage(item.getPostImage(), postImage);
+            soldText.setVisibility(item.postSold ? View.VISIBLE : View.GONE);
         } else {
-            postImage.setVisibility(View.GONE);
+            postImageLayout.setVisibility(View.GONE);
         }
 
         userText.setText(item.getUserName());
         postTitleText.setText(item.getPostTitle());
         dateText.setText(DateTimeUtil.getTimeAgo(item.getLastMessageDate()));
         ViewUtil.setHtmlText(item.getLastMessage(), lastMessageText, activity);
-        soldText.setVisibility(item.postSold? View.VISIBLE : View.GONE);
 
         Log.d(this.getClass().getSimpleName(), item.getLastMessage());
 

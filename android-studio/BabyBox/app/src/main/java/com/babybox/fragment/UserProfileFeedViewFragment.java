@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.activity.MainActivity;
 import com.babybox.app.AppController;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
@@ -86,6 +87,8 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         userInfoLayout = (LinearLayout) headerView.findViewById(R.id.userInfoLayout);
         userInfoText = (TextView) headerView.findViewById(R.id.userInfoText);
 
+        setUserId(getArguments().getLong(ViewUtil.BUNDLE_KEY_ID));
+
         // init
         initLayout();
         initUserProfile();
@@ -108,7 +111,11 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         userInfoLayout.setVisibility(View.GONE);
 
         // show
-        followButton.setVisibility(View.VISIBLE);
+        if (userId.equals(UserInfoCache.getUser().id)) {
+            followButton.setVisibility(View.GONE);
+        } else {
+            followButton.setVisibility(View.VISIBLE);
+        }
 
         // actions
         productsButton.setOnClickListener(new View.OnClickListener() {
@@ -131,8 +138,6 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
      */
     protected void initUserProfile() {
         ViewUtil.showSpinner(getActivity());
-
-        setUserId(getArguments().getLong(ViewUtil.BUNDLE_KEY_ID));
 
         AppController.getApiService().getUser(userId, new Callback<UserVM>() {
             @Override
