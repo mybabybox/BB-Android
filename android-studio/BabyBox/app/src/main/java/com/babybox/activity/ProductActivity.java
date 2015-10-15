@@ -84,8 +84,9 @@ public class ProductActivity extends TrackedFragmentActivity {
     private ImageView likeImage;
     private TextView likeText;
 
+    private LinearLayout sellerLayout;
     private ImageView sellerImage;
-    private TextView sellerNameText, sellerFollowersText;
+    private TextView sellerNameText, sellerProductsText, sellerFollowersText;
 
     private RelativeLayout moreCommentsLayout;
     private ImageView moreCommentsImage;
@@ -155,8 +156,10 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         followButton = (Button) findViewById(R.id.followButton);
 
+        sellerLayout = (LinearLayout) findViewById(R.id.sellerLayout);
         sellerImage = (ImageView) findViewById(R.id.sellerImage);
         sellerNameText = (TextView) findViewById(R.id.sellerNameText);
+        sellerProductsText = (TextView) findViewById(R.id.sellerProductsText);
         sellerFollowersText = (TextView) findViewById(R.id.sellerFollowersText);
 
         commentText = (TextView) findViewById(R.id.commentText);
@@ -424,16 +427,10 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 ImageUtil.displayThumbnailProfileImage(post.getOwnerId(), sellerImage);
                 sellerNameText.setText(post.getOwnerName());
-                sellerFollowersText.setText(ViewUtil.followersFormat(post.getOwnerNumFollowers()));
+                sellerProductsText.setText(ViewUtil.sellerProductsFormat(post.getOwnerNumProducts()));
+                sellerFollowersText.setText(ViewUtil.sellerFollowersFormat(post.getOwnerNumFollowers()));
 
-                sellerImage.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId());
-                    }
-                });
-
-                sellerNameText.setOnClickListener(new View.OnClickListener() {
+                sellerLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         ViewUtil.startUserProfileActivity(ProductActivity.this, post.getOwnerId());

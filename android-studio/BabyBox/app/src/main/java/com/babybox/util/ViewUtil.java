@@ -265,6 +265,10 @@ public class ViewUtil {
         return comments.subList(start, comments.size());
     }
 
+    public static String sellerProductsFormat(Long value) {
+        return AppController.getInstance().getString(R.string.products) + ": " + value;
+    }
+
     public static String sellerFollowersFormat(Long value) {
         return AppController.getInstance().getString(R.string.followers) + ": " + value;
     }

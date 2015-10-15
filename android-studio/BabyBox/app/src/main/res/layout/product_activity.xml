@@ -272,7 +272,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        android:layout_marginTop="15dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -350,8 +351,8 @@
 
                 <ImageView
                     android:id="@+id/sellerImage"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
@@ -359,7 +360,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/sellerNameText"
@@ -371,6 +373,17 @@
                         android:layout_marginTop="10dp" />
 
                     <TextView
+                        android:id="@+id/sellerProductsText"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/light_gray"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/products"
+                        android:layout_below="@+id/sellerNameText"
+                        android:layout_marginTop="2dp" />
+
+                    <TextView
                         android:id="@+id/sellerFollowersText"
                         android:layout_width="wrap_content"
                         android:textColor="@color/light_gray"
@@ -379,15 +392,17 @@
                         android:layout_gravity="center_vertical"
                         android:text="@string/followers"
                         android:layout_below="@+id/sellerNameText"
-                        android:layout_marginTop="2dp" />
+                        android:layout_marginTop="2dp"
+                        android:layout_toRightOf="@+id/sellerProductsText"
+                        android:layout_marginLeft="10dp" />
 
                     <Button
                         android:layout_width="75dp"
                         android:layout_height="30dp"
                         android:id="@+id/followButton"
                         android:background="@drawable/button_pink_border"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="7dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/arrow_next"
                         android:layout_marginRight="10dp"
@@ -433,8 +448,8 @@
                         android:text="@string/comments"
                         android:id="@+id/numCommentsText"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
                         android:textColor="@color/dark_gray"
                         android:textSize="15dp" />
@@ -459,8 +474,8 @@
                     android:id="@+id/commentList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:divider="@null"
+                    android:layout_marginTop="3dp"
                     android:visibility="gone"></ListView>
 
                 <LinearLayout
@@ -529,7 +544,7 @@
                 <LinearLayout
                     android:id="@+id/childLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="635dp"
+                    android:layout_height="100dp"
                     android:orientation="vertical"
                     android:layout_gravity="center"
                     android:measureWithLargestChild="false"
