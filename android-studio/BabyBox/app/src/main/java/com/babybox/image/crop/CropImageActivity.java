@@ -78,6 +78,9 @@ public class CropImageActivity extends MonitoredActivity {
         //setupWindowFlags();
         setupViews();
 
+        if (getActionBar() != null)
+            getActionBar().hide();
+
         loadInput();
         if (rotateBitmap == null) {
             finish();
