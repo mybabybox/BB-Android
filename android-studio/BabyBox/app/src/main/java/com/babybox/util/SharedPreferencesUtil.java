@@ -23,7 +23,7 @@ import com.babybox.viewmodel.UserVM;
  * Created by keithlei on 3/16/15.
  */
 public class SharedPreferencesUtil {
-    public static final String TAG = SharedPreferencesUtil.class.getSimpleName();
+    public static final String TAG = SharedPreferencesUtil.class.getName();
     public static final String PREFS = AppController.getInstance().getString(R.string.app_name)+"-prefs";
 
     public static final String FB_ACCESS_TOKEN = "access_token";

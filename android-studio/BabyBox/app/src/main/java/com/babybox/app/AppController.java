@@ -65,15 +65,7 @@ import retrofit.client.OkClient;
         logcatFilterByPid = true)
 public class AppController extends Application {
 
-    public enum DeviceType {
-        NA,
-        ANDROID,
-        IOS,
-        WEB,
-        WAP
-    }
-
-    public static final String TAG = AppController.class.getSimpleName();
+    public static final String TAG = AppController.class.getName();
     public static String BASE_URL;
 
     private static AppController mInstance;
@@ -81,9 +73,14 @@ public class AppController extends Application {
     private static MockApi mockApi;
 
     public List<MessageVM> messageVMList;
-    public List<Uri> pathList = new ArrayList<>();
-    public ArrayList<String> realPathList = new ArrayList<>();
-    public Uri cropUri;
+
+    public enum DeviceType {
+        NA,
+        ANDROID,
+        IOS,
+        WEB,
+        WAP
+    }
 
     public static synchronized AppController getInstance() {
         return mInstance;

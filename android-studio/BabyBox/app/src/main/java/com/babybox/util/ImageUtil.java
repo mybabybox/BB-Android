@@ -30,6 +30,8 @@ import com.bumptech.glide.signature.StringSignature;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
@@ -69,6 +71,11 @@ public class ImageUtil {
     private static String stringSignature = "";  // default no signature
 
     private static File tempDir;
+
+    // for new post
+    public static List<Uri> pathList = new ArrayList<>();
+    public static ArrayList<String> realPathList = new ArrayList<>();
+    public static Uri cropUri;
 
     static {
         init();

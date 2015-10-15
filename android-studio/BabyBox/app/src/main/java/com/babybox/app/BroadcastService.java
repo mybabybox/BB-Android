@@ -25,7 +25,9 @@ import retrofit.client.Response;
 import retrofit.mime.TypedInput;
 
 public class BroadcastService extends Service {
-	private static final String TAG = "BroadcastService";
+
+	private static final String TAG = BroadcastService.class.getName();
+
 	public static final String BROADCAST_ACTION = "com.babybox.displayevent";
 	private final Handler handler = new Handler();
     boolean isFileChanged;
@@ -34,8 +36,6 @@ public class BroadcastService extends Service {
     int rowNo;
     long size;
     List<MessageVM> messageVMList;
-
-
 
 	@Override
 	public void onCreate() {

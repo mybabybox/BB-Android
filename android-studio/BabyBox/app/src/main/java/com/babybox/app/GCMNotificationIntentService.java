@@ -7,18 +7,17 @@ import android.support.v4.app.NotificationCompat;
 
 //import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-
 public class GCMNotificationIntentService extends IntentService {
+
+	public static final String TAG = GCMNotificationIntentService.class.getName();
 
 	public static final int NOTIFICATION_ID = 1;
 	private NotificationManager mNotificationManager;
-	NotificationCompat.Builder builder;
+	private NotificationCompat.Builder builder;
 
 	public GCMNotificationIntentService() {
-		super("GcmIntentService");
+		super(GCMNotificationIntentService.class.getSimpleName());
 	}
-
-	public static final String TAG = "GCMNotificationIntentService";
 
 	@Override
 	protected void onHandleIntent(Intent intent) {

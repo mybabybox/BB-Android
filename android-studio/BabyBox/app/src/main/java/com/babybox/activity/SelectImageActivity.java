@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.image.crop.Crop;
+import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
 import org.joda.time.DateTime;
@@ -59,10 +60,10 @@ public class SelectImageActivity extends Activity {
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
-            AppController.getInstance().pathList.add(Uri.parse(outputUrl));
-            AppController.getInstance().realPathList.add(outputUrl);
             Log.d(this.getClass().getSimpleName(), "handleCrop: size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
-            AppController.getInstance().cropUri = Uri.parse(outputUrl);
+            ImageUtil.pathList.add(Uri.parse(outputUrl));
+            ImageUtil.realPathList.add(outputUrl);
+            ImageUtil.cropUri = Uri.parse(outputUrl);
             finish();
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();

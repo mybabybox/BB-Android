@@ -173,7 +173,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 }
             }
 
-        if(AppController.getInstance().cropUri != null) {
+        if (ImageUtil.cropUri != null) {
             setPostImage();
         }
 
@@ -254,25 +254,25 @@ public class NewPostActivity extends TrackedFragmentActivity {
         Log.d(this.getClass().getSimpleName(), "uri="+getIntent().getData());
         Log.d(this.getClass().getSimpleName(), "size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
         Log.d(this.getClass().getSimpleName(), "photos=" + photos.size());
-        Log.d(this.getClass().getSimpleName(), "pathlist=" + AppController.getInstance().pathList.size());
-        Log.d(this.getClass().getSimpleName(), "realpath=" + AppController.getInstance().realPathList.size());
+        Log.d(this.getClass().getSimpleName(), "pathlist=" + ImageUtil.pathList.size());
+        Log.d(this.getClass().getSimpleName(), "realpath=" + ImageUtil.realPathList.size());
 
 
         // ImageView postImage = postImages.get(getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX,0));
         // postImage.setImageURI(getIntent().getData());
         // postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
-        if (AppController.getInstance().pathList.size() != 0) {
-            for (int i = 0; i < AppController.getInstance().pathList.size(); i++) {
+        if (ImageUtil.pathList.size() != 0) {
+            for (int i = 0; i < ImageUtil.pathList.size(); i++) {
                 ImageView imageView = postImages.get(i);
                 //imageView.setImageBitmap(ImageUtil.resizeAsPreviewThumbnail(AppController.getInstance().realPathList.get(i)));
-                imageView.setImageURI(AppController.getInstance().pathList.get(i));
-                Log.d(this.getClass().getSimpleName(), "path=" + AppController.getInstance().realPathList.get(i));
+                imageView.setImageURI(ImageUtil.pathList.get(i));
+                Log.d(this.getClass().getSimpleName(), "path=" + ImageUtil.realPathList.get(i));
             }
         }
 
         // File photo = new File(ImageUtil.getRealPathFromUri(this, selectedImageUri));
-        if(AppController.getInstance().realPathList.size() != 0) {
-            for(String outputURL : AppController.getInstance().realPathList) {
+        if (ImageUtil.realPathList.size() != 0) {
+            for(String outputURL : ImageUtil.realPathList) {
                 File photo = new File(outputURL);
                 photos.add(photo);
             }
@@ -285,13 +285,13 @@ public class NewPostActivity extends TrackedFragmentActivity {
             postImages.get(toRemove).setImageDrawable(getResources().getDrawable(R.drawable.img_camera));
             photos.remove(toRemove);
         }
-        if(AppController.getInstance().pathList.size() > 0){
-            int toRemove1 = AppController.getInstance().pathList.size() - 1;
-            AppController.getInstance().pathList.remove(toRemove1);
+        if(ImageUtil.pathList.size() > 0){
+            int toRemove = ImageUtil.pathList.size() - 1;
+            ImageUtil.pathList.remove(toRemove);
         }
-        if(AppController.getInstance().realPathList.size() > 0){
-            int toRemove1 = AppController.getInstance().realPathList.size() - 1;
-            AppController.getInstance().realPathList.remove(toRemove1);
+        if(ImageUtil.realPathList.size() > 0){
+            int toRemove = ImageUtil.realPathList.size() - 1;
+            ImageUtil.realPathList.remove(toRemove);
         }
     }
 
@@ -348,16 +348,15 @@ public class NewPostActivity extends TrackedFragmentActivity {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
                 postSuccess = true;
-                AppController.getInstance().realPathList.clear();
-                AppController.getInstance().pathList.clear();
+                ImageUtil.realPathList.clear();
+                ImageUtil.pathList.clear();
                 complete();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                error.printStackTrace();
-                AppController.getInstance().realPathList.clear();
-                AppController.getInstance().pathList.clear();
+                ImageUtil.realPathList.clear();
+                ImageUtil.pathList.clear();
                 ViewUtil.stopSpinner(NewPostActivity.this);
                 Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_failed), Toast.LENGTH_SHORT).show();
                 Log.e(NewPostActivity.class.getSimpleName(), "doPost: failure", error);
@@ -479,7 +478,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         String desc = descEdit.getText().toString().trim();
         String price = priceEdit.getText().toString().trim();
 
-        AppController.getInstance().pathList.clear();
+        ImageUtil.pathList.clear();
 
         if (postSuccess ||
                 (StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
