@@ -49,6 +49,8 @@ public class CropImageActivity extends MonitoredActivity {
     private static final int SIZE_DEFAULT_IN_PERCENT = 100;
     private static final int SIZE_DEFAULT = 2048;
     private static final int SIZE_LIMIT = 4096;
+    /*private static final int SIZE_DEFAULT = 1048;
+    private static final int SIZE_LIMIT = 2096;*/
 
     private final Handler handler = new Handler();
 
@@ -73,7 +75,7 @@ public class CropImageActivity extends MonitoredActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setupWindowFlags();
+        //setupWindowFlags();
         setupViews();
 
         loadInput();
@@ -201,7 +203,23 @@ public class CropImageActivity extends MonitoredActivity {
         if (isFinishing()) {
             return;
         }
+
+
         imageView.setImageRotateBitmapResetBase(rotateBitmap, true);
+
+        /*Picasso.with(getApplicationContext()).load(R.drawable.demo)
+                .transform(transformation)
+                .transform(new CropSquareTransformation())
+                .into(imageView);*/
+
+        /*Picasso.with(getApplicationContext())
+                .load(sourceUri)
+                .fit()
+                //.resize()
+                .centerCrop()
+                .into(imageView);
+*/
+
         CropUtil.startBackgroundJob(this, null, getResources().getString(R.string.crop__wait),
                 new Runnable() {
                     public void run() {
@@ -282,6 +300,7 @@ public class CropImageActivity extends MonitoredActivity {
         isSaving = true;
 
         Bitmap croppedImage;
+
         Rect r = cropView.getScaledCropRect(sampleSize);
         int width = r.width();
         int height = r.height();
@@ -308,6 +327,14 @@ public class CropImageActivity extends MonitoredActivity {
         }
 
         if (croppedImage != null) {
+
+            /*Picasso.with(getApplicationContext())
+                    .load(sourceUri)
+                    .fit()
+                            //.resize()
+                    .centerCrop()
+                    .into(imageView)*/
+
             imageView.setImageRotateBitmapResetBase(new RotateBitmap(croppedImage, exifRotation), true);
             imageView.center();
             imageView.highlightViews.clear();
@@ -326,6 +353,7 @@ public class CropImageActivity extends MonitoredActivity {
                     }, handler
             );
         } else {
+
             finish();
         }
     }
@@ -356,7 +384,12 @@ public class CropImageActivity extends MonitoredActivity {
             }
 
             try {
-                croppedImage = decoder.decodeRegion(rect, new BitmapFactory.Options());
+                BitmapFactory.Options options_ = new BitmapFactory.Options();
+
+                options_.inSampleSize = 1;
+
+                croppedImage = decoder.decodeRegion(rect, options_);
+
                 if (rect.width() > outWidth || rect.height() > outHeight) {
                     Matrix matrix = new Matrix();
                     matrix.postScale((float) outWidth / rect.width(), (float) outHeight / rect.height());
@@ -377,6 +410,7 @@ public class CropImageActivity extends MonitoredActivity {
         } finally {
             CropUtil.closeSilently(is);
         }
+
         return croppedImage;
     }
 
