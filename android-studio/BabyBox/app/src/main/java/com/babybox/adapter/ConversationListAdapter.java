@@ -22,25 +22,31 @@ import com.babybox.viewmodel.ConversationVM;
 public class ConversationListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
-    private List<ConversationVM> conversationVMs;
+    private List<ConversationVM> conversations;
+    private boolean showPost;
 
     private RelativeLayout conversationLayout;
     private ImageView userImage, postImage;
     private TextView userText, postTitleText, lastMessageText, soldText, dateText, unreadCountText;
 
     public ConversationListAdapter(Activity activity, List<ConversationVM> conversationVMs) {
+        this(activity, conversationVMs, true);
+    }
+
+    public ConversationListAdapter(Activity activity, List<ConversationVM> conversations, boolean showPost) {
         this.activity = activity;
-        this.conversationVMs = conversationVMs;
+        this.conversations = conversations;
+        this.showPost = showPost;
     }
 
     @Override
     public int getCount() {
-        return conversationVMs.size();
+        return conversations.size();
     }
 
     @Override
     public ConversationVM getItem(int i) {
-        return conversationVMs.get(i);
+        return conversations.get(i);
     }
 
     @Override
@@ -67,20 +73,25 @@ public class ConversationListAdapter extends BaseAdapter {
         userImage = (ImageView) view.findViewById(R.id.userImage);
         postImage = (ImageView) view.findViewById(R.id.postImage);
 
-        ConversationVM item = conversationVMs.get(i);
+        ConversationVM item = conversations.get(i);
 
-        Log.d(this.getClass().getSimpleName(), "["+i+"|Id="+item.id+"] "+item.getPostTitle()+" unread="+item.getUnread());
+        Log.d(this.getClass().getSimpleName(), "[" + i + "|Id=" + item.id + "] " + item.getPostTitle() + " unread=" + item.getUnread());
         if (item.getUnread() > 0) {
             conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
         } else {
             conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.color.white));
         }
 
-        unreadCountText.setText(item.getUnread()+"");
-        unreadCountText.setVisibility(item.getUnread() > 0? View.VISIBLE : View.GONE);
+        unreadCountText.setText(item.getUnread() + "");
+        unreadCountText.setVisibility(item.getUnread() > 0 ? View.VISIBLE : View.GONE);
 
         ImageUtil.displayThumbnailProfileImage(item.getUserId(), userImage);
-        ImageUtil.displayPostImage(item.getPostImage(), postImage);
+        if (showPost) {
+            postImage.setVisibility(View.VISIBLE);
+            ImageUtil.displayPostImage(item.getPostImage(), postImage);
+        } else {
+            postImage.setVisibility(View.GONE);
+        }
 
         userText.setText(item.getUserName());
         postTitleText.setText(item.getPostTitle());

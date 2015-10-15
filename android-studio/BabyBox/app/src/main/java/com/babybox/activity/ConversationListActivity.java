@@ -67,19 +67,29 @@ import retrofit.client.Response;
 public class ConversationListActivity extends TrackedFragmentActivity {
 
     private static final String TAG = ConversationListActivity.class.getName();
-    private ListView listView;
-    private TextView tipText;
 
-    private PullToRefreshView pullListView;
+    protected ListView listView;
+    protected TextView tipText;
 
-    private ConversationListAdapter adapter;
+    protected ImageView backImage;
+    protected PullToRefreshView pullListView;
 
-    private ConversationVM openedConversation = null;
+    protected ConversationListAdapter adapter;
+
+    protected ConversationVM openedConversation = null;
+
+    protected int getContentViewResource() {
+        return R.layout.conversation_list_activity;
+    }
+
+    protected String getActionBarTitle() {
+        return getString(R.string.pm_actionbar_title);
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.conversation_list_activity);
+        setContentView(getContentViewResource());
 
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.view_actionbar, null),
@@ -89,14 +99,10 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                         Gravity.CENTER
                 )
         );
-        setActionBarTitle(getString(R.string.pm_actionbar_title));
-
-        pullListView = (PullToRefreshView) findViewById(R.id.pull_to_refresh);
+        setActionBarTitle(getActionBarTitle());
 
         tipText = (TextView) findViewById(R.id.tipText);
         listView = (ListView) findViewById(R.id.conversationList);
-
-        getAllConversations();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -130,22 +136,35 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             }
         });
 
-        // pull refresh
-        pullListView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+        backImage = (ImageView) this.findViewById(R.id.backImage);
+        backImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRefresh() {
-                pullListView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        pullListView.setRefreshing(false);
-                        getAllConversations();
-                    }
-                }, DefaultValues.PULL_TO_REFRESH_DELAY);
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
+
+        // pull refresh
+        pullListView = (PullToRefreshView) findViewById(R.id.pull_to_refresh);
+        if (pullListView != null) {
+            pullListView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    pullListView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pullListView.setRefreshing(false);
+                            getConversations();
+                        }
+                    }, DefaultValues.PULL_TO_REFRESH_DELAY);
+                }
+            });
+        }
+
+        getConversations();
     }
 
-    private void markRead(ConversationVM conversation) {
+    protected void markRead(ConversationVM conversation) {
         if (conversation != null) {
             conversation.unread = 0L;
             adapter.notifyDataSetChanged();
@@ -211,12 +230,12 @@ public class ConversationListActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void getAllConversations() {
+    protected void getConversations() {
         ViewUtil.showSpinner(this);
         ConversationCache.refresh(new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> conversations, Response response) {
-                Log.d(ConversationListActivity.class.getSimpleName(), "getAllConversations: success");
+                Log.d(ConversationListActivity.class.getSimpleName(), "getConversations: success");
                 if (conversations.size() == 0) {
                     tipText.setVisibility(View.VISIBLE);
                 } else {
@@ -230,12 +249,12 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             @Override
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(ConversationListActivity.this);
-                Log.e(ConversationListActivity.class.getSimpleName(), "getAllConversations: failure", error);
+                Log.e(ConversationListActivity.class.getSimpleName(), "getConversations: failure", error);
             }
         });
     }
 
-    private void deleteConversation(final Long id) {
+    protected void deleteConversation(final Long id) {
         ViewUtil.showSpinner(this);
         ConversationCache.delete(id, new Callback<Response>() {
             @Override

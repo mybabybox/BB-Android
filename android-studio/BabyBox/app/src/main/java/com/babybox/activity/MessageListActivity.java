@@ -183,8 +183,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
     }
 
     private void initCommentPopup() {
-        mainFrameLayout.getForeground().setAlpha(20);
-        mainFrameLayout.getForeground().setColorFilter(R.color.gray, PorterDuff.Mode.OVERLAY);
+        //mainFrameLayout.getForeground().setAlpha(20);
+        //mainFrameLayout.getForeground().setColorFilter(R.color.gray, PorterDuff.Mode.OVERLAY);
 
         try {
             LayoutInflater inflater = (LayoutInflater) MessageListActivity.this

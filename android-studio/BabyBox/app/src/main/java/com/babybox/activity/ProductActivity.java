@@ -386,7 +386,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 viewChatsButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        getConversations(post.id);
+                        ViewUtil.startProductConversationListActivity(ProductActivity.this, post.id);
                     }
                 });
                 soldButton.setOnClickListener(new View.OnClickListener() {
@@ -416,7 +416,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 soldViewChatsButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        getConversations(post.id);
+                        ViewUtil.startProductConversationListActivity(ProductActivity.this, post.id);
                     }
                 });
 
@@ -561,21 +561,6 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void getConversations(final Long postId) {
-        AppController.getApiService().getPostConversations(postId, new Callback<List<ConversationVM>>() {
-            @Override
-            public void success(List<ConversationVM> conversationVMs, Response response1) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
-                Log.e(MessageUtil.class.getSimpleName(), "getConversations: failure", error);
-            }
-        });
-    }
-
     private void sold(final PostVM post) {
         if (pending) {
             return;
@@ -651,8 +636,8 @@ public class ProductActivity extends TrackedFragmentActivity {
     }
 
     private void initCommentPopup() {
-        mainLayout.getForeground().setAlpha(20);
-        mainLayout.getForeground().setColorFilter(R.color.light_gray, PorterDuff.Mode.OVERLAY);
+        //mainLayout.getForeground().setAlpha(20);
+        //mainLayout.getForeground().setColorFilter(R.color.light_gray, PorterDuff.Mode.OVERLAY);
 
         try {
             LayoutInflater inflater = (LayoutInflater) ProductActivity.this

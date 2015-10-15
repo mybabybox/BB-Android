@@ -50,6 +50,7 @@ import com.babybox.activity.MessageListActivity;
 import com.babybox.activity.NewPostActivity;
 import com.babybox.activity.ProductActivity;
 import com.babybox.activity.CommentsActivity;
+import com.babybox.activity.ProductConversationListActivity;
 import com.babybox.activity.SignupDetailActivity;
 import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
@@ -744,6 +745,12 @@ public class ViewUtil {
 
     public static void startConversationListActivity(Activity activity) {
         Intent intent = new Intent(activity, ConversationListActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startProductConversationListActivity(Activity activity, Long postId) {
+        Intent intent = new Intent(activity, ProductConversationListActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
         activity.startActivity(intent);
     }
 
