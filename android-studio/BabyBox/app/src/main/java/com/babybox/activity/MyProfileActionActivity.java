@@ -14,8 +14,6 @@ import com.babybox.R;
 import com.babybox.app.TrackedFragment;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.fragment.SettingsFragment;
-import com.babybox.fragment.NotificationListFragment;
-import com.babybox.fragment.RequestListFragment;
 import com.babybox.util.ViewUtil;
 
 public class MyProfileActionActivity extends TrackedFragmentActivity {
@@ -45,18 +43,6 @@ public class MyProfileActionActivity extends TrackedFragmentActivity {
         Bundle bundle = new Bundle();
         TrackedFragment fragment = null;
         switch (getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE)) {
-            case "requests":
-                titleText.setText(getString(R.string.request_actionbar_title));
-                bundle.putString(ViewUtil.BUNDLE_KEY_LISTS, getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_LISTS));
-                fragment = new RequestListFragment();
-                fragment.setArguments(bundle);
-                break;
-            case "notifications":
-                titleText.setText(getString(R.string.notification_actionbar_title));
-                bundle.putString(ViewUtil.BUNDLE_KEY_LISTS, getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_LISTS));
-                fragment = new NotificationListFragment();
-                fragment.setArguments(bundle);
-                break;
             case "settings":
                 titleText.setText(getString(R.string.settings_actionbar_title));
                 fragment = new SettingsFragment();
