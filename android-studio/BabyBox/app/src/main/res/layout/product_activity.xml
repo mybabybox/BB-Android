@@ -278,28 +278,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/listed"
-                            android:textColor="@color/gray"
-                            android:textSize="14dp"
-                            android:id="@+id/listedText"
-                            android:visibility="gone" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:id="@+id/timeText"
                             android:textSize="14dp"
                             android:textColor="@color/gray"
-                            android:layout_toRightOf="@+id/listedText" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/catNameText"
-                            android:textColor="@color/pink"
-                            android:textSize="14dp"
-                            android:layout_toRightOf="@+id/timeText"
-                            android:layout_marginLeft="10dp" />
+                            android:text="-" />
 
                         <TextView
                             android:id="@+id/deleteText"
@@ -309,31 +291,49 @@
                             android:text="@string/delete"
                             android:textColor="@color/gray"
                             android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@+id/viewsImage"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginRight="10dp" />
+                            android:layout_toRightOf="@+id/timeText"
+                            android:layout_marginLeft="10dp" />
 
-                        <ImageView
-                            android:id="@+id/viewsImage"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/view"
-                            android:layout_gravity="center_vertical"
-                            android:layout_toLeftOf="@+id/numViewsText"
-                            android:layout_centerVertical="true" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/viewsLayout"
+                            android:layout_toRightOf="@+id/deleteText"
+                            android:layout_marginLeft="10dp">
+
+                            <ImageView
+                                android:id="@+id/viewsImage"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/view"
+                                android:layout_gravity="center_vertical"
+                                android:layout_centerVertical="true" />
+
+                            <TextView
+                                android:id="@+id/numViewsText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textColor="@color/gray"
+                                android:textSize="14dp"
+                                android:layout_marginLeft="3dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_alignParentRight="false"
+                                android:gravity="center_vertical"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/viewsImage" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/numViewsText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
-                            android:textColor="@color/gray"
+                            android:id="@+id/catNameText"
+                            android:textColor="@color/pink"
                             android:textSize="14dp"
-                            android:layout_marginLeft="3dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_alignParentRight="true"
-                            android:gravity="center_vertical"
-                            android:layout_centerVertical="true" />
+                            android:layout_marginLeft="10dp"
+                            android:layout_alignParentRight="true" />
 
                     </RelativeLayout>
                 </LinearLayout>
@@ -368,16 +368,17 @@
                         android:layout_width="wrap_content"
                         android:textColor="@color/sharp_pink"
                         android:layout_height="wrap_content"
-                        android:textSize="15dp"
+                        android:textSize="16dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/sellerProductsText"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/light_gray"
+                        android:textColor="@color/gray"
                         android:layout_height="wrap_content"
-                        android:textSize="13dp"
+                        android:textSize="14dp"
                         android:layout_gravity="center_vertical"
                         android:text="@string/products"
                         android:layout_below="@+id/sellerNameText"
@@ -386,9 +387,9 @@
                     <TextView
                         android:id="@+id/sellerFollowersText"
                         android:layout_width="wrap_content"
-                        android:textColor="@color/light_gray"
+                        android:textColor="@color/gray"
                         android:layout_height="wrap_content"
-                        android:textSize="13dp"
+                        android:textSize="14dp"
                         android:layout_gravity="center_vertical"
                         android:text="@string/followers"
                         android:layout_below="@+id/sellerNameText"

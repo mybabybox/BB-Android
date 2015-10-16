@@ -81,31 +81,56 @@
                         android:layout_marginLeft="2dp" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/activityLayout"
-                    android:background="@color/main_menubar_bg"
-                    android:layout_weight="33.3"
-                    android:gravity="center">
+                    android:id="@+id/activitiesFrame"
+                    android:layout_weight="33.3">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:id="@+id/activityImage"
-                        android:src="@drawable/mn_notif"
-                        android:layout_gravity="center" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/activityLayout"
+                        android:background="@color/main_menubar_bg"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:id="@+id/activityImage"
+                            android:src="@drawable/mn_notif"
+                            android:layout_gravity="center" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tabset_activity"
+                            android:id="@+id/activityText"
+                            android:textSize="15dp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="2dp" />
+                    </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tabset_activity"
-                        android:id="@+id/activityText"
-                        android:textSize="15dp"
+                        android:id="@+id/activityCountText"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:text="0"
+                        android:textSize="11dp"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:background="@drawable/badge_circle"
+                        android:layout_alignTop="@+id/setting"
+                        android:layout_alignRight="@+id/chatImage"
+                        android:layout_alignEnd="@+id/chatImage"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="2dp" />
-                </LinearLayout>
+                        android:gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="18dp"
+                        android:visibility="invisible" />
+
+                </FrameLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -136,21 +161,6 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/notificationCount"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:text="-"
-                android:textSize="11dp"
-                android:textAlignment="center"
-                android:textColor="#FFF"
-                android:background="@drawable/badge_circle"
-                android:layout_alignTop="@+id/setting"
-                android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="25dp"
-                android:gravity="center"
-                android:layout_marginBottom="8dp"
-                android:visibility="invisible" />
         </FrameLayout>
     </LinearLayout>
 

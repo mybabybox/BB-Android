@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.support.multidex.MultiDex;
 import android.util.Base64;
 import android.util.Log;
@@ -24,13 +23,11 @@ import com.babybox.viewmodel.MessageVM;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
-import org.acra.ACRA;
 import org.acra.ReportField;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.RestAdapter;
@@ -168,7 +165,7 @@ public class AppController extends Application {
     }
 
     public static void initUserCaches() {
-        NotificationCache.refresh();
+        NotificationCounter.refresh();
         ConversationCache.refresh();
     }
 
@@ -177,7 +174,7 @@ public class AppController extends Application {
      */
     public void clearAll() {
         Log.d(this.getClass().getSimpleName(), "clearAll");
-        NotificationCache.clear();
+        NotificationCounter.clear();
         UserInfoCache.clear();
     }
 

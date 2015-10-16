@@ -6,7 +6,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -76,6 +75,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
     private ListView listView;
     private View listHeader;
     private RelativeLayout postLayout, loadMoreLayout;
+
+    private TextView commentSendButton;
 
     private List<MessageVM> messages = new ArrayList<>();
     private MessageListAdapter adapter;
@@ -282,7 +283,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 });
                 */
 
-                TextView commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
+                commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
                 commentSendButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -396,6 +397,10 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
         //Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
 
+        commentSendButton.setEnabled(false);
+
+        ViewUtil.showSpinner(MessageListActivity.this);
+
         NewMessageVM newMessage = new NewMessageVM(conversationId, body, photos);
         AppController.getApiService().newMessage(newMessage, new Callback<MessageVM>() {
             @Override
@@ -406,6 +411,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
                 ViewUtil.setActivityResult(MessageListActivity.this, conversationId);
                 reset();
+
+                ViewUtil.stopSpinner(MessageListActivity.this);
             }
 
             @Override
@@ -413,6 +420,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 Log.e(MessageListActivity.this.getClass().getSimpleName(), "doMessage.api.newMessage: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_send_failed), Toast.LENGTH_SHORT).show();
                 reset();
+
+                ViewUtil.stopSpinner(MessageListActivity.this);
             }
         });
     }
@@ -514,6 +523,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             commentPopup = null;
         }
         commentEditText.setText("");
+        commentSendButton.setEnabled(true);
         resetCommentImages();
     }
 

@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
-import com.babybox.app.NotificationCache;
+import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragment;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
@@ -29,6 +29,7 @@ import com.babybox.fragment.ProfileMainFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
+import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.NotificationsParentVM;
 
 import retrofit.Callback;
@@ -54,14 +55,13 @@ public class MainActivity extends TrackedFragmentActivity {
     private LinearLayout activityLayout;
     private ImageView activityImage;
     private TextView activityText;
+    private TextView activityCountText;
 
     private LinearLayout profileLayout;
     private ImageView profileImage;
     private TextView profileText;
 
     private boolean homeClicked = false, activityClicked = false, profileClicked = false;
-
-    private TextView notificationCount;
 
     private boolean showBottomMenuBar = true;
 
@@ -143,8 +143,6 @@ public class MainActivity extends TrackedFragmentActivity {
             }
         });
 
-        refreshNotifications();
-
         // bottom menu bar
         bottomBarLayout = (LinearLayout) findViewById(R.id.bottomBarLayout);
 
@@ -155,11 +153,11 @@ public class MainActivity extends TrackedFragmentActivity {
         activityLayout = (LinearLayout) findViewById(R.id.activityLayout);
         activityImage = (ImageView) findViewById(R.id.activityImage);
         activityText = (TextView) findViewById(R.id.activityText);
+        activityCountText = (TextView) findViewById(R.id.activityCountText);
 
         profileLayout = (LinearLayout) findViewById(R.id.profileLayout);
         profileImage = (ImageView) findViewById(R.id.profileImage);
         profileText = (TextView) findViewById(R.id.profileText);
-        notificationCount = (TextView) findViewById(R.id.notificationCount);
 
         homeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,29 +190,17 @@ public class MainActivity extends TrackedFragmentActivity {
     public void onStart() {
         super.onStart();
 
-        NotificationCache.refresh(new Callback<NotificationsParentVM>() {
+        NotificationCounter.refresh(new Callback<NotificationCounterVM>() {
             @Override
-            public void success(NotificationsParentVM notificationsParentVM, Response response) {
-                setUnreadNotificationsCount();
+            public void success(NotificationCounterVM vm, Response response) {
+                refreshNotifications();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MainActivity.class.getSimpleName(), "onStart: NotificationCache.refresh: failure", error);
+                Log.e(MainActivity.class.getSimpleName(), "onStart: NotificationCounter.refresh: failure", error);
             }
         });
-    }
-
-    public void refreshNotifications() {
-        chatCountText.setVisibility(View.INVISIBLE);
-        if (NotificationCache.getNotifications() == null) {
-            return;
-        }
-
-        if (NotificationCache.getNotifications().getMessageCount() > 0) {
-            chatCountText.setVisibility(View.VISIBLE);
-            chatCountText.setText(NotificationCache.getNotifications().getMessageCount() + "");
-        }
     }
 
     public void pressHomeTab() {
@@ -233,7 +219,7 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
 
-        setUnreadNotificationsCount();
+        refreshNotifications();
     }
 
     public void pressActivityTab() {
@@ -252,7 +238,7 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
 
-        setUnreadNotificationsCount();
+        refreshNotifications();
     }
 
     public void pressProfileTab() {
@@ -265,7 +251,6 @@ public class MainActivity extends TrackedFragmentActivity {
             selectedFragment = new ProfileMainFragment();
             selectedFragment.setTrackedOnce();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
-            notificationCount.setVisibility(View.INVISIBLE);
         }
 
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
@@ -277,7 +262,7 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(profileImage, profileText, R.drawable.mn_profile_sel, R.color.sharp_pink);
         profileClicked = true;
 
-        setUnreadNotificationsCount();
+        refreshNotifications();
     }
 
     private void setMenuButton(ImageView imageView, TextView textView, int image, int textColor) {
@@ -344,21 +329,26 @@ public class MainActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void setUnreadNotificationsCount() {
-        NotificationsParentVM notificationsParentVM = NotificationCache.getNotifications();
-        if (notificationsParentVM == null) {
+    public void refreshNotifications() {
+        NotificationCounterVM counter = NotificationCounter.getCounter();
+        if (counter == null) {
             return;
         }
 
-        long count = notificationsParentVM.getRequestCounts() + notificationsParentVM.getNotifyCounts()+notificationsParentVM.getMessageCount();
+        Log.d(this.getClass().getSimpleName(), "setUnreadNotificationsCount: activitiesCount=" + counter.activitiesCount + " conversationsCount=" + counter.conversationsCount);
 
-        Log.d(this.getClass().getSimpleName(), "setUnreadNotificationsCount: requestCount=" + notificationsParentVM.getRequestCounts() + " notifCount=" + notificationsParentVM.getNotifyCounts());
-
-        if(count == 0) {
-            notificationCount.setVisibility(View.INVISIBLE);
+        if (counter.activitiesCount == 0) {
+            activityCountText.setVisibility(View.INVISIBLE);
         } else {
-            notificationCount.setVisibility(View.VISIBLE);
-            notificationCount.setText(count+"");
+            activityCountText.setVisibility(View.VISIBLE);
+            activityCountText.setText(counter.activitiesCount+"");
+        }
+
+        if (counter.conversationsCount == 0) {
+            chatCountText.setVisibility(View.INVISIBLE);
+        } else {
+            chatCountText.setVisibility(View.VISIBLE);
+            chatCountText.setText(counter.conversationsCount+"");
         }
     }
 
@@ -393,4 +383,3 @@ public class MainActivity extends TrackedFragmentActivity {
         EndlessScrollListener.setScrollReset();
     }
 }
-

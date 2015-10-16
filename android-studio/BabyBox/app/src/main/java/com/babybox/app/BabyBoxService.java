@@ -10,6 +10,7 @@ import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.NewPostVM;
+import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
@@ -210,19 +211,15 @@ public class BabyBoxService {
         api.getCollection(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    /*
-    public void getNotificationCounts(Callback<NotificationCountVM> cb) {
-        api.getNotificationCounts(AppController.getInstance().getSessionId(), cb);
+    public void getNotificationCounter(Callback<NotificationCounterVM> cb) {
+        api.getNotificationCounter(AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getActivites(Callback<List<ActivityVM>> cb) {
-        api.getActivities(AppController.getInstance().getSessionId(), cb);
+    /*
+    public void getActivites(Long offset, Callback<List<ActivityVM>> cb) {
+        api.getActivities(offest, AppController.getInstance().getSessionId(), cb);
     }
     */
-
-    public void readActivities(Callback<Response> cb) {
-        api.readActivities(AppController.getInstance().getSessionId(), cb);
-    }
 
     // conversation
 

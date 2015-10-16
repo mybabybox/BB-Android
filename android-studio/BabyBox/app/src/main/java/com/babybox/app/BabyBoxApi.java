@@ -11,6 +11,7 @@ import com.babybox.viewmodel.GameTransactionVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
+import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.mock.ProfileVM;
 import com.babybox.viewmodel.PostVMLite;
@@ -199,14 +200,11 @@ public interface BabyBoxApi {
     @GET("/collection/{id}")
     public void getCollection(@Path("id") Long id, @Query("key") String key, Callback<CollectionVM> cb);
 
-    //@GET("/get-notification-counts")
-    //public void getNotificationCounts(@Query("key") String key, Callback<NotificationCountVM> cb);
+    @GET("/notification-counter")
+    public void getNotificationCounter(@Query("key") String key, Callback<NotificationCounterVM> cb);
 
     //@GET("/activities")
-    //public void getActivities(@Query("key") String key, Callback<List<ActivityVM>> cb);
-
-    @GET("/read-activities")
-    public void readActivities(@Query("key") String key, Callback<Response> cb);
+    //public void getActivities(@Path("offset") Long offset, @Query("key") String key, Callback<List<ActivityVM>> cb);
 
     //
     // Conversation
