@@ -578,16 +578,16 @@ public class ViewUtil {
         return dialog;
     }
 
-    public static Dialog alertGameStatus(Context context, String desc) {
-        return alertGameStatus(context, desc, -1, 3000);
+    public static Dialog alertSellerStatus(Context context, String desc) {
+        return alertSellerStatus(context, desc, -1, 3000);
     }
 
-    public static Dialog alertGameStatus(Context context, String desc, int points) {
-        return alertGameStatus(context, desc, points, 3000);
+    public static Dialog alertSellerStatus(Context context, String desc, int points) {
+        return alertSellerStatus(context, desc, points, 3000);
     }
 
-    public static Dialog alertGameStatus(Context context, String desc, int points, long delayMillis) {
-        final Dialog dialog = alert(context, R.layout.game_points_popup_window);
+    public static Dialog alertSellerStatus(Context context, String desc, int points, long delayMillis) {
+        final Dialog dialog = alert(context, R.layout.seller_credit_popup_window);
         ImageView mascot = (ImageView) dialog.findViewById(R.id.mascot);
         TextView descText = (TextView) dialog.findViewById(R.id.descText);
         TextView pointsText = (TextView) dialog.findViewById(R.id.pointsText);

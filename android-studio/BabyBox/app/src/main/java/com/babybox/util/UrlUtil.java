@@ -5,8 +5,6 @@ import java.util.regex.Pattern;
 
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.GameAccountVM;
-import com.babybox.viewmodel.GameGiftVM;
 import com.babybox.viewmodel.PostVM;
 
 /**
@@ -19,7 +17,6 @@ public class UrlUtil {
     //private static final String ANDROID_APP_DOWNLOAD_URL = AppController.BASE_URL + "/#!/apps/android";
     private static final String ANDROID_APP_DOWNLOAD_URL = "https://goo.gl/gdHjty";
     private static final String REFERRAL_URL = AppController.BASE_URL + "/signup-code/%s";
-    private static final String GAME_GIFT_URL = AppController.BASE_URL + "/#!/game-gift/%d";
 
     private static String POST_URL_REGEX = ".*/post/(\\d+)";
     private static String CATEGORY_URL_REGEX = ".*/category/(\\d+)";
@@ -29,14 +26,6 @@ public class UrlUtil {
             url = AppController.BASE_URL + url;
         }
         return url;
-    }
-
-    public static String createReferralUrl(GameAccountVM gameAccount) {
-        return String.format(REFERRAL_URL, gameAccount.getPmcde());
-    }
-
-    public static String createGameGiftUrl(GameGiftVM gameGift) {
-        return String.format(GAME_GIFT_URL, gameGift.getId());
     }
 
     public static String createCategoryUrl(CategoryVM category) {

@@ -10,20 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.babybox.R;
-import com.babybox.activity.GameActivity;
-import com.babybox.activity.MainActivity;
-import com.babybox.activity.NewPostActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
-import com.babybox.app.UserInfoCache;
 import com.babybox.util.FeedFilter;
-import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
 public class HomeMainFragment extends TrackedFragment {

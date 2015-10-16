@@ -91,13 +91,7 @@
             android:name=".activity.MessageListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.GameActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.babybox.activity.GameRulesActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.babybox.activity.GameGiftActivity"
+            android:name=".activity.SellerRulesActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.MyProfileActionActivity"

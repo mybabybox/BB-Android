@@ -1,12 +1,10 @@
 package com.babybox.util;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.babybox.R;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.ConversationVM;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -15,7 +13,6 @@ import java.util.List;
 
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.EmoticonVM;
-import com.babybox.viewmodel.GameAccountVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.UserVM;
 
@@ -30,7 +27,6 @@ public class SharedPreferencesUtil {
     public static final String FB_ACCESS_EXPIRES = "access_expires";
     public static final String SESSION_ID = "sessionID";
     public static final String USER_INFO = "userInfo";
-    public static final String GAME_ACCOUNT = "gameAccount";
     public static final String DISTRICTS = "districts";
     public static final String EMOTICONS = "emoticons";
     public static final String CATEGORIES = "categories";
@@ -81,12 +77,6 @@ public class SharedPreferencesUtil {
         if (userInfo == null)
             return;
         this.saveObject(USER_INFO, userInfo);
-    }
-
-    public void saveGameAccount(GameAccountVM gameAccount) {
-        if (gameAccount == null)
-            return;
-        this.saveObject(GAME_ACCOUNT, gameAccount);
     }
 
     public void saveDistricts(List<LocationVM> districts) {
@@ -146,13 +136,6 @@ public class SharedPreferencesUtil {
         UserVM userInfo = new Gson().fromJson(json, UserVM.class);
         //Log.d(this.getClass().getSimpleName(), "[DEBUG] getUserInfo: json="+json);
         return userInfo;
-    }
-
-    public GameAccountVM getGameAccount() {
-        String json = this.prefs.getString(GAME_ACCOUNT, null);
-        GameAccountVM gameAccount = new Gson().fromJson(json, GameAccountVM.class);
-        //Log.d(this.getClass().getSimpleName(), "[DEBUG] getGameAccount: json="+json);
-        return gameAccount;
     }
 
     public List<LocationVM> getDistricts() {

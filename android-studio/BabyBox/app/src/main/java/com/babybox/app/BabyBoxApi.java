@@ -5,15 +5,11 @@ import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.EmoticonVM;
-import com.babybox.viewmodel.GameAccountVM;
-import com.babybox.viewmodel.GameGiftVM;
-import com.babybox.viewmodel.GameTransactionVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.PostVM;
-import com.babybox.mock.ProfileVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.UserProfileDataVM;
@@ -180,9 +176,6 @@ public interface BabyBoxApi {
     // Profile
     //
 
-    @GET("/profile/{id}")
-    public void getUserProfile(@Path("id") Long id, @Query("key") String key, Callback<ProfileVM> cb);
-
     @Multipart
     @POST("/image/upload-cover-photo")
     public void uploadCoverPhoto(@Part("profile-photo") TypedFile photo, @Query("key") String key, Callback<Response> cb);
@@ -237,32 +230,6 @@ public interface BabyBoxApi {
     @Multipart
     @POST("/image/upload-message-photo")
     public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
-
-    //
-    // Game
-    //
-
-    @GET("/get-gameaccount")
-    public void getGameAccount(@Query("key") String key, Callback<GameAccountVM> cb);
-
-    @GET("/get-all-game-gifts")
-    public void getAllGameGifts(@Query("key") String key, Callback<List<GameGiftVM>> cb);
-
-    @GET("/get-game-gift-info/{id}")
-    public void getGameGiftInfo(@Path("id") Long id, @Query("key") String key, Callback<GameGiftVM> cb);
-
-    @FormUrlEncoded
-    @POST("/redeem-game-gift")
-    public void redeemGameGift(@Field("id") Long id, @Query("key") String key, Callback<ResponseStatusVM> cb);
-
-    @GET("/get-game-transactions/{offset}")
-    public void getGameTransactions(@Path("offset") Long offset, @Query("key") String key, Callback<List<GameTransactionVM>> cb);
-
-    @GET("/get-latest-game-transactions")
-    public void getLatestGameTransactions(@Query("key") String key, Callback<List<GameTransactionVM>> cb);
-
-    @GET("/get-signup-referrals")
-    public void getSignupReferrals(@Query("key") String key, Callback<List<UserVM>> cb);
 
     //
     // GCM

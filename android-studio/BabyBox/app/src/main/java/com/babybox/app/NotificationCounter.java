@@ -2,15 +2,24 @@ package com.babybox.app;
 
 import android.util.Log;
 
+import com.babybox.activity.MainActivity;
+import com.babybox.util.TimerUtil;
 import com.babybox.viewmodel.NotificationCounterVM;
-import com.babybox.viewmodel.NotificationsParentVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class NotificationCounter {
+public class NotificationCounter implements TimerUtil.Task {
 
     private static NotificationCounterVM counter;
+
+    private static NotificationCounter mInstance;
+
+    public static synchronized NotificationCounter getInstance() {
+        if (mInstance == null)
+            mInstance = new NotificationCounter();
+        return mInstance;
+    }
 
     private NotificationCounter() {}
 
@@ -19,6 +28,8 @@ public class NotificationCounter {
     }
 
     private static void init() {
+        // check notification counter every 2 mins
+        TimerUtil.run(getInstance(), 5 * 1000L);
     }
 
     public static void refresh() {
@@ -31,7 +42,7 @@ public class NotificationCounter {
         AppController.getApiService().getNotificationCounter(new Callback<NotificationCounterVM>() {
             @Override
             public void success(NotificationCounterVM vm, Response response) {
-                if (vm == null)
+                if (vm == null || sameCounter(vm))
                     return;
 
                 Log.d(NotificationCounter.class.getSimpleName(), "refresh.success: activitiesCount=" + vm.activitiesCount + " conversationsCount=" + vm.conversationsCount);
@@ -58,5 +69,33 @@ public class NotificationCounter {
 
     public static void clear() {
         counter = null;
+    }
+
+    private static boolean sameCounter(NotificationCounterVM other) {
+        if (counter == null || other == null) {
+            return false;
+        }
+        return counter.userId == other.userId &&
+                counter.activitiesCount == other.activitiesCount &&
+                counter.conversationsCount == other.conversationsCount;
+    }
+
+    /**
+     * Implements TimerUtil.Task
+     */
+    @Override
+    public void run() {
+        refresh(new Callback<NotificationCounterVM>() {
+            @Override
+            public void success(NotificationCounterVM vm, Response response) {
+                if (MainActivity.getInstance() != null)
+                    MainActivity.getInstance().refreshNotifications();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(NotificationCounter.class.getSimpleName(), "onStart: NotificationCounter.refresh: failure", error);
+            }
+        });
     }
 }

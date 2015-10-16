@@ -1,6 +1,5 @@
 package com.babybox.viewmodel;
 
-import com.babybox.mock.ProfileVM;
 
 public class UserVM extends UserVMLite {
     public String email;
@@ -20,26 +19,6 @@ public class UserVM extends UserVMLite {
     public boolean emailValidated = false;
     public boolean newUser = false;
     public boolean isAdmin = false;
-
-    public UserVM(ProfileVM profile) {
-        this.id = profile.id;
-        this.displayName = profile.dn;
-        this.aboutMe = profile.a;
-
-        this.isFbLogin = profile.fb;
-        this.emailValidated = profile.vl;
-        this.email = profile.em;
-        //this.createdDate = profile.sd;
-        //this.lastLogin = profile.ll;
-        this.totalLogin = profile.tl;
-        this.numProducts = profile.qc;
-        this.numStories = profile.qc;
-        this.numLikes = profile.ac;
-
-        this.isFollowing = profile.following;
-        this.numFollowers = profile.numFollowers;
-        this.numFollowings = profile.numFollowings;
-    }
 
     public long getCreatedDate() {
         return createdDate;

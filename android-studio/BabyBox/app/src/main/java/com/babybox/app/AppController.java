@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.activity.LoginActivity;
-import com.babybox.mock.MockApi;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.viewmodel.LocationVM;
@@ -67,7 +66,6 @@ public class AppController extends Application {
 
     private static AppController mInstance;
     private static BabyBoxService apiService;
-    private static MockApi mockApi;
 
     public List<MessageVM> messageVMList;
 
@@ -81,10 +79,6 @@ public class AppController extends Application {
 
     public static synchronized AppController getInstance() {
         return mInstance;
-    }
-
-    public static synchronized MockApi getMockApi() {
-        return mockApi;
     }
 
     public static synchronized BabyBoxService getApiService() {
@@ -133,13 +127,6 @@ public class AppController extends Application {
 
     public static void init() {
         BASE_URL = getInstance().getString(R.string.base_url);
-
-        if (mockApi == null) {
-            RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint(BASE_URL)
-                    .setClient(new OkClient()).build();
-            mockApi = restAdapter.create(MockApi.class);
-        }
 
         if (apiService == null) {
             RestAdapter restAdapter = new RestAdapter.Builder()

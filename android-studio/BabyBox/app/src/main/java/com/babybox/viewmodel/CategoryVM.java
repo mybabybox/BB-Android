@@ -1,8 +1,5 @@
 package com.babybox.viewmodel;
 
-import com.babybox.mock.CommunitiesWidgetChildVM;
-import com.babybox.mock.CommunityVM;
-
 public class CategoryVM {
     public Long id;
     public String icon;
@@ -10,24 +7,6 @@ public class CategoryVM {
     public String description;
     public String categoryType;
     public int seq;
-
-    // TEMP - for api testing
-    public CategoryVM(CommunitiesWidgetChildVM comm) {
-        this.id = comm.id;
-        this.icon = comm.gi;
-        this.name = comm.dn;
-        this.description = comm.msg;
-        this.categoryType = comm.tp;
-    }
-
-    // TEMP - for api testing
-    public CategoryVM(CommunityVM comm) {
-        this.id = comm.id;
-        this.icon = comm.icon;
-        this.name = comm.n;
-        this.description = comm.d;
-        this.categoryType = "";
-    }
 
     public Long getId() {
         return id;

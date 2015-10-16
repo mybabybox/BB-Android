@@ -189,7 +189,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
                     public void failure(RetrofitError error) {
                         Log.e(EditProfileActivity.class.getSimpleName(), "updateUserProfileData: failure", error);
                     }
-                }, null);
+                });
             }
 
             @Override

@@ -186,7 +186,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
                 ViewUtil.stopSpinner(getActivity());
                 Log.e(EditProfileActivity.class.getSimpleName(), "onRefreshView: failure", error);
             }
-        }, null);
+        });
     }
 
     protected void uploadCoverImage(final long id) {

@@ -8,8 +8,6 @@ import android.widget.Toast;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.GameAccountVM;
-import com.babybox.viewmodel.GameGiftVM;
 import com.babybox.viewmodel.PostVM;
 
 /**
@@ -27,14 +25,6 @@ public class SharingUtil {
                     ViewUtil.HTML_LINE_BREAK + UrlUtil.createAndroidAppDownloadUrl();
 
     private SharingUtil() {}
-
-    public static void shareToWhatapp(GameAccountVM gameAccount, Context context) {
-        shareTo(createMessage(gameAccount), SharingType.WHATSAPP, context);
-    }
-
-    public static void shareToWhatapp(GameGiftVM gameGift, Context context) {
-        shareTo(createMessage(gameGift), SharingType.WHATSAPP, context);
-    }
 
     public static void shareToWhatapp(CategoryVM category, Context context) {
         shareTo(createMessage(category), SharingType.WHATSAPP, context);
@@ -70,28 +60,6 @@ public class SharingUtil {
                     getSharingTypeName(type) + AppController.getInstance().getString(R.string.sharing_app_not_installed),
                     Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public static String createMessage(GameAccountVM gameAccount) {
-        String message = AppController.getInstance().getResources().getString(R.string.app_desc);
-        String url = UrlUtil.createReferralUrl(gameAccount);
-        message = message +
-                ViewUtil.HTML_LINE_BREAK +
-                url +
-                ViewUtil.HTML_LINE_BREAK +
-                SHARING_MESSAGE_NOTE;
-        return message;
-    }
-
-    public static String createMessage(GameGiftVM gameGift) {
-        String message = AppController.getInstance().getResources().getString(R.string.game_gifts_desc)+"："+gameGift.getNm();
-        String url = UrlUtil.createGameGiftUrl(gameGift);
-        message = message +
-                ViewUtil.HTML_LINE_BREAK +
-                url +
-                ViewUtil.HTML_LINE_BREAK +
-                SHARING_MESSAGE_NOTE;
-        return message;
     }
 
     public static String createMessage(CategoryVM category) {

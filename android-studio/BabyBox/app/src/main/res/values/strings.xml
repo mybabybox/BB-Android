@@ -191,7 +191,7 @@
     <string name="edit_profile_image">更改個人照片</string>
     <string name="request_actionbar_title">邀請</string>
     <string name="notification_actionbar_title">通知</string>
-    <string name="no_notification">- 沒有訊息 -</string>
+    <string name="no_notification">~ 沒有訊息 ~</string>
 
     <string name="no_followers">~ No Followers ~</string>
     <string name="no_followings">~ No Followings ~</string>
@@ -205,48 +205,9 @@
     <string name="pm_buy_confirm">Hi, I want to buy it!\nChat with Seller now</string>
     <string name="pm_buy_message">Hi, I want to buy it</string>
 
-    <string name="game_title">積分中心</string>
-    <string name="game_rules_title">積分規則</string>
-    <string name="game_rules_text">如何累積積分？</string>
-    <string name="game_daily_signin_title">每日簽到</string>
-    <string name="game_daily_signin_text">立即簽到累積積分!</string>
-    <string name="game_points_title">我的積分</string>
-    <string name="game_points">積分</string>
-    <string name="game_points_desc">積分 : </string>
-    <string name="game_points_total">積分總數 : </string>
-    <string name="game_points_redeem">可兌換 : </string>
-    <string name="game_points_redeemed">已兌換 : </string>
-    <string name="game_points_redeemed_tips">( 未有兌換禮品記錄 )</string>
-    <string name="game_referral_title">介紹新會員加入</string>
-    <string name="game_referral_text">用以下連結介紹你的朋友加入</string>
-    <string name="game_referral_note1">每個朋友成功註冊。你即可獲得</string>
-    <string name="game_referral_note2">積分!</string>
-    <string name="game_referral_fb_note">*註意: 被邀請加入者必需以Facebook用戶身份註冊成為 babybox 會員</string>
-    <string name="game_referral_success_num">成功介紹加入 : </string>
-    <string name="game_referral_success_points">獲得積分 : </string>
-    <string name="game_referral_url_copy_success">介紹連結已複制</string>
-    <string name="game_referral_url_copy_failed">介紹連結不能複制</string>
-    <string name="game_transaction_title">積分記錄表 (最近30個記錄)</string>
-    <string name="game_transaction_latest_title">積分最新記錄</string>
-    <string name="game_transaction_note">由"每日簽到"、"介紹新會員加入"所獲得的積分會立即計算在"積分總數"中。以其他方式獲得的積分會在隔天反應</string>
-    <string name="game_upload_profile_pic_title">上載個人照片</string>
-    <string name="game_note_points">積分！</string>
-    <string name="game_gifts_title">儲積分換領豐富禮品</string>
-    <string name="game_gifts_desc">儲積分換禮品</string>
-    <string name="game_gifts_redeem_now">立即換領</string>
-    <string name="game_gifts_redeem_pending">- 已要求換領 -</string>
-    <string name="game_gifts_redeem_ended">- 換領已結束 -</string>
-    <string name="game_gifts_redeem_desc">兌換 : </string>
-    <string name="game_gifts_redeem_title">換領禮品</string>
-    <string name="game_gifts_redeem_steps_title">換領規則</string>
-    <string name="game_gifts_redeem_expiration_title">換領有效期</string>
-    <string name="game_gifts_redeem_shipping_title">領取方式</string>
-    <string name="game_gifts_redeem_cc_title">客戶服務</string>
-    <string name="game_gifts_redeem_more_title">注意事項</string>
-    <string name="game_gifts_redeem_points_not_enough">換領需要%1$d積分。您現在只有%2$d積分，還未足夠~</string>
-    <string name="game_gifts_redeem_points_limit_per_user">每個用戶最多可換領 %1$d次</string>
-    <string name="game_gifts_redeem_requested">我們已收到您的換領禮品要求~ 請按照「換領規則」聯絡我們</string>
-    <string name="game_gifts_redeem_confirm">確定使用積分換領禮品嗎?</string>
+    <!-- Seller -->
+    <string name="seller_credit">積分</string>
+    <string name="seller_rules_title">賣家需知</string>
 
     <!-- Dialog -->
     <string name="cancel_new_post">退出刊登商品？</string>

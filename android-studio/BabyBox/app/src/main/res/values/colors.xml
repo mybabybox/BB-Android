@@ -45,12 +45,11 @@
     <color name="actionbar_bg_light">#FFAEC0</color>
     <color name="actionbar_selected_text">#FF76A4</color>
 
-    <color name="game_pink">#F2FFFC</color>
-    <color name="game_box_border">#7ACFF2</color>
-    <color name="game_box_border_light">#A2E7E7</color>
-    <color name="game_orange">#FF6600</color>
-    <color name="game_title_border">#2EAB66</color>
-    <color name="game_title_text">#556fb5</color>
+    <color name="seller_box_border">#7ACFF2</color>
+    <color name="seller_box_border_light">#A2E7E7</color>
+    <color name="seller_orange">#FF6600</color>
+    <color name="seller_title_border">#2EAB66</color>
+    <color name="seller_title_text">#556fb5</color>
 
     <color name="crop__button_bar">#f3f3f3</color>
     <color name="crop__button_text">#666666</color>

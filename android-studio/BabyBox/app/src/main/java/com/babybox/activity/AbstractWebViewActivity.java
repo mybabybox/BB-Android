@@ -20,7 +20,7 @@ public abstract class AbstractWebViewActivity extends TrackedFragmentActivity {
     public static final String TERMS_URL = AppController.BASE_URL + "/terms";
     public static final String PRIVACY_URL = AppController.BASE_URL + "/privacy";
     public static final String FORGET_PASSWORD_URL = AppController.BASE_URL + "/login/password/forgot";
-    public static final String GAME_RULES_URL = AppController.BASE_URL + "/m-app#!/game-rules";
+    public static final String SELLER_RULES_URL = AppController.BASE_URL + "/seller-rules";
 
     protected WebView webView;
 

@@ -121,7 +121,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                 }
                 */
             }
-        }, null);
+        });
     }
 
     private void showNetworkProblemAlert() {

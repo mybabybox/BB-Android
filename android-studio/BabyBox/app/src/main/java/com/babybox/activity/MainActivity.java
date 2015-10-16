@@ -42,7 +42,6 @@ public class MainActivity extends TrackedFragmentActivity {
     private RelativeLayout userLayout;
     private ImageView userImage;
     private TextView userNameText;
-    private ImageView signInImage;
 
     private ViewGroup chatLayout, newPostLayout;
     private TextView chatCountText;
@@ -95,7 +94,6 @@ public class MainActivity extends TrackedFragmentActivity {
         userImage = (ImageView) actionBarView.findViewById(R.id.userImage);
         userNameText = (TextView) actionBarView.findViewById(R.id.userNameText);
 
-        signInImage = (ImageView) actionBarView.findViewById(R.id.signInImage);
         chatCountText = (TextView) actionBarView.findViewById(R.id.chatCountText);
         chatLayout = (ViewGroup) actionBarView.findViewById(R.id.chatLayout);
         newPostLayout = (ViewGroup) actionBarView.findViewById(R.id.newPostLayout);
@@ -117,15 +115,6 @@ public class MainActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View v) {
                 pressProfileTab();
-            }
-        });
-
-        signInImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // launch game
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -184,23 +173,12 @@ public class MainActivity extends TrackedFragmentActivity {
         });
 
         pressHomeTab();
+        refreshNotifications();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-        NotificationCounter.refresh(new Callback<NotificationCounterVM>() {
-            @Override
-            public void success(NotificationCounterVM vm, Response response) {
-                refreshNotifications();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(MainActivity.class.getSimpleName(), "onStart: NotificationCounter.refresh: failure", error);
-            }
-        });
     }
 
     public void pressHomeTab() {
@@ -218,8 +196,6 @@ public class MainActivity extends TrackedFragmentActivity {
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
-
-        refreshNotifications();
     }
 
     public void pressActivityTab() {
@@ -237,8 +213,6 @@ public class MainActivity extends TrackedFragmentActivity {
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
         profileClicked = false;
-
-        refreshNotifications();
     }
 
     public void pressProfileTab() {
@@ -261,8 +235,6 @@ public class MainActivity extends TrackedFragmentActivity {
 
         setMenuButton(profileImage, profileText, R.drawable.mn_profile_sel, R.color.sharp_pink);
         profileClicked = true;
-
-        refreshNotifications();
     }
 
     private void setMenuButton(ImageView imageView, TextView textView, int image, int textColor) {
@@ -335,7 +307,7 @@ public class MainActivity extends TrackedFragmentActivity {
             return;
         }
 
-        Log.d(this.getClass().getSimpleName(), "setUnreadNotificationsCount: activitiesCount=" + counter.activitiesCount + " conversationsCount=" + counter.conversationsCount);
+        Log.d(this.getClass().getSimpleName(), "refreshNotifications: activitiesCount=" + counter.activitiesCount + " conversationsCount=" + counter.conversationsCount);
 
         if (counter.activitiesCount == 0) {
             activityCountText.setVisibility(View.INVISIBLE);
