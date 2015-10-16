@@ -31,7 +31,7 @@ public class NotificationCounter {
         AppController.getApiService().getNotificationCounter(new Callback<NotificationCounterVM>() {
             @Override
             public void success(NotificationCounterVM vm, Response response) {
-                if (counter == null)
+                if (vm == null)
                     return;
 
                 Log.d(NotificationCounter.class.getSimpleName(), "refresh.success: activitiesCount=" + vm.activitiesCount + " conversationsCount=" + vm.conversationsCount);

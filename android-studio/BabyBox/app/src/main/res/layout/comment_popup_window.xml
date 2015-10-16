@@ -8,7 +8,7 @@
     android:elevation="5dp"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:paddingTop="10dp"
+    android:paddingTop="5dp"
     android:paddingBottom="10dp">
 
     <RelativeLayout
@@ -61,8 +61,8 @@
 
         <TextView
             android:id="@+id/commentSendButton"
-            android:layout_width="65dp"
-            android:layout_height="28dp"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:text="@string/new_post"
             android:textSize="14dp"
