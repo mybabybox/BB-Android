@@ -99,18 +99,23 @@ public class SplashActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                AppController.getInstance().clearUserSession();
-
                 if (RetrofitError.Kind.NETWORK.equals(error.getKind().name()) ||
                         RetrofitError.Kind.HTTP.equals(error.getKind().name())) {
                     showNetworkProblemAlert();
                 } else {
+                    final Long count = AppController.getInstance().getLoginFailedCount();
                     ViewUtil.alert(SplashActivity.this,
                             getString(R.string.login_error_title),
                             getString(R.string.login_error_message),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    ViewUtil.startLoginActivity(SplashActivity.this);
+                                    if (count > 0) {
+                                        AppController.getInstance().clearUserSession();
+                                        ViewUtil.startLoginActivity(SplashActivity.this);
+                                    } else {
+                                        AppController.getInstance().saveLoginFailedCount(count+1);
+                                        finish();
+                                    }
                                 }
                             });
                 }

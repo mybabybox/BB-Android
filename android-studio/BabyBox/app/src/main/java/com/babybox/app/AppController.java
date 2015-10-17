@@ -63,10 +63,13 @@ import retrofit.client.OkClient;
 public class AppController extends Application {
 
     public static final String TAG = AppController.class.getName();
+
     public static String BASE_URL;
 
     private static AppController mInstance;
     private static BabyBoxService apiService;
+
+    private static boolean crashReportEnabled = false;
 
     public List<MessageVM> messageVMList;
 
@@ -119,11 +122,19 @@ public class AppController extends Application {
     }
 
     public void saveSessionId(String sessionId) {
-        SharedPreferencesUtil.getInstance().saveString(SharedPreferencesUtil.SESSION_ID, sessionId);
+        SharedPreferencesUtil.getInstance().saveSessionId(sessionId);
     }
 
     public String getSessionId() {
-        return SharedPreferencesUtil.getInstance().getString(SharedPreferencesUtil.SESSION_ID);
+        return SharedPreferencesUtil.getInstance().getSessionId();
+    }
+
+    public void saveLoginFailedCount(Long count) {
+        SharedPreferencesUtil.getInstance().saveLoginFailedCount(count);
+    }
+
+    public Long getLoginFailedCount() {
+        return SharedPreferencesUtil.getInstance().getLoginFailedCount();
     }
 
     public static void init() {
@@ -143,7 +154,9 @@ public class AppController extends Application {
 
         initStaticCaches();
 
-        //ACRA.init(getInstance());
+        if (crashReportEnabled) {
+            ACRA.init(getInstance());
+        }
     }
 
     public static void initStaticCaches() {

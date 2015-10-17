@@ -25,7 +25,8 @@ public class SharedPreferencesUtil {
 
     public static final String FB_ACCESS_TOKEN = "access_token";
     public static final String FB_ACCESS_EXPIRES = "access_expires";
-    public static final String SESSION_ID = "sessionID";
+    public static final String LOGIN_FAILED_COUNT = "loginFailedCount";
+    public static final String SESSION_ID = "sessionId";
     public static final String USER_INFO = "userInfo";
     public static final String DISTRICTS = "districts";
     public static final String EMOTICONS = "emoticons";
@@ -67,10 +68,11 @@ public class SharedPreferencesUtil {
 
     public void saveSessionId(String sessionId) {
         this.saveString(SharedPreferencesUtil.SESSION_ID, sessionId);
+        this.clear(SharedPreferencesUtil.LOGIN_FAILED_COUNT);
     }
 
-    public String getSessionId() {
-        return this.getString(SharedPreferencesUtil.SESSION_ID);
+    public void saveLoginFailedCount(Long count) {
+        this.saveLong(SharedPreferencesUtil.LOGIN_FAILED_COUNT, count);
     }
 
     public void saveUserInfo(UserVM userInfo) {
@@ -129,6 +131,14 @@ public class SharedPreferencesUtil {
 
     public Boolean isScreenViewed(Screen screen) {
         return getBoolean(screen.name());
+    }
+
+    public String getSessionId() {
+        return this.getString(SharedPreferencesUtil.SESSION_ID);
+    }
+
+    public Long getLoginFailedCount() {
+        return this.getLong(SharedPreferencesUtil.LOGIN_FAILED_COUNT);
     }
 
     public UserVM getUserInfo() {

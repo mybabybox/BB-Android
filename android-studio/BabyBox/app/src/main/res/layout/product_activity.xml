@@ -435,7 +435,8 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_light_gray_border"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -530,7 +531,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp" >
+                android:layout_marginBottom="10dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"

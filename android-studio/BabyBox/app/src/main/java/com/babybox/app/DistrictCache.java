@@ -55,7 +55,7 @@ public class DistrictCache {
     }
 
     public static List<LocationVM> getDistricts() {
-        if (districts == null)
+        if (districts == null || districts.size() == 0)
             districts = SharedPreferencesUtil.getInstance().getDistricts();
         return districts;
     }

@@ -55,7 +55,7 @@ public class EmoticonCache {
     }
 
     public static List<EmoticonVM> getEmoticons() {
-        if (emoticons == null)
+        if (emoticons == null || emoticons.size() == 0)
             emoticons = SharedPreferencesUtil.getInstance().getEmoticons();
         return emoticons;
     }
