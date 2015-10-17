@@ -11,6 +11,8 @@ import retrofit.client.Response;
 
 public class NotificationCounter implements TimerUtil.Task {
 
+    public static final Long TIMER_INTERVAL = 10 * 1000L;
+
     private static NotificationCounterVM counter;
 
     private static NotificationCounter mInstance;
@@ -29,7 +31,7 @@ public class NotificationCounter implements TimerUtil.Task {
 
     private static void init() {
         // check notification counter every 2 mins
-        TimerUtil.run(getInstance(), 5 * 1000L);
+        TimerUtil.run(getInstance(), TIMER_INTERVAL);
     }
 
     public static void refresh() {

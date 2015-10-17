@@ -339,6 +339,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             return;
         }
 
+        postAction.setEnabled(false);
         ViewUtil.showSpinner(this);
 
         Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + photos.size());
@@ -347,26 +348,29 @@ public class NewPostActivity extends TrackedFragmentActivity {
         AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
-                postSuccess = true;
-                ImageUtil.realPathList.clear();
-                ImageUtil.pathList.clear();
+                reset();
                 complete();
             }
 
             @Override
             public void failure(RetrofitError error) {
-                ImageUtil.realPathList.clear();
-                ImageUtil.pathList.clear();
-                ViewUtil.stopSpinner(NewPostActivity.this);
+                reset();
                 Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_failed), Toast.LENGTH_SHORT).show();
                 Log.e(NewPostActivity.class.getSimpleName(), "doPost: failure", error);
             }
         });
     }
 
+    protected void reset() {
+        postAction.setEnabled(true);
+        ImageUtil.realPathList.clear();
+        ImageUtil.pathList.clear();
+        ViewUtil.stopSpinner(NewPostActivity.this);
+    }
+
     protected void complete() {
+        postSuccess = true;
         Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_success), Toast.LENGTH_LONG).show();
-        ViewUtil.stopSpinner(this);
         ViewUtil.setActivityResult(this, true);
         finish();
     }

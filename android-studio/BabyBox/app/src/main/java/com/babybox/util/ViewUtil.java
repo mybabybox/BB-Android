@@ -45,6 +45,7 @@ import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.ConversationListActivity;
 import com.babybox.activity.FollowersActivity;
 import com.babybox.activity.FollowingsActivity;
+import com.babybox.activity.FullscreenImageActivity;
 import com.babybox.activity.LoginActivity;
 import com.babybox.activity.MessageListActivity;
 import com.babybox.activity.NewPostActivity;
@@ -57,6 +58,7 @@ import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.MyImageGetter;
 import com.babybox.fragment.AbstractFeedViewFragment;
+import com.babybox.view.ImageViewOverlay;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.PostVM;
 
@@ -67,6 +69,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import it.sephiroth.android.library.imagezoom.ImageViewTouch;
+import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 import retrofit.RetrofitError;
 
 /**
@@ -385,28 +389,28 @@ public class ViewUtil {
     }
 
     public static void fullscreenImagePopup(Activity activity, String source) {
+
+        startFullscreenImageActivity(activity, source);
+
+        /*
+        LayoutInflater inflater = (LayoutInflater) activity
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.image_popup_window, (ViewGroup) activity.findViewById(R.id.popupElement));
+        ImageViewOverlay fullImage = (ImageViewOverlay) layout.findViewById(R.id.fullImage);
+        fullImage.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
+
         try {
-            //frameLayout.getForeground().setAlpha(20);
-            //frameLayout.getForeground().setColorFilter(R.color.gray, PorterDuff.Mode.OVERLAY);
-
-            //We need to get the instance of the LayoutInflater, use the context of this activity
-            LayoutInflater inflater = (LayoutInflater) activity
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            //Inflate the view from a predefined XML layout
-            View layout = inflater.inflate(R.layout.image_popup_window,(ViewGroup) activity.findViewById(R.id.popupElement));
-            ImageView fullImage= (ImageView) layout.findViewById(R.id.fullImage);
-
-            PopupWindow imagePopup = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,true);
+            PopupWindow imagePopup = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,true);
             imagePopup.setOutsideTouchable(false);
             imagePopup.setBackgroundDrawable(new BitmapDrawable(activity.getResources(), ""));
             imagePopup.setFocusable(true);
             imagePopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
             ImageUtil.displayImage(source, fullImage);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
     }
 
     //
@@ -717,6 +721,13 @@ public class ViewUtil {
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
+    }
+
+    public static void startFullscreenImageActivity(Activity activity, String source) {
+        Intent intent = new Intent(activity, FullscreenImageActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, source);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
+        activity.startActivity(intent);
     }
 
     public static void startUserProfileActivity(Activity activity, Long userId) {
