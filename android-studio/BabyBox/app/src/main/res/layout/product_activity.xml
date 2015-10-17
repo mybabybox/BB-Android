@@ -280,8 +280,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/timeText"
                             android:textSize="14dp"
-                            android:textColor="@color/gray"
-                            android:text="-" />
+                            android:textColor="@color/gray" />
 
                         <TextView
                             android:id="@+id/deleteText"

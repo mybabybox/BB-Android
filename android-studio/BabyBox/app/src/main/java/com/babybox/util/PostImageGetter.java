@@ -1,29 +1,18 @@
-package com.babybox.app;
+package com.babybox.util;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LevelListDrawable;
-import android.os.AsyncTask;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import com.babybox.R;
-import com.babybox.util.ImageMapping;
-import com.babybox.util.ViewUtil;
 
-public class MyImageGetter implements Html.ImageGetter{
+public class PostImageGetter implements Html.ImageGetter{
 
     private TextView textView;
 
@@ -31,7 +20,7 @@ public class MyImageGetter implements Html.ImageGetter{
 
     private Activity activity;
 
-    public MyImageGetter(Activity activity) {
+    public PostImageGetter(Activity activity) {
         this.activity = activity;
         emoticonWidth = ViewUtil.getRealDimension(ImageMapping.EMOTICON_WIDTH);
         emoticonHeight = ViewUtil.getRealDimension(ImageMapping.EMOTICON_HEIGHT);
@@ -61,46 +50,7 @@ public class MyImageGetter implements Html.ImageGetter{
         return d;
     }
 
-    class LoadImage extends AsyncTask<Object, Void, Bitmap> {
-
-        protected ImageView imageView;
-
-        @Override
-        protected Bitmap doInBackground(Object... params) {
-            String source = (String) params[0];
-            if (!source.startsWith(activity.getResources().getString(R.string.base_url))) {
-                source = activity.getResources().getString(R.string.base_url) + source;
-            }
-
-            imageView = (ImageView) params[1];
-            try {
-                InputStream is = new URL(source).openStream();
-                return BitmapFactory.decodeStream(is);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (bitmap != null) {
-                Log.d(this.getClass().getSimpleName(), "onPostExecute: loaded bitmap - " + bitmap.getWidth() + "|" + bitmap.getHeight());
-                Drawable d = new BitmapDrawable(
-                        activity.getResources(),
-                        Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), false));
-                imageView.setImageDrawable(d);
-                imageView.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
-    // Obsolete... use universal ImageLoader
-    class LoadPostImage extends LoadImage {
+    class LoadPostImage extends ImageLoadAsyncTask {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
@@ -111,7 +61,7 @@ public class MyImageGetter implements Html.ImageGetter{
                 int height = bitmap.getHeight();
 
                 // always stretch to screen width
-                int displayWidth = ViewUtil.getDisplayDimensions(MyImageGetter.this.activity).width();
+                int displayWidth = ViewUtil.getDisplayDimensions(PostImageGetter.this.activity).width();
                 float scaleAspect = (float)displayWidth / (float)width;
                 width = displayWidth;
                 height = (int)(height * scaleAspect);
@@ -127,7 +77,7 @@ public class MyImageGetter implements Html.ImageGetter{
         }
     }
 
-    class LoadImageToBody extends LoadImage {
+    class LoadImageToBody extends ImageLoadAsyncTask {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);

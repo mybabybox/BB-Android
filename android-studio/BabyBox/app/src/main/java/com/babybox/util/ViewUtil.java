@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -35,7 +34,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -56,9 +54,7 @@ import com.babybox.activity.SignupDetailActivity;
 import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
-import com.babybox.app.MyImageGetter;
 import com.babybox.fragment.AbstractFeedViewFragment;
-import com.babybox.view.ImageViewOverlay;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.PostVM;
 
@@ -69,8 +65,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import it.sephiroth.android.library.imagezoom.ImageViewTouch;
-import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 import retrofit.RetrofitError;
 
 /**
@@ -430,7 +424,7 @@ public class ViewUtil {
             text = "";
         }
 
-        MyImageGetter imageGetter = new MyImageGetter(activity);
+        PostImageGetter imageGetter = new PostImageGetter(activity);
 
         text = text.replace("\n", HTML_LINE_BREAK);
 
