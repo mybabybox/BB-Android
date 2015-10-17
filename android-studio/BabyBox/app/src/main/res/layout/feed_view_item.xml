@@ -12,13 +12,32 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/image"
+        <FrameLayout
+            android:id="@+id/imageFrame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:minHeight="85dp" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:minHeight="85dp" />
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_margin="5dp"
+                android:layout_gravity="bottom|left"
+                android:background="@drawable/ic_user"
+                android:alpha="0.8"
+                android:visibility="invisible" />
+
+        </FrameLayout>
 
         <View
             android:layout_width="wrap_content"

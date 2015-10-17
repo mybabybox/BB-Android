@@ -43,6 +43,6 @@ public class FullscreenImageActivity extends TrackedFragmentActivity {
         });
 
         String source = getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE);
-        ImageLoadAsyncTask.loadImage(source, fullscreenImage);
+        ImageLoadAsyncTask.loadImage(this, source, fullscreenImage);
     }
 }
