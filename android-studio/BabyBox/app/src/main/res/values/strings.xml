@@ -88,9 +88,10 @@
     <string name="tabset_profile">Me</string>
 
     <!-- Tips -->
-    <string name="home_explore_tips">Explore your personalized feed</string>
-    <string name="category_tips">Explore category with filters</string>
-    <string name="my_profile_tips">Your seller profile page with listed products</string>
+    <string name="home_explore_tips">Welcome to babybox!  Explore the latest popular products in the community</string>
+    <string name="home_following_tips">Explore the latest products from sellers you are following</string>
+    <string name="category_tips">Explore products by category</string>
+    <string name="my_profile_tips">Start listing products and become a seller!</string>
 
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>

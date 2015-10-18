@@ -3,8 +3,6 @@ package com.babybox.viewmodel;
 import java.util.List;
 
 public class PostVM extends PostVMLite {
-    public Long ownerId;
-    public String ownerName;
     public Long ownerNumProducts;
     public Long ownerNumFollowers;
     public long createdDate;
@@ -20,22 +18,6 @@ public class PostVM extends PostVMLite {
     public boolean isFollowingOwner = false;
 
     public String deviceType;
-
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
 
     public Long getOwnerNumProducts() {
         return ownerNumProducts;

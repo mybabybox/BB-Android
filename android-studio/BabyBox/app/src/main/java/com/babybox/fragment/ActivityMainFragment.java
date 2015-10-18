@@ -108,7 +108,7 @@ class ActivityMainPagerAdapter extends FragmentStatePagerAdapter {
             // Following
             case 1: {
                 bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_FOLLOWING.name());
-                fragment = new FeedViewFragment();
+                fragment = new HomeFollowingFeedViewFragment();
                 break;
             }
             default: {

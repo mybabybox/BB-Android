@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class PostVMLite implements Serializable {
     public Long id;
+    public Long ownerId;
+    public String ownerName;
     public String title;
     public double price;
     public boolean sold;
@@ -36,6 +38,22 @@ public class PostVMLite implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public String getTitle() {

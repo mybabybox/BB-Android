@@ -1,6 +1,8 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,20 +40,21 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
     private List<PostVMLite> items;
 
+    private boolean showSeller = false;
+
     private int clickedPosition = -1;
 
     private boolean pending = false;
 
-    /**
-     *
-     * @param activity
-     * @param items
-     * @param header
-     */
     public FeedViewAdapter(Activity activity, List<PostVMLite> items, View header) {
+        this(activity, items, header, false);
+    }
+
+    public FeedViewAdapter(Activity activity, List<PostVMLite> items, View header, boolean showSeller) {
         this.activity = activity;
         this.items = items;
         this.headerView = header;
+        this.showSeller = showSeller;
     }
 
     public int getClickedPosition() {
@@ -111,8 +114,16 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
         final PostVMLite item = getItem(position);
 
-        if(item.getImages().length != 0)
+        if (item.getImages().length != 0) {
             loadImage(item.getImages()[0], holder.image);
+        }
+
+        if (showSeller) {
+            ImageUtil.displayThumbnailProfileImage(item.getOwnerId(), holder.sellerImage);
+            holder.sellerImage.setVisibility(View.VISIBLE);
+        } else {
+            holder.sellerImage.setVisibility(View.INVISIBLE);
+        }
 
         ViewUtil.setHtmlText(item.getTitle(), holder.title, activity, true);
         holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
@@ -214,18 +225,19 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
     class FeedViewHolder extends RecyclerView.ViewHolder {
         LinearLayout itemLayout;
         ImageView image;
+        ImageView sellerImage;
         TextView title;
         TextView price;
         LinearLayout likeLayout;
         ImageView likeImage;
         TextView likeText;
 
-
         public FeedViewHolder(View holder) {
             super(holder);
 
             itemLayout = (LinearLayout) holder.findViewById(R.id.itemLayout);
             image = (ImageView) holder.findViewById(R.id.image);
+            sellerImage = (ImageView) holder.findViewById(R.id.sellerImage);
             title = (TextView) holder.findViewById(R.id.title);
             price = (TextView) holder.findViewById(R.id.price);
             likeLayout = (LinearLayout) holder.findViewById(R.id.likeLayout);

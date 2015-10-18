@@ -58,6 +58,10 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     abstract protected void onScrollDown();
 
+    public boolean showSeller() {
+        return false;
+    }
+
     public boolean hasHeader() {
         return headerView != null;
     }
@@ -126,7 +130,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         }
 
         // adapter
-        feedAdapter = new FeedViewAdapter(getActivity(), items, headerView);
+        feedAdapter = new FeedViewAdapter(getActivity(), items, headerView, showSeller());
         feedView.setAdapter(feedAdapter);
 
         // layout manager
