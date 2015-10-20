@@ -22,7 +22,7 @@ public class PostVMLite implements Serializable {
 
     // admin fields
     public long baseScore = 0L;
-    public long timeScore = 0L;
+    public double timeScore = 0D;
 
     public long getOffset() {
         return offset;
@@ -160,11 +160,11 @@ public class PostVMLite implements Serializable {
         this.baseScore = baseScore;
     }
 
-    public long getTimeScore() {
+    public double getTimeScore() {
         return timeScore;
     }
 
-    public void setTimeScore(long timeScore) {
+    public void setTimeScore(double timeScore) {
         this.timeScore = timeScore;
     }
 }

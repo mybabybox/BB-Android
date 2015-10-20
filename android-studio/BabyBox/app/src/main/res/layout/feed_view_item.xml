@@ -47,6 +47,17 @@
                 android:src="@drawable/ic_sold"
                 android:visibility="invisible" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timeScoreText"
+                android:layout_gravity="right"
+                android:layout_margin="3dp"
+                android:textColor="@color/gray"
+                android:textSize="11dp"
+                android:background="@drawable/button_gray_border"
+                android:visibility="invisible" />
+
         </FrameLayout>
 
         <View

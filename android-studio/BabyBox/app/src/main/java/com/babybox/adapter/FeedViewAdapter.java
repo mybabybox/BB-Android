@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.activity.ProductActivity;
 import com.babybox.app.AppController;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVMLite;
@@ -129,6 +130,13 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             holder.soldImage.setVisibility(View.INVISIBLE);
         }
 
+        if (UserInfoCache.getUser().isAdmin()) {
+            holder.timeScoreText.setVisibility(View.VISIBLE);
+            holder.timeScoreText.setText(item.getTimeScore()+"");
+        } else {
+            holder.timeScoreText.setVisibility(View.INVISIBLE);
+        }
+
         ViewUtil.setHtmlText(item.getTitle(), holder.title, activity, true);
         holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
 
@@ -231,6 +239,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         ImageView image;
         ImageView sellerImage;
         ImageView soldImage;
+        TextView timeScoreText;
         TextView title;
         TextView price;
         LinearLayout likeLayout;
@@ -244,6 +253,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             image = (ImageView) holder.findViewById(R.id.image);
             sellerImage = (ImageView) holder.findViewById(R.id.sellerImage);
             soldImage = (ImageView) holder.findViewById(R.id.soldImage);
+            timeScoreText = (TextView) holder.findViewById(R.id.timeScoreText);
             title = (TextView) holder.findViewById(R.id.title);
             price = (TextView) holder.findViewById(R.id.price);
             likeLayout = (LinearLayout) holder.findViewById(R.id.likeLayout);
