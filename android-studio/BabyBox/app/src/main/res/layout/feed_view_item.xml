@@ -33,9 +33,18 @@
                 android:scaleType="fitCenter"
                 android:layout_margin="3dp"
                 android:layout_gravity="bottom|left"
-                android:alpha="0.65"
+                android:alpha="0.7"
                 android:background="@drawable/thumb_circle"
                 android:padding="3dp"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/soldImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:adjustViewBounds="false"
+                android:layout_gravity="bottom|right"
+                android:src="@drawable/ic_sold"
                 android:visibility="invisible" />
 
         </FrameLayout>

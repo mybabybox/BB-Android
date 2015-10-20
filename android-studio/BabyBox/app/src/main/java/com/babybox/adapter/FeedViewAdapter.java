@@ -1,8 +1,6 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -125,6 +123,12 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             holder.sellerImage.setVisibility(View.INVISIBLE);
         }
 
+        if (item.sold) {
+            holder.soldImage.setVisibility(View.VISIBLE);
+        } else {
+            holder.soldImage.setVisibility(View.INVISIBLE);
+        }
+
         ViewUtil.setHtmlText(item.getTitle(), holder.title, activity, true);
         holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
 
@@ -226,6 +230,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         LinearLayout itemLayout;
         ImageView image;
         ImageView sellerImage;
+        ImageView soldImage;
         TextView title;
         TextView price;
         LinearLayout likeLayout;
@@ -238,6 +243,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             itemLayout = (LinearLayout) holder.findViewById(R.id.itemLayout);
             image = (ImageView) holder.findViewById(R.id.image);
             sellerImage = (ImageView) holder.findViewById(R.id.sellerImage);
+            soldImage = (ImageView) holder.findViewById(R.id.soldImage);
             title = (TextView) holder.findViewById(R.id.title);
             price = (TextView) holder.findViewById(R.id.price);
             likeLayout = (LinearLayout) holder.findViewById(R.id.likeLayout);
