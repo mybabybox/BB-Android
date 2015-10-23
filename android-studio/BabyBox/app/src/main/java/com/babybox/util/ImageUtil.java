@@ -401,6 +401,8 @@ public class ImageUtil {
             public void onClick(DialogInterface arg0, int arg1)
             {
                 Intent intent  = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                        Uri.fromFile(new File(Environment.getExternalStorageDirectory(), activity.getApplicationContext().getString(R.string.captured_img_path) + activity.getApplicationContext().getString(R.string.temp_img))));
                 activity.startActivityForResult(intent, REQUEST_CAMERA);
             }
         });

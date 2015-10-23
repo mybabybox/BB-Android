@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -217,12 +218,27 @@ public class NewPostActivity extends TrackedFragmentActivity {
             setPostImage();
         }
 
-        if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE || requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE ) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null)  {
                 selectedImageUri = data.getData();
                 selectedImagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
 
                 String path = selectedImageUri.getPath();
+                Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
+
+                Bitmap bitmap = ImageUtil.resizeToUpload(selectedImagePath);
+                if (bitmap != null) {
+                    //setPostImage(bitmap);
+                    displayPhotoActivity();
+                } else {
+                    Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                }
+            } else if(requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE ){
+                File picture = new File(Environment.getExternalStorageDirectory(), this.getApplicationContext().getString(R.string.captured_img_path) + this.getApplicationContext().getString(R.string.temp_img));
+                selectedImageUri = Uri.fromFile(picture);
+                selectedImagePath = picture.getPath();
+
+                String path = picture.getPath();
                 Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
 
                 Bitmap bitmap = ImageUtil.resizeToUpload(selectedImagePath);

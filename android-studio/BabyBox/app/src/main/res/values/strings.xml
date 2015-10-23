@@ -228,6 +228,8 @@
 
     <!-- Image processing library -->
     <string name="img_desc">Images</string>
+    <string name="captured_img_path">/myBabyBox/Captured/</string>
+    <string name="temp_img">tempImg.jpg</string>
     <string name="no_media">Your photo gallery is not available</string>
 
     <string name="crop__saving">Saving picture…</string>
