@@ -2,10 +2,18 @@ package com.babybox.app;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
-//import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.babybox.R;
+import com.babybox.activity.MainActivity;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
 
 public class GCMNotificationIntentService extends IntentService {
 
@@ -21,7 +29,6 @@ public class GCMNotificationIntentService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		/*
 		Bundle extras = intent.getExtras();
 		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
 
@@ -55,11 +62,10 @@ public class GCMNotificationIntentService extends IntentService {
 				Log.i(TAG, "Received: " + extras.toString());
 			}
 		}
-		GcmBroadcastReceiver.completeWakefulIntent(intent);
-		*/
+		GCMBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
-	/*
+
 	private void sendNotification(String msg) {
 		Log.d(TAG, "Preparing to send notification...: " + msg);
 		mNotificationManager = (NotificationManager) this
@@ -78,5 +84,5 @@ public class GCMNotificationIntentService extends IntentService {
 		mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 		Log.d(TAG, "Notification sent successfully.");
 	}
-	*/
+
 }

@@ -27,10 +27,12 @@ public class SharedPreferencesUtil {
     public static final String FB_ACCESS_EXPIRES = "access_expires";
     public static final String LOGIN_FAILED_COUNT = "loginFailedCount";
     public static final String SESSION_ID = "sessionId";
+    public static final String GCM_KEY = "gcmKey";
     public static final String USER_INFO = "userInfo";
     public static final String DISTRICTS = "districts";
     public static final String EMOTICONS = "emoticons";
     public static final String CATEGORIES = "categories";
+    public static final String APP_VERSION = "appVersion";
 
     public enum Screen {
         HOME_TAB,
@@ -69,6 +71,14 @@ public class SharedPreferencesUtil {
     public void saveSessionId(String sessionId) {
         this.saveString(SharedPreferencesUtil.SESSION_ID, sessionId);
         this.clear(SharedPreferencesUtil.LOGIN_FAILED_COUNT);
+    }
+
+    public void saveGCMKey(String gcmKey) {
+        this.saveString(SharedPreferencesUtil.GCM_KEY, gcmKey);
+    }
+
+    public void saveAppVersion(Long appVersion) {
+        this.saveLong(SharedPreferencesUtil.APP_VERSION, appVersion);
     }
 
     public void saveLoginFailedCount(Long count) {

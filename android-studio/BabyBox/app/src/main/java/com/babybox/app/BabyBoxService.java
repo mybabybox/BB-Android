@@ -258,6 +258,10 @@ public class BabyBoxService {
     public void uploadMessagePhoto(Long id, TypedFile photo, Callback<Response> cb) {
         api.uploadMessagePhoto(AppController.getInstance().getSessionId(), id, photo, cb);
     }
+
+    public void saveGCMkey(String gcmKey, Callback<Response> cb) {
+        api.saveGCMkey(gcmKey, AppController.getInstance().getSessionId(), cb);
+    }
 }
 
 
