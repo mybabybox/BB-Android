@@ -18,7 +18,6 @@ import com.babybox.activity.LoginActivity;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.viewmodel.LocationVM;
-import com.babybox.viewmodel.MessageVM;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
@@ -64,14 +63,19 @@ public class AppController extends Application {
 
     public static final String TAG = AppController.class.getName();
 
+    public static String APP_NAME;
+
     public static String BASE_URL;
 
     private static AppController mInstance;
+
+    private static int versionCode;
+
+    private static String versionName;
+
     private static BabyBoxService apiService;
 
     private static boolean crashReportEnabled = false;
-
-    public List<MessageVM> messageVMList;
 
     public enum DeviceType {
         NA,
@@ -83,6 +87,14 @@ public class AppController extends Application {
 
     public static synchronized AppController getInstance() {
         return mInstance;
+    }
+
+    public static int getVersionCode() {
+        return versionCode;
+    }
+
+    public static String getVersionName() {
+        return versionName;
     }
 
     public static synchronized BabyBoxService getApiService() {
@@ -138,7 +150,18 @@ public class AppController extends Application {
     }
 
     public static void init() {
+        APP_NAME = getInstance().getString(R.string.app_name);
         BASE_URL = getInstance().getString(R.string.base_url);
+
+        try {
+            PackageInfo packageInfo =
+                    getInstance().getPackageManager().getPackageInfo(getInstance().getPackageName(), 0);
+            versionCode = packageInfo.versionCode;
+            versionName = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(AppController.class.getSimpleName(), "Failed to get app version", e);
+            throw new RuntimeException(e);
+        }
 
         if (apiService == null) {
             RestAdapter restAdapter = new RestAdapter.Builder()

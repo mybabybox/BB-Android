@@ -236,7 +236,7 @@ public interface BabyBoxApi {
     //
 
     @POST("/save-gcm-key/{gcmKey}")
-    public void saveGCMkey(@Path("gcmKey") String gcmKey, @Query("key") String key, Callback<Response> cb);
+    public void saveGCMKey(@Path("gcmKey") String gcmKey, @Query("key") String key, Callback<Response> cb);
 }
 
 

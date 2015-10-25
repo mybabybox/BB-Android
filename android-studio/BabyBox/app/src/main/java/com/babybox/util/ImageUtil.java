@@ -62,6 +62,9 @@ public class ImageUtil {
     public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-original-message-image-by-id/";
     public static final String MINI_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-mini-message-image-by-id/";
 
+    public static final String IMAGE_FOLDER_PATH = Environment.getExternalStorageDirectory() + "/" + AppController.APP_NAME;
+    public static final String CAMERA_IMAGE_TEMP_PATH = IMAGE_FOLDER_PATH + "/" + "camera.jpg";
+
     private static ImageCircleTransform circleTransform =
             new ImageCircleTransform(AppController.getInstance());
 
@@ -401,8 +404,7 @@ public class ImageUtil {
             public void onClick(DialogInterface arg0, int arg1)
             {
                 Intent intent  = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        Uri.fromFile(new File(Environment.getExternalStorageDirectory(), activity.getApplicationContext().getString(R.string.captured_img_path) + activity.getApplicationContext().getString(R.string.temp_img))));
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH)));
                 activity.startActivityForResult(intent, REQUEST_CAMERA);
             }
         });

@@ -144,7 +144,7 @@
             android:finishOnTaskLaunch="true" />
 
         <receiver
-            android:name=".app.GCMBroadcastReceiver"
+            android:name=".gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -153,7 +153,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".app.GCMNotificationIntentService" />
+        <service android:name=".gcm.GCMNotificationIntentService" />
 
     </application>
 

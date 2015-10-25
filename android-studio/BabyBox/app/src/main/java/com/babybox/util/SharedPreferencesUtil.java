@@ -147,6 +147,14 @@ public class SharedPreferencesUtil {
         return this.getString(SharedPreferencesUtil.SESSION_ID);
     }
 
+    public String getGCMKey() {
+        return this.getString(SharedPreferencesUtil.GCM_KEY);
+    }
+
+    public Long getAppVersion() {
+        return this.getLong(SharedPreferencesUtil.APP_VERSION);
+    }
+
     public Long getLoginFailedCount() {
         return this.getLong(SharedPreferencesUtil.LOGIN_FAILED_COUNT);
     }

@@ -234,7 +234,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                     Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
                 }
             } else if(requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE ){
-                File picture = new File(Environment.getExternalStorageDirectory(), this.getApplicationContext().getString(R.string.captured_img_path) + this.getApplicationContext().getString(R.string.temp_img));
+                File picture = new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH);
                 selectedImageUri = Uri.fromFile(picture);
                 selectedImagePath = picture.getPath();
 

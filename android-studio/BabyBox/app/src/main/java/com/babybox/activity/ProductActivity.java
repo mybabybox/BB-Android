@@ -499,12 +499,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     }
 
     private void initActionsLayout() {
-        if (AppController.isUserAdmin()) {
-            buyerButtonsLayout.setVisibility(View.GONE);
-            sellerButtonsLayout.setVisibility(View.GONE);
-            buyerSoldButtonsLayout.setVisibility(View.GONE);
-            sellerSoldButtonsLayout.setVisibility(View.VISIBLE);
-        } else if (post.isOwner()) {
+        if (post.isOwner()) {
             if (post.isSold()) {
                 buyerButtonsLayout.setVisibility(View.GONE);
                 sellerButtonsLayout.setVisibility(View.GONE);
@@ -528,6 +523,10 @@ public class ProductActivity extends TrackedFragmentActivity {
                 buyerSoldButtonsLayout.setVisibility(View.GONE);
                 sellerSoldButtonsLayout.setVisibility(View.GONE);
             }
+        }
+
+        if (AppController.isUserAdmin()) {
+            sellerSoldButtonsLayout.setVisibility(View.VISIBLE);
         }
     }
 

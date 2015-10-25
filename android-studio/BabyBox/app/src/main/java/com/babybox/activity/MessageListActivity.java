@@ -1,7 +1,6 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
-import android.content.BroadcastReceiver;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -31,9 +30,7 @@ import android.widget.Toast;
 import com.babybox.R;
 import com.babybox.adapter.MessageListAdapter;
 import com.babybox.app.AppController;
-import com.babybox.app.BroadcastService;
 import com.babybox.app.ConversationCache;
-import com.babybox.app.GCMConfig;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
@@ -84,19 +81,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
     private Long conversationId;
     private Long offset = 1L;
 
-    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            System.out.println("in receiver:::");
-            messages.clear();
-            messages.addAll(AppController.getInstance().messageVMList);
-            System.out.println("in rec size::"+messages.size());
-            adapter.notifyDataSetChanged();
-            // adapter = new MessageListAdapter(MessageDetailActivity.this, messageVMList);
-            //listView.setAdapter(adapter);
-        }
-    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,8 +99,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
                         Gravity.CENTER
                 )
         );
-
-        Intent intent = new Intent(this, BroadcastService.class);
 
         listView = (ListView)findViewById(R.id.messageList);
         titleText = (TextView) findViewById(R.id.titleText);
@@ -431,7 +413,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         try {
             JSONObject obj = new JSONObject(responseBody);
 
-            JSONArray messagesObj = obj.getJSONArray(GCMConfig.MESSAGE_KEY);
+            JSONArray messagesObj = obj.getJSONArray(ViewUtil.JSON_KEY_MESSAGE_KEY);
             count = messagesObj.length();
             for (int i = 0; i < count; i++) {
                 JSONObject messageObj = messagesObj.getJSONObject(i);

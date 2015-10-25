@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/timeScoreText"
-                android:layout_gravity="right"
+                android:layout_gravity="center_horizontal|bottom"
                 android:layout_margin="3dp"
                 android:textColor="@color/gray"
                 android:textSize="11dp"

@@ -16,23 +16,17 @@
 
 package com.babybox.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
-import com.babybox.app.Config;
-import com.babybox.app.GCMBroadcastReceiver;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.gcm.GCMBroadcastReceiver;
+import com.babybox.gcm.GCMClient;
 import com.babybox.util.DefaultValues;
-import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -42,11 +36,9 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
-import java.io.IOException;
 import java.util.Arrays;
 
 import retrofit.Callback;
@@ -66,30 +58,15 @@ import retrofit.client.Response;
  */
 public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
 
-    public static final String REG_ID = "regId";
     protected static final String[] REQUEST_FACEBOOK_PERMISSIONS = {
             "public_profile", "email", "user_friends"
     };
-    private static final String APP_VERSION = "appVersion";
+
     // FB API v4.0
     protected CallbackManager callbackManager;
-    GoogleCloudMessaging gcm;
-    Context context;
-    String regId;
+
     private View loginButton;
     private View facebookButton;
-
-    private static int getAppVersion(Context context) {
-        try {
-            PackageInfo packageInfo = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), 0);
-            return packageInfo.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.d("AbstractLoginActivity",
-                    "I never expected this! Going down, going down!" + e);
-            throw new RuntimeException(e);
-        }
-    }
 
     protected void setLoginButton(View loginButton) {
         this.loginButton = loginButton;
@@ -111,7 +88,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(AbstractLoginActivity.this.getClass().getSimpleName(), "loginToFacebook.onComplete: fb doLoginUsingAccessToken");
-                doLoginUsingAccessToken(loginResult.getAccessToken().getToken());
+                fbLogin(loginResult.getAccessToken().getToken());
             }
 
             @Override
@@ -143,26 +120,18 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
     protected void emailLogin(String username, String password) {
         showSpinner();
 
-        //GCM
-        if (TextUtils.isEmpty(regId)) {
-            regId = registerGCM();
-            Log.d(this.getClass().getName(), "GCM RegId: " + regId);
-        } else {
-            Log.d(this.getClass().getName(),
-                    "Already Registered with GCM Server!");
-        }
-
         AppController.getApiService().login(username, password, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
+                stopSpinner();
+
+                Log.d(this.getClass().getSimpleName(), "emailLogin: success");
                 if (!saveToSession(responseObject)) {
                     ViewUtil.alert(AbstractLoginActivity.this,
                             getString(R.string.login_error_title),
                             getString(R.string.login_error_message));
                 }
-                sendGCMKeyTOAppServer();
-                sendBroadcast(new Intent(getApplicationContext(), GCMBroadcastReceiver.class));
-                stopSpinner();
+                onSuccessLogin();
             }
 
             @Override
@@ -198,7 +167,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(REQUEST_FACEBOOK_PERMISSIONS));
     }
 
-    protected void doLoginUsingAccessToken(String access_token) {
+    protected void fbLogin(String access_token) {
         //showSpinner();
 
         Log.d(this.getClass().getSimpleName(), "doLoginUsingAccessToken: access_token - " + access_token);
@@ -207,12 +176,13 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
             public void success(Response responseObject, Response response) {
                 stopSpinner();
 
-                Log.d(this.getClass().getSimpleName(), "doLoginUsingAccessToken.success");
+                Log.d(this.getClass().getSimpleName(), "fbLogin: success");
                 if (!saveToSession(responseObject)) {
                     ViewUtil.alert(AbstractLoginActivity.this,
                             getString(R.string.login_error_title),
                             getString(R.string.login_error_message));
                 }
+                onSuccessLogin();
             }
 
             @Override
@@ -225,6 +195,10 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                 Log.e(AbstractLoginActivity.class.getSimpleName(), "doLoginUsingAccessToken: failure", error);
             }
         });
+    }
+
+    protected void onSuccessLogin() {
+        GCMClient.getInstance().registerGCM();
     }
 
     protected boolean saveToSession(Response response) {
@@ -280,94 +254,6 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
             facebookButton.setEnabled(!show);
             facebookButton.setAlpha(show ? 0.8F : 1.0F);
         }
-    }
-
-    public String registerGCM() {
-
-        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-        regId = getRegistrationId(getApplicationContext());
-
-        if (TextUtils.isEmpty(regId)) {
-
-            registerInBackground();
-
-            Log.d(this.getClass().getSimpleName(),
-                    "registerGCM - successfully registered with GCM server - regId: "
-                            + regId);
-        } else {
-            Log.d(this.getClass().getSimpleName(),
-                    "RegId already available. RegId: " + regId);
-        }
-        return regId;
-    }
-
-    private void registerInBackground() {
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... params) {
-                String msg = "";
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                    }
-                    regId = gcm.register(Config.GOOGLE_PROJECT_ID);
-                    Log.d("LoginActivity", "registerInBackground - regId: "
-                            + regId);
-                    msg = "Device registered, registration ID=" + regId;
-
-                    storeRegistrationId(getApplicationContext(), regId);
-                } catch (IOException ex) {
-                    msg = "Error :" + ex.getMessage();
-                    Log.d("LoginActivity", "Error: " + msg);
-                }
-                Log.d("LoginActivity", "AsyncTask completed: " + msg);
-                return msg;
-            }
-
-            @Override
-            protected void onPostExecute(String msg) {
-                Log.d("LoginActivity",
-                        "Registered with GCM Server." + msg);
-            }
-        }.execute(null, null, null);
-    }
-
-    private void storeRegistrationId(Context context, String regId) {
-        int appVersion = getAppVersion(context);
-        Log.i(this.getClass().getName(), "Saving regId on app version " + appVersion);
-        SharedPreferencesUtil.getInstance().saveGCMKey(regId);
-        SharedPreferencesUtil.getInstance().saveAppVersion((long) appVersion);
-    }
-
-    private String getRegistrationId(Context context) {
-
-        String registrationId = SharedPreferencesUtil.getInstance().getString(SharedPreferencesUtil.GCM_KEY);
-        if (registrationId == null || registrationId.isEmpty()) {
-            Log.d(this.getClass().getSimpleName(), "Registration not found.");
-            return "";
-        }
-        int registeredVersion = SharedPreferencesUtil.getInstance().getLong(SharedPreferencesUtil.APP_VERSION).intValue();
-        int currentVersion = getAppVersion(context);
-        if (registeredVersion != currentVersion) {
-            Log.i(this.getClass().getSimpleName(), "App version changed.");
-            return "";
-        }
-        return registrationId;
-    }
-
-    private void sendGCMKeyTOAppServer() {
-        String registrationId = SharedPreferencesUtil.getInstance().getString(SharedPreferencesUtil.GCM_KEY);
-        AppController.getApiService().saveGCMkey(registrationId, new Callback<Response>() {
-            @Override
-            public void success(Response response, Response response2) {
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                error.printStackTrace();
-            }
-        });
     }
 }
 

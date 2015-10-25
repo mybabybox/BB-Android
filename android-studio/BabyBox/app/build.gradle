@@ -4,6 +4,11 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4G"
+    }
+
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES'
         exclude 'META-INF/NOTICE'
@@ -22,6 +27,7 @@ android {
         // Enabling multidex support.
         multiDexEnabled true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -41,6 +47,7 @@ configurations {
 dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.facebook.android:facebook-android-sdk:4.5.0'
+    compile 'com.google.android.gms:play-services-base:6.5.87'
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.android.support:cardview-v7:22.0.0'
     compile 'com.android.support:recyclerview-v7:22.0.0'
