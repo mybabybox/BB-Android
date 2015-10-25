@@ -225,18 +225,18 @@ public interface BabyBoxApi {
     public void newMessage(@Body MultipartTypedOutput attachments, /*@Body NewMessageVM message,*/ @Query("key") String key, Callback<MessageVM> cb);
 
     @GET("/image/get-message-image/{id} ")
-    public void getMessageImage(@Query("key") String key, @Part("messageId") long id, Callback<MessageVM> cb);
+    public void getMessageImage(@Query("key") String key, @Path("id") Long id, Callback<MessageVM> cb);
 
     @Multipart
     @POST("/image/upload-message-photo")
-    public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
+    public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") Long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
 
     //
     // GCM
     //
 
-    @POST("/save-gcm-key/{gcmKey}")
-    public void saveGCMKey(@Path("gcmKey") String gcmKey, @Query("key") String key, Callback<Response> cb);
+    @POST("/save-gcm-key/{gcmKey}/{versionCode}")
+    public void saveGCMKey(@Path("gcmKey") String gcmKey, @Path("versionCode") Long versionCode, @Query("key") String key, Callback<Response> cb);
 }
 
 

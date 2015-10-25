@@ -126,12 +126,13 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                 stopSpinner();
 
                 Log.d(this.getClass().getSimpleName(), "emailLogin: success");
-                if (!saveToSession(responseObject)) {
+                if (saveToSession(responseObject)) {
+                    onSuccessLogin();
+                } else {
                     ViewUtil.alert(AbstractLoginActivity.this,
                             getString(R.string.login_error_title),
                             getString(R.string.login_error_message));
                 }
-                onSuccessLogin();
             }
 
             @Override
@@ -170,19 +171,20 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
     protected void fbLogin(String access_token) {
         //showSpinner();
 
-        Log.d(this.getClass().getSimpleName(), "doLoginUsingAccessToken: access_token - " + access_token);
+        Log.d(this.getClass().getSimpleName(), "fbLogin: access_token - " + access_token);
         AppController.getApiService().loginByFacebook(access_token, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 stopSpinner();
 
                 Log.d(this.getClass().getSimpleName(), "fbLogin: success");
-                if (!saveToSession(responseObject)) {
+                if (saveToSession(responseObject)) {
+                    onSuccessLogin();
+                } else {
                     ViewUtil.alert(AbstractLoginActivity.this,
                             getString(R.string.login_error_title),
                             getString(R.string.login_error_message));
                 }
-                onSuccessLogin();
             }
 
             @Override
@@ -192,7 +194,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                         getString(R.string.login_error_title),
                         getString(R.string.login_error_message)
                                 + "\n" + ViewUtil.getResponseBody(error.getResponse()));
-                Log.e(AbstractLoginActivity.class.getSimpleName(), "doLoginUsingAccessToken: failure", error);
+                Log.e(AbstractLoginActivity.class.getSimpleName(), "fbLogin: failure", error);
             }
         });
     }

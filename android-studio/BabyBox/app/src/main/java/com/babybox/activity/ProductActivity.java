@@ -79,9 +79,9 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private TextView titleText, descText, priceText, soldText;
     private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
-    private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout;
+    private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, viewsLayout;
     private ImageView likeImage;
-    private TextView likeText;
+    private TextView likeText, numLikesText;
 
     private LinearLayout sellerLayout;
     private ImageView sellerImage;
@@ -152,6 +152,9 @@ public class ProductActivity extends TrackedFragmentActivity {
         likeLayout = (LinearLayout) findViewById(R.id.likeLayout);
         likeImage = (ImageView) findViewById(R.id.likeImage);
         likeText = (TextView) findViewById(R.id.likeText);
+        numLikesText = (TextView) findViewById(R.id.numLikesText);
+
+        viewsLayout = (LinearLayout) findViewById(R.id.viewsLayout);
 
         followButton = (Button) findViewById(R.id.followButton);
 
@@ -313,9 +316,11 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
+                numLikesText.setText(post.numLikes+"");
+
                 // delete
 
-                if (post.isOwner() || (AppController.isUserAdmin())) {
+                if (post.isOwner() || AppController.isUserAdmin()) {
                     if (post.isOwner()) {
                         deleteText.setTextColor(getResources().getColor(R.color.gray));
                     } else if (AppController.isUserAdmin()) {
@@ -347,6 +352,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                 } else {
                     deleteText.setVisibility(View.GONE);
                 }
+
+                viewsLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
 
                 // action buttons
 
@@ -523,10 +530,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                 buyerSoldButtonsLayout.setVisibility(View.GONE);
                 sellerSoldButtonsLayout.setVisibility(View.GONE);
             }
-        }
-
-        if (AppController.isUserAdmin()) {
-            sellerSoldButtonsLayout.setVisibility(View.VISIBLE);
         }
     }
 

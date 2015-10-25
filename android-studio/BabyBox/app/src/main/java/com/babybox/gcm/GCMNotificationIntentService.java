@@ -19,6 +19,7 @@ public class GCMNotificationIntentService extends IntentService {
 	public static final String TAG = GCMNotificationIntentService.class.getName();
 
 	public static final int NOTIFICATION_ID = 1;
+
 	private NotificationManager mNotificationManager;
 	private NotificationCompat.Builder builder;
 

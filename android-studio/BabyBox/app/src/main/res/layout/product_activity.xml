@@ -273,7 +273,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp">
+                        android:layout_marginTop="25dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -281,6 +281,37 @@
                             android:id="@+id/timeText"
                             android:textSize="14dp"
                             android:textColor="@color/gray" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/numLikesLayout"
+                            android:layout_toRightOf="@+id/timeText"
+                            android:layout_marginLeft="10dp" >
+
+                            <ImageView
+                                android:id="@+id/numLikesImage"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:src="@drawable/ic_like_outline"
+                                android:layout_gravity="center_vertical"
+                                android:layout_centerVertical="true" />
+
+                            <TextView
+                                android:id="@+id/numLikesText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textColor="@color/pink"
+                                android:textSize="14dp"
+                                android:layout_marginLeft="3dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_alignParentRight="false"
+                                android:gravity="center_vertical"
+                                android:layout_centerVertical="true"
+                                android:layout_toRightOf="@+id/imageView2" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/deleteText"
@@ -291,7 +322,7 @@
                             android:textColor="@color/gray"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
-                            android:layout_toRightOf="@+id/timeText"
+                            android:layout_toRightOf="@+id/numLikesLayout"
                             android:layout_marginLeft="10dp" />
 
                         <LinearLayout

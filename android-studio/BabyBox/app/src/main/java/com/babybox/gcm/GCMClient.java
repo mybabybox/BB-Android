@@ -43,7 +43,9 @@ public class GCMClient {
 		if (TextUtils.isEmpty(regId)) {
 			registerInBackground();
 		} else {
-			Log.d(this.getClass().getSimpleName(), "registerGCM: regId="+regId+" already available");
+			// send old key to server (make sure server didn't miss it before)
+			sendGCMKeyToServer(regId);
+			Log.d(this.getClass().getSimpleName(), "registerGCM: regId="+regId+" in SharedPreference will be used");
 		}
 
 		// start gcm broadcast
@@ -104,11 +106,11 @@ public class GCMClient {
 		return regId;
 	}
 
-	public void sendGCMKeyToServer(String regId) {
-		AppController.getApiService().saveGCMKey(regId, new Callback<Response>() {
+	public void sendGCMKeyToServer(final String regId) {
+		AppController.getApiService().saveGCMKey(regId, new Long(AppController.getVersionCode()), new Callback<Response>() {
 			@Override
 			public void success(Response responseObject, Response response) {
-
+				Log.d(GCMClient.class.getSimpleName(), "sendGCMKeyToServer: successfully send GCM key to server - regId="+regId);
 			}
 
 			@Override
