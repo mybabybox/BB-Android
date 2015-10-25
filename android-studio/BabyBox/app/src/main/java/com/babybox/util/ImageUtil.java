@@ -382,32 +382,30 @@ public class ImageUtil {
 
     public static void choosePhotoFrom(final Activity activity){
         AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(activity);
-        myAlertDialog.setTitle("Pictures Option");
-        myAlertDialog.setMessage("Select Picture Mode");
+        myAlertDialog.setTitle(activity.getString(R.string.photo_select_title));
+        //myAlertDialog.setMessage(activity.getString(R.string.photo_select_desc));
 
-        myAlertDialog.setPositiveButton("Gallery", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface arg0, int arg1)
-            {
-                /*Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
-                intent.setType("image*//*");
-                intent.putExtra("return-data", true);*/
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_PICK);
-                intent.setData(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                activity.startActivityForResult(intent, GALLERY_PICTURE);
-            }
-        });
+        myAlertDialog.setPositiveButton(
+                activity.getString(R.string.photo_select_gallery),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_PICK);
+                        intent.setData(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                        activity.startActivityForResult(intent, GALLERY_PICTURE);
+                    }
+                });
 
-        myAlertDialog.setNegativeButton("Camera", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface arg0, int arg1)
-            {
-                Intent intent  = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH)));
-                activity.startActivityForResult(intent, REQUEST_CAMERA);
-            }
-        });
+        myAlertDialog.setNegativeButton(
+                activity.getString(R.string.photo_select_camera),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent intent  = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH)));
+                        activity.startActivityForResult(intent, REQUEST_CAMERA);
+                    }
+                });
+
         myAlertDialog.show();
     }
 

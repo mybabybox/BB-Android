@@ -570,6 +570,10 @@ public class ProductActivity extends TrackedFragmentActivity {
             public void success(Response responseObject, Response response) {
                 post.sold = true;
                 initActionsLayout();
+
+                // pass back to feed view to handle
+                setActivityResult(ItemChangedState.ITEM_UPDATED, post);
+
                 pending = false;
             }
 

@@ -285,14 +285,14 @@ public class MainActivity extends TrackedFragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(this.getClass().getSimpleName(), "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
 
-        if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
             if (refresh) {
                 pressProfileTab(true);
+                return;     // handled... dont trickle down to fragments
             }
-
-            return;     // handled... dont trickle down to fragments
         }
 
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {

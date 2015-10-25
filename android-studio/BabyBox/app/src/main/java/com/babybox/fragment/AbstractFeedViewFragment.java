@@ -317,6 +317,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
                     item.title = feedPost.title;
                     item.price = feedPost.price;
+                    item.sold = feedPost.sold;
                     item.isLiked = feedPost.isLiked;
                     item.numLikes = feedPost.numLikes;
                     feedAdapter.notifyItemChanged(position);

@@ -154,6 +154,9 @@
     <string name="post_actionbar_title">商品詳情</string>
     <string name="comment_success">成功回覆話題</string>
     <string name="comment_failed">暫時不能回覆話題，請稍後重試</string>
+    <string name="photo_select_title">Select a photo from</string>
+    <string name="photo_select_gallery">GALLERY</string>
+    <string name="photo_select_camera">CAMERA</string>
     <string name="photo_select">請選擇圖片</string>
     <string name="photo_not_found">尋找不到圖片</string>
     <string name="photo_size_too_big">圖片太大，請重試</string>
