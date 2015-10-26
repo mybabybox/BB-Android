@@ -7,9 +7,11 @@ public class ActivityVM implements Serializable {
     public long createdDate;
     public String activityType;
     public Long actor;
+    public Long actorImage;
     public String actorName;
     public String actorType;
     public Long target;
+    public Long targetImage;
     public String targetName;
     public String targetType;
     public Boolean viewed;
@@ -46,6 +48,14 @@ public class ActivityVM implements Serializable {
         this.actor = actor;
     }
 
+    public Long getActorImage() {
+        return actorImage;
+    }
+
+    public void setActorImage(Long actorImage) {
+        this.actorImage = actorImage;
+    }
+
     public String getActorName() {
         return actorName;
     }
@@ -68,6 +78,14 @@ public class ActivityVM implements Serializable {
 
     public void setTarget(Long target) {
         this.target = target;
+    }
+
+    public Long getTargetImage() {
+        return targetImage;
+    }
+
+    public void setTargetImage(Long targetImage) {
+        this.targetImage = targetImage;
     }
 
     public String getTargetName() {

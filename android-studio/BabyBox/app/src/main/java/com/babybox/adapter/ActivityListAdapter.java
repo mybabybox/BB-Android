@@ -75,8 +75,8 @@ public class ActivityListAdapter extends BaseAdapter {
             activityLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.color.white));
         }
 
-        ImageUtil.displayThumbnailProfileImage(item.getActor(), userImage);
-        ImageUtil.displayPostImage(item.getTarget(), postImage);
+        ImageUtil.displayThumbnailProfileImage(item.getActorImage(), userImage);
+        ImageUtil.displayPostImage(item.getTargetImage(), postImage);
 
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
