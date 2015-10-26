@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class ActivityVM implements Serializable {
     public Long id;
+    public long createdDate;
     public String activityType;
     public Long actor;
     public String actorName;
@@ -19,6 +20,14 @@ public class ActivityVM implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public long getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(long createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getActivityType() {

@@ -12,7 +12,7 @@
     <string name="app_name">babybox</string>
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">1469031873403459</string>
-    <string name="gcm_project_key">1010528108195</string>
+    <string name="gcm_project_id">42246542708</string>
     <string name="base_url">http://192.168.1.125:9000</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
@@ -105,6 +105,9 @@
     <string name="orders">My Orders</string>
     <string name="collections">Collections</string>
     <string name="products">Products</string>
+
+    <!-- Activity tab -->
+    <string name="no_activity">~ No Activity ~</string>
 
     <!-- Category page -->
     <string name="filter_popular">Popular</string>

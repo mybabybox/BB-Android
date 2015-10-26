@@ -75,7 +75,7 @@ public class AppController extends Application {
 
     private static BabyBoxService apiService;
 
-    private static boolean crashReportEnabled = true;
+    private static boolean crashReportEnabled = false;
 
     public enum DeviceType {
         NA,

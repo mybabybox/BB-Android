@@ -1,5 +1,6 @@
 package com.babybox.app;
 
+import com.babybox.viewmodel.ActivityVM;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
@@ -196,8 +197,8 @@ public interface BabyBoxApi {
     @GET("/notification-counter")
     public void getNotificationCounter(@Query("key") String key, Callback<NotificationCounterVM> cb);
 
-    //@GET("/activities")
-    //public void getActivities(@Path("offset") Long offset, @Query("key") String key, Callback<List<ActivityVM>> cb);
+    @GET("/get-activities/{offset}")
+    public void getActivities(@Path("offset") Long offset, @Query("key") String key, Callback<List<ActivityVM>> cb);
 
     //
     // Conversation

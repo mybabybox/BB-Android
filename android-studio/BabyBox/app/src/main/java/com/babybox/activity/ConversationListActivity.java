@@ -101,7 +101,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             }
         });
 
-        backImage = (ImageView) this.findViewById(R.id.backImage);
+        backImage = (ImageView) findViewById(R.id.backImage);
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

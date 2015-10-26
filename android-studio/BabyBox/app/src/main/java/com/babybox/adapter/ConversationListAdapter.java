@@ -78,7 +78,7 @@ public class ConversationListAdapter extends BaseAdapter {
 
         ConversationVM item = conversations.get(i);
 
-        Log.d(this.getClass().getSimpleName(), "[" + i + "|Id=" + item.id + "] " + item.getPostTitle() + " unread=" + item.getUnread());
+        Log.d(this.getClass().getSimpleName(), "[" + i + "|id=" + item.id + "] " + item.getPostTitle() + " unread=" + item.getUnread());
         if (item.getUnread() > 0) {
             conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
         } else {
@@ -102,7 +102,7 @@ public class ConversationListAdapter extends BaseAdapter {
         dateText.setText(DateTimeUtil.getTimeAgo(item.getLastMessageDate()));
         ViewUtil.setHtmlText(item.getLastMessage(), lastMessageText, activity);
 
-        Log.d(this.getClass().getSimpleName(), item.getLastMessage());
+        //Log.d(this.getClass().getSimpleName(), item.getLastMessage());
 
         return  view;
     }

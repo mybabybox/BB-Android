@@ -20,6 +20,7 @@ import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
@@ -295,7 +296,7 @@ public class ViewUtil {
         textView.setTextIsSelectable(true);
         textView.setFocusable(true);
         textView.setLinksClickable(true);
-        textView.setLinkTextColor(AppController.getInstance().getColor(R.color.link));
+        textView.setLinkTextColor(textView.getResources().getColor(R.color.link));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
         MovementMethod m = textView.getMovementMethod();
@@ -830,13 +831,27 @@ public class ViewUtil {
      * Clickable string with onclick listener.
      */
     static class ClickableString extends ClickableSpan {
-        private View.OnClickListener mListener;
+        private View.OnClickListener listener;
+        private boolean drawUnderline;
+
         public ClickableString(View.OnClickListener listener) {
-            mListener = listener;
+            this(listener, false);
         }
+
+        public ClickableString(View.OnClickListener listener, boolean drawUnderline) {
+            this.listener = listener;
+            this.drawUnderline = drawUnderline;
+        }
+
         @Override
         public void onClick(View v) {
-            mListener.onClick(v);
+            listener.onClick(v);
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(drawUnderline);
         }
     }
 }

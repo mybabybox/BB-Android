@@ -1,5 +1,6 @@
 package com.babybox.app;
 
+import com.babybox.viewmodel.ActivityVM;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
@@ -215,11 +216,9 @@ public class BabyBoxService {
         api.getNotificationCounter(AppController.getInstance().getSessionId(), cb);
     }
 
-    /*
     public void getActivites(Long offset, Callback<List<ActivityVM>> cb) {
-        api.getActivities(offest, AppController.getInstance().getSessionId(), cb);
+        api.getActivities(offset, AppController.getInstance().getSessionId(), cb);
     }
-    */
 
     // conversation
 
