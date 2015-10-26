@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/activityLayout"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/userImageLayout"
+        android:layout_margin="10dp">
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="fitCenter"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"></ImageView>
+
+        <TextView
+            android:id="@+id/userText"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:textSize="13dp"
+            android:textColor="@color/gray"
+            android:layout_below="@+id/userPicture"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/userImageLayout"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:id="@+id/messageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_gray"
+                android:textSize="15dp"
+                android:layout_marginRight="3dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:textColorLink="@color/sharp_pink" />
+
+            <ImageView
+                android:id="@+id/postImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/timeImage"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="false"
+                android:src="@drawable/ic_time" />
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="@color/light_gray"
+                android:layout_alignParentRight="false"
+                android:singleLine="true"
+                android:layout_alignParentTop="false"
+                android:layout_toRightOf="@+id/timeImage"
+                android:layout_marginLeft="3dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

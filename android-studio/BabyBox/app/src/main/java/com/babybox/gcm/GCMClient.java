@@ -18,7 +18,7 @@ import retrofit.client.Response;
 
 public class GCMClient {
 
-	public static final String GOOGLE_PROJECT_ID = AppController.getInstance().getString(R.string.gcm_project_key);
+	public static final String GOOGLE_PROJECT_ID = AppController.getInstance().getString(R.string.gcm_project_id);
 	public static final String MESSAGE_KEY = "message";
 	public static final String REG_ID = "regId";
 

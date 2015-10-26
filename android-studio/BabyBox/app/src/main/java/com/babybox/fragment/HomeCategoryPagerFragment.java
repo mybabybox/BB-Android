@@ -28,7 +28,7 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
     private List<ImageView> images;
     private List<TextView> names;
 
-    private List<CategoryVM> categories;
+    private int page;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
             ImageView image = images.get(i);
             TextView name = names.get(i);
 
+            List<CategoryVM> categories = HomeCategoryPagerAdapter.getCategoriesForPosition(page);
             if (i < categories.size()) {
                 final CategoryVM category = categories.get(i);
                 name.setText(category.getName());
@@ -80,11 +81,7 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
         }
     }
 
-    public List<CategoryVM> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<CategoryVM> categories) {
-        this.categories = categories;
+    public void setPage(int page) {
+        this.page = page;
     }
 }

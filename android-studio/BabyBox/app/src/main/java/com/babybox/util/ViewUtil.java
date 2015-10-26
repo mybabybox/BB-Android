@@ -18,8 +18,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Selection;
 import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.text.method.MovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -265,31 +268,69 @@ public class ViewUtil {
         return comments.subList(start, comments.size());
     }
 
-    public static String sellerProductsFormat(Long value) {
+    public static void setClickableText(TextView textView, String text, String clickableText, View.OnClickListener listener) {
+        setClickableText(textView, text, clickableText, true, listener);
+    }
+
+    public static void setClickableText(TextView textView, String text, String clickableText, boolean prepend, View.OnClickListener listener) {
+        SpannableString link = setLinkSpan(clickableText, listener);
+        if (prepend) {
+            textView.setText(link);
+            textView.append(" "+text);
+        } else {
+            textView.setText(text);
+            textView.append(" "+link);
+        }
+        //textView.append(".");
+        setLinksClickable(textView);
+    }
+
+    public static SpannableString setLinkSpan(CharSequence text, View.OnClickListener listener) {
+        SpannableString link = new SpannableString(text);
+        link.setSpan(new ClickableString(listener), 0, text.length(), SpannableString.SPAN_INCLUSIVE_EXCLUSIVE);
+        return link;
+    }
+
+    public static void setLinksClickable(TextView textView) {
+        textView.setTextIsSelectable(true);
+        textView.setFocusable(true);
+        textView.setLinksClickable(true);
+        textView.setLinkTextColor(AppController.getInstance().getColor(R.color.link));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+        MovementMethod m = textView.getMovementMethod();
+        if ((m == null) || !(m instanceof LinkMovementMethod)) {
+            if (textView.getLinksClickable()) {
+                textView.setMovementMethod(LinkMovementMethod.getInstance());
+            }
+        }
+    }
+
+    public static String formatSellerProducts(Long value) {
         return AppController.getInstance().getString(R.string.products) + ": " + value;
     }
 
-    public static String sellerFollowersFormat(Long value) {
+    public static String formatSellerFollowers(Long value) {
         return AppController.getInstance().getString(R.string.followers) + ": " + value;
     }
 
-    public static String followersFormat(Long value) {
+    public static String formatFollowers(Long value) {
         return value + " " + AppController.getInstance().getString(R.string.followers);
     }
 
-    public static String followingsFormat(Long value) {
+    public static String formatFollowings(Long value) {
         return value + " " + AppController.getInstance().getString(R.string.followings);
     }
 
-    public static String productsTabFormat(Long value) {
+    public static String formatProductsTab(Long value) {
         return value + "\n" + AppController.getInstance().getString(R.string.products);
     }
 
-    public static String likesTabFormat(Long value) {
+    public static String formatLikesTab(Long value) {
         return value + "\n" + AppController.getInstance().getString(R.string.likes);
     }
 
-    public static String collectionsTabFormat(Long value) {
+    public static String formatCollectionsTab(Long value) {
         return value + "\n" + AppController.getInstance().getString(R.string.collections);
     }
 
@@ -460,14 +501,6 @@ public class ViewUtil {
         if (!StringUtils.isEmpty(text)) {
             textView.setText(text);
         }
-    }
-
-    public static void setLinksClickable(TextView textView) {
-        textView.setTextIsSelectable(true);
-        textView.setFocusable(true);
-        textView.setLinksClickable(true);
-        textView.setLinkTextColor(textView.getResources().getColor(R.color.link));
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public static void setLongClickSelectAll(TextView textView) {
@@ -791,5 +824,19 @@ public class ViewUtil {
         }
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.setResult(Activity.RESULT_OK, intent);
+    }
+
+    /**
+     * Clickable string with onclick listener.
+     */
+    static class ClickableString extends ClickableSpan {
+        private View.OnClickListener mListener;
+        public ClickableString(View.OnClickListener listener) {
+            mListener = listener;
+        }
+        @Override
+        public void onClick(View v) {
+            mListener.onClick(v);
+        }
     }
 }

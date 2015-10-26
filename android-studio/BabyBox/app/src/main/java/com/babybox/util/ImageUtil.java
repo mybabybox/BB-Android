@@ -38,8 +38,6 @@ import java.util.List;
  */
 public class ImageUtil {
 
-    public static final String BABYBOX_TEMP_DIR_NAME = "BabyBox";
-
     public static final int PREVIEW_THUMBNAIL_MAX_WIDTH = 350;
     public static final int PREVIEW_THUMBNAIL_MAX_HEIGHT = 350;
 
@@ -62,7 +60,8 @@ public class ImageUtil {
     public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-original-message-image-by-id/";
     public static final String MINI_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-mini-message-image-by-id/";
 
-    public static final String IMAGE_FOLDER_PATH = Environment.getExternalStorageDirectory() + "/" + AppController.APP_NAME;
+    public static final String IMAGE_FOLDER_NAME = AppController.APP_NAME;
+    public static final String IMAGE_FOLDER_PATH = Environment.getExternalStorageDirectory() + "/" + IMAGE_FOLDER_NAME;
     public static final String CAMERA_IMAGE_TEMP_PATH = IMAGE_FOLDER_PATH + "/" + "camera.jpg";
 
     private static ImageCircleTransform circleTransform =
@@ -98,12 +97,12 @@ public class ImageUtil {
             File externalRoot = Environment.getExternalStorageDirectory();
             Log.d(ImageUtil.class.getSimpleName(), "initImageTempDir: externalRoot="+externalRoot.getAbsolutePath());
 
-            tempDir = new File(externalRoot, BABYBOX_TEMP_DIR_NAME);
+            tempDir = new File(externalRoot, IMAGE_FOLDER_NAME);
             if (!tempDir.exists()) {
                 tempDir.mkdir();
                 Log.d(ImageUtil.class.getSimpleName(), "initImageTempDir: create tempDir=" + tempDir.getAbsolutePath());
             } else {
-                clearTempDir();
+                //clearTempDir();
             }
         } else {
             Log.e(ImageUtil.class.getSimpleName(), "initImageTempDir: no external storage!!!");

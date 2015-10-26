@@ -433,8 +433,8 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 ImageUtil.displayThumbnailProfileImage(post.getOwnerId(), sellerImage);
                 sellerNameText.setText(post.getOwnerName());
-                sellerProductsText.setText(ViewUtil.sellerProductsFormat(post.getOwnerNumProducts()));
-                sellerFollowersText.setText(ViewUtil.sellerFollowersFormat(post.getOwnerNumFollowers()));
+                sellerProductsText.setText(ViewUtil.formatSellerProducts(post.getOwnerNumProducts()));
+                sellerFollowersText.setText(ViewUtil.formatSellerFollowers(post.getOwnerNumFollowers()));
 
                 sellerLayout.setOnClickListener(new View.OnClickListener() {
                     @Override

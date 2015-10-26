@@ -143,7 +143,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
             }
         });
 
-        followersText.setText(ViewUtil.followersFormat(user.numFollowers));
+        followersText.setText(ViewUtil.formatFollowers(user.numFollowers));
         followersText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +151,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
             }
         });
 
-        followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
+        followingsText.setText(ViewUtil.formatFollowings(user.numFollowings));
         followingsText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -160,8 +160,8 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         });
 
 
-        productsButton.setText(ViewUtil.productsTabFormat(user.numProducts));
-        likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
+        productsButton.setText(ViewUtil.formatProductsTab(user.numProducts));
+        likesButton.setText(ViewUtil.formatLikesTab(user.numLikes));
     }
 
     @Override

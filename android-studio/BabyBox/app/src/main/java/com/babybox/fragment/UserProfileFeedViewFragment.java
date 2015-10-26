@@ -1,6 +1,5 @@
 package com.babybox.fragment;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -159,7 +158,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     }
                 });
 
-                followersText.setText(ViewUtil.followersFormat(user.numFollowers));
+                followersText.setText(ViewUtil.formatFollowers(user.numFollowers));
                 followersText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -167,7 +166,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     }
                 });
 
-                followingsText.setText(ViewUtil.followingsFormat(user.numFollowings));
+                followingsText.setText(ViewUtil.formatFollowings(user.numFollowings));
                 followingsText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -193,8 +192,8 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
                     }
                 });
 
-                productsButton.setText(ViewUtil.productsTabFormat(user.numProducts));
-                likesButton.setText(ViewUtil.likesTabFormat(user.numLikes));
+                productsButton.setText(ViewUtil.formatProductsTab(user.numProducts));
+                likesButton.setText(ViewUtil.formatLikesTab(user.numLikes));
 
                 // admin only
                 if (AppController.isUserAdmin()) {

@@ -121,7 +121,7 @@ class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {
             default: {
                 HomeCategoryPagerFragment fragment = new HomeCategoryPagerFragment();
                 //fragment.setTrackedOnce();
-                fragment.setCategories(getCategoriesForPage(position));
+                fragment.setPage(position);
                 return fragment;
             }
         }
@@ -139,13 +139,13 @@ class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {
         return POSITION_NONE;
     }
 
-    private List<CategoryVM> getCategoriesForPage(int position) {
+    public static List<CategoryVM> getCategoriesForPosition(int position) {
         int start = position * CATEGORIES_PER_PAGE;
         int end = start + CATEGORIES_PER_PAGE;
 
         List<CategoryVM> categories = CategoryCache.getCategories();
         if (start >= categories.size()) {
-            Log.e(this.getClass().getSimpleName(), "getCategoriesForPage: position out of bound... position="+position+" categories.size="+categories.size());
+            Log.e(HomeCategoryPagerAdapter.class.getSimpleName(), "getCategoriesForPage: position out of bound... position="+position+" categories.size="+categories.size());
             return null;
         }
 
