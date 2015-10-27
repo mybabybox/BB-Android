@@ -20,23 +20,32 @@ import com.babybox.viewmodel.MessageVM;
 public class MessageListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
-    private List<MessageVM> messageVMs;
+    private List<MessageVM> messages;
     private ImageView messageImage;
     private ImageView senderImage;
+    private boolean hasHeader;
 
-    public MessageListAdapter(Activity activity, List<MessageVM> messageVMs) {
+    public MessageListAdapter(Activity activity, List<MessageVM> messages, boolean hasHeader) {
         this.activity = activity;
-        this.messageVMs = messageVMs;
+        this.messages = messages;
+        this.hasHeader = hasHeader;
+    }
+
+    public boolean hasHeader() {
+        return hasHeader;
     }
 
     @Override
     public int getCount() {
-        return messageVMs.size();
+        return messages.size();
     }
 
     @Override
-    public MessageVM getItem(int location) {
-        return messageVMs.get(location);
+    public MessageVM getItem(int position) {
+        if (hasHeader()) {
+            return messages.get(position - 1);
+        }
+        return messages.get(position);
     }
 
     @Override
@@ -50,7 +59,7 @@ public class MessageListAdapter extends BaseAdapter {
         if (inflater == null)
             inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-        final MessageVM message = messageVMs.get(position);
+        final MessageVM message = messages.get(position);
 
         Long user1Id = UserInfoCache.getUser().getId();
         Long user2Id = message.getSenderId();

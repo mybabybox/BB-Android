@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20dp"
-                        android:textColor="@color/dark_gray"
+                        android:textColor="@color/dark_gray_2"
                         android:singleLine="true"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
@@ -114,47 +114,53 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:orientation="horizontal"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/ratingsLayout">
-
-                </LinearLayout>
+                    android:id="@+id/userDescText"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="15dp"
+                    android:textColor="@color/dark_gray" />
 
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:id="@+id/ratingsLayout"
+            android:layout_margin="10dp"
+            android:visibility="gone">
 
-            <LinearLayout
-                android:id="@+id/userInfoLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="false"
-                android:layout_below="@+id/tipsLayout"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="10dp">
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/userInfoText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="75"
-                    android:text="-"
-                    android:textSize="14dp"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/admin_green" />
+        <LinearLayout
+            android:id="@+id/userInfoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="false"
+            android:layout_below="@+id/tipsLayout"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone">
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/userInfoText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="75"
+                android:text="-"
+                android:textSize="14dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/admin_green" />
+
         </LinearLayout>
 
     </LinearLayout>

@@ -13,6 +13,7 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
     public String userName;
     public Long lastMessageDate;
     public String lastMessage;
+    public Boolean lastMessageHasImage;
     public Long unread = 0L;
 
     public Long getId() {
@@ -79,20 +80,28 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
         this.userName = userName;
     }
 
-    public Long getLastMessageDate() {
-        return lastMessageDate;
-    }
-
-    public void setLastMessageDate(Long lastMessageDate) {
-        this.lastMessageDate = lastMessageDate;
-    }
-
     public String getLastMessage() {
         return lastMessage;
     }
 
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    public Boolean isLastMessageHasImage() {
+        return lastMessageHasImage;
+    }
+
+    public void setLastMessageHasImage(Boolean lastMessageHasImage) {
+        this.lastMessageHasImage = lastMessageHasImage;
+    }
+
+    public Long getLastMessageDate() {
+        return lastMessageDate;
+    }
+
+    public void setLastMessageDate(Long lastMessageDate) {
+        this.lastMessageDate = lastMessageDate;
     }
 
     public Long getUnread() {

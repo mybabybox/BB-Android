@@ -23,11 +23,12 @@ import com.babybox.viewmodel.ConversationVM;
 public class ConversationListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
+
     private List<ConversationVM> conversations;
     private boolean showPost;
 
     private RelativeLayout conversationLayout;
-    private LinearLayout postImageLayout;
+    private LinearLayout postImageLayout, hasImageLayout;
     private ImageView userImage, postImage;
     private TextView userText, postTitleText, lastMessageText, soldText, dateText, unreadCountText;
 
@@ -69,6 +70,7 @@ public class ConversationListAdapter extends BaseAdapter {
         userText = (TextView) view.findViewById(R.id.userText);
         postTitleText = (TextView) view.findViewById(R.id.postTitleText);
         lastMessageText = (TextView) view.findViewById(R.id.lastMessageText);
+        hasImageLayout = (LinearLayout) view.findViewById(R.id.hasImageLayout);
         soldText = (TextView) view.findViewById(R.id.soldText);
         dateText = (TextView) view.findViewById(R.id.dateText);
         unreadCountText = (TextView) view.findViewById(R.id.unreadCountText);
@@ -101,6 +103,8 @@ public class ConversationListAdapter extends BaseAdapter {
         postTitleText.setText(item.getPostTitle());
         dateText.setText(DateTimeUtil.getTimeAgo(item.getLastMessageDate()));
         ViewUtil.setHtmlText(item.getLastMessage(), lastMessageText, activity);
+
+        hasImageLayout.setVisibility(item.lastMessageHasImage? View.VISIBLE : View.GONE);
 
         //Log.d(this.getClass().getSimpleName(), item.getLastMessage());
 

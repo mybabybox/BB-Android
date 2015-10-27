@@ -25,6 +25,8 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
 import java.lang.reflect.Field;
 
 import retrofit.Callback;
@@ -36,7 +38,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     private static final String TAG = UserProfileFeedViewFragment.class.getName();
 
     protected ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
-    protected TextView userNameText, followersText, followingsText, userInfoText;
+    protected TextView userNameText, followersText, followingsText, userInfoText, userDescText;
     protected LinearLayout userInfoLayout;
     protected RelativeLayout settingsLayout;
     protected Button editButton, followButton, collectionsButton, productsButton, likesButton;
@@ -85,6 +87,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
         userInfoLayout = (LinearLayout) headerView.findViewById(R.id.userInfoLayout);
         userInfoText = (TextView) headerView.findViewById(R.id.userInfoText);
+        userDescText = (TextView) headerView.findViewById(R.id.userDescText);
 
         setUserId(getArguments().getLong(ViewUtil.BUNDLE_KEY_ID));
 
@@ -143,6 +146,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
             public void success(final UserVM user, retrofit.client.Response response) {
                 setActionBarTitle(user.getDisplayName());
                 userNameText.setText(user.getDisplayName());
+                userDescText.setText(user.getAboutMe());
 
                 ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
                     @Override

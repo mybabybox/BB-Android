@@ -20,6 +20,10 @@
     <string name="tips_reminder">提提你~</string>
     <string name="url_copy_success">連結已複制</string>
     <string name="url_copy_failed">連結不能複制</string>
+    <string name="text_copy_success">信息已複制</string>
+    <string name="text_copy_failed">信息不能複制</string>
+    <string name="comment_copy_success">評論已複制</string>
+    <string name="comment_copy_failed">評論不能複制</string>
 
     <!-- Login / Signup -->
     <string name="login">登入</string>
@@ -130,7 +134,7 @@
     <string name="sold_view_chats">Sold - View Chats</string>
     <string name="listed">Listed</string>
     <string name="more_products">You may also like</string>
-    <string name="comment_bar_hint">添加評論</string>
+    <string name="comment_bar_hint"></string>
     <string name="no_products">~ 暫沒有商品 ~</string>
     <string name="no_product_comments">~ 沒有評論 ~</string>
 
@@ -234,6 +238,7 @@
     <string name="invalid_comment_body_empty">請填寫內容</string>
 
     <!-- Image processing library -->
+    <string name="image">Image</string>
     <string name="img_desc">Images</string>
     <string name="no_media">Your photo gallery is not available</string>
 

@@ -88,6 +88,32 @@
                 android:layout_toLeftOf="@+id/unreadCountText"
                 android:layout_alignParentLeft="true" />
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hasImageLayout"
+                android:visibility="gone"
+                android:layout_below="@+id/lastMessageText"
+                android:layout_marginTop="3dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/cameraImage"
+                    android:src="@drawable/ic_camera"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/image"
+                    android:textSize="14dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="3dp"
+                    android:textColor="@color/dark_gray" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/unreadCountText"
                 android:layout_width="18dp"

@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -123,6 +124,19 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
         listView.addHeaderView(listHeader);
         listHeader.setVisibility(View.INVISIBLE);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final MessageVM item = adapter.getItem(i);
+                if (ViewUtil.copyToClipboard(item.getBody())) {
+                    Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.text_copy_success), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.text_copy_failed), Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
 
         // load messages
         loadMessages(conversationId);
@@ -448,7 +462,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                     listHeader.setVisibility(View.VISIBLE);
                 }
 
-                adapter = new MessageListAdapter(MessageListActivity.this, messages);
+                adapter = new MessageListAdapter(MessageListActivity.this, messages, true);
                 listView.setAdapter(adapter);
 
                 // send a buy message to seller

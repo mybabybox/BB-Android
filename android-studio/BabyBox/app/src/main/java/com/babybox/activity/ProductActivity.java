@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -52,6 +53,7 @@ import com.babybox.util.ViewUtil;
 import com.babybox.view.AdaptiveViewPager;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationVM;
+import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
@@ -459,6 +461,20 @@ public class ProductActivity extends TrackedFragmentActivity {
                         }
                     });
                 }
+
+                commentList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        final CommentVM item = commentListAdapter.getItem(i);
+                        if (ViewUtil.copyToClipboard(item.getBody())) {
+                            Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_copy_success), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_copy_failed), Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+
                 commentList.setVisibility(View.VISIBLE);
 
                 // actionbar

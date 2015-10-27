@@ -27,6 +27,8 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
 import java.io.File;
 
 import retrofit.Callback;
@@ -128,6 +130,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         setUserId(user.getId());
 
         userNameText.setText(user.getDisplayName());
+        userDescText.setText(user.getAboutMe());
 
         ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override

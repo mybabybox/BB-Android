@@ -31,7 +31,8 @@
             android:textSize="15dp"
             android:textColor="@color/dark_gray_2"
             android:layout_centerVertical="true"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:textIsSelectable="false" />
         <ImageView
             android:layout_marginTop="5dp"
             android:orientation="vertical"
