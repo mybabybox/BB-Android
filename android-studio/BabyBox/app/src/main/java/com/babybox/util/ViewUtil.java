@@ -269,11 +269,11 @@ public class ViewUtil {
         return comments.subList(start, comments.size());
     }
 
-    public static void setClickableText(TextView textView, String text, String clickableText, View.OnClickListener listener) {
-        setClickableText(textView, text, clickableText, true, listener);
+    public static void setClickableText(TextView textView, String clickableText, String text, View.OnClickListener listener) {
+        setClickableText(textView, clickableText, text, true, listener);
     }
 
-    public static void setClickableText(TextView textView, String text, String clickableText, boolean prepend, View.OnClickListener listener) {
+    public static void setClickableText(TextView textView, String clickableText, String text, boolean prepend, View.OnClickListener listener) {
         SpannableString link = setLinkSpan(clickableText, listener);
         if (prepend) {
             textView.setText(link);

@@ -84,9 +84,11 @@ public class ProfileMainFragment extends TrackedFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        for (Fragment fragment : getChildFragmentManager().getFragments()) {
-            if (fragment != null)
-                fragment.onActivityResult(requestCode, resultCode, data);
+        if (getChildFragmentManager() != null && getChildFragmentManager().getFragments() != null) {
+            for (Fragment fragment : getChildFragmentManager().getFragments()) {
+                if (fragment != null)
+                    fragment.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 }

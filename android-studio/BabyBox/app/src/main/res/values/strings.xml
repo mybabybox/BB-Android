@@ -112,6 +112,11 @@
 
     <!-- Activity tab -->
     <string name="no_activity">~ No Activity ~</string>
+    <string name="activity_posted">發佈了新商品:</string>
+    <string name="activity_commented">在商品留言:</string>
+    <string name="activity_liked">喜歡你的商品。</string>
+    <string name="activity_followed">關注了你。</string>
+    <string name="activity_sold">已賣出商品。</string>
 
     <!-- Category page -->
     <string name="filter_popular">Popular</string>

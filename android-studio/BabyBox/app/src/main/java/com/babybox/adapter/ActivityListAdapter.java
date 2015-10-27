@@ -76,8 +76,6 @@ public class ActivityListAdapter extends BaseAdapter {
         }
 
         ImageUtil.displayThumbnailProfileImage(item.getActorImage(), userImage);
-        ImageUtil.displayPostImage(item.getTargetImage(), postImage);
-
         userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,15 +83,70 @@ public class ActivityListAdapter extends BaseAdapter {
             }
         });
 
-        ViewUtil.setClickableText(messageText, item.getTargetName(), item.getActorName(), new View.OnClickListener() {
+        setMessageText(item);
+
+        dateText.setText(DateTimeUtil.getTimeAgo(item.getCreatedDate()));
+
+        return  view;
+    }
+
+    private void setMessageText(final ActivityVM item) {
+        String message = "";
+        boolean isTargetProduct = true;
+
+        switch (item.getActivityType()) {
+            case "NEW_POST":
+                message = activity.getString(R.string.activity_posted) + "\n" + item.getTargetName();
+                isTargetProduct = true;
+                break;
+            case "NEW_COMMENT":
+                message = activity.getString(R.string.activity_commented) + "\n" + item.getTargetName();
+                isTargetProduct = true;
+                break;
+            case "LIKED":
+                message = activity.getString(R.string.activity_liked);
+                isTargetProduct = true;
+                break;
+            case "FOLLOWED":
+                message = activity.getString(R.string.activity_followed);
+                isTargetProduct = false;
+                break;
+            case "SOLD":
+                message = activity.getString(R.string.activity_sold);
+                isTargetProduct = true;
+                break;
+
+        }
+
+        // link is always actor user
+        ViewUtil.setClickableText(messageText, item.getActorName(), message, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewUtil.startUserProfileActivity(activity, item.getActor());
             }
         });
 
-        dateText.setText(DateTimeUtil.getTimeAgo(item.getCreatedDate()));
+        if (isTargetProduct) {
+            // open product
+            activityLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewUtil.startProductActivity(activity, item.getTarget());
+                }
+            });
 
-        return  view;
+            ImageUtil.displayPostImage(item.getTargetImage(), postImage);
+            postImage.setVisibility(View.VISIBLE);
+        } else {
+            // open actor user
+            activityLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewUtil.startUserProfileActivity(activity, item.getActor());
+                }
+            });
+
+            postImage.setVisibility(View.INVISIBLE);
+        }
     }
 }

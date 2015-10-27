@@ -48,14 +48,6 @@ public class ActivityMainFragment extends TrackedFragment {
         tipText = (TextView) view.findViewById(R.id.tipText);
         listView = (ListView) view.findViewById(R.id.activityList);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // open activity based on ActivityType
-                //ViewUtil.startMessageListActivity(getActivity(), adapter.getItem(i).id, false);
-            }
-        });
-
         // pull refresh
         pullListView = (PullToRefreshView) view.findViewById(R.id.pull_to_refresh);
         if (pullListView != null) {
@@ -112,9 +104,11 @@ public class ActivityMainFragment extends TrackedFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        for (Fragment fragment : getChildFragmentManager().getFragments()) {
-            if (fragment != null)
-                fragment.onActivityResult(requestCode, resultCode, data);
+        if (getChildFragmentManager() != null && getChildFragmentManager().getFragments() != null) {
+            for (Fragment fragment : getChildFragmentManager().getFragments()) {
+                if (fragment != null)
+                    fragment.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 }
