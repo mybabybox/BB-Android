@@ -53,8 +53,8 @@ import retrofit.client.Response;
 
 public class NewPostActivity extends TrackedFragmentActivity {
 
-    protected RelativeLayout catLayout;
-    protected LinearLayout selectCatLayout;
+    protected LinearLayout imagesLayout, selectCatLayout;
+    protected RelativeLayout browseLayout, catLayout;
     protected TextView selectCatText;
     protected ImageView selectCatIcon;
     protected TextView catName;
@@ -77,6 +77,10 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     protected boolean postSuccess = false;
 
+    protected String getActionTypeText() {
+        return getString(R.string.new_post_action);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +99,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         backImage = (ImageView) findViewById(R.id.backImage);
         postAction = (TextView) findViewById(R.id.postAction);
+        imagesLayout = (LinearLayout) findViewById(R.id.imagesLayout);
+        browseLayout = (RelativeLayout) findViewById(R.id.browseLayout);
         catLayout = (RelativeLayout) findViewById(R.id.catLayout);
         selectCatLayout = (LinearLayout) findViewById(R.id.selectCatLayout);
         selectCatText = (TextView) findViewById(R.id.selectCatText);
@@ -126,7 +132,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             }
         });
 
-        Long id = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
+        Long id = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, 0L);
         if (id == null || id == 0L) {
             catId = null;
         } else {
@@ -135,7 +141,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         }
         Log.d(this.getClass().getSimpleName(), "onCreate: catId=" + catId);
 
-        updateSelectCatLayout();
+        updateSelectCategoryLayout();
         selectCatLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,25 +160,23 @@ public class NewPostActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View v) {
                 ImageUtil.openPhotoPicker(NewPostActivity.this);
-                //ImageUtil.openPhotoGallery(NewPostActivity.this);
             }
         });
 
+        if (postImages.size() == 0) {
+            postImages.add((ImageView) findViewById(R.id.postImage1));
+            postImages.add((ImageView) findViewById(R.id.postImage2));
+            postImages.add((ImageView) findViewById(R.id.postImage3));
 
-            if (postImages.size() == 0) {
-                postImages.add((ImageView) findViewById(R.id.postImage1));
-                postImages.add((ImageView) findViewById(R.id.postImage2));
-                postImages.add((ImageView) findViewById(R.id.postImage3));
-
-                for (ImageView postImage : postImages) {
-                    postImage.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            removePostImage();
-                        }
-                    });
-                }
+            for (ImageView postImage : postImages) {
+                postImage.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        removePostImage();
+                    }
+                });
             }
+        }
 
         if (ImageUtil.cropUri != null) {
             setPostImage();
@@ -193,7 +197,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         });
     }
 
-    protected void updateSelectCatLayout() {
+    protected void updateSelectCategoryLayout() {
         if (catId == null) {
             selectCatText.setVisibility(View.VISIBLE);
             selectCatIcon.setVisibility(View.VISIBLE);
@@ -205,57 +209,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
             catIcon.setVisibility(View.VISIBLE);
             catName.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (photos.size() >= DefaultValues.MAX_POST_IMAGES) {
-            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_max_images), Toast.LENGTH_SHORT).show();
-        }
-
-        if(resultCode == 0){
-            photos.clear();
-            setPostImage();
-        }
-
-        if (resultCode == RESULT_OK) {
-            if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null)  {
-                selectedImageUri = data.getData();
-                selectedImagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
-
-                String path = selectedImageUri.getPath();
-                Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
-
-                Bitmap bitmap = ImageUtil.resizeToUpload(selectedImagePath);
-                if (bitmap != null) {
-                    //setPostImage(bitmap);
-                    displayPhotoActivity();
-                } else {
-                    Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
-                }
-            } else if(requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE ){
-                File picture = new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH);
-                selectedImageUri = Uri.fromFile(picture);
-                selectedImagePath = picture.getPath();
-
-                String path = picture.getPath();
-                Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
-
-                Bitmap bitmap = ImageUtil.resizeToUpload(selectedImagePath);
-                if (bitmap != null) {
-                    //setPostImage(bitmap);
-                    displayPhotoActivity();
-                } else {
-                    Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
-                }
-            } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
-                setPostImage();
-            }
-        }
-
-
-        // pop back soft keyboard
-        ViewUtil.popupInputMethodWindow(this);
     }
 
     protected void setPostImage(Bitmap bp){
@@ -311,7 +264,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         }
     }
 
-    private void displayPhotoActivity() {
+    protected void displayPhotoActivity() {
         Intent intent = new Intent(this, SelectImageActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
@@ -322,56 +275,58 @@ public class NewPostActivity extends TrackedFragmentActivity {
         //finish();
     }
 
-    protected void doPost() {
+    protected NewPostVM getNewPost() {
         String title = titleEdit.getText().toString().trim();
         String body = descEdit.getText().toString().trim();
         String priceValue = priceEdit.getText().toString().trim();
 
         if (StringUtils.isEmpty(title)) {
-            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_title_empty), Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this, getString(R.string.invalid_post_title_empty), Toast.LENGTH_SHORT).show();
         }
 
         if (StringUtils.isEmpty(body)) {
-            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this, getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
         }
 
         if (StringUtils.isEmpty(priceValue)) {
-            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_price_empty), Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this, getString(R.string.invalid_post_price_empty), Toast.LENGTH_SHORT).show();
         }
 
         Long price = 0L;
         try {
             price = Long.valueOf(priceValue);
         } catch (NumberFormatException e) {
-            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.invalid_post_price_not_number), Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this, getString(R.string.invalid_post_price_not_number), Toast.LENGTH_SHORT).show();
         }
 
         if (catId == null) {
             initCategoryPopup();
+            return null;
+        }
+
+        NewPostVM newPost = new NewPostVM(catId, title, body, price, photos);
+        return newPost;
+    }
+
+    protected void doPost() {
+        NewPostVM newPost = getNewPost();
+        if (newPost == null) {
             return;
         }
 
-        postAction.setEnabled(false);
         ViewUtil.showSpinner(this);
 
-        Log.d(this.getClass().getSimpleName(), "doPost: catId=" + catId + " title=" + title + "images=" + photos.size());
-
-        NewPostVM newPost = new NewPostVM(catId, title, body, price, photos);
+        postAction.setEnabled(false);
         AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
-                reset();
                 complete();
             }
 
             @Override
             public void failure(RetrofitError error) {
                 reset();
-                Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_failed), Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewPostActivity.this, String.format(NewPostActivity.this.getString(R.string.post_failed), getActionTypeText()), Toast.LENGTH_SHORT).show();
                 Log.e(NewPostActivity.class.getSimpleName(), "doPost: failure", error);
             }
         });
@@ -381,17 +336,26 @@ public class NewPostActivity extends TrackedFragmentActivity {
         postAction.setEnabled(true);
         ImageUtil.realPathList.clear();
         ImageUtil.pathList.clear();
+
+        if (categoryPopup != null) {
+            categoryPopup.dismiss();
+            categoryPopup = null;
+        }
+
         ViewUtil.stopSpinner(NewPostActivity.this);
     }
 
     protected void complete() {
+        reset();
+
         postSuccess = true;
-        Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_success), Toast.LENGTH_LONG).show();
+        Toast.makeText(NewPostActivity.this, String.format(getString(R.string.post_success), getActionTypeText()), Toast.LENGTH_LONG).show();
         ViewUtil.setActivityResult(this, true);
         finish();
     }
 
-    private void initCategoryLayout(CategoryVM category) {
+    protected void initCategoryLayout(CategoryVM category) {
+        catId = category.id;
         catName.setText(category.getName());
         int resId = ImageMapping.map(category.getIcon());
         if (resId != -1) {
@@ -400,6 +364,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
             ImageUtil.displayImage(category.getIcon(), catIcon);
         }
+        updateSelectCategoryLayout();
     }
 
     protected void initCategoryPopup() {
@@ -434,7 +399,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
                     catId = category.getId();
                     initCategoryLayout(category);
 
-                    updateSelectCatLayout();
                     categoryPopup.dismiss();
                     categoryPopup = null;
                     Log.d(this.getClass().getSimpleName(), "initCategoryPopup: listView.onItemClick: category="+category.getId()+"|"+category.getName());
@@ -493,29 +457,75 @@ public class NewPostActivity extends TrackedFragmentActivity {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (photos.size() >= DefaultValues.MAX_POST_IMAGES) {
+            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_max_images), Toast.LENGTH_SHORT).show();
+        }
+
+        if(resultCode == 0){
+            photos.clear();
+            setPostImage();
+        }
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null)  {
+                selectedImageUri = data.getData();
+                selectedImagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
+
+                String path = selectedImageUri.getPath();
+                Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
+
+                Bitmap bitmap = ImageUtil.resizeToUpload(selectedImagePath);
+                if (bitmap != null) {
+                    //setPostImage(bitmap);
+                    displayPhotoActivity();
+                } else {
+                    Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                }
+            } else if(requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE ){
+                File picture = new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH);
+                selectedImageUri = Uri.fromFile(picture);
+                selectedImagePath = picture.getPath();
+
+                String path = picture.getPath();
+                Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
+
+                Bitmap bitmap = ImageUtil.resizeToUpload(selectedImagePath);
+                if (bitmap != null) {
+                    //setPostImage(bitmap);
+                    displayPhotoActivity();
+                } else {
+                    Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                }
+            } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
+                setPostImage();
+            }
+        }
+
+        // pop back soft keyboard
+        ViewUtil.popupInputMethodWindow(this);
+    }
+
+    @Override
     public void onBackPressed() {
         String title = titleEdit.getText().toString().trim();
         String desc = descEdit.getText().toString().trim();
         String price = priceEdit.getText().toString().trim();
 
-        ImageUtil.pathList.clear();
-
         if (postSuccess ||
                 (StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
             super.onBackPressed();
-            if (categoryPopup != null) {
-                categoryPopup.dismiss();
-                categoryPopup = null;
-            }
+            reset();
             return;
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(NewPostActivity.this);
-        builder.setMessage(getString(R.string.cancel_new_post))
+        builder.setMessage(String.format(getString(R.string.cancel_post), getActionTypeText()))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         NewPostActivity.super.onBackPressed();
+                        reset();
                     }
                 })
                 .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {

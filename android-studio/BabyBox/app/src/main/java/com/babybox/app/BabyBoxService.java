@@ -149,6 +149,10 @@ public class BabyBoxService {
         api.newPost(post.toMultipart(), AppController.getInstance().getSessionId(), cb);
     }
 
+    public void editPost(NewPostVM post, Callback<ResponseStatusVM> cb) {
+        api.editPost(post.toMultipart(), AppController.getInstance().getSessionId(), cb);
+    }
+
     public void deletePost(Long id, Callback<Response> cb) {
         api.deletePost(id, AppController.getInstance().getSessionId(), cb);
     }

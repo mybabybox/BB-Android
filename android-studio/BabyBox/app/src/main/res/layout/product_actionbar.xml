@@ -19,23 +19,43 @@
             android:src="@drawable/back"
             android:layout_alignParentStart="true" />
 
-        <ImageView
-            android:id="@+id/whatsappAction"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_whatsapp"
-            android:layout_toLeftOf="@+id/copyLinkAction"
-            android:layout_marginRight="10dp"
-            android:layout_centerInParent="true" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_marginRight="5dp">
 
-        <ImageView
-            android:id="@+id/copyLinkAction"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_link_copy"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="15dp"
-            android:layout_alignParentRight="true" />
+            <ImageView
+                android:id="@+id/whatsappAction"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_whatsapp"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true" />
+
+            <ImageView
+                android:id="@+id/copyLinkAction"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_link_copy"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/editPostAction"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/edit_post_action"
+                android:textColor="@color/white"
+                android:textSize="17dp"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </RelativeLayout>
 </RelativeLayout>

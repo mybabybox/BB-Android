@@ -73,6 +73,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private FrameLayout mainLayout;
     private ImageView backImage, whatsappAction, copyLinkAction;
+    private TextView editPostAction;
 
     private AdaptiveViewPager imagePager;
     private ProductImagePagerAdapter imagePagerAdapter;
@@ -129,6 +130,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         backImage = (ImageView) findViewById(R.id.backImage);
         whatsappAction = (ImageView) findViewById(R.id.whatsappAction);
         copyLinkAction = (ImageView) findViewById(R.id.copyLinkAction);
+        editPostAction = (TextView) findViewById(R.id.editPostAction);
 
         imagePager = (AdaptiveViewPager) findViewById(R.id.imagePager);
         dotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
@@ -485,6 +487,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                         SharingUtil.shareToWhatapp(post, ProductActivity.this);
                     }
                 });
+
                 copyLinkAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -495,6 +498,18 @@ public class ProductActivity extends TrackedFragmentActivity {
                         }
                     }
                 });
+
+                if (post.isOwner() && !post.isSold()) {
+                    editPostAction.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ViewUtil.startEditPostActivity(ProductActivity.this, post.id, post.categoryId);
+                        }
+                    });
+                    editPostAction.setVisibility(View.VISIBLE);
+                } else {
+                    editPostAction.setVisibility(View.GONE);
+                }
 
                 ViewUtil.stopSpinner(ProductActivity.this);
             }
@@ -898,7 +913,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         }
 
         pending = true;
-        AppController.getApiService().followUser(id,new Callback<Response>() {
+        AppController.getApiService().followUser(id, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 ViewUtil.selectFollowButtonStyle(followButton);
@@ -920,7 +935,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         }
 
         pending = true;
-        AppController.getApiService().unfollowUser(id,new Callback<Response>() {
+        AppController.getApiService().unfollowUser(id, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 ViewUtil.unselectFollowButtonStyle(followButton);
@@ -934,6 +949,19 @@ public class ProductActivity extends TrackedFragmentActivity {
                 pending = false;
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(this.getClass().getSimpleName(), "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
+
+        if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
+            if (refresh) {
+                getProduct(postId);
+            }
+        }
     }
 }
 

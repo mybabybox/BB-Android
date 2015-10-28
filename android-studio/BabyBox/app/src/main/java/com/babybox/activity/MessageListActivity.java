@@ -1,8 +1,10 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -537,5 +539,11 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
         //unregisterReceiver(broadcastReceiver);
         //stopService(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        reset();
     }
 }

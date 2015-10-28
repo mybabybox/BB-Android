@@ -143,6 +143,9 @@
     <string name="no_products">~ 暫沒有商品 ~</string>
     <string name="no_product_comments">~ 沒有評論 ~</string>
 
+    <string name="edit_post_action">更新</string>
+    <string name="new_post_action">刊登</string>
+    <string name="edit_post_actionbar_title">更新商品</string>
     <string name="new_post_actionbar_title">刊登商品</string>
     <string name="new_post">發出</string>
     <string name="new_post_price">價格($):</string>
@@ -153,8 +156,8 @@
     <string name="new_post_title">你要賣的是?</string>
     <string name="new_post_body">商品詳情</string>
     <string name="new_post_max_images">最多可加入4張圖</string>
-    <string name="new_post_success">成功刊登商品</string>
-    <string name="new_post_failed">暫時不能刊登商品，請稍後重試</string>
+    <string name="post_success">成功%1$s商品</string>
+    <string name="post_failed">暫時不能%1$s商品，請稍後重試</string>
 
     <string name="post_delete_confirm">確定刪除?</string>
     <string name="post_sold_confirm">商品更改為已售後，不會收到買家訊息。\n確定商品已售?</string>
@@ -230,7 +233,7 @@
     <string name="seller_rules_title">賣家需知</string>
 
     <!-- Dialog -->
-    <string name="cancel_new_post">退出刊登商品？</string>
+    <string name="cancel_post">退出%1$s商品？</string>
     <string name="exit_app">退出 babybox？</string>
     <string name="logout_message">確定登出 babybox？</string>
     <string name="yes">是</string>

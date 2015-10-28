@@ -34,7 +34,7 @@
             android:textSize="18dp"
             android:text="@string/new_post"
             android:layout_marginRight="10dp"
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
 

@@ -45,6 +45,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.ConversationListActivity;
+import com.babybox.activity.EditPostActivity;
 import com.babybox.activity.FollowersActivity;
 import com.babybox.activity.FollowingsActivity;
 import com.babybox.activity.FullscreenImageActivity;
@@ -80,6 +81,7 @@ public class ViewUtil {
 
     public static final String BUNDLE_KEY_LOGIN_KEY = "loginKey";
     public static final String BUNDLE_KEY_ID = "id";
+    public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
     public static final String BUNDLE_KEY_SOURCE = "source";
     public static final String BUNDLE_KEY_FEED_TYPE = "feedType";
     public static final String BUNDLE_KEY_FEED_PRODUCT_TYPE = "feedProductType";
@@ -734,7 +736,15 @@ public class ViewUtil {
 
     public static void startNewPostActivity(Activity activity, Long catId) {
         Intent intent = new Intent(activity, NewPostActivity.class);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, catId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, catId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
+        activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
+    }
+
+    public static void startEditPostActivity(Activity activity, Long postId, Long catId) {
+        Intent intent = new Intent(activity, EditPostActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_CATEGORY_ID, catId);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
     }

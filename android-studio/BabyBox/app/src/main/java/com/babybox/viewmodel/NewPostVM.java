@@ -11,6 +11,7 @@ import retrofit.mime.TypedFile;
 import retrofit.mime.TypedString;
 
 public class NewPostVM {
+    public Long postId;
     public Long catId;
     public String title, body;
     public double price;
@@ -19,6 +20,11 @@ public class NewPostVM {
     public String deviceType;
 
     public NewPostVM(Long catId, String title, String body, double price, List<File> images) {
+        this(-1L, catId, title, body, price, images);
+    }
+
+    public NewPostVM(Long postId, Long catId, String title, String body, double price, List<File> images) {
+        this.postId = postId;
         this.catId = catId;
         this.title = title;
         this.body = body;
@@ -30,6 +36,7 @@ public class NewPostVM {
 
     public MultipartTypedOutput toMultipart() {
         MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
+        multipartTypedOutput.addPart("postId", new TypedString(postId+""));
         multipartTypedOutput.addPart("catId", new TypedString(catId+""));
         multipartTypedOutput.addPart("title", new TypedString(title));
         multipartTypedOutput.addPart("body", new TypedString(body));
