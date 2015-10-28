@@ -8,12 +8,13 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
     public Long postImage;
     public String postTitle;
     public Long postPrice;
-    public Boolean postSold;
+    public boolean postOwner;
+    public boolean postSold;
     public Long userId;
     public String userName;
     public Long lastMessageDate;
     public String lastMessage;
-    public Boolean lastMessageHasImage;
+    public boolean lastMessageHasImage;
     public Long unread = 0L;
 
     public Long getId() {
@@ -56,11 +57,19 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
         this.postPrice = postPrice;
     }
 
-    public Boolean isPostSold() {
+    public boolean isPostOwner() {
+        return postOwner;
+    }
+
+    public void setPostOwner(boolean postOwner) {
+        this.postOwner = postOwner;
+    }
+
+    public boolean isPostSold() {
         return postSold;
     }
 
-    public void setPostSold(Boolean postSold) {
+    public void setPostSold(boolean postSold) {
         this.postSold = postSold;
     }
 
@@ -88,11 +97,11 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
         this.lastMessage = lastMessage;
     }
 
-    public Boolean isLastMessageHasImage() {
+    public boolean isLastMessageHasImage() {
         return lastMessageHasImage;
     }
 
-    public void setLastMessageHasImage(Boolean lastMessageHasImage) {
+    public void setLastMessageHasImage(boolean lastMessageHasImage) {
         this.lastMessageHasImage = lastMessageHasImage;
     }
 

@@ -30,7 +30,7 @@ public class ConversationListAdapter extends BaseAdapter {
     private RelativeLayout conversationLayout;
     private LinearLayout postImageLayout, hasImageLayout;
     private ImageView userImage, postImage;
-    private TextView userText, postTitleText, lastMessageText, soldText, dateText, unreadCountText;
+    private TextView userText, postTitleText, lastMessageText, buyText, sellText, soldText, dateText, unreadCountText;
 
     public ConversationListAdapter(Activity activity, List<ConversationVM> conversationVMs) {
         this(activity, conversationVMs, true);
@@ -71,6 +71,8 @@ public class ConversationListAdapter extends BaseAdapter {
         postTitleText = (TextView) view.findViewById(R.id.postTitleText);
         lastMessageText = (TextView) view.findViewById(R.id.lastMessageText);
         hasImageLayout = (LinearLayout) view.findViewById(R.id.hasImageLayout);
+        buyText = (TextView) view.findViewById(R.id.buyText);
+        sellText = (TextView) view.findViewById(R.id.sellText);
         soldText = (TextView) view.findViewById(R.id.soldText);
         dateText = (TextView) view.findViewById(R.id.dateText);
         unreadCountText = (TextView) view.findViewById(R.id.unreadCountText);
@@ -94,7 +96,7 @@ public class ConversationListAdapter extends BaseAdapter {
         if (showPost) {
             postImageLayout.setVisibility(View.VISIBLE);
             ImageUtil.displayPostImage(item.getPostImage(), postImage);
-            soldText.setVisibility(item.postSold ? View.VISIBLE : View.GONE);
+            setConversationTag(item);
         } else {
             postImageLayout.setVisibility(View.GONE);
         }
@@ -109,5 +111,19 @@ public class ConversationListAdapter extends BaseAdapter {
         //Log.d(this.getClass().getSimpleName(), item.getLastMessage());
 
         return  view;
+    }
+
+    private void setConversationTag(ConversationVM conversation) {
+        buyText.setVisibility(View.GONE);
+        sellText.setVisibility(View.GONE);
+        soldText.setVisibility(View.GONE);
+
+        if (conversation.postSold) {
+            soldText.setVisibility(View.VISIBLE);
+        } else if (conversation.postOwner){
+            sellText.setVisibility(View.VISIBLE);
+        } else {
+            buyText.setVisibility(View.VISIBLE);
+        }
     }
 }

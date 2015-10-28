@@ -11,19 +11,13 @@ import android.view.ViewGroup;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
-import com.google.gson.Gson;
 
 import java.lang.reflect.Field;
-import java.util.List;
 
 import com.babybox.R;
 import com.babybox.app.TrackedFragment;
-import com.babybox.viewmodel.NotificationVM;
 
 public class ProfileMainFragment extends TrackedFragment {
-
-    public List<NotificationVM> requestNotif, notifAll;
-    private Gson gson = new Gson();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

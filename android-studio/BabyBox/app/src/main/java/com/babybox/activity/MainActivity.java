@@ -30,11 +30,6 @@ import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.NotificationCounterVM;
-import com.babybox.viewmodel.NotificationsParentVM;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class MainActivity extends TrackedFragmentActivity {
 

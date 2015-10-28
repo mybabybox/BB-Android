@@ -5,8 +5,8 @@ import java.util.List;
 public class PostVM extends PostVMLite {
     public Long ownerNumProducts;
     public Long ownerNumFollowers;
-    public long createdDate;
-    public long updatedDate;
+    public Long createdDate;
+    public Long updatedDate;
     public String body;
     public String categoryType;
     public String categoryName;
