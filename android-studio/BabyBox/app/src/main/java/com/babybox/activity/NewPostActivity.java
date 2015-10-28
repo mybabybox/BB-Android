@@ -321,6 +321,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected void doPost() {
         if (photos.size() == 0) {
             Toast.makeText(this, getString(R.string.invalid_post_no_photo), Toast.LENGTH_SHORT).show();
+            return;
         }
 
         NewPostVM newPost = getNewPost();
