@@ -41,7 +41,7 @@ public class SelectImageActivity extends Activity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == 0){
+        if(resultCode == RESULT_CANCELED){
             finish();
         }
 

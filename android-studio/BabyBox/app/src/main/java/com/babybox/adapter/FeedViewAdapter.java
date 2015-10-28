@@ -113,7 +113,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
         final PostVMLite item = getItem(position);
 
-        if (item.getImages().length != 0) {
+        if (item.getImages() != null && item.getImages().length != 0) {
             loadImage(item.getImages()[0], holder.image);
         }
 

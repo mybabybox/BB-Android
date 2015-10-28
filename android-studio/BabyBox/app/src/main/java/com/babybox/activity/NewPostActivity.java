@@ -159,6 +159,11 @@ public class NewPostActivity extends TrackedFragmentActivity {
         browseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (photos.size() >= DefaultValues.MAX_POST_IMAGES) {
+                    Toast.makeText(NewPostActivity.this,
+                            String.format(NewPostActivity.this.getString(R.string.new_post_max_images), DefaultValues.MAX_POST_IMAGES), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ImageUtil.openPhotoPicker(NewPostActivity.this);
             }
         });
@@ -167,6 +172,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             postImages.add((ImageView) findViewById(R.id.postImage1));
             postImages.add((ImageView) findViewById(R.id.postImage2));
             postImages.add((ImageView) findViewById(R.id.postImage3));
+            postImages.add((ImageView) findViewById(R.id.postImage4));
 
             for (ImageView postImage : postImages) {
                 postImage.setOnClickListener(new View.OnClickListener() {
@@ -282,14 +288,17 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
         if (StringUtils.isEmpty(title)) {
             Toast.makeText(this, getString(R.string.invalid_post_title_empty), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         if (StringUtils.isEmpty(body)) {
             Toast.makeText(this, getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         if (StringUtils.isEmpty(priceValue)) {
             Toast.makeText(this, getString(R.string.invalid_post_price_empty), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         Long price = 0L;
@@ -297,6 +306,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
             price = Long.valueOf(priceValue);
         } catch (NumberFormatException e) {
             Toast.makeText(this, getString(R.string.invalid_post_price_not_number), Toast.LENGTH_SHORT).show();
+            return null;
         }
 
         if (catId == null) {
@@ -309,6 +319,10 @@ public class NewPostActivity extends TrackedFragmentActivity {
     }
 
     protected void doPost() {
+        if (photos.size() == 0) {
+            Toast.makeText(this, getString(R.string.invalid_post_no_photo), Toast.LENGTH_SHORT).show();
+        }
+
         NewPostVM newPost = getNewPost();
         if (newPost == null) {
             return;
@@ -325,7 +339,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                reset();
                 Toast.makeText(NewPostActivity.this, String.format(NewPostActivity.this.getString(R.string.post_failed), getActionTypeText()), Toast.LENGTH_SHORT).show();
                 Log.e(NewPostActivity.class.getSimpleName(), "doPost: failure", error);
             }
@@ -334,6 +347,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     protected void reset() {
         postAction.setEnabled(true);
+        photos.clear();
         ImageUtil.realPathList.clear();
         ImageUtil.pathList.clear();
 
@@ -459,10 +473,12 @@ public class NewPostActivity extends TrackedFragmentActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (photos.size() >= DefaultValues.MAX_POST_IMAGES) {
-            Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.new_post_max_images), Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewPostActivity.this,
+                    String.format(NewPostActivity.this.getString(R.string.new_post_max_images), DefaultValues.MAX_POST_IMAGES), Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        if(resultCode == 0){
+        if (resultCode == RESULT_CANCELED) {
             photos.clear();
             setPostImage();
         }
@@ -513,7 +529,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         String price = priceEdit.getText().toString().trim();
 
         if (postSuccess ||
-                (StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
+                (photos.size() == 0 && StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
             super.onBackPressed();
             reset();
             return;

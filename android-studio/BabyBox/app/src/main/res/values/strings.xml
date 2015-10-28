@@ -155,7 +155,7 @@
     <string name="new_post_select_category">請選擇分類</string>
     <string name="new_post_title">你要賣的是?</string>
     <string name="new_post_body">商品詳情</string>
-    <string name="new_post_max_images">最多可加入4張圖</string>
+    <string name="new_post_max_images">最多可加入%1$d張圖</string>
     <string name="post_success">成功%1$s商品</string>
     <string name="post_failed">暫時不能%1$s商品，請稍後重試</string>
 
@@ -242,6 +242,7 @@
     <string name="cancel">取消</string>
 
     <!-- Validation -->
+    <string name="invalid_post_no_photo">請上載照片</string>
     <string name="invalid_post_title_empty">請填寫標題</string>
     <string name="invalid_post_desc_empty">請填寫內容</string>
     <string name="invalid_post_price_empty">請填寫價格</string>

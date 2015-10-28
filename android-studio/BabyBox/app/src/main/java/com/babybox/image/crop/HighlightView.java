@@ -51,7 +51,7 @@ class HighlightView {
     public static final int MOVE             = (1 << 5);
 
     private static final int DEFAULT_HIGHLIGHT_COLOR = 0xFF33B5E5;
-    private static final float HANDLE_RADIUS_DP = 5f;
+    private static final float HANDLE_RADIUS_DP = 7f;
     private static final float OUTLINE_DP = 2f;
 
     enum ModifyMode { None, Move, Grow }
