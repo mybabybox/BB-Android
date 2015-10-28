@@ -93,7 +93,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private RelativeLayout moreCommentsLayout;
     private ImageView moreCommentsImage;
 
-    private TextView commentText, catNameText, timeText, numViewsText, numCommentsText, deleteText;
+    private TextView commentText, commentSendButton, catNameText, timeText, numViewsText, numCommentsText, deleteText;
     private EditText commentEditText;
     private Button sendButton;
 
@@ -768,7 +768,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 });
                 */
 
-                TextView commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
+                commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
                 commentSendButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -879,6 +879,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private void reset() {
         if (commentPopup != null) {
+            commentEditText.setText("");
             commentPopup.dismiss();
             commentPopup = null;
         }

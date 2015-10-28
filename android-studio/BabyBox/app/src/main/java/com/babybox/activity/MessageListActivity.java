@@ -84,6 +84,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
     private Long conversationId;
     private Long offset = 1L;
 
+    private boolean pending = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -386,6 +388,10 @@ public class MessageListActivity extends TrackedFragmentActivity {
     }
 
     private void doMessage() {
+        if (pending) {
+            return;
+        }
+
         final boolean withPhotos = photos.size() > 0;
         String body = commentEditText.getText().toString().trim();
         if (StringUtils.isEmpty(body) && !withPhotos) {
@@ -395,10 +401,9 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
         //Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
 
-        commentSendButton.setEnabled(false);
-
         ViewUtil.showSpinner(MessageListActivity.this);
 
+        pending = true;
         NewMessageVM newMessage = new NewMessageVM(conversationId, body, photos);
         AppController.getApiService().newMessage(newMessage, new Callback<MessageVM>() {
             @Override
@@ -409,7 +414,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
                 ViewUtil.setActivityResult(MessageListActivity.this, conversationId);
                 reset();
-
+                pending = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
             }
 
@@ -418,7 +423,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 Log.e(MessageListActivity.this.getClass().getSimpleName(), "doMessage.api.newMessage: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_send_failed), Toast.LENGTH_SHORT).show();
                 reset();
-
+                pending = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
             }
         });
@@ -517,11 +522,10 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
     private void reset() {
         if (commentPopup != null) {
+            commentEditText.setText("");
             commentPopup.dismiss();
             commentPopup = null;
         }
-        commentEditText.setText("");
-        commentSendButton.setEnabled(true);
         resetCommentImages();
     }
 
