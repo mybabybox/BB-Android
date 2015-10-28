@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
+    android:background="@color/white">
+
+    <ProgressBar
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyle"
+        android:visibility="visible"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_spinner"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/noItemText"
@@ -24,4 +34,4 @@
         android:divider="@drawable/bar1"
         android:dividerHeight="0.8dp"></ListView>
 
-</LinearLayout>
+</RelativeLayout>
