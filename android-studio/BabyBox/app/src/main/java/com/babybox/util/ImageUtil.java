@@ -395,8 +395,19 @@ public class ImageUtil {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
                         Intent intent  = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH)));
-                        activity.startActivityForResult(intent, REQUEST_CAMERA);
+                        File photoFile = null;
+                        try {
+                            photoFile = createImageFile();
+                        } catch (IOException ex) {
+                            // Error occurred while creating the File
+                            ex.printStackTrace();
+                        }
+                        // Continue only if the File was successfully created
+                        if (photoFile != null) {
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT,
+                                    Uri.fromFile(photoFile));
+                            activity.startActivityForResult(intent, REQUEST_CAMERA);
+                        }
                     }
                 });
 
@@ -419,6 +430,12 @@ public class ImageUtil {
             }
         }
         return "";
+    }
+
+    private static File createImageFile() throws IOException {
+        File storageDir = new File(CAMERA_IMAGE_TEMP_PATH);
+        storageDir.createNewFile();
+        return storageDir;
     }
 
     public static Bitmap resizeAsPreviewThumbnail(String path) {
