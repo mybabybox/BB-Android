@@ -102,27 +102,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/imagesLayout"
-        android:id="@+id/browseLayout"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp">
-
-        <ImageView
-            android:id="@+id/browseImage"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/browse"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="center_vertical|right" />
-    </RelativeLayout>
-
-    <View
+            <View
         android:id="@+id/bar1"
         android:layout_below="@+id/browseLayout"
         android:background="@drawable/bar1"

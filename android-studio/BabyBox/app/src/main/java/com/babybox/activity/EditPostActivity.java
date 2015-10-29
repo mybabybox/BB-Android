@@ -36,7 +36,6 @@ public class EditPostActivity extends NewPostActivity {
 
         // disable images edit
         imagesLayout.setVisibility(View.GONE);
-        browseLayout.setVisibility(View.GONE);
 
         postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
         getPost(postId);

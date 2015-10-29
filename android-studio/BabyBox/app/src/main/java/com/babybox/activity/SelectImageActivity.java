@@ -57,9 +57,12 @@ public class SelectImageActivity extends Activity {
 
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
-            Log.d(this.getClass().getSimpleName(), "handleCrop: size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
-            ImageUtil.imagePaths.add(outputUrl);
-            ImageUtil.cropUri = Uri.parse(outputUrl);
+            Log.d(this.getClass().getSimpleName(), "handleCrop: outputUrl=" + outputUrl);
+
+            // set activity result
+            Intent intent = new Intent();
+            intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT, outputUrl);
+            setResult(RESULT_OK, intent);
             finish();
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();

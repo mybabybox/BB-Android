@@ -207,21 +207,23 @@ public class CropImageActivity extends MonitoredActivity {
             return;
         }
 
-
         imageView.setImageRotateBitmapResetBase(rotateBitmap, true);
 
-        /*Picasso.with(getApplicationContext()).load(R.drawable.demo)
+        /*
+        Picasso.with(getApplicationContext()).load(R.drawable.demo)
                 .transform(transformation)
                 .transform(new CropSquareTransformation())
-                .into(imageView);*/
+                .into(imageView);
+        */
 
-        /*Picasso.with(getApplicationContext())
+        /*
+        Picasso.with(getApplicationContext())
                 .load(sourceUri)
                 .fit()
                 //.resize()
                 .centerCrop()
                 .into(imageView);
-*/
+        */
 
         CropUtil.startBackgroundJob(this, null, getResources().getString(R.string.crop__wait),
                 new Runnable() {

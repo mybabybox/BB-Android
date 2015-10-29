@@ -1,9 +1,10 @@
 package com.babybox.viewmodel;
 
 import com.babybox.app.AppController;
-import com.babybox.util.ImageUtil;
+import com.babybox.util.SelectedPostImage;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.mime.MultipartTypedOutput;
@@ -19,18 +20,21 @@ public class NewPostVM {
     public List<File> images;
     public String deviceType;
 
-    public NewPostVM(Long catId, String title, String body, double price, List<File> images) {
-        this(-1L, catId, title, body, price, images);
+    public NewPostVM(Long catId, String title, String body, double price, List<SelectedPostImage> selectedPostImages) {
+        this(-1L, catId, title, body, price, selectedPostImages);
     }
 
-    public NewPostVM(Long postId, Long catId, String title, String body, double price, List<File> images) {
+    public NewPostVM(Long postId, Long catId, String title, String body, double price, List<SelectedPostImage> selectedPostImages) {
         this.postId = postId;
         this.catId = catId;
         this.title = title;
         this.body = body;
         this.price = price;
-        this.withPhotos = (images != null && images.size() > 0);
-        this.images = images;
+        this.withPhotos = (selectedPostImages != null && selectedPostImages.size() > 0);
+        this.images = new ArrayList<>();
+        for (SelectedPostImage selectedPostImage : selectedPostImages) {
+            this.images.add(selectedPostImage.getFile());
+        }
         this.deviceType = AppController.DeviceType.ANDROID.name();
     }
 

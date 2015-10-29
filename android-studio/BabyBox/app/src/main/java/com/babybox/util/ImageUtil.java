@@ -74,10 +74,6 @@ public class ImageUtil {
 
     private static File tempDir;
 
-    // for new post
-    public static ArrayList<String> imagePaths = new ArrayList<>();
-    public static Uri cropUri;
-
     static {
         init();
     }
@@ -410,7 +406,7 @@ public class ImageUtil {
     public static String getRealPathFromUri(Context context, Uri contentUri) {
         Cursor cursor = null;
         try {
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
             cursor = context.getContentResolver().query(contentUri, filePathColumn, null, null, null);
             if (cursor.moveToFirst()) {
                 int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);

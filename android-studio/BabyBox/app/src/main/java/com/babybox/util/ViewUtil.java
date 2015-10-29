@@ -99,6 +99,7 @@ public class ViewUtil {
     public static final String INTENT_RESULT_ID = "id";
     public static final String INTENT_RESULT_ITEM_CHANGED_STATE = "itemChangedState";
     public static final String INTENT_RESULT_OBJECT = "object";
+    public static final String INTENT_RESULT_INDEX = "index";
 
     public static final String JSON_KEY_MESSAGE_KEY = "messages";
 
