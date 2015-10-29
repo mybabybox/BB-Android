@@ -4,12 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.babybox.R;
-import com.babybox.app.AppController;
 import com.babybox.image.crop.Crop;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
@@ -60,8 +58,7 @@ public class SelectImageActivity extends Activity {
     private void handleCrop(int resultCode, Intent result) {
         if (resultCode == RESULT_OK) {
             Log.d(this.getClass().getSimpleName(), "handleCrop: size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
-            ImageUtil.pathList.add(Uri.parse(outputUrl));
-            ImageUtil.realPathList.add(outputUrl);
+            ImageUtil.imagePaths.add(outputUrl);
             ImageUtil.cropUri = Uri.parse(outputUrl);
             finish();
         } else if (resultCode == Crop.RESULT_ERROR) {

@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,18 +25,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.babybox.R;
-import com.babybox.adapter.EmoticonListAdapter;
 import com.babybox.adapter.PopupCategoryListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
-import com.babybox.app.EmoticonCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
-import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
@@ -59,23 +55,27 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected ImageView selectCatIcon;
     protected TextView catName;
     protected ImageView catIcon;
-    protected ImageView backImage, browseImage, emoImage;
+    protected ImageView backImage, browseImage;
     protected TextView titleEdit, descEdit, priceEdit, postAction, editTextInFocus;
 
     protected String selectedImagePath = null;
     protected Uri selectedImageUri = null;
 
-    protected List<File> photos = new ArrayList<>();
+    protected List<File> postImageFiles = new ArrayList<>();
     protected List<ImageView> postImages = new ArrayList<>();
 
-    protected List<EmoticonVM> emoticonVMList = new ArrayList<>();
-    protected EmoticonListAdapter emoticonListAdapter;
-
     protected Long catId;
-    protected PopupWindow categoryPopup, emoPopup;
+    protected PopupWindow categoryPopup;
     protected PopupCategoryListAdapter adapter;
 
     protected boolean postSuccess = false;
+
+    class PostImage {
+        int index;
+        File file;
+        String path;
+        Uri pathUri;
+    }
 
     protected String getActionTypeText() {
         return getString(R.string.new_post_action);
@@ -108,7 +108,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
         catIcon = (ImageView) findViewById(R.id.catIcon);
         catName = (TextView) findViewById(R.id.catName);
         browseImage = (ImageView) findViewById(R.id.browseImage);
-        emoImage = (ImageView) findViewById(R.id.emoImage);
         titleEdit = (TextView) findViewById(R.id.titleEdit);
         descEdit = (TextView) findViewById(R.id.descEdit);
         priceEdit = (TextView) findViewById(R.id.priceEdit);
@@ -159,7 +158,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         browseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (photos.size() >= DefaultValues.MAX_POST_IMAGES) {
+                if (postImageFiles.size() >= DefaultValues.MAX_POST_IMAGES) {
                     Toast.makeText(NewPostActivity.this,
                             String.format(NewPostActivity.this.getString(R.string.new_post_max_images), DefaultValues.MAX_POST_IMAGES), Toast.LENGTH_SHORT).show();
                     return;
@@ -188,13 +187,6 @@ public class NewPostActivity extends TrackedFragmentActivity {
             setPostImage();
         }
 
-        emoImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initEmoticonPopup();
-            }
-        });
-
         postAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,55 +210,50 @@ public class NewPostActivity extends TrackedFragmentActivity {
     }
 
     protected void setPostImage(Bitmap bp){
-        ImageView postImage = postImages.get(photos.size());
+        ImageView postImage = postImages.get(postImageFiles.size());
         postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
         postImage.setVisibility(View.VISIBLE);
         File photo = new File(ImageUtil.getRealPathFromUri(this, selectedImageUri));
-        photos.add(photo);
+        postImageFiles.add(photo);
     }
 
     protected void setPostImage(){
         Log.d(this.getClass().getSimpleName(), "uri="+getIntent().getData());
         Log.d(this.getClass().getSimpleName(), "size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
-        Log.d(this.getClass().getSimpleName(), "photos=" + photos.size());
-        Log.d(this.getClass().getSimpleName(), "pathlist=" + ImageUtil.pathList.size());
-        Log.d(this.getClass().getSimpleName(), "realpath=" + ImageUtil.realPathList.size());
+        Log.d(this.getClass().getSimpleName(), "postImageFiles=" + postImageFiles.size());
+        Log.d(this.getClass().getSimpleName(), "imagePath.size=" + ImageUtil.imagePaths.size());
 
 
-        // ImageView postImage = postImages.get(getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX,0));
-        // postImage.setImageURI(getIntent().getData());
-        // postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
-        if (ImageUtil.pathList.size() != 0) {
-            for (int i = 0; i < ImageUtil.pathList.size(); i++) {
-                ImageView imageView = postImages.get(i);
-                //imageView.setImageBitmap(ImageUtil.resizeAsPreviewThumbnail(AppController.getInstance().realPathList.get(i)));
-                imageView.setImageURI(ImageUtil.pathList.get(i));
-                Log.d(this.getClass().getSimpleName(), "path=" + ImageUtil.realPathList.get(i));
-            }
-        }
+
 
         // File photo = new File(ImageUtil.getRealPathFromUri(this, selectedImageUri));
-        if (ImageUtil.realPathList.size() != 0) {
-            for(String outputURL : ImageUtil.realPathList) {
-                File photo = new File(outputURL);
-                photos.add(photo);
+        if (ImageUtil.imagePaths.size() != 0) {
+            for (int i = 0; i < ImageUtil.imagePaths.size(); i++) {
+                String imagePath = ImageUtil.imagePaths.get(i);
+                File photo = new File(imagePath);
+                postImageFiles.add(photo);
+
+                ImageView imageView = postImages.get(i);
+                Bitmap bp = ImageUtil.resizeAsPreviewThumbnail(imagePath);
+                imageView.setImageBitmap(bp);
+
+                //Uri imagePathUri = Uri.parse(imagePath);
+                //imageView.setImageURI(imagePathUri);
+
+                Log.d(this.getClass().getSimpleName(), "imagePath=" + imagePath);
             }
         }
     }
 
     protected void removePostImage(){
-        if (photos.size() > 0) {
-            int toRemove = photos.size()-1;
+        if (postImageFiles.size() > 0) {
+            int toRemove = postImageFiles.size()-1;
             postImages.get(toRemove).setImageDrawable(getResources().getDrawable(R.drawable.img_camera));
-            photos.remove(toRemove);
+            postImageFiles.remove(toRemove);
         }
-        if(ImageUtil.pathList.size() > 0){
-            int toRemove = ImageUtil.pathList.size() - 1;
-            ImageUtil.pathList.remove(toRemove);
-        }
-        if(ImageUtil.realPathList.size() > 0){
-            int toRemove = ImageUtil.realPathList.size() - 1;
-            ImageUtil.realPathList.remove(toRemove);
+        if(ImageUtil.imagePaths.size() > 0){
+            int toRemove = ImageUtil.imagePaths.size() - 1;
+            ImageUtil.imagePaths.remove(toRemove);
         }
     }
 
@@ -274,7 +261,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         Intent intent = new Intent(this, SelectImageActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
-        intent.putExtra(ViewUtil.BUNDLE_KEY_INDEX,photos.size());
+        intent.putExtra(ViewUtil.BUNDLE_KEY_INDEX, postImageFiles.size());
         intent.setData(selectedImageUri);
         startActivityForResult(intent, ViewUtil.CROP_IMAGE_REQUEST_CODE);
         overridePendingTransition(0, 0);
@@ -314,12 +301,12 @@ public class NewPostActivity extends TrackedFragmentActivity {
             return null;
         }
 
-        NewPostVM newPost = new NewPostVM(catId, title, body, price, photos);
+        NewPostVM newPost = new NewPostVM(catId, title, body, price, postImageFiles);
         return newPost;
     }
 
     protected void doPost() {
-        if (photos.size() == 0) {
+        if (postImageFiles.size() == 0) {
             Toast.makeText(this, getString(R.string.invalid_post_no_photo), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -348,9 +335,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     protected void reset() {
         postAction.setEnabled(true);
-        photos.clear();
-        ImageUtil.realPathList.clear();
-        ImageUtil.pathList.clear();
+        postImageFiles.clear();
+        ImageUtil.imagePaths.clear();
 
         if (categoryPopup != null) {
             categoryPopup.dismiss();
@@ -424,87 +410,35 @@ public class NewPostActivity extends TrackedFragmentActivity {
         }
     }
 
-    protected void initEmoticonPopup() {
-        try {
-            //We need to get the instance of the LayoutInflater, use the context of this activity
-            LayoutInflater inflater = (LayoutInflater) NewPostActivity.this
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            //Inflate the view from a predefined XML layout
-            View layout = inflater.inflate(R.layout.emoticon_popup_window,
-                    (ViewGroup) findViewById(R.id.popupElement));
-
-            // hide soft keyboard when select emoticon
-            ViewUtil.hideInputMethodWindow(this, layout);
-
-            if (emoPopup == null) {
-                emoPopup = new PopupWindow(layout,
-                        ViewUtil.getRealDimension(DefaultValues.EMOTICON_POPUP_WIDTH),
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        true);
-            }
-
-            emoPopup.setBackgroundDrawable(new BitmapDrawable(getResources(), ""));
-            emoPopup.setOutsideTouchable(false);
-            emoPopup.setFocusable(true);
-            emoPopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-            if (emoticonVMList.isEmpty()) {
-                emoticonVMList = EmoticonCache.getEmoticons();
-            }
-            emoticonListAdapter = new EmoticonListAdapter(this,emoticonVMList);
-
-            GridView gridView = (GridView) layout.findViewById(R.id.emoGrid);
-            gridView.setAdapter(emoticonListAdapter);
-
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    ImageMapping.insertEmoticon(emoticonVMList.get(i), editTextInFocus);
-                    emoPopup.dismiss();
-                    emoPopup = null;
-                    ViewUtil.popupInputMethodWindow(NewPostActivity.this);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (photos.size() >= DefaultValues.MAX_POST_IMAGES) {
+        if (postImageFiles.size() >= DefaultValues.MAX_POST_IMAGES) {
             Toast.makeText(NewPostActivity.this,
                     String.format(NewPostActivity.this.getString(R.string.new_post_max_images), DefaultValues.MAX_POST_IMAGES), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (resultCode == RESULT_CANCELED) {
-            photos.clear();
+            postImageFiles.clear();
             setPostImage();
         }
 
         if (resultCode == RESULT_OK) {
-            if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null)  {
-                selectedImageUri = data.getData();
-                selectedImagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
+            if ( (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null) ||
+                    requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE )  {
 
-                String path = selectedImageUri.getPath();
-                Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
-
-                Bitmap bitmap = ImageUtil.resizeToUpload(selectedImagePath);
-                if (bitmap != null) {
-                    //setPostImage(bitmap);
-                    displayPhotoActivity();
-                } else {
-                    Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                String path = "";
+                if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null) {
+                    selectedImageUri = data.getData();
+                    selectedImagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
+                    path = selectedImageUri.getPath();
+                } else if (requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE) {
+                    File picture = new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH);
+                    selectedImageUri = Uri.fromFile(picture);
+                    selectedImagePath = picture.getPath();
+                    path = picture.getPath();
                 }
-            } else if(requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE ){
-                File picture = new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH);
-                selectedImageUri = Uri.fromFile(picture);
-                selectedImagePath = picture.getPath();
 
-                String path = picture.getPath();
                 Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
 
                 Bitmap bitmap = ImageUtil.resizeToUpload(selectedImagePath);
@@ -530,7 +464,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         String price = priceEdit.getText().toString().trim();
 
         if (postSuccess ||
-                (photos.size() == 0 && StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
+                (postImageFiles.size() == 0 && StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
             super.onBackPressed();
             reset();
             return;

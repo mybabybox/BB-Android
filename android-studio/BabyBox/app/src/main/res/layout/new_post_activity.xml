@@ -112,16 +112,6 @@
         android:layout_marginBottom="5dp">
 
         <ImageView
-            android:id="@+id/emoImage"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/emo_smile"
-            android:layout_toLeftOf="@+id/browseImage"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            android:visibility="gone" />
-
-        <ImageView
             android:id="@+id/browseImage"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

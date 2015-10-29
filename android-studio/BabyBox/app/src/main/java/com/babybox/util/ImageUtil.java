@@ -38,8 +38,8 @@ import java.util.List;
  */
 public class ImageUtil {
 
-    public static final int PREVIEW_THUMBNAIL_MAX_WIDTH = 350;
-    public static final int PREVIEW_THUMBNAIL_MAX_HEIGHT = 350;
+    public static final int PREVIEW_THUMBNAIL_MAX_WIDTH = 128;
+    public static final int PREVIEW_THUMBNAIL_MAX_HEIGHT = 128;
 
     public static final int GALLERY_PICTURE = 2;
     public static final int REQUEST_CAMERA = 1;
@@ -75,8 +75,7 @@ public class ImageUtil {
     private static File tempDir;
 
     // for new post
-    public static List<Uri> pathList = new ArrayList<>();
-    public static ArrayList<String> realPathList = new ArrayList<>();
+    public static ArrayList<String> imagePaths = new ArrayList<>();
     public static Uri cropUri;
 
     static {
@@ -516,7 +515,7 @@ public class ImageUtil {
      * @param exif
      * @return
      */
-    private static Bitmap retainOrientation(Bitmap bp, ExifInterface exif) {
+    public static Bitmap retainOrientation(Bitmap bp, ExifInterface exif) {
         int rotation = exifToDegrees(exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_NORMAL));
         if (rotation > 0) {
             int width = bp.getWidth();
