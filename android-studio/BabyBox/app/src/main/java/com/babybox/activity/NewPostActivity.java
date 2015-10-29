@@ -32,7 +32,7 @@ import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
-import com.babybox.util.SelectedPostImage;
+import com.babybox.util.SelectedImage;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.NewPostVM;
@@ -63,7 +63,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     protected int selectedPostImageIndex = -1;
     protected Uri selectedImageUri = null;
-    protected List<SelectedPostImage> selectedPostImages = new ArrayList<>();
+    protected List<SelectedImage> selectedImages = new ArrayList<>();
 
     protected Long catId;
     protected PopupWindow categoryPopup;
@@ -154,7 +154,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 @Override
                 public void onClick(View v) {
                     int index = 0;
-                    SelectedPostImage image = getSelectedPostImage(index);
+                    SelectedImage image = getSelectedPostImage(index);
                     if (image == null) {
                         // select
                         selectedPostImageIndex = index;
@@ -172,7 +172,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 @Override
                 public void onClick(View v) {
                     int index = 1;
-                    SelectedPostImage image = getSelectedPostImage(index);
+                    SelectedImage image = getSelectedPostImage(index);
                     if (image == null) {
                         // select
                         selectedPostImageIndex = index;
@@ -190,7 +190,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 @Override
                 public void onClick(View v) {
                     int index = 2;
-                    SelectedPostImage image = getSelectedPostImage(index);
+                    SelectedImage image = getSelectedPostImage(index);
                     if (image == null) {
                         // select
                         selectedPostImageIndex = index;
@@ -208,7 +208,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
                 @Override
                 public void onClick(View v) {
                     int index = 3;
-                    SelectedPostImage image = getSelectedPostImage(index);
+                    SelectedImage image = getSelectedPostImage(index);
                     if (image == null) {
                         // select
                         selectedPostImageIndex = index;
@@ -248,41 +248,35 @@ public class NewPostActivity extends TrackedFragmentActivity {
         ImageView postImage = postImages.get(index);
         postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
         postImage.setVisibility(View.VISIBLE);
-        selectedPostImages.add(new SelectedPostImage(index, ImageUtil.getRealPathFromUri(this, selectedImageUri)));
+        selectedImages.add(new SelectedImage(index, ImageUtil.getRealPathFromUri(this, selectedImageUri)));
     }
 
-    protected void selectPostImage(int index, String croppedImagePath) {
-        Log.d(this.getClass().getSimpleName(), "uri=" + getIntent().getData());
-        Log.d(this.getClass().getSimpleName(), "size=" + getIntent().getIntExtra(ViewUtil.BUNDLE_KEY_INDEX, 0));
-        Log.d(this.getClass().getSimpleName(), "index=" + index);
-        Log.d(this.getClass().getSimpleName(), "selectedPostImages.size=" + selectedPostImages.size());
-
-        String imagePath = croppedImagePath;
+    protected void selectPostImage(int index, String imagePath) {
         if (!StringUtils.isEmpty(imagePath)) {
-            selectedPostImages.add(new SelectedPostImage(index, imagePath));
+            selectedImages.add(new SelectedImage(index, imagePath));
 
             ImageView imageView = postImages.get(index);
             Bitmap bp = ImageUtil.resizeAsPreviewThumbnail(imagePath);
             imageView.setImageBitmap(bp);
             //imageView.setImageURI(Uri.parse(imagePath);
 
-            Log.d(this.getClass().getSimpleName(), "selectPostImage: croppedImagePath=" + imagePath);
+            Log.d(this.getClass().getSimpleName(), "selectPostImage: index="+index+" imagePath="+imagePath);
         }
     }
 
     protected void removeSelectedPostImage(int index){
-        SelectedPostImage toRemove = getSelectedPostImage(index);
-        selectedPostImages.remove(toRemove);
+        SelectedImage toRemove = getSelectedPostImage(index);
+        selectedImages.remove(toRemove);
         postImages.get(index).setImageDrawable(getResources().getDrawable(R.drawable.img_camera));
     }
 
-    protected void selectImageActivity(Uri imageUri) {
-        Intent intent = new Intent(this, SelectImageActivity.class);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L));
-        intent.setData(imageUri);
-        startActivityForResult(intent, ViewUtil.CROP_IMAGE_REQUEST_CODE);
-        overridePendingTransition(0, 0);
+    protected SelectedImage getSelectedPostImage(int index) {
+        for (SelectedImage image : selectedImages) {
+            if (image.index.equals(index)) {
+                return image;
+            }
+        }
+        return null;
     }
 
     protected NewPostVM getNewPost() {
@@ -318,12 +312,12 @@ public class NewPostActivity extends TrackedFragmentActivity {
             return null;
         }
 
-        NewPostVM newPost = new NewPostVM(catId, title, body, price, selectedPostImages);
+        NewPostVM newPost = new NewPostVM(catId, title, body, price, selectedImages);
         return newPost;
     }
 
     protected void doPost() {
-        if (selectedPostImages.size() == 0) {
+        if (selectedImages.size() == 0) {
             Toast.makeText(this, getString(R.string.invalid_post_no_photo), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -350,18 +344,9 @@ public class NewPostActivity extends TrackedFragmentActivity {
         });
     }
 
-    protected SelectedPostImage getSelectedPostImage(int index) {
-        for (SelectedPostImage image : selectedPostImages) {
-            if (image.index.equals(index)) {
-                return image;
-            }
-        }
-        return null;
-    }
-
     protected void reset() {
         postAction.setEnabled(true);
-        selectedPostImages.clear();
+        selectedImages.clear();
 
         if (categoryPopup != null) {
             categoryPopup.dismiss();
@@ -437,13 +422,13 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (selectedPostImages.size() >= DefaultValues.MAX_POST_IMAGES) {
-            Toast.makeText(NewPostActivity.this,
-                    String.format(NewPostActivity.this.getString(R.string.new_post_max_images), DefaultValues.MAX_POST_IMAGES), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         if (resultCode == RESULT_OK) {
+            if (selectedImages.size() >= DefaultValues.MAX_POST_IMAGES) {
+                Toast.makeText(NewPostActivity.this,
+                        String.format(NewPostActivity.this.getString(R.string.new_post_max_images), DefaultValues.MAX_POST_IMAGES), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if ( (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null) ||
                     requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE )  {
 
@@ -461,20 +446,18 @@ public class NewPostActivity extends TrackedFragmentActivity {
 
                 Bitmap bitmap = ImageUtil.resizeToUpload(imagePath);
                 if (bitmap != null) {
-                    selectImageActivity(selectedImageUri);
+                    ViewUtil.startSelectImageActivity(this, selectedImageUri);
                 } else {
-                    Toast.makeText(NewPostActivity.this, NewPostActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
                 }
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
                 String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
                 selectPostImage(selectedPostImageIndex, croppedImagePath);
             }
-        } else if (resultCode == RESULT_CANCELED) {
-            // no-op
-        }
 
-        // pop back soft keyboard
-        ViewUtil.popupInputMethodWindow(this);
+            // pop back soft keyboard
+            ViewUtil.popupInputMethodWindow(this);
+        }
     }
 
     @Override
@@ -484,7 +467,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         String price = priceEdit.getText().toString().trim();
 
         if (postSuccess ||
-                (selectedPostImages.size() == 0 && StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
+                (selectedImages.size() == 0 && StringUtils.isEmpty(title) && StringUtils.isEmpty(desc) && StringUtils.isEmpty(price))) {
             super.onBackPressed();
             reset();
             return;

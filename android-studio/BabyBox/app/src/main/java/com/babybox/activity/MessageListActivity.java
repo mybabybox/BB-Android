@@ -1,15 +1,14 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -37,6 +36,7 @@ import com.babybox.app.ConversationCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
+import com.babybox.util.SelectedImage;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.MessageVM;
@@ -63,11 +63,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
     private FrameLayout mainFrameLayout;
     private EditText commentEditText;
     private PopupWindow commentPopup;
-    private String selectedImagePath = null;
-    private Uri selectedImageUri = null;
-
-    private List<ImageView> commentImages = new ArrayList<>();
-    private List<File> photos = new ArrayList<>();
 
     private TextView titleText;
     private ImageView backImage, profileButton, postImage;
@@ -80,6 +75,11 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
     private List<MessageVM> messages = new ArrayList<>();
     private MessageListAdapter adapter;
+
+    private List<ImageView> commentImages = new ArrayList<>();
+
+    private Uri selectedImageUri = null;
+    private List<SelectedImage> selectedImages = new ArrayList<>();
 
     private Long conversationId;
     private Long offset = 1L;
@@ -304,11 +304,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 commentBrowseButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (photos.size() == DefaultValues.MAX_MESSAGE_IMAGES) {
-                            Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_max_images), Toast.LENGTH_SHORT).show();
-                        } else {
-                            ImageUtil.openPhotoPicker(MessageListActivity.this);
-                        }
+                        ImageUtil.openPhotoPicker(MessageListActivity.this);
                     }
                 });
 
@@ -319,7 +315,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                         commentImage.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                removeCommentImage();
+                                removeSelectedCommentImage();
                             }
                         });
                     }
@@ -335,48 +331,72 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE && resultCode == RESULT_OK &&
-                data != null && photos.size() < DefaultValues.MAX_MESSAGE_IMAGES) {
+        if (resultCode == RESULT_OK) {
+            if (selectedImages.size() >= DefaultValues.MAX_MESSAGE_IMAGES) {
+                //Toast.makeText(MessageListActivity.this,
+                //        String.format(MessageListActivity.this.getString(R.string.pm_max_images), DefaultValues.MAX_MESSAGE_IMAGES), Toast.LENGTH_SHORT).show();
+                //return;
 
-            selectedImageUri = data.getData();
-            selectedImagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
-
-            String path = selectedImageUri.getPath();
-            Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri=" + path + " selectedImagePath=" + selectedImagePath);
-
-            Bitmap bitmap = ImageUtil.resizeAsPreviewThumbnail(selectedImagePath);
-            if (bitmap != null) {
-                setCommentImage(bitmap);
-            } else {
-                Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                selectedImages.clear();
             }
-        } else {
-            Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.photo_not_found), Toast.LENGTH_SHORT).show();
+
+            if ( (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null) ||
+                    requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE )  {
+
+                String imagePath = "";
+                if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null) {
+                    selectedImageUri = data.getData();
+                    imagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
+                } else if (requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE) {
+                    File picture = new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH);
+                    selectedImageUri = Uri.fromFile(picture);
+                    imagePath = picture.getPath();
+                }
+
+                Log.d(this.getClass().getSimpleName(), "onActivityResult: imagePath=" + imagePath);
+
+                Bitmap bitmap = ImageUtil.resizeToUpload(imagePath);
+                if (bitmap != null) {
+                    ViewUtil.startSelectImageActivity(this, selectedImageUri);
+                } else {
+                    Toast.makeText(this, getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                }
+            } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
+                String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
+                setCommentImage(croppedImagePath);
+            }
+
+            // pop back soft keyboard
+            ViewUtil.popupInputMethodWindow(this);
         }
-
-        // pop back soft keyboard
-        ViewUtil.popupInputMethodWindow(this);
     }
 
-    private void resetCommentImages() {
-        commentImages = new ArrayList<>();
-        photos = new ArrayList<>();
-    }
+    private void setCommentImage(String imagePath) {
+        if (!StringUtils.isEmpty(imagePath)) {
+            selectedImages.add(new SelectedImage(0, imagePath));
 
-    private void setCommentImage(Bitmap bitmap) {
-        ImageView commentImage = commentImages.get(photos.size());
-        commentImage.setImageDrawable(new BitmapDrawable(this.getResources(), bitmap));
-        commentImage.setVisibility(View.VISIBLE);
-        File photo = new File(selectedImagePath);
-        photos.add(photo);
-    }
+            ImageView imageView = commentImages.get(0);
+            Bitmap bp = ImageUtil.resizeAsPreviewThumbnail(imagePath);
+            imageView.setImageBitmap(bp);
+            //imageView.setImageURI(Uri.parse(imagePath);
 
-    private void removeCommentImage() {
-        if (photos.size() > 0) {
-            int toRemove = photos.size()-1;
-            commentImages.get(toRemove).setImageDrawable(null);
-            photos.remove(toRemove);
+            Log.d(this.getClass().getSimpleName(), "setCommentImage: imagePath="+imagePath);
         }
+    }
+
+    private void removeSelectedCommentImage() {
+        SelectedImage toRemove = getSelectedCommentImage(0);
+        selectedImages.remove(toRemove);
+        commentImages.get(0).setImageDrawable(null);
+    }
+
+    private SelectedImage getSelectedCommentImage(int index) {
+        for (SelectedImage image : selectedImages) {
+            if (image.index.equals(index)) {
+                return image;
+            }
+        }
+        return null;
     }
 
     private void doBuy() {
@@ -392,7 +412,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             return;
         }
 
-        final boolean withPhotos = photos.size() > 0;
+        final boolean withPhotos = selectedImages.size() > 0;
         String body = commentEditText.getText().toString().trim();
         if (StringUtils.isEmpty(body) && !withPhotos) {
             Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.invalid_comment_body_empty), Toast.LENGTH_SHORT).show();
@@ -404,7 +424,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         ViewUtil.showSpinner(MessageListActivity.this);
 
         pending = true;
-        NewMessageVM newMessage = new NewMessageVM(conversationId, body, photos);
+        NewMessageVM newMessage = new NewMessageVM(conversationId, body, selectedImages);
         AppController.getApiService().newMessage(newMessage, new Callback<MessageVM>() {
             @Override
             public void success(MessageVM message, Response response) {
@@ -521,12 +541,13 @@ public class MessageListActivity extends TrackedFragmentActivity {
     }
 
     private void reset() {
+        selectedImages.clear();
+
         if (commentPopup != null) {
             commentEditText.setText("");
             commentPopup.dismiss();
             commentPopup = null;
         }
-        resetCommentImages();
     }
 
     @Override

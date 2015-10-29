@@ -4,13 +4,13 @@ import android.net.Uri;
 
 import java.io.File;
 
-public class SelectedPostImage implements Comparable<SelectedPostImage> {
+public class SelectedImage implements Comparable<SelectedImage> {
 
 
     public Integer index;
     public String path;
 
-    public SelectedPostImage(int index, String path) {
+    public SelectedImage(int index, String path) {
         this.index = index;
         this.path = path;
     }
@@ -24,7 +24,7 @@ public class SelectedPostImage implements Comparable<SelectedPostImage> {
     }
 
     @Override
-    public int compareTo(SelectedPostImage o) {
+    public int compareTo(SelectedImage o) {
         return this.index.compareTo(o.index);
     }
 
@@ -36,10 +36,10 @@ public class SelectedPostImage implements Comparable<SelectedPostImage> {
         if (other == this)
             return true;
 
-        if (!(other instanceof SelectedPostImage))
+        if (!(other instanceof SelectedImage))
             return false;
 
-        SelectedPostImage o = (SelectedPostImage) other;
+        SelectedImage o = (SelectedImage) other;
         return this.index.equals(o.index);
     }
 }

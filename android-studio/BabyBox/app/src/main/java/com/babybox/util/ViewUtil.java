@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -55,6 +56,7 @@ import com.babybox.activity.NewPostActivity;
 import com.babybox.activity.ProductActivity;
 import com.babybox.activity.CommentsActivity;
 import com.babybox.activity.ProductConversationListActivity;
+import com.babybox.activity.SelectImageActivity;
 import com.babybox.activity.SignupDetailActivity;
 import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
@@ -816,6 +818,14 @@ public class ViewUtil {
         intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, buy);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
+    }
+
+    public static void startSelectImageActivity(Activity activity, Uri imageUri) {
+        Intent intent = new Intent(activity, SelectImageActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
+        intent.setData(imageUri);
+        activity.startActivityForResult(intent, ViewUtil.CROP_IMAGE_REQUEST_CODE);
+        activity.overridePendingTransition(0, 0);
     }
 
     public static void setActivityResult(Activity activity, Long id) {
