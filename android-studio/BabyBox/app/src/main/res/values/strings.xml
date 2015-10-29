@@ -135,7 +135,8 @@
     <string name="chat">Chat</string>
     <string name="buy">Buy</string>
     <string name="view_chats">View Chats</string>
-    <string name="sold">Mark as Sold</string>
+    <string name="mark_as_sold">Mark as Sold</string>
+    <string name="sold">Sold</string>
     <string name="sold_view_chats">Sold - View Chats</string>
     <string name="listed">Listed</string>
     <string name="more_products">You may also like</string>

@@ -348,7 +348,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                     selectedImageUri = data.getData();
                     imagePath = ImageUtil.getRealPathFromUri(this, selectedImageUri);
                 } else if (requestCode == ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE) {
-                    File picture = new File(Environment.getExternalStorageDirectory(), ImageUtil.CAMERA_IMAGE_TEMP_PATH);
+                    File picture = new File(ImageUtil.CAMERA_IMAGE_TEMP_PATH);
                     selectedImageUri = Uri.fromFile(picture);
                     imagePath = picture.getPath();
                 }

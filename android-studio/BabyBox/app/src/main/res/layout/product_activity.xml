@@ -162,7 +162,7 @@
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="@string/sold"
+                            android:text="@string/mark_as_sold"
                             android:id="@+id/soldButton"
                             android:textColor="@color/white"
                             android:background="@drawable/button_green"
