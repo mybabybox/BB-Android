@@ -50,24 +50,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card1"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card1"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -101,24 +102,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card2"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card2"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -151,24 +153,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card3"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card3"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -211,24 +214,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card4"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card4"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -262,24 +266,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card5"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card5"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -312,24 +317,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name6"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card6"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card6"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -372,24 +378,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name7"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card7"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card7"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -423,24 +430,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card8"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card8"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
@@ -473,24 +481,25 @@
                             android:layout_height="108dp"
                             android:background="@drawable/gradient_bottom"></View>
 
+                        <TextView
+                            android:id="@+id/name9"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/dark_gray_2"
+                            android:shadowDx="3"
+                            android:shadowDy="3"
+                            android:shadowRadius="6"
+                            android:textSize="16dp"
+                            android:textColor="@color/white"
+                            android:gravity="center_horizontal"
+                            android:layout_alignBottom="@+id/card9"
+                            android:paddingBottom="5dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="bottom" />
+
                     </FrameLayout>
 
                 </android.support.v7.widget.CardView>
-
-                <TextView
-                    android:id="@+id/name9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:shadowColor="@color/dark_gray_2"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="6"
-                    android:textSize="16dp"
-                    android:textColor="@color/white"
-                    android:gravity="center_horizontal"
-                    android:layout_alignBottom="@+id/card9"
-                    android:paddingBottom="5dp"
-                    android:layout_centerHorizontal="true" />
 
             </RelativeLayout>
 
