@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.babybox.R;
 import com.babybox.activity.EditProfileActivity;
-import com.babybox.activity.MyProfileActionActivity;
+import com.babybox.activity.SettingsActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
@@ -26,8 +26,6 @@ import com.babybox.viewmodel.UserVM;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-
-import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
 
@@ -103,8 +101,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         settingsIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MyProfileActionActivity.class);
-                intent.putExtra(ViewUtil.BUNDLE_KEY_ACTION_TYPE, "settings");
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
                 startActivity(intent);
             }
         });

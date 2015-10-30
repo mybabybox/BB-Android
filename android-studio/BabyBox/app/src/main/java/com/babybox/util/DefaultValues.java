@@ -20,12 +20,8 @@ public class DefaultValues {
 
     // From server
     public static final int DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD = 1;
-    public static final int DEFAULT_INFINITE_SCROLL_DELAY = 500;
-    public static final int DEFAULT_INFINITE_SCROLL_COUNT = 10;
 
-    public static final int CONVERSATION_LAST_MESSAGE_COUNT = 50;
-    public static final int CONVERSATION_MESSAGE_COUNT = 10;
-    public static final int CONVERSATION_COUNT = 100;
+    public static final int CONVERSATION_MESSAGE_COUNT = 20;
 
     // UI
     public static final int MIN_CHAR_SIGNUP_PASSWORD = 4;

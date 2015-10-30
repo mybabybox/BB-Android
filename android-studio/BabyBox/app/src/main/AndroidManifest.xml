@@ -113,7 +113,7 @@
             android:name="com.babybox.activity.SellerRulesActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.MyProfileActionActivity"
+            android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.SignupActivity"

@@ -14,6 +14,10 @@
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
     <string name="base_url">http://192.168.1.125:9000</string>
+    <string name="app_version">babybox 版本:</string>
+    <string name="request_upgrade">babybox 新版本已上線！更多新功能為你而設！</string>
+    <string name="request_upgrade_confirm">立即安裝</string>
+    <string name="request_upgrade_cancel">取消</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>

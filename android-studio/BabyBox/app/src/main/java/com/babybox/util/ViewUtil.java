@@ -848,6 +848,15 @@ public class ViewUtil {
         activity.setResult(Activity.RESULT_OK, intent);
     }
 
+    public static void openPlayStoreForUpgrade(Activity activity) {
+        final String appPackageName = AppController.getInstance().getPackageName();
+        try {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+    }
+
     /**
      * Clickable string with onclick listener.
      */

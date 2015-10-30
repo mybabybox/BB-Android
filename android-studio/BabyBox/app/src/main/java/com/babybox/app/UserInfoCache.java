@@ -3,6 +3,7 @@ package com.babybox.app;
 import android.util.Log;
 
 import com.babybox.util.SharedPreferencesUtil;
+import com.babybox.viewmodel.SettingVM;
 import com.babybox.viewmodel.UserVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -10,6 +11,8 @@ import retrofit.RetrofitError;
 public class UserInfoCache {
 
     private static UserVM userInfo;
+
+    private static boolean skippedAndroidUpgrade = false;
 
     private UserInfoCache() {}
 
@@ -60,6 +63,33 @@ public class UserInfoCache {
         if (userInfo == null)
             userInfo = SharedPreferencesUtil.getInstance().getUserInfo();
         return userInfo;
+    }
+
+    public static void skipAndroidUpgrade() {
+        skippedAndroidUpgrade = true;
+    }
+
+    public static boolean requestAndroidUpgrade() {
+        if (skippedAndroidUpgrade) {
+            return false;
+        }
+
+        SettingVM setting = getUser().setting;
+        if (setting == null) {
+            return false;
+        }
+
+        Log.d(UserInfoCache.class.getSimpleName(), "requestAndroidUpgrade: client version="+AppController.getVersionCode());
+        Log.d(UserInfoCache.class.getSimpleName(), "requestAndroidUpgrade: system version="+setting.systemAndroidVersion);
+
+        try {
+            int systemAndroidVersion = Integer.valueOf(setting.systemAndroidVersion);
+            if (AppController.getVersionCode() < systemAndroidVersion) {
+                return true;
+            }
+        } catch (Exception e) {
+        }
+        return false;
     }
 
     public static void clear() {

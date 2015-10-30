@@ -9,6 +9,7 @@ public class UserVM extends UserVMLite {
     public String gender;
     public String birthYear;
     public LocationVM location;
+    public SettingVM setting;
 
     // admin readyonly fields
     public Long createdDate;
@@ -82,6 +83,14 @@ public class UserVM extends UserVMLite {
 
     public void setLocation(LocationVM location) {
         this.location = location;
+    }
+
+    public SettingVM getSetting() {
+        return setting;
+    }
+
+    public void setSetting(SettingVM setting) {
+        this.setting = setting;
     }
 
     public Long getTotalLogin() {

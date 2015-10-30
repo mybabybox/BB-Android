@@ -169,6 +169,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
         pressHomeTab();
         refreshNotifications();
+        checkAndroidUpgrade();
     }
 
     @Override
@@ -316,6 +317,27 @@ public class MainActivity extends TrackedFragmentActivity {
         } else {
             chatCountText.setVisibility(View.VISIBLE);
             chatCountText.setText(counter.conversationsCount+"");
+        }
+    }
+
+    public void checkAndroidUpgrade() {
+        if (UserInfoCache.requestAndroidUpgrade()) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setMessage(getString(R.string.request_upgrade));
+            alertDialogBuilder.setPositiveButton(getString(R.string.request_upgrade_confirm), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ViewUtil.openPlayStoreForUpgrade(MainActivity.this);
+                }
+            });
+            alertDialogBuilder.setNegativeButton(getString(R.string.request_upgrade_cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    UserInfoCache.skipAndroidUpgrade();
+                }
+            });
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
     }
 
