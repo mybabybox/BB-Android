@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.adapter.ActivityListAdapter;
 import com.babybox.app.AppController;
+import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragment;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
@@ -71,8 +72,8 @@ public class ActivityMainFragment extends TrackedFragment {
     }
 
     protected void markRead() {
-        // no-op... activities are marked as read after getActivities() in server...
-        //adapter.notifyDataSetChanged();
+        // actual activities are marked as read after getActivities() in server
+        NotificationCounter.resetActivitiesCount();
     }
 
     protected void getActivities() {

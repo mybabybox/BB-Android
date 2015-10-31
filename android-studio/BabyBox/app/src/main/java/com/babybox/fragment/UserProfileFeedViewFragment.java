@@ -254,6 +254,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
 
     @Override
     protected void onRefreshView() {
+        super.onRefreshView();
         initUserProfile();
     }
 

@@ -168,6 +168,7 @@ public class MainActivity extends TrackedFragmentActivity {
         });
 
         pressHomeTab();
+
         refreshNotifications();
         checkAndroidUpgrade();
     }

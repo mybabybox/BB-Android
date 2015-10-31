@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.adapter.ConversationListAdapter;
 import com.babybox.app.ConversationCache;
+import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
@@ -106,6 +107,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                NotificationCounter.refresh();
             }
         });
 

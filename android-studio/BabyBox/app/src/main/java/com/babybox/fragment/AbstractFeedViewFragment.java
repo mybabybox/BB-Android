@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.babybox.R;
 import com.babybox.adapter.FeedViewAdapter;
+import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.DefaultValues;
@@ -268,7 +269,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void onRefreshView() {
-
+        NotificationCounter.refresh();
     }
 
     protected void setFooterText(int text) {

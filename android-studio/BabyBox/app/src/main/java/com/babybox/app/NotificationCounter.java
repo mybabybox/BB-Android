@@ -11,7 +11,7 @@ import retrofit.client.Response;
 
 public class NotificationCounter implements TimerUtil.Task {
 
-    public static final Long TIMER_INTERVAL = 10 * 1000L;
+    public static final Long TIMER_INTERVAL = 10 * 60 * 1000L;  // 10 mins
 
     private static NotificationCounterVM counter;
 
@@ -30,12 +30,23 @@ public class NotificationCounter implements TimerUtil.Task {
     }
 
     private static void init() {
-        // check notification counter every 2 mins
         TimerUtil.run(getInstance(), TIMER_INTERVAL);
     }
 
     public static void refresh() {
-        refresh(null);
+        refresh(new Callback<NotificationCounterVM>() {
+            @Override
+            public void success(NotificationCounterVM vm, Response response) {
+                if (MainActivity.getInstance() != null) {
+                    MainActivity.getInstance().refreshNotifications();
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(NotificationCounter.class.getSimpleName(), "onStart: NotificationCounter.refresh: failure", error);
+            }
+        });
     }
 
     public static void refresh(final Callback<NotificationCounterVM> callback) {
@@ -73,6 +84,10 @@ public class NotificationCounter implements TimerUtil.Task {
         counter = null;
     }
 
+    public static void resetActivitiesCount() {
+        counter.activitiesCount = 0L;
+    }
+
     private static boolean sameCounter(NotificationCounterVM other) {
         if (counter == null || other == null) {
             return false;
@@ -87,17 +102,6 @@ public class NotificationCounter implements TimerUtil.Task {
      */
     @Override
     public void run() {
-        refresh(new Callback<NotificationCounterVM>() {
-            @Override
-            public void success(NotificationCounterVM vm, Response response) {
-                if (MainActivity.getInstance() != null)
-                    MainActivity.getInstance().refreshNotifications();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(NotificationCounter.class.getSimpleName(), "onStart: NotificationCounter.refresh: failure", error);
-            }
-        });
+        refresh();
     }
 }

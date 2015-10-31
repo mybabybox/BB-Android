@@ -172,6 +172,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
 
     @Override
     protected void onRefreshView() {
+        super.onRefreshView();
         ViewUtil.showSpinner(getActivity());
 
         UserInfoCache.refresh(new Callback<UserVM>() {
