@@ -70,7 +70,7 @@ public class ImageUtil {
     private static ImageRoundedTransform roundedTransform =
             new ImageRoundedTransform(AppController.getInstance(), DefaultValues.IMAGE_ROUNDED_RADIUS, 3);
 
-    private static String stringSignature = "";  // default no signature
+    private static String stringSignature = AppController.getVersionCode()+"";  // default no signature
 
     private static File tempDir;
 
@@ -147,22 +147,32 @@ public class ImageUtil {
 
     public static void displayProfileImage(long id, ImageView imageView) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayProfileImage: loading " + PROFILE_IMAGE_BY_ID_URL + id);
-        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, true);
+        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, false);
     }
 
     public static void displayProfileImage(long id, ImageView imageView, RequestListener listener) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayProfileImage: loading " + PROFILE_IMAGE_BY_ID_URL + id);
-        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
+        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, false);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailProfileImage: loading " + THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id);
-        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, true);
+        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, false);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView, RequestListener listener) {
         //Log.d(ImageUtil.class.getSimpleName(), "displayThumbnailProfileImage: loading " + THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id);
-        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
+        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, false);
+    }
+
+    public static void displayMyProfileImage(long id, ImageView imageView, RequestListener listener) {
+        //Log.d(ImageUtil.class.getSimpleName(), "displayMyProfileImage: loading " + PROFILE_IMAGE_BY_ID_URL + id);
+        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
+    }
+
+    public static void displayMyThumbnailProfileImage(long id, ImageView imageView) {
+        //Log.d(ImageUtil.class.getSimpleName(), "displayMyThumbnailProfileImage: loading " + THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id);
+        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     // Post image
@@ -508,6 +518,10 @@ public class ImageUtil {
         try {
             FileOutputStream out = new FileOutputStream(resizedImage);
             Bitmap resizedBitmap = ImageUtil.resizeToUpload(image.getAbsolutePath());
+            if (resizedBitmap == null) {
+                return image;
+            }
+
             resizedBitmap.compress(format, IMAGE_COMPRESS_QUALITY, out);
             Log.d(ImageUtil.class.getSimpleName(), "resizeAsFormat: successfully resized to path=" + resizedImage.getAbsolutePath());
             if (out != null) {

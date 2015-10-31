@@ -77,7 +77,8 @@
                     android:layout_weight="7"
                     android:layout_gravity="center_vertical"
                     android:hint="暱稱"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:inputType="textCapWords" />
 
             </LinearLayout>
 

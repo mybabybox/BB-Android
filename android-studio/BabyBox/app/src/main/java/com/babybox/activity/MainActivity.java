@@ -103,8 +103,7 @@ public class MainActivity extends TrackedFragmentActivity {
         */
 
         // user profile thumbnail
-        ImageUtil.displayThumbnailProfileImage(UserInfoCache.getUser().getId(), userImage);
-        userNameText.setText(UserInfoCache.getUser().getDisplayName());
+        setUserProfileThumbnail();
 
         userLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +175,12 @@ public class MainActivity extends TrackedFragmentActivity {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    public void setUserProfileThumbnail() {
+        ImageUtil.clearImageView(userImage);
+        ImageUtil.displayMyThumbnailProfileImage(UserInfoCache.getUser().getId(), userImage);
+        userNameText.setText(UserInfoCache.getUser().getDisplayName());
     }
 
     public void pressHomeTab() {
@@ -287,6 +292,7 @@ public class MainActivity extends TrackedFragmentActivity {
         if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
             if (refresh) {
+                setUserProfileThumbnail();
                 pressProfileTab(true);
                 return;     // handled... dont trickle down to fragments
             }

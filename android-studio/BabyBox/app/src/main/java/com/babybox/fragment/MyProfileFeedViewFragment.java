@@ -93,8 +93,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
+                ViewUtil.startEditProfileActivity(getActivity());
             }
         });
 
@@ -129,7 +128,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         userNameText.setText(user.getDisplayName());
         userDescText.setText(user.getAboutMe());
 
-        ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
+        ImageUtil.displayMyProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override
             public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
                 ViewUtil.stopSpinner(getActivity());
@@ -193,7 +192,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
     protected void uploadCoverImage(final long id) {
         ViewUtil.showSpinner(getActivity());
 
-        Log.d(this.getClass().getSimpleName(), "changeCoverPhoto: Id=" + id);
+        Log.d(this.getClass().getSimpleName(), "uploadCoverImage: Id=" + id);
 
         ImageUtil.clearCoverImageCache(id);
 
@@ -232,40 +231,44 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
     protected void uploadProfileImage(final long id) {
         ViewUtil.showSpinner(getActivity());
 
-        Log.d(this.getClass().getSimpleName(), "changeProfilePhoto: Id=" + id);
+        Log.d(this.getClass().getSimpleName(), "uploadProfileImage: id=" + id);
 
         ImageUtil.clearProfileImageCache(id);
 
         File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
         photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
-        TypedFile typedFile = new TypedFile("application/octet-stream", photo);
-        AppController.getApiService().uploadProfilePhoto(typedFile, new Callback<Response>() {
-            @Override
-            public void success(Response responseObject, Response response) {
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        ImageUtil.displayProfileImage(id, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
-                            @Override
-                            public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
-                                ViewUtil.stopSpinner(getActivity());
-                                return false;
-                            }
+        if (photo != null) {
+            TypedFile typedFile = new TypedFile("application/octet-stream", photo);
+            AppController.getApiService().uploadProfilePhoto(typedFile, new Callback<Response>() {
+                @Override
+                public void success(Response responseObject, Response response) {
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            ImageUtil.displayMyProfileImage(id, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
+                                @Override
+                                public boolean onException(Exception e, String model, Target<GlideBitmapDrawable> target, boolean isFirstResource) {
+                                    ViewUtil.stopSpinner(getActivity());
+                                    return false;
+                                }
 
-                            @Override
-                            public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                ViewUtil.stopSpinner(getActivity());
-                                return false;
-                            }
-                        });
-                    }
-                }, DefaultValues.DEFAULT_HANDLER_DELAY);
-            }
+                                @Override
+                                public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                    ViewUtil.stopSpinner(getActivity());
+                                    return false;
+                                }
+                            });
+                        }
+                    }, DefaultValues.DEFAULT_HANDLER_DELAY);
+                }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(MyProfileFeedViewFragment.class.getSimpleName(), "uploadCoverPhoto: failure", error);
-            }
-        });
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.e(MyProfileFeedViewFragment.class.getSimpleName(), "uploadProfileImage: failure", error);
+                }
+            });
+        } else {
+            ViewUtil.alert(getActivity(), getActivity().getString(R.string.photo_size_too_big));
+        }
     }
 
     @Override

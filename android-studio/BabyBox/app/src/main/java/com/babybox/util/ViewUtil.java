@@ -47,6 +47,7 @@ import com.babybox.R;
 import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.ConversationListActivity;
 import com.babybox.activity.EditPostActivity;
+import com.babybox.activity.EditProfileActivity;
 import com.babybox.activity.FollowersActivity;
 import com.babybox.activity.FollowingsActivity;
 import com.babybox.activity.FullscreenImageActivity;
@@ -778,6 +779,11 @@ public class ViewUtil {
         intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
+    }
+
+    public static void startEditProfileActivity(Activity activity) {
+        Intent intent = new Intent(activity, EditProfileActivity.class);
+        activity.startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
     }
 
     public static void startFollowersActivity(Activity activity, Long userId) {

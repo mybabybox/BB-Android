@@ -133,7 +133,8 @@
                     android:layout_weight="7"
                     android:layout_gravity="center_vertical"
                     android:hint="暱稱"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:inputType="textCapWords" />
 
             </LinearLayout>
 
@@ -200,7 +201,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="7"
                     android:layout_marginLeft="5dp"
-                    android:gravity="top" />
+                    android:gravity="top"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLines="10" />
             </LinearLayout>
 
             <LinearLayout
@@ -236,7 +239,8 @@
                     android:background="@drawable/edit_text_round"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:inputType="textCapWords" />
                 <EditText
                     android:id="@+id/firstNameEditText"
                     android:layout_weight="3.5"
@@ -246,7 +250,8 @@
                     android:layout_width="0dp"
                     android:layout_height="35dp"
                     android:background="@drawable/edit_text_round"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:inputType="textCapWords" />
             </LinearLayout>
 
 
