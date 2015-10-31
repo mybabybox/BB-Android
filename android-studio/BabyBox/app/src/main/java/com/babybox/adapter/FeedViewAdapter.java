@@ -197,6 +197,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
                 post.isLiked = true;
                 post.numLikes++;
                 ViewUtil.selectLikeTipsStyle(holder.likeImage, holder.likeText, post.getNumLikes());
+
+                UserInfoCache.incrementNumLikes();
+
                 pending = false;
             }
 
@@ -213,6 +216,10 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             return;
         }
 
+        if (post.numLikes <= 0) {
+            return;
+        }
+
         pending = true;
         AppController.getApiService().unlikePost(post.id, new Callback<Response>() {
             @Override
@@ -220,6 +227,9 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
                 post.isLiked = false;
                 post.numLikes--;
                 ViewUtil.unselectLikeTipsStyle(holder.likeImage, holder.likeText, post.getNumLikes());
+
+                UserInfoCache.decrementNumLikes();
+
                 pending = false;
             }
 

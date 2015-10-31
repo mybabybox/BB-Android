@@ -629,6 +629,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                 post.numLikes++;
                 ViewUtil.selectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
 
+                UserInfoCache.incrementNumLikes();
+
                 // pass back to feed view to handle
                 setActivityResult(ItemChangedState.ITEM_UPDATED, post);
                 pending = false;
@@ -647,6 +649,10 @@ public class ProductActivity extends TrackedFragmentActivity {
             return;
         }
 
+        if (post.numLikes <= 0) {
+            return;
+        }
+
         pending = true;
         AppController.getApiService().unlikePost(post.id, new Callback<Response>() {
             @Override
@@ -654,6 +660,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                 post.isLiked = false;
                 post.numLikes--;
                 ViewUtil.unselectLikeButtonStyle(likeImage, likeText, post.getNumLikes());
+
+                UserInfoCache.decrementNumLikes();
 
                 // pass back to feed view to handle
                 setActivityResult(ItemChangedState.ITEM_UPDATED, post);
@@ -862,6 +870,8 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void success(Response responseObject, Response response) {
                 Toast.makeText(ProductActivity.this, getString(R.string.post_delete_success), Toast.LENGTH_SHORT).show();
+
+                UserInfoCache.decrementNumProducts();
 
                 // pass back to feed view to handle
                 setActivityResult(ItemChangedState.ITEM_REMOVED, null);

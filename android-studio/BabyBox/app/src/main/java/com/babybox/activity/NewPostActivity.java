@@ -29,6 +29,7 @@ import com.babybox.adapter.PopupCategoryListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
@@ -333,6 +334,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
+                UserInfoCache.incrementNumProducts();
                 complete();
             }
 

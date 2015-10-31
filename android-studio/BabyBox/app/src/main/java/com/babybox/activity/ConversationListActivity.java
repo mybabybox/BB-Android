@@ -107,7 +107,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                NotificationCounter.refresh();
             }
         });
 
@@ -236,5 +235,11 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                 Log.e(ConversationListActivity.class.getSimpleName(), "deleteConversation: failure", error);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        NotificationCounter.refresh();
     }
 }

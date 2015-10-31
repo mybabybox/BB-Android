@@ -65,6 +65,22 @@ public class UserInfoCache {
         return userInfo;
     }
 
+    public static void incrementNumProducts() {
+        getUser().numProducts++;
+    }
+
+    public static void decrementNumProducts() {
+        getUser().numProducts--;
+    }
+
+    public static void incrementNumLikes() {
+        getUser().numLikes++;
+    }
+
+    public static void decrementNumLikes() {
+        getUser().numLikes--;
+    }
+
     public static void skipAndroidUpgrade() {
         skippedAndroidUpgrade = true;
     }
