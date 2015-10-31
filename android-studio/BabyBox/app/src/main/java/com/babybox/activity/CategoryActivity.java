@@ -1,11 +1,9 @@
 package com.babybox.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
 
 import com.babybox.R;
 import com.babybox.app.TrackedFragmentActivity;
@@ -19,16 +17,7 @@ public class CategoryActivity extends TrackedFragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.child_layout_view);
-
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.category_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
+        setContentView(R.layout.category_activity);
 
         // feed filter keys
         Bundle bundle = new Bundle();

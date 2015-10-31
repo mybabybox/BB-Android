@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,6 @@ import com.babybox.viewmodel.NotificationCounterVM;
 
 public class MainActivity extends TrackedFragmentActivity {
 
-    private View actionBarView;
     private RelativeLayout userLayout;
     private ImageView userImage;
     private TextView userNameText;
@@ -77,26 +75,6 @@ public class MainActivity extends TrackedFragmentActivity {
         setContentView(R.layout.main_activity);
 
         mInstance = this;
-
-        /*
-        // actionbar
-        actionBarView = getLayoutInflater().inflate(R.layout.main_actionbar, null);
-
-        ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        getActionBar().setCustomView(actionBarView, lp);
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().show();
-
-        userLayout = (RelativeLayout) actionBarView.findViewById(R.id.userLayout);
-        userImage = (ImageView) actionBarView.findViewById(R.id.userImage);
-        userNameText = (TextView) actionBarView.findViewById(R.id.userNameText);
-
-        chatCountText = (TextView) actionBarView.findViewById(R.id.chatCountText);
-        chatLayout = (ViewGroup) actionBarView.findViewById(R.id.chatLayout);
-        newPostLayout = (ViewGroup) actionBarView.findViewById(R.id.newPostLayout);
-        */
-
-        getActionBar().hide();
 
         userLayout = (RelativeLayout) findViewById(R.id.userLayout);
         userImage = (ImageView) findViewById(R.id.userImage);

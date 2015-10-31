@@ -1,11 +1,9 @@
 package com.babybox.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -23,15 +21,6 @@ public class UserProfileActivity extends TrackedFragmentActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.user_profile_activity);
-
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.user_profile_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
 
         backImage = (ImageView) findViewById(R.id.backImage);
         backImage.setOnClickListener(new View.OnClickListener() {

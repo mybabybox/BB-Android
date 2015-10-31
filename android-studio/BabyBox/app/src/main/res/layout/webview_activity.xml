@@ -14,6 +14,9 @@
         android:layout_gravity="top"
         android:progressDrawable="@drawable/progress_horizontal" />
 
+    <include layout="@layout/view_actionbar"
+        android:id="@+id/toolbar" />
+
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"

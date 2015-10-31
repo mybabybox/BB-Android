@@ -78,18 +78,6 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
 
         setContentView(R.layout.signup_detail_activity);
 
-        /*
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.signup_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
-        */
-        getActionBar().hide();
-
         titleText = (TextView) findViewById(R.id.titleText);
 
         parentType = (RadioGroup) findViewById(R.id.parentRadio);

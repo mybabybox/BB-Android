@@ -44,18 +44,6 @@ public class SignupActivity extends AbstractLoginActivity {
 
         setContentView(R.layout.signup_activity);
 
-        /*
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.signup_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
-        */
-        getActionBar().hide();
-
         lastName = (EditText) findViewById(R.id.lastNameEditText);
         firstName = (EditText) findViewById(R.id.firstNameEditText);
         email = (EditText) findViewById(R.id.emailEditText);

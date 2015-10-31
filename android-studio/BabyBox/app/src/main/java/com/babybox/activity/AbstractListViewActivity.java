@@ -1,8 +1,6 @@
 package com.babybox.activity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -41,20 +39,11 @@ public abstract class AbstractListViewActivity extends TrackedFragmentActivity {
 
         setContentView(R.layout.child_list_view);
 
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.view_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
+        setActionBarTitle(getTitleText());
 
-        titleText = (TextView) findViewById(R.id.titleText);
         noItemText = (TextView) findViewById(R.id.noItemText);
         listView = (ListView) findViewById(R.id.listView);
 
-        titleText.setText(getTitleText());
         noItemText.setText(getNoItemText());
 
         backImage = (ImageView) this.findViewById(R.id.backImage);

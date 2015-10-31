@@ -16,10 +16,14 @@
         android:layout_gravity="center"
         android:layout_centerInParent="true"></ProgressBar>
 
+    <include layout="@layout/new_post_actionbar"
+        android:id="@+id/toolbar" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView" >
+        android:id="@+id/scrollView"
+        android:layout_below="@+id/toolbar">
 
         <LinearLayout
             android:orientation="vertical"

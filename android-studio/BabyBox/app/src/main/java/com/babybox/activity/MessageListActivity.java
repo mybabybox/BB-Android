@@ -1,6 +1,5 @@
 package com.babybox.activity;
 
-import android.app.ActionBar;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -95,15 +93,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
         LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
         listHeader = layoutInflater.inflate(R.layout.message_list_header, null);
         loadMoreLayout = (RelativeLayout) listHeader.findViewById(R.id.loadMoreLayout);
-
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.message_list_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
 
         listView = (ListView)findViewById(R.id.messageList);
         titleText = (TextView) findViewById(R.id.titleText);

@@ -1,6 +1,5 @@
 package com.babybox.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.babybox.R;
-import com.babybox.activity.NewPostActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
 import com.babybox.util.FeedFilter;
@@ -62,12 +60,10 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        // action bar
-        View actionBarView = getActivity().getActionBar().getCustomView();
-        backImage = (ImageView) actionBarView.findViewById(R.id.backImage);
-        whatsappAction = (ImageView) actionBarView.findViewById(R.id.whatsappAction);
-        copyLinkAction = (ImageView) actionBarView.findViewById(R.id.copyLinkAction);
-        newPostAction = (ImageView) actionBarView.findViewById(R.id.newPostAction);
+        backImage = (ImageView) getActivity().findViewById(R.id.backImage);
+        whatsappAction = (ImageView) getActivity().findViewById(R.id.whatsappAction);
+        copyLinkAction = (ImageView) getActivity().findViewById(R.id.copyLinkAction);
+        newPostAction = (ImageView) getActivity().findViewById(R.id.newPostAction);
 
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override

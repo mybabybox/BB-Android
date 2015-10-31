@@ -15,6 +15,9 @@
         android:indeterminate="true"
         android:indeterminateDrawable="@drawable/progress_spinner"></ProgressBar>
 
+    <include layout="@layout/view_actionbar"
+        android:id="@+id/toolbar" />
+
     <TextView
         android:id="@+id/tipText"
         android:layout_centerHorizontal="true"
@@ -23,13 +26,14 @@
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:textColor="@color/light_gray"
-        android:layout_marginTop="25dp"
-        android:visibility="gone" />
+        android:layout_marginTop="65dp"
+        android:visibility="invisible" />
 
     <com.yalantis.phoenix.PullToRefreshView
         android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
 
         <ListView
             android:id="@+id/conversationList"

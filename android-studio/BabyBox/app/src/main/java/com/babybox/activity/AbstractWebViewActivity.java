@@ -1,8 +1,7 @@
 package com.babybox.activity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
-import android.view.Gravity;
+
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -33,18 +32,8 @@ public abstract class AbstractWebViewActivity extends TrackedFragmentActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.webview_activity);
-        
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.view_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
 
-        TextView titleText = (TextView) findViewById(R.id.titleText);
-        titleText.setText(getActionBarTitle());
+        setActionBarTitle(getActionBarTitle());
 
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);

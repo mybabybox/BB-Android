@@ -23,14 +23,18 @@
         android:layout_height="wrap_content"
         android:textColor="@color/light_gray"
         android:textSize="20dp"
-        android:layout_marginTop="25dp"
-        android:visibility="gone" />
+        android:layout_marginTop="65dp"
+        android:visibility="invisible" />
+
+    <include layout="@layout/view_actionbar"
+        android:id="@+id/toolbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="@color/view_bg"
         android:id="@+id/postLayout"
+        android:layout_below="@+id/toolbar"
         android:visibility="gone">
 
         <ImageView

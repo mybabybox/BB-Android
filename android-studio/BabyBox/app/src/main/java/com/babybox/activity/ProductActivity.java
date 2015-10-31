@@ -1,6 +1,5 @@
 package com.babybox.activity;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -53,7 +52,6 @@ import com.babybox.util.ViewUtil;
 import com.babybox.view.AdaptiveViewPager;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationVM;
-import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
@@ -116,15 +114,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.product_activity);
-
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.product_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
+        setContentView(R.layout.product_activity);
 
         mainLayout = (FrameLayout) findViewById(R.id.mainLayout);
         backImage = (ImageView) findViewById(R.id.backImage);
@@ -213,10 +203,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                 finish();
             }
         });
-
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
-        //getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-        //getActionBar().setTitle("Details");
 
         postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
 

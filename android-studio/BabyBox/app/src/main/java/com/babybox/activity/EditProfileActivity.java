@@ -1,10 +1,7 @@
 package com.babybox.activity;
 
-import android.app.ActionBar;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -59,17 +56,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
 
         setContentView(R.layout.edit_profile_activity);
 
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(getLayoutInflater().inflate(R.layout.view_actionbar, null),
-                new ActionBar.LayoutParams(
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        ActionBar.LayoutParams.MATCH_PARENT,
-                        Gravity.CENTER
-                )
-        );
-
-        TextView titleText = (TextView) findViewById(R.id.titleText);
-        titleText.setText(getString(R.string.edit_user_info));
+        setActionBarTitle(getString(R.string.edit_user_info));
 
         fbLoginIcon = (ImageView) findViewById(R.id.fbLoginIcon);
         mbLoginIcon = (ImageView) findViewById(R.id.mbLoginIcon);

@@ -15,10 +15,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_centerInParent="true" />
 
+    <include layout="@layout/view_actionbar"
+        android:id="@+id/toolbar" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/view_bg">
+        android:background="@color/view_bg"
+        android:layout_below="@+id/toolbar">
 
         <RelativeLayout
             android:paddingBottom="20dp"

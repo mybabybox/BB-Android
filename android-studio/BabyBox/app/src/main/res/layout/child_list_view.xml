@@ -23,8 +23,11 @@
         android:textSize="20dp"
         android:textColor="@color/light_gray"
         android:gravity="center"
-        android:layout_margin="10dp"
-        android:visibility="gone" />
+        android:layout_margin="65dp"
+        android:visibility="invisible" />
+
+    <include layout="@layout/view_actionbar"
+        android:id="@+id/toolbar" />
 
     <ListView
         android:id="@+id/listView"
@@ -32,6 +35,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:divider="@drawable/bar1"
-        android:dividerHeight="0.8dp"></ListView>
+        android:dividerHeight="0.8dp"
+        android:layout_below="@+id/toolbar"></ListView>
 
 </RelativeLayout>

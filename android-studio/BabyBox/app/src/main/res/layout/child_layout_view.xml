@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/feed_bg">
+
     <ProgressBar
         android:id="@+id/spinner"
         style="?android:attr/progressBarStyle"
@@ -12,6 +13,7 @@
         android:visibility="invisible"
         android:indeterminate="true"
         android:indeterminateDrawable="@drawable/progress_spinner"></ProgressBar>
+
     <LinearLayout
         android:id="@+id/childLayout"
         android:layout_width="match_parent"

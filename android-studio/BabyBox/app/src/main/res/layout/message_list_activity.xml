@@ -20,95 +20,104 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include layout="@layout/message_list_actionbar"
+            android:id="@+id/toolbar" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:background="@color/view_bg"
-            android:id="@+id/postLayout">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
 
-            <ImageView
-                android:id="@+id/postImage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="fitCenter"
-                android:layout_gravity="center_vertical"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:background="@color/view_bg"
+                android:id="@+id/postLayout">
 
-            <TextView
-                android:id="@+id/postTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray_2"
-                android:textSize="18dp"
-                android:layout_toRightOf="@+id/postImage"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:singleLine="true" />
+                <ImageView
+                    android:id="@+id/postImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp" />
 
-            <TextView
-                android:id="@+id/postPriceText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/green"
-                android:textSize="16dp"
-                android:layout_toRightOf="@+id/postImage"
-                android:layout_below="@+id/postTitleText"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp" />
+                <TextView
+                    android:id="@+id/postTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_gray_2"
+                    android:textSize="18dp"
+                    android:layout_toRightOf="@+id/postImage"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true" />
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="1.2dp"
-                android:background="@drawable/bar1"
-                android:id="@+id/bar1"
-                android:layout_alignParentBottom="true" />
+                <TextView
+                    android:id="@+id/postPriceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:textSize="16dp"
+                    android:layout_toRightOf="@+id/postImage"
+                    android:layout_below="@+id/postTitleText"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1.2dp"
+                    android:background="@drawable/bar1"
+                    android:id="@+id/bar1"
+                    android:layout_alignParentBottom="true" />
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/messageList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/feed_bg"
+                android:stackFromBottom="true"
+                android:layout_marginBottom="45dp"
+                android:divider="@null"
+                android:layout_marginTop="62dp">
+            </ListView>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="45dp"
+                android:layout_alignParentBottom="true"
+                android:background="#d3d6db"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/commentEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="70"
+                    android:background="@drawable/edit_text"
+                    android:drawableLeft="@drawable/ic_reply"
+                    android:layout_marginRight="10dp"
+                    android:paddingLeft="5dp"
+                    android:text="@string/comment_bar_hint"
+                    android:textSize="16dp"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp">
+                </TextView>
+
+            </LinearLayout>
 
         </RelativeLayout>
-
-        <ListView
-            android:id="@+id/messageList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/feed_bg"
-            android:stackFromBottom="true"
-            android:layout_marginBottom="45dp"
-            android:divider="@null"
-            android:layout_marginTop="62dp">
-        </ListView>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="45dp"
-            android:layout_alignParentBottom="true"
-            android:background="#d3d6db"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/commentEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="70"
-                android:background="@drawable/edit_text"
-                android:drawableLeft="@drawable/ic_reply"
-                android:layout_marginRight="10dp"
-                android:paddingLeft="5dp"
-                android:text="@string/comment_bar_hint"
-                android:textSize="16dp"
-                android:textAlignment="center"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="10dp">
-            </TextView>
-
-        </LinearLayout>
-
     </RelativeLayout>
 
 </FrameLayout>
