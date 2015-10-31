@@ -97,7 +97,7 @@
             android:textSize="14dp"
             android:clickable="true"
             android:padding="3dp"
-            android:inputType="textMultiLine|textCapSentences"
+            android:inputType="textNoSuggestions|textMultiLine|textCapSentences"
             android:maxLines="30" />
     </LinearLayout>
 

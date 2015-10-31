@@ -98,7 +98,9 @@
                     android:layout_height="35dp"
                     android:layout_weight="7"
                     android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:inputType="textNoSuggestions"
+                    android:singleLine="true" />
 
             </LinearLayout>
 
@@ -134,7 +136,7 @@
                     android:layout_gravity="center_vertical"
                     android:hint="暱稱"
                     android:singleLine="true"
-                    android:inputType="textCapWords" />
+                    android:inputType="textNoSuggestions|textCapWords" />
 
             </LinearLayout>
 
@@ -202,7 +204,7 @@
                     android:layout_weight="7"
                     android:layout_marginLeft="5dp"
                     android:gravity="top"
-                    android:inputType="textMultiLine|textCapSentences"
+                    android:inputType="textNoSuggestions|textMultiLine|textCapSentences"
                     android:maxLines="10" />
             </LinearLayout>
 
@@ -240,7 +242,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="5dp"
                     android:singleLine="true"
-                    android:inputType="textCapWords" />
+                    android:inputType="textNoSuggestions|textCapWords" />
                 <EditText
                     android:id="@+id/firstNameEditText"
                     android:layout_weight="3.5"
@@ -251,7 +253,7 @@
                     android:layout_height="35dp"
                     android:background="@drawable/edit_text_round"
                     android:singleLine="true"
-                    android:inputType="textCapWords" />
+                    android:inputType="textNoSuggestions|textCapWords" />
             </LinearLayout>
 
 

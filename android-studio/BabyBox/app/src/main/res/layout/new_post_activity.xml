@@ -131,7 +131,7 @@
             android:textColorHint="@color/gray"
             android:singleLine="false"
             android:maxLines="2"
-            android:inputType="textCapWords" />
+            android:inputType="textImeMultiLine|textNoSuggestions|textCapWords" />
     </RelativeLayout>
 
     <View
@@ -162,7 +162,7 @@
             android:hint="@string/new_post_body"
             android:textColor="@color/input_text"
             android:background="@null"
-            android:inputType="textMultiLine|textCapSentences"
+            android:inputType="textNoSuggestions|textMultiLine|textCapSentences"
             android:maxLines="100" />
     </RelativeLayout>
 
@@ -217,7 +217,7 @@
             android:singleLine="true"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical|right"
-            android:inputType="number" />
+            android:inputType="textNoSuggestions|number" />
 
     </RelativeLayout>
 

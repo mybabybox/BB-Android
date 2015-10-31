@@ -433,28 +433,7 @@ public class ViewUtil {
     }
 
     public static void fullscreenImagePopup(Activity activity, String source) {
-
         startFullscreenImageActivity(activity, source);
-
-        /*
-        LayoutInflater inflater = (LayoutInflater) activity
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.image_popup_window, (ViewGroup) activity.findViewById(R.id.popupElement));
-        ImageViewOverlay fullImage = (ImageViewOverlay) layout.findViewById(R.id.fullImage);
-        fullImage.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
-
-        try {
-            PopupWindow imagePopup = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT,true);
-            imagePopup.setOutsideTouchable(false);
-            imagePopup.setBackgroundDrawable(new BitmapDrawable(activity.getResources(), ""));
-            imagePopup.setFocusable(true);
-            imagePopup.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-            ImageUtil.displayImage(source, fullImage);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
     }
 
     //
@@ -542,7 +521,7 @@ public class ViewUtil {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                InputMethodManager imm = (InputMethodManager) activity.getApplicationContext().getSystemService(Service.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Service.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
             }
         }, 100);
