@@ -35,7 +35,8 @@
             android:src="@drawable/ic_whatsapp"
             android:layout_toLeftOf="@+id/copyLinkAction"
             android:layout_marginRight="10dp"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/copyLinkAction"
@@ -44,7 +45,8 @@
             android:src="@drawable/ic_link_copy"
             android:layout_toLeftOf="@+id/newPostAction"
             android:layout_centerInParent="true"
-            android:layout_marginRight="10dp" />
+            android:layout_marginRight="10dp"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/newPostAction"

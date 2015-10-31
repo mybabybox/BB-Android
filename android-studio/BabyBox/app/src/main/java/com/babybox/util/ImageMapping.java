@@ -22,16 +22,16 @@ public class ImageMapping {
 
     static {
         imageMap = new HashMap<>();
-
+        imageMap.put("/assets/app/images/category/cat_preg.jpg", R.drawable.cat_preg);
         imageMap.put("/assets/app/images/category/cat_beauty.jpg", R.drawable.cat_beauty);
-        imageMap.put("/assets/app/images/category/cat_books.jpg", R.drawable.cat_books);
         imageMap.put("/assets/app/images/category/cat_clothes.jpg", R.drawable.cat_clothes);
+        imageMap.put("/assets/app/images/category/cat_toys.jpg", R.drawable.cat_toys);
+        imageMap.put("/assets/app/images/category/cat_books.jpg", R.drawable.cat_books);
         imageMap.put("/assets/app/images/category/cat_food.jpg", R.drawable.cat_food);
         imageMap.put("/assets/app/images/category/cat_home.jpg", R.drawable.cat_home);
-        imageMap.put("/assets/app/images/category/cat_other.jpg", R.drawable.cat_other);
-        imageMap.put("/assets/app/images/category/cat_preg.jpg", R.drawable.cat_preg);
-        imageMap.put("/assets/app/images/category/cat_toys.jpg", R.drawable.cat_toys);
         imageMap.put("/assets/app/images/category/cat_utils.jpg", R.drawable.cat_utils);
+        imageMap.put("/assets/app/images/category/cat_diaper.jpg", R.drawable.cat_diaper);
+        imageMap.put("/assets/app/images/category/cat_other.jpg", R.drawable.cat_other);
     }
 
     private ImageMapping() {}

@@ -8,11 +8,17 @@
         <item name="elevation">0dp</item>
         <item name="android:popupMenuStyle">@style/MyPopupMenu</item>
         <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="toolbarStyle">@style/MyToolbar</item>
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/light_pink</item>
         <item name="android:icon">@android:color/transparent</item>
+    </style>
+
+    <style name="MyToolbar" parent="Widget.AppCompat.Toolbar" >
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
     </style>
 
     <style name="MyPopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
