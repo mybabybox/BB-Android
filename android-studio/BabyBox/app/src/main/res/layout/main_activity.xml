@@ -13,10 +13,14 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center" />
 
+    <include layout="@layout/main_actionbar"
+        android:id="@+id/mainActionbar" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@+id/mainActionbar">
 
         <LinearLayout
             android:id="@+id/placeHolder"

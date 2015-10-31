@@ -398,8 +398,10 @@ public class ViewUtil {
     }
 
     public static FeedItemPosition getFeedItemPosition(AbstractFeedViewFragment feedViewFragment, View feedItemView) {
-        RecyclerView recyclerView = feedViewFragment.getFeedView();
-        int pos = recyclerView.getChildAdapterPosition(feedItemView);
+        //RecyclerView recyclerView = feedViewFragment.getFeedView();
+        //int pos = recyclerView.getChildAdapterPosition(feedItemView);
+
+        int pos = ((RecyclerView.LayoutParams) feedItemView.getLayoutParams()).getViewLayoutPosition();
         if (feedViewFragment.hasHeader()) {
             if (pos == 0) {
                 return FeedItemPosition.HEADER;
@@ -407,6 +409,8 @@ public class ViewUtil {
             // real position
             pos = pos - 1;
         }
+
+        //Log.d(ViewUtil.class.getSimpleName(), "getFeedItemPosition: pos="+pos);
 
         pos = pos % 2;
         if (pos == 0) {

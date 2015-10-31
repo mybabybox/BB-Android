@@ -32,6 +32,12 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     private static final String TAG = AbstractFeedViewFragment.class.getName();
 
+    private static final int TOP_MARGIN = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
+    private static final int BOTTOM_MARGIN = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_BOTTOM_MARGIN);
+    private static final int SIDE_MARGIN = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
+    private static final int LEFT_SIDE_MARGIN = (SIDE_MARGIN * 2) + ViewUtil.getRealDimension(2);
+    private static final int RIGHT_SIDE_MARGIN = (SIDE_MARGIN * 2) + ViewUtil.getRealDimension(2);
+
     protected RecyclerView feedView;
     protected FeedViewAdapter feedAdapter;
     protected GridLayoutManager layoutManager;
@@ -101,7 +107,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         items = new ArrayList<>();
 
         feedView = (RecyclerView) view.findViewById(R.id.feedView);
-        feedView.setHasFixedSize(true);
+        //feedView.setHasFixedSize(true);
         feedView.addItemDecoration(
                 new RecyclerView.ItemDecoration() {
                     @Override
@@ -109,17 +115,14 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                         //int pos = parent.getChildAdapterPosition(view);
                         //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
 
-                        int topMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
-                        int bottomMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_BOTTOM_MARGIN);
-                        int sideMargin = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
-
-                        ViewUtil.FeedItemPosition feedItemPosition = ViewUtil.getFeedItemPosition(AbstractFeedViewFragment.this, view);
+                        ViewUtil.FeedItemPosition feedItemPosition =
+                                ViewUtil.getFeedItemPosition(AbstractFeedViewFragment.this, view);
                         if (feedItemPosition == ViewUtil.FeedItemPosition.HEADER) {
                             outRect.set(0, 0, 0, 0);
                         } else if (feedItemPosition == ViewUtil.FeedItemPosition.LEFT_COLUMN) {
-                            outRect.set(sideMargin * 2, topMargin, sideMargin, bottomMargin);
+                            outRect.set(LEFT_SIDE_MARGIN, TOP_MARGIN, SIDE_MARGIN, BOTTOM_MARGIN);
                         } else if (feedItemPosition == ViewUtil.FeedItemPosition.RIGHT_COLUMN) {
-                            outRect.set(sideMargin, topMargin, sideMargin * 2, bottomMargin);
+                            outRect.set(SIDE_MARGIN, TOP_MARGIN, RIGHT_SIDE_MARGIN, BOTTOM_MARGIN);
                         }
                     }
                 });

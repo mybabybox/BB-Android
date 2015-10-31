@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,6 +78,7 @@ public class MainActivity extends TrackedFragmentActivity {
 
         mInstance = this;
 
+        /*
         // actionbar
         actionBarView = getLayoutInflater().inflate(R.layout.main_actionbar, null);
 
@@ -92,15 +94,17 @@ public class MainActivity extends TrackedFragmentActivity {
         chatCountText = (TextView) actionBarView.findViewById(R.id.chatCountText);
         chatLayout = (ViewGroup) actionBarView.findViewById(R.id.chatLayout);
         newPostLayout = (ViewGroup) actionBarView.findViewById(R.id.newPostLayout);
-
-        /*
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                AnimationUtil.rotateBackForthOnce(mascotIcon);
-            }
-        }, 2000);
         */
+
+        getActionBar().hide();
+
+        userLayout = (RelativeLayout) findViewById(R.id.userLayout);
+        userImage = (ImageView) findViewById(R.id.userImage);
+        userNameText = (TextView) findViewById(R.id.userNameText);
+
+        chatCountText = (TextView) findViewById(R.id.chatCountText);
+        chatLayout = (ViewGroup) findViewById(R.id.chatLayout);
+        newPostLayout = (ViewGroup) findViewById(R.id.newPostLayout);
 
         // user profile thumbnail
         setUserProfileThumbnail();
@@ -111,6 +115,15 @@ public class MainActivity extends TrackedFragmentActivity {
                 pressProfileTab();
             }
         });
+
+        /*
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                AnimationUtil.rotateBackForthOnce(mascotIcon);
+            }
+        }, 2000);
+        */
 
         chatLayout.setOnClickListener(new View.OnClickListener() {
             @Override
