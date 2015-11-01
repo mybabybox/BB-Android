@@ -71,7 +71,12 @@ import org.parceler.apache.commons.lang.StringUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import retrofit.RetrofitError;
 
@@ -117,6 +122,8 @@ public class ViewUtil {
 
     public static final String HTML_LINE_BREAK = "<br>";
 
+    private static Rect displayDimensions = null;
+
     public enum FeedItemPosition {
         UNKNOWN,
         HEADER,
@@ -124,7 +131,19 @@ public class ViewUtil {
         RIGHT_COLUMN
     }
 
-    private static Rect displayDimensions = null;
+    public enum PostConditionType {
+        NEW_WITH_TAG,
+        NEW_WITHOUT_TAG,
+        USED
+    }
+
+    private static Map<PostConditionType, String> postConditionTypeMap = new HashMap<>();
+
+    static {
+        postConditionTypeMap.put(PostConditionType.NEW_WITH_TAG, AppController.getInstance().getString(R.string.new_with_tag));
+        postConditionTypeMap.put(PostConditionType.NEW_WITHOUT_TAG, AppController.getInstance().getString(R.string.new_without_tag));
+        postConditionTypeMap.put(PostConditionType.USED, AppController.getInstance().getString(R.string.used));
+    }
 
     private ViewUtil() {}
 
@@ -134,6 +153,38 @@ public class ViewUtil {
 
     public static int random(int low, int high) {
         return low + (int)(Math.random() * (high - low));
+    }
+
+    public static List<String> getPostConditionTypeValues() {
+        List<String> conditionTypes = new ArrayList<>();
+        for (PostConditionType conditionType : PostConditionType.values()) {
+            conditionTypes.add(postConditionTypeMap.get(conditionType));
+        }
+        return conditionTypes;
+    }
+
+    public static String getPostConditionTypeValue(PostConditionType conditionType) {
+        if (conditionType != null) {
+            return postConditionTypeMap.get(conditionType);
+        }
+        return null;
+    }
+
+    public static PostConditionType parsePostConditionTypeFromValue(String value) {
+        for (Map.Entry<PostConditionType, String> entrySet : postConditionTypeMap.entrySet()) {
+            if (entrySet.getValue().equals(value)) {
+                return entrySet.getKey();
+            }
+        }
+        return null;
+    }
+
+    public static PostConditionType parsePostConditionType(String conditionType) {
+        try {
+            return Enum.valueOf(PostConditionType.class, conditionType);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     //

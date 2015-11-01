@@ -78,7 +78,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private LinearLayout dotsLayout;
     private List<ImageView> dots = new ArrayList<>();
 
-    private TextView titleText, descText, priceText, soldText;
+    private TextView titleText, descText, priceText, soldText, conditionText;
     private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
     private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, viewsLayout;
     private ImageView likeImage;
@@ -142,6 +142,8 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         sellerSoldButtonsLayout = (LinearLayout) findViewById(R.id.sellerSoldButtonsLayout);
         soldViewChatsButton = (Button) findViewById(R.id.soldViewChatsButton);
+
+        conditionText = (TextView) findViewById(R.id.conditionText);
 
         likeLayout = (LinearLayout) findViewById(R.id.likeLayout);
         likeImage = (ImageView) findViewById(R.id.likeImage);
@@ -272,10 +274,13 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // details
 
+                setActionBarTitle(post.getTitle());
                 ViewUtil.setHtmlText(post.getTitle(), titleText, ProductActivity.this, true);
                 ViewUtil.setHtmlText(post.getBody(), descText, ProductActivity.this, true, true);
                 catNameText.setText(post.getCategoryName());
                 priceText.setText(ViewUtil.priceFormat(post.getPrice()));
+                conditionText.setText(ViewUtil.getPostConditionTypeValue(
+                        ViewUtil.parsePostConditionType(post.getConditionType())));
                 timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));
                 numViewsText.setText(post.getNumViews() + "");
                 numCommentsText.setText(post.getNumComments() + " " + getString(R.string.comments));

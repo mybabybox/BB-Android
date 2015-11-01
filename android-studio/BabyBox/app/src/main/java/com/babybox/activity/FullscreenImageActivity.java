@@ -23,8 +23,6 @@ public class FullscreenImageActivity extends TrackedFragmentActivity {
 
         setContentView(R.layout.fullscreen_image_activity);
 
-        getActionBar().hide();
-
         fullscreenLayout = (RelativeLayout) findViewById(R.id.fullscreenLayout);
         fullscreenLayout.setOnClickListener(new View.OnClickListener() {
             @Override

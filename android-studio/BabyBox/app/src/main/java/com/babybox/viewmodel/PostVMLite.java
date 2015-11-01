@@ -10,6 +10,7 @@ public class PostVMLite implements Serializable {
     public double price;
     public boolean sold;
     public String postType;
+    public String conditionType;
     public Long[] images;
     public Boolean hasImage = false;
     public int numLikes;
@@ -126,6 +127,14 @@ public class PostVMLite implements Serializable {
 
     public void setPostType(String postType) {
         this.postType = postType;
+    }
+
+    public String getConditionType() {
+        return conditionType;
+    }
+
+    public void setConditionType(String conditionType) {
+        this.conditionType = conditionType;
     }
 
     public int getNumViews() {

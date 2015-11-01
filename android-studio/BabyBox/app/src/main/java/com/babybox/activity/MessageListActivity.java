@@ -95,7 +95,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
         loadMoreLayout = (RelativeLayout) listHeader.findViewById(R.id.loadMoreLayout);
 
         listView = (ListView)findViewById(R.id.messageList);
-        titleText = (TextView) findViewById(R.id.titleText);
 
         postLayout = (RelativeLayout) findViewById(R.id.postLayout);
         postImage = (ImageView) findViewById(R.id.postImage);
@@ -110,7 +109,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
         final ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
 
-        titleText.setText(conversation.getUserName());
+        setActionBarTitle(conversation.getUserName());
         postTitleText.setText(conversation.getPostTitle());
         postPriceText.setText(ViewUtil.priceFormat(conversation.getPostPrice()));
         ImageUtil.displayPostImage(conversation.getPostImage(), postImage);

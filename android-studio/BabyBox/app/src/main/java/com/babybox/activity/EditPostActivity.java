@@ -50,6 +50,7 @@ public class EditPostActivity extends NewPostActivity {
                 titleEdit.setText(post.getTitle());
                 descEdit.setText(post.getBody());
                 priceEdit.setText((int)post.getPrice()+"");
+                setConditionTypeSpinner(ViewUtil.parsePostConditionType(post.getConditionType()));
                 initCategoryLayout(CategoryCache.getCategory(post.getCategoryId()));
 
                 ViewUtil.stopSpinner(EditPostActivity.this);

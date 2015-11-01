@@ -73,6 +73,45 @@
                     </RelativeLayout>
 
                     <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/titleText"
+                                android:textColor="@color/dark_gray_2"
+                                android:textSize="17dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="false"
+                                android:layout_alignParentTop="true"
+                                android:layout_toLeftOf="@+id/priceText" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/priceText"
+                                android:textSize="17dp"
+                                android:textStyle="bold"
+                                android:textColor="@color/green"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentLeft="false"
+                                android:layout_marginLeft="10dp" />
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -232,11 +271,86 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:id="@+id/viewBar1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@drawable/bar1"
+                        android:layout_marginTop="15dp"></View>
+
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView3"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="15dp"
+                            android:text="@string/post_details" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/descText"
+                            android:textColor="@color/gray"
+                            android:textSize="15dp"
+                            android:layout_marginTop="15dp" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp">
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/conditionLayout"
+                                android:layout_alignParentRight="false"
+                                android:layout_alignParentLeft="true">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/conditionDesc"
+                                    android:textSize="15dp"
+                                    android:textColor="@color/dark_gray"
+                                    android:layout_gravity="center_vertical"
+                                    android:text="@string/new_post_condition" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/conditionText"
+                                    android:textSize="15dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:textColor="@color/gray"
+                                    android:layout_gravity="center_vertical" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:id="@+id/viewBar2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@drawable/bar1"
+                        android:layout_marginTop="15dp"></View>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:layout_marginBottom="10dp">
@@ -244,44 +358,6 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/titleText"
-                                android:textColor="@color/dark_gray_2"
-                                android:textSize="17dp"
-                                android:layout_alignParentLeft="true"
-                                android:layout_alignParentRight="false"
-                                android:layout_alignParentTop="true"
-                                android:layout_toLeftOf="@+id/priceText" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/priceText"
-                                android:textSize="17dp"
-                                android:textStyle="bold"
-                                android:textColor="@color/green"
-                                android:layout_alignParentRight="true"
-                                android:layout_alignParentTop="true"
-                                android:layout_alignParentLeft="false"
-                                android:layout_marginLeft="10dp" />
-
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/descText"
-                            android:textColor="@color/gray"
-                            android:layout_marginTop="15dp"
-                            android:textSize="15dp" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="25dp">
 
                             <LinearLayout
                                 android:orientation="horizontal"
@@ -523,7 +599,7 @@
                     </RelativeLayout>
 
                     <View
-                        android:id="@+id/viewBar1"
+                        android:id="@+id/viewBar3"
                         android:layout_width="match_parent"
                         android:layout_height="0.8dp"
                         android:background="@drawable/bar1"></View>

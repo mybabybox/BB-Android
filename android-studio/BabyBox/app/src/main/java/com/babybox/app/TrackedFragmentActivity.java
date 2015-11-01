@@ -50,7 +50,7 @@ public abstract class TrackedFragmentActivity extends FragmentActivity {
     //
 
     protected void setActionBarTitle(String title) {
-        TextView titleText = (TextView) findViewById(R.id.titleText);
+        TextView titleText = (TextView) findViewById(R.id.toolbarTitleText);
         if (titleText != null) {
             titleText.setText(title);
         }
@@ -59,7 +59,7 @@ public abstract class TrackedFragmentActivity extends FragmentActivity {
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             View actionBarView = actionBar.getCustomView();
-            TextView titleText = (TextView) actionBarView.findViewById(R.id.titleText);
+            TextView titleText = (TextView) actionBarView.findViewById(R.id.toolbarTitleText);
             if (titleText != null) {
                 titleText.setText(title);
             }

@@ -132,6 +132,7 @@
     <string name="filter_used">Used</string>
 
     <!-- Product page -->
+    <string name="post_details">商品詳情:</string>
     <string name="like">Like</string>
     <string name="unlike">Unlike</string>
     <string name="likes">Likes</string>
@@ -155,6 +156,8 @@
     <string name="new_post">發出</string>
     <string name="new_post_price">價格($):</string>
     <string name="new_post_price_hint">請輸入價格</string>
+    <string name="new_post_condition">商品狀況:</string>
+    <string name="new_post_condition_select">-選擇-</string>
     <string name="new_post_to_popup_title">請選擇分類</string>
     <string name="new_post_to">分類:</string>
     <string name="new_post_select_category">請選擇分類</string>
@@ -163,6 +166,10 @@
     <string name="new_post_max_images">最多可加入%1$d張圖</string>
     <string name="post_success">成功%1$s商品</string>
     <string name="post_failed">暫時不能%1$s商品，請稍後重試</string>
+
+    <string name="new_with_tag">全新(未開封/有價錢牌)</string>
+    <string name="new_without_tag">全新(已開封/沒有價錢牌)</string>
+    <string name="used">二手</string>
 
     <string name="post_delete_confirm">確定刪除?</string>
     <string name="post_sold_confirm">商品更改為已售後，不會收到買家訊息。\n確定商品已售?</string>
@@ -251,6 +258,7 @@
     <string name="invalid_post_desc_empty">請填寫內容</string>
     <string name="invalid_post_price_empty">請填寫價格</string>
     <string name="invalid_post_price_not_number">價格需為數字</string>
+    <string name="invalid_post_condition_empty">請選擇商品狀況</string>
     <string name="invalid_comment_body_empty">請填寫內容</string>
 
     <!-- Image processing library -->

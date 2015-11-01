@@ -46,8 +46,6 @@ public class EditProfileActivity extends TrackedFragmentActivity {
 
     private int locationId = 1;
 
-    private int pos;
-
     private List<String> districtNames;
 
     @Override
@@ -74,7 +72,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
 
         finishButton = (Button) findViewById(R.id.finishButton);
 
-        setDistricts();
+        initDistrictSpinner();
 
         locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -122,25 +120,24 @@ public class EditProfileActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void setDistricts(){
+    private void initDistrictSpinner(){
         List<LocationVM> districts = DistrictCache.getDistricts();
-        districtNames = new ArrayList<String>();
+        districtNames = new ArrayList<>();
         districtNames.add(getString(R.string.signup_details_location));
         for (int i = 0; i < districts.size(); i++) {
             districtNames.add(districts.get(i).getDisplayName());
         }
 
-        ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(
-                EditProfileActivity.this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
                 android.R.layout.simple_spinner_item,
                 districtNames);
-        locationSpinner.setAdapter(locationAdapter);
+        locationSpinner.setAdapter(adapter);
 
         // set previous value
-        if (AppController.getUserLocation() == null) {
-            pos = 0;
-        } else {
-            pos = locationAdapter.getPosition(AppController.getUserLocation().getDisplayName());
+        int pos = 0;
+        if (AppController.getUserLocation() != null) {
+            pos = adapter.getPosition(AppController.getUserLocation().getDisplayName());
         }
         locationSpinner.setSelection(pos);
     }

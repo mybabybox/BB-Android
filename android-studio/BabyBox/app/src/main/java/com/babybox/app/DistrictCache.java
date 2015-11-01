@@ -13,7 +13,7 @@ import retrofit.client.Response;
 
 public class DistrictCache {
 
-    private static List<LocationVM> districts  = new ArrayList<>();;
+    private static List<LocationVM> districts  = new ArrayList<>();
 
     private DistrictCache() {}
 

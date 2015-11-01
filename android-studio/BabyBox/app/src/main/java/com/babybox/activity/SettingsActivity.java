@@ -27,8 +27,7 @@ public class SettingsActivity extends TrackedFragmentActivity {
 
         setContentView(R.layout.settings_activity);
 
-        titleText = (TextView) findViewById(R.id.titleText);
-        titleText.setText(getString(R.string.settings_actionbar_title));
+        setActionBarTitle(getString(R.string.settings_actionbar_title));
 
         appVersionText = (TextView) findViewById(R.id.appVersionText);
         logout = (RelativeLayout) findViewById(R.id.logout);

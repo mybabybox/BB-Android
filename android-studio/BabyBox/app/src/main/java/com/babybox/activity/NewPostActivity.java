@@ -14,11 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ import com.babybox.R;
 import com.babybox.adapter.PopupCategoryListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
+import com.babybox.app.DistrictCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
@@ -34,6 +37,7 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.SelectedImage;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
@@ -57,12 +61,15 @@ public class NewPostActivity extends TrackedFragmentActivity {
     protected ImageView catIcon;
     protected ImageView backImage;
     protected TextView titleEdit, descEdit, priceEdit, postAction, editTextInFocus;
+    protected Spinner conditionTypeSpinner;
 
     protected List<ImageView> postImages = new ArrayList<>();
 
     protected int selectedPostImageIndex = -1;
     protected Uri selectedImageUri = null;
     protected List<SelectedImage> selectedImages = new ArrayList<>();
+
+    protected ViewUtil.PostConditionType conditionType;
 
     protected Long catId;
     protected PopupWindow categoryPopup;
@@ -92,6 +99,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         titleEdit = (TextView) findViewById(R.id.titleEdit);
         descEdit = (TextView) findViewById(R.id.descEdit);
         priceEdit = (TextView) findViewById(R.id.priceEdit);
+        conditionTypeSpinner = (Spinner) findViewById(R.id.conditionTypeSpinner);
         editTextInFocus = titleEdit;
 
         titleEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -129,14 +137,8 @@ public class NewPostActivity extends TrackedFragmentActivity {
             }
         });
 
-        backImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
         // select image
+
         if (postImages.size() == 0) {
             ImageView postImage1 = (ImageView) findViewById(R.id.postImage1);
             postImage1.setOnClickListener(new View.OnClickListener() {
@@ -211,12 +213,56 @@ public class NewPostActivity extends TrackedFragmentActivity {
             postImages.add(postImage4);
         }
 
+        // condition spinner
+
+        initConditionTypeSpinner();
+
+        conditionTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String value = conditionTypeSpinner.getSelectedItem().toString();
+                conditionType = ViewUtil.parsePostConditionTypeFromValue(value);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        // post
+
         postAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 doPost();
             }
         });
+
+        backImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    protected void setConditionTypeSpinner(ViewUtil.PostConditionType conditionType) {
+        String value = ViewUtil.getPostConditionTypeValue(conditionType);
+        int pos = ((ArrayAdapter)conditionTypeSpinner.getAdapter()).getPosition(value);
+        conditionTypeSpinner.setSelection(pos);
+    }
+
+    protected void initConditionTypeSpinner() {
+        List<String> conditionTypes = new ArrayList<>();
+        conditionTypes.add(getString(R.string.new_post_condition_select));
+        conditionTypes.addAll(ViewUtil.getPostConditionTypeValues());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.spinner_item_right,
+                conditionTypes);
+        conditionTypeSpinner.setAdapter(adapter);
     }
 
     protected void updateSelectCategoryLayout() {
@@ -296,12 +342,17 @@ public class NewPostActivity extends TrackedFragmentActivity {
             return null;
         }
 
+        if (conditionType == null) {
+            Toast.makeText(this, getString(R.string.invalid_post_price_empty), Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
         if (catId == null) {
             initCategoryPopup();
             return null;
         }
 
-        NewPostVM newPost = new NewPostVM(catId, title, body, price, selectedImages);
+        NewPostVM newPost = new NewPostVM(catId, title, body, price, conditionType, selectedImages);
         return newPost;
     }
 
