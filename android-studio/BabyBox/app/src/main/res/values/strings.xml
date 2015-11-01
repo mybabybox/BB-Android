@@ -13,8 +13,7 @@
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
-    <!--string name="base_url">http://192.168.1.125:9000</string-->
-    <string name="base_url">http://baby-box.hk</string>
+    <string name="base_url">http://192.168.1.125:9000</string>
     <string name="app_version">babybox 版本:</string>
     <string name="request_upgrade">babybox 新版本已上線！更多新功能為你而設！</string>
     <string name="request_upgrade_confirm">立即安裝</string>
