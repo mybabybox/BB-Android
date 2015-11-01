@@ -31,6 +31,7 @@ public abstract class AbstractListViewActivity extends TrackedFragmentActivity {
 
     protected void showNoItemText() {
         noItemText.setVisibility(View.VISIBLE);
+        ViewUtil.stopSpinner(this);
     }
 
     @Override
