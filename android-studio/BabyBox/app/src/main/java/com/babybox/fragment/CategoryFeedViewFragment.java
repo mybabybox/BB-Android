@@ -154,6 +154,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         selectProductFilter(FeedFilter.FeedProductType.ALL, false);
 
         // tips
+        /*
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
         if (SharedPreferencesUtil.getInstance().isScreenViewed(SharedPreferencesUtil.Screen.CATEGORY_TIPS)) {
             tipsLayout.setVisibility(View.GONE);
@@ -169,6 +170,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
                 }
             });
         }
+        */
 
         // header
         catImage = (ImageView) getHeaderView(inflater).findViewById(R.id.catImage);

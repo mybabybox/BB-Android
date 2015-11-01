@@ -13,7 +13,8 @@
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
-    <string name="base_url">http://192.168.1.125:9000</string>
+    <!--string name="base_url">http://192.168.1.125:9000</string-->
+    <string name="base_url">http://baby-box.hk</string>
     <string name="app_version">babybox 版本:</string>
     <string name="request_upgrade">babybox 新版本已上線！更多新功能為你而設！</string>
     <string name="request_upgrade_confirm">立即安裝</string>
@@ -97,10 +98,10 @@
     <string name="tabset_profile">Me</string>
 
     <!-- Tips -->
-    <string name="home_explore_tips">Welcome to babybox!  Explore the latest popular products in the community</string>
-    <string name="home_following_tips">Explore the latest products from sellers you are following</string>
-    <string name="category_tips">Explore products by category</string>
-    <string name="my_profile_tips">Start listing products and become a seller!</string>
+    <string name="home_explore_tips">歡迎來到babybox！\n尋找最新及熱賣商品</string>
+    <string name="home_following_tips">關注你喜愛的賣家，發掘最新商品</string>
+    <string name="category_tips">以不同種類搜尋商品</string>
+    <string name="my_profile_tips">開始發佈商品，每個媽媽都是babybox賣家！</string>
 
     <!-- Home tab -->
     <string name="main_tab_explore">Explore</string>

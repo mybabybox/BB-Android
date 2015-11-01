@@ -343,7 +343,7 @@ public class NewPostActivity extends TrackedFragmentActivity {
         }
 
         if (conditionType == null) {
-            Toast.makeText(this, getString(R.string.invalid_post_price_empty), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.invalid_post_condition_empty), Toast.LENGTH_SHORT).show();
             return null;
         }
 

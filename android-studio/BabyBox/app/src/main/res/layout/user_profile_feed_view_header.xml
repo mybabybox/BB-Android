@@ -299,8 +299,8 @@
 
                 <ImageView
                     android:id="@+id/mascot"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:scaleType="fitCenter"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/mascot_box" />
@@ -309,7 +309,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/my_profile_tips"
-                    android:textSize="15dp"
+                    android:textSize="17dp"
                     android:textColor="@color/white"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="5dp" />
