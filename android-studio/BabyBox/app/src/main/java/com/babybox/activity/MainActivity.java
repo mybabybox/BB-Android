@@ -252,7 +252,7 @@ public class MainActivity extends TrackedFragmentActivity {
                     .setCancelable(false)
                     .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            AppController.getInstance().clearAll();
+                            AppController.getInstance().clearUserSession();
                             MainActivity.super.onBackPressed();
                         }
                     })
