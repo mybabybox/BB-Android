@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.babybox.app.AppController;
@@ -30,6 +31,8 @@ public class SharedPreferencesUtil {
     public static final String GCM_KEY = "gcmKey";
     public static final String USER_INFO = "userInfo";
     public static final String DISTRICTS = "districts";
+    public static final String MESSAGES_NOTIF= "messages";
+    public static final String COMMENT_NOTIF= "comment";
     public static final String EMOTICONS = "emoticons";
     public static final String CATEGORIES = "categories";
     public static final String APP_VERSION = "appVersion";
@@ -95,6 +98,18 @@ public class SharedPreferencesUtil {
         if (districts == null || districts.size() == 0)
             return;
         this.saveObject(DISTRICTS, districts);
+    }
+
+    public void saveMessageNotifs(List<String> messages) {
+        if (messages == null || messages.size() == 0)
+            return;
+        this.saveObject(MESSAGES_NOTIF, messages);
+    }
+
+    public void saveCoomentNotifs(List<String> messages) {
+        if (messages == null || messages.size() == 0)
+            return;
+        this.saveObject(COMMENT_NOTIF, messages);
     }
 
     public void saveEmoticons(List<EmoticonVM> emoticons) {
@@ -172,6 +187,28 @@ public class SharedPreferencesUtil {
         List<LocationVM> districts = new Gson().fromJson(json, type);
         //Log.d(this.getClass().getSimpleName(), "[DEBUG] getDistricts: size="+districts.size());
         return districts;
+    }
+
+    public List<String> getMessageNotifs() {
+        Type type = new TypeToken<List<String>>() {}.getType();
+        String json = this.prefs.getString(MESSAGES_NOTIF, null);
+        List<String> messages = new ArrayList<>();
+        messages = new Gson().fromJson(json, type);
+        if(messages == null){
+            messages = new ArrayList<>();
+        }
+        return messages;
+    }
+
+    public List<String> getCommentNotifs() {
+        Type type = new TypeToken<List<String>>() {}.getType();
+        String json = this.prefs.getString(COMMENT_NOTIF, null);
+        List<String> messages = new ArrayList<>();
+        messages = new Gson().fromJson(json, type);
+        if(messages == null){
+            messages = new ArrayList<>();
+        }
+        return messages;
     }
 
     public List<EmoticonVM> getEmoticons() {
