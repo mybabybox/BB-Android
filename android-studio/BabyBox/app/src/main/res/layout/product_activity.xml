@@ -46,12 +46,12 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
 
                         <com.babybox.view.AdaptiveViewPager
                             android:id="@+id/imagePager"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                         </com.babybox.view.AdaptiveViewPager>
 
                         <RelativeLayout

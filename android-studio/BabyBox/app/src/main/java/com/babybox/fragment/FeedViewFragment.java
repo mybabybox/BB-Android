@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVMLite;
@@ -42,9 +43,13 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
             @Override
             public void failure(RetrofitError error) {
                 //setFooterText(R.string.list_loading_error);
-                ViewUtil.alert(getActivity(), getActivity().getString(R.string.list_loading_error)+"\n[FeedFilter]\n"+
-                        getFeedFilter().toString()+"\n[Error]\n"+
-                        error.getLocalizedMessage());
+                String msg = getActivity().getString(R.string.list_loading_error);
+                if (UserInfoCache.getUser().isAdmin()) {
+                    msg += "\n[FeedFilter]\n"+
+                            getFeedFilter().toString()+"\n[Error]\n"+
+                            ViewUtil.getResponseBody(error.getResponse());
+                }
+                ViewUtil.alert(getActivity(), msg);
                 Log.e(FeedViewFragment.class.getSimpleName(), "getFeed: failure feedFilter=\n"+getFeedFilter().toString(), error);
                 ViewUtil.stopSpinner(getActivity());
             }

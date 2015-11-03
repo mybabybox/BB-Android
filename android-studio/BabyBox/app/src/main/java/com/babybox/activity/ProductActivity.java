@@ -471,7 +471,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 commentList.setVisibility(View.VISIBLE);
 
                 // actionbar
-
+                whatsappAction.setVisibility(UserInfoCache.getUser().isAdmin()? View.VISIBLE : View.GONE);
                 whatsappAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -479,6 +479,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
+                copyLinkAction.setVisibility(UserInfoCache.getUser().isAdmin() ? View.VISIBLE : View.GONE);
                 copyLinkAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

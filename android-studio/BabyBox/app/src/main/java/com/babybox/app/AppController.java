@@ -205,9 +205,13 @@ public class AppController extends Application {
         SharedPreferencesUtil.getInstance().clearAll();
     }
 
-    public void clearUserSession() {
+    public void clearUserCache() {
         NotificationCounter.clear();
         UserInfoCache.clear();
+    }
+
+    public void clearUserSession() {
+        clearUserCache();
         SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.SESSION_ID);
     }
 

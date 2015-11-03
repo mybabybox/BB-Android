@@ -80,7 +80,7 @@ public class LoginActivity extends AbstractLoginActivity {
                     .setCancelable(false)
                     .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            AppController.getInstance().clearUserSession();
+                            AppController.getInstance().clearUserCache();
                             LoginActivity.super.onBackPressed();
                         }
                     })

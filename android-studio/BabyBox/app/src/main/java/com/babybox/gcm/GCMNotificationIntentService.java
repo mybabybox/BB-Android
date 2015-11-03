@@ -19,6 +19,7 @@ import android.util.Log;
 import com.babybox.R;
 import com.babybox.activity.ConversationListActivity;
 import com.babybox.activity.MainActivity;
+import com.babybox.app.AppController;
 import com.babybox.util.SharedPreferencesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
@@ -90,7 +91,7 @@ public class GCMNotificationIntentService extends IntentService {
 		if(msg.contains("comment")){
 			List<String> messages = SharedPreferencesUtil.getInstance().getCommentNotifs();
 			messages.add(msg);
-			SharedPreferencesUtil.getInstance().saveCoomentNotifs(messages);
+			SharedPreferencesUtil.getInstance().saveCommentNotifs(messages);
 			updateOrSendNotification(this, NotificationType.COMMENT, messages);
 		} else {
 			List<String> messages = SharedPreferencesUtil.getInstance().getMessageNotifs();
@@ -114,7 +115,7 @@ public class GCMNotificationIntentService extends IntentService {
 
 		Intent intent = null;
 		PendingIntent contentIntent = null;
-		String ticker = "BabyBox";
+		String ticker = AppController.APP_NAME;
 		NotificationCompat.Builder mBuilder = null;
 		if(notificationType == NotificationType.MESSAGE){
 			intent = new Intent(Intent.ACTION_VIEW,
@@ -142,7 +143,7 @@ public class GCMNotificationIntentService extends IntentService {
 					new NotificationCompat.Builder(context);
 
 		}
-		String contentTitle = "BabyBox";
+		String contentTitle = AppController.APP_NAME;
 		mBuilder.setSmallIcon(R.drawable.ic_launcher)
 				.setTicker(ticker)                      // the thicker is the message that appears on the status bar when the notification first appears
 				.setDefaults(Notification.DEFAULT_ALL)  // use defaults for various notification settings

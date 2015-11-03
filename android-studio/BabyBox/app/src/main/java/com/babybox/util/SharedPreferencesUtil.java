@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.babybox.app.AppController;
-import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.UserVM;
 
@@ -31,9 +30,8 @@ public class SharedPreferencesUtil {
     public static final String GCM_KEY = "gcmKey";
     public static final String USER_INFO = "userInfo";
     public static final String DISTRICTS = "districts";
-    public static final String MESSAGES_NOTIF= "messages";
-    public static final String COMMENT_NOTIF= "comment";
-    public static final String EMOTICONS = "emoticons";
+    public static final String MESSAGE_NOTIF = "messageNotif";
+    public static final String COMMENT_NOTIF= "commentNotif";
     public static final String CATEGORIES = "categories";
     public static final String APP_VERSION = "appVersion";
 
@@ -100,28 +98,22 @@ public class SharedPreferencesUtil {
         this.saveObject(DISTRICTS, districts);
     }
 
-    public void saveMessageNotifs(List<String> messages) {
-        if (messages == null || messages.size() == 0)
-            return;
-        this.saveObject(MESSAGES_NOTIF, messages);
-    }
-
-    public void saveCoomentNotifs(List<String> messages) {
-        if (messages == null || messages.size() == 0)
-            return;
-        this.saveObject(COMMENT_NOTIF, messages);
-    }
-
-    public void saveEmoticons(List<EmoticonVM> emoticons) {
-        if (emoticons == null || emoticons.size() == 0)
-            return;
-        this.saveObject(EMOTICONS, emoticons);
-    }
-
     public void saveCategories(List<CategoryVM> categories) {
         if (categories == null || categories.size() == 0)
             return;
         this.saveObject(CATEGORIES, categories);
+    }
+
+    public void saveMessageNotifs(List<String> messages) {
+        if (messages == null || messages.size() == 0)
+            return;
+        this.saveObject(MESSAGE_NOTIF, messages);
+    }
+
+    public void saveCommentNotifs(List<String> messages) {
+        if (messages == null || messages.size() == 0)
+            return;
+        this.saveObject(COMMENT_NOTIF, messages);
     }
 
     public void saveString(String key, String value) {
@@ -185,15 +177,25 @@ public class SharedPreferencesUtil {
         Type type = new TypeToken<List<LocationVM>>() {}.getType();
         String json = this.prefs.getString(DISTRICTS, null);
         List<LocationVM> districts = new Gson().fromJson(json, type);
+        if(districts == null){
+            districts = new ArrayList<>();
+        }
         //Log.d(this.getClass().getSimpleName(), "[DEBUG] getDistricts: size="+districts.size());
         return districts;
     }
 
+    public List<CategoryVM> getCategories() {
+        Type type = new TypeToken<List<CategoryVM>>() {}.getType();
+        String json = this.prefs.getString(CATEGORIES, null);
+        List<CategoryVM> categories = new Gson().fromJson(json, type);
+        //Log.d(this.getClass().getSimpleName(), "[DEBUG] getCategories: size="+categories.size());
+        return categories;
+    }
+
     public List<String> getMessageNotifs() {
         Type type = new TypeToken<List<String>>() {}.getType();
-        String json = this.prefs.getString(MESSAGES_NOTIF, null);
-        List<String> messages = new ArrayList<>();
-        messages = new Gson().fromJson(json, type);
+        String json = this.prefs.getString(MESSAGE_NOTIF, null);
+        List<String> messages = new Gson().fromJson(json, type);
         if(messages == null){
             messages = new ArrayList<>();
         }
@@ -203,28 +205,11 @@ public class SharedPreferencesUtil {
     public List<String> getCommentNotifs() {
         Type type = new TypeToken<List<String>>() {}.getType();
         String json = this.prefs.getString(COMMENT_NOTIF, null);
-        List<String> messages = new ArrayList<>();
-        messages = new Gson().fromJson(json, type);
-        if(messages == null){
-            messages = new ArrayList<>();
+        List<String> comments = new Gson().fromJson(json, type);
+        if(comments == null){
+            comments = new ArrayList<>();
         }
-        return messages;
-    }
-
-    public List<EmoticonVM> getEmoticons() {
-        Type type = new TypeToken<List<EmoticonVM>>() {}.getType();
-        String json = this.prefs.getString(EMOTICONS, null);
-        List<EmoticonVM> emoticons = new Gson().fromJson(json, type);
-        //Log.d(this.getClass().getSimpleName(), "[DEBUG] getEmoticons: size="+emoticons.size());
-        return emoticons;
-    }
-
-    public List<CategoryVM> getCategories() {
-        Type type = new TypeToken<List<CategoryVM>>() {}.getType();
-        String json = this.prefs.getString(CATEGORIES, null);
-        List<CategoryVM> categories = new Gson().fromJson(json, type);
-        //Log.d(this.getClass().getSimpleName(), "[DEBUG] getCategories: size="+categories.size());
-        return categories;
+        return comments;
     }
 
     public String getString(String key) {
