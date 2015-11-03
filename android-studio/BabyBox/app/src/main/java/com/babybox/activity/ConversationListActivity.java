@@ -18,10 +18,12 @@ import com.babybox.app.ConversationCache;
 import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.util.DefaultValues;
+import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
 import com.yalantis.phoenix.PullToRefreshView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -118,6 +120,12 @@ public class ConversationListActivity extends TrackedFragmentActivity {
         }
 
         getConversations();
+
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle.getString(ViewUtil.NOTIFICAION_FLAG)!= null){
+            SharedPreferencesUtil.getInstance().saveMessageNotifs(new ArrayList<String>());
+        }
     }
 
     protected void markRead(ConversationVM conversation) {

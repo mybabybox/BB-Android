@@ -28,8 +28,11 @@ import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.ImageUtil;
+import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.NotificationCounterVM;
+
+import java.util.ArrayList;
 
 public class MainActivity extends TrackedFragmentActivity {
 
@@ -161,6 +164,12 @@ public class MainActivity extends TrackedFragmentActivity {
 
         refreshNotifications();
         checkAndroidUpgrade();
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle.getString(ViewUtil.NOTIFICAION_FLAG)!= null){
+            pressActivityTab();
+            SharedPreferencesUtil.getInstance().saveCommentNotifs(new ArrayList<String>());
+        }
     }
 
     @Override

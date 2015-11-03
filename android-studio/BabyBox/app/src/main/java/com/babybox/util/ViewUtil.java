@@ -111,6 +111,8 @@ public class ViewUtil {
 
     public static final String JSON_KEY_MESSAGE_KEY = "messages";
 
+    public static final String NOTIFICAION_FLAG = "notification";
+
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
 
     //public static final int SELECT_IMAGE_REQUEST_CODE = 2;

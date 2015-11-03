@@ -21,7 +21,11 @@ import com.babybox.activity.ConversationListActivity;
 import com.babybox.activity.MainActivity;
 import com.babybox.app.AppController;
 import com.babybox.util.SharedPreferencesUtil;
+import com.babybox.util.ViewUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -87,19 +91,22 @@ public class GCMNotificationIntentService extends IntentService {
 
 	private void sendNotification(String msg) {
 		Log.d(TAG, "Preparing to send notification...: " + msg);
-
-		if(msg.contains("comment")){
-			List<String> messages = SharedPreferencesUtil.getInstance().getCommentNotifs();
-			messages.add(msg);
-			SharedPreferencesUtil.getInstance().saveCommentNotifs(messages);
-			updateOrSendNotification(this, NotificationType.COMMENT, messages);
-		} else {
-			List<String> messages = SharedPreferencesUtil.getInstance().getMessageNotifs();
-			messages.add(msg);
-			SharedPreferencesUtil.getInstance().saveMessageNotifs(messages);
-			updateOrSendNotification(this, NotificationType.MESSAGE, messages);
+		try {
+			JSONObject jObject = new JSONObject(msg);
+			if(jObject.get("messageType").equals("comment")){
+				List<String> messages = SharedPreferencesUtil.getInstance().getCommentNotifs();
+				messages.add(jObject.get("message").toString());
+				SharedPreferencesUtil.getInstance().saveCommentNotifs(messages);
+				updateOrSendNotification(this, NotificationType.COMMENT, messages);
+			} else if(jObject.get("messageType").equals("conversation")) {
+				List<String> messages = SharedPreferencesUtil.getInstance().getMessageNotifs();
+				messages.add(jObject.get("message").toString());
+				SharedPreferencesUtil.getInstance().saveMessageNotifs(messages);
+				updateOrSendNotification(this, NotificationType.MESSAGE, messages);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
-
 		Log.d(TAG, "Notification sent successfully.");
 	}
 
@@ -122,6 +129,7 @@ public class GCMNotificationIntentService extends IntentService {
 					null,
 					context, ConversationListActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.putExtra(ViewUtil.NOTIFICAION_FLAG, true);
 			int requestID = (int) System.currentTimeMillis();
 			contentIntent = PendingIntent.getActivity(context, requestID,
 					intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -134,6 +142,7 @@ public class GCMNotificationIntentService extends IntentService {
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
 					context, MainActivity.class);
+			intent.putExtra(ViewUtil.NOTIFICAION_FLAG, true);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			int requestID = (int) System.currentTimeMillis();
 			contentIntent = PendingIntent.getActivity(context, requestID,
