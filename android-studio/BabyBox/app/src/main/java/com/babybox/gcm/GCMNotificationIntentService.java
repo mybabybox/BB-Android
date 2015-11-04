@@ -6,13 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -27,10 +22,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class GCMNotificationIntentService extends IntentService {
 
@@ -129,7 +121,7 @@ public class GCMNotificationIntentService extends IntentService {
 					null,
 					context, ConversationListActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra(ViewUtil.NOTIFICAION_FLAG, true);
+			intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, true);
 			int requestID = (int) System.currentTimeMillis();
 			contentIntent = PendingIntent.getActivity(context, requestID,
 					intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -142,16 +134,16 @@ public class GCMNotificationIntentService extends IntentService {
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
 					context, MainActivity.class);
-			intent.putExtra(ViewUtil.NOTIFICAION_FLAG, true);
+			intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, true);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			int requestID = (int) System.currentTimeMillis();
 			contentIntent = PendingIntent.getActivity(context, requestID,
 					intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-			 mBuilder =
-					new NotificationCompat.Builder(context);
+			 mBuilder = new NotificationCompat.Builder(context);
 
 		}
+
 		String contentTitle = AppController.APP_NAME;
 		mBuilder.setSmallIcon(R.drawable.ic_launcher)
 				.setTicker(ticker)                      // the thicker is the message that appears on the status bar when the notification first appears
@@ -160,7 +152,6 @@ public class GCMNotificationIntentService extends IntentService {
 				.setAutoCancel(true)                    // if you want the notification to be dismissed when clicked
 				.setVibrate(new long[]{100, 250, 100, 250, 100, 250 })
 				.setOnlyAlertOnce(true); // don't play any sound or flash light if since we're updating
-
 
 		NotificationCompat.Style style;
 		if (count > 1) {

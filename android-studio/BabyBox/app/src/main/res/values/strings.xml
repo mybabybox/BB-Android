@@ -28,6 +28,12 @@
     <string name="text_copy_failed">信息不能複制</string>
     <string name="comment_copy_success">評論已複制</string>
     <string name="comment_copy_failed">評論不能複制</string>
+    <string name="id">ID:</string>
+    <string name="score">Score:</string>
+    <string name="score_adjust">Score Adjust:</string>
+    <string name="score_adjust_success">Score Adjust by %1$s</string>
+    <string name="score_adjust_reset_success">Score Adjust Reset to 0</string>
+    <string name="score_adjust_failure">Score Adjust Failure:\n%1$s</string>
 
     <!-- Login / Signup -->
     <string name="login">登入</string>
@@ -97,7 +103,7 @@
     <string name="tabset_profile">Me</string>
 
     <!-- Tips -->
-    <string name="home_explore_tips">歡迎來到babybox！\n尋找最新及熱賣商品</string>
+    <string name="home_explore_tips">歡迎來到babybox！\n尋找最新熱賣商品</string>
     <string name="home_following_tips">關注你喜愛的賣家，發掘最新商品</string>
     <string name="category_tips">以不同種類搜尋商品</string>
     <string name="my_profile_tips">開始發佈商品，每個媽媽都是babybox賣家！</string>

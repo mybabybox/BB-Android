@@ -165,8 +165,8 @@ public class MainActivity extends TrackedFragmentActivity {
         refreshNotifications();
         checkAndroidUpgrade();
 
-        Bundle bundle = getIntent().getExtras();
-        if(bundle.getString(ViewUtil.NOTIFICAION_FLAG)!= null){
+        // handle gcm
+        if (ViewUtil.isGcmLaunchTarget(getIntent())) {
             pressActivityTab();
             SharedPreferencesUtil.getInstance().saveCommentNotifs(new ArrayList<String>());
         }

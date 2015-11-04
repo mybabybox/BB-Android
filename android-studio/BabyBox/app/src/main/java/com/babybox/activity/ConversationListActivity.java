@@ -121,9 +121,8 @@ public class ConversationListActivity extends TrackedFragmentActivity {
 
         getConversations();
 
-
-        Bundle bundle = getIntent().getExtras();
-        if(bundle.getString(ViewUtil.NOTIFICAION_FLAG)!= null){
+        // handle gcm
+        if (ViewUtil.isGcmLaunchTarget(getIntent())) {
             SharedPreferencesUtil.getInstance().saveMessageNotifs(new ArrayList<String>());
         }
     }

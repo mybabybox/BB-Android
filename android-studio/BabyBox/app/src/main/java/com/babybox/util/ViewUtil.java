@@ -13,6 +13,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -111,7 +112,7 @@ public class ViewUtil {
 
     public static final String JSON_KEY_MESSAGE_KEY = "messages";
 
-    public static final String NOTIFICAION_FLAG = "notification";
+    public static final String GCM_LAUNCH_TARGET = "gcmLaunchTarget";
 
     public static final int START_ACTIVITY_REQUEST_CODE = 1;
 
@@ -897,6 +898,13 @@ public class ViewUtil {
         } catch (android.content.ActivityNotFoundException anfe) {
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
         }
+    }
+
+    public static boolean isGcmLaunchTarget(Intent intent) {
+        Bundle bundle = intent.getExtras();
+        return bundle != null && bundle.getBoolean(ViewUtil.GCM_LAUNCH_TARGET);
+        //return bundle != null && bundle.getString(ViewUtil.GCM_LAUNCH_TARGET) != null;
+        //return intent != null && intent.getBooleanExtra(ViewUtil.GCM_LAUNCH_TARGET, false);
     }
 
     /**

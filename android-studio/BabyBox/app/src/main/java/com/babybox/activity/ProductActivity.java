@@ -80,7 +80,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private TextView titleText, descText, priceText, soldText, conditionText;
     private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
-    private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, viewsLayout;
+    private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, adminLayout;
     private ImageView likeImage;
     private TextView likeText, numLikesText;
 
@@ -150,7 +150,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         likeText = (TextView) findViewById(R.id.likeText);
         numLikesText = (TextView) findViewById(R.id.numLikesText);
 
-        viewsLayout = (LinearLayout) findViewById(R.id.viewsLayout);
+        adminLayout = (LinearLayout) findViewById(R.id.adminLayout);
 
         followButton = (Button) findViewById(R.id.followButton);
 
@@ -282,7 +282,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                 conditionText.setText(ViewUtil.getPostConditionTypeValue(
                         ViewUtil.parsePostConditionType(post.getConditionType())));
                 timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));
-                numViewsText.setText(post.getNumViews() + "");
                 numCommentsText.setText(post.getNumComments() + " " + getString(R.string.comments));
 
                 catNameText.setOnClickListener(new View.OnClickListener() {
@@ -347,8 +346,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                 } else {
                     deleteText.setVisibility(View.GONE);
                 }
-
-                viewsLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
 
                 // action buttons
 
@@ -491,7 +488,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                if (post.isOwner() && !post.isSold()) {
+                if ((post.isOwner() && !post.isSold()) ||
+                        UserInfoCache.getUser().isAdmin()) {
                     editPostAction.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -501,6 +499,81 @@ public class ProductActivity extends TrackedFragmentActivity {
                     editPostAction.setVisibility(View.VISIBLE);
                 } else {
                     editPostAction.setVisibility(View.GONE);
+                }
+
+                // admin
+                adminLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
+                if (UserInfoCache.getUser().isAdmin()) {
+                    TextView idText = (TextView) findViewById(R.id.idText);
+                    TextView numViewsText = (TextView) findViewById(R.id.numViewsText);
+                    TextView scoreText = (TextView) findViewById(R.id.scoreText);
+                    ImageView upImage = (ImageView) findViewById(R.id.upImage);
+                    ImageView downImage = (ImageView) findViewById(R.id.downImage);
+                    ImageView resetImage = (ImageView) findViewById(R.id.resetImage);
+
+                    idText.setText(post.id+"");
+                    numViewsText.setText(post.getNumViews() + "");
+                    scoreText.setText(post.timeScore+"");
+
+                    upImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppController.getApiService().adjustUpPostScore(post.id, new Callback<Response>() {
+                                @Override
+                                public void success(Response responseObject, Response response) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            getString(R.string.score_adjust_success, ViewUtil.getResponseBody(responseObject)));
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            String.format(getString(R.string.score_adjust_failure), error.getLocalizedMessage()));
+                                    Log.e(ProductActivity.class.getSimpleName(), "adjustUpPostScore: failure", error);
+                                }
+                            });
+                        }
+                    });
+
+                    downImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppController.getApiService().adjustDownPostScore(post.id, new Callback<Response>() {
+                                @Override
+                                public void success(Response responseObject, Response response) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            getString(R.string.score_adjust_success, ViewUtil.getResponseBody(responseObject)));
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            String.format(getString(R.string.score_adjust_failure), error.getLocalizedMessage()));
+                                    Log.e(ProductActivity.class.getSimpleName(), "adjustDownPostScore: failure", error);
+                                }
+                            });
+                        }
+                    });
+
+                    resetImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppController.getApiService().resetAdjustPostScore(post.id, new Callback<Response>() {
+                                @Override
+                                public void success(Response responseObject, Response response) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            getString(R.string.score_adjust_reset_success, ViewUtil.getResponseBody(responseObject)));
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            String.format(getString(R.string.score_adjust_failure), error.getLocalizedMessage()));
+                                    Log.e(ProductActivity.class.getSimpleName(), "resetAdjustPostScore: failure", error);
+                                }
+                            });
+                        }
+                    });
                 }
 
                 ViewUtil.stopSpinner(ProductActivity.this);
@@ -566,7 +639,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private void openConversation(final Long postId, final boolean buy) {
         ConversationCache.open(postId, new Callback<ConversationVM>() {
             @Override
-            public void success(ConversationVM conversationVM, Response response1) {
+            public void success(ConversationVM conversationVM, Response response) {
                 if (conversationVM != null) {
                     ViewUtil.startMessageListActivity(ProductActivity.this, conversationVM.getId(), buy);
                 } else {

@@ -265,6 +265,20 @@ public class BabyBoxService {
     public void saveGCMKey(String gcmKey, Long versionCode, Callback<Response> cb) {
         api.saveGCMKey(gcmKey, versionCode, AppController.getInstance().getSessionId(), cb);
     }
+
+    // admin
+
+    public void adjustUpPostScore(Long id, Callback<Response> cb) {
+        api.adjustUpPostScore(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void adjustDownPostScore(Long id, Callback<Response> cb) {
+        api.adjustDownPostScore(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void resetAdjustPostScore(Long id, Callback<Response> cb) {
+        api.resetAdjustPostScore(id, AppController.getInstance().getSessionId(), cb);
+    }
 }
 
 

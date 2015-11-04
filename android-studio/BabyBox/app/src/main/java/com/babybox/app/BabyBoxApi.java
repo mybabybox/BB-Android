@@ -241,6 +241,19 @@ public interface BabyBoxApi {
 
     @POST("/save-gcm-key/{gcmKey}/{versionCode}")
     public void saveGCMKey(@Path("gcmKey") String gcmKey, @Path("versionCode") Long versionCode, @Query("key") String key, Callback<Response> cb);
+
+    //
+    // Admin
+    //
+
+    @GET("/adjust-up-post-score/{id}")
+    public void adjustUpPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
+
+    @GET("/adjust-down-post-score/{id}")
+    public void adjustDownPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
+
+    @GET("/reset-adjust-post-score/{id}")
+    public void resetAdjustPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 }
 
 
