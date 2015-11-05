@@ -147,12 +147,16 @@ public class GCMNotificationIntentService extends IntentService {
 		}
 
 		mBuilder.setSmallIcon(R.drawable.ic_launcher)
-				.setTicker(ticker)                      // the thicker is the message that appears on the status bar when the notification first appears
-				.setDefaults(Notification.DEFAULT_ALL)  // use defaults for various notification settings
-				.setContentIntent(contentIntent)        // intent used on click
-				.setAutoCancel(true)                    // if you want the notification to be dismissed when clicked
-				.setVibrate(new long[]{100, 250, 100, 250, 100, 250 })
-				.setOnlyAlertOnce(true); // don't play any sound or flash light if since we're updating
+				.setTicker(ticker)                          // the thicker is the message that appears on the status bar when the notification first appears
+				.setDefaults(Notification.DEFAULT_ALL|
+                        Notification.DEFAULT_SOUND|
+                        Notification.DEFAULT_LIGHTS|
+                        Notification.DEFAULT_VIBRATE)       // use defaults for various notification settings
+				.setContentIntent(contentIntent)            // intent used on click
+				.setAutoCancel(true)
+                .setPriority(Notification.PRIORITY_HIGH);   // if you want the notification to be dismissed when clicked
+				//.setVibrate(new long[]{100, 250, 100, 250, 100, 250 })
+				//.setOnlyAlertOnce(true);                  // don't play any sound or flash light if since we're updating
 
         // style
 		NotificationCompat.Style style;
