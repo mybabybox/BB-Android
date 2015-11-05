@@ -135,8 +135,10 @@ public class ConversationListActivity extends TrackedFragmentActivity {
 
         // handle gcm
         if (ViewUtil.isGcmLaunchTarget(getIntent())) {
-            SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_CONVERSATION_NOTIFS);
+            // no-op...
         }
+
+        SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_CONVERSATION_NOTIFS);
 
         /*
         if (adapter != null) {

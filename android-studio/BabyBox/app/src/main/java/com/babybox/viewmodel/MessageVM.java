@@ -13,6 +13,7 @@ public class MessageVM implements Serializable, Comparable<MessageVM> {
     public Long senderId;
     public String senderName;
     public String body;
+    public boolean system = false;
     public boolean hasImage = false;
     public Long image;
 
@@ -23,6 +24,7 @@ public class MessageVM implements Serializable, Comparable<MessageVM> {
             this.senderName = jsonObj.getString("senderName");
             this.createdDate = jsonObj.getLong("createdDate");
             this.body = jsonObj.getString("body");
+            this.system = jsonObj.getBoolean("system");
             this.image = jsonObj.getLong("image");
             this.hasImage = jsonObj.getBoolean("hasImage");
         } catch (JSONException e) {
@@ -68,6 +70,14 @@ public class MessageVM implements Serializable, Comparable<MessageVM> {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public boolean isSystem() {
+        return system;
+    }
+
+    public void setSystem(boolean system) {
+        this.system = system;
     }
 
     public boolean hasImage() {

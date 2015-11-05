@@ -14,13 +14,15 @@ import retrofit.mime.TypedString;
 public class NewMessageVM {
     public Long conversationId;
     public String body;
+    public Boolean system;
     public Boolean withPhotos;
     public List<File> images;
     public String deviceType;
 
-    public NewMessageVM(Long conversationId, String body, List<SelectedImage> selectedImages) {
+    public NewMessageVM(Long conversationId, String body, Boolean system, List<SelectedImage> selectedImages) {
         this.conversationId = conversationId;
         this.body = body;
+        this.system = system;
         this.withPhotos = (selectedImages != null && selectedImages.size() > 0);
         this.images = new ArrayList<>();
         for (SelectedImage selectedImage : selectedImages) {
@@ -33,6 +35,7 @@ public class NewMessageVM {
         MultipartTypedOutput multipartTypedOutput = new MultipartTypedOutput();
         multipartTypedOutput.addPart("conversationId", new TypedString(conversationId+""));
         multipartTypedOutput.addPart("body", new TypedString(body));
+        multipartTypedOutput.addPart("system", new TypedString(system.toString()));
         multipartTypedOutput.addPart("withPhotos", new TypedString(withPhotos.toString()));
         multipartTypedOutput.addPart("deviceType", new TypedString(Boolean.TRUE.toString()));
 

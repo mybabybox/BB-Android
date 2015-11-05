@@ -25,7 +25,7 @@
         android:paddingRight="15dp"
         android:layout_marginRight="65dp">
         <TextView
-            android:id="@+id/txtMsg"
+            android:id="@+id/bodyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:id="@+id/messageImages"
-            android:layout_below="@+id/txtMsg"
+            android:layout_below="@+id/bodyText"
             android:visibility="gone"
              />
         <TextView

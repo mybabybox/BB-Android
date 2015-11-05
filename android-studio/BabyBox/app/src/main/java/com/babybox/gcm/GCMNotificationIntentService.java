@@ -116,6 +116,7 @@ public class GCMNotificationIntentService extends IntentService {
 		PendingIntent contentIntent = null;
 		String ticker = AppController.APP_NAME;
 		NotificationCompat.Builder mBuilder = null;
+        String contentTitle = AppController.APP_NAME;
 
         Log.d(GCMNotificationIntentService.class.getSimpleName(), "updateOrSendNotification: notificationType=" + notificationType);
 		if(notificationType == NotificationType.CONVERSATION){
@@ -129,8 +130,7 @@ public class GCMNotificationIntentService extends IntentService {
 					intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 			mBuilder = new NotificationCompat.Builder(context);
-
-
+            contentTitle = context.getString(R.string.gcm_new_conversations, count);
 		} else {
 			//Intent to be launched on notification click
 			intent = new Intent(Intent.ACTION_VIEW,
@@ -143,10 +143,9 @@ public class GCMNotificationIntentService extends IntentService {
 					intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 			 mBuilder = new NotificationCompat.Builder(context);
-
+            contentTitle = context.getString(R.string.gcm_new_comments, count);
 		}
 
-		String contentTitle = AppController.APP_NAME;
 		mBuilder.setSmallIcon(R.drawable.ic_launcher)
 				.setTicker(ticker)                      // the thicker is the message that appears on the status bar when the notification first appears
 				.setDefaults(Notification.DEFAULT_ALL)  // use defaults for various notification settings
@@ -155,7 +154,17 @@ public class GCMNotificationIntentService extends IntentService {
 				.setVibrate(new long[]{100, 250, 100, 250, 100, 250 })
 				.setOnlyAlertOnce(true); // don't play any sound or flash light if since we're updating
 
+        // style
 		NotificationCompat.Style style;
+        NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
+        style = inboxStyle;
+
+        mBuilder.setContentTitle(contentTitle);
+        for (String r : messages) {
+            inboxStyle.addLine(r);
+        }
+
+        /*
 		if (count > 1) {
 			NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
 			style = inboxStyle;
@@ -172,6 +181,7 @@ public class GCMNotificationIntentService extends IntentService {
 			bigTextStyle.setBigContentTitle(ViewUtil.shortenString(messages.get(0), 10));
 			bigTextStyle.bigText(messages.get(0));
 		}
+        */
 
 		mBuilder.setStyle(style);
 

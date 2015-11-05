@@ -2,6 +2,7 @@ package com.babybox.app;
 
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.babybox.R;
@@ -65,5 +66,13 @@ public abstract class TrackedFragmentActivity extends FragmentActivity {
             }
         }
         */
+    }
+
+    protected void showActionBarTitle(boolean show) {
+        TextView titleText = (TextView) findViewById(R.id.toolbarTitleText);
+        if (titleText != null) {
+            titleText.setVisibility(show? View.VISIBLE : View.GONE);
+        }
+
     }
 }

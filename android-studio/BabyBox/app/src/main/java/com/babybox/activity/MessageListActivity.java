@@ -368,7 +368,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             imageView.setImageBitmap(bp);
             //imageView.setImageURI(Uri.parse(imagePath);
 
-            Log.d(this.getClass().getSimpleName(), "setCommentImage: imagePath="+imagePath);
+            Log.d(this.getClass().getSimpleName(), "setCommentImage: imagePath=" + imagePath);
         }
     }
 
@@ -388,11 +388,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
     }
 
     private void doBuy() {
-        initCommentPopup();
-        if (commentEditText != null) {
-            commentEditText.setText(getString(R.string.pm_buy_message));
-            doMessage();
-        }
+        doMessage(getString(R.string.pm_buy_message), true);
     }
 
     private void doMessage() {
@@ -407,12 +403,20 @@ public class MessageListActivity extends TrackedFragmentActivity {
             return;
         }
 
+        doMessage(body);
+    }
+
+    private void doMessage(String message) {
+        doMessage(message, false);
+    }
+
+    private void doMessage(String message, boolean system) {
         //Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
 
         ViewUtil.showSpinner(MessageListActivity.this);
 
         pending = true;
-        NewMessageVM newMessage = new NewMessageVM(conversationId, body, selectedImages);
+        NewMessageVM newMessage = new NewMessageVM(conversationId, message, system, selectedImages);
         AppController.getApiService().newMessage(newMessage, new Callback<MessageVM>() {
             @Override
             public void success(MessageVM message, Response response) {

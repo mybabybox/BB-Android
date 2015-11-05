@@ -173,7 +173,6 @@ public class MainActivity extends TrackedFragmentActivity {
         // handle gcm
         if (ViewUtil.isGcmLaunchTarget(getIntent())) {
             pressActivityTab();
-            SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_COMMENT_NOTIFS);
         }
     }
 
@@ -205,6 +204,8 @@ public class MainActivity extends TrackedFragmentActivity {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             selectedFragment = new ActivityMainFragment();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
+
+            SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_COMMENT_NOTIFS);
         }
 
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);

@@ -1,6 +1,7 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import com.babybox.R;
@@ -75,9 +77,10 @@ public class MessageListAdapter extends BaseAdapter {
             ImageUtil.displayThumbnailProfileImage(message.getSenderId(), senderImage);
         }
 
-        TextView txtMsg = (TextView) convertView.findViewById(R.id.txtMsg);
+        TextView bodyText = (TextView) convertView.findViewById(R.id.bodyText);
         TextView dateMsg = (TextView) convertView.findViewById(R.id.messageDate);
-        ViewUtil.setHtmlText(message.getBody(), txtMsg, activity, true, true);
+        ViewUtil.setHtmlText(message.getBody(), bodyText, activity, true, true);
+        bodyText.setTypeface(null, message.system? Typeface.BOLD : Typeface.NORMAL);
 
         dateMsg.setText(DateTimeUtil.getTimeAgo(message.getCreatedDate()));
 

@@ -436,6 +436,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 });
 
                 // comments
+
                 List<CommentVM> comments = post.getLatestComments();
                 commentListAdapter = new CommentListAdapter(ProductActivity.this, comments);
                 commentList.setAdapter(commentListAdapter);
@@ -468,7 +469,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                 commentList.setVisibility(View.VISIBLE);
 
                 // actionbar
-                whatsappAction.setVisibility(UserInfoCache.getUser().isAdmin()? View.VISIBLE : View.GONE);
+
+                whatsappAction.setVisibility(View.GONE);
                 whatsappAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -476,7 +478,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                copyLinkAction.setVisibility(UserInfoCache.getUser().isAdmin() ? View.VISIBLE : View.GONE);
+                copyLinkAction.setVisibility(View.GONE);
                 copyLinkAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -488,8 +490,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                if ((post.isOwner() && !post.isSold()) ||
-                        UserInfoCache.getUser().isAdmin()) {
+                if ((post.isOwner() && !post.isSold())) {
                     editPostAction.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -502,8 +503,14 @@ public class ProductActivity extends TrackedFragmentActivity {
                 }
 
                 // admin
+
                 adminLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
                 if (UserInfoCache.getUser().isAdmin()) {
+                    showActionBarTitle(false);
+                    whatsappAction.setVisibility(View.VISIBLE);
+                    copyLinkAction.setVisibility(View.VISIBLE);
+                    editPostAction.setVisibility(View.VISIBLE);
+
                     TextView idText = (TextView) findViewById(R.id.idText);
                     TextView numViewsText = (TextView) findViewById(R.id.numViewsText);
                     TextView scoreText = (TextView) findViewById(R.id.scoreText);
