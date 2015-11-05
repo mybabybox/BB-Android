@@ -120,11 +120,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
         }
 
         getConversations();
-
-        // handle gcm
-        if (ViewUtil.isGcmLaunchTarget(getIntent())) {
-            SharedPreferencesUtil.getInstance().saveMessageNotifs(new ArrayList<String>());
-        }
     }
 
     protected void markRead(ConversationVM conversation) {
@@ -135,25 +130,17 @@ public class ConversationListActivity extends TrackedFragmentActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
+
+        // handle gcm
+        if (ViewUtil.isGcmLaunchTarget(getIntent())) {
+            SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_CONVERSATION_NOTIFS);
+        }
 
         /*
         if (adapter != null) {
             Log.d(ConversationListFragment.class.getSimpleName(), "onStart");
-            ConversationCache.sortConversations();
-            adapter.notifyDataSetChanged();
-        }
-        */
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        /*
-        if (adapter != null) {
-            Log.d(ConversationListFragment.class.getSimpleName(), "onResume");
             ConversationCache.sortConversations();
             adapter.notifyDataSetChanged();
         }

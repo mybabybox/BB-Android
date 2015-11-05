@@ -73,11 +73,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import retrofit.RetrofitError;
 
@@ -156,6 +154,13 @@ public class ViewUtil {
 
     public static int random(int low, int high) {
         return low + (int)(Math.random() * (high - low));
+    }
+
+    public static String shortenString(String str, int length) {
+        if (str.length() <= length) {
+            return str;
+        }
+        return str.substring(0,length).concat("...");
     }
 
     public static List<String> getPostConditionTypeValues() {
@@ -902,8 +907,10 @@ public class ViewUtil {
 
     public static boolean isGcmLaunchTarget(Intent intent) {
         Bundle bundle = intent.getExtras();
-        return bundle != null && bundle.getBoolean(ViewUtil.GCM_LAUNCH_TARGET);
-        //return bundle != null && bundle.getString(ViewUtil.GCM_LAUNCH_TARGET) != null;
+        Log.e(ViewUtil.class.getSimpleName(), "bundle="+bundle);
+        return bundle != null && bundle.getString(ViewUtil.GCM_LAUNCH_TARGET) != null;
+        //return bundle != null && Boolean.valueOf(bundle.getString(ViewUtil.GCM_LAUNCH_TARGET));
+        //return bundle != null && bundle.getBoolean(ViewUtil.GCM_LAUNCH_TARGET);
         //return intent != null && intent.getBooleanExtra(ViewUtil.GCM_LAUNCH_TARGET, false);
     }
 

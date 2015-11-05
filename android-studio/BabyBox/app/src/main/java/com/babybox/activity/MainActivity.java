@@ -164,17 +164,17 @@ public class MainActivity extends TrackedFragmentActivity {
 
         refreshNotifications();
         checkAndroidUpgrade();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         // handle gcm
         if (ViewUtil.isGcmLaunchTarget(getIntent())) {
             pressActivityTab();
-            SharedPreferencesUtil.getInstance().saveCommentNotifs(new ArrayList<String>());
+            SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_COMMENT_NOTIFS);
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     public void setUserProfileThumbnail() {

@@ -34,8 +34,8 @@ public class GCMNotificationIntentService extends IntentService {
 	private NotificationCompat.Builder builder;
 	public NotificationType notificationType;
 
-	public static enum NotificationType{
-		MESSAGE,
+	public static enum NotificationType {
+        CONVERSATION,
 		COMMENT
 	}
 
@@ -85,16 +85,16 @@ public class GCMNotificationIntentService extends IntentService {
 		Log.d(TAG, "Preparing to send notification...: " + msg);
 		try {
 			JSONObject jObject = new JSONObject(msg);
-			if(jObject.get("messageType").equals("comment")){
-				List<String> messages = SharedPreferencesUtil.getInstance().getCommentNotifs();
+			if (jObject.get("messageType").equals(NotificationType.COMMENT.name())) {
+				List<String> messages = SharedPreferencesUtil.getInstance().getGcmCommentNotifs();
 				messages.add(jObject.get("message").toString());
-				SharedPreferencesUtil.getInstance().saveCommentNotifs(messages);
+				SharedPreferencesUtil.getInstance().saveGcmCommentNotifs(messages);
 				updateOrSendNotification(this, NotificationType.COMMENT, messages);
-			} else if(jObject.get("messageType").equals("conversation")) {
-				List<String> messages = SharedPreferencesUtil.getInstance().getMessageNotifs();
+			} else if(jObject.get("messageType").equals(NotificationType.CONVERSATION.name())) {
+				List<String> messages = SharedPreferencesUtil.getInstance().getGcmConversationNotifs();
 				messages.add(jObject.get("message").toString());
-				SharedPreferencesUtil.getInstance().saveMessageNotifs(messages);
-				updateOrSendNotification(this, NotificationType.MESSAGE, messages);
+				SharedPreferencesUtil.getInstance().saveGcmConversationNotifs(messages);
+				updateOrSendNotification(this, NotificationType.CONVERSATION, messages);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -116,12 +116,14 @@ public class GCMNotificationIntentService extends IntentService {
 		PendingIntent contentIntent = null;
 		String ticker = AppController.APP_NAME;
 		NotificationCompat.Builder mBuilder = null;
-		if(notificationType == NotificationType.MESSAGE){
+
+        Log.d(GCMNotificationIntentService.class.getSimpleName(), "updateOrSendNotification: notificationType=" + notificationType);
+		if(notificationType == NotificationType.CONVERSATION){
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
 					context, ConversationListActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, true);
+			intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, "true");
 			int requestID = (int) System.currentTimeMillis();
 			contentIntent = PendingIntent.getActivity(context, requestID,
 					intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -134,8 +136,8 @@ public class GCMNotificationIntentService extends IntentService {
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
 					context, MainActivity.class);
-			intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, true);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, "true");
 			int requestID = (int) System.currentTimeMillis();
 			contentIntent = PendingIntent.getActivity(context, requestID,
 					intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -167,13 +169,13 @@ public class GCMNotificationIntentService extends IntentService {
 			NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
 			style = bigTextStyle;
 
-			bigTextStyle.setBigContentTitle(messages.get(0).substring(0, 10).concat(" ..."));
+			bigTextStyle.setBigContentTitle(ViewUtil.shortenString(messages.get(0), 10));
 			bigTextStyle.bigText(messages.get(0));
 		}
 
 		mBuilder.setStyle(style);
 
-		if(notificationType == NotificationType.MESSAGE) {
+		if (notificationType == NotificationType.CONVERSATION) {
 			notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
 		} else {
 			notificationManager.notify(NOTIFICATION_ID + 1, mBuilder.build());

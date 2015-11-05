@@ -8,17 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
-import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ActivityVM;
-import com.babybox.viewmodel.ConversationVM;
 
 import java.util.List;
 
@@ -134,12 +131,24 @@ public class ActivityListAdapter extends BaseAdapter {
                     ViewUtil.startProductActivity(activity, item.getTarget());
                 }
             });
+            messageText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewUtil.startProductActivity(activity, item.getTarget());
+                }
+            });
 
             ImageUtil.displayPostImage(item.getTargetImage(), postImage);
             postImage.setVisibility(View.VISIBLE);
         } else {
             // open actor user
             activityLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewUtil.startUserProfileActivity(activity, item.getActor());
+                }
+            });
+            messageText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ViewUtil.startUserProfileActivity(activity, item.getActor());

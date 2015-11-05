@@ -27,13 +27,15 @@ public class SharedPreferencesUtil {
     public static final String FB_ACCESS_EXPIRES = "access_expires";
     public static final String LOGIN_FAILED_COUNT = "loginFailedCount";
     public static final String SESSION_ID = "sessionId";
-    public static final String GCM_KEY = "gcmKey";
     public static final String USER_INFO = "userInfo";
     public static final String DISTRICTS = "districts";
-    public static final String MESSAGE_NOTIF = "messageNotif";
-    public static final String COMMENT_NOTIF= "commentNotif";
     public static final String CATEGORIES = "categories";
     public static final String APP_VERSION = "appVersion";
+
+    // gcm
+    public static final String GCM_KEY = "gcmKey";
+    public static final String GCM_CONVERSATION_NOTIFS = "gcmConversationNotifs";
+    public static final String GCM_COMMENT_NOTIFS = "gcmCommentNotifs";
 
     public enum Screen {
         HOME_TAB,
@@ -104,16 +106,16 @@ public class SharedPreferencesUtil {
         this.saveObject(CATEGORIES, categories);
     }
 
-    public void saveMessageNotifs(List<String> messages) {
+    public void saveGcmConversationNotifs(List<String> messages) {
         if (messages == null || messages.size() == 0)
             return;
-        this.saveObject(MESSAGE_NOTIF, messages);
+        this.saveObject(GCM_CONVERSATION_NOTIFS, messages);
     }
 
-    public void saveCommentNotifs(List<String> messages) {
+    public void saveGcmCommentNotifs(List<String> messages) {
         if (messages == null || messages.size() == 0)
             return;
-        this.saveObject(COMMENT_NOTIF, messages);
+        this.saveObject(GCM_COMMENT_NOTIFS, messages);
     }
 
     public void saveString(String key, String value) {
@@ -192,9 +194,9 @@ public class SharedPreferencesUtil {
         return categories;
     }
 
-    public List<String> getMessageNotifs() {
+    public List<String> getGcmConversationNotifs() {
         Type type = new TypeToken<List<String>>() {}.getType();
-        String json = this.prefs.getString(MESSAGE_NOTIF, null);
+        String json = this.prefs.getString(GCM_CONVERSATION_NOTIFS, null);
         List<String> messages = new Gson().fromJson(json, type);
         if(messages == null){
             messages = new ArrayList<>();
@@ -202,9 +204,9 @@ public class SharedPreferencesUtil {
         return messages;
     }
 
-    public List<String> getCommentNotifs() {
+    public List<String> getGcmCommentNotifs() {
         Type type = new TypeToken<List<String>>() {}.getType();
-        String json = this.prefs.getString(COMMENT_NOTIF, null);
+        String json = this.prefs.getString(GCM_COMMENT_NOTIFS, null);
         List<String> comments = new Gson().fromJson(json, type);
         if(comments == null){
             comments = new ArrayList<>();
