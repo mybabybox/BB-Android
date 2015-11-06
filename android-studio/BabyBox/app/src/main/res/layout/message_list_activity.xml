@@ -84,17 +84,19 @@
                 android:layout_height="match_parent"
                 android:background="@color/feed_bg"
                 android:stackFromBottom="true"
-                android:layout_marginBottom="45dp"
                 android:divider="@null"
-                android:layout_marginTop="62dp">
+                android:layout_marginTop="62dp"
+                android:layout_above="@+id/commentLayout">
             </ListView>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="45dp"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="false"
                 android:background="#d3d6db"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_above="@+id/buttonsLayout"
+                android:id="@+id/commentLayout">
 
                 <TextView
                     android:id="@+id/commentEdit"
@@ -114,6 +116,135 @@
                     android:gravity="center_vertical"
                     android:layout_marginLeft="10dp">
                 </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/view_bg"
+                android:id="@+id/buttonsLayout"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:id="@+id/buyerButtonsLayout"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/buyerOrderLayout"
+                        android:weightSum="10"
+                        android:visibility="gone">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/buy"
+                            android:id="@+id/buyerBuyButton"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_pink"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textAllCaps="false"
+                            android:layout_weight="10"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/buyerCancelLayout"
+                        android:weightSum="10"
+                        android:visibility="gone">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/cancel"
+                            android:id="@+id/buyerCancelButton"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_gray"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textAllCaps="false"
+                            android:layout_weight="10"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/buyerOrderAgainLayout"
+                        android:weightSum="10"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="Order Accepted"
+                            android:id="@+id/buyerMessageText"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="16dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:layout_weight="5"
+                            android:textStyle="bold" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/buy"
+                            android:id="@+id/buyerBuyAgainButton"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_pink"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textAllCaps="false"
+                            android:layout_weight="5"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:id="@+id/sellerButtonsLayout"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="New Text"
+                        android:id="@+id/sellerMessageText"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textColor="@color/dark_gray_2"
+                        android:textSize="16dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

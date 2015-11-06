@@ -7,7 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tipsLayout"
-        android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp">
 
         <LinearLayout
@@ -54,12 +53,24 @@
 
     </FrameLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        android:layout_below="@+id/tipsLayout"
+        android:textColor="@color/gray"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/categoryText" />
+
     <com.babybox.view.AdaptiveViewPager
         android:id="@+id/catPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tipsLayout"
-        android:layout_marginTop="10dp">
+        android:layout_below="@+id/categoryText">
     </com.babybox.view.AdaptiveViewPager>
 
     <!--android.support.v4.view.ViewPager

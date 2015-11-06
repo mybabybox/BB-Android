@@ -26,14 +26,8 @@
     <string name="url_copy_failed">連結不能複制</string>
     <string name="text_copy_success">信息已複制</string>
     <string name="text_copy_failed">信息不能複制</string>
-    <string name="comment_copy_success">評論已複制</string>
-    <string name="comment_copy_failed">評論不能複制</string>
-    <string name="id">ID:</string>
-    <string name="score">Score:</string>
-    <string name="score_adjust">Score Adjust:</string>
-    <string name="score_adjust_success">Score Adjust by %1$s</string>
-    <string name="score_adjust_reset_success">Score Adjust Reset to 0</string>
-    <string name="score_adjust_failure">Score Adjust Failure:\n%1$s</string>
+    <string name="comment_copy_success">留言已複制</string>
+    <string name="comment_copy_failed">留言不能複制</string>
 
     <!-- Login / Signup -->
     <string name="login">登入</string>
@@ -83,8 +77,8 @@
     <string name="signup_details_text_you_have">您有</string>
     <string name="signup_details_text_babies">個小寶寶</string>
     <string name="signup_details_text_baby_is">小寶寶是 : </string>
-    <string name="signup_details_boy">BB仔</string>
-    <string name="signup_details_girl">BB女</string>
+    <string name="signup_details_boy">男仔</string>
+    <string name="signup_details_girl">女仔</string>
     <string name="signup_details_text_birthday">生日 : </string>
     <string name="signup_details_complete">完成! 立刻進入</string>
     <string name="signup_details_error_info">請檢查已輸入資料。再重試</string>
@@ -97,31 +91,29 @@
     <string name="signup_details_error_baby_not_entered">請填寫小寶寶性別，出生日期</string>
 
     <!-- Main -->
-    <string name="tabset_home">Home</string>
-    <string name="tabset_activity">Activity</string>
-    <string name="tabset_search">Search</string>
-    <string name="tabset_profile">Me</string>
+    <string name="tabset_home">babybox</string>
+    <string name="tabset_activity">動態</string>
+    <string name="tabset_search">搜尋</string>
+    <string name="tabset_profile">我的</string>
 
     <!-- Tips -->
     <string name="home_explore_tips">歡迎來到babybox！\n尋找最新熱賣商品</string>
     <string name="home_following_tips">關注你喜愛的賣家，發掘最新商品</string>
-    <string name="category_tips">以不同種類搜尋商品</string>
+    <string name="category_tips">以不同分類搜尋商品</string>
     <string name="my_profile_tips">開始發佈商品，每個媽媽都是babybox賣家！</string>
 
     <!-- Home tab -->
-    <string name="main_tab_explore">Explore</string>
-    <string name="main_tab_trending">Trending</string>
-    <string name="main_tab_following">Following</string>
-    <string name="suggest_for_you">Suggest For You</string>
-    <string name="follow">Follow</string>
-    <string name="followings">Following</string>
-    <string name="followers">Followers</string>
-    <string name="orders">My Orders</string>
-    <string name="collections">Collections</string>
-    <string name="products">Products</string>
+    <string name="main_tab_explore">逛逛</string>
+    <string name="main_tab_following">關注</string>
+    <string name="suggest_for_you">推介給你</string>
+    <string name="follow">關注</string>
+    <string name="followings">關注中</string>
+    <string name="followers">關注我</string>
+    <string name="seller_followers">關注</string>
+    <string name="products">商品</string>
 
     <!-- Activity tab -->
-    <string name="no_activity">~ No Activity ~</string>
+    <string name="no_activity">~ 暫沒有動態 ~</string>
     <string name="activity_posted">發佈了新商品:</string>
     <string name="activity_commented">在商品留言:</string>
     <string name="activity_liked">喜歡你的商品。</string>
@@ -129,31 +121,33 @@
     <string name="activity_sold">已賣出商品。</string>
 
     <!-- Category page -->
-    <string name="filter_popular">Popular</string>
-    <string name="filter_newest">Newest</string>
+    <string name="category">商品分類</string>
+    <string name="filter_popular">熱門商品</string>
+    <string name="filter_newest">最新上架</string>
     <string name="filter_price_low_high">$ ⇾ $$</string>
     <string name="filter_price_high_low">$$ ⇾ $</string>
-    <string name="filter_all">All</string>
-    <string name="filter_new">New</string>
-    <string name="filter_used">Used</string>
+    <string name="filter_all">所有商品</string>
+    <string name="filter_new">全新</string>
+    <string name="filter_used">二手</string>
 
     <!-- Product page -->
     <string name="post_details">商品詳情:</string>
-    <string name="like">Like</string>
-    <string name="unlike">Unlike</string>
-    <string name="likes">Likes</string>
-    <string name="comments">Comments</string>
-    <string name="chat">Chat</string>
-    <string name="buy">Buy</string>
-    <string name="view_chats">View Chats</string>
-    <string name="mark_as_sold">Mark as Sold</string>
-    <string name="sold">Sold</string>
-    <string name="sold_view_chats">Sold - View Chats</string>
-    <string name="listed">Listed</string>
-    <string name="more_products">You may also like</string>
+    <string name="image">照片</string>
+    <string name="like">喜歡</string>
+    <string name="likes">喜歡</string>
+    <string name="comments">個留言</string>
+    <string name="chat">聯絡賣家</string>
+    <string name="buy">購買</string>
+    <string name="buy_again">再購買</string>
+    <string name="view_chats">查看訊息</string>
+    <string name="mark_as_sold">標為已售</string>
+    <string name="sold">已售</string>
+    <string name="sold_view_chats">已售 - 查看訊息</string>
+    <string name="listed">已刊登</string>
+    <string name="more_products">其他商品</string>
     <string name="comment_bar_hint"></string>
     <string name="no_products">~ 暫沒有商品 ~</string>
-    <string name="no_product_comments">~ 沒有評論 ~</string>
+    <string name="no_product_comments">~ 沒有留言 ~</string>
 
     <string name="edit_post_action">更新</string>
     <string name="new_post_action">刊登</string>
@@ -187,24 +181,18 @@
     <string name="post_actionbar_title">商品詳情</string>
     <string name="comment_success">成功回覆話題</string>
     <string name="comment_failed">暫時不能回覆話題，請稍後重試</string>
-    <string name="photo_select_title">Select a photo from</string>
-    <string name="photo_select_gallery">GALLERY</string>
-    <string name="photo_select_camera">CAMERA</string>
-    <string name="photo_select">請選擇圖片</string>
-    <string name="photo_not_found">尋找不到圖片</string>
-    <string name="photo_size_too_big">圖片太大，請重試或選其他圖片</string>
+    <string name="photo_select_title">請選擇商品照片</string>
+    <string name="photo_select_gallery">從相簿選擇</string>
+    <string name="photo_select_camera">使用相機拍攝</string>
+    <string name="photo_select">請選擇商品照片</string>
+    <string name="photo_not_found">尋找不到照片</string>
+    <string name="photo_size_too_big">照片太大，請重試或選其他照片</string>
     <string name="timeago_just_now">剛剛</string>
     <string name="timeago_min">分鐘前</string>
     <string name="timeago_hrs">小時前</string>
     <string name="timeago_yesterday">昨天</string>
     <string name="timeago_days">日前</string>
     <string name="delete">刪除</string>
-    <string name="page_back">上頁</string>
-    <string name="page_next">下頁</string>
-    <string name="goto_page">前往頁數</string>
-    <string name="page_before">第</string>
-    <string name="page_after">頁</string>
-    <string name="list_no_posts">- 沒有話題 -</string>
     <string name="list_loading">加載中。。。</string>
     <string name="list_loading_error">加載出現問題。請檢查網路再重試</string>
     <string name="list_loaded_all">- 已加載全部 -</string>
@@ -230,8 +218,8 @@
     <string name="notification_actionbar_title">通知</string>
     <string name="no_notification">~ 沒有訊息 ~</string>
 
-    <string name="no_followers">~ No Followers ~</string>
-    <string name="no_followings">~ No Followings ~</string>
+    <string name="no_followers">~ 暫沒有關注 ~</string>
+    <string name="no_followings">~ 暫沒有關注 ~</string>
 
     <string name="pm_actionbar_title">訊息</string>
     <string name="pm_user">訊息</string>
@@ -239,8 +227,8 @@
     <string name="pm_load_more">加載訊息</string>
     <string name="pm_start_failed">暫時不能開啟訊息，請稍後重試</string>
     <string name="pm_send_failed">暫時不能發出訊息，請稍後重試</string>
-    <string name="pm_buy_confirm">Hi, I want to buy it!\nChat with Seller now</string>
-    <string name="pm_buy_message">Hi, I want to buy it</string>
+    <string name="pm_buy_confirm">訂購商品\n現在聯絡賣家</string>
+    <string name="pm_buy_message">你好！我要訂購商品。</string>
     <string name="pm_buy">買</string>
     <string name="pm_sell">賣</string>
     <string name="pm_sold">已售</string>
@@ -268,15 +256,24 @@
     <string name="invalid_comment_body_empty">請填寫內容</string>
 
     <!-- Image processing library -->
-    <string name="image">Image</string>
-    <string name="img_desc">Images</string>
-    <string name="no_media">Your photo gallery is not available</string>
+    <string name="no_media">找不到你的相簿</string>
+    <string name="crop__saving">儲存照片中。。。</string>
+    <string name="crop__wait">請等候。。。</string>
+    <string name="crop__pick_error">找不到照片</string>
+    <string name="crop__done">完成！</string>
+    <string name="crop__cancel">取消</string>
 
-    <string name="crop__saving">Saving picture…</string>
-    <string name="crop__wait">Please wait…</string>
-    <string name="crop__pick_error">No image sources available</string>
-    <string name="crop__done">DONE</string>
-    <string name="crop__cancel">CANCEL</string>
+    <!-- GCM -->
+    <string name="gcm_new_conversations">%1$d個新訊息</string>
+    <string name="gcm_new_comments">%1$d個新留言</string>
+
+    <!-- Admin -->
+    <string name="id">ID:</string>
+    <string name="score">Score:</string>
+    <string name="score_adjust">Score Adjust:</string>
+    <string name="score_adjust_success">Score Adjust by %1$s</string>
+    <string name="score_adjust_reset_success">Score Adjust Reset to 0</string>
+    <string name="score_adjust_failure">Score Adjust Failure:\n%1$s</string>
 
 </resources>
 

@@ -41,7 +41,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     protected TextView userNameText, followersText, followingsText, userInfoText, userDescText;
     protected LinearLayout userInfoLayout;
     protected RelativeLayout settingsLayout;
-    protected Button editButton, followButton, collectionsButton, productsButton, likesButton;
+    protected Button editButton, followButton, productsButton, likesButton;
 
     protected FrameLayout tipsLayout;
     protected ImageView dismissTipsButton;
@@ -78,7 +78,6 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         followButton = (Button) headerView.findViewById(R.id.followButton);
         editButton = (Button) headerView.findViewById(R.id.editButton);
 
-        collectionsButton = (Button) headerView.findViewById(R.id.collectionsButton);
         productsButton = (Button) headerView.findViewById(R.id.productsButton);
         likesButton = (Button) headerView.findViewById(R.id.likesButton);
 

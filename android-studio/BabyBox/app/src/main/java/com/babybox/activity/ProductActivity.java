@@ -509,7 +509,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     showActionBarTitle(false);
                     whatsappAction.setVisibility(View.VISIBLE);
                     copyLinkAction.setVisibility(View.VISIBLE);
-                    editPostAction.setVisibility(View.VISIBLE);
+                    //editPostAction.setVisibility(View.VISIBLE);
 
                     TextView idText = (TextView) findViewById(R.id.idText);
                     TextView numViewsText = (TextView) findViewById(R.id.numViewsText);

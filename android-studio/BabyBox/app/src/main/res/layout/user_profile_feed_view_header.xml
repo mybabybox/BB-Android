@@ -347,28 +347,6 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:text="@string/collections"
-            android:id="@+id/collectionsButton"
-            android:textSize="15dp"
-            android:layout_gravity="center"
-            android:background="@drawable/button_profile_feed_unselect"
-            android:textColor="@color/gray"
-            android:textAllCaps="false"
-            android:layout_weight="3.33"
-            android:textStyle="bold"
-            android:visibility="gone" />
-
-        <View
-            android:layout_width="0.8dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bar2"
-            android:layout_below="@+id/profileImageLayout"
-            android:id="@+id/barVertical3"
-            android:visibility="gone" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:text="@string/products"
             android:id="@+id/productsButton"
             android:textSize="15dp"

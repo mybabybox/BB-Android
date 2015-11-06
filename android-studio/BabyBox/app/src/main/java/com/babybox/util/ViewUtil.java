@@ -377,7 +377,7 @@ public class ViewUtil {
     }
 
     public static String formatSellerFollowers(Long value) {
-        return AppController.getInstance().getString(R.string.followers) + ": " + value;
+        return AppController.getInstance().getString(R.string.seller_followers) + ": " + value;
     }
 
     public static String formatFollowers(Long value) {
@@ -394,10 +394,6 @@ public class ViewUtil {
 
     public static String formatLikesTab(Long value) {
         return value + "\n" + AppController.getInstance().getString(R.string.likes);
-    }
-
-    public static String formatCollectionsTab(Long value) {
-        return value + "\n" + AppController.getInstance().getString(R.string.collections);
     }
 
     public static void selectLikeButtonStyle(ImageView image, TextView text, int likes) {
