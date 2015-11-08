@@ -932,9 +932,6 @@ public class ViewUtil {
 
     public static boolean isGcmLaunchTarget(Intent intent) {
         Bundle bundle = intent.getExtras();
-        if (bundle == null) {
-            Log.e(ViewUtil.class.getSimpleName(), "bundle is null !!");
-        }
         return bundle != null && bundle.getString(ViewUtil.GCM_LAUNCH_TARGET) != null;
         //return bundle != null && Boolean.valueOf(bundle.getString(ViewUtil.GCM_LAUNCH_TARGET));
         //return bundle != null && bundle.getBoolean(ViewUtil.GCM_LAUNCH_TARGET);

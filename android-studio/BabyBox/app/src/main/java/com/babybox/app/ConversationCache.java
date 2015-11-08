@@ -2,6 +2,7 @@ package com.babybox.app;
 
 import android.util.Log;
 
+import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.MessageVM;
 
@@ -169,6 +170,13 @@ public class ConversationCache {
         ConversationVM conversation = getConversation(id);
         openedConversation = conversation;
         return openedConversation;
+    }
+
+    public static void updateConversationOrder(Long conversationId, ConversationOrderVM order) {
+        ConversationVM conversation = getConversation(conversationId);
+        if (conversation != null) {
+            conversation.setOrder(order);
+        }
     }
 
     public static void clear() {

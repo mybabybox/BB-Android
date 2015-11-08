@@ -336,7 +336,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                             alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
                                 }
                             });
                             AlertDialog alertDialog = alertDialogBuilder.create();
@@ -374,7 +373,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                         alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
                         AlertDialog alertDialog = alertDialogBuilder.create();

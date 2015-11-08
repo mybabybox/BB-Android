@@ -1,7 +1,9 @@
 package com.babybox.activity;
 
+import android.app.AlertDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -94,6 +96,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
     private Long offset = 1L;
 
     private boolean pending = false;
+    private boolean pendingOrder = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -197,59 +200,112 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
     private void initLayout(Long conversationId) {
         ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
-        ConversationOrderVM conversationOrder = conversation.getOrder();
+        ConversationOrderVM order = conversation.getOrder();
 
         ViewUtil.setConversationImageTag(this, conversation);
 
         // action buttons
-        if (conversation.postSold) {
-            buyerButtonsLayout.setVisibility(View.GONE);
-            sellerButtonsLayout.setVisibility(View.GONE);
-            return;
-        }
-
         boolean isBuyer = !conversation.postOwner;
         buyerButtonsLayout.setVisibility(isBuyer? View.VISIBLE : View.GONE);
         sellerButtonsLayout.setVisibility(isBuyer? View.GONE : View.VISIBLE);
 
         // show actions based on order state
         if (isBuyer) {
-            buyerOrderLayout.setVisibility(View.GONE);
-            buyerCancelButton.setVisibility(View.GONE);
-            buyerMessageLayout.setVisibility(View.GONE);
-            if (conversationOrder == null) {
-                buyerOrderLayout.setVisibility(View.VISIBLE);
-
-
-            } else if (!conversationOrder.closed) {
-                buyerCancelLayout.setVisibility(View.VISIBLE);
-
-
-            } else {
-                buyerMessageLayout.setVisibility(View.VISIBLE);
-                if (conversationOrder.accepted) {
-                    buyerMessageText.setText(getString(R.string.pm_order_accepted_for_buyer));
-                } else if (conversationOrder.declined){
-                    buyerMessageText.setText(getString(R.string.pm_order_accepted_for_buyer));
-                }
-            }
+            initBuyerLayout(conversation, order);
         } else {
-            sellerAcceptDeclineLayout.setVisibility(View.GONE);
-            sellerMessageLayout.setVisibility(View.GONE);
-            if (conversationOrder == null) {
-                // no actions... hide seller actions
+            initSellerLayout(conversation, order);
+        }
+    }
+
+    private void initBuyerLayout(ConversationVM conversation, ConversationOrderVM order) {
+        buyerOrderLayout.setVisibility(View.GONE);
+        buyerCancelLayout.setVisibility(View.GONE);
+        buyerMessageLayout.setVisibility(View.GONE);
+
+        if (order == null) {    // no order yet
+            if (conversation.postSold) {
+                buyerButtonsLayout.setVisibility(View.GONE);
                 sellerButtonsLayout.setVisibility(View.GONE);
-            } else if (!conversationOrder.closed) {
-                sellerAcceptDeclineLayout.setVisibility(View.VISIBLE);
-
-
             } else {
-                sellerMessageLayout.setVisibility(View.VISIBLE);
-                if (conversationOrder.accepted) {
-                    sellerMessageText.setText(getString(R.string.pm_order_accepted_for_seller));
-                } else if (conversationOrder.declined){
-                    sellerMessageText.setText(getString(R.string.pm_order_declined_for_seller));
+                buyerOrderLayout.setVisibility(View.VISIBLE);
+                buyerOrderButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MessageListActivity.this);
+                        alertDialogBuilder.setMessage(getString(R.string.pm_buy_confirm));
+                        alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                doBuyerOrder();
+                            }
+                        });
+                        alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
+                });
+            }
+        } else if (!order.closed) {     // open orders
+            buyerCancelLayout.setVisibility(View.VISIBLE);
+
+
+        } else {    // closed orders
+            buyerMessageLayout.setVisibility(View.VISIBLE);
+            if (conversation.postSold) {
+                buyerOrderAgainButton.setVisibility(View.GONE);
+            }
+
+            if (order.accepted) {
+                buyerMessageText.setText(getString(R.string.pm_order_accepted_for_buyer));
+            } else if (order.declined){
+                buyerMessageText.setText(getString(R.string.pm_order_accepted_for_buyer));
+            }
+
+            buyerOrderAgainButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MessageListActivity.this);
+                    alertDialogBuilder.setMessage(getString(R.string.pm_buy_confirm));
+                    alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            doBuyerOrder();
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
                 }
+            });
+        }
+    }
+
+    private void initSellerLayout(ConversationVM conversation, ConversationOrderVM order) {
+        sellerAcceptDeclineLayout.setVisibility(View.GONE);
+        sellerMessageLayout.setVisibility(View.GONE);
+        if (order == null) {    // no order yet
+            // no actions... hide seller actions
+            sellerButtonsLayout.setVisibility(View.GONE);
+        } else if (!order.closed) {     // open orders
+            sellerAcceptDeclineLayout.setVisibility(View.VISIBLE);
+
+
+        } else {    // closed orders
+            sellerMessageLayout.setVisibility(View.VISIBLE);
+            if (order.accepted) {
+                sellerMessageText.setText(getString(R.string.pm_order_accepted_for_seller));
+            } else if (order.declined){
+                sellerMessageText.setText(getString(R.string.pm_order_declined_for_seller));
             }
         }
     }
@@ -471,8 +527,30 @@ public class MessageListActivity extends TrackedFragmentActivity {
     }
 
     private void doBuyerOrder() {
-        doMessage(getString(R.string.pm_buy_message), true);
+        if (pendingOrder) {
+            return;
+        }
 
+        pendingOrder = true;
+        doMessage(getString(R.string.pm_buy_message), true);
+        AppController.getApiService().newConversationOrder(conversationId, new Callback<ConversationOrderVM>() {
+            @Override
+            public void success(ConversationOrderVM order, Response response) {
+                ConversationCache.updateConversationOrder(conversationId, order);
+                initLayout(conversationId);
+
+                pendingOrder = false;
+                ViewUtil.stopSpinner(MessageListActivity.this);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doBuyerOrder.api.newConversationOrder: failed with error", error);
+                Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_failed), Toast.LENGTH_SHORT).show();
+                pendingOrder = false;
+                ViewUtil.stopSpinner(MessageListActivity.this);
+            }
+        });
     }
 
     private void doBuyerCancel() {
@@ -491,10 +569,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
     }
 
     private void doMessage() {
-        if (pending) {
-            return;
-        }
-
         final boolean withPhotos = selectedImages.size() > 0;
         String body = commentEditText.getText().toString().trim();
         if (StringUtils.isEmpty(body) && !withPhotos) {
@@ -510,6 +584,10 @@ public class MessageListActivity extends TrackedFragmentActivity {
     }
 
     private void doMessage(String message, boolean system) {
+        if (pending) {
+            return;
+        }
+
         //Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
 
         ViewUtil.showSpinner(MessageListActivity.this);

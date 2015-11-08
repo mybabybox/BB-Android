@@ -240,16 +240,16 @@ public interface BabyBoxApi {
     // Conversation Order
     //
 
-    @POST("/conversation-order/new")
+    @GET("/conversation-order/new/{conversationId}")
     public void newConversationOrder(@Path("conversationId") Long conversationId, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
-    @POST("/conversation-order/cancel")
+    @GET("/conversation-order/cancel/{id}")
     public void cancelConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
-    @POST("/conversation-order/accept")
+    @GET("/conversation-order/accept/{id}")
     public void acceptConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
-    @POST("/conversation-order/decline")
+    @GET("/conversation-order/decline/{id}")
     public void declineConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
     //
