@@ -13,7 +13,7 @@
     <string name="app_desc">babybox - 媽媽即賣即買</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
-    <string name="base_url">http://192.168.1.125:9000</string>
+    <string name="base_url">http://192.168.1.143:9000</string>
     <string name="app_version">babybox 版本:</string>
     <string name="request_upgrade">babybox 新版本已上線！更多新功能為你而設！</string>
     <string name="request_upgrade_confirm">立即安裝</string>
@@ -227,11 +227,24 @@
     <string name="pm_load_more">加載訊息</string>
     <string name="pm_start_failed">暫時不能開啟訊息，請稍後重試</string>
     <string name="pm_send_failed">暫時不能發出訊息，請稍後重試</string>
-    <string name="pm_buy_confirm">訂購商品\n現在聯絡賣家</string>
-    <string name="pm_buy_message">你好！我要訂購商品。</string>
     <string name="pm_buy">買</string>
     <string name="pm_sell">賣</string>
     <string name="pm_sold">已售</string>
+    <string name="pm_buy_confirm">購買商品\n現在聯絡賣家</string>
+    <string name="pm_buy_message">你好！我要購買商品。</string>
+    <string name="pm_cancelled_message">購買已取消。</string>
+    <string name="pm_accepted_message">購買已被接受。</string>
+    <string name="pm_declined_message">購買不被接受。</string>
+    <string name="pm_order_buy">購買商品</string>
+    <string name="pm_order_cancel">取消購買</string>
+    <string name="pm_order_cancelled">購買已取消</string>
+    <string name="pm_order_accept">接受購買</string>
+    <string name="pm_order_accepted_for_buyer">賣家已接受你的購買</string>
+    <string name="pm_order_accepted_for_seller">購買已被接受</string>
+    <string name="pm_order_decline">不接受購買</string>
+    <string name="pm_order_declined_for_buyer">賣家不接受購買</string>
+    <string name="pm_order_declined_for_seller">購買不被接受</string>
+
 
     <!-- Seller -->
     <string name="seller_credit">積分</string>

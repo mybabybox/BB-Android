@@ -4,6 +4,7 @@ import com.babybox.viewmodel.ActivityVM;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
+import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.LocationVM;
@@ -234,6 +235,22 @@ public interface BabyBoxApi {
     @Multipart
     @POST("/image/upload-message-photo")
     public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") Long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
+
+    //
+    // Conversation Order
+    //
+
+    @POST("/conversation-order/new")
+    public void newConversationOrder(@Path("conversationId") Long conversationId, @Query("key") String key, Callback<ConversationOrderVM> cb);
+
+    @POST("/conversation-order/cancel")
+    public void cancelConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
+
+    @POST("/conversation-order/accept")
+    public void acceptConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
+
+    @POST("/conversation-order/decline")
+    public void declineConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
     //
     // GCM

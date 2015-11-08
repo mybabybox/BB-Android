@@ -18,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -36,6 +38,7 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SelectedImage;
 import com.babybox.util.ViewUtil;
+import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewMessageVM;
@@ -70,6 +73,14 @@ public class MessageListActivity extends TrackedFragmentActivity {
     private RelativeLayout postLayout, loadMoreLayout;
 
     private TextView commentSendButton;
+
+    private LinearLayout buyerButtonsLayout, buyerOrderLayout, buyerCancelLayout, buyerMessageLayout;
+    private Button buyerOrderButton, buyerCancelButton, buyerOrderAgainButton;
+    private TextView buyerMessageText;
+
+    private LinearLayout sellerButtonsLayout, sellerAcceptDeclineLayout, sellerMessageLayout;
+    private Button sellerAcceptButton, sellerDeclineButton;
+    private TextView sellerMessageText;
 
     private List<MessageVM> messages = new ArrayList<>();
     private MessageListAdapter adapter;
@@ -130,9 +141,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
             }
         });
 
-        // load messages
-        loadMessages(conversationId);
-
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,6 +177,81 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 onBackPressed();
             }
         });
+
+        buyerButtonsLayout = (LinearLayout) findViewById(R.id.buyerButtonsLayout);
+        buyerOrderLayout = (LinearLayout) findViewById(R.id.buyerOrderLayout);
+        buyerOrderButton = (Button) findViewById(R.id.buyerOrderButton);
+        buyerCancelLayout = (LinearLayout) findViewById(R.id.buyerCancelLayout);
+        buyerCancelButton = (Button) findViewById(R.id.buyerCancelButton);
+        buyerMessageLayout = (LinearLayout) findViewById(R.id.buyerMessageLayout);
+        buyerMessageText = (TextView) findViewById(R.id.buyerMessageText);
+        buyerOrderAgainButton = (Button) findViewById(R.id.buyerOrderAgainButton);
+
+        sellerButtonsLayout = (LinearLayout) findViewById(R.id.sellerButtonsLayout);
+        sellerAcceptDeclineLayout = (LinearLayout) findViewById(R.id.sellerAcceptDeclineLayout);
+        sellerMessageLayout = (LinearLayout) findViewById(R.id.sellerMessageLayout);
+
+        initLayout(conversationId);
+        loadMessages(conversationId);
+    }
+
+    private void initLayout(Long conversationId) {
+        ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
+        ConversationOrderVM conversationOrder = conversation.getOrder();
+
+        ViewUtil.setConversationImageTag(this, conversation);
+
+        // action buttons
+        if (conversation.postSold) {
+            buyerButtonsLayout.setVisibility(View.GONE);
+            sellerButtonsLayout.setVisibility(View.GONE);
+            return;
+        }
+
+        boolean isBuyer = !conversation.postOwner;
+        buyerButtonsLayout.setVisibility(isBuyer? View.VISIBLE : View.GONE);
+        sellerButtonsLayout.setVisibility(isBuyer? View.GONE : View.VISIBLE);
+
+        // show actions based on order state
+        if (isBuyer) {
+            buyerOrderLayout.setVisibility(View.GONE);
+            buyerCancelButton.setVisibility(View.GONE);
+            buyerMessageLayout.setVisibility(View.GONE);
+            if (conversationOrder == null) {
+                buyerOrderLayout.setVisibility(View.VISIBLE);
+
+
+            } else if (!conversationOrder.closed) {
+                buyerCancelLayout.setVisibility(View.VISIBLE);
+
+
+            } else {
+                buyerMessageLayout.setVisibility(View.VISIBLE);
+                if (conversationOrder.accepted) {
+                    buyerMessageText.setText(getString(R.string.pm_order_accepted_for_buyer));
+                } else if (conversationOrder.declined){
+                    buyerMessageText.setText(getString(R.string.pm_order_accepted_for_buyer));
+                }
+            }
+        } else {
+            sellerAcceptDeclineLayout.setVisibility(View.GONE);
+            sellerMessageLayout.setVisibility(View.GONE);
+            if (conversationOrder == null) {
+                // no actions... hide seller actions
+                sellerButtonsLayout.setVisibility(View.GONE);
+            } else if (!conversationOrder.closed) {
+                sellerAcceptDeclineLayout.setVisibility(View.VISIBLE);
+
+
+            } else {
+                sellerMessageLayout.setVisibility(View.VISIBLE);
+                if (conversationOrder.accepted) {
+                    sellerMessageText.setText(getString(R.string.pm_order_accepted_for_seller));
+                } else if (conversationOrder.declined){
+                    sellerMessageText.setText(getString(R.string.pm_order_declined_for_seller));
+                }
+            }
+        }
     }
 
     private void initCommentPopup() {
@@ -387,8 +470,24 @@ public class MessageListActivity extends TrackedFragmentActivity {
         return null;
     }
 
-    private void doBuy() {
+    private void doBuyerOrder() {
         doMessage(getString(R.string.pm_buy_message), true);
+
+    }
+
+    private void doBuyerCancel() {
+        doMessage(getString(R.string.pm_cancelled_message), true);
+
+    }
+
+    private void doSellerAccept() {
+        doMessage(getString(R.string.pm_accepted_message), true);
+
+    }
+
+    private void doSellerDecline() {
+        doMessage(getString(R.string.pm_declined_message), true);
+
     }
 
     private void doMessage() {
@@ -487,7 +586,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 // send a buy message to seller
                 boolean buy = getIntent().getBooleanExtra(ViewUtil.BUNDLE_KEY_ARG1, false);
                 if (buy) {
-                    doBuy();
+                    doBuyerOrder();
                 }
 
                 ViewUtil.stopSpinner(MessageListActivity.this);

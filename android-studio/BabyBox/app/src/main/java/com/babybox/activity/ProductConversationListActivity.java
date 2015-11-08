@@ -120,6 +120,7 @@ public class ProductConversationListActivity extends ConversationListActivity {
                     postTitleText.setText(conversation.getPostTitle());
                     postPriceText.setText(ViewUtil.priceFormat(conversation.getPostPrice()));
                     ImageUtil.displayPostImage(conversation.getPostImage(), postImage);
+                    ViewUtil.setConversationImageTag(ProductConversationListActivity.this, conversations.get(0));
                 }
 
                 ViewUtil.stopSpinner(ProductConversationListActivity.this);

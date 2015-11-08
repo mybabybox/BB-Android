@@ -597,7 +597,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="14dp"
                             android:layout_gravity="center_vertical"
-                            android:text="@string/followers"
+                            android:text="@string/seller_followers"
                             android:layout_below="@+id/sellerNameText"
                             android:layout_marginTop="2dp"
                             android:layout_toRightOf="@+id/sellerProductsText"

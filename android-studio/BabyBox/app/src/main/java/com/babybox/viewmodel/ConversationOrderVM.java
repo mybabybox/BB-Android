@@ -16,6 +16,7 @@ public class ConversationOrderVM implements Serializable, Comparable<Conversatio
     public boolean declined;
     public Long declineDate;
     public boolean active;
+    public boolean closed;
 
     public Long getId() {
         return id;
@@ -119,6 +120,14 @@ public class ConversationOrderVM implements Serializable, Comparable<Conversatio
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public boolean isClosed() {
+        return closed;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
     }
 
     @Override

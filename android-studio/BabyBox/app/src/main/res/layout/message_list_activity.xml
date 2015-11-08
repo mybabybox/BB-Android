@@ -30,20 +30,67 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="62dp"
+                android:layout_height="68dp"
                 android:background="@color/view_bg"
                 android:id="@+id/postLayout">
 
-                <ImageView
-                    android:id="@+id/postImage"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:scaleType="fitCenter"
-                    android:layout_gravity="center_vertical"
-                    android:layout_centerVertical="true"
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/postImageLayout"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp" />
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/postImage"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pm_buy"
+                        android:id="@+id/buyText"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="12dp"
+                        android:background="@color/pink"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="-5dp"
+                        android:layout_gravity="center_vertical" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pm_sell"
+                        android:id="@+id/sellText"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="12dp"
+                        android:background="@color/green"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="-5dp"
+                        android:layout_gravity="center_vertical" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pm_sold"
+                        android:id="@+id/soldText"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="12dp"
+                        android:background="@color/gray"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="-5dp"
+                        android:layout_gravity="center_vertical" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/postTitleText"
@@ -51,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_gray_2"
                     android:textSize="18dp"
-                    android:layout_toRightOf="@+id/postImage"
+                    android:layout_toRightOf="@+id/postImageLayout"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
@@ -63,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/green"
                     android:textSize="16dp"
-                    android:layout_toRightOf="@+id/postImage"
+                    android:layout_toRightOf="@+id/postImageLayout"
                     android:layout_below="@+id/postTitleText"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
@@ -85,7 +132,7 @@
                 android:background="@color/feed_bg"
                 android:stackFromBottom="true"
                 android:divider="@null"
-                android:layout_marginTop="62dp"
+                android:layout_marginTop="67dp"
                 android:layout_above="@+id/commentLayout">
             </ListView>
 
@@ -131,22 +178,20 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:id="@+id/buyerButtonsLayout"
-                    android:visibility="gone">
+                    android:id="@+id/buyerButtonsLayout">
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/buyerOrderLayout"
-                        android:weightSum="10"
-                        android:visibility="gone">
+                        android:weightSum="10">
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="@string/buy"
-                            android:id="@+id/buyerBuyButton"
+                            android:text="@string/pm_order_buy"
+                            android:id="@+id/buyerOrderButton"
                             android:textColor="@color/white"
                             android:background="@drawable/button_pink"
                             android:textSize="18dp"
@@ -155,8 +200,8 @@
                             android:layout_weight="10"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="2dp" />
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -164,13 +209,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/buyerCancelLayout"
-                        android:weightSum="10"
-                        android:visibility="gone">
+                        android:weightSum="10">
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="@string/cancel"
+                            android:text="@string/pm_order_cancel"
                             android:id="@+id/buyerCancelButton"
                             android:textColor="@color/white"
                             android:background="@drawable/button_gray"
@@ -180,22 +224,21 @@
                             android:layout_weight="10"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="2dp" />
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/buyerOrderAgainLayout"
-                        android:weightSum="10"
-                        android:visibility="gone">
+                        android:id="@+id/buyerMessageLayout"
+                        android:weightSum="10">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="Order Accepted"
+                            android:text="@string/pm_order_accepted_for_buyer"
                             android:id="@+id/buyerMessageText"
                             android:layout_gravity="center"
                             android:gravity="center"
@@ -204,45 +247,97 @@
                             android:textSize="16dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:layout_weight="5"
+                            android:layout_weight="6"
                             android:textStyle="bold" />
 
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="@string/buy"
-                            android:id="@+id/buyerBuyAgainButton"
+                            android:text="@string/pm_order_buy"
+                            android:id="@+id/buyerOrderAgainButton"
                             android:textColor="@color/white"
                             android:background="@drawable/button_pink"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textAllCaps="false"
+                            android:layout_weight="4"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:id="@+id/sellerButtonsLayout">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/sellerAcceptDeclineLayout"
+                        android:weightSum="10">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/pm_order_accept"
+                            android:id="@+id/sellerAcceptButton"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_gray"
                             android:textSize="18dp"
                             android:textStyle="bold"
                             android:textAllCaps="false"
                             android:layout_weight="5"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:layout_marginTop="2dp"
-                            android:layout_marginBottom="2dp" />
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/pm_order_decline"
+                            android:id="@+id/sellerDeclineButton"
+                            android:textColor="@color/white"
+                            android:background="@drawable/button_gray"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            android:textAllCaps="false"
+                            android:layout_weight="5"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp" />
                     </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:id="@+id/sellerButtonsLayout"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="New Text"
-                        android:id="@+id/sellerMessageText"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:textColor="@color/dark_gray_2"
-                        android:textSize="16dp" />
+                        android:id="@+id/sellerMessageLayout"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/pm_order_accepted_for_buyer"
+                            android:id="@+id/sellerMessageText"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="16dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:layout_weight="10"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 

@@ -65,6 +65,7 @@ import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
 import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CommentVM;
+import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.PostVM;
 
 import org.parceler.apache.commons.lang.StringUtils;
@@ -369,6 +370,34 @@ public class ViewUtil {
             if (textView.getLinksClickable()) {
                 textView.setMovementMethod(LinkMovementMethod.getInstance());
             }
+        }
+    }
+
+    public static void setConversationImageTag(Activity activity, ConversationVM conversation) {
+        TextView buyText = (TextView) activity.findViewById(R.id.buyText);
+        TextView sellText = (TextView) activity.findViewById(R.id.sellText);
+        TextView soldText = (TextView) activity.findViewById(R.id.soldText);
+        setConversationImageTag(buyText, sellText, soldText, conversation);
+    }
+
+    public static void setConversationImageTag(View view, ConversationVM conversation) {
+        TextView buyText = (TextView) view.findViewById(R.id.buyText);
+        TextView sellText = (TextView) view.findViewById(R.id.sellText);
+        TextView soldText = (TextView) view.findViewById(R.id.soldText);
+        setConversationImageTag(buyText, sellText, soldText, conversation);
+    }
+
+    private static void setConversationImageTag(TextView buyText, TextView sellText, TextView soldText, ConversationVM conversation) {
+        buyText.setVisibility(View.GONE);
+        sellText.setVisibility(View.GONE);
+        soldText.setVisibility(View.GONE);
+
+        if (conversation.postSold) {
+            soldText.setVisibility(View.VISIBLE);
+        } else if (conversation.postOwner){
+            sellText.setVisibility(View.VISIBLE);
+        } else {
+            buyText.setVisibility(View.VISIBLE);
         }
     }
 

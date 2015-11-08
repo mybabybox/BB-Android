@@ -4,6 +4,7 @@ import com.babybox.viewmodel.ActivityVM;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
+import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.LocationVM;
@@ -264,6 +265,24 @@ public class BabyBoxService {
 
     public void saveGCMKey(String gcmKey, Long versionCode, Callback<Response> cb) {
         api.saveGCMKey(gcmKey, versionCode, AppController.getInstance().getSessionId(), cb);
+    }
+
+    // conversation order
+
+    public void newConversationOrder(Long conversationId, Callback<ConversationOrderVM> cb) {
+        api.newConversationOrder(conversationId, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void cancelConversationOrder(Long id, Callback<ConversationOrderVM> cb) {
+        api.cancelConversationOrder(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void acceptConversationOrder(Long id, Callback<ConversationOrderVM> cb) {
+        api.acceptConversationOrder(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void declineConversationOrder(Long id, Callback<ConversationOrderVM> cb) {
+        api.declineConversationOrder(id, AppController.getInstance().getSessionId(), cb);
     }
 
     // admin

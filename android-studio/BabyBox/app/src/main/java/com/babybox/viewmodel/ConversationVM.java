@@ -16,6 +16,7 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
     public String lastMessage;
     public boolean lastMessageHasImage;
     public Long unread = 0L;
+    public ConversationOrderVM order;
 
     public Long getId() {
         return id;
@@ -119,6 +120,14 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
 
     public void setUnread(Long unread) {
         this.unread = unread;
+    }
+
+    public ConversationOrderVM getOrder() {
+        return order;
+    }
+
+    public void setOrder(ConversationOrderVM order) {
+        this.order = order;
     }
 
     @Override

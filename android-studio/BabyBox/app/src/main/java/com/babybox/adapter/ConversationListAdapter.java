@@ -96,7 +96,7 @@ public class ConversationListAdapter extends BaseAdapter {
         if (showPost) {
             postImageLayout.setVisibility(View.VISIBLE);
             ImageUtil.displayPostImage(item.getPostImage(), postImage);
-            setConversationTag(item);
+            ViewUtil.setConversationImageTag(view, item);
         } else {
             postImageLayout.setVisibility(View.GONE);
         }
@@ -111,19 +111,5 @@ public class ConversationListAdapter extends BaseAdapter {
         //Log.d(this.getClass().getSimpleName(), item.getLastMessage());
 
         return  view;
-    }
-
-    private void setConversationTag(ConversationVM conversation) {
-        buyText.setVisibility(View.GONE);
-        sellText.setVisibility(View.GONE);
-        soldText.setVisibility(View.GONE);
-
-        if (conversation.postSold) {
-            soldText.setVisibility(View.VISIBLE);
-        } else if (conversation.postOwner){
-            sellText.setVisibility(View.VISIBLE);
-        } else {
-            buyText.setVisibility(View.VISIBLE);
-        }
     }
 }
