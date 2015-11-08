@@ -235,16 +235,25 @@
     <string name="pm_cancelled_message">購買已取消。</string>
     <string name="pm_accepted_message">購買已被接受。</string>
     <string name="pm_declined_message">購買不被接受。</string>
+    <string name="pm_order_buy_text">有興趣？</string>
     <string name="pm_order_buy">購買商品</string>
+    <string name="pm_order_cancel_text">已下訂單</string>
     <string name="pm_order_cancel">取消購買</string>
-    <string name="pm_order_cancelled">購買已取消</string>
+    <string name="pm_order_cancelled">購買已被取消</string>
+    <string name="pm_order_new_text">你有新訂單</string>
     <string name="pm_order_accept">接受購買</string>
     <string name="pm_order_accepted_for_buyer">賣家已接受你的購買</string>
     <string name="pm_order_accepted_for_seller">購買已被接受</string>
     <string name="pm_order_decline">不接受購買</string>
     <string name="pm_order_declined_for_buyer">賣家不接受購買</string>
     <string name="pm_order_declined_for_seller">購買不被接受</string>
-
+    <string name="pm_order_failed">暫時不能購買，請稍後重試</string>
+    <string name="pm_order_already">你已發出購買訂單，請等待回覆或聯絡賣家</string>
+    <string name="pm_order_already_closed">購買訂單已完成，如有問題請聯絡賣家</string>
+    <string name="pm_order_buy_confirm">購買商品\n現在聯絡賣家</string>
+    <string name="pm_order_cancel_confirm">取消購買商品?</string>
+    <string name="pm_order_accept_confirm">接受購買?</string>
+    <string name="pm_order_decline_confirm">不接受購買?</string>
 
     <!-- Seller -->
     <string name="seller_credit">積分</string>

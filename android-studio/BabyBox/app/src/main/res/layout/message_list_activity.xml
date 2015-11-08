@@ -185,7 +185,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/buyerOrderLayout"
-                        android:weightSum="10">
+                        android:weightSum="10"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/pm_order_buy_text"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="16dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:layout_weight="3"
+                            android:textStyle="bold" />
 
                         <Button
                             android:layout_width="0dp"
@@ -197,7 +212,7 @@
                             android:textSize="18dp"
                             android:textStyle="bold"
                             android:textAllCaps="false"
-                            android:layout_weight="10"
+                            android:layout_weight="7"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="3dp"
@@ -209,7 +224,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/buyerCancelLayout"
-                        android:weightSum="10">
+                        android:weightSum="10"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/pm_order_cancel_text"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="16dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:layout_weight="3"
+                            android:textStyle="bold" />
 
                         <Button
                             android:layout_width="0dp"
@@ -221,7 +251,7 @@
                             android:textSize="18dp"
                             android:textStyle="bold"
                             android:textAllCaps="false"
-                            android:layout_weight="10"
+                            android:layout_weight="7"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="3dp"
@@ -235,20 +265,23 @@
                         android:id="@+id/buyerMessageLayout"
                         android:weightSum="10">
 
-                        <TextView
+                        <Button
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:text="@string/pm_order_accepted_for_buyer"
-                            android:id="@+id/buyerMessageText"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:singleLine="true"
-                            android:textColor="@color/dark_gray"
+                            android:id="@+id/buyerMessageButton"
+                            android:background="@color/view_bg"
                             android:textSize="16dp"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
+                            android:textColor="@color/dark_gray"
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:paddingLeft="20dp"
                             android:layout_weight="6"
-                            android:textStyle="bold" />
+                            android:drawableLeft="@drawable/ic_accept"
+                            android:drawablePadding="5dp"
+                            android:enabled="false"
+                            android:layout_gravity="left"
+                            android:gravity="center_vertical|left" />
 
                         <Button
                             android:layout_width="0dp"
@@ -280,7 +313,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/sellerAcceptDeclineLayout"
-                        android:weightSum="10">
+                        android:weightSum="10"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/pm_order_new_text"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="16dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:layout_weight="3"
+                            android:textStyle="bold" />
 
                         <Button
                             android:layout_width="0dp"
@@ -288,13 +336,12 @@
                             android:text="@string/pm_order_accept"
                             android:id="@+id/sellerAcceptButton"
                             android:textColor="@color/white"
-                            android:background="@drawable/button_gray"
+                            android:background="@drawable/button_pink"
                             android:textSize="18dp"
                             android:textStyle="bold"
                             android:textAllCaps="false"
-                            android:layout_weight="5"
+                            android:layout_weight="3.5"
                             android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
                             android:layout_marginTop="3dp"
                             android:layout_marginBottom="3dp" />
 
@@ -308,7 +355,7 @@
                             android:textSize="18dp"
                             android:textStyle="bold"
                             android:textAllCaps="false"
-                            android:layout_weight="5"
+                            android:layout_weight="3.5"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:layout_marginTop="3dp"
@@ -322,20 +369,23 @@
                         android:id="@+id/sellerMessageLayout"
                         android:weightSum="10">
 
-                        <TextView
+                        <Button
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="@string/pm_order_accepted_for_buyer"
-                            android:id="@+id/sellerMessageText"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:singleLine="true"
-                            android:textColor="@color/dark_gray"
+                            android:text="@string/pm_order_accepted_for_seller"
+                            android:id="@+id/sellerMessageButton"
+                            android:background="@color/view_bg"
                             android:textSize="16dp"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="10dp"
+                            android:textColor="@color/dark_gray"
+                            android:textStyle="bold"
+                            android:singleLine="true"
+                            android:paddingLeft="20dp"
                             android:layout_weight="10"
-                            android:textStyle="bold" />
+                            android:drawableLeft="@drawable/ic_accept"
+                            android:drawablePadding="5dp"
+                            android:enabled="false"
+                            android:layout_gravity="left"
+                            android:gravity="center_vertical|left" />
 
                     </LinearLayout>
 
