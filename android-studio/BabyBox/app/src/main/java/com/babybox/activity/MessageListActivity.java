@@ -370,11 +370,11 @@ public class MessageListActivity extends TrackedFragmentActivity {
             if (order.accepted) {
                 sellerMessageButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_accept, 0, 0, 0);
                 sellerMessageButton.setText(getString(R.string.pm_order_accepted_for_seller));
-            } else if (order.declined){
+            } else if (order.declined) {
                 sellerMessageButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_decline, 0, 0, 0);
                 sellerMessageButton.setText(getString(R.string.pm_order_declined_for_seller));
             } else if (order.cancelled) {
-                sellerMessageLayout.setVisibility(View.GONE);
+                sellerButtonsLayout.setVisibility(View.GONE);
             }
         }
     }
