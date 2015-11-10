@@ -792,9 +792,9 @@ public class ViewUtil {
 
     public static void startWelcomeActivity(Activity activity) {
         Intent intent = new Intent(activity, WelcomeActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivity(intent);
-        activity.finish();
     }
 
     public static void startLoginActivity(Activity activity) {
@@ -824,8 +824,10 @@ public class ViewUtil {
     }
 
     public static void startMainActivity(Activity activity) {
-        activity.startActivity(new Intent(activity, MainActivity.class));
-        activity.finish();
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
     }
 
     public static void startNewPostActivity(Activity activity, Long catId) {

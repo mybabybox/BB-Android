@@ -59,20 +59,16 @@
         <activity
             android:name="com.babybox.activity.WelcomeActivity"
             android:screenOrientation="portrait"
-            android:noHistory="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:noHistory="false" />
         <activity
             android:name="com.babybox.activity.LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.SignupActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:screenOrientation="portrait"  />
         <activity
             android:name="com.babybox.activity.SignupDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.ForgetPasswordActivity"
             android:screenOrientation="portrait" />
@@ -84,12 +80,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.SelectImageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.image.crop.CropImageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.MainActivity"
             android:screenOrientation="portrait"

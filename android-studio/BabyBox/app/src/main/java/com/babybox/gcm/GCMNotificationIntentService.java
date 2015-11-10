@@ -136,7 +136,8 @@ public class GCMNotificationIntentService extends IntentService {
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
 					context, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+					Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, "true");
 			int requestID = (int) System.currentTimeMillis();
 			contentIntent = PendingIntent.getActivity(context, requestID,

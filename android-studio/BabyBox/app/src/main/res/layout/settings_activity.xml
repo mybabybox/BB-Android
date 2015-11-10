@@ -79,6 +79,7 @@
             android:layout_gravity="center"
             android:text="@string/logout"
             android:textColor="@color/white"
-            android:textSize="22dp" />
+            android:textSize="22dp"
+            android:textStyle="bold" />
     </RelativeLayout>
 </LinearLayout>

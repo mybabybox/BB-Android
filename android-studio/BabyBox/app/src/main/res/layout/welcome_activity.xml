@@ -25,12 +25,13 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="8.8"
-            android:background="@drawable/welcome_1">
+            android:background="@color/white">
 
             <com.babybox.view.AdaptiveViewPager
                 android:id="@+id/imagePager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true">
             </com.babybox.view.AdaptiveViewPager>
 
             <RelativeLayout
@@ -68,7 +69,7 @@
                 <TextView
                     android:id="@+id/loginText"
                     android:background="@drawable/button_pink"
-                    android:layout_width="135dp"
+                    android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:text="@string/login"
                     android:textAlignment="center"
@@ -80,7 +81,8 @@
                     android:gravity="center"
                     android:layout_centerVertical="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="10dp" />
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="20dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -92,7 +94,7 @@
                 <TextView
                     android:id="@+id/signupText"
                     android:background="@drawable/button_pink_border"
-                    android:layout_width="135dp"
+                    android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:text="@string/signup"
                     android:textAlignment="center"
@@ -104,7 +106,8 @@
                     android:gravity="center"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp" />
             </RelativeLayout>
 
         </LinearLayout>
