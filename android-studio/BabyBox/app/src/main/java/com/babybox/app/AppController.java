@@ -17,6 +17,7 @@ import com.babybox.R;
 import com.babybox.activity.LoginActivity;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.LocationVM;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -229,10 +230,6 @@ public class AppController extends Application {
             LoginManager.getInstance().logOut();
         }
         */
-
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     public static boolean isOnline() {

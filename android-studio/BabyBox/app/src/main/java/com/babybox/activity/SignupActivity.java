@@ -37,6 +37,7 @@ public class SignupActivity extends AbstractLoginActivity {
     private LinearLayout emailEditLayout;
     private TextView errorMessage;
     private CheckBox termsCheckbox, privacyCheckbox;
+    private ImageView backImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,14 @@ public class SignupActivity extends AbstractLoginActivity {
                 }
             }
         });
+
+        backImage = (ImageView) this.findViewById(R.id.backImage);
+        backImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void signUp(final String lname, final String fname, final String email, final String password, final String repeatPassword) {
@@ -163,7 +172,6 @@ public class SignupActivity extends AbstractLoginActivity {
             signupSuccessPopup.dismiss();
             signupSuccessPopup = null;
         }
-        ViewUtil.startLoginActivity(this);
     }
 
     private void showErrorMessage(boolean show) {

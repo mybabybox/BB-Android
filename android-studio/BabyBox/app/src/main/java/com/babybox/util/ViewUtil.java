@@ -51,17 +51,21 @@ import com.babybox.activity.EditPostActivity;
 import com.babybox.activity.EditProfileActivity;
 import com.babybox.activity.FollowersActivity;
 import com.babybox.activity.FollowingsActivity;
+import com.babybox.activity.ForgetPasswordActivity;
 import com.babybox.activity.FullscreenImageActivity;
 import com.babybox.activity.LoginActivity;
+import com.babybox.activity.MainActivity;
 import com.babybox.activity.MessageListActivity;
 import com.babybox.activity.NewPostActivity;
 import com.babybox.activity.ProductActivity;
 import com.babybox.activity.CommentsActivity;
 import com.babybox.activity.ProductConversationListActivity;
 import com.babybox.activity.SelectImageActivity;
+import com.babybox.activity.SignupActivity;
 import com.babybox.activity.SignupDetailActivity;
 import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
+import com.babybox.activity.WelcomeActivity;
 import com.babybox.app.AppController;
 import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CommentVM;
@@ -410,19 +414,19 @@ public class ViewUtil {
     }
 
     public static String formatFollowers(Long value) {
-        return value + " " + AppController.getInstance().getString(R.string.followers);
+        return AppController.getInstance().getString(R.string.followers) + " " + value;
     }
 
     public static String formatFollowings(Long value) {
-        return value + " " + AppController.getInstance().getString(R.string.followings);
+        return AppController.getInstance().getString(R.string.followings) + " " + value;
     }
 
     public static String formatProductsTab(Long value) {
-        return value + "\n" + AppController.getInstance().getString(R.string.products);
+        return AppController.getInstance().getString(R.string.products) + "\n" + value;
     }
 
     public static String formatLikesTab(Long value) {
-        return value + "\n" + AppController.getInstance().getString(R.string.likes);
+        return AppController.getInstance().getString(R.string.likes) + "\n" + value;
     }
 
     public static void selectLikeButtonStyle(ImageView image, TextView text, int likes) {
@@ -786,9 +790,19 @@ public class ViewUtil {
     // Start Activities
     //
 
+    public static void startWelcomeActivity(Activity activity) {
+        Intent intent = new Intent(activity, WelcomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+        activity.finish();
+    }
+
     public static void startLoginActivity(Activity activity) {
         activity.startActivity(new Intent(activity, LoginActivity.class));
-        activity.finish();
+    }
+
+    public static void startSignupActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, SignupActivity.class));
     }
 
     public static void startSignupDetailActivity(Activity activity, String username) {
@@ -798,11 +812,20 @@ public class ViewUtil {
         activity.startActivity(intent);
     }
 
+    public static void startForgetPasswordActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, ForgetPasswordActivity.class));
+    }
+
     public static void startSplashActivity(Activity activity, String key) {
         Intent intent = new Intent(activity, SplashActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_LOGIN_KEY, key);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
+    }
+
+    public static void startMainActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, MainActivity.class));
+        activity.finish();
     }
 
     public static void startNewPostActivity(Activity activity, Long catId) {

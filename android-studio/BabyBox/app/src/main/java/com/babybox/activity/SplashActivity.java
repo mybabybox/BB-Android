@@ -46,7 +46,7 @@ public class SplashActivity extends TrackedFragmentActivity {
         }
 
         if (sessionId == null) {
-            ViewUtil.startLoginActivity(this);
+            ViewUtil.startWelcomeActivity(this);
         } else {
             Log.d(this.getClass().getSimpleName(), "onStart: sessionID - " + sessionId);
             startMainActivity(sessionId);
@@ -65,7 +65,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                 if (user.getId() == -1) {
                     Toast.makeText(SplashActivity.this, "Cannot find user. Please login again.", Toast.LENGTH_LONG).show();
                     AppController.getInstance().clearUserSession();
-                    ViewUtil.startLoginActivity(SplashActivity.this);
+                    ViewUtil.startWelcomeActivity(SplashActivity.this);
                 }
 
                 // new user flow
@@ -73,7 +73,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                     if (!user.isEmailValidated()) {
                         Toast.makeText(SplashActivity.this, SplashActivity.this.getString(R.string.signup_error_email_unverified)+user.email, Toast.LENGTH_LONG).show();
                         AppController.getInstance().clearUserSession();
-                        ViewUtil.startLoginActivity(SplashActivity.this);
+                        ViewUtil.startWelcomeActivity(SplashActivity.this);
                     } else {
                         ViewUtil.startSignupDetailActivity(SplashActivity.this, user.firstName);
                         finish();
@@ -90,8 +90,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                     // display splash
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                            finish();
+                            ViewUtil.startMainActivity(SplashActivity.this);
                         }
                     }, DefaultValues.SPLASH_DISPLAY_MILLIS);
                 }
@@ -111,7 +110,7 @@ public class SplashActivity extends TrackedFragmentActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     if (count > 0) {
                                         AppController.getInstance().clearUserSession();
-                                        ViewUtil.startLoginActivity(SplashActivity.this);
+                                        ViewUtil.startWelcomeActivity(SplashActivity.this);
                                     } else {
                                         AppController.getInstance().saveLoginFailedCount(count+1);
                                         finish();

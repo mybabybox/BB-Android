@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_spinner"
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="255dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="10">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8.8"
+            android:background="@drawable/welcome_1">
+
+            <com.babybox.view.AdaptiveViewPager
+                android:id="@+id/imagePager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.babybox.view.AdaptiveViewPager>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dotsIndicator"
+                android:layout_alignParentBottom="true">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/dotsLayout"
+                    android:orientation="horizontal"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp">
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:weightSum="10"
+            android:minHeight="60dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/loginText"
+                    android:background="@drawable/button_pink"
+                    android:layout_width="135dp"
+                    android:layout_height="45dp"
+                    android:text="@string/login"
+                    android:textAlignment="center"
+                    android:textSize="22dp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_vertical|right"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/signupText"
+                    android:background="@drawable/button_pink_border"
+                    android:layout_width="135dp"
+                    android:layout_height="45dp"
+                    android:text="@string/signup"
+                    android:textAlignment="center"
+                    android:textSize="22dp"
+                    android:textColor="@color/pink"
+                    android:textStyle="bold"
+                    android:layout_weight="4"
+                    android:layout_gravity="center_vertical|right"
+                    android:gravity="center"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+
+

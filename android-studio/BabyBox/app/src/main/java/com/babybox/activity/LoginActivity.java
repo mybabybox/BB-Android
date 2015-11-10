@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.babybox.util.ViewUtil;
 
 public class LoginActivity extends AbstractLoginActivity {
 
@@ -20,6 +21,7 @@ public class LoginActivity extends AbstractLoginActivity {
     private ImageView facebookButton;
     private TextView signup;
     private TextView forgetPassword;
+    private ImageView backImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,16 +47,14 @@ public class LoginActivity extends AbstractLoginActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
+                ViewUtil.startSignupActivity(LoginActivity.this);
             }
         });
 
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
-                startActivity(intent);
+                ViewUtil.startForgetPasswordActivity(LoginActivity.this);
             }
         });
 
@@ -68,6 +68,14 @@ public class LoginActivity extends AbstractLoginActivity {
             @Override
             public void onClick(View v) {
                 facebookLogin();
+            }
+        });
+
+        backImage = (ImageView) this.findViewById(R.id.backImage);
+        backImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }

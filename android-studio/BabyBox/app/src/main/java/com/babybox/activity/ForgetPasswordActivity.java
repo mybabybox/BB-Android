@@ -16,6 +16,5 @@ public class ForgetPasswordActivity extends AbstractWebViewActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ViewUtil.startLoginActivity(this);
     }
 }

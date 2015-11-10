@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.util.ViewUtil;
 
 public class SettingsActivity extends TrackedFragmentActivity {
     private static final String TAG = SettingsActivity.class.getName();
@@ -19,7 +20,6 @@ public class SettingsActivity extends TrackedFragmentActivity {
     private RelativeLayout logout;
 
     private ImageView backImage;
-    private TextView titleText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class SettingsActivity extends TrackedFragmentActivity {
                         .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 AppController.getInstance().logout();
-                                finish();
+                                ViewUtil.startWelcomeActivity(SettingsActivity.this);
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
