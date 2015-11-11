@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.activity.LoginActivity;
+import com.babybox.activity.MainActivity;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
@@ -230,6 +231,10 @@ public class AppController extends Application {
             LoginManager.getInstance().logOut();
         }
         */
+
+        if (MainActivity.getInstance() != null) {
+            ViewUtil.startWelcomeActivity(MainActivity.getInstance());
+        }
     }
 
     public static boolean isOnline() {

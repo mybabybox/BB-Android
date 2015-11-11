@@ -44,7 +44,6 @@ public class SettingsActivity extends TrackedFragmentActivity {
                         .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 AppController.getInstance().logout();
-                                ViewUtil.startWelcomeActivity(SettingsActivity.this);
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

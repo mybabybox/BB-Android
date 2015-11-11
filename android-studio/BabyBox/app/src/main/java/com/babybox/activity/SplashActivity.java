@@ -64,7 +64,6 @@ public class SplashActivity extends TrackedFragmentActivity {
                 // clear session id, redirect to login page
                 if (user.getId() == -1) {
                     Toast.makeText(SplashActivity.this, "Cannot find user. Please login again.", Toast.LENGTH_LONG).show();
-                    AppController.getInstance().clearUserSession();
                     ViewUtil.startWelcomeActivity(SplashActivity.this);
                 }
 
