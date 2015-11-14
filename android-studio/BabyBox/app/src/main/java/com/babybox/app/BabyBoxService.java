@@ -66,7 +66,7 @@ public class BabyBoxService {
         api.loginByFacebook(access_token, cb);
     }
 
-    public void getUser(String access_token, Callback<UserVM> cb) {
+    public void getUserInfo(String access_token, Callback<UserVM> cb) {
         api.getUserInfo(access_token, cb);
     }
 

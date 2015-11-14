@@ -41,7 +41,7 @@ public class UserInfoCache {
     public static void refresh(final String sessionId, final Callback<UserVM> userCallback) {
         Log.d(UserInfoCache.class.getSimpleName(), "refresh");
 
-        AppController.getApiService().getUser(sessionId, new Callback<UserVM>() {
+        AppController.getApiService().getUserInfo(sessionId, new Callback<UserVM>() {
             @Override
             public void success(UserVM userVM, retrofit.client.Response response) {
                 if (userVM == null || userVM.id == -1) {

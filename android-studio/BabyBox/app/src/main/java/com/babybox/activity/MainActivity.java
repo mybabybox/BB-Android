@@ -28,6 +28,7 @@ import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.ImageUtil;
+import com.babybox.util.LocationUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.NotificationCounterVM;
@@ -163,6 +164,7 @@ public class MainActivity extends TrackedFragmentActivity {
         pressHomeTab();
 
         refreshNotifications();
+        getLastKnownLocation();
         checkAndroidUpgrade();
     }
 
@@ -326,6 +328,10 @@ public class MainActivity extends TrackedFragmentActivity {
             chatCountText.setVisibility(View.VISIBLE);
             chatCountText.setText(counter.conversationsCount+"");
         }
+    }
+
+    public void getLastKnownLocation() {
+        LocationUtil.getInstance().getLastKnownLocation(this);
     }
 
     public void checkAndroidUpgrade() {
