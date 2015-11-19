@@ -26,7 +26,7 @@ public class DefaultValues {
     // UI
     public static final int MIN_CHAR_SIGNUP_PASSWORD = 4;
 
-    public static final int SPLASH_DISPLAY_MILLIS = 250;
+    public static final int SPLASH_DISPLAY_MILLIS = 500;
     public static final int DEFAULT_CONNECTION_TIMEOUT_MILLIS = 3000;
     public static final int DEFAULT_HANDLER_DELAY = 100;
 

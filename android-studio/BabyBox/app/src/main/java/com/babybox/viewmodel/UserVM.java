@@ -1,6 +1,8 @@
 package com.babybox.viewmodel;
 
 
+import org.joda.time.DateTime;
+
 public class UserVM extends UserVMLite {
     public String email;
     public String aboutMe;
@@ -155,14 +157,13 @@ public class UserVM extends UserVMLite {
                 "email=" + email + "\n" +
                 "emailValidated=" + emailValidated + "\n" +
                 "fbLogin=" + isFbLogin + "\n" +
-                "signupDate=" + createdDate + "\n" +
-                "lastLogin=" + lastLogin + "\n" +
+                "signupDate=" + new DateTime(createdDate) + "\n" +
+                "lastLogin=" + new DateTime(lastLogin) + "\n" +
                 "totalLogin=" + totalLogin + "\n" +
                 "numLikes=" + numLikes + "\n" +
                 "numFollowers=" + numFollowers + "\n" +
                 "numFollowings=" + numFollowings + "\n" +
-                "numProducts=" + numProducts + "\n" +
-                "numStories=" + numStories;
+                "numProducts=" + numProducts;
     }
 }
 
