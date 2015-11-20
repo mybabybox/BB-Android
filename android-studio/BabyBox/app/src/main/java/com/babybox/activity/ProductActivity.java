@@ -114,7 +114,6 @@ public class ProductActivity extends TrackedFragmentActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.product_activity);
-        setContentView(R.layout.product_activity);
 
         mainLayout = (FrameLayout) findViewById(R.id.mainLayout);
         backImage = (ImageView) findViewById(R.id.backImage);

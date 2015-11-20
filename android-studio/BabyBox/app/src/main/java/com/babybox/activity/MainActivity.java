@@ -1,12 +1,17 @@
 package com.babybox.activity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +38,7 @@ import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.NotificationCounterVM;
 
-import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends TrackedFragmentActivity {
 
@@ -70,6 +75,9 @@ public class MainActivity extends TrackedFragmentActivity {
         return mInstance;
     }
 
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +98,16 @@ public class MainActivity extends TrackedFragmentActivity {
 
         // user profile thumbnail
         setUserProfileThumbnail();
+
+
+        prefs = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        editor = prefs.edit();
+
+        if(prefs.getBoolean("chinese", false)){
+            setLocale("zh");
+        }else{
+            setLocale("en");
+        }
 
         userLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,10 +189,10 @@ public class MainActivity extends TrackedFragmentActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         // handle gcm
         if (ViewUtil.isGcmLaunchTarget(getIntent())) {
-            pressActivityTab();
+            //pressActivityTab();
+            pressHomeTab();
         }
     }
 
@@ -385,4 +403,25 @@ public class MainActivity extends TrackedFragmentActivity {
         showBottomMenuBar(true);
         EndlessScrollListener.setScrollReset();
     }
+
+
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+
+        SharedPreferences prefs = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        if(lang.equals("zh")){
+            editor.putBoolean("chinese", true);
+        }else{
+            editor.putBoolean("chinese", false);
+        }
+        editor.commit();
+    }
+
+
 }
