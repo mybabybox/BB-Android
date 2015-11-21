@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/item_select_all"
+        android:showAsAction="always"
+        android:title="Select All"
+        android:titleCondensed="Select All">
+    </item>
+
+    <item
+        android:id="@+id/item_copy"
+        android:showAsAction="always"
+        android:title="Copy"
+        android:titleCondensed="Copy">
+    </item>
+
+    <item
+        android:id="@+id/item_paste"
+        android:showAsAction="always"
+        android:title="Paste"
+        android:titleCondensed="Paste">
+    </item>
+    <item
+        android:id="@+id/item_cut"
+        android:showAsAction="always"
+        android:title="Cut"
+        android:titleCondensed="Cut">
+    </item>
+
+</menu>

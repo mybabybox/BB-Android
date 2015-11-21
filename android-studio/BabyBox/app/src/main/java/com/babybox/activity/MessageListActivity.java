@@ -428,8 +428,10 @@ public class MessageListActivity extends TrackedFragmentActivity {
                             }
 
                             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                                mode.getMenuInflater().inflate(R.menu.contextual_menu, menu);
+
                                 Log.d(MessageListActivity.this.getClass().getSimpleName(), "onCreateActionMode: menu size=" + menu.size());
-                                menu.add(0, PASTE_MENU_ITEM_ID, 0, "Paste");
+                                //menu.add(0, PASTE_MENU_ITEM_ID, 0, "Paste");
                                 menu.setQwertyMode(false);
                                 return true;
                             }
@@ -437,15 +439,32 @@ public class MessageListActivity extends TrackedFragmentActivity {
                             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                                 Log.d(MessageListActivity.this.getClass().getSimpleName(), "onActionItemClicked: item clicked=" + item.getItemId() + " title=" + item.getTitle());
                                 switch (item.getItemId()) {
-                                    case PASTE_MENU_ITEM_ID:
+                                    case R.id.item_select_all:
+                                        commentEditText.selectAll();
+                                        break;
+
+                                    case R.id.item_copy:
+                                        ViewUtil.copyToClipboard(commentEditText.getText().toString());
+                                        mode.finish();
+                                        break;
+
+                                    case R.id.item_cut:
+                                        ViewUtil.copyToClipboard(commentEditText.getText().toString());
+                                        commentEditText.getText().clear();
+                                        mode.finish();
+                                        break;
+
+                                    case R.id.item_paste:
                                         final ClipboardManager clipBoard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
                                         if (clipBoard != null && clipBoard.getPrimaryClip() != null && clipBoard.getPrimaryClip().getItemAt(0) != null) {
                                             String paste = clipBoard.getPrimaryClip().getItemAt(0).getText().toString();
                                             commentEditText.getText().insert(commentEditText.getSelectionStart(), paste);
                                         }
+                                        mode.finish();
+                                        break;
                                 }
 
-                                mode.finish();
+
 
                                 // popup again
                                 commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
