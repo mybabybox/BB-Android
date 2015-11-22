@@ -31,6 +31,7 @@ public class SharedPreferencesUtil {
     public static final String DISTRICTS = "districts";
     public static final String CATEGORIES = "categories";
     public static final String APP_VERSION = "appVersion";
+    public static final String LANG = "lang";
 
     // gcm
     public static final String GCM_KEY = "gcmKey";
@@ -82,6 +83,10 @@ public class SharedPreferencesUtil {
 
     public void saveAppVersion(Long appVersion) {
         this.saveLong(SharedPreferencesUtil.APP_VERSION, appVersion);
+    }
+
+    public void saveLang(String lang) {
+        this.saveString(SharedPreferencesUtil.LANG, lang);
     }
 
     public void saveLoginFailedCount(Long count) {
@@ -162,6 +167,10 @@ public class SharedPreferencesUtil {
 
     public Long getAppVersion() {
         return this.getLong(SharedPreferencesUtil.APP_VERSION);
+    }
+
+    public String getLang() {
+        return this.getString(SharedPreferencesUtil.LANG);
     }
 
     public Long getLoginFailedCount() {

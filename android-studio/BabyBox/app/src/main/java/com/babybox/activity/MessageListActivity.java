@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -417,7 +418,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
                     public boolean onLongClick(View v) {
                         Log.d(MessageListActivity.this.getClass().getSimpleName(), "onLongClick");
                         startActionMode(new ActionMode.Callback() {
-                            final int PASTE_MENU_ITEM_ID = 0;
 
                             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
                                 Log.d(MessageListActivity.this.getClass().getSimpleName(), "onPrepareActionMode");
@@ -429,10 +429,9 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
                             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                                 mode.getMenuInflater().inflate(R.menu.contextual_menu, menu);
-
-                                Log.d(MessageListActivity.this.getClass().getSimpleName(), "onCreateActionMode: menu size=" + menu.size());
-                                //menu.add(0, PASTE_MENU_ITEM_ID, 0, "Paste");
                                 menu.setQwertyMode(false);
+                                commentEditText.selectAll();
+                                Log.d(MessageListActivity.this.getClass().getSimpleName(), "onCreateActionMode: menu size=" + menu.size());
                                 return true;
                             }
 
@@ -441,11 +440,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
                                 switch (item.getItemId()) {
                                     case R.id.item_select_all:
                                         commentEditText.selectAll();
-                                        break;
-
-                                    case R.id.item_copy:
-                                        ViewUtil.copyToClipboard(commentEditText.getText().toString());
-                                        mode.finish();
                                         break;
 
                                     case R.id.item_cut:
@@ -464,8 +458,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
                                         break;
                                 }
 
-
-
                                 // popup again
                                 commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
                                 ViewUtil.popupInputMethodWindow(MessageListActivity.this);
@@ -475,6 +467,18 @@ public class MessageListActivity extends TrackedFragmentActivity {
                         return true;
                     }
                 });
+
+                /*
+                commentEditText.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        if( keyCode == KeyEvent.KEYCODE_MENU ){
+                            return false;
+                        }
+                        return false;
+                    }
+                });
+                */
 
                 /*
                 commentEditText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {

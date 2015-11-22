@@ -292,28 +292,21 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
                     uploadCoverImage(userId);
                     coverImageClicked = false;
                 } else if (profileImageClicked) {
-
                     ViewUtil.startSelectImageActivity(getActivity(), selectedImageUri);
 
                     profileImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
                     profileImage.setVisibility(View.VISIBLE);
-                    //uploadProfileImage(userId);
                     profileImageClicked = false;
                 }
             }
         }
 
-        if(requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             uploadProfileImage(userId);
-            boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
+            initUserProfile();
 
-
-            //if (refresh) {
-                initUserProfile();
-
-                // refresh parent activity
-                ViewUtil.setActivityResult(getActivity(), true);
-            //}
+            // refresh parent activity
+            ViewUtil.setActivityResult(getActivity(), true);
         }
     }
 }

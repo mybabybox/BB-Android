@@ -24,6 +24,10 @@ public class DefaultValues {
     public static final int CONVERSATION_MESSAGE_COUNT = 20;
 
     // UI
+    public static final String LANG_EN = "en";
+    public static final String LANG_ZH = "zh";
+    public static final String DEFAULT_LANG = LANG_ZH;
+
     public static final int MIN_CHAR_SIGNUP_PASSWORD = 4;
 
     public static final int SPLASH_DISPLAY_MILLIS = 500;

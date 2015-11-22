@@ -85,8 +85,9 @@ public class NotificationCounter implements TimerUtil.Task {
     }
 
     public static void resetActivitiesCount() {
-        if(counter != null)
+        if (counter != null) {
             counter.activitiesCount = 0L;
+        }
 
         if (MainActivity.getInstance() != null) {
             MainActivity.getInstance().refreshNotifications();

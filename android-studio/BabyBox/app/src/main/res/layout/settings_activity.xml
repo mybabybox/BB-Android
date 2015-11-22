@@ -53,6 +53,39 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10">
+
+            <TextView
+                android:text="@string/lang_desc"
+                android:textSize="17dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/dark_gray"
+                android:layout_weight="5"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <Spinner
+                android:id="@+id/langSpinner"
+                android:layout_below="@+id/languageLabel"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/spinner_bg_clear"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="5"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:focusable="true"
+                android:focusableInTouchMode="true"></Spinner>
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <View
@@ -61,33 +94,6 @@
         android:background="@drawable/bar1"
         android:id="@+id/barBottom"
         android:focusableInTouchMode="false" />
-
-    <RelativeLayout
-        android:id="@+id/languageLayout"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/languageLabel"
-            android:text="Select language :"
-            android:textSize="15dp"
-            android:layout_margin="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Spinner
-            android:id="@+id/languageSpinner"
-            android:layout_below="@+id/languageLabel"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/spinner_bg"
-            android:layout_margin="10dp"
-            android:layout_width="200dp"
-            android:layout_height="35dp"></Spinner>
-
-
-        </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/logout"

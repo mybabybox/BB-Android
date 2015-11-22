@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -83,6 +84,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit.RetrofitError;
@@ -206,6 +208,30 @@ public class ViewUtil {
     //
     // View
     //
+
+    public static void setLocale(Activity activity) {
+        setLocale(activity, SharedPreferencesUtil.getInstance().getLang());
+    }
+
+    /**
+     * zh or en
+     * @param activity
+     * @param lang
+     */
+    public static void setLocale(Activity activity, String lang) {
+        if (StringUtils.isEmpty(lang)) {
+            lang = DefaultValues.DEFAULT_LANG;
+        }
+        Log.d(ViewUtil.class.getSimpleName(), "lang=" + lang);
+
+        Locale myLocale = new Locale(lang);
+        Resources res = activity.getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        SharedPreferencesUtil.getInstance().saveLang(lang);
+    }
 
     public static void addDots(Activity activity, final int numPages, LinearLayout dotsLayout, final List<ImageView> dots, ViewPager viewPager) {
         if (dotsLayout == null) {

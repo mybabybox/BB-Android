@@ -1,13 +1,8 @@
 package com.babybox.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,22 +14,18 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
-
-import java.util.Locale;
+import com.babybox.util.DefaultValues;
+import com.babybox.util.SharedPreferencesUtil;
 
 public class SettingsActivity extends TrackedFragmentActivity {
     private static final String TAG = SettingsActivity.class.getName();
 
     private TextView appVersionText;
     private RelativeLayout logout;
-    private Spinner languageSpinner;
-    private String[] languageNames;
-    private String langString;
+    private Spinner langSpinner;
+    private String[] langNames;
 
     private ImageView backImage;
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
-    private boolean refreshFlag = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,49 +37,44 @@ public class SettingsActivity extends TrackedFragmentActivity {
 
         appVersionText = (TextView) findViewById(R.id.appVersionText);
         logout = (RelativeLayout) findViewById(R.id.logout);
-        languageSpinner = (Spinner) findViewById(R.id.languageSpinner);
+        langSpinner = (Spinner) findViewById(R.id.langSpinner);
 
-        languageNames = new String[]{"Chinese","English"};
+        langNames = new String[] {
+                getString(R.string.lang_zh),
+                getString(R.string.lang_en)
+        };
 
         final ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(
                 SettingsActivity.this,
-                android.R.layout.simple_spinner_item,
-                languageNames);
-
-        languageSpinner.setAdapter(languageAdapter);
+                R.layout.spinner_item_right,
+                langNames);
+        langSpinner.setAdapter(languageAdapter);
 
         appVersionText.setText("v"+ AppController.getVersionName());
 
-
-        prefs = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-        editor = prefs.edit();
-
-        if(prefs.getBoolean("chinese", false)){
-            setLocale("zh");
-            int pos = languageAdapter.getPosition("Chinese");
-            languageSpinner.setSelection(pos);
-        }else{
-            setLocale("en");
-            int pos = languageAdapter.getPosition("English");
-            languageSpinner.setSelection(pos);
+        String lang = SharedPreferencesUtil.getInstance().getLang();
+        int pos = -1;
+        if (DefaultValues.LANG_EN.equalsIgnoreCase(lang)) {
+            pos = languageAdapter.getPosition(getString(R.string.lang_en));
+        } else {
+            pos = languageAdapter.getPosition(getString(R.string.lang_zh));
         }
+        langSpinner.setSelection(pos);
 
-        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        langSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                langString = languageAdapter.getItem(i);
-
-                if(langString.equals("English")) {
-                    setLocale("en");
-                }else if(langString.equals("Chinese")){
-                    setLocale("zh");
+                String lang = languageAdapter.getItem(i);
+                if (getString(R.string.lang_en).equalsIgnoreCase(lang)) {
+                    SharedPreferencesUtil.getInstance().saveLang(DefaultValues.LANG_EN);
+                } else {
+                    SharedPreferencesUtil.getInstance().saveLang(DefaultValues.LANG_ZH);
                 }
-
+                //ViewUtil.alert(SettingsActivity.this, getString(R.string.lang_complete));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
@@ -121,28 +107,6 @@ public class SettingsActivity extends TrackedFragmentActivity {
                 onBackPressed();
             }
         });
-    }
-
-
-    public void setLocale(String lang) {
-
-        Locale myLocale = new Locale(lang);
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-
-
-        SharedPreferences prefs = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        if(lang.equals("zh")){
-            editor.putBoolean("chinese", true);
-        }else{
-            editor.putBoolean("chinese", false);
-        }
-        editor.commit();
-
     }
 }
 
