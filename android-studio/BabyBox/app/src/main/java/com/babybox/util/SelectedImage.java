@@ -5,8 +5,6 @@ import android.net.Uri;
 import java.io.File;
 
 public class SelectedImage implements Comparable<SelectedImage> {
-
-
     public Integer index;
     public String path;
 

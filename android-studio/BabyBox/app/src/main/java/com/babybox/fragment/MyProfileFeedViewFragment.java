@@ -3,7 +3,6 @@ package com.babybox.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.activity.EditProfileActivity;
@@ -27,6 +28,8 @@ import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
 import java.io.File;
 
 import retrofit.Callback;
@@ -39,7 +42,6 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
     private static final String TAG = MyProfileFeedViewFragment.class.getName();
 
     protected Boolean isPhoto = false;
-    protected String selectedImagePath = null;
     protected Uri selectedImageUri = null;
     protected boolean coverImageClicked = false, profileImageClicked = false;
 
@@ -189,15 +191,17 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         });
     }
 
-    protected void uploadCoverImage(final long id) {
+    protected void uploadCoverImage(final long id, final String imagePath) {
         ViewUtil.showSpinner(getActivity());
 
         Log.d(this.getClass().getSimpleName(), "uploadCoverImage: Id=" + id);
 
         ImageUtil.clearCoverImageCache(id);
 
-        File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
-        photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
+        //File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
+        //photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
+
+        File photo = new File(imagePath);
         TypedFile typedFile = new TypedFile("application/octet-stream", photo);
         AppController.getApiService().uploadCoverPhoto(typedFile, new Callback<Response>() {
             @Override
@@ -228,15 +232,17 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         });
     }
 
-    protected void uploadProfileImage(final long id) {
+    protected void uploadProfileImage(final long id, final String imagePath) {
         ViewUtil.showSpinner(getActivity());
 
-        Log.d(this.getClass().getSimpleName(), "uploadProfileImage: id=" + id);
+        Log.d(this.getClass().getSimpleName(), "uploadProfileImage: id=" + id + " imagePath=" + imagePath);
 
         ImageUtil.clearProfileImageCache(id);
 
-        File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
-        photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
+        //File photo = new File(ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri));
+        //photo = ImageUtil.resizeAsJPG(photo);   // IMPORTANT: resize before upload
+
+        File photo = new File(imagePath);
         if (photo != null) {
             TypedFile typedFile = new TypedFile("application/octet-stream", photo);
             AppController.getApiService().uploadProfilePhoto(typedFile, new Callback<Response>() {
@@ -273,40 +279,55 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        //super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE) {
-            if (data == null)
-                return;
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null) {
 
-            selectedImageUri = data.getData();
-            selectedImagePath = ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri);
-            String path = selectedImageUri.getPath();
+                String imagePath = "";
+                if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null) {
+                    selectedImageUri = data.getData();
+                    imagePath = ImageUtil.getRealPathFromUri(getActivity(), selectedImageUri);
+                }
 
-            Log.d(this.getClass().getSimpleName(), "onActivityResult: selectedImageUri="+path+" selectedImagePath="+selectedImagePath);
-            Bitmap bp = ImageUtil.resizeAsPreviewThumbnail(selectedImagePath);
-            if (bp != null) {
+                Log.d(this.getClass().getSimpleName(), "onActivityResult: imagePath=" + imagePath);
+
+                Bitmap bitmap = ImageUtil.resizeToUpload(imagePath);
+                if (bitmap != null) {
+                    ViewUtil.startSelectImageActivity(getActivity(), selectedImageUri);
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
+                }
+            } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
+                String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
                 if (coverImageClicked) {
-                    coverImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
-                    coverImage.setVisibility(View.VISIBLE);
-                    uploadCoverImage(userId);
+                    setImagePreviewThumbnail(coverImage, croppedImagePath);
+                    uploadCoverImage(userId, croppedImagePath);
                     coverImageClicked = false;
                 } else if (profileImageClicked) {
-                    ViewUtil.startSelectImageActivity(getActivity(), selectedImageUri);
-
-                    profileImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
-                    profileImage.setVisibility(View.VISIBLE);
+                    setImagePreviewThumbnail(profileImage, croppedImagePath);
+                    uploadProfileImage(userId, croppedImagePath);
                     profileImageClicked = false;
+                }
+            } else if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE) {
+                boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
+                if (refresh) {
+                    initUserProfile();
+
+                    // refresh parent activity
+                    ViewUtil.setActivityResult(getActivity(), true);
                 }
             }
         }
+    }
 
-        if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            uploadProfileImage(userId);
-            initUserProfile();
-
-            // refresh parent activity
-            ViewUtil.setActivityResult(getActivity(), true);
+    private void setImagePreviewThumbnail(ImageView imageView, String imagePath) {
+        if (!StringUtils.isEmpty(imagePath)) {
+            Bitmap bp = ImageUtil.resizeAsPreviewThumbnail(imagePath);
+            imageView.setImageBitmap(bp);
+            //imageView.setImageURI(Uri.parse(imagePath);
+            imageView.setVisibility(View.VISIBLE);
         }
     }
+
 }
