@@ -21,12 +21,13 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.apache.commons.lang.StringUtils;
 
 import java.util.List;
 
 public class GCMNotificationIntentService extends IntentService {
 
-	public static final String TAG = GCMNotificationIntentService.class.getName();
+	public static final String TAG = GCMNotificationIntentService.class.getSimpleName();
 
 	public static final int NOTIFICATION_ID = 1;
 
@@ -51,15 +52,11 @@ public class GCMNotificationIntentService extends IntentService {
 		String messageType = gcm.getMessageType(intent);
 
 		if (!extras.isEmpty()) {
-			if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR
-					.equals(messageType)) {
+			if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR.equals(messageType)) {
 				sendNotification("Send error: " + extras.toString());
-			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
-					.equals(messageType)) {
-				sendNotification("Deleted messages on server: "
-						+ extras.toString());
-			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
-					.equals(messageType)) {
+			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
+				sendNotification("Deleted messages on server: " + extras.toString());
+			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
 
 				for (int i = 0; i < 3; i++) {
 					Log.i(TAG,
@@ -81,18 +78,35 @@ public class GCMNotificationIntentService extends IntentService {
 		GCMBroadcastReceiver.completeWakefulIntent(intent);
 	}
 
+	private String getMessage(String messageType, String actor, String message) {
+		String gcmMessage = message;
+        if (!StringUtils.isEmpty(actor)) {
+            gcmMessage = actor + ": " + message;
+        }
+
+		if (messageType.equals(NotificationType.COMMENT.name())) {
+			if (MainActivity.getInstance() != null) {
+				gcmMessage = actor + MainActivity.getInstance().getString(R.string.activity_commented) + "\n" + message;
+			}
+		}
+		return gcmMessage;
+	}
+
 	private void sendNotification(String msg) {
 		Log.d(TAG, "Preparing to send notification...: " + msg);
 		try {
 			JSONObject jObject = new JSONObject(msg);
-			if (jObject.get("messageType").equals(NotificationType.COMMENT.name())) {
+			String messageType = jObject.getString("messageType");
+			String actor = jObject.getString("actor");
+			String message = jObject.getString("message");
+			if (messageType.equals(NotificationType.COMMENT.name())) {
 				List<String> messages = SharedPreferencesUtil.getInstance().getGcmCommentNotifs();
-				messages.add(jObject.get("message").toString());
+				messages.add(getMessage(messageType, actor, message));
 				SharedPreferencesUtil.getInstance().saveGcmCommentNotifs(messages);
 				updateOrSendNotification(this, NotificationType.COMMENT, messages);
-			} else if(jObject.get("messageType").equals(NotificationType.CONVERSATION.name())) {
+			} else if(messageType.equals(NotificationType.CONVERSATION.name())) {
 				List<String> messages = SharedPreferencesUtil.getInstance().getGcmConversationNotifs();
-				messages.add(jObject.get("message").toString());
+				messages.add(getMessage(messageType, actor, message));
 				SharedPreferencesUtil.getInstance().saveGcmConversationNotifs(messages);
 				updateOrSendNotification(this, NotificationType.CONVERSATION, messages);
 			}
@@ -118,7 +132,7 @@ public class GCMNotificationIntentService extends IntentService {
 		NotificationCompat.Builder mBuilder = null;
         String contentTitle = AppController.APP_NAME;
 
-        Log.d(GCMNotificationIntentService.class.getSimpleName(), "updateOrSendNotification: notificationType=" + notificationType);
+        Log.d(TAG, "updateOrSendNotification: notificationType=" + notificationType);
 		if(notificationType == NotificationType.CONVERSATION){
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,

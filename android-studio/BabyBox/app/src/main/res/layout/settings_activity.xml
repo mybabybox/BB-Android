@@ -57,7 +57,9 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:weightSum="10">
+            android:weightSum="10"
+            android:id="@+id/langLayout"
+            android:visibility="gone">
 
             <TextView
                 android:text="@string/lang_desc"
