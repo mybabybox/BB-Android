@@ -263,6 +263,9 @@ public interface BabyBoxApi {
     // Admin
     //
 
+    @GET("/delete-account/{id}")
+    public void deleteAccount(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
+
     @GET("/adjust-up-post-score/{id}")
     public void adjustUpPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 

@@ -98,7 +98,7 @@
         android:focusableInTouchMode="false" />
 
     <RelativeLayout
-        android:id="@+id/logout"
+        android:id="@+id/logoutLayout"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -116,4 +116,5 @@
             android:textColor="@color/white"
             android:textSize="22dp" />
     </RelativeLayout>
+
 </LinearLayout>

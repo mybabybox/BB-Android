@@ -3,7 +3,7 @@
 
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
-    <string name="base_url">http://192.168.1.143:9000</string>
+    <string name="base_url">http://192.168.1.145:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">對不起！babybox 發生問題要退出</string>
@@ -207,6 +207,7 @@
     <!-- Profile tab -->
     <string name="settings_actionbar_title">設定</string>
     <string name="logout">登出</string>
+    <string name="delete_account">刪除帳戶</string>
     <string name="my_profile_actionbar_title"></string>
     <string name="user_profile_actionbar_title">主頁</string>
     <string name="edit_user_info">更新個人資料</string>
@@ -266,6 +267,7 @@
     <string name="cancel_post">退出%1$s商品？</string>
     <string name="exit_app">退出 babybox？</string>
     <string name="logout_message">確定登出 babybox？</string>
+    <string name="delete_account_message">確定刪除帳戶？</string>
     <string name="yes">是</string>
     <string name="no">取消</string>
     <string name="confirm">確定</string>

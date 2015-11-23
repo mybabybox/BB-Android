@@ -287,6 +287,10 @@ public class BabyBoxService {
 
     // admin
 
+    public void deleteAccount(Long id, Callback<Response> cb) {
+        api.deleteAccount(id, AppController.getInstance().getSessionId(), cb);
+    }
+
     public void adjustUpPostScore(Long id, Callback<Response> cb) {
         api.adjustUpPostScore(id, AppController.getInstance().getSessionId(), cb);
     }

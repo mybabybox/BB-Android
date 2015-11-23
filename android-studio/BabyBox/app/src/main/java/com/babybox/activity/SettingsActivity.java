@@ -20,11 +20,11 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.SharedPreferencesUtil;
 
 public class SettingsActivity extends TrackedFragmentActivity {
-    private static final String TAG = SettingsActivity.class.getName();
+    private static final String TAG = SettingsActivity.class.getSimpleName();
 
     private TextView appVersionText;
     private LinearLayout langLayout;
-    private RelativeLayout logout;
+    private RelativeLayout logoutLayout;
     private Spinner langSpinner;
     private String[] langNames;
 
@@ -40,7 +40,7 @@ public class SettingsActivity extends TrackedFragmentActivity {
 
         appVersionText = (TextView) findViewById(R.id.appVersionText);
         langLayout = (LinearLayout) findViewById(R.id.langLayout);
-        logout = (RelativeLayout) findViewById(R.id.logout);
+        logoutLayout = (RelativeLayout) findViewById(R.id.logoutLayout);
         langSpinner = (Spinner) findViewById(R.id.langSpinner);
 
         langLayout.setVisibility(UserInfoCache.getUser().isAdmin()? View.VISIBLE : View.GONE);
@@ -55,8 +55,6 @@ public class SettingsActivity extends TrackedFragmentActivity {
                     R.layout.spinner_item_right,
                     langNames);
             langSpinner.setAdapter(languageAdapter);
-
-            appVersionText.setText("v"+ AppController.getVersionName());
 
             String lang = SharedPreferencesUtil.getInstance().getLang();
             int pos = -1;
@@ -85,10 +83,11 @@ public class SettingsActivity extends TrackedFragmentActivity {
             });
         }
 
-        logout.setOnClickListener(new View.OnClickListener() {
+        appVersionText.setText("v"+ AppController.getVersionName());
+
+        logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // confirm exit
                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingsActivity.this);
                 builder.setMessage(R.string.logout_message)
                         .setCancelable(false)

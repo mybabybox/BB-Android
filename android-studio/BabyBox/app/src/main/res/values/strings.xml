@@ -3,7 +3,7 @@
 
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
-    <string name="base_url">http://192.168.1.143:9000</string>
+    <string name="base_url">http://192.168.1.145:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">對不起！babybox 發生問題要退出</string>
@@ -100,75 +100,75 @@
     <string name="tabset_profile">Profile</string>
 
     <!-- Tips -->
-    <string name="home_explore_tips">所有商品都是媽媽刊登\n發掘媽媽心目中最熱賣商品！</string>
-    <string name="home_following_tips">關注你喜愛的賣家，發掘最新商品</string>
-    <string name="category_tips">以不同分類搜尋商品</string>
-    <string name="my_profile_tips">按 \"Sell\" 立即刊登商品\n所有媽媽都是babybox賣家！</string>
+    <string name="home_explore_tips">All products in babybox are listed by mom sellers\nExplore most popular products now！</string>
+    <string name="home_following_tips">Follow your favorite sellers. Explore their newest products.</string>
+    <string name="category_tips">Explore products by category filters.</string>
+    <string name="my_profile_tips">Click \"Sell\" to list your product now\nEverymom is babybox seller！</string>
 
     <!-- Home tab -->
-    <string name="main_tab_explore">逛逛</string>
-    <string name="main_tab_following">關注</string>
-    <string name="suggest_for_you">推介給你</string>
-    <string name="follow">關注</string>
-    <string name="followings">關注中</string>
-    <string name="followers">關注我</string>
-    <string name="seller_followers">關注</string>
-    <string name="products">商品</string>
+    <string name="main_tab_explore">Explore</string>
+    <string name="main_tab_following">Following</string>
+    <string name="suggest_for_you">Suggested For You</string>
+    <string name="follow">Follow</string>
+    <string name="followings">Followings</string>
+    <string name="followers">Followers</string>
+    <string name="seller_followers">Followers</string>
+    <string name="products">Product</string>
 
     <!-- Activity tab -->
-    <string name="no_activity">~ 暫沒有動態 ~</string>
-    <string name="activity_posted">發佈了新商品:</string>
-    <string name="activity_commented">在商品留言:</string>
-    <string name="activity_liked">喜歡你的商品。</string>
-    <string name="activity_followed">關注了你。</string>
-    <string name="activity_sold">已賣出商品。</string>
+    <string name="no_activity">~ No Activity ~</string>
+    <string name="activity_posted">New product listed:</string>
+    <string name="activity_commented">commented on product:</string>
+    <string name="activity_liked">liked your product.</string>
+    <string name="activity_followed">started following you.</string>
+    <string name="activity_sold">already sold.</string>
 
     <!-- Category page -->
-    <string name="category">商品分類</string>
-    <string name="filter_popular">熱門商品</string>
-    <string name="filter_newest">最新上架</string>
+    <string name="category">Category</string>
+    <string name="filter_popular">Popular</string>
+    <string name="filter_newest">Newest</string>
     <string name="filter_price_low_high">$ ⇾ $$</string>
     <string name="filter_price_high_low">$$ ⇾ $</string>
-    <string name="filter_all">所有商品</string>
-    <string name="filter_new">全新</string>
-    <string name="filter_used">二手</string>
+    <string name="filter_all">All Products</string>
+    <string name="filter_new">New</string>
+    <string name="filter_used">Used</string>
 
     <!-- Product page -->
-    <string name="post_details">商品詳情:</string>
-    <string name="image">照片</string>
-    <string name="like">喜歡</string>
-    <string name="likes">喜歡</string>
-    <string name="comments">個留言</string>
-    <string name="chat">聯絡賣家</string>
-    <string name="buy">購買</string>
-    <string name="buy_again">再購買</string>
-    <string name="view_chats">查看訊息</string>
-    <string name="mark_as_sold">標為已售</string>
-    <string name="sold">已售</string>
-    <string name="sold_view_chats">已售 - 查看訊息</string>
-    <string name="listed">已刊登</string>
-    <string name="more_products">其他商品</string>
+    <string name="post_details">Product Details:</string>
+    <string name="image">Photo</string>
+    <string name="like">Like</string>
+    <string name="likes">Likes</string>
+    <string name="comments">Comments</string>
+    <string name="chat">Chat</string>
+    <string name="buy">Buy Now</string>
+    <string name="buy_again">Buy Again</string>
+    <string name="view_chats">View Chats</string>
+    <string name="mark_as_sold">Mark as Sold</string>
+    <string name="sold">Sold</string>
+    <string name="sold_view_chats">Sold - View Chats</string>
+    <string name="listed">Listed</string>
+    <string name="more_products">More Products</string>
     <string name="comment_bar_hint"></string>
-    <string name="no_products">~ 暫沒有商品 ~</string>
-    <string name="no_product_comments">~ 沒有留言 ~</string>
+    <string name="no_products">~ No Products ~</string>
+    <string name="no_product_comments">~ No Comments ~</string>
 
-    <string name="edit_post_action">更新</string>
-    <string name="new_post_action">刊登</string>
-    <string name="edit_post_actionbar_title">更新商品</string>
-    <string name="new_post_actionbar_title">刊登商品</string>
-    <string name="new_post">發出</string>
-    <string name="new_post_price">價格($):</string>
-    <string name="new_post_price_hint">請輸入價格</string>
-    <string name="new_post_condition">商品狀況:</string>
-    <string name="new_post_condition_select">-選擇-</string>
-    <string name="new_post_to_popup_title">請選擇分類</string>
-    <string name="new_post_to">分類:</string>
-    <string name="new_post_select_category">請選擇分類</string>
-    <string name="new_post_title">你要賣的是?</string>
-    <string name="new_post_body">商品詳情</string>
-    <string name="new_post_max_images">最多可加入%1$d張圖</string>
-    <string name="post_success">成功%1$s商品</string>
-    <string name="post_failed">暫時不能%1$s商品，請稍後重試</string>
+    <string name="edit_post_action">Edit</string>
+    <string name="new_post_action">List</string>
+    <string name="edit_post_actionbar_title">Edit Product</string>
+    <string name="new_post_actionbar_title">Sell Product</string>
+    <string name="new_post">Send</string>
+    <string name="new_post_price">Price($):</string>
+    <string name="new_post_price_hint">Set a Price</string>
+    <string name="new_post_condition">Condition:</string>
+    <string name="new_post_condition_select">-Select-</string>
+    <string name="new_post_to_popup_title">Choose a Category</string>
+    <string name="new_post_to">Category:</string>
+    <string name="new_post_select_category">Choose a Category</string>
+    <string name="new_post_title">What are you selling?</string>
+    <string name="new_post_body">Product details</string>
+    <string name="new_post_max_images">You can select up to %1$d photos</string>
+    <string name="post_success">Successfully %1$s Product</string>
+    <string name="post_failed">Failed to %1$s Product. Please try again later.</string>
 
     <string name="new_with_tag">全新(未開封/有價錢牌)</string>
     <string name="new_without_tag">全新(已開封/沒有價錢牌)</string>
@@ -207,6 +207,7 @@
     <!-- Profile tab -->
     <string name="settings_actionbar_title">設定</string>
     <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
     <string name="my_profile_actionbar_title"></string>
     <string name="user_profile_actionbar_title">主頁</string>
     <string name="edit_user_info">更新個人資料</string>
@@ -266,6 +267,7 @@
     <string name="cancel_post">退出%1$s商品？</string>
     <string name="exit_app">退出 babybox？</string>
     <string name="logout_message">確定登出 babybox？</string>
+    <string name="delete_account_message">確定刪除帳戶？</string>
     <string name="yes">是</string>
     <string name="no">取消</string>
     <string name="confirm">確定</string>
