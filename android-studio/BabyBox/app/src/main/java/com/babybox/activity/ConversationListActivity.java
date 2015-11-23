@@ -1,6 +1,8 @@
 package com.babybox.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,7 +37,6 @@ import retrofit.client.Response;
 public class ConversationListActivity extends TrackedFragmentActivity {
 
     private static final String TAG = ConversationListActivity.class.getName();
-
 
     protected ListView listView;
     protected TextView tipText;
@@ -89,16 +90,27 @@ public class ConversationListActivity extends TrackedFragmentActivity {
 
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
-                SparseBooleanArray selected = adapter
-                        .getSelectedIds();
-                for(int i = (selected.size() - 1); i >= 0; i--) {
-                    if (selected.valueAt(i)) {
-                        ConversationVM selecteditem = adapter
-                                .getItem(selected.keyAt(i));
-                        // Remove selected items following the ids
-                        deleteConversation(selecteditem.getId());
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ConversationListActivity.this);
+                alertDialogBuilder.setMessage(ConversationListActivity.this.getString(R.string.post_delete_confirm));
+                alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SparseBooleanArray selected = adapter.getSelectedIds();
+                        for (int i = (selected.size() - 1); i >= 0; i--) {
+                            if (selected.valueAt(i)) {
+                                ConversationVM item = adapter.getItem(selected.keyAt(i));
+                                deleteConversation(item.getId());
+                            }
+                        }
                     }
-                }
+                });
+                alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
 
                 actionMode.finish();
                 return true;
@@ -119,8 +131,9 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             }
         });
 
-
-        /*listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*
+        // obsolete... enabled multi select delete
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final ConversationVM item = adapter.getItem(i);

@@ -5,6 +5,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/list_activated_background</item>
         <item name="elevation">0dp</item>
         <item name="android:popupMenuStyle">@style/MyPopupMenu</item>
         <item name="actionBarStyle">@style/MyActionBar</item>

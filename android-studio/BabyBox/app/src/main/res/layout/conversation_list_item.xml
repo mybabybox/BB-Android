@@ -3,189 +3,195 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/conversationLayout"
-    android:background="?android:attr/activatedBackgroundIndicator"
-    >
+    android:background="@color/white">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/userImageLayout"
-        android:layout_margin="10dp">
-
-        <ImageView
-            android:id="@+id/userImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitCenter"
-            android:layout_gravity="center_vertical"
-            android:layout_centerVertical="true"></ImageView>
-
-        <TextView
-            android:id="@+id/userText"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:textSize="13dp"
-            android:textColor="@color/gray"
-            android:layout_below="@+id/userPicture"
-            android:layout_gravity="center"
-            android:singleLine="true"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="2dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/userImageLayout"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_height="match_parent"
+        android:background="?android:attr/activatedBackgroundIndicator">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/userImageLayout"
+            android:layout_margin="10dp">
 
-            <TextView
-                android:id="@+id/postTitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray_2"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/dateText"
-                android:singleLine="false"
-                android:maxLines="2"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="5dp" />
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_vertical"
+                android:layout_centerVertical="true"></ImageView>
 
             <TextView
-                android:id="@+id/dateText"
-                android:layout_width="wrap_content"
+                android:id="@+id/userText"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
+                android:textSize="13dp"
                 android:textColor="@color/gray"
-                android:layout_alignParentRight="true"
-                android:maxWidth="100dp"
+                android:layout_below="@+id/userPicture"
+                android:layout_gravity="center"
                 android:singleLine="true"
-                android:layout_alignParentTop="true" />
-        </RelativeLayout>
+                android:gravity="center_horizontal"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
+            android:layout_toRightOf="@+id/userImageLayout"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
 
-            <TextView
-                android:id="@+id/lastMessageText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray"
-                android:textSize="15dp"
-                android:layout_marginRight="3dp"
-                android:layout_toLeftOf="@+id/unreadCountText"
-                android:layout_alignParentLeft="true" />
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/hasImageLayout"
-                android:layout_below="@+id/lastMessageText"
-                android:layout_marginTop="3dp">
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:id="@+id/cameraImage"
-                    android:src="@drawable/ic_camera"
-                    android:layout_gravity="center_vertical"
-                    android:alpha="0.7" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/postTitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/image"
-                    android:textSize="14dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="3dp"
-                    android:textColor="@color/dark_gray" />
-            </LinearLayout>
+                    android:textColor="@color/dark_gray_2"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/dateText"
+                    android:singleLine="false"
+                    android:maxLines="2"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="5dp" />
 
-            <TextView
-                android:id="@+id/unreadCountText"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:text="0"
-                android:textSize="12dp"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:background="@drawable/badge_circle"
-                android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="3dp"
-                android:gravity="center"
-                android:layout_toLeftOf="@+id/postImageLayout"
-                android:layout_centerHorizontal="true" />
+                <TextView
+                    android:id="@+id/dateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="@color/gray"
+                    android:layout_alignParentRight="true"
+                    android:maxWidth="100dp"
+                    android:singleLine="true"
+                    android:layout_alignParentTop="true" />
+            </RelativeLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:id="@+id/postImageLayout">
-
-                <ImageView
-                    android:id="@+id/postImage"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:scaleType="fitCenter"
-                    android:layout_gravity="center_vertical"
-                    android:layout_centerVertical="true" />
+                android:layout_marginBottom="5dp">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/lastMessageText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pm_buy"
-                    android:id="@+id/buyText"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:textSize="12dp"
-                    android:background="@color/pink"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="-5dp"
-                    android:layout_gravity="center_vertical" />
+                    android:textColor="@color/dark_gray"
+                    android:textSize="15dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_toLeftOf="@+id/unreadCountText"
+                    android:layout_alignParentLeft="true" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/hasImageLayout"
+                    android:layout_below="@+id/lastMessageText"
+                    android:layout_marginTop="3dp">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:id="@+id/cameraImage"
+                        android:src="@drawable/ic_camera"
+                        android:layout_gravity="center_vertical"
+                        android:alpha="0.7" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/image"
+                        android:textSize="14dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp"
+                        android:textColor="@color/dark_gray" />
+                </LinearLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pm_sell"
-                    android:id="@+id/sellText"
-                    android:gravity="center"
-                    android:singleLine="true"
+                    android:id="@+id/unreadCountText"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:text="0"
                     android:textSize="12dp"
-                    android:background="@color/green"
+                    android:textAlignment="center"
                     android:textColor="@color/white"
-                    android:layout_marginTop="-5dp"
-                    android:layout_gravity="center_vertical" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pm_sold"
-                    android:id="@+id/soldText"
+                    android:background="@drawable/badge_circle"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="3dp"
                     android:gravity="center"
-                    android:singleLine="true"
-                    android:textSize="12dp"
-                    android:background="@color/gray"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="-5dp"
-                    android:layout_gravity="center_vertical" />
+                    android:layout_toLeftOf="@+id/postImageLayout"
+                    android:layout_centerHorizontal="true" />
 
-            </LinearLayout>
-        </RelativeLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/postImageLayout">
+
+                    <ImageView
+                        android:id="@+id/postImage"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pm_buy"
+                        android:id="@+id/buyText"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="12dp"
+                        android:background="@color/pink"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="-5dp"
+                        android:layout_gravity="center_vertical" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pm_sell"
+                        android:id="@+id/sellText"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="12dp"
+                        android:background="@color/green"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="-5dp"
+                        android:layout_gravity="center_vertical" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pm_sold"
+                        android:id="@+id/soldText"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="12dp"
+                        android:background="@color/gray"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="-5dp"
+                        android:layout_gravity="center_vertical" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
 

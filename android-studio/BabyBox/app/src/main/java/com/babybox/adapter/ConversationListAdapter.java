@@ -87,11 +87,11 @@ public class ConversationListAdapter extends BaseAdapter {
         ConversationVM item = conversations.get(i);
 
         Log.d(this.getClass().getSimpleName(), "[" + i + "|id=" + item.id + "] " + item.getPostTitle() + " unread=" + item.getUnread());
-        /*if (item.getUnread() > 0) {
+        if (item.getUnread() > 0) {
             conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
         } else {
             conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.color.white));
-        }*/
+        }
 
         unreadCountText.setText(item.getUnread() + "");
         unreadCountText.setVisibility(item.getUnread() > 0 ? View.VISIBLE : View.GONE);
