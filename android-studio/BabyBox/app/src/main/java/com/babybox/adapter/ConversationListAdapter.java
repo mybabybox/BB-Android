@@ -3,6 +3,7 @@ package com.babybox.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.babybox.R;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
+
+import java.util.List;
 
 public class ConversationListAdapter extends BaseAdapter {
     private Activity activity;
@@ -31,6 +32,7 @@ public class ConversationListAdapter extends BaseAdapter {
     private LinearLayout postImageLayout, hasImageLayout;
     private ImageView userImage, postImage;
     private TextView userText, postTitleText, lastMessageText, buyText, sellText, soldText, dateText, unreadCountText;
+    private SparseBooleanArray mSelectedItemsIds;
 
     public ConversationListAdapter(Activity activity, List<ConversationVM> conversationVMs) {
         this(activity, conversationVMs, true);
@@ -40,6 +42,7 @@ public class ConversationListAdapter extends BaseAdapter {
         this.activity = activity;
         this.conversations = conversations;
         this.showPost = showPost;
+        mSelectedItemsIds = new SparseBooleanArray();
     }
 
     @Override
@@ -66,6 +69,7 @@ public class ConversationListAdapter extends BaseAdapter {
         if (view == null)
             view = inflater.inflate(R.layout.conversation_list_item, null);
 
+
         conversationLayout = (RelativeLayout) view.findViewById(R.id.conversationLayout);
         userText = (TextView) view.findViewById(R.id.userText);
         postTitleText = (TextView) view.findViewById(R.id.postTitleText);
@@ -83,11 +87,11 @@ public class ConversationListAdapter extends BaseAdapter {
         ConversationVM item = conversations.get(i);
 
         Log.d(this.getClass().getSimpleName(), "[" + i + "|id=" + item.id + "] " + item.getPostTitle() + " unread=" + item.getUnread());
-        if (item.getUnread() > 0) {
+        /*if (item.getUnread() > 0) {
             conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
         } else {
             conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.color.white));
-        }
+        }*/
 
         unreadCountText.setText(item.getUnread() + "");
         unreadCountText.setVisibility(item.getUnread() > 0 ? View.VISIBLE : View.GONE);
@@ -108,8 +112,36 @@ public class ConversationListAdapter extends BaseAdapter {
 
         hasImageLayout.setVisibility(item.lastMessageHasImage? View.VISIBLE : View.GONE);
 
-        //Log.d(this.getClass().getSimpleName(), item.getLastMessage());
+        Log.d(this.getClass().getSimpleName(), item.getLastMessage());
 
         return  view;
     }
+
+
+
+    public void toggleSelection(int position) {
+        selectView(position, !mSelectedItemsIds.get(position));
+    }
+
+    public void removeSelection() {
+        mSelectedItemsIds = new SparseBooleanArray();
+        notifyDataSetChanged();
+    }
+
+    public void selectView(int position, boolean value) {
+        if (value)
+            mSelectedItemsIds.put(position, value);
+        else
+            mSelectedItemsIds.delete(position);
+        notifyDataSetChanged();
+    }
+
+    public int getSelectedCount() {
+        return mSelectedItemsIds.size();
+    }
+
+    public SparseBooleanArray getSelectedIds() {
+        return mSelectedItemsIds;
+    }
+
 }

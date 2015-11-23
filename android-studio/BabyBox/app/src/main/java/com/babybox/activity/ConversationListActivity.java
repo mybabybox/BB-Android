@@ -1,12 +1,15 @@
 package com.babybox.activity;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,7 +26,6 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
 import com.yalantis.phoenix.PullToRefreshView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -33,6 +35,7 @@ import retrofit.client.Response;
 public class ConversationListActivity extends TrackedFragmentActivity {
 
     private static final String TAG = ConversationListActivity.class.getName();
+
 
     protected ListView listView;
     protected TextView tipText;
@@ -62,15 +65,62 @@ public class ConversationListActivity extends TrackedFragmentActivity {
         tipText = (TextView) findViewById(R.id.tipText);
         listView = (ListView) findViewById(R.id.conversationList);
 
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+        listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
+                final int checkedCount = listView.getCheckedItemCount();
+                actionMode.setTitle(checkedCount + " Selected");
+                adapter.toggleSelection(i);
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                actionMode.getMenuInflater().inflate(R.menu.list_select_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+                SparseBooleanArray selected = adapter
+                        .getSelectedIds();
+                for(int i = (selected.size() - 1); i >= 0; i--) {
+                    if (selected.valueAt(i)) {
+                        ConversationVM selecteditem = adapter
+                                .getItem(selected.keyAt(i));
+                        // Remove selected items following the ids
+                        deleteConversation(selecteditem.getId());
+                    }
+                }
+
+                actionMode.finish();
+                return true;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode actionMode) {
+
+            }
+        });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openedConversation = adapter.getItem(i);
+
                 ViewUtil.startMessageListActivity(ConversationListActivity.this, openedConversation.id, false);
             }
         });
 
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+        /*listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final ConversationVM item = adapter.getItem(i);
@@ -92,7 +142,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                 alertDialog.show();
                 return true;
             }
-        });
+        });*/
 
         backImage = (ImageView) findViewById(R.id.backImage);
         backImage.setOnClickListener(new View.OnClickListener() {
