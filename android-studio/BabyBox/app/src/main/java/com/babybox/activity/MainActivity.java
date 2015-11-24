@@ -171,9 +171,11 @@ public class MainActivity extends TrackedFragmentActivity {
         super.onResume();
         // handle gcm
         if (ViewUtil.isGcmLaunchTarget(getIntent())) {
-            //pressActivityTab();
-            pressHomeTab();
+            pressActivityTab();
+            getIntent().removeExtra(ViewUtil.GCM_LAUNCH_TARGET);
+            //pressHomeTab();
         }
+
     }
 
     public void setUserProfileThumbnail() {
