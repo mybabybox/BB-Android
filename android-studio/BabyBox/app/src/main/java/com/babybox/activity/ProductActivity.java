@@ -257,9 +257,9 @@ public class ProductActivity extends TrackedFragmentActivity {
                 isFollowing = post.isFollowingOwner();
 
                 if (isFollowing) {
-                    ViewUtil.selectFollowButtonStyle(followButton);
+                    ViewUtil.selectFollowButtonStyleLite(followButton);
                 } else {
-                    ViewUtil.unselectFollowButtonStyle(followButton);
+                    ViewUtil.unselectFollowButtonStyleLite(followButton);
                 }
 
                 // Image slider
@@ -996,7 +996,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         AppController.getApiService().followUser(id, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
-                ViewUtil.selectFollowButtonStyle(followButton);
+                ViewUtil.selectFollowButtonStyleLite(followButton);
                 isFollowing = true;
                 pending = false;
             }
@@ -1018,7 +1018,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         AppController.getApiService().unfollowUser(id, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
-                ViewUtil.unselectFollowButtonStyle(followButton);
+                ViewUtil.unselectFollowButtonStyleLite(followButton);
                 isFollowing = false;
                 pending = false;
             }

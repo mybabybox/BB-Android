@@ -2,7 +2,6 @@ package com.babybox.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.babybox.util.ValidationUtil;
 import com.babybox.util.ViewUtil;
 
 public class LoginActivity extends AbstractLoginActivity {
@@ -60,7 +60,9 @@ public class LoginActivity extends AbstractLoginActivity {
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                emailLogin(email.getText().toString(), password.getText().toString());
+                if (isValid()) {
+                    emailLogin(email.getText().toString().trim(), password.getText().toString().trim());
+                }
             }
         });
 
@@ -102,5 +104,14 @@ public class LoginActivity extends AbstractLoginActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    private boolean isValid() {
+        boolean valid = true;
+        if (!ValidationUtil.hasText(email) || !ValidationUtil.isEmailValid(email))
+            valid = false;
+        if (!ValidationUtil.hasText(password))
+            valid = false;
+        return valid;
     }
 }

@@ -21,7 +21,7 @@
     <TextView
         android:id="@+id/tipText"
         android:layout_centerHorizontal="true"
-        android:text="@string/no_notification"
+        android:text="@string/no_messages"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"

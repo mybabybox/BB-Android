@@ -72,6 +72,8 @@ public class MainActivity extends TrackedFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ViewUtil.setLocale(this);
+
         setTracked(false);
 
         setContentView(R.layout.main_activity);
@@ -169,13 +171,12 @@ public class MainActivity extends TrackedFragmentActivity {
     @Override
     public void onResume() {
         super.onResume();
+
         // handle gcm
         if (ViewUtil.isGcmLaunchTarget(getIntent())) {
             pressActivityTab();
             getIntent().removeExtra(ViewUtil.GCM_LAUNCH_TARGET);
-            //pressHomeTab();
         }
-
     }
 
     public void setUserProfileThumbnail() {

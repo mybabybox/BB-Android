@@ -24,7 +24,6 @@ import android.view.View;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.gcm.GCMBroadcastReceiver;
 import com.babybox.gcm.GCMClient;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;

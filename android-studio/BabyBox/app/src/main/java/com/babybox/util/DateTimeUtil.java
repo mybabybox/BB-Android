@@ -1,5 +1,7 @@
 package com.babybox.util;
 
+import android.util.Log;
+
 import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
@@ -13,10 +15,13 @@ import com.babybox.app.AppController;
  */
 public class DateTimeUtil {
 
-    public static final int SECOND_MILLIS = 1000;
-    public static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
-    public static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
-    public static final int DAY_MILLIS = 24 * HOUR_MILLIS;
+    public static final long SECOND_MILLIS = 1000;
+    public static final long MINUTE_MILLIS = 60 * SECOND_MILLIS;
+    public static final long HOUR_MILLIS = 60 * MINUTE_MILLIS;
+    public static final long DAY_MILLIS = 24 * HOUR_MILLIS;
+    public static final long WEEK_MILLIS = 7 * DAY_MILLIS;
+    public static final long MONTH_MILLIS = 30 * DAY_MILLIS;
+    public static final long YEAR_MILLIS = 365 * DAY_MILLIS;
 
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
@@ -78,6 +83,10 @@ public class DateTimeUtil {
             return AppController.getInstance().getString(R.string.timeago_yesterday);
         } else if (diff < 14 * DAY_MILLIS) {
             return diff / DAY_MILLIS + AppController.getInstance().getString(R.string.timeago_days);
+        } else if (diff < 4 * WEEK_MILLIS) {
+            return diff / WEEK_MILLIS + AppController.getInstance().getString(R.string.timeago_weeks);
+        } else if (diff < 12 * MONTH_MILLIS) {
+            return diff / MONTH_MILLIS + AppController.getInstance().getString(R.string.timeago_months);
         }
         return format(time, withHrMin);
     }

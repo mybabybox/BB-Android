@@ -85,7 +85,7 @@
                             android:id="@+id/loginUserImage"
                             android:elevation="1dp" />
                         <EditText
-                            android:hint="您的電郵"
+                            android:hint="@string/signup_email_hint"
                             android:textColorHint="@color/light_gray"
                             android:textColor="@color/input_text"
                             android:id="@+id/email"
@@ -131,7 +131,7 @@
                             android:id="@+id/password"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
-                            android:hint="密碼"
+                            android:hint="@string/signup_password_hint"
                             android:inputType="textPassword"
                             android:paddingLeft="40dp"
                             android:paddingRight="10dp"

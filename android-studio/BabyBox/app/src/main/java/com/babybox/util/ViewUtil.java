@@ -272,7 +272,7 @@ public class ViewUtil {
             }
         });
 
-        dotsLayout.setVisibility(numPages > 1? View.VISIBLE : View.GONE);
+        dotsLayout.setVisibility(numPages > 1 ? View.VISIBLE : View.GONE);
     }
 
     public static void selectDot(int index, int numPages, List<ImageView> dots) {
@@ -482,10 +482,22 @@ public class ViewUtil {
         text.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
     }
 
+    public static void selectFollowButtonStyleLite(Button button) {
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
+        button.setBackgroundResource(R.drawable.button_gray_border);
+        button.setText(R.string.following);
+    }
+
+    public static void unselectFollowButtonStyleLite(Button button) {
+        button.setTextColor(AppController.getInstance().getResources().getColor(R.color.pink));
+        button.setBackgroundResource(R.drawable.button_pink_border);
+        button.setText(R.string.follow);
+    }
+
     public static void selectFollowButtonStyle(Button button) {
         button.setTextColor(AppController.getInstance().getResources().getColor(R.color.white));
         button.setBackgroundResource(R.drawable.button_following);
-        button.setText(R.string.followings);
+        button.setText(R.string.following);
     }
 
     public static void unselectFollowButtonStyle(Button button) {

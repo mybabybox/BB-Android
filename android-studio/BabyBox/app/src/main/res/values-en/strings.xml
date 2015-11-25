@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="facebook_app_id">1469031873403459</string>
+    <string name="gcm_project_id">42246542708</string>
+    <string name="base_url">http://192.168.1.145:9000</string>
+
+    <!-- Crash report -->
+    <string name="crash_toast_text">Sorry.. BabyBox encountered problem and exit</string>
+    <string name="crash_dialog_title">BabyBox exit</string>
+    <string name="crash_dialog_text">Sorry.. BabyBox encountered problem and exit. Please help us to fix and send us a report</string>
+    <string name="crash_dialog_comment_prompt">Press OK to send (Report only contains information of the problem)</string>
+    <string name="crash_dialog_ok_toast">Thanks!</string>
+
+    <!-- Settings -->
+    <string name="app_name">BabyBox</string>
+    <string name="app_desc">BabyBox - Everymom is a Seller</string>
+    <string name="app_version">BabyBox Version:</string>
+    <string name="request_upgrade">New version of BabyBox is now available! Upgrade and try out our new features! </string>
+    <string name="request_upgrade_confirm">Install now</string>
+    <string name="request_upgrade_cancel">Cancel</string>
+    <string name="lang_zh">中文</string>
+    <string name="lang_en">English</string>
+    <string name="lang_desc">Language:</string>
+    <string name="lang_confirm">Confirm to change language? (BabyBox will be restarted)</string>
+    <string name="lang_complete">Language change will take effect after restart</string>
+
+    <string name="clipboard_text_label">Copy</string>
+    <string name="connection_timeout_title">Network Problem</string>
+    <string name="connection_timeout_message">Network Problem. Please check if you are online.</string>
+    <string name="url_copy_success">Link copied</string>
+    <string name="url_copy_failed">Link cannot be copied</string>
+    <string name="text_copy_success">Text is copied</string>
+    <string name="text_copy_failed">Text cannot be copied</string>
+    <string name="comment_copy_success">Text is copied</string>
+    <string name="comment_copy_failed">Text cannot be copied</string>
+
+    <!-- Login / Signup -->
+    <string name="login">Login</string>
+    <string name="login_forgot_password">Forget Password</string>
+    <string name="login_new_signup">Signup</string>
+    <string name="login_error_title">Login failed</string>
+    <string name="login_error_message">Login failed. Please try again.</string>
+    <string name="login_id_error_message">Login email or password is wrong</string>
+    <string name="signup">Signup</string>
+    <string name="signup_fb_title">Signup with Facebook\n(No email verification required. Complete in 1 minute)</string>
+    <string name="signup_fb_note">Note: BabyBox will not post to your Facebook account</string>
+    <string name="signup_email_title">Signup with Email</string>
+    <string name="signup_lastname_hint">Lastname</string>
+    <string name="signup_firstname_hint">Firstname</string>
+    <string name="signup_email_hint">Your email</string>
+    <string name="signup_password_hint">Password</string>
+    <string name="signup_password_confirm_hint">Enter password again</string>
+    <string name="signup_privacy">Privacy</string>
+    <string name="signup_terms">Terms</string>
+    <string name="signup_success_title">Welcome to BabyBox! An email will be sent to you.</string>
+    <string name="signup_success_title_2">Click the link in the email to complete your registration.</string>
+    <string name="signup_success_note">Note: If you had not received confirmation email from BabyBox. Please check and see if it had dropped to your Ads/Spams folder.</string>
+    <string name="signup_error_email_unverified">Email is not verified. Please check your email account and click the verification link in the email - </string>
+    <string name="signup_error_email_already_exists">Email is already registered</string>
+    <string name="signup_error_password_min_char">Password should be at least 4 characters</string>
+    <string name="signup_error_password_not_identical">Password does not match</string>
+    <string name="signup_error_please_check">Please check information entered</string>
+    <string name="signup_error_field_required">Required</string>
+    <string name="signup_error_email_format">Email format is not correct</string>
+    <string name="signup_error_displayname_no_space">Display name should not contain space</string>
+    <string name="signup_error_displayname_format">Display name should contains Chinese/English characters、numbers and _ . -</string>
+    <string name="signup_error_displayname_min_max_char">Display name should be at least 2 characters and at most 20 characters</string>
+
+    <string name="signup_details_greeting">Welcome to BabyBox</string>
+    <string name="signup_details_displayname_title">Display Name : </string>
+    <string name="signup_details_displayname_note">Note: Only your display name will be shown to public</string>
+    <string name="signup_details_location_title">Location : </string>
+    <string name="signup_details_location_note">Note: BabyBox will push relevant informatio to you based on your location</string>
+    <string name="signup_details_location">-Select-</string>
+    <string name="signup_details_status_title">You are : </string>
+    <string name="signup_details_mom">Mom</string>
+    <string name="signup_details_dad">Dad</string>
+    <string name="signup_details_soon_mom">Soon-to-be Mom</string>
+    <string name="signup_details_soon_dad">Soon-to-be Dad</string>
+    <string name="signup_details_not_parent">Not parent yet</string>
+    <string name="signup_details_text_you_have">You have</string>
+    <string name="signup_details_text_babies"> babies</string>
+    <string name="signup_details_text_baby_is">Babies are : </string>
+    <string name="signup_details_boy">Boy</string>
+    <string name="signup_details_girl">Girl</string>
+    <string name="signup_details_text_birthday">Birthday : </string>
+    <string name="signup_details_complete">Done!</string>
+    <string name="signup_details_error_info">Please check information entered and try again</string>
+    <string name="signup_details_error_displayname_already_exists">Display name not available. Please try another one.</string>
+    <string name="signup_details_error_displayname_not_entered">Please enter display name</string>
+    <string name="signup_details_error_displayname_format">Display name format not correct</string>
+    <string name="signup_details_error_name_not_entered">Please enter your name</string>
+    <string name="signup_details_error_location_not_entered">Please select location</string>
+    <string name="signup_details_error_status_not_entered">Please select your status</string>
+    <string name="signup_details_error_baby_not_entered">Please enter gender and birthday of you baby</string>
+
+    <!-- Main -->
+    <string name="tabset_home">BabyBox</string>
+    <string name="tabset_activity">Activity</string>
+    <string name="tabset_profile">Me</string>
+
+    <!-- Tips -->
+    <string name="home_explore_tips">All products in BabyBox are listed by moms. Explore most popular products now！</string>
+    <string name="home_following_tips">Follow your favorite sellers. Explore their newest products.</string>
+    <string name="category_tips">Explore products by category filters.</string>
+    <string name="my_profile_tips">Click \"Sell\" to list your product now\nEverymom is BabyBox seller！</string>
+
+    <!-- Home tab -->
+    <string name="main_tab_explore">Explore</string>
+    <string name="main_tab_following">Following</string>
+    <string name="suggest_for_you">Suggested For You</string>
+    <string name="follow">Follow</string>
+    <string name="following">Following</string>
+    <string name="followings">Followings</string>
+    <string name="followers">Followers</string>
+    <string name="seller_followers">Followers</string>
+    <string name="products">Products</string>
+
+    <!-- Activity tab -->
+    <string name="no_activity">~ No Activity ~</string>
+    <string name="activity_posted">New product listed:</string>
+    <string name="activity_commented">commented on product:</string>
+    <string name="activity_liked">liked your product.</string>
+    <string name="activity_followed">started following you.</string>
+    <string name="activity_sold">already sold.</string>
+
+    <!-- Category page -->
+    <string name="category">Category</string>
+    <string name="filter_popular">Popular</string>
+    <string name="filter_newest">Newest</string>
+    <string name="filter_price_low_high">$ ⇾ $$</string>
+    <string name="filter_price_high_low">$$ ⇾ $</string>
+    <string name="filter_all">All Products</string>
+    <string name="filter_new">New</string>
+    <string name="filter_used">Used</string>
+
+    <!-- Product page -->
+    <string name="post_details">Product Details:</string>
+    <string name="image">Photo</string>
+    <string name="like">Like</string>
+    <string name="likes">Likes</string>
+    <string name="comments">Comments</string>
+    <string name="chat">Chat</string>
+    <string name="buy">Buy Now</string>
+    <string name="buy_again">Buy Again</string>
+    <string name="view_chats">View Chats</string>
+    <string name="mark_as_sold">Mark as Sold</string>
+    <string name="sold">Sold</string>
+    <string name="sold_view_chats">Sold - View Chats</string>
+    <string name="listed">Listed</string>
+    <string name="more_products">More Products</string>
+    <string name="comment_bar_hint"></string>
+    <string name="no_products">~ No Products ~</string>
+    <string name="no_product_comments">~ No Comments ~</string>
+
+    <string name="edit_post_action">Edit</string>
+    <string name="new_post_action">List</string>
+    <string name="edit_post_actionbar_title">Edit Product</string>
+    <string name="new_post_actionbar_title">Sell Product</string>
+    <string name="new_post">Send</string>
+    <string name="new_post_price">Price($):</string>
+    <string name="new_post_price_hint">Set a Price</string>
+    <string name="new_post_condition">Condition:</string>
+    <string name="new_post_condition_select">-Select-</string>
+    <string name="new_post_to_popup_title">Choose a Category</string>
+    <string name="new_post_to">Category:</string>
+    <string name="new_post_select_category">Choose a Category</string>
+    <string name="new_post_title">What are you selling?</string>
+    <string name="new_post_body">Product details</string>
+    <string name="new_post_max_images">You can select up to %1$d photos</string>
+    <string name="post_success">Successfully %1$s Product</string>
+    <string name="post_failed">Failed to %1$s Product. Please try again later.</string>
+
+    <string name="new_with_tag">New (sealed/with tags)</string>
+    <string name="new_without_tag">New (unsealed/without tags)</string>
+    <string name="used">Used</string>
+
+    <string name="post_delete_confirm">Delete now?</string>
+    <string name="post_sold_confirm">Confirm product has been sold?\nYou will no longer receive chats and orders for this product</string>
+    <string name="post_not_found">Cannot find this product. It might have been removed.</string>
+    <string name="post_delete_success">Delete successfully</string>
+    <string name="post_delete_failed">Failed to delete. Please try again later.</string>
+    <string name="comment_delete_success">Delete successfully</string>
+    <string name="comment_delete_failed">Failed to delete. Please try again later.</string>
+    <string name="post_actionbar_title">Product Details</string>
+    <string name="comment_success">Comment successfully</string>
+    <string name="comment_failed">Failed to comment. Please try again later.</string>
+    <string name="photo_select_title">Select Photo</string>
+    <string name="photo_select_gallery">From Gallery</string>
+    <string name="photo_select_camera">From Camera</string>
+    <string name="photo_select">Select photo for product</string>
+    <string name="photo_not_found">Cannot find photo</string>
+    <string name="photo_size_too_big">Photo size too big. Please select another photo.</string>
+    <string name="timeago_just_now">Moments ago</string>
+    <string name="timeago_min">mins ago</string>
+    <string name="timeago_hrs">hours ago</string>
+    <string name="timeago_yesterday">Yesterday</string>
+    <string name="timeago_days">days ago</string>
+    <string name="timeago_weeks">weeks ago</string>
+    <string name="timeago_months">months ago</string>
+    <string name="timeago_years">years ago</string>
+    <string name="delete">Delete</string>
+    <string name="list_loading">Loading...</string>
+    <string name="list_loading_error">Problem during loading. Please check network connection and try again.</string>
+    <string name="list_loaded_all">- Loaded all items -</string>
+    <string name="sharing_app_not_installed"> App is not installed</string>
+    <string name="sharing_message_note">(Shared from BabyBox，Install Android App now)</string>
+
+    <!-- Profile tab -->
+    <string name="settings_actionbar_title">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="my_profile_actionbar_title"></string>
+    <string name="user_profile_actionbar_title">Profile</string>
+    <string name="edit_user_info">Edit Info</string>
+    <string name="edit_user_info_login_method">Login with : </string>
+    <string name="edit_user_info_email">Email : </string>
+    <string name="edit_user_info_aboutme">Description : </string>
+    <string name="edit_user_info_name">Name : </string>
+    <string name="edit_user_info_save">Save</string>
+
+    <string name="edit_cover_image">Upload Cover Photo</string>
+    <string name="edit_profile_image">Upload Profile Photo</string>
+
+    <string name="no_messages">~ No Chats ~</string>
+    <string name="no_followers">~ No followers yet ~</string>
+    <string name="no_followings">~ No followings yet ~</string>
+
+    <string name="pm_actionbar_title">Chats</string>
+    <string name="pm_max_images">You can select %1$d photo</string>
+    <string name="pm_load_more">LOAD EARLIER MESSAGES</string>
+    <string name="pm_start_failed">Chat cannot be opened. Please try again later.</string>
+    <string name="pm_send_failed">Message cannot be sent. Please try again later.</string>
+    <string name="pm_buy">Buy</string>
+    <string name="pm_sell">Sell</string>
+    <string name="pm_sold">Sold</string>
+    <string name="pm_buy_confirm">Buy now\nSend an order to Seller</string>
+
+    <string name="pm_buy_message">你好！我要購買商品。</string>
+    <string name="pm_cancelled_message">購買已取消。</string>
+    <string name="pm_accepted_message">購買已被接受。</string>
+    <string name="pm_declined_message">購買不被接受。</string>
+
+    <string name="pm_order_buy_text">Interested?</string>
+    <string name="pm_order_buy">Buy Now</string>
+    <string name="pm_order_cancel_text">Ordered</string>
+    <string name="pm_order_cancel">Cancel Order</string>
+    <string name="pm_order_cancelled">Order cancelled</string>
+    <string name="pm_order_new_text">You have new order</string>
+    <string name="pm_order_accept">Accept</string>
+    <string name="pm_order_accepted_for_buyer">Seller has accepted your order</string>
+    <string name="pm_order_accepted_for_seller">Order has been accepted</string>
+    <string name="pm_order_decline">Decline</string>
+    <string name="pm_order_declined_for_buyer">Seller declined your order</string>
+    <string name="pm_order_declined_for_seller">Order has been declined</string>
+    <string name="pm_order_failed">Order cannot be sent. Please try again later.</string>
+    <string name="pm_order_already">You have placed an order already. You may chat with seller.</string>
+    <string name="pm_order_already_closed">Order has been completed. Contact seller if any questions.</string>
+    <string name="pm_order_buy_confirm">Buy now\nSend order to seller</string>
+    <string name="pm_order_cancel_confirm">Cancel order?</string>
+    <string name="pm_order_accept_confirm">Accept order?</string>
+    <string name="pm_order_decline_confirm">Decline order?</string>
+
+    <!-- Seller -->
+    <string name="seller_credit">points</string>
+    <string name="seller_rules_title">Seller Policy</string>
+
+    <!-- Dialog -->
+    <string name="cancel_post">Cancel %1$s product？</string>
+    <string name="exit_app">Exit BabyBox？</string>
+    <string name="logout_message">Logout from BabyBox？</string>
+    <string name="delete_account_message">Confirm to delete account？</string>
+    <string name="yes">Yes</string>
+    <string name="no">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Validation -->
+    <string name="invalid_post_no_photo">Please upload photo</string>
+    <string name="invalid_post_title_empty">Please fill out title</string>
+    <string name="invalid_post_desc_empty">Please fill out description</string>
+    <string name="invalid_post_price_empty">Please enter a price</string>
+    <string name="invalid_post_price_not_number">Price should be numbers</string>
+    <string name="invalid_post_condition_empty">Please select a condition</string>
+    <string name="invalid_comment_body_empty">Please enter comment</string>
+
+    <!-- Image processing library -->
+    <string name="no_media">Album not found</string>
+    <string name="crop__saving">Saving image...</string>
+    <string name="crop__wait">Please wait...</string>
+    <string name="crop__pick_error">Photo not found</string>
+    <string name="crop__done">Done!</string>
+    <string name="crop__cancel">Cancel</string>
+
+    <!-- GCM -->
+    <string name="gcm_new_conversations">%1$d new messages</string>
+    <string name="gcm_new_comments">%1$d new comments</string>
+
+    <!-- Admin -->
+    <string name="id">ID:</string>
+    <string name="score">Score:</string>
+    <string name="score_adjust">Score Adjust:</string>
+    <string name="score_adjust_success">Score Adjust by %1$s</string>
+    <string name="score_adjust_reset_success">Score Adjust Reset to 0</string>
+    <string name="score_adjust_failure">Score Adjust Failure:\n%1$s</string>
+
+</resources>

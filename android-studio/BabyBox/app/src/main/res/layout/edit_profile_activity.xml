@@ -48,7 +48,7 @@
                     android:textColor="@color/dark_gray_3"
                     android:layout_weight="3"
                     android:layout_gravity="center_vertical"
-                    android:singleLine="true" />
+                    android:singleLine="false" />
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -91,7 +91,7 @@
                     android:textColor="@color/dark_gray_3"
                     android:layout_weight="3"
                     android:layout_gravity="center_vertical"
-                    android:singleLine="true" />
+                    android:singleLine="false" />
 
                 <TextView
                     android:id="@+id/displayEmailText"
@@ -127,7 +127,7 @@
                     android:textColor="@color/dark_gray_3"
                     android:layout_weight="3"
                     android:layout_gravity="center_vertical"
-                    android:singleLine="true" />
+                    android:singleLine="false" />
 
                 <EditText
                     android:id="@+id/displaynameEdit"
@@ -194,7 +194,7 @@
                     android:textSize="16dp"
                     android:text="@string/edit_user_info_aboutme"
                     android:textColor="@color/dark_gray_3"
-                    android:singleLine="true"
+                    android:singleLine="false"
                     android:layout_weight="3" />
 
                 <EditText
@@ -216,7 +216,6 @@
                 android:id="@+id/nameLayout"
                 android:layout_below="@+id/aboutmeLayout"
                 android:layout_marginTop="10dp"
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -232,7 +231,7 @@
                     android:text="@string/edit_user_info_name"
                     android:textColor="@color/dark_gray_3"
                     android:layout_gravity="center_vertical"
-                    android:singleLine="true"
+                    android:singleLine="false"
                     android:layout_weight="3" />
 
                 <EditText
@@ -244,7 +243,7 @@
                     android:layout_height="35dp"
                     android:background="@drawable/edit_text_round"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:singleLine="true"
                     android:inputType="textNoSuggestions|textCapWords" />
                 <EditText
@@ -282,7 +281,7 @@
                     android:textColor="@color/dark_gray_3"
                     android:layout_weight="3"
                     android:layout_gravity="center_vertical"
-                    android:singleLine="true" />
+                    android:singleLine="false" />
 
                 <Spinner
                     android:id="@+id/locationSpinner"

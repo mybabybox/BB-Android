@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/productLayout"
-                    android:background="@drawable/button_light_gray_border"
+                    android:background="@drawable/box_light_gray_border"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp">
@@ -551,7 +551,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/sellerLayout"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/button_light_gray_border"
+                    android:background="@drawable/box_light_gray_border"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp">
 
@@ -629,7 +629,7 @@
                     android:layout_height="50dp"
                     android:id="@+id/likesLayout"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/button_light_gray_border"
+                    android:background="@drawable/box_light_gray_border"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:visibility="gone" />
@@ -640,7 +640,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/commentsLayout"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/button_light_gray_border"
+                    android:background="@drawable/box_light_gray_border"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp">
@@ -716,7 +716,7 @@
                             android:layout_width="60dp"
                             android:layout_height="match_parent"
                             android:id="@+id/sendButton"
-                            android:background="@drawable/button_gray_border"
+                            android:background="@drawable/button_light_gray_border"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:scaleType="fitCenter"
