@@ -257,7 +257,7 @@
 
                 <Spinner
                     android:id="@+id/conditionTypeSpinner"
-                    android:layout_width="220dp"
+                    android:layout_width="235dp"
                     android:layout_height="35dp"
                     android:spinnerMode="dropdown"
                     android:layout_gravity="center"

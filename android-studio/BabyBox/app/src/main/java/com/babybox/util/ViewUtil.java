@@ -13,9 +13,6 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -148,12 +145,12 @@ public class ViewUtil {
         USED
     }
 
+    public static String[] HOME_MAIN_TITLES;
+
     private static Map<PostConditionType, String> postConditionTypeMap = new HashMap<>();
 
     static {
-        postConditionTypeMap.put(PostConditionType.NEW_WITH_TAG, AppController.getInstance().getString(R.string.new_with_tag));
-        postConditionTypeMap.put(PostConditionType.NEW_WITHOUT_TAG, AppController.getInstance().getString(R.string.new_without_tag));
-        postConditionTypeMap.put(PostConditionType.USED, AppController.getInstance().getString(R.string.used));
+        initCachedLocaleStrings();
     }
 
     private ViewUtil() {}
@@ -161,6 +158,18 @@ public class ViewUtil {
     //
     // Helper
     //
+
+    public static void initCachedLocaleStrings() {
+        HOME_MAIN_TITLES = new String[] {
+                AppController.getInstance().getString(R.string.main_tab_explore),
+                AppController.getInstance().getString(R.string.main_tab_following)
+        };
+
+        postConditionTypeMap.clear();
+        postConditionTypeMap.put(PostConditionType.NEW_WITH_TAG, AppController.getInstance().getString(R.string.new_with_tag));
+        postConditionTypeMap.put(PostConditionType.NEW_WITHOUT_TAG, AppController.getInstance().getString(R.string.new_without_tag));
+        postConditionTypeMap.put(PostConditionType.USED, AppController.getInstance().getString(R.string.used));
+    }
 
     public static int random(int low, int high) {
         return low + (int)(Math.random() * (high - low));
@@ -231,6 +240,9 @@ public class ViewUtil {
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
         SharedPreferencesUtil.getInstance().saveLang(lang);
+
+        // cached locale strings
+        initCachedLocaleStrings();
     }
 
     public static void addDots(Activity activity, final int numPages, LinearLayout dotsLayout, final List<ImageView> dots, ViewPager viewPager) {

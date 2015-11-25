@@ -75,23 +75,18 @@ public class HomeMainFragment extends TrackedFragment {
  */
 class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static String[] TITLES = new String[] {
-            AppController.getInstance().getString(R.string.main_tab_explore),
-            AppController.getInstance().getString(R.string.main_tab_following)
-    };
-
     public HomeMainPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return TITLES[position];
+        return ViewUtil.HOME_MAIN_TITLES[position];
     }
 
     @Override
     public int getCount() {
-        return TITLES.length;
+        return ViewUtil.HOME_MAIN_TITLES.length;
     }
 
     @Override
