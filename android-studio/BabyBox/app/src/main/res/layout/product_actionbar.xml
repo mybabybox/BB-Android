@@ -65,7 +65,12 @@
                 android:src="@drawable/ic_link_copy"
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
-                android:visibility="gone" />
+		android:visibility="gone"
+                 />
+            <com.facebook.share.widget.ShareButton
+                android:id="@+id/fb_share_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
 
             <TextView
                 android:id="@+id/editPostAction"

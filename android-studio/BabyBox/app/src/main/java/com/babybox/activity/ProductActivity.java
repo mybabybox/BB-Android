@@ -56,6 +56,9 @@ import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
+import com.facebook.FacebookSdk;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 
 import org.joda.time.DateTime;
 import org.parceler.apache.commons.lang.StringUtils;
@@ -108,18 +111,26 @@ public class ProductActivity extends TrackedFragmentActivity {
     private CommentListAdapter commentListAdapter;
 
     private boolean pending = false;
+    private ShareButton fbShareButton;
+
+    private ShareDialog shareDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.product_activity);
 
+
+
+
+        shareDialog = new ShareDialog(this);
         mainLayout = (FrameLayout) findViewById(R.id.mainLayout);
         backImage = (ImageView) findViewById(R.id.backImage);
         whatsappAction = (ImageView) findViewById(R.id.whatsappAction);
         copyLinkAction = (ImageView) findViewById(R.id.copyLinkAction);
         editPostAction = (TextView) findViewById(R.id.editPostAction);
+        fbShareButton = (ShareButton)findViewById(R.id.fb_share_button);
 
         imagePager = (AdaptiveViewPager) findViewById(R.id.imagePager);
         dotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
@@ -485,6 +496,13 @@ public class ProductActivity extends TrackedFragmentActivity {
                     @Override
                     public void onClick(View v) {
                         SharingUtil.shareToWhatapp(post, ProductActivity.this);
+                    }
+                });
+
+                fbShareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharingUtil.shareToFacebook(post,ProductActivity.this);
                     }
                 });
 

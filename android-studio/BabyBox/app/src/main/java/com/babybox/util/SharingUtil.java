@@ -1,7 +1,8 @@
 package com.babybox.util;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.text.Html;
 import android.widget.Toast;
 
@@ -9,11 +10,15 @@ import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.PostVM;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 /**
  * Created by keithlei on 3/16/15.
  */
 public class SharingUtil {
+
+    static PostVM postVm;
 
     public enum SharingType {
         WHATSAPP,
@@ -27,20 +32,22 @@ public class SharingUtil {
 
     private SharingUtil() {}
 
-    public static void shareToWhatapp(CategoryVM category, Context context) {
+    public static void shareToWhatapp(CategoryVM category, Activity context) {
         shareTo(createMessage(category), SharingType.WHATSAPP, context);
+
     }
 
-    public static void shareToFacebook(CategoryVM category, Context context) {
+    public static void shareToFacebook(CategoryVM category, Activity context) {
         shareTo(createMessage(category), SharingType.FACEBOOK, context);
     }
 
-    public static void shareToWhatapp(PostVM post, Context context) {
+    public static void shareToWhatapp(PostVM post, Activity context) {
         shareTo(createMessage(post), SharingType.WHATSAPP, context);
     }
 
-    public static void shareToFacebook(PostVM post, Context context) {
-        shareTo(createMessage(post), SharingType.FACEBOOK, context);
+    public static void shareToFacebook(PostVM post, Activity activity) {
+        postVm = post;
+        shareTo(createMessage(post), SharingType.FACEBOOK, activity);
     }
 
     /**
@@ -50,7 +57,7 @@ public class SharingUtil {
      * @param type
      * @param context
      */
-    public static void shareTo(String message, SharingType type, Context context) {
+    public static void shareTo(String message, SharingType type, Activity context) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(message).toString());
@@ -59,18 +66,18 @@ public class SharingUtil {
         switch(type) {
             case WHATSAPP:
                 sendIntent.setPackage("com.whatsapp");
+                try {
+                    context.startActivity(sendIntent);
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(AppController.getInstance(),
+                            getSharingTypeName(type) + AppController.getInstance().getString(R.string.sharing_app_not_installed),
+                            Toast.LENGTH_SHORT).show();
+                }
                 break;
             case FACEBOOK:
                 // fill in fb logic
+                shareOnFB(message,context);
                 break;
-        }
-
-        try {
-            context.startActivity(sendIntent);
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(AppController.getInstance(),
-                    getSharingTypeName(type) + AppController.getInstance().getString(R.string.sharing_app_not_installed),
-                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -102,5 +109,23 @@ public class SharingUtil {
                 return "Whatsapp";
         }
         return "";
+    }
+
+    public static void shareOnFB(String message,Activity activity){
+        ShareDialog shareDialog;
+        shareDialog = new ShareDialog(activity);
+
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentTitle("BabyBox")
+                    .setContentDescription(
+                            message)
+                    .setContentUrl(Uri.parse(UrlUtil.createPostUrl(postVm)))
+                    .build();
+            shareDialog.show(linkContent);
+        }
+
+
+
     }
 }
