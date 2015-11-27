@@ -49,6 +49,22 @@
             android:gravity="center"
             android:layout_marginRight="5dp">
 
+            <!--com.facebook.share.widget.ShareButton
+                android:id="@+id/facebookAction"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:visibility="gone" /-->
+
+            <ImageView
+                android:id="@+id/facebookAction"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_facebook"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
+
             <ImageView
                 android:id="@+id/whatsappAction"
                 android:layout_width="30dp"
@@ -65,12 +81,7 @@
                 android:src="@drawable/ic_link_copy"
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
-		android:visibility="gone"
-                 />
-            <com.facebook.share.widget.ShareButton
-                android:id="@+id/fb_share_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/editPostAction"

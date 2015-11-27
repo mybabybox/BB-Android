@@ -10,6 +10,7 @@ import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.PostVM;
+import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 
@@ -17,8 +18,6 @@ import com.facebook.share.widget.ShareDialog;
  * Created by keithlei on 3/16/15.
  */
 public class SharingUtil {
-
-    static PostVM postVm;
 
     public enum SharingType {
         WHATSAPP,
@@ -32,22 +31,21 @@ public class SharingUtil {
 
     private SharingUtil() {}
 
-    public static void shareToWhatapp(CategoryVM category, Activity context) {
-        shareTo(createMessage(category), SharingType.WHATSAPP, context);
+    public static void shareToWhatsapp(CategoryVM category, Activity activity) {
+        shareTo(createMessage(category), UrlUtil.createCategoryUrl(category), SharingType.WHATSAPP, activity);
 
     }
 
-    public static void shareToFacebook(CategoryVM category, Activity context) {
-        shareTo(createMessage(category), SharingType.FACEBOOK, context);
+    public static void shareToFacebook(CategoryVM category, Activity activity) {
+        shareTo(createMessage(category), UrlUtil.createCategoryUrl(category), SharingType.FACEBOOK, activity);
     }
 
-    public static void shareToWhatapp(PostVM post, Activity context) {
-        shareTo(createMessage(post), SharingType.WHATSAPP, context);
+    public static void shareToWhatsapp(PostVM post, Activity activity) {
+        shareTo(createMessage(post), UrlUtil.createPostUrl(post), SharingType.WHATSAPP, activity);
     }
 
     public static void shareToFacebook(PostVM post, Activity activity) {
-        postVm = post;
-        shareTo(createMessage(post), SharingType.FACEBOOK, activity);
+        shareTo(createMessage(post), UrlUtil.createPostUrl(post), SharingType.FACEBOOK, activity);
     }
 
     /**
@@ -55,29 +53,44 @@ public class SharingUtil {
      *
      * @param message
      * @param type
-     * @param context
+     * @param activity
      */
-    public static void shareTo(String message, SharingType type, Activity context) {
+    public static void shareTo(String message, String url, SharingType type, Activity activity) {
+        switch(type) {
+            case WHATSAPP:
+                shareToWhatsapp(message, url, activity);
+                break;
+            case FACEBOOK:
+                shareToFacebook(message, url, activity);
+                break;
+        }
+    }
+
+    private static void shareToWhatsapp(String message, String url, Activity activity) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(message).toString());
         sendIntent.setType("text/plain");
+        sendIntent.setPackage("com.whatsapp");
+        try {
+            activity.startActivity(sendIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(AppController.getInstance(),
+                    getSharingTypeName(SharingType.WHATSAPP) + AppController.getInstance().getString(R.string.sharing_app_not_installed),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 
-        switch(type) {
-            case WHATSAPP:
-                sendIntent.setPackage("com.whatsapp");
-                try {
-                    context.startActivity(sendIntent);
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(AppController.getInstance(),
-                            getSharingTypeName(type) + AppController.getInstance().getString(R.string.sharing_app_not_installed),
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
-            case FACEBOOK:
-                // fill in fb logic
-                shareOnFB(message,context);
-                break;
+    private static void shareToFacebook(String message, String url, Activity activity) {
+        FacebookSdk.sdkInitialize(activity);
+        ShareDialog shareDialog = new ShareDialog(activity);
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                    .setContentTitle(AppController.APP_NAME)
+                    .setContentDescription(message)
+                    .setContentUrl(Uri.parse(url))
+                    .build();
+            shareDialog.show(linkContent);
         }
     }
 
@@ -107,25 +120,9 @@ public class SharingUtil {
         switch (type) {
             case WHATSAPP:
                 return "Whatsapp";
+            case FACEBOOK:
+                return "Facebook";
         }
         return "";
-    }
-
-    public static void shareOnFB(String message,Activity activity){
-        ShareDialog shareDialog;
-        shareDialog = new ShareDialog(activity);
-
-        if (ShareDialog.canShow(ShareLinkContent.class)) {
-            ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                    .setContentTitle("BabyBox")
-                    .setContentDescription(
-                            message)
-                    .setContentUrl(Uri.parse(UrlUtil.createPostUrl(postVm)))
-                    .build();
-            shareDialog.show(linkContent);
-        }
-
-
-
     }
 }

@@ -56,9 +56,7 @@ import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
-import com.facebook.FacebookSdk;
 import com.facebook.share.widget.ShareButton;
-import com.facebook.share.widget.ShareDialog;
 
 import org.joda.time.DateTime;
 import org.parceler.apache.commons.lang.StringUtils;
@@ -73,7 +71,7 @@ import retrofit.client.Response;
 public class ProductActivity extends TrackedFragmentActivity {
 
     private FrameLayout mainLayout;
-    private ImageView backImage, whatsappAction, copyLinkAction;
+    private ImageView backImage, facebookAction, whatsappAction, copyLinkAction;
     private TextView editPostAction;
 
     private AdaptiveViewPager imagePager;
@@ -111,26 +109,19 @@ public class ProductActivity extends TrackedFragmentActivity {
     private CommentListAdapter commentListAdapter;
 
     private boolean pending = false;
-    private ShareButton fbShareButton;
-
-    private ShareDialog shareDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.product_activity);
 
-
-
-
-        shareDialog = new ShareDialog(this);
         mainLayout = (FrameLayout) findViewById(R.id.mainLayout);
         backImage = (ImageView) findViewById(R.id.backImage);
+        facebookAction = (ImageView)findViewById(R.id.facebookAction);
         whatsappAction = (ImageView) findViewById(R.id.whatsappAction);
         copyLinkAction = (ImageView) findViewById(R.id.copyLinkAction);
         editPostAction = (TextView) findViewById(R.id.editPostAction);
-        fbShareButton = (ShareButton)findViewById(R.id.fb_share_button);
 
         imagePager = (AdaptiveViewPager) findViewById(R.id.imagePager);
         dotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
@@ -313,6 +304,30 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
+                titleText.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (ViewUtil.copyToClipboard(descText.getText().toString())) {
+                            Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.text_copy_success), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.text_copy_failed), Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+
+                descText.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (ViewUtil.copyToClipboard(descText.getText().toString())) {
+                            Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.text_copy_success), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.text_copy_failed), Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+
                 // like
 
                 if (post.isLiked()) {
@@ -491,18 +506,19 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // actionbar
 
+                facebookAction.setVisibility(View.GONE);
+                facebookAction.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SharingUtil.shareToFacebook(post, ProductActivity.this);
+                    }
+                });
+
                 whatsappAction.setVisibility(View.GONE);
                 whatsappAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SharingUtil.shareToWhatapp(post, ProductActivity.this);
-                    }
-                });
-
-                fbShareButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SharingUtil.shareToFacebook(post,ProductActivity.this);
+                        SharingUtil.shareToWhatsapp(post, ProductActivity.this);
                     }
                 });
 
@@ -535,9 +551,9 @@ public class ProductActivity extends TrackedFragmentActivity {
                 adminLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
                 if (UserInfoCache.getUser().isAdmin()) {
                     showActionBarTitle(false);
+                    facebookAction.setVisibility(View.VISIBLE);
                     whatsappAction.setVisibility(View.VISIBLE);
                     copyLinkAction.setVisibility(View.VISIBLE);
-                    //editPostAction.setVisibility(View.VISIBLE);
 
                     TextView idText = (TextView) findViewById(R.id.idText);
                     TextView numViewsText = (TextView) findViewById(R.id.numViewsText);

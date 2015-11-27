@@ -75,7 +75,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         whatsappAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharingUtil.shareToWhatapp(category, getActivity());
+                SharingUtil.shareToWhatsapp(category, getActivity());
             }
         });
 
