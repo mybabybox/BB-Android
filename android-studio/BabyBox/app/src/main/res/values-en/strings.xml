@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="env">dev</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
-    <string name="base_url">http://192.168.1.145:9000</string>
+    <string name="base_url"></string>
+    <string name="base_url_dev">http://192.168.1.145:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">Sorry.. BabyBox encountered problem and exit</string>
@@ -22,7 +24,7 @@
     <string name="lang_zh">中文</string>
     <string name="lang_en">English</string>
     <string name="lang_desc">Language:</string>
-    <string name="lang_confirm">Confirm to change language? (BabyBox will be restarted)</string>
+    <string name="lang_confirm">Confirm to change language?\n(BabyBox will be restarted)</string>
     <string name="lang_complete">Language change will take effect after restart</string>
 
     <string name="clipboard_text_label">Copy</string>
@@ -110,7 +112,7 @@
     <string name="main_tab_explore">Explore</string>
     <string name="main_tab_following">Following</string>
     <string name="suggest_for_you">Suggested For You</string>
-    <string name="follow">Follow</string>
+    <string name="follow">+ Follow</string>
     <string name="following">Following</string>
     <string name="followings">Followings</string>
     <string name="followers">Followers</string>
@@ -136,6 +138,8 @@
     <string name="filter_used">Used</string>
 
     <!-- Product page -->
+    <string name="view_shop">View Shop</string>
+    <string name="last_active"> active</string>
     <string name="post_details">Product Details:</string>
     <string name="image">Photo</string>
     <string name="like">Like</string>

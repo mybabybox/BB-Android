@@ -561,44 +561,53 @@
                         android:layout_height="50dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginRight="10dp"></ImageView>
+                        android:layout_marginBottom="10dp"></ImageView>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical">
+                        android:layout_gravity="center_vertical"
+                        android:padding="7dp">
 
                         <TextView
                             android:id="@+id/sellerNameText"
                             android:layout_width="wrap_content"
                             android:textColor="@color/pink"
                             android:layout_height="wrap_content"
-                            android:textSize="16dp"
+                            android:textSize="15dp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginTop="10dp"
                             android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/sellerLastActiveText"
+                            android:layout_width="wrap_content"
+                            android:textColor="@color/gray"
+                            android:layout_height="wrap_content"
+                            android:textSize="12dp"
+                            android:layout_gravity="center_vertical"
+                            android:text="@string/last_active"
+                            android:layout_below="@+id/sellerNameText" />
 
                         <TextView
                             android:id="@+id/sellerProductsText"
                             android:layout_width="wrap_content"
                             android:textColor="@color/gray"
                             android:layout_height="wrap_content"
-                            android:textSize="14dp"
+                            android:textSize="13dp"
                             android:layout_gravity="center_vertical"
                             android:text="@string/products"
-                            android:layout_below="@+id/sellerNameText"
-                            android:layout_marginTop="2dp" />
+                            android:layout_below="@+id/sellerLastActiveText"
+                            android:layout_marginTop="3dp" />
 
                         <TextView
                             android:id="@+id/sellerFollowersText"
                             android:layout_width="wrap_content"
                             android:textColor="@color/gray"
                             android:layout_height="wrap_content"
-                            android:textSize="14dp"
+                            android:textSize="13dp"
                             android:layout_gravity="center_vertical"
                             android:text="@string/seller_followers"
-                            android:layout_below="@+id/sellerNameText"
+                            android:layout_below="@+id/sellerLastActiveText"
                             android:layout_marginTop="2dp"
                             android:layout_toRightOf="@+id/sellerProductsText"
                             android:layout_marginLeft="10dp" />
@@ -608,17 +617,16 @@
                             android:layout_height="30dp"
                             android:id="@+id/followButton"
                             android:background="@drawable/button_pink_border"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
                             android:scaleType="fitCenter"
                             android:src="@drawable/arrow_next"
-                            android:layout_marginRight="10dp"
-                            android:text="@string/follow"
+                            android:text="@string/view_shop"
                             android:textColor="@color/light_pink"
                             android:textSize="14dp"
                             android:layout_alignParentRight="true"
                             android:textAllCaps="false"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp" />
                     </RelativeLayout>
 
                 </LinearLayout>

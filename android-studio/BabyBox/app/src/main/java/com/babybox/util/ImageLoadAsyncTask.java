@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.babybox.R;
+import com.babybox.app.AppController;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,8 +37,8 @@ public class ImageLoadAsyncTask extends AsyncTask<Object, Void, Bitmap> {
         showSpinner(true);
 
         String source = (String) params[1];
-        if (!source.startsWith(activity.getResources().getString(R.string.base_url))) {
-            source = activity.getResources().getString(R.string.base_url) + source;
+        if (!source.startsWith(AppController.BASE_URL)) {
+            source = AppController.BASE_URL + source;
         }
 
         imageView = (ImageView) params[2];

@@ -21,8 +21,8 @@ android {
         applicationId "com.babybox.app"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 9
-        versionName "1.0.9"
+        versionCode 10
+        versionName "1.0.10"
 
         // Enabling multidex support.
         multiDexEnabled true

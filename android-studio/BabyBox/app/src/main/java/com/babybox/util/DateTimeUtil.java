@@ -66,8 +66,9 @@ public class DateTimeUtil {
 
     public static String getTimeAgo(long time, boolean withHrMin) {
         long diff = getTimeDiffFromNow(time);
-        if (diff == -1)
-            return null;
+        if (diff == -1) {       // could be client and server time out sync slightly...
+            return AppController.getInstance().getString(R.string.timeago_just_now);
+        }
 
         if (diff < MINUTE_MILLIS) {
             return AppController.getInstance().getString(R.string.timeago_just_now);

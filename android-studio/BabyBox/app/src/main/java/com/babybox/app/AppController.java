@@ -152,8 +152,14 @@ public class AppController extends Application {
     }
 
     public static void init() {
-        APP_NAME = getInstance().getString(R.string.app_name);
-        BASE_URL = getInstance().getString(R.string.base_url);
+
+        initApiService();
+
+        initStaticCaches();
+
+        ImageUtil.init();
+
+        SharedPreferencesUtil.getInstance();
 
         try {
             PackageInfo packageInfo =
@@ -165,23 +171,27 @@ public class AppController extends Application {
             throw new RuntimeException(e);
         }
 
-        if (apiService == null) {
-            RestAdapter restAdapter = new RestAdapter.Builder()
-                    .setEndpoint(BASE_URL)
-                    .setClient(new OkClient()).build();
-            BabyBoxApi api = restAdapter.create(BabyBoxApi.class);
-            apiService = new BabyBoxService(api);
-        }
-
-        SharedPreferencesUtil.getInstance();
-
-        ImageUtil.init();
-
-        initStaticCaches();
-
         if (crashReportEnabled) {
             ACRA.init(getInstance());
         }
+    }
+
+    private static String getBaseUrl() {
+        if ("dev".equalsIgnoreCase(getInstance().getString(R.string.env))) {
+            return getInstance().getString(R.string.base_url_dev);
+        }
+        return getInstance().getString(R.string.base_url);
+    }
+
+    public static void initApiService() {
+        APP_NAME = getInstance().getString(R.string.app_name);
+        BASE_URL = getBaseUrl();
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(BASE_URL)
+                .setClient(new OkClient()).build();
+        BabyBoxApi api = restAdapter.create(BabyBoxApi.class);
+        apiService = new BabyBoxService(api);
     }
 
     public static void initStaticCaches() {

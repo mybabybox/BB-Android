@@ -16,7 +16,8 @@ import com.babybox.viewmodel.PostVM;
 public class SharingUtil {
 
     public enum SharingType {
-        WHATSAPP
+        WHATSAPP,
+        FACEBOOK
     }
 
     //public static final String SHARING_MESSAGE_NOTE = AppController.getInstance().getString(R.string.sharing_message_note);
@@ -30,8 +31,16 @@ public class SharingUtil {
         shareTo(createMessage(category), SharingType.WHATSAPP, context);
     }
 
+    public static void shareToFacebook(CategoryVM category, Context context) {
+        shareTo(createMessage(category), SharingType.FACEBOOK, context);
+    }
+
     public static void shareToWhatapp(PostVM post, Context context) {
         shareTo(createMessage(post), SharingType.WHATSAPP, context);
+    }
+
+    public static void shareToFacebook(PostVM post, Context context) {
+        shareTo(createMessage(post), SharingType.FACEBOOK, context);
     }
 
     /**
@@ -50,6 +59,9 @@ public class SharingUtil {
         switch(type) {
             case WHATSAPP:
                 sendIntent.setPackage("com.whatsapp");
+                break;
+            case FACEBOOK:
+                // fill in fb logic
                 break;
         }
 

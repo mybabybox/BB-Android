@@ -86,7 +86,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private LinearLayout sellerLayout;
     private ImageView sellerImage;
-    private TextView sellerNameText, sellerProductsText, sellerFollowersText;
+    private TextView sellerNameText, sellerLastActiveText, sellerProductsText, sellerFollowersText;
 
     private RelativeLayout moreCommentsLayout;
     private ImageView moreCommentsImage;
@@ -156,6 +156,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         sellerLayout = (LinearLayout) findViewById(R.id.sellerLayout);
         sellerImage = (ImageView) findViewById(R.id.sellerImage);
         sellerNameText = (TextView) findViewById(R.id.sellerNameText);
+        sellerLastActiveText = (TextView) findViewById(R.id.sellerLastActiveText);
         sellerProductsText = (TextView) findViewById(R.id.sellerProductsText);
         sellerFollowersText = (TextView) findViewById(R.id.sellerFollowersText);
 
@@ -183,6 +184,14 @@ public class ProductActivity extends TrackedFragmentActivity {
         followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ViewUtil.startUserProfileActivity(ProductActivity.this, post.ownerId);
+            }
+        });
+
+        /*
+        followButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if (isFollowing) {
                     unfollow(ownerId);
                 } else {
@@ -190,6 +199,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 }
             }
         });
+        */
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -251,16 +261,18 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 ownerId = post.getOwnerId();
 
-                if (UserInfoCache.getUser().getId() == ownerId)
+                /*
+                if (UserInfoCache.getUser().getId() == ownerId) {
                     followButton.setVisibility(View.GONE);
+                }
 
                 isFollowing = post.isFollowingOwner();
-
                 if (isFollowing) {
                     ViewUtil.selectFollowButtonStyleLite(followButton);
                 } else {
                     ViewUtil.unselectFollowButtonStyleLite(followButton);
                 }
+                */
 
                 // Image slider
 
@@ -422,6 +434,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 ImageUtil.displayThumbnailProfileImage(post.getOwnerId(), sellerImage);
                 sellerNameText.setText(post.getOwnerName());
+                sellerLastActiveText.setText(ViewUtil.formatSellerLastActive(post.getOwnerLastLogin()));
                 sellerProductsText.setText(ViewUtil.formatSellerProducts(post.getOwnerNumProducts()));
                 sellerFollowersText.setText(ViewUtil.formatSellerFollowers(post.getOwnerNumFollowers()));
 

@@ -112,8 +112,6 @@ public class ConversationListAdapter extends BaseAdapter {
 
         hasImageLayout.setVisibility(item.lastMessageHasImage? View.VISIBLE : View.GONE);
 
-        Log.d(this.getClass().getSimpleName(), item.getLastMessage());
-
         return  view;
     }
 

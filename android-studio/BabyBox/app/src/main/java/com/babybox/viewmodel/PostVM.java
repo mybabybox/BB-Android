@@ -5,6 +5,7 @@ import java.util.List;
 public class PostVM extends PostVMLite {
     public Long ownerNumProducts;
     public Long ownerNumFollowers;
+    public Long ownerLastLogin;
     public Long createdDate;
     public Long updatedDate;
     public String body;
@@ -33,6 +34,14 @@ public class PostVM extends PostVMLite {
 
     public void setOwnerNumFollowers(Long ownerNumFollowers) {
         this.ownerNumFollowers = ownerNumFollowers;
+    }
+
+    public Long getOwnerLastLogin() {
+        return ownerLastLogin;
+    }
+
+    public void setOwnerLastLogin(Long ownerLastLogin) {
+        this.ownerLastLogin = ownerLastLogin;
     }
 
     public long getCreatedDate() {

@@ -446,6 +446,10 @@ public class ViewUtil {
         }
     }
 
+    public static String formatSellerLastActive(Long value) {
+        return DateTimeUtil.getTimeAgo(value) + AppController.getInstance().getString(R.string.last_active);
+    }
+
     public static String formatSellerProducts(Long value) {
         return AppController.getInstance().getString(R.string.products) + ": " + value;
     }

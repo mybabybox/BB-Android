@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="env">dev</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
-    <string name="base_url">http://192.168.1.145:9000</string>
+    <string name="base_url"></string>
+    <string name="base_url_dev">http://192.168.1.145:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">對不起！BabyBox 發生問題要退出</string>
@@ -22,7 +24,7 @@
     <string name="lang_zh">中文</string>
     <string name="lang_en">English</string>
     <string name="lang_desc">語言設定:</string>
-    <string name="lang_confirm">確定轉換語言? (將重新開啟BabyBox)</string>
+    <string name="lang_confirm">確定轉換語言?\n(將重新開啟BabyBox)</string>
     <string name="lang_complete">語言轉換成功並將於下一次生效</string>
 
     <string name="clipboard_text_label">複制信息</string>
@@ -110,7 +112,7 @@
     <string name="main_tab_explore">逛逛</string>
     <string name="main_tab_following">關注</string>
     <string name="suggest_for_you">推介給你</string>
-    <string name="follow">關注</string>
+    <string name="follow">+ 關注</string>
     <string name="following">關注中</string>
     <string name="followings">關注中</string>
     <string name="followers">關注我</string>
@@ -136,6 +138,8 @@
     <string name="filter_used">二手</string>
 
     <!-- Product page -->
+    <string name="view_shop">看看商店</string>
+    <string name="last_active">上線</string>
     <string name="post_details">商品詳情:</string>
     <string name="image">照片</string>
     <string name="like">喜歡</string>
