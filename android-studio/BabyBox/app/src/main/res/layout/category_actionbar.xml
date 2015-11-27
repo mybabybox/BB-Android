@@ -40,26 +40,6 @@
             android:singleLine="true" />
 
         <ImageView
-            android:id="@+id/whatsappAction"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_whatsapp"
-            android:layout_toLeftOf="@+id/copyLinkAction"
-            android:layout_marginRight="10dp"
-            android:layout_centerInParent="true"
-            android:visibility="invisible" />
-
-        <ImageView
-            android:id="@+id/copyLinkAction"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/ic_link_copy"
-            android:layout_toLeftOf="@+id/newPostAction"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="10dp"
-            android:visibility="invisible" />
-
-        <ImageView
             android:id="@+id/newPostAction"
             android:layout_width="35dp"
             android:layout_height="match_parent"

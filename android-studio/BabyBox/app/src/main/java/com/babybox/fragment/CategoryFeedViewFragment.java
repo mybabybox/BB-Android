@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
@@ -17,9 +16,6 @@ import com.babybox.app.CategoryCache;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageMapping;
 import com.babybox.util.ImageUtil;
-import com.babybox.util.SharedPreferencesUtil;
-import com.babybox.util.SharingUtil;
-import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 
@@ -40,7 +36,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     private FeedFilter.FeedType feedType;
     private FeedFilter.FeedProductType productType;
 
-    private ImageView backImage, whatsappAction, copyLinkAction, newPostAction;
+    private ImageView backImage, newPostAction;
 
     private Button popularFilterButton, newestFilterButton, priceLowHighFilterButton, priceHighLowFilterButton;
     private Button newFilterButton, usedFilterButton, allFilterButton;
@@ -61,32 +57,12 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
         backImage = (ImageView) getActivity().findViewById(R.id.backImage);
-        whatsappAction = (ImageView) getActivity().findViewById(R.id.whatsappAction);
-        copyLinkAction = (ImageView) getActivity().findViewById(R.id.copyLinkAction);
         newPostAction = (ImageView) getActivity().findViewById(R.id.newPostAction);
 
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
-            }
-        });
-
-        whatsappAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharingUtil.shareToWhatsapp(category, getActivity());
-            }
-        });
-
-        copyLinkAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ViewUtil.copyToClipboard(UrlUtil.createCategoryUrl(category))) {
-                    Toast.makeText(getActivity(), getActivity().getString(R.string.url_copy_success), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), getActivity().getString(R.string.url_copy_failed), Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
