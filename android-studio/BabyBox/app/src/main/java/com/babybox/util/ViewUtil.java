@@ -46,6 +46,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.babybox.R;
+import com.babybox.activity.AdminActivity;
+import com.babybox.activity.AdminNewUsersActivity;
 import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.ConversationListActivity;
 import com.babybox.activity.EditPostActivity;
@@ -237,6 +239,11 @@ public class ViewUtil {
     public static void setLocale(Activity activity, String lang) {
         if (StringUtils.isEmpty(lang)) {
             lang = DefaultValues.DEFAULT_LANG;
+        }
+
+        // set already
+        if (getAppLocale().getLanguage().equalsIgnoreCase(SharedPreferencesUtil.getInstance().getLang())) {
+            return;
         }
 
         Locale locale = new Locale(lang);
@@ -992,6 +999,16 @@ public class ViewUtil {
         intent.setData(imageUri);
         activity.startActivityForResult(intent, ViewUtil.CROP_IMAGE_REQUEST_CODE);
         activity.overridePendingTransition(0, 0);
+    }
+
+    public static void startAdminActivity(Activity activity) {
+        Intent intent = new Intent(activity, AdminActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startAdminNewUsersActivity(Activity activity) {
+        Intent intent = new Intent(activity, AdminNewUsersActivity.class);
+        activity.startActivity(intent);
     }
 
     public static void setActivityResult(Activity activity, Long id) {

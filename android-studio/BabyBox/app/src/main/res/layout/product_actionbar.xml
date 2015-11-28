@@ -57,19 +57,19 @@
                 android:visibility="gone" /-->
 
             <ImageView
-                android:id="@+id/facebookAction"
+                android:id="@+id/whatsappAction"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_facebook"
+                android:src="@drawable/ic_whatsapp"
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/whatsappAction"
+                android:id="@+id/facebookAction"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_whatsapp"
+                android:src="@drawable/ic_facebook"
                 android:layout_marginRight="10dp"
                 android:layout_centerVertical="true"
                 android:visibility="gone" />

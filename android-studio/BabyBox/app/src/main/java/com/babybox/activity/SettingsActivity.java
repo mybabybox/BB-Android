@@ -16,16 +16,18 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 
+import java.util.Set;
+
 public class SettingsActivity extends TrackedFragmentActivity {
-    private static final String TAG = SettingsActivity.class.getSimpleName();
+    private static final String TAG = SettingsActivity.class.getName();
 
     private TextView appVersionText;
-    private LinearLayout langLayout;
-    private RelativeLayout logoutLayout;
+    private RelativeLayout logoutLayout, adminLayout;
     private Spinner langSpinner;
     private ImageView backImage;
 
@@ -41,9 +43,9 @@ public class SettingsActivity extends TrackedFragmentActivity {
         setActionBarTitle(getString(R.string.settings_actionbar_title));
 
         appVersionText = (TextView) findViewById(R.id.appVersionText);
-        langLayout = (LinearLayout) findViewById(R.id.langLayout);
-        logoutLayout = (RelativeLayout) findViewById(R.id.logoutLayout);
         langSpinner = (Spinner) findViewById(R.id.langSpinner);
+        logoutLayout = (RelativeLayout) findViewById(R.id.logoutLayout);
+        adminLayout = (RelativeLayout) findViewById(R.id.adminLayout);
 
         // version
         appVersionText.setText("v"+ AppController.getVersionName());
@@ -141,6 +143,17 @@ public class SettingsActivity extends TrackedFragmentActivity {
                 alert.show();
             }
         });
+
+        // admin
+        adminLayout.setVisibility(UserInfoCache.getUser().isAdmin()? View.VISIBLE : View.GONE);
+        if (UserInfoCache.getUser().isAdmin()) {
+            adminLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewUtil.startAdminActivity(SettingsActivity.this);
+                }
+            });
+        }
 
         backImage = (ImageView) this.findViewById(R.id.backImage);
         backImage.setOnClickListener(new View.OnClickListener() {

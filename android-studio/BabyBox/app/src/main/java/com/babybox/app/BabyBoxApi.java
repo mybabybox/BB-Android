@@ -274,6 +274,10 @@ public interface BabyBoxApi {
 
     @GET("/reset-adjust-post-score/{id}")
     public void resetAdjustPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
+
+    @GET("/users/{offset}")
+    public void getUsers(@Path("offset") Long offset, @Query("key") String key, Callback<List<UserVMLite>> cb);
+
 }
 
 

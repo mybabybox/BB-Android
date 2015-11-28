@@ -302,6 +302,10 @@ public class BabyBoxService {
     public void resetAdjustPostScore(Long id, Callback<Response> cb) {
         api.resetAdjustPostScore(id, AppController.getInstance().getSessionId(), cb);
     }
+
+    public void getUsers(Long offset, Callback<List<UserVMLite>> cb) {
+        api.getUsers(offset, AppController.getInstance().getSessionId(), cb);
+    }
 }
 
 

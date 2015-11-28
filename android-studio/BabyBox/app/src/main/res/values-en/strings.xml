@@ -4,7 +4,6 @@
     <string name="env">dev</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
-    <string name="base_url"></string>
     <string name="base_url_dev">http://192.168.1.145:9000</string>
 
     <!-- Crash report -->
@@ -139,7 +138,7 @@
 
     <!-- Product page -->
     <string name="view_shop">View Shop</string>
-    <string name="last_active"> active</string>
+    <string name="last_active">Active</string>
     <string name="post_details">Product Details:</string>
     <string name="image">Photo</string>
     <string name="like">Like</string>
@@ -298,10 +297,11 @@
     <string name="crop__cancel">Cancel</string>
 
     <!-- GCM -->
-    <string name="gcm_new_conversations">%1$d new messages</string>
-    <string name="gcm_new_comments">%1$d new comments</string>
+    <string name="gcm_new_conversations">%1$d new message</string>
+    <string name="gcm_new_comments">%1$d new comment</string>
 
     <!-- Admin -->
+    <string name="admin">Admin</string>
     <string name="id">ID:</string>
     <string name="score">Score:</string>
     <string name="score_adjust">Score Adjust:</string>
@@ -309,4 +309,5 @@
     <string name="score_adjust_reset_success">Score Adjust Reset to 0</string>
     <string name="score_adjust_failure">Score Adjust Failure:\n%1$s</string>
 
+    <string name="admin_new_users">New Users</string>
 </resources>

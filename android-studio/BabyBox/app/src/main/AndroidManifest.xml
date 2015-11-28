@@ -134,6 +134,12 @@
         <activity
             android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AdminActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AdminNewUsersActivity"
+            android:screenOrientation="portrait" />
 
         <activity android:name="com.facebook.FacebookActivity"
             android:configChanges=

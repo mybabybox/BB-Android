@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.UserInfoCache;
+import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.UserVMLite;
@@ -24,17 +25,16 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class FollowerFollowingListAdapter extends BaseAdapter {
+public class AdminNewUserListAdapter extends BaseAdapter {
     private ImageView userImage;
-    private TextView userNameText;
-    private Button followButton;
+    private TextView userNameText, userIdText, createdDateText, lastActiveText;
 
     private Activity activity;
     private LayoutInflater inflater;
 
     private List<UserVMLite> users;
 
-    public FollowerFollowingListAdapter(Activity activity, List<UserVMLite> users) {
+    public AdminNewUserListAdapter(Activity activity, List<UserVMLite> users) {
         this.activity = activity;
         this.users = users;
     }
@@ -65,19 +65,15 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.follower_following_list_item, null);
+            convertView = inflater.inflate(R.layout.admin_new_user_list_item, null);
 
         userImage = (ImageView) convertView.findViewById(R.id.userImage);
         userNameText = (TextView) convertView.findViewById(R.id.userNameText);
-        followButton = (Button) convertView.findViewById(R.id.followButton);
+        userIdText = (TextView) convertView.findViewById(R.id.userIdText);
+        createdDateText = (TextView) convertView.findViewById(R.id.createdDateText);
+        lastActiveText = (TextView) convertView.findViewById(R.id.lastActiveText);
 
         final UserVMLite item = users.get(position);
-
-        if (UserInfoCache.getUser().id.equals(item.id)) {
-            followButton.setVisibility(View.GONE);
-        } else {
-            followButton.setVisibility(View.VISIBLE);
-        }
 
         // profile pic
         ImageUtil.displayThumbnailProfileImage(item.getId(), userImage);
@@ -97,56 +93,10 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
             }
         });
 
-        // follow
-        if (item.isFollowing) {
-            ViewUtil.selectFollowButtonStyle(followButton);
-        } else {
-            ViewUtil.unselectFollowButtonStyle(followButton);
-        }
-
-        followButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (item.isFollowing) {
-                    unfollow(item);
-                } else {
-                    follow(item);
-                }
-            }
-        });
+        userIdText.setText("ID: "+item.id);
+        createdDateText.setText("Signup: "+DateTimeUtil.getTimeAgo(item.getCreatedDate()));
+        lastActiveText.setText("Active: "+DateTimeUtil.getTimeAgo(item.getLastLogin()));
 
         return convertView;
-    }
-
-    public void follow(final UserVMLite user){
-        AppController.getApiService().followUser(user.id, new Callback<Response>() {
-            @Override
-            public void success(Response responseObject, Response response) {
-                ViewUtil.selectFollowButtonStyle(followButton);
-                user.isFollowing = true;
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(FollowerFollowingListAdapter.class.getSimpleName(), "follow: failure", error);
-            }
-        });
-    }
-
-    public void unfollow(final UserVMLite user){
-        AppController.getApiService().unfollowUser(user.id, new Callback<Response>() {
-            @Override
-            public void success(Response responseObject, Response response) {
-                ViewUtil.unselectFollowButtonStyle(followButton);
-                user.isFollowing = false;
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e(FollowerFollowingListAdapter.class.getSimpleName(), "unFollow: failure", error);
-            }
-        });
     }
 }
