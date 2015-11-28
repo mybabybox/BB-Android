@@ -72,8 +72,6 @@ public class MainActivity extends TrackedFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ViewUtil.setLocale(this);
-
         setTracked(false);
 
         setContentView(R.layout.main_activity);

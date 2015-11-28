@@ -1,5 +1,6 @@
 package com.babybox.app;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.activity.MainActivity;
+import com.babybox.util.ViewUtil;
 import com.google.analytics.tracking.android.EasyTracker;
 
 public abstract class TrackedFragmentActivity extends FragmentActivity {
@@ -23,6 +25,13 @@ public abstract class TrackedFragmentActivity extends FragmentActivity {
 
     public void setTracked(boolean tracked) {
         this.tracked = tracked;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ViewUtil.setLocale(this);
     }
 
     @Override

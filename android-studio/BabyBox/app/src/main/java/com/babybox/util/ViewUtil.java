@@ -90,6 +90,7 @@ import retrofit.RetrofitError;
  * Created by keithlei on 3/16/15.
  */
 public class ViewUtil {
+    private static final String TAG = ViewUtil.class.getName();
 
     public static final int PAGER_INDICATOR_DOT_DIMENSION = 10;
 
@@ -218,6 +219,12 @@ public class ViewUtil {
     // View
     //
 
+    public static Locale getAppLocale() {
+        Locale locale = AppController.getInstance().getResources().getConfiguration().locale;
+        //Log.d(TAG, "getAppLocale: locale="+locale.getLanguage());
+        return locale;
+    }
+
     public static void setLocale(Activity activity) {
         setLocale(activity, SharedPreferencesUtil.getInstance().getLang());
     }
@@ -231,15 +238,16 @@ public class ViewUtil {
         if (StringUtils.isEmpty(lang)) {
             lang = DefaultValues.DEFAULT_LANG;
         }
-        Log.d(ViewUtil.class.getSimpleName(), "lang=" + lang);
 
-        Locale myLocale = new Locale(lang);
-        Resources res = activity.getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
-        SharedPreferencesUtil.getInstance().saveLang(lang);
+        Locale locale = new Locale(lang);
+        Log.d(TAG, "lang="+lang+" locale="+locale.getDisplayName());
+
+        Resources resource = activity.getResources();
+        DisplayMetrics dm = resource.getDisplayMetrics();
+        Configuration conf = resource.getConfiguration();
+        conf.locale = locale;
+        resource.updateConfiguration(conf, dm);
+        //SharedPreferencesUtil.getInstance().saveLang(lang);
 
         // cached locale strings
         initCachedLocaleStrings();
@@ -250,7 +258,7 @@ public class ViewUtil {
             return;
         }
 
-        Log.d(ViewUtil.class.getSimpleName(), "addDots: numPages="+numPages);
+        Log.d(TAG, "addDots: numPages="+numPages);
 
         dotsLayout.removeAllViews();
 
@@ -447,6 +455,9 @@ public class ViewUtil {
     }
 
     public static String formatSellerLastActive(Long value) {
+        if (DefaultValues.LANG_EN.equalsIgnoreCase(getAppLocale().getLanguage())) {
+            return AppController.getInstance().getString(R.string.last_active) + " " + DateTimeUtil.getTimeAgo(value);
+        }
         return DateTimeUtil.getTimeAgo(value) + AppController.getInstance().getString(R.string.last_active);
     }
 
@@ -555,7 +566,7 @@ public class ViewUtil {
             pos = pos - 1;
         }
 
-        //Log.d(ViewUtil.class.getSimpleName(), "getFeedItemPosition: pos="+pos);
+        //Log.d(TAG, "getFeedItemPosition: pos="+pos);
 
         pos = pos % 2;
         if (pos == 0) {

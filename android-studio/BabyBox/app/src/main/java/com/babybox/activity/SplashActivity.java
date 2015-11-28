@@ -29,8 +29,6 @@ public class SplashActivity extends TrackedFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ViewUtil.setLocale(this);
-
         setTracked(false);
 
         setContentView(R.layout.splash_activity);
