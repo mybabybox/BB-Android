@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -28,12 +27,6 @@ import java.util.List;
 public class GCMNotificationIntentService extends IntentService {
 
 	public static final String TAG = GCMNotificationIntentService.class.getSimpleName();
-
-	public static final int NOTIFICATION_ID = 1;
-
-	private NotificationManager mNotificationManager;
-	private NotificationCompat.Builder builder;
-	public NotificationType notificationType;
 
 	public static enum NotificationType {
         CONVERSATION,
@@ -57,21 +50,7 @@ public class GCMNotificationIntentService extends IntentService {
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED.equals(messageType)) {
 				sendNotification("Deleted messages on server: " + extras.toString());
 			} else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE.equals(messageType)) {
-
-				for (int i = 0; i < 3; i++) {
-					Log.i(TAG,
-							"Working... " + (i + 1) + "/5 @ "
-									+ SystemClock.elapsedRealtime());
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-					}
-
-				}
-				Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
-
-				sendNotification(extras.get(GCMClient.MESSAGE_KEY).toString());
-				Log.i(TAG, "Received: " + extras.toString());
+                sendNotification(extras.get(GCMClient.MESSAGE_KEY).toString());
 			}
 		}
 
@@ -117,12 +96,20 @@ public class GCMNotificationIntentService extends IntentService {
 	}
 
 	public static void updateOrSendNotification(Context context, NotificationType notificationType, List<String> messages) {
-		NotificationManager notificationManager = (NotificationManager)
-				context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationType == null) {
+            return;
+        }
+
+		NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
 		int count = messages.size();
 		if (messages.size() == 0) {
-			notificationManager.cancel(NOTIFICATION_ID);
+            if (notificationType == NotificationType.CONVERSATION) {
+                notificationManager.cancel(NotificationType.CONVERSATION.ordinal());
+            } else if (notificationType == NotificationType.COMMENT){
+                notificationManager.cancel(NotificationType.COMMENT.ordinal());
+            }
 			return;
 		}
 
@@ -133,29 +120,37 @@ public class GCMNotificationIntentService extends IntentService {
         String contentTitle = AppController.APP_NAME;
 
         Log.d(TAG, "updateOrSendNotification: notificationType=" + notificationType);
-		if(notificationType == NotificationType.CONVERSATION){
+        int requestId = (int) System.currentTimeMillis();
+		if(notificationType == NotificationType.CONVERSATION) {
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
-					context, ConversationListActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					context,
+                    ConversationListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                    Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, "true");
-			int requestID = (int) System.currentTimeMillis();
-			contentIntent = PendingIntent.getActivity(context, requestID,
-					intent, PendingIntent.FLAG_UPDATE_CURRENT);
+			contentIntent = PendingIntent.getActivity(
+                    context,
+                    requestId,
+					intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
 
 			mBuilder = new NotificationCompat.Builder(context);
             contentTitle = context.getString(R.string.gcm_new_conversations, count);
-		} else {
+		} else if (notificationType == NotificationType.COMMENT) {
 			//Intent to be launched on notification click
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
-					context, MainActivity.class);
+					context,
+                    MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
 					Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra(ViewUtil.GCM_LAUNCH_TARGET, "true");
-			int requestID = (int) System.currentTimeMillis();
-			contentIntent = PendingIntent.getActivity(context, requestID,
-					intent, PendingIntent.FLAG_UPDATE_CURRENT);
+			contentIntent = PendingIntent.getActivity(
+                    context,
+                    requestId,
+					intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
 
 			 mBuilder = new NotificationCompat.Builder(context);
             contentTitle = context.getString(R.string.gcm_new_comments, count);
@@ -168,47 +163,27 @@ public class GCMNotificationIntentService extends IntentService {
                         Notification.DEFAULT_LIGHTS|
                         Notification.DEFAULT_VIBRATE)       // use defaults for various notification settings
 				.setContentIntent(contentIntent)            // intent used on click
+                .setContentTitle(contentTitle)
 				.setAutoCancel(true)
-                .setPriority(Notification.PRIORITY_HIGH);   // if you want the notification to be dismissed when clicked
+                .setPriority(Notification.PRIORITY_MAX);   // if you want the notification to be dismissed when clicked
 				//.setVibrate(new long[]{100, 250, 100, 250, 100, 250 })
 				//.setOnlyAlertOnce(true);                  // don't play any sound or flash light if since we're updating
 
         // style
-		NotificationCompat.Style style;
         NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-        style = inboxStyle;
-
-        mBuilder.setContentTitle(contentTitle);
-        for (String r : messages) {
-            inboxStyle.addLine(r);
+        //inboxStyle.setBigContentTitle(contentTitle);
+        String contextText = "";
+        for (String message : messages) {
+            inboxStyle.addLine(message);
+            contextText += message + "\n";
         }
-
-        /*
-		if (count > 1) {
-			NotificationCompat.InboxStyle inboxStyle = new NotificationCompat.InboxStyle();
-			style = inboxStyle;
-
-			mBuilder.setContentTitle(contentTitle);
-
-			for (String r : messages) {
-				inboxStyle.addLine(r);
-			}
-		} else {
-			NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
-			style = bigTextStyle;
-
-			bigTextStyle.setBigContentTitle(ViewUtil.shortenString(messages.get(0), 10));
-			bigTextStyle.bigText(messages.get(0));
-		}
-        */
-
-		mBuilder.setStyle(style);
+		mBuilder.setStyle(inboxStyle);
+        mBuilder.setContentText(contextText);
 
 		if (notificationType == NotificationType.CONVERSATION) {
-			notificationManager.notify(NOTIFICATION_ID, mBuilder.build());
-		} else {
-			notificationManager.notify(NOTIFICATION_ID + 1, mBuilder.build());
+			notificationManager.notify(NotificationType.CONVERSATION.ordinal(), mBuilder.build());
+		} else if (notificationType == NotificationType.COMMENT) {
+			notificationManager.notify(NotificationType.COMMENT.ordinal(), mBuilder.build());
 		}
 	}
-
 }
