@@ -618,7 +618,6 @@
                             android:id="@+id/followButton"
                             android:background="@drawable/button_pink_border"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/arrow_next"
                             android:text="@string/view_shop"
                             android:textColor="@color/pink"
                             android:textSize="14dp"

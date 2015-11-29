@@ -1,7 +1,9 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
-import com.babybox.app.UserInfoCache;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
@@ -26,8 +28,11 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class AdminNewUserListAdapter extends BaseAdapter {
+    private static final String TAG = AdminNewUserListAdapter.class.getName();
+
     private ImageView userImage;
     private TextView userNameText, userIdText, createdDateText, lastActiveText;
+    private Button deleteButton;
 
     private Activity activity;
     private LayoutInflater inflater;
@@ -69,6 +74,7 @@ public class AdminNewUserListAdapter extends BaseAdapter {
 
         userImage = (ImageView) convertView.findViewById(R.id.userImage);
         userNameText = (TextView) convertView.findViewById(R.id.userNameText);
+        deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
         userIdText = (TextView) convertView.findViewById(R.id.userIdText);
         createdDateText = (TextView) convertView.findViewById(R.id.createdDateText);
         lastActiveText = (TextView) convertView.findViewById(R.id.lastActiveText);
@@ -93,10 +99,48 @@ public class AdminNewUserListAdapter extends BaseAdapter {
             }
         });
 
+        // delete account
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+                alertDialogBuilder.setMessage(activity.getString(R.string.admin_delete_account_confirm));
+                alertDialogBuilder.setPositiveButton(activity.getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteAccount(item.getId());
+                    }
+                });
+                alertDialogBuilder.setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+
+        // details
         userIdText.setText("ID: "+item.id);
         createdDateText.setText("Signup: "+DateTimeUtil.getTimeAgo(item.getCreatedDate()));
         lastActiveText.setText("Active: "+DateTimeUtil.getTimeAgo(item.getLastLogin()));
 
         return convertView;
+    }
+
+    private void deleteAccount(Long id) {
+        AppController.getApiService().deleteAccount(id, new Callback<Response>() {
+            @Override
+            public void success(Response responseObject, Response response) {
+                Toast.makeText(activity, activity.getString(R.string.admin_delete_account_success), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(activity, activity.getString(R.string.post_delete_failed), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "deleteAccount: failure", error);
+            }
+        });
     }
 }

@@ -213,7 +213,6 @@
     <!-- Profile tab -->
     <string name="settings_actionbar_title">設定</string>
     <string name="logout">登出</string>
-    <string name="delete_account">刪除帳戶</string>
     <string name="my_profile_actionbar_title"></string>
     <string name="user_profile_actionbar_title">主頁</string>
     <string name="edit_user_info">更新個人資料</string>
@@ -310,4 +309,8 @@
     <string name="score_adjust_failure">Score Adjust Failure:\n%1$s</string>
 
     <string name="admin_new_users">New Users</string>
+    <string name="admin_delete_account">Delete</string>
+    <string name="admin_delete_account_confirm">Confirm delete account?</string>
+    <string name="admin_delete_account_success">Account deleted</string>
+    <string name="admin_delete_account_failed">Account delete failed</string>
 </resources>
