@@ -38,24 +38,12 @@ public class BabyBoxService {
         api.signUp(lname, fname, email, password, repeatPassword, cb);
     }
 
-    public void signUpInfo(String parent_displayname, Integer parent_birth_year, Integer parent_location, String parent_type,
-                           String num_children, String bb_gender1, String bb_gender2, String bb_gender3, String bb_birth_year1,
-                           String bb_birth_month1, String bb_birth_day1, String bb_birth_year2, String bb_birth_month2,
-                           String bb_birth_day2, String bb_birth_year3, String bb_birth_month3, String bb_birth_day3,
-                           Callback<Response> cb) {
-        api.signUpInfo(parent_displayname, parent_birth_year, parent_location, parent_type,
-                num_children, bb_gender1, bb_gender2, bb_gender3, bb_birth_year1,
-                bb_birth_month1, bb_birth_day1, bb_birth_year2, bb_birth_month2,
-                bb_birth_day2, bb_birth_year3, bb_birth_month3, bb_birth_day3,
-                AppController.getInstance().getSessionId(), cb);
+    public void signUpInfo(String parent_displayname, int parent_location, Callback<Response> cb) {
+        api.signUpInfo(parent_displayname, parent_location, AppController.getInstance().getSessionId(), cb);
     }
 
     public void getAllDistricts(Callback<List<LocationVM>> cb) {
         api.getAllDistricts(AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void getEmoticons(Callback<List<EmoticonVM>> cb) {
-        api.getEmoticons(AppController.getInstance().getSessionId(), cb);
     }
 
     public void login(String email, String password, Callback<Response> cb) {

@@ -620,7 +620,7 @@
                             android:scaleType="fitCenter"
                             android:src="@drawable/arrow_next"
                             android:text="@string/view_shop"
-                            android:textColor="@color/light_pink"
+                            android:textColor="@color/pink"
                             android:textSize="14dp"
                             android:layout_alignParentRight="true"
                             android:textAllCaps="false"

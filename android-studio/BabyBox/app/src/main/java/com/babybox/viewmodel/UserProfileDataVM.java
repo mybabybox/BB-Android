@@ -4,7 +4,6 @@ package com.babybox.viewmodel;
 public class UserProfileDataVM {
 
     public String parent_aboutme;
-    public String parent_birth_year;
     public String parent_displayname;
     public String parent_firstname;
     public String parent_lastname;
@@ -24,14 +23,6 @@ public class UserProfileDataVM {
 
     public void setParent_aboutme(String parent_aboutme) {
         this.parent_aboutme = parent_aboutme;
-    }
-
-    public String getParent_birth_year() {
-        return parent_birth_year;
-    }
-
-    public void setParent_birth_year(String parent_birth_year) {
-        this.parent_birth_year = parent_birth_year;
     }
 
     public String getParent_displayname() {

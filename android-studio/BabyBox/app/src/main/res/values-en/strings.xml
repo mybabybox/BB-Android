@@ -70,9 +70,9 @@
 
     <string name="signup_details_greeting">Welcome to BabyBox</string>
     <string name="signup_details_displayname_title">Display Name : </string>
-    <string name="signup_details_displayname_note">Note: Only your display name will be shown to public</string>
+    <string name="signup_details_displayname_note">Only your display name will be shown to public</string>
     <string name="signup_details_location_title">Location : </string>
-    <string name="signup_details_location_note">Note: BabyBox will push relevant informatio to you based on your location</string>
+    <string name="signup_details_location_note">BabyBox will push relevant products to you based on your location</string>
     <string name="signup_details_location">-Select-</string>
     <string name="signup_details_status_title">You are : </string>
     <string name="signup_details_mom">Mom</string>

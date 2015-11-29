@@ -43,22 +43,7 @@ public interface BabyBoxApi {
     @FormUrlEncoded
     @POST("/saveSignupInfo")
     public void signUpInfo(@Field("parent_displayname") String parent_displayname,
-                           @Field("parent_birth_year") Integer parent_birth_year,
                            @Field("parent_location") Integer parent_location,
-                           @Field("parent_type") String parent_type,
-                           @Field("num_children") String num_children,
-                           @Field("bb_gender1") String bb_gender1,
-                           @Field("bb_gender2") String bb_gender2,
-                           @Field("bb_gender3") String bb_gender3,
-                           @Field("bb_birth_year1") String bb_birth_year1,
-                           @Field("bb_birth_month1") String bb_birth_month1,
-                           @Field("bb_birth_day1") String bb_birth_day1,
-                           @Field("bb_birth_year2") String bb_birth_year2,
-                           @Field("bb_birth_month2") String bb_birth_month2,
-                           @Field("bb_birth_day2") String bb_birth_day2,
-                           @Field("bb_birth_year3") String bb_birth_year3,
-                           @Field("bb_birth_month3") String bb_birth_month3,
-                           @Field("bb_birth_day3") String bb_birth_day3,
                            @Query("key") String key,
                            Callback<Response> cb);
 
@@ -79,9 +64,6 @@ public interface BabyBoxApi {
 
     @GET("/get-user/{id}")
     public void getUser(@Path("id") Long id, @Query("key") String key, Callback<UserVM> cb);
-
-    @GET("/image/getEmoticons")
-    public void getEmoticons(@Query("key") String key, Callback<List<EmoticonVM>> cb);
 
     @GET("/get-all-feed-products")
     public void getAllProducts(@Query("key") String key,Callback<List<PostVMLite>> cb);

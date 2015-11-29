@@ -62,6 +62,4 @@ public class DefaultValues {
     public static final int HOT_POST_NOV = 200;
     public static final int HOT_POST_NOL = 5;
     public static final int HOT_POST_NOC = 5;
-
-    public static final int DEFAULT_PARENT_BIRTH_YEAR = 9999;
 }

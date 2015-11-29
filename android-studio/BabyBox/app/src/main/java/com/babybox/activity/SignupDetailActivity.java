@@ -58,6 +58,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
     private ImageView birthday1,birthday2,birthday3;
     private TextView birthdayLabel1,birthdayLabel2,birthdayLabel3;
 
+    /*
     private String year1,month1,day1,year2,month2,day2,year3,month3,day3;
 
     private boolean birthdayClick1 = false, birthdayClick2 = false, birthdayClick3 = false,parentClicked=false,babySelected=false;
@@ -71,6 +72,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
             setBirthdays();
         }
     };
+    */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +115,27 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
 
         setDistricts();
 
+        locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                locationId = -1;
+                String loc = locationSpinner.getSelectedItem().toString();
+                List<LocationVM> districts = DistrictCache.getDistricts();
+                for (LocationVM vm : districts) {
+                    if (vm.getDisplayName().equals(loc)) {
+                        locationId = vm.getId().intValue();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        /*
         babyNumberArray = new String[]{"1","2","3"};
         ArrayAdapter<String> babyAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,babyNumberArray);
 
@@ -156,26 +179,6 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
             }
         });
 
-        locationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                locationId = -1;
-                String loc = locationSpinner.getSelectedItem().toString();
-                List<LocationVM> districts = DistrictCache.getDistricts();
-                for (LocationVM vm : districts) {
-                    if (vm.getDisplayName().equals(loc)) {
-                        locationId = vm.getId().intValue();
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -211,6 +214,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
         };
         birthday3.setOnClickListener(onClickListener);
         birthdayLabel3.setOnClickListener(onClickListener);
+        */
 
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,7 +227,8 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
     private void submitDetails() {
         final String displayname = displayName.getText().toString().trim();
 
-        if(parentClicked) {
+        /*
+        if (parentClicked) {
             parenttype = getParentType(parent);
 
             if (parenttype.equals("NA")) {
@@ -242,20 +247,14 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
                 }
             }
         }
+        */
 
         if (isValid()) {
-            Log.d(this.getClass().getSimpleName(),
-                    "signupInfo: \n displayname="+displayname+"\n locationId="+locationId+"\n parentType="+parenttype+"\n numBaby="+babynum+
-                            "\n babyGen1="+babygen1+"\n babyBirthday1="+year1+"-"+month1+"-"+day1+
-                            "\n babyGen2="+babygen2+"\n babyBirthday2="+year2+"-"+month2+"-"+day2+
-                            "\n babyGen3="+babygen3+"\n babyBirthday3="+year3+"-"+month3+"-"+day3);
+            Log.d(this.getClass().getSimpleName(), "signupInfo: \n displayname="+displayname+"\n locationId="+locationId);
 
             showSpinner();
             AppController.getApiService().signUpInfo(
-                    displayname, DefaultValues.DEFAULT_PARENT_BIRTH_YEAR, locationId, parenttype, babynum,
-                    babygen1, babygen2, babygen3,
-                    year1, month1, day1, year2, month2, day2, year3, month3, day3,
-                    new Callback<Response>() {
+                    displayname, locationId, new Callback<Response>() {
                         @Override
                         public void success(Response responseObject, Response response) {
                             Log.d(SignupDetailActivity.class.getSimpleName(), "submitDetails: api.signUpInfo.success");
@@ -273,7 +272,6 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
                                 //ActivityUtil.alert(SignupDetailActivity.this, getString(R.string.signup_details_error_info));
                                 ViewUtil.alert(SignupDetailActivity.this,
                                         "\""+displayname+"\" "+getString(R.string.signup_details_error_displayname_already_exists));
-
                             }
 
                             stopSpinner();
@@ -301,6 +299,22 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
         });
     }
 
+    private void setDistricts(){
+        List<LocationVM> districts = DistrictCache.getDistricts();
+        districtNames = new ArrayList<>();
+        districtNames.add(getString(R.string.signup_details_location));
+        for (int i = 0; i < districts.size(); i++) {
+            districtNames.add(districts.get(i).getDisplayName());
+        }
+
+        ArrayAdapter<String> locationAdapter = new ArrayAdapter<>(
+                SignupDetailActivity.this,
+                android.R.layout.simple_spinner_item,
+                districtNames);
+        locationSpinner.setAdapter(locationAdapter);
+    }
+
+    /*
     private String getParentType(RadioButton radioButton) {
         if (radioButton == null)
             return "";
@@ -324,9 +338,9 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
             return "";
 
         if (radioButton.getText().toString().equals(getString(R.string.signup_details_boy))) {
-            return "Male";
+            return "MALE";
         } else if (radioButton.getText().toString().equals(getString(R.string.signup_details_girl))) {
-            return "Female";
+            return "FEMALE";
         }
         return "";
     }
@@ -384,28 +398,6 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void setDistricts(){
-        List<LocationVM> districts = DistrictCache.getDistricts();
-        districtNames = new ArrayList<String>();
-        districtNames.add(getString(R.string.signup_details_location));
-        for (int i = 0; i < districts.size(); i++) {
-            districtNames.add(districts.get(i).getDisplayName());
-        }
-
-        ArrayAdapter<String> locationAdapter = new ArrayAdapter<String>(
-                SignupDetailActivity.this,
-                android.R.layout.simple_spinner_item,
-                districtNames);
-        locationSpinner.setAdapter(locationAdapter);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        ViewUtil.startLoginActivity(this);
-    }
-
     private void setBirthdays() {
         if (birthdayClick1) {
             birthdayLabel1.setText(calendar.get(Calendar.YEAR) + "-" + getMonth(calendar.get(Calendar.MONTH)) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
@@ -432,6 +424,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
     private int getMonth(int month) {
         return month + 1;
     }
+    */
 
     private boolean isValid(){
         boolean valid = true;
@@ -440,10 +433,13 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
             error = ValidationUtil.appendError(error, getString(R.string.signup_details_error_displayname_format));
             valid = false;
         }
+
         if (locationId == -1) {
             error = ValidationUtil.appendError(error, getString(R.string.signup_details_error_location_not_entered));
             valid = false;
         }
+
+        /*
         if (!parentClicked) {
             error = ValidationUtil.appendError(error, getString(R.string.signup_details_error_status_not_entered));
             valid = false;
@@ -469,6 +465,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
                 }
             }
         }
+        */
 
         if (!valid)
             Toast.makeText(this, error, Toast.LENGTH_LONG).show();
@@ -493,5 +490,12 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
         if (finishButton != null) {
             finishButton.setEnabled(!show);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        ViewUtil.startLoginActivity(this);
     }
 }

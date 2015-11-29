@@ -100,12 +100,11 @@ public class EditProfileActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View view) {
                 if (isValid()) {
-                    profileDataVM.setParent_aboutme(aboutmeEdit.getText().toString());
                     profileDataVM.setParent_displayname(displayName.getText().toString());
                     profileDataVM.setParent_firstname(firstNameEdit.getText().toString());
                     profileDataVM.setParent_lastname(lastNameEdit.getText().toString());
-                    profileDataVM.setParent_birth_year(String.valueOf(DefaultValues.DEFAULT_PARENT_BIRTH_YEAR));
                     profileDataVM.setParent_location(locationId);
+                    profileDataVM.setParent_aboutme(aboutmeEdit.getText().toString());
                     updateUserProfileData(profileDataVM);
                 }
             }
