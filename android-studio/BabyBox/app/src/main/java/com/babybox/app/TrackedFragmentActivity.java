@@ -28,6 +28,13 @@ public abstract class TrackedFragmentActivity extends FragmentActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ViewUtil.setLocale(this);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
 

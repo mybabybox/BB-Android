@@ -39,10 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/productLayout"
-                    android:background="@drawable/box_light_gray_border"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp">
+                    android:background="@color/white">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -145,7 +142,7 @@
                                 android:layout_gravity="center"
                                 android:textSize="14dp"
                                 android:gravity="center"
-                                android:textColor="@color/dark_gray" />
+                                android:textColor="@color/dark_gray_2" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -289,7 +286,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/dark_gray_2"
                             android:textSize="15dp"
                             android:text="@string/post_details" />
 
@@ -297,9 +294,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/descText"
-                            android:textColor="@color/gray"
+                            android:textColor="@color/dark_gray"
                             android:textSize="15dp"
-                            android:layout_marginTop="15dp" />
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -318,7 +316,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="15dp"
-                                    android:textColor="@color/dark_gray"
+                                    android:textColor="@color/dark_gray_2"
                                     android:layout_gravity="center_vertical"
                                     android:text="@string/new_post_condition" />
 
@@ -328,7 +326,7 @@
                                     android:id="@+id/conditionText"
                                     android:textSize="15dp"
                                     android:layout_marginLeft="10dp"
-                                    android:textColor="@color/gray"
+                                    android:textColor="@color/dark_gray"
                                     android:layout_gravity="center_vertical" />
 
                             </LinearLayout>
@@ -543,6 +541,13 @@
                         </LinearLayout>
 
                     </LinearLayout>
+
+                    <View
+                        android:id="@+id/viewBarBottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.8dp"
+                        android:background="@drawable/bar1"></View>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -666,7 +671,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:layout_marginRight="10dp"
-                            android:textColor="@color/dark_gray"
+                            android:textColor="@color/dark_gray_2"
                             android:textSize="15dp" />
 
                         <ImageView

@@ -78,15 +78,15 @@ public class DateTimeUtil {
             return diff / MINUTE_MILLIS + AppController.getInstance().getString(R.string.timeago_min);
         } else if (diff < 90 * MINUTE_MILLIS) {
             return 1 +  AppController.getInstance().getString(R.string.timeago_hrs);
-        } else if (diff < 24 * HOUR_MILLIS) {
+        } else if (diff < DAY_MILLIS) {
             return diff / HOUR_MILLIS + AppController.getInstance().getString(R.string.timeago_hrs);
-        } else if (diff < 48 * HOUR_MILLIS) {
+        } else if (diff < 2 * DAY_MILLIS) {
             return AppController.getInstance().getString(R.string.timeago_yesterday);
-        } else if (diff < 14 * DAY_MILLIS) {
+        } else if (diff < 2 * WEEK_MILLIS) {
             return diff / DAY_MILLIS + AppController.getInstance().getString(R.string.timeago_days);
-        } else if (diff < 4 * WEEK_MILLIS) {
+        } else if (diff < MONTH_MILLIS) {
             return diff / WEEK_MILLIS + AppController.getInstance().getString(R.string.timeago_weeks);
-        } else if (diff < 12 * MONTH_MILLIS) {
+        } else if (diff < YEAR_MILLIS) {
             return diff / MONTH_MILLIS + AppController.getInstance().getString(R.string.timeago_months);
         }
         return format(time, withHrMin);
