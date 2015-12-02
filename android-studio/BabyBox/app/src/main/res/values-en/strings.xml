@@ -4,6 +4,7 @@
     <string name="env">dev</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
+    <string name="base_url"></string>
     <string name="base_url_dev">http://192.168.1.145:9000</string>
 
     <!-- Crash report -->
@@ -120,6 +121,7 @@
 
     <!-- Activity tab -->
     <string name="no_activity">~ No Activity ~</string>
+    <string name="activity_first_post">Congratulations! You are now a BabyBox seller! Your first product has been listed:</string>
     <string name="activity_posted">New product listed:</string>
     <string name="activity_commented">commented on product:</string>
     <string name="activity_liked">liked your product.</string>

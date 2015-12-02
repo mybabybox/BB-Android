@@ -17,6 +17,8 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ActivityVM;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
 import java.util.List;
 
 public class ActivityListAdapter extends BaseAdapter {
@@ -92,6 +94,10 @@ public class ActivityListAdapter extends BaseAdapter {
         boolean isTargetProduct = true;
 
         switch (item.getActivityType()) {
+            case "FIRST_POST":
+                message = activity.getString(R.string.activity_first_post) + "\n" + item.getTargetName();
+                isTargetProduct = true;
+                break;
             case "NEW_POST":
                 message = activity.getString(R.string.activity_posted) + "\n" + item.getTargetName();
                 isTargetProduct = true;
@@ -113,6 +119,11 @@ public class ActivityListAdapter extends BaseAdapter {
                 isTargetProduct = true;
                 break;
 
+        }
+
+        // skip unknown activities
+        if (StringUtils.isEmpty(message)) {
+            return;
         }
 
         // link is always actor user

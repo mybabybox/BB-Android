@@ -60,13 +60,7 @@ public class HomeCategoryPagerFragment extends TrackedFragment {
             if (i < categories.size()) {
                 final CategoryVM category = categories.get(i);
                 name.setText(category.getName());
-                int resId = ImageMapping.map(category.getIcon());
-                if (resId != -1) {
-                    image.setImageDrawable(getActivity().getResources().getDrawable(resId));
-                } else {
-                    Log.d(this.getClass().getSimpleName(), "initLayout: cat=" + category.getName() + " load image from background - " + category.getIcon());
-                    ImageUtil.displayImage(category.getIcon(), image);
-                }
+                ImageUtil.displayImage(category.getIcon(), image);
 
                 catLayout.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -4,6 +4,7 @@
     <string name="env">dev</string>
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
+    <string name="base_url"></string>
     <string name="base_url_dev">http://192.168.1.145:9000</string>
 
     <!-- Crash report -->
@@ -120,6 +121,7 @@
 
     <!-- Activity tab -->
     <string name="no_activity">~ 暫沒有動態 ~</string>
+    <string name="activity_first_post">歡迎成為BabyBox賣家！你已成功發佈第一個商品:</string>
     <string name="activity_posted">發佈了新商品:</string>
     <string name="activity_commented">在商品留言:</string>
     <string name="activity_liked">喜歡你的商品。</string>

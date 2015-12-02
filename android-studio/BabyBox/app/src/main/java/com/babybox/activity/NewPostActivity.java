@@ -29,6 +29,7 @@ import com.babybox.adapter.PopupCategoryListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
 import com.babybox.app.DistrictCache;
+import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
@@ -403,19 +404,14 @@ public class NewPostActivity extends TrackedFragmentActivity {
         postSuccess = true;
         Toast.makeText(NewPostActivity.this, String.format(getString(R.string.post_success), getActionTypeText()), Toast.LENGTH_LONG).show();
         ViewUtil.setActivityResult(this, true);
+        NotificationCounter.refresh();
         finish();
     }
 
     protected void initCategoryLayout(CategoryVM category) {
         catId = category.id;
         catName.setText(category.getName());
-        int resId = ImageMapping.map(category.getIcon());
-        if (resId != -1) {
-            catIcon.setImageDrawable(getResources().getDrawable(resId));
-        } else {
-            Log.d(this.getClass().getSimpleName(), "initCategoryPopup: load category icon from background - " + category.getIcon());
-            ImageUtil.displayImage(category.getIcon(), catIcon);
-        }
+        ImageUtil.displayImage(category.getIcon(), catIcon);
         updateSelectCategoryLayout();
     }
 

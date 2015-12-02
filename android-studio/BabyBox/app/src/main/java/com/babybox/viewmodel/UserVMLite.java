@@ -8,7 +8,6 @@ public class UserVMLite implements Serializable {
     public Long numFollowings = 0L;
     public Long numFollowers = 0L;
     public Long numProducts = 0L;
-    public Long numStories = 0L;
     public Long numLikes = 0L;
     public Long numCollections = 0L;
     public boolean isFollowing = false;
@@ -61,14 +60,6 @@ public class UserVMLite implements Serializable {
 
     public void setNumProducts(Long numProducts) {
         this.numProducts = numProducts;
-    }
-
-    public Long getNumStories() {
-        return numStories;
-    }
-
-    public void setNumStories(Long numStories) {
-        this.numStories = numStories;
     }
 
     public Long getNumLikes() {

@@ -131,7 +131,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginRight="18dp"
+                        android:layout_marginRight="12dp"
                         android:visibility="invisible" />
 
                 </FrameLayout>

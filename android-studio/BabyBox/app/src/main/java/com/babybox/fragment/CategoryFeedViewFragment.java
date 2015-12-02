@@ -250,13 +250,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         category = CategoryCache.getCategory(catId);
         catNameText.setText(category.name);
         catDescText.setText(category.description);
-        int resId = ImageMapping.map(category.getIcon());
-        if (resId != -1) {
-            catImage.setImageDrawable(getResources().getDrawable(resId));
-        } else {
-            Log.d(this.getClass().getSimpleName(), "initLayout: cat=" + category.getName() + " load image from background - " + category.getIcon());
-            ImageUtil.displayImage(category.getIcon(), catImage);
-        }
+        ImageUtil.displayImage(category.getIcon(), catImage);
     }
 
     private void getCategory(Long id) {

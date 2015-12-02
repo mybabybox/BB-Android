@@ -32,6 +32,22 @@ public class ImageMapping {
         imageMap.put("/assets/app/images/category/cat_utils.jpg", R.drawable.cat_utils);
         imageMap.put("/assets/app/images/category/cat_diaper.jpg", R.drawable.cat_diaper);
         imageMap.put("/assets/app/images/category/cat_other.jpg", R.drawable.cat_other);
+        imageMap.put("/assets/app/images/game/badges/profile_photo.png", R.drawable.game_badge_profile_photo);
+        imageMap.put("/assets/app/images/game/badges/profile_photo_off.png", R.drawable.game_badge_profile_photo_off);
+        imageMap.put("/assets/app/images/game/badges/profile_info.png", R.drawable.game_badge_profile_info);
+        imageMap.put("/assets/app/images/game/badges/profile_info_off.png", R.drawable.game_badge_profile_info_off);
+        imageMap.put("/assets/app/images/game/badges/like_1.png", R.drawable.game_badge_like_1);
+        imageMap.put("/assets/app/images/game/badges/like_1_off.png", R.drawable.game_badge_like_1_off);
+        imageMap.put("/assets/app/images/game/badges/like_10.png", R.drawable.game_badge_like_10);
+        imageMap.put("/assets/app/images/game/badges/like_10_off.png", R.drawable.game_badge_like_10_off);
+        imageMap.put("/assets/app/images/game/badges/follow_1.png", R.drawable.game_badge_follow_1);
+        imageMap.put("/assets/app/images/game/badges/follow_1_off.png", R.drawable.game_badge_follow_1_off);
+        imageMap.put("/assets/app/images/game/badges/follow_10.png", R.drawable.game_badge_follow_10);
+        imageMap.put("/assets/app/images/game/badges/follow_10_off.png", R.drawable.game_badge_follow_10_off);
+        imageMap.put("/assets/app/images/game/badges/post_1.png", R.drawable.game_badge_post_1);
+        imageMap.put("/assets/app/images/game/badges/post_1_off.png", R.drawable.game_badge_post_1_off);
+        imageMap.put("/assets/app/images/game/badges/post_10.png", R.drawable.game_badge_post_10);
+        imageMap.put("/assets/app/images/game/badges/post_10_off.png", R.drawable.game_badge_post_10_off);
     }
 
     private ImageMapping() {}

@@ -63,13 +63,7 @@ public class PopupCategoryListAdapter extends BaseAdapter {
 
         CategoryVM item = categories.get(position);
         catName.setText(item.getName());
-        int resId = ImageMapping.map(item.getIcon());
-        if (resId != -1) {
-            catIcon.setImageDrawable(activity.getResources().getDrawable(resId));
-        } else {
-            Log.d(this.getClass().getSimpleName(), "getView: load cat icon from background - " + item.getIcon());
-            ImageUtil.displayImage(item.getIcon(), catIcon);
-        }
+        ImageUtil.displayImage(item.getIcon(), catIcon);
 
         return convertView;
     }

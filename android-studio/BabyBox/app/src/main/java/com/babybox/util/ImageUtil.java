@@ -252,6 +252,12 @@ public class ImageUtil {
     }
 
     public static void displayImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
+        int resId = ImageMapping.map(url);
+        if (resId != -1) {
+            imageView.setImageDrawable(imageView.getResources().getDrawable(resId));
+            return;
+        }
+
         url = UrlUtil.getFullUrl(url);
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
@@ -278,6 +284,12 @@ public class ImageUtil {
     }
 
     public static void displayCircleImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
+        int resId = ImageMapping.map(url);
+        if (resId != -1) {
+            imageView.setImageDrawable(imageView.getResources().getDrawable(resId));
+            return;
+        }
+
         url = UrlUtil.getFullUrl(url);
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
@@ -304,6 +316,12 @@ public class ImageUtil {
     }
 
     public static void displayRoundedImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
+        int resId = ImageMapping.map(url);
+        if (resId != -1) {
+            imageView.setImageDrawable(imageView.getResources().getDrawable(resId));
+            return;
+        }
+
         url = UrlUtil.getFullUrl(url);
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
