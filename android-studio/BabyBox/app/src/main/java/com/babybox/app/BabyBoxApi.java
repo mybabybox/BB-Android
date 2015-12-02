@@ -7,6 +7,7 @@ import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.EmoticonVM;
+import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
@@ -185,6 +186,16 @@ public interface BabyBoxApi {
 
     @GET("/get-activities/{offset}")
     public void getActivities(@Path("offset") Long offset, @Query("key") String key, Callback<List<ActivityVM>> cb);
+
+    //
+    // Game badges
+    //
+
+    @GET("/game-badges")
+    public void getGameBadges(@Query("key") String key, Callback<List<GameBadgeVM>> cb);
+
+    @GET("/game-badges-awarded")
+    public void getGameBadgesAwarded(@Query("key") String key, Callback<List<GameBadgeVM>> cb);
 
     //
     // Conversation

@@ -1,6 +1,5 @@
 package com.babybox.viewmodel;
 
-
 import org.joda.time.DateTime;
 
 public class UserVM extends UserVMLite {

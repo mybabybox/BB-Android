@@ -7,6 +7,7 @@ import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.EmoticonVM;
+import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
@@ -253,6 +254,15 @@ public class BabyBoxService {
 
     public void saveGCMKey(String gcmKey, Long versionCode, Callback<Response> cb) {
         api.saveGCMKey(gcmKey, versionCode, AppController.getInstance().getSessionId(), cb);
+    }
+
+    // game badges
+    public void getGameBadges(Callback<List<GameBadgeVM>> cb) {
+        api.getGameBadges(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getGameBadgesAwarded(Callback<List<GameBadgeVM>> cb) {
+        api.getGameBadgesAwarded(AppController.getInstance().getSessionId(), cb);
     }
 
     // conversation order
