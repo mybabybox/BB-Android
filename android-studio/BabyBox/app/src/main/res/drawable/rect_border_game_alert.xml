@@ -6,8 +6,8 @@
     </solid>
 
     <stroke
-        android:width="5dp"
-        android:color="@color/pink" />
+        android:width="3dp"
+        android:color="@color/light_pink" />
 
     <corners
         android:radius="10dp">

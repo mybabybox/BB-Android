@@ -269,6 +269,8 @@
     <!-- Game -->
     <string name="game_badges">徽章</string>
     <string name="game_my_badges">我的徽章</string>
+    <string name="game_badges_desc">完成每個任務後即可獲得徽章\n立即開始任務，收集徽章！</string>
+    <string name="game_badges_awarded_already">你已獲得此徽章！</string>
 
     <!-- Seller -->
     <string name="seller_credit">積分</string>

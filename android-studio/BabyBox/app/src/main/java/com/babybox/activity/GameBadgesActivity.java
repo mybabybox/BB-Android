@@ -44,8 +44,7 @@ public class GameBadgesActivity extends TrackedFragmentActivity {
     }
 
     private View getHeaderView(LayoutInflater inflater) {
-        //return inflater.inflate(R.layout.game_badges_view_header, null);
-        return null;
+        return inflater.inflate(R.layout.game_badges_view_header, null);
     }
 
     @Override

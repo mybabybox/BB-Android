@@ -6,7 +6,7 @@
     </solid>
 
     <stroke
-        android:width="5dp"
+        android:width="3dp"
         android:color="@color/light_pink" />
 
     <corners
