@@ -106,7 +106,7 @@ public class GameBadgesViewAdapter extends RecyclerView.Adapter<GameBadgesViewAd
                 clickedPosition = position;
                 String msg = item.description;
                 if (item.awarded) {
-                    msg = activity.getString(R.string.game_badges_awarded_already) + "\n" + msg;
+                    msg = activity.getString(R.string.game_badges_awarded_already) + "\n\n" + msg;
                 }
                 ViewUtil.alertGameStatus(activity, item.icon, msg);
                 //Toast.makeText(activity, item.description, Toast.LENGTH_SHORT).show();

@@ -763,15 +763,15 @@ public class ViewUtil {
     }
 
     public static Dialog alertGameStatus(Context context, String desc) {
-        return alertGameStatus(context, null, desc, -1, 2000);
+        return alertGameStatus(context, null, desc, -1, 3000);
     }
 
     public static Dialog alertGameStatus(Context context, String image, String desc) {
-        return alertGameStatus(context, image, desc, -1, 2000);
+        return alertGameStatus(context, image, desc, -1, 3000);
     }
 
     public static Dialog alertGameStatus(Context context, String desc, int points) {
-        return alertGameStatus(context, null, desc, points, 2000);
+        return alertGameStatus(context, null, desc, points, 3000);
     }
 
     public static Dialog alertGameStatus(Context context, String image, String desc, int points, long delayMillis) {
