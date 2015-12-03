@@ -191,11 +191,11 @@ public interface BabyBoxApi {
     // Game badges
     //
 
-    @GET("/game-badges")
-    public void getGameBadges(@Query("key") String key, Callback<List<GameBadgeVM>> cb);
+    @GET("/game-badges/{id}")
+    public void getGameBadges(@Path("id") Long id, @Query("key") String key, Callback<List<GameBadgeVM>> cb);
 
-    @GET("/game-badges-awarded")
-    public void getGameBadgesAwarded(@Query("key") String key, Callback<List<GameBadgeVM>> cb);
+    @GET("/game-badges-awarded/{id}")
+    public void getGameBadgesAwarded(@Path("id") Long id, @Query("key") String key, Callback<List<GameBadgeVM>> cb);
 
     //
     // Conversation

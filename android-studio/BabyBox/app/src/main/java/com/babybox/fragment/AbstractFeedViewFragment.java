@@ -32,6 +32,8 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
 
     private static final String TAG = AbstractFeedViewFragment.class.getName();
 
+    public static int RECYCLER_VIEW_COLUMN_SIZE = 2;
+
     private static final int TOP_MARGIN = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_TOP_MARGIN);
     private static final int BOTTOM_MARGIN = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_BOTTOM_MARGIN);
     private static final int SIDE_MARGIN = ViewUtil.getRealDimension(DefaultValues.FEEDVIEW_ITEM_SIDE_MARGIN);
@@ -116,7 +118,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
                         //int margin = getActivity().getResources().getDimensionPixelSize(R.dimen.feed_item_margin);
 
                         ViewUtil.FeedItemPosition feedItemPosition =
-                                ViewUtil.getFeedItemPosition(AbstractFeedViewFragment.this, view);
+                                ViewUtil.getFeedItemPosition(view, RECYCLER_VIEW_COLUMN_SIZE, hasHeader());
                         if (feedItemPosition == ViewUtil.FeedItemPosition.HEADER) {
                             outRect.set(0, 0, 0, 0);
                         } else if (feedItemPosition == ViewUtil.FeedItemPosition.LEFT_COLUMN) {
@@ -138,7 +140,7 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         feedView.setAdapter(feedAdapter);
 
         // layout manager
-        layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager = new GridLayoutManager(getActivity(), RECYCLER_VIEW_COLUMN_SIZE);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

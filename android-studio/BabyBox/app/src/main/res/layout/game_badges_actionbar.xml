@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:layout_gravity="center"
+    android:contentInsetLeft="0dp"
+    android:contentInsetStart="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetStart="0dp"
+    android:contentInsetRight="0dp"
+    android:contentInsetEnd="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetEnd="0dp"
+    android:background="@drawable/actionbar_bg_pink">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/actionbar_bg_pink">
+
+        <ImageView
+            android:id="@+id/backImage"
+            android:layout_width="30dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/back"
+            android:layout_alignParentStart="true" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:id="@+id/toolbarTitleImage"
+                android:src="@drawable/game_badge" />
+
+            <TextView
+                android:id="@+id/toolbarTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="22dp"
+                android:singleLine="true"
+                android:text="@string/game_my_badges"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/toolbarTitleImage"
+                android:layout_marginLeft="5dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>

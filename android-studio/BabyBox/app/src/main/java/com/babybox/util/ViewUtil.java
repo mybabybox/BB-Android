@@ -56,6 +56,7 @@ import com.babybox.activity.FollowersActivity;
 import com.babybox.activity.FollowingsActivity;
 import com.babybox.activity.ForgetPasswordActivity;
 import com.babybox.activity.FullscreenImageActivity;
+import com.babybox.activity.GameBadgesActivity;
 import com.babybox.activity.LoginActivity;
 import com.babybox.activity.MainActivity;
 import com.babybox.activity.MessageListActivity;
@@ -139,6 +140,7 @@ public class ViewUtil {
         UNKNOWN,
         HEADER,
         LEFT_COLUMN,
+        MIDDLE_COLUMN,
         RIGHT_COLUMN
     }
 
@@ -512,7 +514,7 @@ public class ViewUtil {
 
     public static void unselectLikeTipsStyle(ImageView image, TextView text, int likes) {
         image.setImageResource(R.drawable.ic_like_tips);
-        text.setText(likes+"");
+        text.setText(likes + "");
         text.setTextColor(AppController.getInstance().getResources().getColor(R.color.gray));
     }
 
@@ -560,12 +562,9 @@ public class ViewUtil {
         button.setBackgroundResource(R.drawable.button_profile_feed_unselect);
     }
 
-    public static FeedItemPosition getFeedItemPosition(AbstractFeedViewFragment feedViewFragment, View feedItemView) {
-        //RecyclerView recyclerView = feedViewFragment.getFeedView();
-        //int pos = recyclerView.getChildAdapterPosition(feedItemView);
-
+    public static FeedItemPosition getFeedItemPosition(View feedItemView, int numColumns, boolean hasHeader) {
         int pos = ((RecyclerView.LayoutParams) feedItemView.getLayoutParams()).getViewLayoutPosition();
-        if (feedViewFragment.hasHeader()) {
+        if (hasHeader) {
             if (pos == 0) {
                 return FeedItemPosition.HEADER;
             }
@@ -575,13 +574,13 @@ public class ViewUtil {
 
         //Log.d(TAG, "getFeedItemPosition: pos="+pos);
 
-        pos = pos % 2;
+        pos = pos % numColumns;
         if (pos == 0) {
             return FeedItemPosition.LEFT_COLUMN;
-        } else if (pos == 1) {
+        } else if (pos == numColumns-1) {
             return FeedItemPosition.RIGHT_COLUMN;
         }
-        return FeedItemPosition.UNKNOWN;
+        return FeedItemPosition.MIDDLE_COLUMN;
     }
 
     public static void showTips(final SharedPreferencesUtil.Screen screen, final ViewGroup tipsLayout, final View dismissTipsButton) {
@@ -951,6 +950,12 @@ public class ViewUtil {
     public static void startEditProfileActivity(Activity activity) {
         Intent intent = new Intent(activity, EditProfileActivity.class);
         activity.startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
+    }
+
+    public static void startGameBadgesActivity(Activity activity, Long userId) {
+        Intent intent = new Intent(activity, GameBadgesActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, userId);
+        activity.startActivity(intent);
     }
 
     public static void startFollowersActivity(Activity activity, Long userId) {

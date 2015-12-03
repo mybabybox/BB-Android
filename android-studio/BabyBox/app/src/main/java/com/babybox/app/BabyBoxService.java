@@ -257,12 +257,12 @@ public class BabyBoxService {
     }
 
     // game badges
-    public void getGameBadges(Callback<List<GameBadgeVM>> cb) {
-        api.getGameBadges(AppController.getInstance().getSessionId(), cb);
+    public void getGameBadges(Long id, Callback<List<GameBadgeVM>> cb) {
+        api.getGameBadges(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getGameBadgesAwarded(Callback<List<GameBadgeVM>> cb) {
-        api.getGameBadgesAwarded(AppController.getInstance().getSessionId(), cb);
+    public void getGameBadgesAwarded(Long id, Callback<List<GameBadgeVM>> cb) {
+        api.getGameBadgesAwarded(id, AppController.getInstance().getSessionId(), cb);
     }
 
     // conversation order

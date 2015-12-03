@@ -39,6 +39,16 @@
             android:textColor="@color/white"
             android:textSize="16dp" />
 
+        <ImageView
+            android:id="@+id/gameBadgeImage"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="15dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userNameText"
+            android:src="@drawable/game_badge"
+            android:visibility="gone" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -57,14 +67,14 @@
 
             <ImageView
                 android:id="@+id/chatImage"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:src="@drawable/w_message"
                 android:layout_toLeftOf="@+id/setting"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="7dp"
-                android:layout_marginLeft="7dp" />
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:id="@+id/chatCountText"
@@ -81,7 +91,8 @@
                 android:gravity="center"
                 android:layout_gravity="center|right"
                 android:layout_marginBottom="7dp"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:layout_marginRight="5dp" />
         </FrameLayout>
 
         <LinearLayout

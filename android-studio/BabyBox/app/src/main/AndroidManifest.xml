@@ -114,6 +114,9 @@
             android:name="com.babybox.activity.EditProfileActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.babybox.activity.GameBadgesActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.babybox.activity.FollowersActivity"
             android:screenOrientation="portrait" />
         <activity

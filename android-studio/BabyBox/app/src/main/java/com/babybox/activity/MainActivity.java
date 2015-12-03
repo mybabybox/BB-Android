@@ -36,7 +36,7 @@ import com.babybox.viewmodel.NotificationCounterVM;
 public class MainActivity extends TrackedFragmentActivity {
 
     private RelativeLayout userLayout;
-    private ImageView userImage;
+    private ImageView userImage, gameBadgeImage;
     private TextView userNameText;
 
     private ViewGroup chatLayout, newPostLayout;
@@ -81,6 +81,7 @@ public class MainActivity extends TrackedFragmentActivity {
         userLayout = (RelativeLayout) findViewById(R.id.userLayout);
         userImage = (ImageView) findViewById(R.id.userImage);
         userNameText = (TextView) findViewById(R.id.userNameText);
+        gameBadgeImage = (ImageView) findViewById(R.id.gameBadgeImage);
 
         chatCountText = (TextView) findViewById(R.id.chatCountText);
         chatLayout = (ViewGroup) findViewById(R.id.chatLayout);
@@ -104,6 +105,16 @@ public class MainActivity extends TrackedFragmentActivity {
             }
         }, 2000);
         */
+
+        gameBadgeImage.setVisibility(UserInfoCache.getUser().isAdmin()? View.VISIBLE : View.GONE);
+        if (UserInfoCache.getUser().isAdmin()) {
+            gameBadgeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ViewUtil.startGameBadgesActivity(MainActivity.this, UserInfoCache.getUser().getId());
+                }
+            });
+        }
 
         chatLayout.setOnClickListener(new View.OnClickListener() {
             @Override

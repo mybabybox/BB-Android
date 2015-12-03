@@ -266,6 +266,10 @@
     <string name="pm_order_accept_confirm">接受購買?</string>
     <string name="pm_order_decline_confirm">不接受購買?</string>
 
+    <!-- Game -->
+    <string name="game_badges">徽章</string>
+    <string name="game_my_badges">我的徽章</string>
+
     <!-- Seller -->
     <string name="seller_credit">積分</string>
     <string name="seller_rules_title">賣家需知</string>

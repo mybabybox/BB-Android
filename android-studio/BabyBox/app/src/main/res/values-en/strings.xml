@@ -266,6 +266,10 @@
     <string name="pm_order_accept_confirm">Accept order?</string>
     <string name="pm_order_decline_confirm">Decline order?</string>
 
+    <!-- Game -->
+    <string name="game_badges">Badges</string>
+    <string name="game_my_badges">My Badges</string>
+
     <!-- Seller -->
     <string name="seller_credit">points</string>
     <string name="seller_rules_title">Seller Policy</string>
