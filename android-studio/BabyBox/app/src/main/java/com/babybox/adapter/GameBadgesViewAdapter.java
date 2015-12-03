@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.util.ImageUtil;
@@ -103,7 +104,8 @@ public class GameBadgesViewAdapter extends RecyclerView.Adapter<GameBadgesViewAd
             @Override
             public void onClick(View view) {
                 clickedPosition = position;
-                ViewUtil.alert(activity, item.name, item.description);
+                ViewUtil.alertGameStatus(activity, item.icon, item.description);
+                //Toast.makeText(activity, item.description, Toast.LENGTH_SHORT).show();
             }
         });
     }

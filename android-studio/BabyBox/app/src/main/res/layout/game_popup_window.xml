@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rect_border_seller_alert"
+        android:background="@drawable/rect_border_game_alert"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp">
 
@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/mascot"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:scaleType="fitCenter"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/mascot_box" />
@@ -34,10 +34,10 @@
                 android:id="@+id/descText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 android:textColor="@color/dark_gray_2"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="3dp" />
+                android:layout_marginLeft="5dp" />
 
             <TextView
                 android:id="@+id/pointsText"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:textColor="@color/seller_orange"
+                android:textColor="@color/sharp_pink"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="2dp"
                 android:layout_gravity="center_vertical" />
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/seller_credit"
-                android:textSize="15dp"
+                android:textSize="16dp"
                 android:textColor="@color/dark_gray_2"
                 android:layout_gravity="center_vertical" />
 

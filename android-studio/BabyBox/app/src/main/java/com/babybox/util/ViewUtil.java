@@ -71,7 +71,6 @@ import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
 import com.babybox.activity.WelcomeActivity;
 import com.babybox.app.AppController;
-import com.babybox.fragment.AbstractFeedViewFragment;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.PostVM;
@@ -763,16 +762,20 @@ public class ViewUtil {
         return dialog;
     }
 
-    public static Dialog alertSellerStatus(Context context, String desc) {
-        return alertSellerStatus(context, desc, -1, 3000);
+    public static Dialog alertGameStatus(Context context, String desc) {
+        return alertGameStatus(context, null, desc, -1, 2000);
     }
 
-    public static Dialog alertSellerStatus(Context context, String desc, int points) {
-        return alertSellerStatus(context, desc, points, 3000);
+    public static Dialog alertGameStatus(Context context, String image, String desc) {
+        return alertGameStatus(context, image, desc, -1, 2000);
     }
 
-    public static Dialog alertSellerStatus(Context context, String desc, int points, long delayMillis) {
-        final Dialog dialog = alert(context, R.layout.seller_credit_popup_window);
+    public static Dialog alertGameStatus(Context context, String desc, int points) {
+        return alertGameStatus(context, null, desc, points, 2000);
+    }
+
+    public static Dialog alertGameStatus(Context context, String image, String desc, int points, long delayMillis) {
+        final Dialog dialog = alert(context, R.layout.game_popup_window);
         ImageView mascot = (ImageView) dialog.findViewById(R.id.mascot);
         TextView descText = (TextView) dialog.findViewById(R.id.descText);
         TextView pointsText = (TextView) dialog.findViewById(R.id.pointsText);
@@ -785,6 +788,11 @@ public class ViewUtil {
             endText.setVisibility(View.GONE);
         } else {
             pointsText.setText("+"+points);
+        }
+
+        if (image != null) {
+            mascot.setVisibility(View.VISIBLE);
+            ImageUtil.displayImage(image, mascot);
         }
 
         ImageView dismissImage = (ImageView) dialog.findViewById(R.id.dismissImage);
