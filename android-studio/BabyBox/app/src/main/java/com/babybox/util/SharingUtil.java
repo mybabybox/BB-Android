@@ -106,7 +106,7 @@ public class SharingUtil {
     }
 
     public static String createMessage(PostVM post) {
-        String message = post.getTitle();
+        String message = post.getTitle() + " - $" + post.getPrice();
         String url = UrlUtil.createPostUrl(post);
         message = message +
                 ViewUtil.HTML_LINE_BREAK +

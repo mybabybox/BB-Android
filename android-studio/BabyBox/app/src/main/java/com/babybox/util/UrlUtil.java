@@ -15,7 +15,7 @@ public class UrlUtil {
     private static final String CATEGORY_URL = AppController.BASE_URL + "/#!/category/%d";
     private static final String POST_URL = AppController.BASE_URL + "/#!/post/%d";
     //private static final String ANDROID_APP_DOWNLOAD_URL = AppController.BASE_URL + "/#!/apps/android";
-    private static final String ANDROID_APP_DOWNLOAD_URL = "https://goo.gl/gdHjty";
+    private static final String ANDROID_APP_DOWNLOAD_URL = "https://goo.gl/BdQeze";
     private static final String REFERRAL_URL = AppController.BASE_URL + "/signup-code/%s";
 
     private static String POST_URL_REGEX = ".*/post/(\\d+)";
