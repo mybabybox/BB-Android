@@ -22,7 +22,6 @@ import com.babybox.app.AppController;
 import com.babybox.app.DistrictCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
-import com.babybox.util.DefaultValues;
 import com.babybox.util.ValidationUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.LocationVM;
@@ -37,10 +36,11 @@ public class EditProfileActivity extends TrackedFragmentActivity {
     private Spinner locationSpinner;
     private Button finishButton;
     private ImageView fbLoginIcon, mbLoginIcon;
-    private EditText displayName,aboutmeEdit;
-    private TextView displayEmailText;
+    private EditText emailEdit, displayNameEdit, aboutmeEdit;
     private EditText lastNameEdit,firstNameEdit;
     private ImageView backImage;
+
+    private boolean emailCanEdit = false;
 
     private UserProfileDataVM profileDataVM;
 
@@ -62,12 +62,12 @@ public class EditProfileActivity extends TrackedFragmentActivity {
         lastNameEdit = (EditText) findViewById(R.id.lastNameEditText);
         firstNameEdit = (EditText) findViewById(R.id.firstNameEditText);
 
-        displayEmailText = (TextView) findViewById(R.id.displayEmailText);
+        emailEdit = (EditText) findViewById(R.id.emailEdit);
         aboutmeEdit = (EditText) findViewById(R.id.aboutmeEdit);
 
         profileDataVM = new UserProfileDataVM();
 
-        displayName = (EditText) findViewById(R.id.displaynameEdit);
+        displayNameEdit = (EditText) findViewById(R.id.displayNameEdit);
         locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
 
         finishButton = (Button) findViewById(R.id.finishButton);
@@ -100,7 +100,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View view) {
                 if (isValid()) {
-                    profileDataVM.setParent_displayname(displayName.getText().toString());
+                    profileDataVM.setParent_displayname(displayNameEdit.getText().toString());
                     profileDataVM.setParent_firstname(firstNameEdit.getText().toString());
                     profileDataVM.setParent_lastname(lastNameEdit.getText().toString());
                     profileDataVM.setParent_location(locationId);
@@ -145,11 +145,16 @@ public class EditProfileActivity extends TrackedFragmentActivity {
         UserVM user = UserInfoCache.getUser();
         fbLoginIcon.setVisibility(user.isFbLogin()? View.VISIBLE : View.GONE);
         mbLoginIcon.setVisibility(user.isFbLogin() ? View.GONE : View.VISIBLE);
-        displayEmailText.setText(user.getEmail());
-        displayName.setText(user.getDisplayName());
+        emailEdit.setText(user.getEmail());
+        displayNameEdit.setText(user.getDisplayName());
         aboutmeEdit.setText(user.getAboutMe());
         firstNameEdit.setText(user.getFirstName());
         lastNameEdit.setText(user.getLastName());
+
+        // Only enable email edit for FB signups with email hidden
+        emailCanEdit = user.isFbLogin && !user.emailProvidedOnSignup;
+        emailEdit.setEnabled(emailCanEdit);
+        emailEdit.setTextColor(getResources().getColor(R.color.gray));
 
         //(new ActivityUtil(this)).hideInputMethodWindow(this.finishButton);
     }
@@ -194,7 +199,13 @@ public class EditProfileActivity extends TrackedFragmentActivity {
     private boolean isValid() {
         boolean valid = true;
         String error = "";
-        if (!ValidationUtil.isUserDisplaynameValid(displayName)) {
+        if (emailCanEdit) {
+            if (!ValidationUtil.isEmailValid(emailEdit)) {
+                error = ValidationUtil.appendError(error, getString(R.string.signup_error_email_format));
+                valid = false;
+            }
+        }
+        if (!ValidationUtil.isUserDisplaynameValid(displayNameEdit)) {
             error = ValidationUtil.appendError(error, getString(R.string.signup_details_error_displayname_format));
             valid = false;
         }

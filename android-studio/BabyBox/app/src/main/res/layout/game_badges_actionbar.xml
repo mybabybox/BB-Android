@@ -35,7 +35,7 @@
             android:layout_centerInParent="true">
 
             <ImageView
-                android:layout_width="28dp"
+                android:layout_width="35dp"
                 android:layout_height="match_parent"
                 android:id="@+id/toolbarTitleImage"
                 android:src="@drawable/game_badge" />

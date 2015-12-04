@@ -18,6 +18,7 @@ public class UserVMLite implements Serializable {
     public Long totalLogin;
     public boolean isLoggedIn = false;
     public boolean isFbLogin = false;
+    public boolean emailProvidedOnSignup = false;
     public boolean emailValidated = false;
     public boolean newUser = false;
     public boolean isAdmin = false;
@@ -124,6 +125,14 @@ public class UserVMLite implements Serializable {
 
     public void setIsFbLogin(boolean isFbLogin) {
         this.isFbLogin = isFbLogin;
+    }
+
+    public boolean isEmailProvidedOnSignup() {
+        return emailProvidedOnSignup;
+    }
+
+    public void setEmailProvidedOnSignup(boolean emailProvidedOnSignup) {
+        this.emailProvidedOnSignup = emailProvidedOnSignup;
     }
 
     public boolean isEmailValidated() {

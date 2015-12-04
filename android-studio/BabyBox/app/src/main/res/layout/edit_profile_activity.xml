@@ -93,8 +93,8 @@
                     android:layout_gravity="center_vertical"
                     android:singleLine="false" />
 
-                <TextView
-                    android:id="@+id/displayEmailText"
+                <EditText
+                    android:id="@+id/emailEdit"
                     android:background="@drawable/edit_text_round"
                     android:layout_marginLeft="5dp"
                     android:textSize="16dp"
@@ -103,13 +103,13 @@
                     android:layout_weight="7"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="textNoSuggestions|textEmailAddress"
                     android:singleLine="true" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/displaynameLayout"
+                android:id="@+id/displayNameLayout"
                 android:layout_below="@+id/displayEmailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                     android:singleLine="false" />
 
                 <EditText
-                    android:id="@+id/displaynameEdit"
+                    android:id="@+id/displayNameEdit"
                     android:background="@drawable/edit_text_round"
                     android:layout_marginLeft="5dp"
                     android:textSize="16dp"
@@ -148,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="10"
-                android:layout_below="@+id/displaynameLayout"
+                android:layout_below="@+id/displayNameLayout"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
                 android:layout_marginTop="5dp"

@@ -13,7 +13,7 @@ import com.babybox.app.AppController;
 public class ValidationUtil {
 
     public static final int USER_DISPLAYNAME_MIN_CHAR = 2;
-    public static final int USER_DISPLAYNAME_MAX_CHAR = 20;
+    public static final int USER_DISPLAYNAME_MAX_CHAR = 18;
 
     private static final String EMAIL_FORMAT_REGEX =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -35,7 +35,22 @@ public class ValidationUtil {
      * @return
      */
     public static boolean isEmailValid(EditText editText) {
+        String text = editText.getText().toString().trim();
+        editText.setError(null);
+
+        // whitespace
+        if (hasWhitespace(text)) {
+            editText.setError(ERROR_EMAIL_FORMAT);
+            return false;
+        }
+
         return isValid(editText, EMAIL_FORMAT_REGEX, ERROR_EMAIL_FORMAT, true);
+    }
+
+    public static boolean hasWhitespace(String text) {
+        Pattern pattern = Pattern.compile("\\s");
+        Matcher matcher = pattern.matcher(text);
+        return matcher.find();
     }
 
     /**
@@ -58,9 +73,7 @@ public class ValidationUtil {
         }
 
         // whitespace
-        Pattern pattern = Pattern.compile("\\s");
-        Matcher matcher = pattern.matcher(text);
-        if (matcher.find()) {
+        if (hasWhitespace(text)) {
             editText.setError(ERROR_USER_DISPLAYNAME_NO_SPACE);
             return false;
         }
@@ -89,7 +102,7 @@ public class ValidationUtil {
         if (required && !Pattern.matches(regex, text)) {
             editText.setError(errMsg);
             return false;
-        };
+        }
 
         return true;
     }

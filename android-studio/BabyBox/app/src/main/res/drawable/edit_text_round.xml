@@ -9,7 +9,7 @@
                 android:endColor="@color/white"
                 android:angle="270" />
             <stroke
-                android:width="2.3dp"
+                android:width="1.5dp"
                 android:color="@color/pink" />
             <corners
                 android:radius="5dp" />
@@ -24,7 +24,7 @@
                 android:endColor="@color/white"
                 android:angle="270" />
             <stroke
-                android:width="2.3dp"
+                android:width="1.5dp"
                 android:color="@color/pink" />
             <corners
                 android:radius="5dp" />
@@ -39,7 +39,7 @@
                 android:endColor="@color/white"
                 android:angle="270" />
             <stroke
-                android:width="2.3dp"
+                android:width="1.5dp"
                 android:color="@color/pink" />
             <corners
                 android:radius="5dp" />
