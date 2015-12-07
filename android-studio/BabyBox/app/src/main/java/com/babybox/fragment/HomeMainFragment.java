@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.babybox.R;
-import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragment;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
