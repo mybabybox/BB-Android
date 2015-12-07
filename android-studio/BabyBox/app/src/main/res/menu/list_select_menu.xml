@@ -2,11 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/item_mark_as_read"
+        android:icon="@drawable/ic_action_read"
+        app:showAsAction="always"
+        android:title="Mark Read"
+        android:titleCondensed="Mark Read">
+    </item>
+
+    <item
         android:id="@+id/item_delete"
         android:icon="@android:drawable/ic_menu_delete"
         app:showAsAction="always"
         android:title="Delete"
         android:titleCondensed="Delete">
     </item>
-
+    <item
+        android:id="@+id/item_archived"
+        android:icon="@drawable/ic_archived"
+        app:showAsAction="always"
+        android:title="Archived"
+        android:titleCondensed="Archived">
+    </item>
 </menu>
