@@ -34,6 +34,8 @@ public class DefaultValues {
     public static final int DEFAULT_CONNECTION_TIMEOUT_MILLIS = 3000;
     public static final int DEFAULT_HANDLER_DELAY = 100;
 
+    public static final int DEFAULT_SLIDER_DURATION = 4000;
+
     public static final int PULL_TO_REFRESH_DELAY = 250;
 
     public static final int FEEDVIEW_ITEM_TOP_MARGIN = 4;
@@ -45,9 +47,6 @@ public class DefaultValues {
 
     public static final int CATEGORY_PICKER_POPUP_WIDTH = 250;
     public static final int CATEGORY_PICKER_POPUP_HEIGHT = 350;
-
-    public static final int EMOTICON_POPUP_WIDTH = 300;
-    public static final int EMOTICON_POPUP_HEIGHT = 100;
 
     public static final int MAX_POST_IMAGES = 4;
     public static final int MAX_MESSAGE_IMAGES = 1;

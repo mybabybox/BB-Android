@@ -15,21 +15,22 @@ import android.widget.LinearLayout;
 import com.babybox.R;
 import com.babybox.activity.MainActivity;
 import com.babybox.app.CategoryCache;
+import com.babybox.util.DefaultValues;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.view.AdaptiveViewPager;
 import com.babybox.viewmodel.CategoryVM;
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class HomeExploreFeedViewFragment extends FeedViewFragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
+public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
     private static final String TAG = HomeExploreFeedViewFragment.class.getName();
 
@@ -40,7 +41,8 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment implements Bas
 
     private FrameLayout tipsLayout;
     private ImageView dismissTipsButton;
-    private SliderLayout mDemoSlider;
+
+    private SliderLayout homeSlider;
 
     @Override
     protected View getHeaderView(LayoutInflater inflater) {
@@ -64,42 +66,40 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment implements Bas
         catPagerAdapter = new HomeCategoryPagerAdapter(getChildFragmentManager());
         catPager.setAdapter(catPagerAdapter);
 
+        // home slider
+        homeSlider = (SliderLayout)getHeaderView(inflater).findViewById(R.id.homeSlider);
 
-        mDemoSlider = (SliderLayout)getHeaderView(inflater).findViewById(R.id.slider);
+        Map<String,String> url_maps = new HashMap<>();
+        url_maps.put("Goon", "http://cdn.shopify.com/s/files/1/0693/1689/files/goon-is-gerat-banner.jpg");
+        url_maps.put("Moony", "https://shop.tinytree.com.sg/product_images/uploaded_images/Moony_banner.jpg");
 
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        url_maps.put("Hannibal", "http://static2.hypable.com/wp-content/uploads/2013/12/hannibal-season-2-release-date.jpg");
-        url_maps.put("Big Bang Theory", "http://tvfiles.alphacoders.com/100/hdclearart-10.png");
-        url_maps.put("House of Cards", "http://cdn3.nflximg.net/images/3093/2043093.jpg");
-        url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
-
-        HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("Hannibal",R.drawable.hannibal);
-        file_maps.put("Big Bang Theory",R.drawable.bigbang);
-        file_maps.put("House of Cards",R.drawable.house);
-        file_maps.put("Game of Thrones", R.drawable.game_of_thrones);
-
-        for(String name : file_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            // initialize a SliderLayout
-            textSliderView
-                    .description(name)
-                    .image(file_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
+        for (String name : url_maps.keySet()) {
+            DefaultSliderView sliderView = new DefaultSliderView(getActivity());
+            sliderView
+                    .image(url_maps.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                    .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                        @Override
+                        public void onSliderClick(BaseSliderView slider) {
+                            ViewUtil.startCategoryActivity(getActivity(), 5L);
+                        }
+                    });
 
             //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
+            sliderView.bundle(new Bundle());
+            sliderView.getBundle().putString("extra",name);
 
-            mDemoSlider.addSlider(textSliderView);
+            homeSlider.addSlider(sliderView);
         }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(4000);
-        mDemoSlider.addOnPageChangeListener(this);
+
+        //homeSlider.setCustomAnimation(new DescriptionAnimation());
+        homeSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+        homeSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        homeSlider.setDuration(DefaultValues.DEFAULT_SLIDER_DURATION);
+
+        PagerIndicator indicator = homeSlider.getPagerIndicator();
+        indicator.setDefaultIndicatorColor(getResources().getColor(R.color.pink), getResources().getColor(R.color.light_gray_2));
+        homeSlider.setCustomIndicator(indicator);
 
         // tips
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
@@ -134,26 +134,6 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment implements Bas
     @Override
     protected void onScrollDown() {
         MainActivity.getInstance().showBottomMenuBar(false);
-    }
-
-    @Override
-    public void onPageScrolled(int i, float v, int i2) {
-
-    }
-
-    @Override
-    public void onPageSelected(int i) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int i) {
-
-    }
-
-    @Override
-    public void onSliderClick(BaseSliderView baseSliderView) {
-
     }
 }
 

@@ -3,11 +3,20 @@ package com.babybox.viewmodel;
 
 public class UserProfileDataVM {
 
+    public String parent_email;
     public String parent_aboutme;
     public String parent_displayname;
     public String parent_firstname;
     public String parent_lastname;
     public int parent_location;
+
+    public String getParent_email() {
+        return parent_email;
+    }
+
+    public void setParent_email(String parent_email) {
+        this.parent_email = parent_email;
+    }
 
     public int getParent_location() {
         return parent_location;
@@ -48,13 +57,5 @@ public class UserProfileDataVM {
     public void setParent_lastname(String parent_lastname) {
         this.parent_lastname = parent_lastname;
     }
-
-    /*public String getParent_location() {
-        return parent_location;
-    }
-
-    public void setParent_location(String parent_location) {
-        this.parent_location = parent_location;
-    }*/
 }
 

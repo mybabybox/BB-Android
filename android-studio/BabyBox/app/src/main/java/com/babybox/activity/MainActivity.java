@@ -106,15 +106,12 @@ public class MainActivity extends TrackedFragmentActivity {
         }, 2000);
         */
 
-        gameBadgeImage.setVisibility(UserInfoCache.getUser().isAdmin()? View.VISIBLE : View.GONE);
-        if (UserInfoCache.getUser().isAdmin()) {
-            gameBadgeImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ViewUtil.startGameBadgesActivity(MainActivity.this, UserInfoCache.getUser().getId());
-                }
-            });
-        }
+        gameBadgeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.startGameBadgesActivity(MainActivity.this, UserInfoCache.getUser().getId());
+            }
+        });
 
         chatLayout.setOnClickListener(new View.OnClickListener() {
             @Override

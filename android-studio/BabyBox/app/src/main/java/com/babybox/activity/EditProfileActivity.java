@@ -100,11 +100,12 @@ public class EditProfileActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View view) {
                 if (isValid()) {
-                    profileDataVM.setParent_displayname(displayNameEdit.getText().toString());
-                    profileDataVM.setParent_firstname(firstNameEdit.getText().toString());
-                    profileDataVM.setParent_lastname(lastNameEdit.getText().toString());
+                    profileDataVM.setParent_email(emailEdit.getText().toString().trim());
+                    profileDataVM.setParent_displayname(displayNameEdit.getText().toString().trim());
+                    profileDataVM.setParent_firstname(firstNameEdit.getText().toString().trim());
+                    profileDataVM.setParent_lastname(lastNameEdit.getText().toString().trim());
                     profileDataVM.setParent_location(locationId);
-                    profileDataVM.setParent_aboutme(aboutmeEdit.getText().toString());
+                    profileDataVM.setParent_aboutme(aboutmeEdit.getText().toString().trim());
                     updateUserProfileData(profileDataVM);
                 }
             }

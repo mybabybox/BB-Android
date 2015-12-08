@@ -8,7 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tipsLayout"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/tips"
@@ -55,20 +57,20 @@
     </FrameLayout>
 
     <com.daimajia.slider.library.SliderLayout
-        android:id="@+id/slider"
+        android:id="@+id/homeSlider"
         android:layout_width="match_parent"
         custom:pager_animation="Accordion"
         custom:auto_cycle="true"
         android:layout_below="@+id/tipsLayout"
         custom:indicator_visibility="visible"
         custom:pager_animation_span="1100"
-        android:layout_height="200dp"/>
+        android:layout_height="120dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category"
-        android:layout_below="@+id/slider"
+        android:layout_below="@+id/homeSlider"
         android:textColor="@color/gray"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"

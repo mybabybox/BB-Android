@@ -46,8 +46,7 @@
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/userNameText"
-            android:src="@drawable/game_badge"
-            android:visibility="gone" />
+            android:src="@drawable/game_badge" />
 
     </RelativeLayout>
 
