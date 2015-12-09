@@ -96,6 +96,9 @@
             android:name="com.babybox.activity.NewPostActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.LocationActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.babybox.activity.EditPostActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -167,10 +170,6 @@
 
         <service android:name="com.babybox.gcm.GCMNotificationIntentService" />
 
-        <activity
-            android:name=".activity.LocationActivity"
-            android:label="@string/title_activity_location" >
-        </activity>
     </application>
 
 </manifest>

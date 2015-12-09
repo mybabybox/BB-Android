@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class LocationActivity extends Activity implements AdapterView.OnItemClickListener {
 
-    private static final String LOG_TAG = "ExampleApp";
+    private static final String TAG = LocationActivity.class.getName();
 
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
@@ -37,24 +37,18 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
     //------------ make your specific key ------------
     private static final String API_KEY = "AIzaSyCB0RbNeW2NB0spBptbci1XJFmBMzRnF60";
 
-    protected String getActionTypeText() {
-        return getString(R.string.new_post_action);
-    }
-
     AutoCompleteTextView autoCompView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.location_activity);
 
         autoCompView = (AutoCompleteTextView) findViewById(R.id.locationText);
 
-        autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.loc_list_item));
+        autoCompView.setAdapter(new GooglePlacesAutocompleteAdapter(this, R.layout.location_list_item));
         autoCompView.setOnItemClickListener(this);
-
     }
-
 
     public static ArrayList<String> autocomplete(String input) {
         ArrayList<String> resultList = null;
@@ -79,10 +73,10 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
                 jsonResults.append(buff, 0, read);
             }
         } catch (MalformedURLException e) {
-            Log.e(LOG_TAG, "Error processing Places API URL", e);
+            Log.e(TAG, "Error processing Places API URL", e);
             return resultList;
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error connecting to Places API", e);
+            Log.e(TAG, "Error connecting to Places API", e);
             return resultList;
         } finally {
             if (conn != null) {
@@ -96,13 +90,13 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
 
             JSONArray predsJsonArray = jsonObj.getJSONArray("predictions");
 
-            resultList = new ArrayList<String>(predsJsonArray.length());
+            resultList = new ArrayList<>(predsJsonArray.length());
             for (int i = 0; i < predsJsonArray.length(); i++) {
-                System.out.println(predsJsonArray.getJSONObject(i).getString("description"));
+                Log.d(TAG, predsJsonArray.getJSONObject(i).getString("description"));
                 resultList.add(predsJsonArray.getJSONObject(i).getString("description"));
             }
         } catch (JSONException e) {
-            Log.e(LOG_TAG, "Cannot process JSON results", e);
+            Log.e(TAG, "Cannot process JSON results", e);
         }
 
         return resultList;
@@ -161,7 +155,4 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
             return filter;
         }
     }
-
-
-
 }

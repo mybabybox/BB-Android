@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/view_bg"
+    android:id="@+id/mainLayout">
+
+    <include layout="@layout/view_actionbar"
+        android:id="@+id/toolbar" />
+
+    <AutoCompleteTextView
+        android:id="@+id/locationText"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/location_search_hint"
+        android:layout_below="@+id/toolbar" />
+
+</RelativeLayout>

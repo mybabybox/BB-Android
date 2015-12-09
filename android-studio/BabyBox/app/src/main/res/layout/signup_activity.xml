@@ -159,7 +159,8 @@
                                 android:layout_marginRight="5dp"
                                 android:singleLine="true"
                                 android:textColor="@color/dark_gray_2"
-                                android:textColorHint="@color/gray" />
+                                android:textColorHint="@color/gray"
+                                android:inputType="textNoSuggestions|textCapWords" />
                             <EditText
                                 android:id="@+id/firstNameEditText"
                                 android:layout_weight="5"
@@ -171,7 +172,8 @@
                                 android:background="@drawable/edit_text_round"
                                 android:singleLine="true"
                                 android:textColor="@color/dark_gray_2"
-                                android:textColorHint="@color/gray" />
+                                android:textColorHint="@color/gray"
+                                android:inputType="textNoSuggestions|textCapWords" />
                         </LinearLayout>
 
                         <EditText
@@ -196,7 +198,8 @@
                             android:singleLine="true"
                             android:password="true"
                             android:textColor="@color/dark_gray_2"
-                            android:textColorHint="@color/gray" />
+                            android:textColorHint="@color/gray"
+                            android:inputType="textNoSuggestions|textPassword" />
                         <EditText
                             android:id="@+id/repeatPasswordEditText"
                             android:layout_marginTop="15dp"
@@ -208,7 +211,8 @@
                             android:singleLine="true"
                             android:password="true"
                             android:textColor="@color/dark_gray_2"
-                            android:textColorHint="@color/gray" />
+                            android:textColorHint="@color/gray"
+                            android:inputType="textNoSuggestions|textPassword" />
 
                         <Button
                             android:id="@+id/signupButton"

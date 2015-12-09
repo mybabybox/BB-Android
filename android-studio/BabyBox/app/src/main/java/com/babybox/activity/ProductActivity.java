@@ -307,7 +307,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 titleText.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        if (ViewUtil.copyToClipboard(descText.getText().toString())) {
+                        if (ViewUtil.copyToClipboard(titleText.getText().toString())) {
                             Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.text_copy_success), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.text_copy_failed), Toast.LENGTH_SHORT).show();

@@ -51,6 +51,10 @@
     <color name="seller_title_border">#2EAB66</color>
     <color name="seller_title_text">#556fb5</color>
 
+    <color name="message_bg">#E6DED7</color>
+    <color name="message_you_bg">#dcf8c6</color>
+    <color name="message_from_bg">#ffffff</color>
+
     <color name="crop__button_bar">#f3f3f3</color>
     <color name="crop__button_text">#666666</color>
     <color name="crop__selector_pressed">#1a000000</color>

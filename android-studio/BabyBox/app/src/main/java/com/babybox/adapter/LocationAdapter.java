@@ -35,12 +35,6 @@ public class LocationAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-
-
-
-
-
-
         return view;
     }
 }

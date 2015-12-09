@@ -17,15 +17,13 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="10"
-            android:layout_marginBottom="3dp">
+            android:weightSum="10">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
-                android:id="@+id/cat1"
-                android:layout_marginRight="3dp">
+                android:id="@+id/cat1">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -76,8 +74,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
-                android:id="@+id/cat2"
-                android:layout_marginRight="3dp">
+                android:id="@+id/cat2">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -181,15 +178,13 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="10"
-            android:layout_marginBottom="3dp">
+            android:weightSum="10">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
-                android:id="@+id/cat4"
-                android:layout_marginRight="3dp">
+                android:id="@+id/cat4">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -240,8 +235,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
-                android:id="@+id/cat5"
-                android:layout_marginRight="3dp">
+                android:id="@+id/cat5">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -346,14 +340,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="10"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="5dp">
 
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
-                android:id="@+id/cat7"
-                android:layout_marginRight="3dp">
+                android:id="@+id/cat7">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
@@ -404,8 +397,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3.33"
-                android:id="@+id/cat8"
-                android:layout_marginRight="3dp">
+                android:id="@+id/cat8">
 
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#FFDCD8" />
+    <solid android:color="@color/message_you_bg" />
     <stroke
-        android:width="1dp"
-        android:color="#FFCFCA" />
+        android:width="0.8dp"
+        android:color="@color/light_gray_2" />
     <corners
         android:radius="1dp"
         android:topLeftRadius="10dp"

@@ -92,7 +92,6 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
             homeSlider.addSlider(sliderView);
         }
 
-        //homeSlider.setCustomAnimation(new DescriptionAnimation());
         homeSlider.setPresetTransformer(SliderLayout.Transformer.Default);
         homeSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         homeSlider.setDuration(DefaultValues.DEFAULT_SLIDER_DURATION);

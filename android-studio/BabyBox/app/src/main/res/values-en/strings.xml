@@ -181,6 +181,11 @@
     <string name="new_without_tag">New (unsealed/without tags)</string>
     <string name="used">Used</string>
 
+    <string name="new_post_location">Location:</string>
+    <string name="field_optional">(Optional)</string>
+    <string name="location_actionbar_title">Location</string>
+    <string name="location_search_hint">Enter location</string>
+
     <string name="post_delete_confirm">Delete now?</string>
     <string name="post_sold_confirm">Confirm product has been sold?\nYou will no longer receive chats and orders for this product</string>
     <string name="post_not_found">Cannot find this product. It might have been removed.</string>
@@ -270,6 +275,7 @@
     <string name="game_badges">Badges</string>
     <string name="game_my_badges">My Badges</string>
     <string name="game_badges_desc">You will get a badge after completing a goal.\nCollect all badges now!</string>
+    <string name="game_badges_awarded_already">[You have collected this badge!]</string>
 
     <!-- Seller -->
     <string name="seller_credit">points</string>
