@@ -4,17 +4,16 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.babybox.R;
+import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.LocationVM;
+import com.babybox.viewmodel.UserVM;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.babybox.app.AppController;
-import com.babybox.viewmodel.LocationVM;
-import com.babybox.viewmodel.UserVM;
 
 /**
  * Created by keithlei on 3/16/15.
@@ -32,6 +31,7 @@ public class SharedPreferencesUtil {
     public static final String CATEGORIES = "categories";
     public static final String APP_VERSION = "appVersion";
     public static final String LANG = "lang";
+    public static final String LOCATION = "location";
 
     // gcm
     public static final String GCM_KEY = "gcmKey";
@@ -83,6 +83,10 @@ public class SharedPreferencesUtil {
 
     public void saveAppVersion(Long appVersion) {
         this.saveLong(SharedPreferencesUtil.APP_VERSION, appVersion);
+    }
+
+    public void saveLocation(String location) {
+        this.saveString(SharedPreferencesUtil.LOCATION, location);
     }
 
     public void saveLang(String lang) {
@@ -167,6 +171,10 @@ public class SharedPreferencesUtil {
 
     public Long getAppVersion() {
         return this.getLong(SharedPreferencesUtil.APP_VERSION);
+    }
+
+    public String getLocation() {
+        return this.getString(SharedPreferencesUtil.LOCATION);
     }
 
     public String getLang() {
