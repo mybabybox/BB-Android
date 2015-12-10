@@ -376,7 +376,8 @@
                 android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:background="@color/white"
-                android:layout_below="@+id/bar4">
+                android:layout_below="@+id/bar4"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"

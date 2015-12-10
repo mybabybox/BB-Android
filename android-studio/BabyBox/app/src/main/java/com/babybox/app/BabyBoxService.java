@@ -7,6 +7,7 @@ import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.EmoticonVM;
+import com.babybox.viewmodel.FeaturedItemVM;
 import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
@@ -67,8 +68,8 @@ public class BabyBoxService {
         api.initNewUser(AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getAllProducts(Callback<List<PostVMLite>> cb){
-        api.getAllProducts(AppController.getInstance().getSessionId(), cb);
+    public void getHomeSliderFeaturedItems(Callback<List<FeaturedItemVM>> cb) {
+        api.getFeaturedItems("HOME_SLIDER", AppController.getInstance().getSessionId(), cb);
     }
 
     // home feeds

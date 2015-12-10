@@ -7,6 +7,7 @@ import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.EmoticonVM;
+import com.babybox.viewmodel.FeaturedItemVM;
 import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
@@ -66,8 +67,8 @@ public interface BabyBoxApi {
     @GET("/get-user/{id}")
     public void getUser(@Path("id") Long id, @Query("key") String key, Callback<UserVM> cb);
 
-    @GET("/get-all-feed-products")
-    public void getAllProducts(@Query("key") String key,Callback<List<PostVMLite>> cb);
+    @GET("/get-featured-items/{itemType}")
+    public void getFeaturedItems(@Path("itemType") String itemType, @Query("key") String key,Callback<List<FeaturedItemVM>> cb);
 
     //
     // Home feeds
