@@ -177,7 +177,7 @@ public class AppController extends Application {
 
     private static String getBaseUrl() {
         if ("dev".equalsIgnoreCase(getInstance().getString(R.string.env))) {
-            return getInstance().getString(R.string.base_url);
+            return getInstance().getString(R.string.base_url_dev);
         }
         return getInstance().getString(R.string.base_url);
     }
