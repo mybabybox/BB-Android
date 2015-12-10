@@ -142,9 +142,12 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
                         homeSlider.setDuration(DefaultValues.DEFAULT_SLIDER_DURATION);
                         homeSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Visible);
 
-                        PagerIndicator indicator = homeSlider.getPagerIndicator();
-                        indicator.setDefaultIndicatorColor(getResources().getColor(R.color.pink), getResources().getColor(R.color.light_gray_2));
-                        homeSlider.setCustomIndicator(indicator);
+                        // getResources() only if fragment is attached
+                        if (isAdded() && getActivity() != null) {
+                            PagerIndicator indicator = homeSlider.getPagerIndicator();
+                            indicator.setDefaultIndicatorColor(getResources().getColor(R.color.pink), getResources().getColor(R.color.light_gray_2));
+                            homeSlider.setCustomIndicator(indicator);
+                        }
                     } else {
                         homeSlider.setPagerTransformer(true, new BaseTransformer() {
                             @Override
