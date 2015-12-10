@@ -2,7 +2,6 @@ package com.babybox.app;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.babybox.R;
-import com.babybox.activity.LoginActivity;
 import com.babybox.activity.MainActivity;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SharedPreferencesUtil;
@@ -29,7 +27,6 @@ import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
 import java.security.MessageDigest;
-import java.util.List;
 
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -74,6 +71,8 @@ public class AppController extends Application {
     private static int versionCode;
 
     private static String versionName;
+
+    private static Integer selectedIndex;
 
     private static BabyBoxService apiService;
 
@@ -178,7 +177,7 @@ public class AppController extends Application {
 
     private static String getBaseUrl() {
         if ("dev".equalsIgnoreCase(getInstance().getString(R.string.env))) {
-            return getInstance().getString(R.string.base_url_dev);
+            return getInstance().getString(R.string.base_url);
         }
         return getInstance().getString(R.string.base_url);
     }
@@ -269,5 +268,13 @@ public class AppController extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void saveSelectedIndex(Integer i){
+        selectedIndex = i;
+    }
+
+    public static Integer getSelectedIndex(){
+        return selectedIndex;
     }
 }

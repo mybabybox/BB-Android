@@ -18,15 +18,28 @@
             android:layout_alignParentLeft="true"
             android:id="@+id/userImageLayout"
             android:layout_margin="10dp">
-
-            <ImageView
-                android:id="@+id/userImage"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:scaleType="fitCenter"
+            <RelativeLayout
                 android:layout_gravity="center_vertical"
-                android:layout_centerVertical="true"></ImageView>
-
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"></ImageView>
+                <ImageView
+                    android:id="@+id/userImage1"
+                    android:layout_width="60dp"
+                    android:background="@drawable/ic_check"
+                    android:visibility="gone"
+                    android:layout_height="60dp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_vertical"
+                    android:layout_centerVertical="true"></ImageView>
+            </RelativeLayout>
             <TextView
                 android:id="@+id/userText"
                 android:layout_width="60dp"
