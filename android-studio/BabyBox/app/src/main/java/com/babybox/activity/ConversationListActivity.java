@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.adapter.ConversationListAdapter;
-import com.babybox.app.AppController;
 import com.babybox.app.ConversationCache;
 import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragmentActivity;
@@ -75,9 +74,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                 final int checkedCount = listView.getCheckedItemCount();
                 actionMode.setTitle(checkedCount + " Selected");
                 adapter.toggleSelection(i);
-
-                AppController.getInstance().saveSelectedIndex(i);
-
             }
 
             @Override
@@ -199,7 +195,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
     public void onResume() {
         super.onResume();
 
-        AppController.getInstance().saveSelectedIndex(null);
         // handle gcm
         if (ViewUtil.isGcmLaunchTarget(getIntent())) {
             // no-op...
@@ -293,9 +288,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        AppController.getInstance().saveSelectedIndex(null);
-        adapter.removeSelection();
-        adapter.notifyDataSetChanged();
         NotificationCounter.refresh();
     }
 

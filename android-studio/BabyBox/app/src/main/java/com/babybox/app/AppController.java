@@ -72,8 +72,6 @@ public class AppController extends Application {
 
     private static String versionName;
 
-    private static Integer selectedIndex;
-
     private static BabyBoxService apiService;
 
     private static boolean crashReportEnabled = false;
@@ -269,12 +267,4 @@ public class AppController extends Application {
             e.printStackTrace();
         }
     }
-
-    public static void saveSelectedIndex(Integer i){
-        selectedIndex = i;
     }
-
-    public static Integer getSelectedIndex(){
-        return selectedIndex;
-    }
-}
