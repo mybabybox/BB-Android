@@ -73,6 +73,7 @@ import com.babybox.activity.WelcomeActivity;
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationVM;
+import com.babybox.viewmodel.FeaturedItemVM;
 import com.babybox.viewmodel.PostVM;
 
 import org.parceler.apache.commons.lang.StringUtils;
@@ -98,6 +99,7 @@ public class ViewUtil {
 
     public static final String BUNDLE_KEY_LOGIN_KEY = "loginKey";
     public static final String BUNDLE_KEY_ID = "id";
+    public static final String BUNDLE_KEY_NAME = "name";
     public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
     public static final String BUNDLE_KEY_SOURCE = "source";
     public static final String BUNDLE_KEY_FEED_TYPE = "feedType";
@@ -1042,6 +1044,28 @@ public class ViewUtil {
         }
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.setResult(Activity.RESULT_OK, intent);
+    }
+
+    public static void handleFeaturedItemAction(Activity activity, FeaturedItemVM featuredItem) {
+        Long destinationObjId = featuredItem.destinationObjId;
+        String destinationObjName = featuredItem.destinationObjName;
+        switch (featuredItem.destinationType) {
+            case "CATEGORY":
+                startCategoryActivity(activity, destinationObjId);
+                break;
+            case "POST":
+                startProductActivity(activity, destinationObjId);
+                break;
+            case "USER":
+                startUserProfileActivity(activity, destinationObjId);
+                break;
+            case "HASHTAG":
+                // TODO start hashtag page
+                break;
+            default:
+                // TODO start hashtag page
+                break;
+        }
     }
 
     public static void openPlayStoreForUpgrade(Activity activity) {

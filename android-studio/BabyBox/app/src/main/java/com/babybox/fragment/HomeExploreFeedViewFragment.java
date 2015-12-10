@@ -14,21 +14,32 @@ import android.widget.LinearLayout;
 
 import com.babybox.R;
 import com.babybox.activity.MainActivity;
+import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.view.AdaptiveViewPager;
 import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.FeaturedItemVM;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.daimajia.slider.library.Transformers.BaseTransformer;
+import com.daimajia.slider.library.Transformers.DefaultTransformer;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.transform.Transformer;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
@@ -68,37 +79,7 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
         // home slider
         homeSlider = (SliderLayout)getHeaderView(inflater).findViewById(R.id.homeSlider);
-
-        Map<String,String> url_maps = new HashMap<>();
-        url_maps.put("Goon", "http://cdn.shopify.com/s/files/1/0693/1689/files/goon-is-gerat-banner.jpg");
-        url_maps.put("Moony", "https://shop.tinytree.com.sg/product_images/uploaded_images/Moony_banner.jpg");
-
-        for (String name : url_maps.keySet()) {
-            DefaultSliderView sliderView = new DefaultSliderView(getActivity());
-            sliderView
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.CenterCrop)
-                    .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
-                        @Override
-                        public void onSliderClick(BaseSliderView slider) {
-                            ViewUtil.startCategoryActivity(getActivity(), 5L);
-                        }
-                    });
-
-            //add your extra information
-            sliderView.bundle(new Bundle());
-            sliderView.getBundle().putString("extra",name);
-
-            homeSlider.addSlider(sliderView);
-        }
-
-        homeSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-        homeSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        homeSlider.setDuration(DefaultValues.DEFAULT_SLIDER_DURATION);
-
-        PagerIndicator indicator = homeSlider.getPagerIndicator();
-        indicator.setDefaultIndicatorColor(getResources().getColor(R.color.pink), getResources().getColor(R.color.light_gray_2));
-        homeSlider.setCustomIndicator(indicator);
+        initSlider();
 
         // tips
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
@@ -125,6 +106,67 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
         return view;
     }
 
+    private void initSlider() {
+        AppController.getApiService().getHomeSliderFeaturedItems(new Callback<List<FeaturedItemVM>>() {
+            @Override
+            public void success(List<FeaturedItemVM> featuredItems, Response response) {
+                Log.d(TAG, "initSlider: returned " + (featuredItems == null? "null" : featuredItems.size()+" featuredItems"));
+                if (!featuredItems.isEmpty()) {
+                    homeSlider.setVisibility(View.VISIBLE);
+
+                    for (final FeaturedItemVM featuredItem : featuredItems) {
+                        Log.d(TAG, "initSlider: name="+featuredItem.getName()+" image="+featuredItem.getImage());
+                        DefaultSliderView sliderView = new DefaultSliderView(getActivity());
+                        sliderView
+                                .image(featuredItem.getImage())
+                                .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                                .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                                    @Override
+                                    public void onSliderClick(BaseSliderView slider) {
+                                        ViewUtil.handleFeaturedItemAction(getActivity(), featuredItem);
+                                    }
+                                });
+
+                        // add your extra information
+                        sliderView.bundle(new Bundle());
+                        sliderView.getBundle().putString(ViewUtil.BUNDLE_KEY_ACTION_TYPE, featuredItem.destinationType);
+                        sliderView.getBundle().putLong(ViewUtil.BUNDLE_KEY_ID, featuredItem.destinationObjId);
+                        sliderView.getBundle().putString(ViewUtil.BUNDLE_KEY_NAME, featuredItem.destinationObjName);
+                        homeSlider.addSlider(sliderView);
+                    }
+
+                    // rotate if more than 1 item
+                    if (featuredItems.size() > 1) {
+                        homeSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+                        homeSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+                        homeSlider.setDuration(DefaultValues.DEFAULT_SLIDER_DURATION);
+                        homeSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Visible);
+
+                        PagerIndicator indicator = homeSlider.getPagerIndicator();
+                        indicator.setDefaultIndicatorColor(getResources().getColor(R.color.pink), getResources().getColor(R.color.light_gray_2));
+                        homeSlider.setCustomIndicator(indicator);
+                    } else {
+                        homeSlider.setPagerTransformer(true, new BaseTransformer() {
+                            @Override
+                            protected void onTransform(View view, float position) {
+                                return;
+                            }
+                        });
+                        homeSlider.stopAutoCycle();
+                        homeSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
+                    }
+                } else {
+                    homeSlider.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, "initSlider: failure", error);
+            }
+        });
+    }
+
     @Override
     protected void onScrollUp() {
         MainActivity.getInstance().showBottomMenuBar(true);
@@ -137,6 +179,7 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
 }
 
 class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {
+    private static final String TAG = HomeCategoryPagerAdapter.class.getName();
 
     public static final int CATEGORIES_PER_PAGE = 9;
 
@@ -159,7 +202,7 @@ class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.d(this.getClass().getSimpleName(), "getItem: item - " + position);
+        Log.d(TAG, "getItem: item - " + position);
         switch (position) {
             default: {
                 HomeCategoryPagerFragment fragment = new HomeCategoryPagerFragment();
@@ -188,7 +231,7 @@ class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {
 
         List<CategoryVM> categories = CategoryCache.getCategories();
         if (start >= categories.size()) {
-            Log.e(HomeCategoryPagerAdapter.class.getSimpleName(), "getCategoriesForPage: position out of bound... position="+position+" categories.size="+categories.size());
+            Log.e(TAG, "getCategoriesForPage: position out of bound... position="+position+" categories.size="+categories.size());
             return null;
         }
 

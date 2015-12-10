@@ -64,7 +64,8 @@
         android:layout_below="@+id/tipsLayout"
         custom:indicator_visibility="visible"
         custom:pager_animation_span="1100"
-        android:layout_height="120dp"/>
+        android:layout_height="120dp"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -73,7 +74,7 @@
         android:layout_below="@+id/homeSlider"
         android:textColor="@color/gray"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:textSize="14dp"
         android:textStyle="bold"
         android:layout_marginBottom="5dp"
