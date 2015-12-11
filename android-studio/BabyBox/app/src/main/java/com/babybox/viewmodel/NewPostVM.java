@@ -52,7 +52,7 @@ public class NewPostVM {
         multipartTypedOutput.addPart("price", new TypedString(price+""));
         multipartTypedOutput.addPart("conditionType", new TypedString(conditionType));
         multipartTypedOutput.addPart("withPhotos", new TypedString(withPhotos.toString()));
-        multipartTypedOutput.addPart("deviceType", new TypedString(Boolean.TRUE.toString()));
+        multipartTypedOutput.addPart("deviceType", new TypedString(deviceType.toString()));
 
         int i = 0;
         for (File image : images) {

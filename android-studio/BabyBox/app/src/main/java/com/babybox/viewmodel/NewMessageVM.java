@@ -1,6 +1,5 @@
 package com.babybox.viewmodel;
 
-import com.babybox.app.AppController;
 import com.babybox.util.SelectedImage;
 
 import java.io.File;
@@ -17,7 +16,6 @@ public class NewMessageVM {
     public Boolean system;
     public Boolean withPhotos;
     public List<File> images;
-    public String deviceType;
 
     public NewMessageVM(Long conversationId, String body, Boolean system, List<SelectedImage> selectedImages) {
         this.conversationId = conversationId;
@@ -28,7 +26,6 @@ public class NewMessageVM {
         for (SelectedImage selectedImage : selectedImages) {
             this.images.add(selectedImage.getFile());
         }
-        this.deviceType = AppController.DeviceType.ANDROID.name();
     }
 
     public MultipartTypedOutput toMultipart() {
@@ -37,7 +34,6 @@ public class NewMessageVM {
         multipartTypedOutput.addPart("body", new TypedString(body));
         multipartTypedOutput.addPart("system", new TypedString(system.toString()));
         multipartTypedOutput.addPart("withPhotos", new TypedString(withPhotos.toString()));
-        multipartTypedOutput.addPart("deviceType", new TypedString(Boolean.TRUE.toString()));
 
         int i = 0;
         for (File image : images) {
