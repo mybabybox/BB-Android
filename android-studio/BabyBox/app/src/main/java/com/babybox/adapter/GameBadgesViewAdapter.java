@@ -34,8 +34,6 @@ public class GameBadgesViewAdapter extends RecyclerView.Adapter<GameBadgesViewAd
 
     private int clickedPosition = -1;
 
-    private boolean pending = false;
-
     public GameBadgesViewAdapter(Activity activity, List<GameBadgeVM> items, View header) {
         this.activity = activity;
         this.items = items;
