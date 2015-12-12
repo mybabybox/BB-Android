@@ -279,7 +279,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 // Image slider
 
                 if (post.images != null) {
-                    imagePagerAdapter = new ProductImagePagerAdapter(getSupportFragmentManager(), post.images);
+                    imagePagerAdapter = new ProductImagePagerAdapter(getSupportFragmentManager(), post.images, post.sold);
                     imagePager.setAdapter(imagePagerAdapter);
                     imagePager.setCurrentItem(0);
                     ViewUtil.addDots(ProductActivity.this, imagePagerAdapter.getCount(), dotsLayout, dots, imagePager);
@@ -1095,10 +1095,12 @@ public class ProductActivity extends TrackedFragmentActivity {
 class ProductImagePagerAdapter extends FragmentStatePagerAdapter {
 
     private Long[] images;
+    private boolean sold;
 
-    public ProductImagePagerAdapter(FragmentManager fm, Long[] images) {
+    public ProductImagePagerAdapter(FragmentManager fm, Long[] images, boolean sold) {
         super(fm);
         this.images = images;
+        this.sold = sold;
     }
 
     @Override
@@ -1118,6 +1120,7 @@ class ProductImagePagerAdapter extends FragmentStatePagerAdapter {
             default: {
                 ProductImagePagerFragment fragment = new ProductImagePagerFragment();
                 fragment.setImageId(images[position]);
+                fragment.setSold(sold);
                 return fragment;
             }
         }

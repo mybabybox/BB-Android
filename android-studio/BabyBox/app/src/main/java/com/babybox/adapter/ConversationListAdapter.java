@@ -148,9 +148,8 @@ public class ConversationListAdapter extends BaseAdapter {
             orderTransactionStateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    if (orderTransactionStateSpinner.getSelectedItem() != null) {
-                        //String value = orderTransactionStateSpinner.getSelectedItem().toString();
+                    //String value = orderTransactionStateSpinner.getSelectedItem().toString();
+                    if (stateAdapter.getItem(i) != null) {
                         String value = stateAdapter.getItem(i);
                         Log.d(TAG, "orderTransactionStateSpinner.onItemSelected: state="+value);
                         ViewUtil.ConversationOrderTransactionState state = ViewUtil.parseConversationOrderTransactionStateFromValue(value);

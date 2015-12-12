@@ -14,8 +14,10 @@ import com.babybox.util.ViewUtil;
 public class ProductImagePagerFragment extends TrackedFragment {
 
     private ImageView image;
+    private ImageView soldImage;
 
     private Long imageId;
+    private boolean sold;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class ProductImagePagerFragment extends TrackedFragment {
         View view = inflater.inflate(R.layout.product_image_pager_fragment, container, false);
 
         image = (ImageView) view.findViewById(R.id.image);
+        soldImage = (ImageView) view.findViewById(R.id.soldImage);
 
         ImageUtil.displayOriginalPostImage(imageId, image);
 
@@ -33,10 +36,20 @@ public class ProductImagePagerFragment extends TrackedFragment {
             }
         });
 
+        if (sold) {
+            soldImage.setVisibility(View.VISIBLE);
+        } else {
+            soldImage.setVisibility(View.INVISIBLE);
+        }
+
         return view;
     }
 
     public void setImageId(Long imageId) {
         this.imageId = imageId;
+    }
+
+    public void setSold(boolean sold) {
+        this.sold = sold;
     }
 }
