@@ -16,6 +16,8 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
     public String lastMessage;
     public boolean lastMessageHasImage;
     public Long unread = 0L;
+    public String orderTransactionState;
+    public String highlightColor;
     public ConversationOrderVM order;
 
     public Long getId() {
@@ -120,6 +122,22 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
 
     public void setUnread(Long unread) {
         this.unread = unread;
+    }
+
+    public String getOrderTransactionState() {
+        return orderTransactionState;
+    }
+
+    public void setOrderTransactionState(String orderTransactionState) {
+        this.orderTransactionState = orderTransactionState;
+    }
+
+    public String getHighlightColor() {
+        return highlightColor;
+    }
+
+    public void setHighlightColor(String highlightColor) {
+        this.highlightColor = highlightColor;
     }
 
     public ConversationOrderVM getOrder() {

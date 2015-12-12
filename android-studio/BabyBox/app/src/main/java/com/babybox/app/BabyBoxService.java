@@ -26,6 +26,9 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.client.Response;
+import retrofit.http.GET;
+import retrofit.http.Path;
+import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
 public class BabyBoxService {
@@ -215,6 +218,16 @@ public class BabyBoxService {
         api.getActivities(offset, AppController.getInstance().getSessionId(), cb);
     }
 
+    // game badges
+
+    public void getGameBadges(Long id, Callback<List<GameBadgeVM>> cb) {
+        api.getGameBadges(id, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getGameBadgesAwarded(Long id, Callback<List<GameBadgeVM>> cb) {
+        api.getGameBadgesAwarded(id, AppController.getInstance().getSessionId(), cb);
+    }
+
     // conversation
 
     public void getAllConversations(Callback<List<ConversationVM>> cb) {
@@ -257,13 +270,12 @@ public class BabyBoxService {
         api.saveGCMKey(gcmKey, versionCode, AppController.getInstance().getSessionId(), cb);
     }
 
-    // game badges
-    public void getGameBadges(Long id, Callback<List<GameBadgeVM>> cb) {
-        api.getGameBadges(id, AppController.getInstance().getSessionId(), cb);
+    public void updateConversationOrderTransactionState(Long id, String state, Callback<Response> cb) {
+        api.updateConversationOrderTransactionState(id, state, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getGameBadgesAwarded(Long id, Callback<List<GameBadgeVM>> cb) {
-        api.getGameBadgesAwarded(id, AppController.getInstance().getSessionId(), cb);
+    public void highlightConversation(Long id, String color, Callback<Response> cb) {
+        api.highlightConversation(id, color, AppController.getInstance().getSessionId(), cb);
     }
 
     // conversation order

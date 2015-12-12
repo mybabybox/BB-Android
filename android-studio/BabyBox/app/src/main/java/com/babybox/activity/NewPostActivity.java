@@ -231,8 +231,10 @@ public class NewPostActivity extends TrackedFragmentActivity{
         conditionTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String value = conditionTypeSpinner.getSelectedItem().toString();
-                conditionType = ViewUtil.parsePostConditionTypeFromValue(value);
+                if (conditionTypeSpinner.getSelectedItem() != null) {
+                    String value = conditionTypeSpinner.getSelectedItem().toString();
+                    conditionType = ViewUtil.parsePostConditionTypeFromValue(value);
+                }
             }
 
             @Override

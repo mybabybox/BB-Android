@@ -223,12 +223,18 @@ public interface BabyBoxApi {
     @POST("/message/new")
     public void newMessage(@Body MultipartTypedOutput attachments, /*@Body NewMessageVM message,*/ @Query("key") String key, Callback<MessageVM> cb);
 
-    @GET("/image/get-message-image/{id} ")
+    @GET("/image/get-message-image/{id}")
     public void getMessageImage(@Query("key") String key, @Path("id") Long id, Callback<MessageVM> cb);
 
     @Multipart
     @POST("/image/upload-message-photo")
     public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") Long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
+
+    @GET("/update-conversation-order-transaction-state/{id}/{state}")
+    public void updateConversationOrderTransactionState(@Path("id") Long id, @Path("state") String state, @Query("key") String key, Callback<Response> cb);
+
+    @GET("/highlight-conversation/{id}/{color}")
+    public void highlightConversation(@Path("id") Long id, @Path("color") String color, @Query("key") String key, Callback<Response> cb);
 
     //
     // Conversation Order
@@ -273,5 +279,3 @@ public interface BabyBoxApi {
     public void getUsers(@Path("offset") Long offset, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
 }
-
-

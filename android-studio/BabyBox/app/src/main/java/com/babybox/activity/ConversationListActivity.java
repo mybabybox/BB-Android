@@ -121,14 +121,15 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             }
         });
 
+        /*
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 openedConversation = adapter.getItem(i);
-
                 ViewUtil.startMessageListActivity(ConversationListActivity.this, openedConversation.id, false);
             }
         });
+        */
 
         /*
         // obsolete... enabled multi select delete
@@ -239,8 +240,8 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                 });
             }
         } else {
-            // mark read for conversation
-            markRead(openedConversation);
+            //markRead(openedConversation);
+            adapter.notifyDataSetChanged();
         }
     }
 

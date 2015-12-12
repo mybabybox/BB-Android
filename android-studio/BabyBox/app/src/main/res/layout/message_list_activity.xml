@@ -295,7 +295,7 @@
                         <Button
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:text="@string/pm_order_buy"
+                            android:text="@string/pm_order_buy_again"
                             android:id="@+id/buyerOrderAgainButton"
                             android:textColor="@color/white"
                             android:background="@drawable/button_pink"

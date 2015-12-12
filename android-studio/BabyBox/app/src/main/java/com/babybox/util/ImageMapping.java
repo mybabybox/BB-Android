@@ -38,10 +38,14 @@ public class ImageMapping {
         imageMap.put("/assets/app/images/game/badges/profile_info_off.png", R.drawable.game_badge_profile_info_off);
         imageMap.put("/assets/app/images/game/badges/like_1.png", R.drawable.game_badge_like_1);
         imageMap.put("/assets/app/images/game/badges/like_1_off.png", R.drawable.game_badge_like_1_off);
+        imageMap.put("/assets/app/images/game/badges/like_3.png", R.drawable.game_badge_like_3);
+        imageMap.put("/assets/app/images/game/badges/like_3_off.png", R.drawable.game_badge_like_3_off);
         imageMap.put("/assets/app/images/game/badges/like_10.png", R.drawable.game_badge_like_10);
         imageMap.put("/assets/app/images/game/badges/like_10_off.png", R.drawable.game_badge_like_10_off);
         imageMap.put("/assets/app/images/game/badges/follow_1.png", R.drawable.game_badge_follow_1);
         imageMap.put("/assets/app/images/game/badges/follow_1_off.png", R.drawable.game_badge_follow_1_off);
+        imageMap.put("/assets/app/images/game/badges/follow_3.png", R.drawable.game_badge_follow_3);
+        imageMap.put("/assets/app/images/game/badges/follow_3_off.png", R.drawable.game_badge_follow_3_off);
         imageMap.put("/assets/app/images/game/badges/follow_10.png", R.drawable.game_badge_follow_10);
         imageMap.put("/assets/app/images/game/badges/follow_10_off.png", R.drawable.game_badge_follow_10_off);
         imageMap.put("/assets/app/images/game/badges/post_1.png", R.drawable.game_badge_post_1);

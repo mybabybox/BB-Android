@@ -56,7 +56,6 @@ import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
-import com.facebook.share.widget.ShareButton;
 
 import org.joda.time.DateTime;
 import org.parceler.apache.commons.lang.StringUtils;
@@ -69,6 +68,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class ProductActivity extends TrackedFragmentActivity {
+    private static final String TAG = ProductActivity.class.getName();
 
     private FrameLayout mainLayout;
     private ImageView backImage, facebookAction, whatsappAction, copyLinkAction;

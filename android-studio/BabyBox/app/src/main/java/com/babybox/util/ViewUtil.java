@@ -151,9 +151,20 @@ public class ViewUtil {
         USED
     }
 
+    public enum ConversationOrderTransactionState {
+        NA,
+        ORDERED,
+        PAID,
+        DELIVERED,
+        SPECIAL_REQUEST,
+        MISSING_DETAILS
+    }
+
     public static String[] HOME_MAIN_TITLES;
 
     private static Map<PostConditionType, String> postConditionTypeMap = new HashMap<>();
+
+    private static Map<ConversationOrderTransactionState, String> conversationOrderTransactionStateMap = new HashMap<>();
 
     static {
         initCachedLocaleStrings();
@@ -175,6 +186,14 @@ public class ViewUtil {
         postConditionTypeMap.put(PostConditionType.NEW_WITH_TAG, AppController.getInstance().getString(R.string.new_with_tag));
         postConditionTypeMap.put(PostConditionType.NEW_WITHOUT_TAG, AppController.getInstance().getString(R.string.new_without_tag));
         postConditionTypeMap.put(PostConditionType.USED, AppController.getInstance().getString(R.string.used));
+
+        conversationOrderTransactionStateMap.clear();
+        conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.NA, "---");
+        conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.ORDERED, ConversationOrderTransactionState.ORDERED.name());
+        conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.PAID, ConversationOrderTransactionState.PAID.name());
+        conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.DELIVERED, ConversationOrderTransactionState.DELIVERED.name());
+        conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.SPECIAL_REQUEST, ConversationOrderTransactionState.SPECIAL_REQUEST.name());
+        conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.MISSING_DETAILS, ConversationOrderTransactionState.MISSING_DETAILS.name());
     }
 
     public static int random(int low, int high) {
@@ -191,7 +210,9 @@ public class ViewUtil {
     public static List<String> getPostConditionTypeValues() {
         List<String> conditionTypes = new ArrayList<>();
         for (PostConditionType conditionType : PostConditionType.values()) {
-            conditionTypes.add(postConditionTypeMap.get(conditionType));
+            if (postConditionTypeMap.get(conditionType) != null) {
+                conditionTypes.add(postConditionTypeMap.get(conditionType));
+            }
         }
         return conditionTypes;
     }
@@ -215,6 +236,40 @@ public class ViewUtil {
     public static PostConditionType parsePostConditionType(String conditionType) {
         try {
             return Enum.valueOf(PostConditionType.class, conditionType);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static List<String> getConversationOrderTransactionStateValues() {
+        List<String> states = new ArrayList<>();
+        for (ConversationOrderTransactionState state : ConversationOrderTransactionState.values()) {
+            if (conversationOrderTransactionStateMap.get(state) != null) {
+                states.add(conversationOrderTransactionStateMap.get(state));
+            }
+        }
+        return states;
+    }
+
+    public static String getConversationOrderTransactionStateValue(ConversationOrderTransactionState state) {
+        if (state != null) {
+            return conversationOrderTransactionStateMap.get(state);
+        }
+        return null;
+    }
+
+    public static ConversationOrderTransactionState parseConversationOrderTransactionStateFromValue(String value) {
+        for (Map.Entry<ConversationOrderTransactionState, String> entrySet : conversationOrderTransactionStateMap.entrySet()) {
+            if (entrySet.getValue().equals(value)) {
+                return entrySet.getKey();
+            }
+        }
+        return null;
+    }
+
+    public static ConversationOrderTransactionState parseConversationOrderTransactionState(String state) {
+        try {
+            return Enum.valueOf(ConversationOrderTransactionState.class, state);
         } catch (Exception e) {
             return null;
         }
