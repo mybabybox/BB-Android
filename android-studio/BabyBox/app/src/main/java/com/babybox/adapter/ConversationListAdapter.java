@@ -49,8 +49,9 @@ public class ConversationListAdapter extends BaseAdapter {
     private ImageView userImage, postImage;
     private TextView userText, postTitleText, lastMessageText, buyText, sellText, soldText, dateText, unreadCountText;
     private RelativeLayout sellerAdminLayout;
-    private Spinner orderTransactionStateSpinner;
+    private Spinner colorSpinner, orderTransactionStateSpinner;
 
+    private ColorSpinnerAdapter colorAdapter;
     private ArrayAdapter<String> stateAdapter;
     private SparseBooleanArray selectedItemsIds;
 
@@ -103,6 +104,7 @@ public class ConversationListAdapter extends BaseAdapter {
         postImageLayout = (LinearLayout) view.findViewById(R.id.postImageLayout);
         postImage = (ImageView) view.findViewById(R.id.postImage);
         sellerAdminLayout = (RelativeLayout) view.findViewById(R.id.sellerAdminLayout);
+        colorSpinner = (Spinner) view.findViewById(R.id.colorSpinner);
         orderTransactionStateSpinner = (Spinner) view.findViewById(R.id.orderTransactionStateSpinner);
 
         final ConversationVM item = conversations.get(i);
@@ -174,8 +176,28 @@ public class ConversationListAdapter extends BaseAdapter {
         if (item.postOwner && UserInfoCache.getUser().isAdmin()) {
             sellerAdminLayout.setVisibility(View.VISIBLE);
 
-            initOrderTransactionStateSpinner(item);
+            initColorSpinner(item);
+            colorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    //String value = colorSpinner.getSelectedItem().toString();
+                    if (colorAdapter.getItem(i) != null) {
+                        int value = colorAdapter.getItem(i);
+                        Log.d(TAG, "colorSpinner.onItemSelected: state=" + value);
+                        ViewUtil.HighlightColor color = ViewUtil.parseHighlightColorFromValue(value);
+                        if (color != null) {
+                            updateHighlightColor(item, color);
+                        }
+                    }
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+            initOrderTransactionStateSpinner(item);
             orderTransactionStateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -202,6 +224,23 @@ public class ConversationListAdapter extends BaseAdapter {
         return view;
     }
 
+    private void updateHighlightColor(final ConversationVM conversation, final ViewUtil.HighlightColor color) {
+        Log.d(TAG, "updateHighlightColor: conversation="+conversation.id+" to color="+color.name());
+        AppController.getApiService().highlightConversation(conversation.id, color.name(), new Callback<Response>() {
+            @Override
+            public void success(Response responseObj, Response response) {
+                conversation.highlightColor = color.name();
+                colorAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(activity, "Failed to highlight conversation", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "updateHighlightColor: failure", error);
+            }
+        });
+    }
+
     private void updateOrderTransactionState(final ConversationVM conversation, final ViewUtil.ConversationOrderTransactionState state) {
         Log.d(TAG, "updateOrderTransactionState: conversation="+conversation.id+" to state="+state.name());
         AppController.getApiService().updateConversationOrderTransactionState(conversation.id, state.name(), new Callback<Response>() {
@@ -217,6 +256,25 @@ public class ConversationListAdapter extends BaseAdapter {
                 Log.e(TAG, "updateOrderTransactionState: failure", error);
             }
         });
+    }
+
+    private void setColorSpinner(ViewUtil.HighlightColor color) {
+        int value = ViewUtil.getHighlightColorValue(color);
+        int pos = ((ColorSpinnerAdapter)colorSpinner.getAdapter()).getPosition(value);
+        colorSpinner.setSelection(pos);
+    }
+
+    private void initColorSpinner(ConversationVM conversation) {
+        if (colorAdapter == null) {
+            colorAdapter = new ColorSpinnerAdapter(colorSpinner.getContext());
+        }
+
+        colorSpinner.setAdapter(colorAdapter);
+        colorSpinner.setFocusable(false);
+        colorSpinner.setFocusableInTouchMode(false);
+
+        // set previous value
+        setColorSpinner(ViewUtil.parseHighlightColor(conversation.highlightColor));
     }
 
     private void setOrderTransactionStateSpinner(ViewUtil.ConversationOrderTransactionState state) {

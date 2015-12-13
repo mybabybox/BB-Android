@@ -7,6 +7,8 @@
     <!-- custom -->
     <color name="white">#ffffff</color>
     <color name="admin_green">#038100</color>
+    <color name="admin_light_green">#91cf90</color>
+    <color name="admin_light_green_2">#e3f5e2</color>
     <color name="gray">#888</color>
     <color name="light_gray">#aaa</color>
     <color name="light_gray_2">#ddd</color>
@@ -21,9 +23,11 @@
     <color name="light_pink_3">#FFEAED</color>
     <color name="light_pink_4">#FFF2EF</color>
     <color name="yellow">#F3F300</color>
-    <color name="light_yellow">#fffff0</color>
+    <color name="light_yellow">#ffff9e</color>
     <color name="orange">#FFA500</color>
-    <color name="light_orange">#fff1dc</color>
+    <color name="light_orange">#ffdfb0</color>
+    <color name="purple">#a26ee6</color>
+    <color name="light_purple">#c6a8ed</color>
     <color name="red">#FF0000</color>
     <color name="dark_blue">#1255B4</color>
     <color name="green">#2CBA28</color>
@@ -59,5 +63,14 @@
     <color name="crop__button_text">#666666</color>
     <color name="crop__selector_pressed">#1a000000</color>
     <color name="crop__selector_focused">#77000000</color>
+
+    <integer-array name="highlightColors">
+        <item>@color/white</item>
+        <item>@color/light_yellow</item>
+        <item>@color/pink</item>
+        <item>@color/light_purple</item>
+        <item>@color/pale_blue</item>
+        <item>@color/red</item>
+    </integer-array>
 
 </resources>

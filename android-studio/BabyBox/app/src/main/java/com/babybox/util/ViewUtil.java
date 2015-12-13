@@ -164,11 +164,22 @@ public class ViewUtil {
         MISSING_DETAILS
     }
 
+    public enum HighlightColor {
+        NONE,
+        YELLOW,
+        PINK,
+        PURPLE,
+        BLUE,
+        RED
+    }
+
     public static String[] HOME_MAIN_TITLES;
 
     private static Map<PostConditionType, String> postConditionTypeMap = new HashMap<>();
 
     private static Map<ConversationOrderTransactionState, String> conversationOrderTransactionStateMap = new HashMap<>();
+
+    private static Map<HighlightColor, Integer> colorMap = new HashMap<>();
 
     static {
         initCachedLocaleStrings();
@@ -198,6 +209,14 @@ public class ViewUtil {
         conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.DELIVERED, ConversationOrderTransactionState.DELIVERED.name());
         conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.SPECIAL_REQUEST, ConversationOrderTransactionState.SPECIAL_REQUEST.name());
         conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.MISSING_DETAILS, ConversationOrderTransactionState.MISSING_DETAILS.name());
+
+        colorMap.clear();
+        colorMap.put(HighlightColor.NONE, AppController.getInstance().getResources().getColor(R.color.white));
+        colorMap.put(HighlightColor.PINK, AppController.getInstance().getResources().getColor(R.color.pink));
+        colorMap.put(HighlightColor.YELLOW, AppController.getInstance().getResources().getColor(R.color.light_yellow));
+        colorMap.put(HighlightColor.PURPLE, AppController.getInstance().getResources().getColor(R.color.light_purple));
+        colorMap.put(HighlightColor.BLUE, AppController.getInstance().getResources().getColor(R.color.pale_blue));
+        colorMap.put(HighlightColor.RED, AppController.getInstance().getResources().getColor(R.color.red));
     }
 
     public static int random(int low, int high) {
@@ -210,6 +229,8 @@ public class ViewUtil {
         }
         return str.substring(0,length).concat("...");
     }
+
+    // PostConditionType
 
     public static List<String> getPostConditionTypeValues() {
         List<String> conditionTypes = new ArrayList<>();
@@ -245,6 +266,8 @@ public class ViewUtil {
         }
     }
 
+    // ConversationOrderTransactionState
+
     public static List<String> getConversationOrderTransactionStateValues() {
         List<String> states = new ArrayList<>();
         for (ConversationOrderTransactionState state : ConversationOrderTransactionState.values()) {
@@ -274,6 +297,42 @@ public class ViewUtil {
     public static ConversationOrderTransactionState parseConversationOrderTransactionState(String state) {
         try {
             return Enum.valueOf(ConversationOrderTransactionState.class, state);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // HighlightColor
+
+    public static List<Integer> getHighlightColorValues() {
+        List<Integer> colors = new ArrayList<>();
+        for (HighlightColor color : HighlightColor.values()) {
+            if (colorMap.get(color) != null) {
+                colors.add(colorMap.get(color));
+            }
+        }
+        return colors;
+    }
+
+    public static Integer getHighlightColorValue(HighlightColor color) {
+        if (color != null) {
+            return colorMap.get(color);
+        }
+        return null;
+    }
+
+    public static HighlightColor parseHighlightColorFromValue(int value) {
+        for (Map.Entry<HighlightColor, Integer> entrySet : colorMap.entrySet()) {
+            if (entrySet.getValue().equals(value)) {
+                return entrySet.getKey();
+            }
+        }
+        return null;
+    }
+
+    public static HighlightColor parseHighlightColor(String color) {
+        try {
+            return Enum.valueOf(HighlightColor.class, color);
         } catch (Exception e) {
             return null;
         }
