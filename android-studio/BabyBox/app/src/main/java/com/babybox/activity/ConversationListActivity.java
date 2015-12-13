@@ -46,8 +46,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
 
     protected ConversationListAdapter adapter;
 
-    protected ConversationVM openedConversation = null;
-
     protected int getContentViewResource() {
         return R.layout.conversation_list_activity;
     }
@@ -65,6 +63,8 @@ public class ConversationListActivity extends TrackedFragmentActivity {
 
         tipText = (TextView) findViewById(R.id.tipText);
         listView = (ListView) findViewById(R.id.conversationList);
+
+        //listView.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
 
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
@@ -98,7 +98,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                         for (int i = (selected.size() - 1); i >= 0; i--) {
                             if (selected.valueAt(i)) {
                                 ConversationVM item = adapter.getItem(selected.keyAt(i));
-                                deleteConversation(item.getId());
+                                adapter.deleteConversation(item.getId());
                             }
                         }
                     }
@@ -121,41 +121,16 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             }
         });
 
-        /*
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                openedConversation = adapter.getItem(i);
-                ViewUtil.startMessageListActivity(ConversationListActivity.this, openedConversation.id, false);
+                ConversationVM conversation = adapter.getItem(i);
+                conversation.unread = 0L;
+                ViewUtil.startMessageListActivity(ConversationListActivity.this, conversation.id, false);
             }
         });
-        */
 
-        /*
-        // obsolete... enabled multi select delete
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                final ConversationVM item = adapter.getItem(i);
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ConversationListActivity.this);
-                alertDialogBuilder.setMessage(ConversationListActivity.this.getString(R.string.post_delete_confirm));
-                alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deleteConversation(item.getId());
-                    }
-                });
-                alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-                return true;
-            }
-        });*/
 
         backImage = (ImageView) findViewById(R.id.backImage);
         backImage.setOnClickListener(new View.OnClickListener() {
@@ -202,14 +177,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
         }
 
         SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_CONVERSATION_NOTIFS);
-
-        /*
-        if (adapter != null) {
-            Log.d(ConversationListFragment.class.getSimpleName(), "onStart");
-            ConversationCache.sortConversations();
-            adapter.notifyDataSetChanged();
-        }
-        */
     }
 
     @Override
@@ -240,7 +207,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                 });
             }
         } else {
-            //markRead(openedConversation);
             adapter.notifyDataSetChanged();
         }
     }
@@ -265,23 +231,6 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(ConversationListActivity.this);
                 Log.e(ConversationListActivity.class.getSimpleName(), "getConversations: failure", error);
-            }
-        });
-    }
-
-    protected void deleteConversation(final Long id) {
-        ViewUtil.showSpinner(this);
-        ConversationCache.delete(id, new Callback<Response>() {
-            @Override
-            public void success(Response responseObject, Response response) {
-                adapter.notifyDataSetChanged();
-                ViewUtil.stopSpinner(ConversationListActivity.this);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(ConversationListActivity.this);
-                Log.e(ConversationListActivity.class.getSimpleName(), "deleteConversation: failure", error);
             }
         });
     }

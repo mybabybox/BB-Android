@@ -1,7 +1,9 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.babybox.app.ConversationCache;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
@@ -111,6 +114,7 @@ public class ConversationListAdapter extends BaseAdapter {
             conversationLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.color.white));
         }
 
+        /*
         conversationLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +122,32 @@ public class ConversationListAdapter extends BaseAdapter {
                 ViewUtil.startMessageListActivity(activity, item.id, false);
             }
         });
+        */
+
+        /*
+        conversationLayout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+                alertDialogBuilder.setMessage(activity.getString(R.string.post_delete_confirm));
+                alertDialogBuilder.setPositiveButton(activity.getString(R.string.confirm), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteConversation(item.getId());
+                    }
+                });
+                alertDialogBuilder.setNegativeButton(activity.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                return false;
+            }
+        });
+        */
 
         unreadCountText.setText(item.getUnread() + "");
         unreadCountText.setVisibility(item.getUnread() > 0 ? View.VISIBLE : View.GONE);
@@ -140,6 +170,7 @@ public class ConversationListAdapter extends BaseAdapter {
 
         // seller admin
 
+        //Log.d(TAG, "post="+item.getLastMessage()+" owner="+item.postOwner);
         if (item.postOwner && UserInfoCache.getUser().isAdmin()) {
             sellerAdminLayout.setVisibility(View.VISIBLE);
 
@@ -206,9 +237,28 @@ public class ConversationListAdapter extends BaseAdapter {
         }
 
         orderTransactionStateSpinner.setAdapter(stateAdapter);
+        orderTransactionStateSpinner.setFocusable(false);
+        orderTransactionStateSpinner.setFocusableInTouchMode(false);
 
         // set previous value
         setOrderTransactionStateSpinner(ViewUtil.parseConversationOrderTransactionState(conversation.orderTransactionState));
+    }
+
+    public void deleteConversation(final Long id) {
+        ViewUtil.showSpinner(activity);
+        ConversationCache.delete(id, new Callback<Response>() {
+            @Override
+            public void success(Response responseObject, Response response) {
+                notifyDataSetChanged();
+                ViewUtil.stopSpinner(activity);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                ViewUtil.stopSpinner(activity);
+                Log.e(TAG, "deleteConversation: failure", error);
+            }
+        });
     }
 
     public void toggleSelection(int position) {

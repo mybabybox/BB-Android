@@ -16,6 +16,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -27,6 +29,8 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.URLSpan;
+import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -680,16 +684,30 @@ public class ViewUtil {
         text = text.replace("\n", HTML_LINE_BREAK);
 
         imageGetter.setTextView(textView);
-        Spanned spanned = Html.fromHtml(text, imageGetter, null);
+        Spannable spannedText = (Spannable) Html.fromHtml(text, imageGetter, null);
 
-        textView.setText(spanned);
         if (linkMovement) {
             setLinksClickable(textView);
+            //spannedText = stripTextUnderlines(spannedText);
         }
 
         if (longClickSelectAll) {
             setLongClickSelectAll(textView);
         }
+
+        textView.setText(spannedText);
+    }
+
+    private static Spannable stripTextUnderlines(Spannable spannedText) {
+        URLSpan[] spans = spannedText.getSpans(0, spannedText.length(), URLSpan.class);
+        for (URLSpan span : spans) {
+            int start = spannedText.getSpanStart(span);
+            int end = spannedText.getSpanEnd(span);
+            spannedText.removeSpan(span);
+            span = new URLSpanString(span.getURL());
+            spannedText.setSpan(span, start, end, 0);
+        }
+        return spannedText;
     }
 
     //
@@ -1117,8 +1135,11 @@ public class ViewUtil {
             case "HASHTAG":
                 // TODO start hashtag page
                 break;
+            case "URL":
+                // TODO start url page
+                break;
             default:
-                // TODO start hashtag page
+                // TODO start url page
                 break;
         }
     }
@@ -1166,5 +1187,40 @@ public class ViewUtil {
             super.updateDrawState(ds);
             ds.setUnderlineText(drawUnderline);
         }
+    }
+
+    /**
+     *
+     */
+    static class URLSpanString extends URLSpan {
+        private boolean drawUnderline;
+
+        public URLSpanString(String url) {
+            this(url, false);
+        }
+
+        public URLSpanString(String url, boolean drawUnderline) {
+            super(url);
+            this.drawUnderline = drawUnderline;
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(drawUnderline);
+        }
+
+        @SuppressWarnings("unused")
+        public static final Parcelable.Creator<URLSpan> CREATOR = new Parcelable.Creator<URLSpan>() {
+            @Override
+            public URLSpan createFromParcel(Parcel in) {
+                return new URLSpan(in);
+            }
+
+            @Override
+            public URLSpan[] newArray(int size) {
+                return new URLSpan[size];
+            }
+        };
     }
 }

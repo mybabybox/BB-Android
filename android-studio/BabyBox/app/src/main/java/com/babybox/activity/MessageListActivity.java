@@ -430,7 +430,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
                             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                                 mode.getMenuInflater().inflate(R.menu.contextual_menu, menu);
                                 menu.setQwertyMode(false);
-                                commentEditText.selectAll();
                                 Log.d(MessageListActivity.this.getClass().getSimpleName(), "onCreateActionMode: menu size=" + menu.size());
                                 return true;
                             }

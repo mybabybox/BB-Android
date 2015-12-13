@@ -449,6 +449,12 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // sold actions
 
+                soldText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ViewUtil.alert(ProductActivity.this, getString(R.string.sold_text));
+                    }
+                });
                 soldViewChatsButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

@@ -51,7 +51,6 @@ public class ProductConversationListActivity extends ConversationListActivity {
         postImage = (ImageView) findViewById(R.id.postImage);
         postTitleText = (TextView) findViewById(R.id.postTitleText);
         postPriceText = (TextView) findViewById(R.id.postPriceText);
-
     }
 
     private void updateConversations(ConversationVM conversation) {
@@ -91,8 +90,7 @@ public class ProductConversationListActivity extends ConversationListActivity {
                 });
             }
         } else {
-            // mark read for conversation
-            markRead(openedConversation);
+            adapter.notifyDataSetChanged();
         }
     }
 
