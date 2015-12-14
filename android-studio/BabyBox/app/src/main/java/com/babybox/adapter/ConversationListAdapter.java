@@ -330,7 +330,7 @@ public class ConversationListAdapter extends BaseAdapter {
         try {
             LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            final View layout = inflater.inflate(R.layout.comment_popup_window,
+            final View layout = inflater.inflate(R.layout.admin_note_popup_window,
                     (ViewGroup) activity.findViewById(R.id.popupElement));
 
             if (commentPopup == null) {
@@ -370,9 +370,6 @@ public class ConversationListAdapter extends BaseAdapter {
                         commentPopup = null;
                     }
                 });
-
-                ImageView commentBrowseImage = (ImageView) layout.findViewById(R.id.browseImage);
-                commentBrowseImage.setVisibility(View.GONE);
             }
 
             commentEditText.setText(conversation.note);

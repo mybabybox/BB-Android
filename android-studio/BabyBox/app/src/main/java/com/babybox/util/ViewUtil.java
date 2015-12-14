@@ -206,6 +206,7 @@ public class ViewUtil {
         conversationOrderTransactionStateMap.clear();
         conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.NA, "---");
         conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.ORDERED, ConversationOrderTransactionState.ORDERED.name());
+        conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.CANCELLED, ConversationOrderTransactionState.CANCELLED.name());
         conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.PAID, ConversationOrderTransactionState.PAID.name());
         conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.DELIVERED, ConversationOrderTransactionState.DELIVERED.name());
         conversationOrderTransactionStateMap.put(ConversationOrderTransactionState.SPECIAL_REQUEST, ConversationOrderTransactionState.SPECIAL_REQUEST.name());
