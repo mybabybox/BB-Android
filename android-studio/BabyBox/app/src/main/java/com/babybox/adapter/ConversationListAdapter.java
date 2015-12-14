@@ -33,8 +33,6 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.NewMessageVM;
 
-import org.parceler.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,12 +49,12 @@ public class ConversationListAdapter extends BaseAdapter {
     private List<ConversationVM> conversations;
     private boolean showPost;
 
-    private RelativeLayout conversationLayout;
+    private LinearLayout conversationLayout;
     private LinearLayout postImageLayout, hasImageLayout;
     private ImageView userImage, postImage;
     private TextView userText, postTitleText, lastMessageText, buyText, sellText, soldText, dateText, unreadCountText;
 
-    private LinearLayout sellerAdminLayout;
+    private RelativeLayout sellerAdminLayout;
     private Spinner colorSpinner, orderTransactionStateSpinner;
 
     private PopupWindow commentPopup;
@@ -104,7 +102,7 @@ public class ConversationListAdapter extends BaseAdapter {
         if (view == null)
             view = inflater.inflate(R.layout.conversation_list_item, null);
 
-        conversationLayout = (RelativeLayout) view.findViewById(R.id.conversationLayout);
+        conversationLayout = (LinearLayout) view.findViewById(R.id.conversationLayout);
         userText = (TextView) view.findViewById(R.id.userText);
         postTitleText = (TextView) view.findViewById(R.id.postTitleText);
         lastMessageText = (TextView) view.findViewById(R.id.lastMessageText);
@@ -117,7 +115,7 @@ public class ConversationListAdapter extends BaseAdapter {
         userImage = (ImageView) view.findViewById(R.id.userImage);
         postImageLayout = (LinearLayout) view.findViewById(R.id.postImageLayout);
         postImage = (ImageView) view.findViewById(R.id.postImage);
-        sellerAdminLayout = (LinearLayout) view.findViewById(R.id.sellerAdminLayout);
+        sellerAdminLayout = (RelativeLayout) view.findViewById(R.id.sellerAdminLayout);
         colorSpinner = (Spinner) view.findViewById(R.id.colorSpinner);
         orderTransactionStateSpinner = (Spinner) view.findViewById(R.id.orderTransactionStateSpinner);
         noteText = (TextView) view.findViewById(R.id.noteText);
@@ -376,6 +374,15 @@ public class ConversationListAdapter extends BaseAdapter {
                 ImageView commentBrowseImage = (ImageView) layout.findViewById(R.id.browseImage);
                 commentBrowseImage.setVisibility(View.GONE);
             }
+
+            commentEditText.setText(conversation.note);
+            commentEditText.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    commentEditText.selectAll();
+                    return true;
+                }
+            });
 
             commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
             ViewUtil.popupInputMethodWindow(activity);
