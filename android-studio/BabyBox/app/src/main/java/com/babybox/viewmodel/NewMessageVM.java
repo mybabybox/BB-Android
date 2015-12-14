@@ -17,14 +17,20 @@ public class NewMessageVM {
     public Boolean withPhotos;
     public List<File> images;
 
+    public NewMessageVM(Long conversationId, String body) {
+        this(conversationId, body, false, null);
+    }
+
     public NewMessageVM(Long conversationId, String body, Boolean system, List<SelectedImage> selectedImages) {
         this.conversationId = conversationId;
         this.body = body;
         this.system = system;
         this.withPhotos = (selectedImages != null && selectedImages.size() > 0);
         this.images = new ArrayList<>();
-        for (SelectedImage selectedImage : selectedImages) {
-            this.images.add(selectedImage.getFile());
+        if (selectedImages != null) {
+            for (SelectedImage selectedImage : selectedImages) {
+                this.images.add(selectedImage.getFile());
+            }
         }
     }
 

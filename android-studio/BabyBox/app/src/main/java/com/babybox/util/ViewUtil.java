@@ -158,6 +158,7 @@ public class ViewUtil {
     public enum ConversationOrderTransactionState {
         NA,
         ORDERED,
+        CANCELLED,
         PAID,
         DELIVERED,
         SPECIAL_REQUEST,

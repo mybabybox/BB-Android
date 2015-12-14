@@ -6,7 +6,6 @@ import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
-import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.FeaturedItemVM;
 import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
@@ -26,9 +25,6 @@ import java.util.List;
 
 import retrofit.Callback;
 import retrofit.client.Response;
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
 import retrofit.mime.TypedFile;
 
 public class BabyBoxService {
@@ -268,6 +264,10 @@ public class BabyBoxService {
 
     public void saveGCMKey(String gcmKey, Long versionCode, Callback<Response> cb) {
         api.saveGCMKey(gcmKey, versionCode, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void updateConversationNote(NewMessageVM message, Callback<Response> cb) {
+        api.updateConversationNote(message.toMultipart(), AppController.getInstance().getSessionId(), cb);
     }
 
     public void updateConversationOrderTransactionState(Long id, String state, Callback<Response> cb) {

@@ -1,19 +1,23 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,6 +31,9 @@ import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
+import com.babybox.viewmodel.NewMessageVM;
+
+import org.parceler.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,12 +55,19 @@ public class ConversationListAdapter extends BaseAdapter {
     private LinearLayout postImageLayout, hasImageLayout;
     private ImageView userImage, postImage;
     private TextView userText, postTitleText, lastMessageText, buyText, sellText, soldText, dateText, unreadCountText;
-    private RelativeLayout sellerAdminLayout;
+
+    private LinearLayout sellerAdminLayout;
     private Spinner colorSpinner, orderTransactionStateSpinner;
+
+    private PopupWindow commentPopup;
+    private TextView noteText, commentSendButton;
+    private EditText commentEditText;
 
     private ColorSpinnerAdapter colorAdapter;
     private ArrayAdapter<String> stateAdapter;
     private SparseBooleanArray selectedItemsIds;
+
+    private boolean pending = false;
 
     public ConversationListAdapter(Activity activity, List<ConversationVM> conversationVMs) {
         this(activity, conversationVMs, true);
@@ -103,9 +117,10 @@ public class ConversationListAdapter extends BaseAdapter {
         userImage = (ImageView) view.findViewById(R.id.userImage);
         postImageLayout = (LinearLayout) view.findViewById(R.id.postImageLayout);
         postImage = (ImageView) view.findViewById(R.id.postImage);
-        sellerAdminLayout = (RelativeLayout) view.findViewById(R.id.sellerAdminLayout);
+        sellerAdminLayout = (LinearLayout) view.findViewById(R.id.sellerAdminLayout);
         colorSpinner = (Spinner) view.findViewById(R.id.colorSpinner);
         orderTransactionStateSpinner = (Spinner) view.findViewById(R.id.orderTransactionStateSpinner);
+        noteText = (TextView) view.findViewById(R.id.noteText);
 
         final ConversationVM item = conversations.get(i);
 
@@ -204,7 +219,7 @@ public class ConversationListAdapter extends BaseAdapter {
                     //String value = orderTransactionStateSpinner.getSelectedItem().toString();
                     if (stateAdapter.getItem(i) != null) {
                         String value = stateAdapter.getItem(i);
-                        Log.d(TAG, "orderTransactionStateSpinner.onItemSelected: state="+value);
+                        Log.d(TAG, "orderTransactionStateSpinner.onItemSelected: state=" + value);
                         ViewUtil.ConversationOrderTransactionState state = ViewUtil.parseConversationOrderTransactionStateFromValue(value);
                         if (state != null) {
                             updateOrderTransactionState(item, state);
@@ -215,6 +230,14 @@ public class ConversationListAdapter extends BaseAdapter {
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
 
+                }
+            });
+
+            noteText.setText(item.note);
+            noteText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    initNotePopup(item);
                 }
             });
         } else {
@@ -300,6 +323,114 @@ public class ConversationListAdapter extends BaseAdapter {
 
         // set previous value
         setOrderTransactionStateSpinner(ViewUtil.parseConversationOrderTransactionState(conversation.orderTransactionState));
+    }
+
+    private void initNotePopup(final ConversationVM conversation) {
+        //mainLayout.getForeground().setAlpha(20);
+        //mainLayout.getForeground().setColorFilter(R.color.light_gray, PorterDuff.Mode.OVERLAY);
+
+        try {
+            LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            final View layout = inflater.inflate(R.layout.comment_popup_window,
+                    (ViewGroup) activity.findViewById(R.id.popupElement));
+
+            if (commentPopup == null) {
+                commentPopup = new PopupWindow(
+                        layout,
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT, //activityUtil.getRealDimension(DefaultValues.COMMENT_POPUP_HEIGHT),
+                        true);
+
+                commentPopup.setOutsideTouchable(false);
+                commentPopup.setFocusable(true);
+                commentPopup.setBackgroundDrawable(new BitmapDrawable(activity.getResources(), ""));
+                commentPopup.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+                commentPopup.setTouchInterceptor(new View.OnTouchListener() {
+                    public boolean onTouch(View view, MotionEvent event) {
+                        return false;
+                    }
+                });
+
+                commentEditText = (EditText) layout.findViewById(R.id.commentEditText);
+                commentEditText.setLongClickable(true);
+
+                commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
+                commentSendButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateNote(conversation);
+                    }
+                });
+
+                ImageView commentCancelButton = (ImageView) layout.findViewById(R.id.commentCancelButton);
+                commentCancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        commentPopup.dismiss();
+                        commentPopup = null;
+                    }
+                });
+
+                ImageView commentBrowseImage = (ImageView) layout.findViewById(R.id.browseImage);
+                commentBrowseImage.setVisibility(View.GONE);
+            }
+
+            commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
+            ViewUtil.popupInputMethodWindow(activity);
+        } catch (Exception e) {
+            Log.e(this.getClass().getSimpleName(), "initNotePopup: failure", e);
+        }
+    }
+
+    private void updateNote(final ConversationVM conversation) {
+        if (pending) {
+            return;
+        }
+
+        final String comment = commentEditText.getText().toString().trim();
+        /*
+        if (StringUtils.isEmpty(comment)) {
+            Toast.makeText(activity, activity.getString(R.string.invalid_comment_body_empty), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        */
+
+        ViewUtil.showSpinner(activity);
+
+        pending = true;
+        final NewMessageVM newMessage = new NewMessageVM(conversation.id, comment);
+        AppController.getApiService().updateConversationNote(newMessage, new Callback<Response>() {
+            @Override
+            public void success(Response responseObj, Response response) {
+                conversation.note = comment;
+                noteText.setText(comment);
+                notifyDataSetChanged();
+
+                //Toast.makeText(activity, activity.getString(R.string.comment_success), Toast.LENGTH_SHORT).show();
+                reset();
+                pending = false;
+                ViewUtil.stopSpinner(activity);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, "updateNote.api.updateConversationNote: failed with error", error);
+                Toast.makeText(activity, activity.getString(R.string.comment_failed), Toast.LENGTH_SHORT).show();
+                reset();
+                pending = false;
+                ViewUtil.stopSpinner(activity);
+            }
+        });
+    }
+
+    private void reset() {
+        if (commentPopup != null) {
+            commentEditText.setText("");
+            commentPopup.dismiss();
+            commentPopup = null;
+        }
     }
 
     public void deleteConversation(final Long id) {

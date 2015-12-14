@@ -247,7 +247,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "getSuggestedProducts: failure", error);
+                Log.e(TAG, "getSuggestedProducts: failure", error);
             }
         });
         */
@@ -586,7 +586,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                                 public void failure(RetrofitError error) {
                                     ViewUtil.alert(ProductActivity.this,
                                             String.format(getString(R.string.score_adjust_failure), error.getLocalizedMessage()));
-                                    Log.e(ProductActivity.class.getSimpleName(), "adjustUpPostScore: failure", error);
+                                    Log.e(TAG, "adjustUpPostScore: failure", error);
                                 }
                             });
                         }
@@ -606,7 +606,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                                 public void failure(RetrofitError error) {
                                     ViewUtil.alert(ProductActivity.this,
                                             String.format(getString(R.string.score_adjust_failure), error.getLocalizedMessage()));
-                                    Log.e(ProductActivity.class.getSimpleName(), "adjustDownPostScore: failure", error);
+                                    Log.e(TAG, "adjustDownPostScore: failure", error);
                                 }
                             });
                         }
@@ -626,7 +626,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                                 public void failure(RetrofitError error) {
                                     ViewUtil.alert(ProductActivity.this,
                                             String.format(getString(R.string.score_adjust_failure), error.getLocalizedMessage()));
-                                    Log.e(ProductActivity.class.getSimpleName(), "resetAdjustPostScore: failure", error);
+                                    Log.e(TAG, "resetAdjustPostScore: failure", error);
                                 }
                             });
                         }
@@ -653,7 +653,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 }, DefaultValues.DEFAULT_HANDLER_DELAY);
 
-                Log.e(ProductActivity.class.getSimpleName(), "getPost: failure", error);
+                Log.e(TAG, "getPost: failure", error);
             }
         });
     }
@@ -707,7 +707,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
-                Log.e(MessageUtil.class.getSimpleName(), "openConversation: failure", error);
+                Log.e(TAG, "openConversation: failure", error);
             }
         });
     }
@@ -732,7 +732,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "sold: failure", error);
+                Log.e(TAG, "sold: failure", error);
                 pending = false;
             }
         });
@@ -760,7 +760,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "like: failure", error);
+                Log.e(TAG, "like: failure", error);
                 pending = false;
             }
         });
@@ -792,7 +792,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "unlike: failure", error);
+                Log.e(TAG, "unlike: failure", error);
                 pending = false;
             }
         });
@@ -830,74 +830,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                 commentEditText = (EditText) layout.findViewById(R.id.commentEditText);
                 commentEditText.setLongClickable(true);
 
-                // NOTE: UGLY WORKAROUND or pasting text to comment edit!!!
-                commentEditText.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Log.d(ProductActivity.this.getClass().getSimpleName(), "onLongClick");
-                        startActionMode(new ActionMode.Callback() {
-                            final int PASTE_MENU_ITEM_ID = 0;
-
-                            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                                Log.d(ProductActivity.this.getClass().getSimpleName(), "onPrepareActionMode");
-                                return true;
-                            }
-
-                            public void onDestroyActionMode(ActionMode mode) {
-                            }
-
-                            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                                Log.d(ProductActivity.this.getClass().getSimpleName(), "onCreateActionMode: menu size=" + menu.size());
-                                menu.add(0, PASTE_MENU_ITEM_ID, 0, "Paste");
-                                menu.setQwertyMode(false);
-                                return true;
-                            }
-
-                            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                                Log.d(ProductActivity.this.getClass().getSimpleName(), "onActionItemClicked: item clicked=" + item.getItemId() + " title=" + item.getTitle());
-                                switch (item.getItemId()) {
-                                    case PASTE_MENU_ITEM_ID:
-                                        final ClipboardManager clipBoard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-                                        if (clipBoard != null && clipBoard.getPrimaryClip() != null && clipBoard.getPrimaryClip().getItemAt(0) != null) {
-                                            String paste = clipBoard.getPrimaryClip().getItemAt(0).getText().toString();
-                                            commentEditText.getText().insert(commentEditText.getSelectionStart(), paste);
-                                        }
-                                }
-
-                                mode.finish();
-
-                                // popup again
-                                commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
-                                ViewUtil.popupInputMethodWindow(ProductActivity.this);
-                                return true;
-                            }
-                        });
-                        return true;
-                    }
-                });
-
-                /*
-                commentEditText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
-                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                        Log.d(DetailActivity.this.getClass().getSimpleName(), "onPrepareActionMode");
-                        return false;
-                    }
-
-                    public void onDestroyActionMode(ActionMode mode) {
-                    }
-
-                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                        Log.d(DetailActivity.this.getClass().getSimpleName(), "onCreateActionMode");
-                        return false;
-                    }
-
-                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                        Log.d(DetailActivity.this.getClass().getSimpleName(), "onActionItemClicked");
-                        return false;
-                    }
-                });
-                */
-
                 commentSendButton = (TextView) layout.findViewById(R.id.commentSendButton);
                 commentSendButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -922,7 +854,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
             ViewUtil.popupInputMethodWindow(this);
         } catch (Exception e) {
-            Log.e(this.getClass().getSimpleName(), "initCommentPopup: failure", e);
+            Log.e(TAG, "initCommentPopup: failure", e);
         }
     }
 
@@ -939,7 +871,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         ViewUtil.showSpinner(this);
 
-        Log.d(this.getClass().getSimpleName(), "doComment: postId=" + postId + " comment=" + comment.substring(0, Math.min(5, comment.length())));
+        Log.d(TAG, "doComment: postId=" + postId + " comment=" + comment.substring(0, Math.min(5, comment.length())));
 
         pending = true;
         final NewCommentVM newComment = new NewCommentVM(postId, comment);
@@ -956,7 +888,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(ProductActivity.this.getClass().getSimpleName(), "doComment.api.newComment: failed with error", error);
+                Log.e(TAG, "doComment.api.newComment: failed with error", error);
                 Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.comment_failed), Toast.LENGTH_SHORT).show();
                 reset();
                 pending = false;
@@ -1003,7 +935,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void failure(RetrofitError error) {
                 Toast.makeText(ProductActivity.this, getString(R.string.post_delete_failed), Toast.LENGTH_SHORT).show();
-                Log.e(ProductActivity.class.getSimpleName(), "deletePost: failure", error);
+                Log.e(TAG, "deletePost: failure", error);
                 pending = false;
             }
         });
@@ -1026,7 +958,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.report:
-                Log.d(this.getClass().getSimpleName(), "onOptionsItemSelected: "+item.getItemId());
+                Log.d(TAG, "onOptionsItemSelected: "+item.getItemId());
                 return true;
             default:
                 return false;
@@ -1056,7 +988,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "follow: failure", error);
+                Log.e(TAG, "follow: failure", error);
                 pending = false;
             }
         });
@@ -1078,7 +1010,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(ProductActivity.class.getSimpleName(), "unfollow: failure", error);
+                Log.e(TAG, "unfollow: failure", error);
                 pending = false;
             }
         });
@@ -1087,7 +1019,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(this.getClass().getSimpleName(), "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
+        Log.d(TAG, "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
 
         if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
@@ -1099,6 +1031,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 }
 
 class ProductImagePagerAdapter extends FragmentStatePagerAdapter {
+    private static final String TAG = ProductImagePagerAdapter.class.getName();
 
     private Long[] images;
     private boolean sold;
@@ -1121,7 +1054,7 @@ class ProductImagePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.d(this.getClass().getSimpleName(), "getItem: item - " + position);
+        Log.d(TAG, "getItem: item - " + position);
         switch (position) {
             default: {
                 ProductImagePagerFragment fragment = new ProductImagePagerFragment();

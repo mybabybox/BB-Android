@@ -230,6 +230,9 @@ public interface BabyBoxApi {
     @POST("/image/upload-message-photo")
     public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") Long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
 
+    @POST("/update-conversation-note")
+    public void updateConversationNote(@Body MultipartTypedOutput attachments, /*@Body NewMessageVM message,*/ @Query("key") String key, Callback<Response> cb);
+
     @GET("/update-conversation-order-transaction-state/{id}/{state}")
     public void updateConversationOrderTransactionState(@Path("id") Long id, @Path("state") String state, @Query("key") String key, Callback<Response> cb);
 
