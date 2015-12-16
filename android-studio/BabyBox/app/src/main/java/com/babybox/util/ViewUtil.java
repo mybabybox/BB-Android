@@ -523,15 +523,19 @@ public class ViewUtil {
     }
 
     public static void setClickableText(TextView textView, String clickableText, String text, boolean prepend, View.OnClickListener listener) {
-        SpannableString link = setLinkSpan(clickableText, listener);
-        if (prepend) {
-            textView.setText(link);
-            textView.append(" "+text);
-        } else {
-            textView.setText(text);
-            textView.append(" "+link);
+        SpannableString link = new SpannableString("");
+        if (!StringUtils.isEmpty(clickableText)) {
+            link = setLinkSpan(clickableText, listener);
         }
-        //textView.append(".");
+
+        String message;
+        if (prepend) {
+            message = link + " " + text;
+        } else {
+            message = text + " " + link;
+        }
+
+        textView.setText(message.trim());
         setLinksClickable(textView);
     }
 
@@ -1207,6 +1211,7 @@ public class ViewUtil {
 
     public static void openPlayStoreForUpgrade(Activity activity) {
         final String appPackageName = AppController.getInstance().getPackageName();
+        Log.d(TAG, "openPlayStoreForUpgrade() appPackageName="+appPackageName);
         try {
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
         } catch (android.content.ActivityNotFoundException anfe) {

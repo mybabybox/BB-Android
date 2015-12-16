@@ -15,7 +15,7 @@
     <string name="crash_dialog_ok_toast">Thanks!</string>
 
     <!-- Settings -->
-    <string name="app_name">BabyBox</string>
+    <string name="app_name">BabyBox Dev</string>
     <string name="app_desc">BabyBox - Everymom is a Seller</string>
     <string name="app_version">BabyBox Version:</string>
     <string name="request_upgrade">New version of BabyBox is now available! Upgrade and try out our new features! </string>
@@ -127,6 +127,7 @@
     <string name="activity_liked">liked your product.</string>
     <string name="activity_followed">started following you.</string>
     <string name="activity_sold">already sold.</string>
+    <string name="activity_game_badge">Congratulations! You got a new badge:</string>
 
     <!-- Category page -->
     <string name="category">Category</string>
@@ -151,6 +152,7 @@
     <string name="buy_again">Buy Again</string>
     <string name="view_chats">View Chats</string>
     <string name="mark_as_sold">Mark as Sold</string>
+    <string name="sold_text">This item has been sold</string>
     <string name="sold">Sold</string>
     <string name="sold_view_chats">Sold - View Chats</string>
     <string name="listed">Listed</string>
@@ -253,6 +255,7 @@
 
     <string name="pm_order_buy_text">Interested?</string>
     <string name="pm_order_buy">Buy Now</string>
+    <string name="pm_order_buy_again">Buy Again</string>
     <string name="pm_order_cancel_text">Ordered</string>
     <string name="pm_order_cancel">Cancel Order</string>
     <string name="pm_order_cancelled">Order cancelled</string>

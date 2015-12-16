@@ -86,39 +86,34 @@ public class ActivityListAdapter extends BaseAdapter {
 
         dateText.setText(DateTimeUtil.getTimeAgo(item.getCreatedDate()));
 
-        return  view;
+        return view;
     }
 
     private void setMessageText(final ActivityVM item) {
         String message = "";
-        boolean isTargetProduct = true;
 
         switch (item.getActivityType()) {
             case "FIRST_POST":
                 message = activity.getString(R.string.activity_first_post) + "\n" + item.getTargetName();
-                isTargetProduct = true;
                 break;
             case "NEW_POST":
                 message = activity.getString(R.string.activity_posted) + "\n" + item.getTargetName();
-                isTargetProduct = true;
                 break;
             case "NEW_COMMENT":
                 message = activity.getString(R.string.activity_commented) + "\n" + item.getTargetName();
-                isTargetProduct = true;
                 break;
             case "LIKED":
                 message = activity.getString(R.string.activity_liked);
-                isTargetProduct = true;
                 break;
             case "FOLLOWED":
                 message = activity.getString(R.string.activity_followed);
-                isTargetProduct = false;
                 break;
             case "SOLD":
                 message = activity.getString(R.string.activity_sold);
-                isTargetProduct = true;
                 break;
-
+            case "NEW_GAME_BADGE":
+                message = activity.getString(R.string.activity_game_badge) + "\n\"" + item.getTargetName() + "\"";
+                break;
         }
 
         // skip unknown activities
@@ -134,39 +129,60 @@ public class ActivityListAdapter extends BaseAdapter {
             }
         });
 
-        if (isTargetProduct) {
-            // open product
-            activityLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ViewUtil.startProductActivity(activity, item.getTarget());
-                }
-            });
-            messageText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ViewUtil.startProductActivity(activity, item.getTarget());
-                }
-            });
-
-            ImageUtil.displayPostImage(item.getTargetImage(), postImage);
-            postImage.setVisibility(View.VISIBLE);
-        } else {
-            // open actor user
-            activityLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ViewUtil.startUserProfileActivity(activity, item.getActor());
-                }
-            });
-            messageText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ViewUtil.startUserProfileActivity(activity, item.getActor());
-                }
-            });
-
-            postImage.setVisibility(View.INVISIBLE);
+        switch (item.getActivityType()) {
+            case "FIRST_POST":
+            case "NEW_POST":
+            case "NEW_COMMENT":
+            case "LIKED":
+            case "SOLD":
+                // open product
+                activityLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewUtil.startProductActivity(activity, item.getTarget());
+                    }
+                });
+                messageText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewUtil.startProductActivity(activity, item.getTarget());
+                    }
+                });
+                ImageUtil.displayPostImage(item.getTargetImage(), postImage);
+                postImage.setVisibility(View.VISIBLE);
+                break;
+            case "FOLLOWED":
+                // open actor user
+                activityLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewUtil.startUserProfileActivity(activity, item.getActor());
+                    }
+                });
+                messageText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewUtil.startUserProfileActivity(activity, item.getActor());
+                    }
+                });
+                postImage.setVisibility(View.INVISIBLE);
+                break;
+            case "NEW_GAME_BADGE":
+                // open game badges
+                activityLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewUtil.startGameBadgesActivity(activity, item.getTarget());
+                    }
+                });
+                messageText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ViewUtil.startGameBadgesActivity(activity, item.getTarget());
+                    }
+                });
+                postImage.setVisibility(View.INVISIBLE);
+                break;
         }
     }
 }

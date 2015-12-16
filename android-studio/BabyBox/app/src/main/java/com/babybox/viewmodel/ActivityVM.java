@@ -6,6 +6,7 @@ public class ActivityVM implements Serializable {
     public Long id;
     public long createdDate;
     public String activityType;
+    public Boolean userIsOwner;
     public Long actor;
     public Long actorImage;
     public String actorName;
@@ -38,6 +39,14 @@ public class ActivityVM implements Serializable {
 
     public void setActivityType(String activityType) {
         this.activityType = activityType;
+    }
+
+    public Boolean getUserIsOwner() {
+        return userIsOwner;
+    }
+
+    public void setUserIsOwner(Boolean userIsOwner) {
+        this.userIsOwner = userIsOwner;
     }
 
     public Long getActor() {

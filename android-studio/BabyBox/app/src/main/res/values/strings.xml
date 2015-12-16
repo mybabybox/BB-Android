@@ -15,7 +15,7 @@
     <string name="crash_dialog_ok_toast">謝謝！</string>
 
     <!-- Settings -->
-    <string name="app_name">BabyBox</string>
+    <string name="app_name">BabyBox Dev</string>
     <string name="app_desc">BabyBox - 媽媽即賣即買</string>
     <string name="app_version">BabyBox 版本:</string>
     <string name="request_upgrade">BabyBox 新版本已上線！更多新功能為你而設！</string>
@@ -127,6 +127,7 @@
     <string name="activity_liked">喜歡你的商品。</string>
     <string name="activity_followed">關注了你。</string>
     <string name="activity_sold">已賣出商品。</string>
+    <string name="activity_game_badge">恭喜你！你已獲得徽章:</string>
 
     <!-- Category page -->
     <string name="category">商品分類</string>
@@ -151,6 +152,7 @@
     <string name="buy_again">再購買</string>
     <string name="view_chats">查看訊息</string>
     <string name="mark_as_sold">標為已售</string>
+    <string name="sold_text">此商品已售</string>
     <string name="sold">已售</string>
     <string name="sold_view_chats">已售 - 查看訊息</string>
     <string name="listed">已刊登</string>
@@ -253,6 +255,7 @@
 
     <string name="pm_order_buy_text">有興趣？</string>
     <string name="pm_order_buy">購買商品</string>
+    <string name="pm_order_buy_again">再購買</string>
     <string name="pm_order_cancel_text">已下訂單</string>
     <string name="pm_order_cancel">取消購買</string>
     <string name="pm_order_cancelled">購買已被取消</string>
