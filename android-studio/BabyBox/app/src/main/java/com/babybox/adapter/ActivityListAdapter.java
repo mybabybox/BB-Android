@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.babybox.R;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
@@ -172,13 +173,13 @@ public class ActivityListAdapter extends BaseAdapter {
                 activityLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewUtil.startGameBadgesActivity(activity, item.getTarget());
+                        ViewUtil.startGameBadgesActivity(activity, UserInfoCache.getUser().id);
                     }
                 });
                 messageText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ViewUtil.startGameBadgesActivity(activity, item.getTarget());
+                        ViewUtil.startGameBadgesActivity(activity, UserInfoCache.getUser().id);
                     }
                 });
                 postImage.setVisibility(View.INVISIBLE);
