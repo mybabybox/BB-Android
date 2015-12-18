@@ -7,8 +7,6 @@ public class UserVM extends UserVMLite {
     public String aboutMe;
     public String firstName;
     public String lastName;
-    public String gender;
-    public String birthYear;
     public LocationVM location;
     public SettingVM setting;
 
@@ -44,22 +42,6 @@ public class UserVM extends UserVMLite {
         this.lastName = lastName;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getBirthYear() {
-        return birthYear;
-    }
-
-    public void setBirthYear(String birthYear) {
-        this.birthYear = birthYear;
-    }
-
     public LocationVM getLocation() {
         return location;
     }
@@ -82,6 +64,7 @@ public class UserVM extends UserVMLite {
                 "name=" + lastName + " " + firstName + "\n" +
                 "email=" + email + "\n" +
                 "emailValidated=" + emailValidated + "\n" +
+                "accountVerified=" + accountVerified + "\n" +
                 "fbLogin=" + isFbLogin + "\n" +
                 "signupDate=" + new DateTime(createdDate) + "\n" +
                 "lastLogin=" + new DateTime(lastLogin) + "\n" +

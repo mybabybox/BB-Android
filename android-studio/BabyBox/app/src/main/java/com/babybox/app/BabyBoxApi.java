@@ -39,8 +39,12 @@ import retrofit.mime.TypedFile;
 public interface BabyBoxApi {
 
     @POST("/signup")
-    public void signUp(@Query("lname") String lname, @Query("fname") String fname, @Query("email") String email, @Query("password") String password, @Query("repeatPassword") String repeatPassword, Callback<Response> cb);
-    //http://localhost:9000/signup?lname=asd&fname=dsa&email=shwashank12@gmail.com&password=qwerty&repeatPassword=qwerty
+    public void signUp(@Query("lname") String lname,
+                       @Query("fname") String fname,
+                       @Query("email") String email,
+                       @Query("password") String password,
+                       @Query("repeatPassword") String repeatPassword,
+                       Callback<Response> cb);
 
     @FormUrlEncoded
     @POST("/saveSignupInfo")
@@ -109,10 +113,10 @@ public interface BabyBoxApi {
     @GET("/get-user-collection-feed/{collectionId}/{offset}")
     public void getUserCollectionFeed(@Path("offset") Long offset, @Path("collectionId") Long collectionId, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/followings/{userId}/{offset}")
+    @GET("/get-followings/{userId}/{offset}")
     public void getFollowings(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
-    @GET("/followers/{userId}/{offset}")
+    @GET("/get-followers/{userId}/{offset}")
     public void getFollowers(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
     //

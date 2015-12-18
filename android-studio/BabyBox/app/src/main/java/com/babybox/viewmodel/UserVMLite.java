@@ -23,6 +23,7 @@ public class UserVMLite implements Serializable {
     public boolean isFbLogin = false;
     public boolean emailProvidedOnSignup = false;
     public boolean emailValidated = false;
+    public boolean accountVerified = false;
     public boolean newUser = false;
     public boolean isAdmin = false;
 
@@ -168,6 +169,14 @@ public class UserVMLite implements Serializable {
 
     public void setEmailValidated(boolean emailValidated) {
         this.emailValidated = emailValidated;
+    }
+
+    public boolean isAccountVerified() {
+        return accountVerified;
+    }
+
+    public void setAccountVerified(boolean accountVerified) {
+        this.accountVerified = accountVerified;
     }
 
     public boolean isNewUser() {
