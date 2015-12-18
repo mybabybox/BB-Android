@@ -43,7 +43,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="match_parent">
 
             <FrameLayout
                 android:id="@+id/profileImageFrame"
@@ -51,7 +51,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/image_circle"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp">
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp">
 
                 <ImageView
                     android:scaleType="fitXY"
@@ -73,7 +74,7 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/profileInfo"
                 android:layout_marginLeft="5dp">
 
@@ -116,14 +117,15 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/userDescText"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textSize="15dp"
-                    android:textColor="@color/dark_gray" />
+                    android:textSize="14dp"
+                    android:textColor="@color/dark_gray"
+                    android:maxLines="10" />
 
             </LinearLayout>
         </LinearLayout>
