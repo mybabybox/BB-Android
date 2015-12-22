@@ -123,10 +123,10 @@ public interface BabyBoxApi {
     // Category + post + comments
     //
 
-    @GET("/categories")
+    @GET("/get-categories")
     public void getCategories(@Query("key") String key, Callback<List<CategoryVM>> cb);
 
-    @GET("/category/{id}")
+    @GET("/get-category/{id}")
     public void getCategory(@Path("id") Long id, @Query("key") String key, Callback<CategoryVM> cb);
 
     @GET("/post/{id}")

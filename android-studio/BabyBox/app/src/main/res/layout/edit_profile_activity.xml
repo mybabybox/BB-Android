@@ -201,7 +201,7 @@
                     android:background="@drawable/edit_text_round"
                     android:textSize="16dp"
                     android:layout_width="0dp"
-                    android:layout_height="65dp"
+                    android:layout_height="100dp"
                     android:layout_toRightOf="@+id/aboutmeText"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="7"

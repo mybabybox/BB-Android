@@ -15,7 +15,7 @@
     <string name="crash_dialog_ok_toast">Thanks!</string>
 
     <!-- Settings -->
-    <string name="app_name">BabyBox Dev</string>
+    <string name="app_name">BabyBox</string>
     <string name="app_desc">BabyBox - Everymom is a Seller</string>
     <string name="app_version">BabyBox Version:</string>
     <string name="request_upgrade">New version of BabyBox is now available! Upgrade and try out our new features! </string>
@@ -216,8 +216,6 @@
     <string name="list_loading">Loading...</string>
     <string name="list_loading_error">Problem during loading. Please check network connection and try again.</string>
     <string name="list_loaded_all">- Loaded all items -</string>
-    <string name="sharing_app_not_installed"> App is not installed</string>
-    <string name="sharing_message_note">(Shared from BabyBox，Install Android App now)</string>
 
     <!-- Profile tab -->
     <string name="settings_actionbar_title">Settings</string>
@@ -279,6 +277,11 @@
     <string name="game_my_badges">My Badges</string>
     <string name="game_badges_desc">You will get a badge after completing a goal.\nCollect all badges now!</string>
     <string name="game_badges_awarded_already">[You have collected this badge!]</string>
+
+    <!-- Sharing -->
+    <string name="sharing_seller_msg_prefix">Check out BabyBox Seller</string>
+    <string name="sharing_app_not_installed"> App is not installed</string>
+    <string name="sharing_message_note">(Shared from BabyBox，Install Android App now)</string>
 
     <!-- Seller -->
     <string name="seller_credit">points</string>

@@ -31,7 +31,7 @@ public class AdminNewUserListAdapter extends BaseAdapter {
     private static final String TAG = AdminNewUserListAdapter.class.getName();
 
     private ImageView userImage;
-    private TextView userNameText, userIdText, createdDateText, lastActiveText;
+    private TextView userDisplayNameText, userNameText, userEmailText, userIdText, createdDateText, lastActiveText;
     private Button deleteButton;
 
     private Activity activity;
@@ -73,7 +73,9 @@ public class AdminNewUserListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.admin_new_user_list_item, null);
 
         userImage = (ImageView) convertView.findViewById(R.id.userImage);
+        userDisplayNameText = (TextView) convertView.findViewById(R.id.userDisplayNameText);
         userNameText = (TextView) convertView.findViewById(R.id.userNameText);
+        userEmailText = (TextView) convertView.findViewById(R.id.userEmailText);
         deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
         userIdText = (TextView) convertView.findViewById(R.id.userIdText);
         createdDateText = (TextView) convertView.findViewById(R.id.createdDateText);
@@ -91,13 +93,16 @@ public class AdminNewUserListAdapter extends BaseAdapter {
             }
         });
 
-        userNameText.setText(item.getDisplayName());
-        userNameText.setOnClickListener(new View.OnClickListener() {
+        userDisplayNameText.setText(item.getDisplayName());
+        userDisplayNameText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewUtil.startUserProfileActivity(activity, item.getId());
             }
         });
+
+        userNameText.setText(item.getFirstName()+" "+item.getLastName());
+        userEmailText.setText(item.getEmail());
 
         // delete account
         deleteButton.setOnClickListener(new View.OnClickListener() {

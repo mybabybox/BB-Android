@@ -532,7 +532,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 copyLinkAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (ViewUtil.copyToClipboard(UrlUtil.createPostUrl(post))) {
+                        if (ViewUtil.copyToClipboard(UrlUtil.createProductUrl(post))) {
                             Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.url_copy_success), Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(ProductActivity.this, ProductActivity.this.getString(R.string.url_copy_failed), Toast.LENGTH_SHORT).show();

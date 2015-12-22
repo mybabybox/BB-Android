@@ -10,6 +10,7 @@ import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.PostVM;
+import com.babybox.viewmodel.UserVM;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
@@ -24,28 +25,34 @@ public class SharingUtil {
         FACEBOOK
     }
 
-    //public static final String SHARING_MESSAGE_NOTE = AppController.getInstance().getString(R.string.sharing_message_note);
-    public static final String SHARING_MESSAGE_NOTE =
-            ViewUtil.HTML_LINE_BREAK + AppController.getInstance().getString(R.string.sharing_message_note) +
-                    ViewUtil.HTML_LINE_BREAK + UrlUtil.createAndroidAppDownloadUrl();
+    public static final String SHARING_MESSAGE_NOTE = "";
+            //ViewUtil.HTML_LINE_BREAK + AppController.getInstance().getString(R.string.sharing_message_note) +
+            //        ViewUtil.HTML_LINE_BREAK + UrlUtil.createAppsDownloadUrl();
 
     private SharingUtil() {}
 
+    public static void shareToWhatsapp(UserVM user, Activity activity) {
+        shareTo(createMessage(user), UrlUtil.createSellerUrl(user), SharingType.WHATSAPP, activity);
+    }
+
+    public static void shareToFacebook(UserVM user, Activity activity) {
+        shareTo(createMessage(user), UrlUtil.createSellerUrl(user), SharingType.FACEBOOK, activity);
+    }
+
+    public static void shareToWhatsapp(PostVM post, Activity activity) {
+        shareTo(createMessage(post), UrlUtil.createProductUrl(post), SharingType.WHATSAPP, activity);
+    }
+
+    public static void shareToFacebook(PostVM post, Activity activity) {
+        shareTo(createMessage(post), UrlUtil.createProductUrl(post), SharingType.FACEBOOK, activity);
+    }
+
     public static void shareToWhatsapp(CategoryVM category, Activity activity) {
         shareTo(createMessage(category), UrlUtil.createCategoryUrl(category), SharingType.WHATSAPP, activity);
-
     }
 
     public static void shareToFacebook(CategoryVM category, Activity activity) {
         shareTo(createMessage(category), UrlUtil.createCategoryUrl(category), SharingType.FACEBOOK, activity);
-    }
-
-    public static void shareToWhatsapp(PostVM post, Activity activity) {
-        shareTo(createMessage(post), UrlUtil.createPostUrl(post), SharingType.WHATSAPP, activity);
-    }
-
-    public static void shareToFacebook(PostVM post, Activity activity) {
-        shareTo(createMessage(post), UrlUtil.createPostUrl(post), SharingType.FACEBOOK, activity);
     }
 
     /**
@@ -67,6 +74,7 @@ public class SharingUtil {
     }
 
     private static void shareToWhatsapp(String message, String url, Activity activity) {
+        message += ViewUtil.HTML_LINE_BREAK + url;
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(message).toString());
@@ -86,33 +94,26 @@ public class SharingUtil {
         ShareDialog shareDialog = new ShareDialog(activity);
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                    .setContentTitle(AppController.APP_NAME)
-                    .setContentDescription(message)
+                    .setContentTitle(message)
+                    //.setContentDescription(message)
                     .setContentUrl(Uri.parse(url))
                     .build();
             shareDialog.show(linkContent);
         }
     }
 
-    public static String createMessage(CategoryVM category) {
-        String message = category.getName();
-        String url = UrlUtil.createCategoryUrl(category);
-        message = message +
-                ViewUtil.HTML_LINE_BREAK +
-                url +
-                ViewUtil.HTML_LINE_BREAK +
-                SHARING_MESSAGE_NOTE;
+    public static String createMessage(UserVM user) {
+        String message = AppController.getInstance().getString(R.string.sharing_seller_msg_prefix) + user.getDisplayName();
         return message;
     }
 
     public static String createMessage(PostVM post) {
-        String message = post.getTitle() + " - $" + post.getPrice();
-        String url = UrlUtil.createPostUrl(post);
-        message = message +
-                ViewUtil.HTML_LINE_BREAK +
-                url +
-                ViewUtil.HTML_LINE_BREAK +
-                SHARING_MESSAGE_NOTE;
+        String message = post.getTitle() + " $" + (int)post.getPrice();
+        return message;
+    }
+
+    public static String createMessage(CategoryVM category) {
+        String message = category.getName();
         return message;
     }
 

@@ -3,20 +3,9 @@ package com.babybox.viewmodel;
 import org.joda.time.DateTime;
 
 public class UserVM extends UserVMLite {
-    public String email;
     public String aboutMe;
-    public String firstName;
-    public String lastName;
     public LocationVM location;
     public SettingVM setting;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getAboutMe() {
         return aboutMe;
@@ -24,22 +13,6 @@ public class UserVM extends UserVMLite {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public LocationVM getLocation() {
