@@ -284,7 +284,7 @@
     <string name="sharing_message_note">(Shared from BabyBox，Install Android App now)</string>
 
     <!-- Seller -->
-    <string name="seller_credit">points</string>
+    <string name="seller_url">Seller Link</string>
     <string name="seller_rules_title">Seller Policy</string>
 
     <!-- Dialog -->

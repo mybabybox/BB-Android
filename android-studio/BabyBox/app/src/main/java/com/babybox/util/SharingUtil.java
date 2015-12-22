@@ -32,52 +32,62 @@ public class SharingUtil {
     private SharingUtil() {}
 
     public static void shareToWhatsapp(UserVM user, Activity activity) {
-        shareTo(createMessage(user), UrlUtil.createSellerUrl(user), SharingType.WHATSAPP, activity);
+        String title = AppController.getInstance().getString(R.string.sharing_seller_msg_prefix) +
+                ViewUtil.HTML_LINE_BREAK + user.getDisplayName();
+        shareTo(title, "", UrlUtil.createSellerUrl(user), SharingType.WHATSAPP, activity);
     }
 
     public static void shareToFacebook(UserVM user, Activity activity) {
-        shareTo(createMessage(user), UrlUtil.createSellerUrl(user), SharingType.FACEBOOK, activity);
+        String title = user.getDisplayName();
+        String description = AppController.getInstance().getString(R.string.sharing_seller_msg_prefix);
+        shareTo(title, description, UrlUtil.createSellerUrl(user), SharingType.FACEBOOK, activity);
     }
 
     public static void shareToWhatsapp(PostVM post, Activity activity) {
-        shareTo(createMessage(post), UrlUtil.createProductUrl(post), SharingType.WHATSAPP, activity);
+        String title = post.getTitle() + " $" + (int)post.getPrice() + ViewUtil.HTML_LINE_BREAK;
+        shareTo(title, "", UrlUtil.createProductUrl(post), SharingType.WHATSAPP, activity);
     }
 
     public static void shareToFacebook(PostVM post, Activity activity) {
-        shareTo(createMessage(post), UrlUtil.createProductUrl(post), SharingType.FACEBOOK, activity);
+        String title = post.getTitle();
+        String description = "$" + (int)post.getPrice() + " " + post.getBody();
+        shareTo(title, description, UrlUtil.createProductUrl(post), SharingType.FACEBOOK, activity);
     }
 
     public static void shareToWhatsapp(CategoryVM category, Activity activity) {
-        shareTo(createMessage(category), UrlUtil.createCategoryUrl(category), SharingType.WHATSAPP, activity);
+        String title = category.getName();
+        shareTo(title, "", UrlUtil.createCategoryUrl(category), SharingType.WHATSAPP, activity);
     }
 
     public static void shareToFacebook(CategoryVM category, Activity activity) {
-        shareTo(createMessage(category), UrlUtil.createCategoryUrl(category), SharingType.FACEBOOK, activity);
+        String title = category.getName();
+        String description = category.getDescription();
+        shareTo(title, description, UrlUtil.createCategoryUrl(category), SharingType.FACEBOOK, activity);
     }
 
     /**
      * http://www.whatsapp.com/faq/en/android/28000012
      *
-     * @param message
+     * @param title
+     * @param description
      * @param type
      * @param activity
      */
-    public static void shareTo(String message, String url, SharingType type, Activity activity) {
+    public static void shareTo(String title, String description, String url, SharingType type, Activity activity) {
         switch(type) {
             case WHATSAPP:
-                shareToWhatsapp(message, url, activity);
+                shareToWhatsapp(title, description, url, activity);
                 break;
             case FACEBOOK:
-                shareToFacebook(message, url, activity);
+                shareToFacebook(title, description, url, activity);
                 break;
         }
     }
 
-    private static void shareToWhatsapp(String message, String url, Activity activity) {
-        message += ViewUtil.HTML_LINE_BREAK + url;
+    private static void shareToWhatsapp(String title, String description, String url, Activity activity) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(message).toString());
+        sendIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(title + url).toString());
         sendIntent.setType("text/plain");
         sendIntent.setPackage("com.whatsapp");
         try {
@@ -89,32 +99,17 @@ public class SharingUtil {
         }
     }
 
-    private static void shareToFacebook(String message, String url, Activity activity) {
+    private static void shareToFacebook(String title, String description, String url, Activity activity) {
         FacebookSdk.sdkInitialize(activity);
         ShareDialog shareDialog = new ShareDialog(activity);
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                    .setContentTitle(message)
-                    //.setContentDescription(message)
+                    .setContentTitle(title)
+                    .setContentDescription(description)
                     .setContentUrl(Uri.parse(url))
                     .build();
             shareDialog.show(linkContent);
         }
-    }
-
-    public static String createMessage(UserVM user) {
-        String message = AppController.getInstance().getString(R.string.sharing_seller_msg_prefix) + user.getDisplayName();
-        return message;
-    }
-
-    public static String createMessage(PostVM post) {
-        String message = post.getTitle() + " $" + (int)post.getPrice();
-        return message;
-    }
-
-    public static String createMessage(CategoryVM category) {
-        String message = category.getName();
-        return message;
     }
 
     private static String getSharingTypeName(SharingType type) {

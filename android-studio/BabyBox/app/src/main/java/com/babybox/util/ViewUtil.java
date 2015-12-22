@@ -919,13 +919,11 @@ public class ViewUtil {
         ImageView mascot = (ImageView) dialog.findViewById(R.id.mascot);
         TextView descText = (TextView) dialog.findViewById(R.id.descText);
         TextView pointsText = (TextView) dialog.findViewById(R.id.pointsText);
-        TextView endText = (TextView) dialog.findViewById(R.id.endText);
 
         descText.setText(desc);
         if (points == -1) {
             mascot.setVisibility(View.GONE);
             pointsText.setVisibility(View.GONE);
-            endText.setVisibility(View.GONE);
         } else {
             pointsText.setText("+"+points);
         }

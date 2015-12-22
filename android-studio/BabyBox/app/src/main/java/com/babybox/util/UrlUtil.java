@@ -3,6 +3,7 @@ package com.babybox.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.PostVM;
@@ -23,6 +24,14 @@ public class UrlUtil {
     private static String SELLER_URL_REGEX = ".*/seller/(\\d+)";
     private static String PRODUCT_URL_REGEX = ".*/product/(\\d+)";
     private static String CATEGORY_URL_REGEX = ".*/category/(\\d+)";
+
+    private static String[] HTTP_PREFIXES = {
+            "http://www.",
+            "https://www.",
+            "http://",
+            "https://",
+            "www."
+    };
 
     public static String getFullUrl(String url) {
         if (!url.startsWith(AppController.BASE_URL)) {
@@ -57,6 +66,20 @@ public class UrlUtil {
 
     public static long parseCategoryUrlId(String url) {
         return parseUrlMatcher(CATEGORY_URL_REGEX, url);
+    }
+
+    public static String createShortSellerUrl(UserVM user) {
+        String url = createSellerUrl(user);
+        return AppController.getInstance().getString(R.string.seller_url) + ": " + stripHttpPrefix(url);
+    }
+
+    public static String stripHttpPrefix(String url) {
+        for (String prefix : HTTP_PREFIXES) {
+            if (url.startsWith(prefix)) {
+                return url.replace(prefix, "");
+            }
+        }
+        return url;
     }
 
     /**

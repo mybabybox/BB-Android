@@ -127,8 +127,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
 
         setUserId(user.getId());
 
-        userNameText.setText(user.getDisplayName());
-        userDescText.setText(user.getAboutMe());
+        initUserInfoLayout(user);
 
         ImageUtil.displayMyProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override
@@ -159,7 +158,6 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
                 ViewUtil.startFollowingsActivity(getActivity(), userId);
             }
         });
-
 
         productsButton.setText(ViewUtil.formatProductsTab(user.numProducts));
         likesButton.setText(ViewUtil.formatLikesTab(user.numLikes));

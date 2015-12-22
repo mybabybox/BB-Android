@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.activity.MainActivity;
@@ -19,6 +20,7 @@ import com.babybox.app.AppController;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ImageUtil;
+import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.UserVM;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
@@ -38,7 +40,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
     private static final String TAG = UserProfileFeedViewFragment.class.getName();
 
     protected ImageView coverImage, profileImage, editCoverImage, editProfileImage, settingsIcon;
-    protected TextView userNameText, followersText, followingsText, userInfoText, userDescText;
+    protected TextView userNameText, followersText, followingsText, userInfoText, userDescText, sellerUrlText;
     protected LinearLayout userInfoLayout;
     protected RelativeLayout settingsLayout;
     protected Button editButton, followButton, productsButton, likesButton;
@@ -87,6 +89,7 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         userInfoLayout = (LinearLayout) headerView.findViewById(R.id.userInfoLayout);
         userInfoText = (TextView) headerView.findViewById(R.id.userInfoText);
         userDescText = (TextView) headerView.findViewById(R.id.userDescText);
+        sellerUrlText = (TextView) headerView.findViewById(R.id.sellerUrlText);
 
         setUserId(getArguments().getLong(ViewUtil.BUNDLE_KEY_ID));
 
@@ -134,6 +137,29 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
         });
     }
 
+    protected void initUserInfoLayout(final UserVM user) {
+        userNameText.setText(user.getDisplayName());
+
+        if (!StringUtils.isEmpty(user.getAboutMe())) {
+            userDescText.setVisibility(View.VISIBLE);
+            userDescText.setText(user.getAboutMe());
+        } else {
+            userDescText.setVisibility(View.GONE);
+        }
+
+        sellerUrlText.setText(UrlUtil.createShortSellerUrl(user));
+        sellerUrlText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ViewUtil.copyToClipboard(UrlUtil.createSellerUrl(user))) {
+                    Toast.makeText(getActivity(), getString(R.string.url_copy_success), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.url_copy_failed), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     /**
      * Subclass to override
      */
@@ -144,8 +170,8 @@ public class UserProfileFeedViewFragment extends FeedViewFragment {
             @Override
             public void success(final UserVM user, retrofit.client.Response response) {
                 setActionBarTitle(user.getDisplayName());
-                userNameText.setText(user.getDisplayName());
-                userDescText.setText(user.getAboutMe());
+
+                initUserInfoLayout(user);
 
                 ImageUtil.displayProfileImage(userId, profileImage, new RequestListener<String, GlideBitmapDrawable>() {
                     @Override

@@ -16,7 +16,7 @@
 
     <!-- Settings -->
     <string name="app_name">BabyBox</string>
-    <string name="app_desc">BabyBox - 媽媽即賣即買</string>
+    <string name="app_desc">BabyBox 媽媽即拍即賣</string>
     <string name="app_version">BabyBox 版本:</string>
     <string name="request_upgrade">BabyBox 新版本已上線！更多新功能為你而設！</string>
     <string name="request_upgrade_confirm">立即安裝</string>
@@ -284,7 +284,7 @@
     <string name="sharing_message_note">(分享自 BabyBox 立即下載全新 Android App)</string>
 
     <!-- Seller -->
-    <string name="seller_credit">積分</string>
+    <string name="seller_url">商店連結</string>
     <string name="seller_rules_title">賣家需知</string>
 
     <!-- Dialog -->
