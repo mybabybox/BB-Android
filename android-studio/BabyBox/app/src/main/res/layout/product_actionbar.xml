@@ -62,8 +62,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_whatsapp"
                 android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:visibility="gone" />
+                android:layout_centerVertical="true" />
 
             <ImageView
                 android:id="@+id/facebookAction"
@@ -71,8 +70,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_facebook"
                 android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:visibility="gone" />
+                android:layout_centerVertical="true" />
 
             <ImageView
                 android:id="@+id/copyLinkAction"
@@ -80,8 +78,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/ic_link_copy"
                 android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:visibility="gone" />
+                android:layout_centerVertical="true" />
 
             <TextView
                 android:id="@+id/editPostAction"

@@ -88,7 +88,7 @@ public class EditPostActivity extends NewPostActivity {
         ViewUtil.showSpinner(this);
 
         // set postId
-        newPost.postId = postId;
+        newPost.id = postId;
 
         postAction.setEnabled(false);
         AppController.getApiService().editPost(newPost, new Callback<ResponseStatusVM>() {

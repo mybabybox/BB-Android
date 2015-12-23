@@ -287,7 +287,9 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // details
 
-                setActionBarTitle(post.getTitle());
+                //setActionBarTitle(post.getTitle());
+                showActionBarTitle(false);
+
                 ViewUtil.setHtmlText(post.getTitle(), titleText, ProductActivity.this, true);
                 ViewUtil.setHtmlText(post.getBody(), descText, ProductActivity.this, true, true);
                 catNameText.setText(post.getCategoryName());
@@ -512,7 +514,6 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // actionbar
 
-                facebookAction.setVisibility(View.GONE);
                 facebookAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -520,7 +521,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                whatsappAction.setVisibility(View.GONE);
                 whatsappAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -528,7 +528,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                copyLinkAction.setVisibility(View.GONE);
                 copyLinkAction.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -556,11 +555,6 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 adminLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
                 if (UserInfoCache.getUser().isAdmin()) {
-                    showActionBarTitle(false);
-                    facebookAction.setVisibility(View.VISIBLE);
-                    whatsappAction.setVisibility(View.VISIBLE);
-                    copyLinkAction.setVisibility(View.VISIBLE);
-
                     TextView idText = (TextView) findViewById(R.id.idText);
                     TextView numViewsText = (TextView) findViewById(R.id.numViewsText);
                     TextView scoreText = (TextView) findViewById(R.id.scoreText);

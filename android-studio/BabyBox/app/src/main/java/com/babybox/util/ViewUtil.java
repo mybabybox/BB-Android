@@ -165,6 +165,26 @@ public class ViewUtil {
         MISSING_DETAILS
     }
 
+    public enum ReportedType {
+        // Product
+        POST_WRONG_CATEGORY,
+        POST_COUNTERFEIT,
+        POST_PROHIBITED_ITEM,
+        POST_REPEATED_LISTING,
+        POST_SPAM,
+        // Seller
+        USER_DID_NOT_SELL,
+        USER_DID_NOT_SHIP_PRODUCT,
+        USER_SHIP_WRONG_PRODUCT,
+        USER_LEAVE_INCCURATE_FEEDBACK,
+        USER_COUNTERFEIT,
+        USER_PROHIBITED_ITEM,
+        USER_REPEATED_LISTING,
+        USER_SPAM,
+        // Other
+        OTHER
+    }
+
     public enum HighlightColor {
         NONE,
         YELLOW,

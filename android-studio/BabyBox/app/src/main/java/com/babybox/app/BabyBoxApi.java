@@ -6,7 +6,6 @@ import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
-import com.babybox.viewmodel.EmoticonVM;
 import com.babybox.viewmodel.FeaturedItemVM;
 import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
