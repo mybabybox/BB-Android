@@ -29,6 +29,8 @@ public class UserVMLite implements Serializable {
     public boolean accountVerified = false;
     public boolean newUser = false;
     public boolean isAdmin = false;
+    public boolean isPromotedSeller = false;
+    public boolean isVerifiedSeller = false;
 
     public Long getId() {
         return id;
@@ -220,5 +222,21 @@ public class UserVMLite implements Serializable {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public boolean isPromotedSeller() {
+        return isPromotedSeller;
+    }
+
+    public void setIsPromotedSeller(boolean isPromotedSeller) {
+        this.isPromotedSeller = isPromotedSeller;
+    }
+
+    public boolean isVerifiedSeller() {
+        return isVerifiedSeller;
+    }
+
+    public void setIsVerifiedSeller(boolean isVerifiedSeller) {
+        this.isVerifiedSeller = isVerifiedSeller;
     }
 }

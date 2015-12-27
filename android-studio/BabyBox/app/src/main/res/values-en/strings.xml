@@ -15,7 +15,7 @@
     <string name="crash_dialog_ok_toast">Thanks!</string>
 
     <!-- Settings -->
-    <string name="app_name">BabyBox</string>
+    <string name="app_name">BabyBox Dev</string>
     <string name="app_desc">BabyBox - Everymom is a Seller</string>
     <string name="app_version">BabyBox Version:</string>
     <string name="request_upgrade">New version of BabyBox is now available! Upgrade and try out our new features! </string>
@@ -187,6 +187,9 @@
     <string name="field_optional">(Optional)</string>
     <string name="location_actionbar_title">Location</string>
     <string name="location_search_hint">Enter location</string>
+
+    <string name="new_post_free_delivery">Free Delivery</string>
+    <string name="new_post_country">Country</string>
 
     <string name="post_delete_confirm">Delete now?</string>
     <string name="post_sold_confirm">Confirm product has been sold?\nYou will no longer receive chats and orders for this product</string>

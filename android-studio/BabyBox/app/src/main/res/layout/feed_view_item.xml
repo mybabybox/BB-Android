@@ -39,6 +39,15 @@
                 android:visibility="invisible" />
 
             <ImageView
+                android:id="@+id/freeDeliveryImage"
+                android:layout_width="32dp"
+                android:layout_height="20dp"
+                android:adjustViewBounds="false"
+                android:layout_gravity="left|top"
+                android:src="@drawable/ic_free_delivery"
+                android:visibility="invisible" />
+
+            <ImageView
                 android:id="@+id/soldImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

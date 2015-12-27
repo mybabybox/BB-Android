@@ -124,6 +124,12 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             holder.sellerImage.setVisibility(View.INVISIBLE);
         }
 
+        if (item.freeDelivery) {
+            holder.freeDeliveryImage.setVisibility(View.VISIBLE);
+        } else {
+            holder.freeDeliveryImage.setVisibility(View.INVISIBLE);
+        }
+
         if (item.sold) {
             holder.soldImage.setVisibility(View.VISIBLE);
         } else {
@@ -248,6 +254,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         LinearLayout itemLayout;
         ImageView image;
         ImageView sellerImage;
+        ImageView freeDeliveryImage;
         ImageView soldImage;
         TextView timeScoreText;
         TextView title;
@@ -262,6 +269,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             itemLayout = (LinearLayout) holder.findViewById(R.id.itemLayout);
             image = (ImageView) holder.findViewById(R.id.image);
             sellerImage = (ImageView) holder.findViewById(R.id.sellerImage);
+            freeDeliveryImage = (ImageView) holder.findViewById(R.id.freeDeliveryImage);
             soldImage = (ImageView) holder.findViewById(R.id.soldImage);
             timeScoreText = (TextView) holder.findViewById(R.id.timeScoreText);
             title = (TextView) holder.findViewById(R.id.title);

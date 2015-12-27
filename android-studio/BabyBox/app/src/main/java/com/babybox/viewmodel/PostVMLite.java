@@ -21,6 +21,10 @@ public class PostVMLite implements Serializable {
     public boolean isLiked = false;
     public long offset;
 
+    // seller fields
+    public Boolean freeDelivery;
+    public String country;
+
     // admin fields
     public long baseScore = 0L;
     public double timeScore = 0D;
@@ -113,7 +117,7 @@ public class PostVMLite implements Serializable {
         this.images = imgs;
     }
 
-    public Boolean isHasImage() {
+    public Boolean hasImage() {
         return hasImage;
     }
 
@@ -159,6 +163,14 @@ public class PostVMLite implements Serializable {
 
     public void setIsLiked(boolean isLiked) {
         this.isLiked = isLiked;
+    }
+
+    public Boolean getFreeDelivery() {
+        return freeDelivery;
+    }
+
+    public void setFreeDelivery(Boolean freeDelivery) {
+        this.freeDelivery = freeDelivery;
     }
 
     public long getBaseScore() {

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -52,7 +53,7 @@ import retrofit.client.Response;
 
 public class NewPostActivity extends TrackedFragmentActivity{
 
-    protected LinearLayout imagesLayout, selectCatLayout;
+    protected LinearLayout imagesLayout, selectCatLayout, sellerLayout;
     protected RelativeLayout catLayout;
     protected TextView selectCatText;
     protected ImageView selectCatIcon;
@@ -61,6 +62,8 @@ public class NewPostActivity extends TrackedFragmentActivity{
     protected ImageView backImage;
     protected TextView titleEdit, descEdit, priceEdit, postAction, editTextInFocus;
     protected Spinner conditionTypeSpinner;
+    protected CheckBox freeDeliveryCheckBox;
+    protected TextView autoCompleteText;
 
     protected List<ImageView> postImages = new ArrayList<>();
 
@@ -79,8 +82,6 @@ public class NewPostActivity extends TrackedFragmentActivity{
     protected String getActionTypeText() {
         return getString(R.string.new_post_action);
     }
-
-    TextView autoCompView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,12 +102,14 @@ public class NewPostActivity extends TrackedFragmentActivity{
         descEdit = (TextView) findViewById(R.id.descEdit);
         priceEdit = (TextView) findViewById(R.id.priceEdit);
         conditionTypeSpinner = (Spinner) findViewById(R.id.conditionTypeSpinner);
+        sellerLayout = (LinearLayout) findViewById(R.id.sellerLayout);
+        freeDeliveryCheckBox = (CheckBox) findViewById(R.id.freeDeliveryCheckBox);
         editTextInFocus = titleEdit;
-        autoCompView = (TextView) findViewById(R.id.autoCompleteTextView);
 
         SharedPreferencesUtil.getInstance().saveLocation("");
 
-        autoCompView.setOnClickListener(new View.OnClickListener() {
+        autoCompleteText = (TextView) findViewById(R.id.autoCompleteText);
+        autoCompleteText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(NewPostActivity.this,LocationActivity.class));
@@ -243,6 +246,15 @@ public class NewPostActivity extends TrackedFragmentActivity{
             }
         });
 
+        // seller layout
+
+        sellerLayout.setVisibility(View.GONE);
+        if (UserInfoCache.getUser().isAdmin() || UserInfoCache.getUser().isVerifiedSeller()) {
+            sellerLayout.setVisibility(View.VISIBLE);
+        }
+
+        freeDeliveryCheckBox.setChecked(false);
+
         // post
 
         postAction.setOnClickListener(new View.OnClickListener() {
@@ -258,6 +270,15 @@ public class NewPostActivity extends TrackedFragmentActivity{
                 onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(!SharedPreferencesUtil.getInstance().getLocation().equals("")) {
+            autoCompleteText.setText(SharedPreferencesUtil.getInstance().getLocation());
+        }
     }
 
     protected void setConditionTypeSpinner(ViewUtil.PostConditionType conditionType) {
@@ -331,6 +352,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         String title = titleEdit.getText().toString().trim();
         String body = descEdit.getText().toString().trim();
         String priceValue = priceEdit.getText().toString().trim();
+        Boolean freeDelivery = freeDeliveryCheckBox.isChecked();
 
         if (StringUtils.isEmpty(title)) {
             Toast.makeText(this, getString(R.string.invalid_post_title_empty), Toast.LENGTH_SHORT).show();
@@ -365,7 +387,11 @@ public class NewPostActivity extends TrackedFragmentActivity{
             return null;
         }
 
-        NewPostVM newPost = new NewPostVM(catId, title, body, price, conditionType, selectedImages);
+        if (freeDelivery == null) {
+            freeDelivery = false;
+        }
+
+        NewPostVM newPost = new NewPostVM(catId, title, body, price, conditionType, selectedImages, freeDelivery);
         return newPost;
     }
 
@@ -538,13 +564,6 @@ public class NewPostActivity extends TrackedFragmentActivity{
                 });
         AlertDialog alert = builder.create();
         alert.show();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(!SharedPreferencesUtil.getInstance().getLocation().equals(""))
-            autoCompView.setText(SharedPreferencesUtil.getInstance().getLocation());
     }
 
 }

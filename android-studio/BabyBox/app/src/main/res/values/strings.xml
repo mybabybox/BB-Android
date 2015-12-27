@@ -15,7 +15,7 @@
     <string name="crash_dialog_ok_toast">謝謝！</string>
 
     <!-- Settings -->
-    <string name="app_name">BabyBox</string>
+    <string name="app_name">BabyBox Dev</string>
     <string name="app_desc">BabyBox 媽媽即拍即賣</string>
     <string name="app_version">BabyBox 版本:</string>
     <string name="request_upgrade">BabyBox 新版本已上線！更多新功能為你而設！</string>
@@ -69,11 +69,11 @@
     <string name="signup_error_displayname_format">顯示名稱可以輸入英文字母、數字 和 _ . -</string>
     <string name="signup_error_displayname_min_max_char">顯示名稱最小2個字、最多20個字</string>
 
-    <string name="signup_details_greeting">歡迎來到 BabyBox</string>
+    <string name="signup_details_greeting">歡迎登入 BabyBox</string>
     <string name="signup_details_displayname_title">顯示名稱 : </string>
     <string name="signup_details_displayname_note">您的顯示名稱，選用一個您喜愛的暱稱</string>
     <string name="signup_details_location_title">地區 : </string>
-    <string name="signup_details_location_note">BabyBox會按地區推介商品給您</string>
+    <string name="signup_details_location_note">BabyBox 會按地區推介商品給您</string>
     <string name="signup_details_location">-地區-</string>
     <string name="signup_details_status_title">您現在是 : </string>
     <string name="signup_details_mom">媽媽</string>
@@ -187,6 +187,9 @@
     <string name="field_optional">(Optional)</string>
     <string name="location_actionbar_title">Location</string>
     <string name="location_search_hint">Enter location</string>
+
+    <string name="new_post_free_delivery">免郵</string>
+    <string name="new_post_country">國家</string>
 
     <string name="post_delete_confirm">確定刪除?</string>
     <string name="post_sold_confirm">商品更改為已售後，不會收到買家訊息。\n確定商品已售?</string>
