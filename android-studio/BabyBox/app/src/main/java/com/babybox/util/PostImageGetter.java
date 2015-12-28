@@ -16,14 +16,10 @@ public class PostImageGetter implements Html.ImageGetter{
 
     private TextView textView;
 
-    private int emoticonWidth, emoticonHeight;
-
     private Activity activity;
 
     public PostImageGetter(Activity activity) {
         this.activity = activity;
-        emoticonWidth = ViewUtil.getRealDimension(ImageMapping.EMOTICON_WIDTH);
-        emoticonHeight = ViewUtil.getRealDimension(ImageMapping.EMOTICON_HEIGHT);
     }
 
     public void setTextView(TextView textView) {
@@ -34,19 +30,11 @@ public class PostImageGetter implements Html.ImageGetter{
     public Drawable getDrawable(String source) {
         LevelListDrawable d = new LevelListDrawable();
 
-        int resId = ImageMapping.map(source);
-        if (resId != -1) {
-            Drawable emo = activity.getResources().getDrawable(resId);
-            d.addLevel(0, 0, emo);
-            d.setBounds(0, 0, emoticonWidth, emoticonHeight);
-        } else {
-            Log.d(this.getClass().getSimpleName(), "getDrawable: load emoticon from background - " + source);
-            Drawable empty = activity.getResources().getDrawable(R.drawable.empty);
-            d.addLevel(0, 0, empty);
-            d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
-            new LoadImageToBody().execute(source, d);
-        }
-
+        Log.d(this.getClass().getSimpleName(), "getDrawable: load post image from background - " + source);
+        Drawable empty = activity.getResources().getDrawable(R.drawable.empty);
+        d.addLevel(0, 0, empty);
+        d.setBounds(0, 0, empty.getIntrinsicWidth(), empty.getIntrinsicHeight());
+        new LoadImageToBody().execute(source, d);
         return d;
     }
 

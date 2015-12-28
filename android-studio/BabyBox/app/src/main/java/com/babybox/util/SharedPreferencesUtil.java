@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.CountryVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.UserVM;
 import com.google.gson.Gson;
@@ -28,6 +29,7 @@ public class SharedPreferencesUtil {
     public static final String SESSION_ID = "sessionId";
     public static final String USER_INFO = "userInfo";
     public static final String DISTRICTS = "districts";
+    public static final String COUNTRIES = "countries";
     public static final String CATEGORIES = "categories";
     public static final String APP_VERSION = "appVersion";
     public static final String LANG = "lang";
@@ -107,6 +109,12 @@ public class SharedPreferencesUtil {
         if (districts == null || districts.size() == 0)
             return;
         this.saveObject(DISTRICTS, districts);
+    }
+
+    public void saveCountries(List<CountryVM> countries) {
+        if (countries == null || countries.size() == 0)
+            return;
+        this.saveObject(COUNTRIES, countries);
     }
 
     public void saveCategories(List<CategoryVM> categories) {
@@ -201,6 +209,14 @@ public class SharedPreferencesUtil {
         }
         //Log.d(this.getClass().getSimpleName(), "[DEBUG] getDistricts: size="+districts.size());
         return districts;
+    }
+
+    public List<CountryVM> getCountries() {
+        Type type = new TypeToken<List<CountryVM>>() {}.getType();
+        String json = this.prefs.getString(COUNTRIES, null);
+        List<CountryVM> countries = new Gson().fromJson(json, type);
+        //Log.d(this.getClass().getSimpleName(), "[DEBUG] getCountries: size="+countries.size());
+        return countries;
     }
 
     public List<CategoryVM> getCategories() {

@@ -49,10 +49,13 @@ public class EditPostActivity extends NewPostActivity {
             public void success(final PostVM post, Response response) {
                 titleEdit.setText(post.getTitle());
                 descEdit.setText(post.getBody());
-                priceEdit.setText((int)post.getPrice()+"");
-                freeDeliveryCheckBox.setChecked(post.getFreeDelivery());
+                priceEdit.setText((int) post.getPrice() + "");
                 setConditionTypeSpinner(ViewUtil.parsePostConditionType(post.getConditionType()));
                 initCategoryLayout(CategoryCache.getCategory(post.getCategoryId()));
+
+                // seller
+                freeDeliveryCheckBox.setChecked(post.isFreeDelivery());
+                setCountrySpinner(post.countryCode);
 
                 ViewUtil.stopSpinner(EditPostActivity.this);
             }

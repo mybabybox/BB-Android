@@ -193,8 +193,8 @@ public class AppController extends Application {
 
     public static void initStaticCaches() {
         DistrictCache.refresh();
+        CountryCache.refresh();
         CategoryCache.refresh();
-        //EmoticonCache.refresh();
     }
 
     public static void initUserCaches() {

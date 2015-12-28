@@ -1,22 +1,14 @@
 package com.babybox.util;
 
-import android.widget.TextView;
-
-import org.parceler.apache.commons.lang.StringUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import com.babybox.R;
-import com.babybox.viewmodel.EmoticonVM;
 
 /**
  * Created by keithlei on 3/16/15.
  */
 public class ImageMapping {
-
-    public final static int EMOTICON_WIDTH = 18;
-    public final static int EMOTICON_HEIGHT = 18;
 
     public final static Map<String, Integer> imageMap;
 
@@ -52,6 +44,31 @@ public class ImageMapping {
         imageMap.put("/assets/app/images/game/badges/post_1_off.png", R.drawable.game_badge_post_1_off);
         imageMap.put("/assets/app/images/game/badges/post_10.png", R.drawable.game_badge_post_10);
         imageMap.put("/assets/app/images/game/badges/post_10_off.png", R.drawable.game_badge_post_10_off);
+        imageMap.put("/assets/app/images/country/intl.png", R.drawable.ct_intl);
+        imageMap.put("/assets/app/images/country/au.png", R.drawable.ct_au);
+        imageMap.put("/assets/app/images/country/ca.png", R.drawable.ct_ca);
+        imageMap.put("/assets/app/images/country/ch.png", R.drawable.ct_ch);
+        imageMap.put("/assets/app/images/country/de.png", R.drawable.ct_de);
+        imageMap.put("/assets/app/images/country/dk.png", R.drawable.ct_dk);
+        imageMap.put("/assets/app/images/country/es.png", R.drawable.ct_es);
+        imageMap.put("/assets/app/images/country/fr.png", R.drawable.ct_fr);
+        imageMap.put("/assets/app/images/country/gb.png", R.drawable.ct_gb);
+        imageMap.put("/assets/app/images/country/hk.png", R.drawable.ct_hk);
+        imageMap.put("/assets/app/images/country/id.png", R.drawable.ct_id);
+        imageMap.put("/assets/app/images/country/ie.png", R.drawable.ct_ie);
+        imageMap.put("/assets/app/images/country/in.png", R.drawable.ct_in);
+        imageMap.put("/assets/app/images/country/is.png", R.drawable.ct_is);
+        imageMap.put("/assets/app/images/country/it.png", R.drawable.ct_it);
+        imageMap.put("/assets/app/images/country/jp.png", R.drawable.ct_jp);
+        imageMap.put("/assets/app/images/country/kr.png", R.drawable.ct_kr);
+        imageMap.put("/assets/app/images/country/my.png", R.drawable.ct_my);
+        imageMap.put("/assets/app/images/country/nl.png", R.drawable.ct_nl);
+        imageMap.put("/assets/app/images/country/no.png", R.drawable.ct_no);
+        imageMap.put("/assets/app/images/country/nz.png", R.drawable.ct_nz);
+        imageMap.put("/assets/app/images/country/se.png", R.drawable.ct_se);
+        imageMap.put("/assets/app/images/country/th.png", R.drawable.ct_th);
+        imageMap.put("/assets/app/images/country/tw.png", R.drawable.ct_tw);
+        imageMap.put("/assets/app/images/country/us.png", R.drawable.ct_us);
     }
 
     private ImageMapping() {}
@@ -63,12 +80,4 @@ public class ImageMapping {
         return icon;
     }
 
-    public static void insertEmoticon(EmoticonVM emoticon, TextView textView) {
-        String code = emoticon.getCode();
-        String text = (textView.getText() == null)? "" : textView.getText().toString();
-        if (!StringUtils.isEmpty(text) && !text.endsWith(" "))
-            code = " " + code;
-        code += " ";
-        textView.append(code);
-    }
 }

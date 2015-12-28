@@ -29,6 +29,7 @@ import com.babybox.R;
 import com.babybox.adapter.PopupCategoryListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
+import com.babybox.app.CountryCache;
 import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
@@ -38,6 +39,7 @@ import com.babybox.util.SelectedImage;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
+import com.babybox.viewmodel.CountryVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
@@ -61,7 +63,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
     protected ImageView catIcon;
     protected ImageView backImage;
     protected TextView titleEdit, descEdit, priceEdit, postAction, editTextInFocus;
-    protected Spinner conditionTypeSpinner;
+    protected Spinner conditionTypeSpinner, countrySpinner;
     protected CheckBox freeDeliveryCheckBox;
     protected TextView autoCompleteText;
 
@@ -72,6 +74,8 @@ public class NewPostActivity extends TrackedFragmentActivity{
     protected List<SelectedImage> selectedImages = new ArrayList<>();
 
     protected ViewUtil.PostConditionType conditionType;
+
+    protected CountryVM country;
 
     protected Long catId;
     protected PopupWindow categoryPopup;
@@ -104,6 +108,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         conditionTypeSpinner = (Spinner) findViewById(R.id.conditionTypeSpinner);
         sellerLayout = (LinearLayout) findViewById(R.id.sellerLayout);
         freeDeliveryCheckBox = (CheckBox) findViewById(R.id.freeDeliveryCheckBox);
+        countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         editTextInFocus = titleEdit;
 
         SharedPreferencesUtil.getInstance().saveLocation("");
@@ -255,6 +260,24 @@ public class NewPostActivity extends TrackedFragmentActivity{
 
         freeDeliveryCheckBox.setChecked(false);
 
+        initCountrySpinner();
+
+        countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (countrySpinner.getSelectedItem() != null) {
+                    String value = countrySpinner.getSelectedItem().toString();
+                    country = CountryCache.getCountryWithName(value);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         // post
 
         postAction.setOnClickListener(new View.OnClickListener() {
@@ -289,7 +312,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
 
     protected void initConditionTypeSpinner() {
         List<String> conditionTypes = new ArrayList<>();
-        conditionTypes.add(getString(R.string.new_post_condition_select));
+        conditionTypes.add(getString(R.string.spinner_select));
         conditionTypes.addAll(ViewUtil.getPostConditionTypeValues());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -297,6 +320,28 @@ public class NewPostActivity extends TrackedFragmentActivity{
                 R.layout.spinner_item_right,
                 conditionTypes);
         conditionTypeSpinner.setAdapter(adapter);
+    }
+
+    protected void setCountrySpinner(String code) {
+        CountryVM country = CountryCache.getCountryWithCode(code);
+        if (country != null) {
+            int pos = ((ArrayAdapter)countrySpinner.getAdapter()).getPosition(country.name);
+            countrySpinner.setSelection(pos);
+        }
+    }
+
+    protected void initCountrySpinner() {
+        List<String> countries = new ArrayList<>();
+        countries.add(getString(R.string.spinner_select));
+        for (CountryVM country : CountryCache.getCountries()) {
+            countries.add(country.name);
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.spinner_item_right,
+                countries);
+        countrySpinner.setAdapter(adapter);
     }
 
     protected void updateSelectCategoryLayout() {
@@ -391,7 +436,12 @@ public class NewPostActivity extends TrackedFragmentActivity{
             freeDelivery = false;
         }
 
-        NewPostVM newPost = new NewPostVM(catId, title, body, price, conditionType, selectedImages, freeDelivery);
+        String countryCode = "";
+        if (country != null) {
+            countryCode = country.code;
+        }
+
+        NewPostVM newPost = new NewPostVM(catId, title, body, price, conditionType, selectedImages, freeDelivery, countryCode);
         return newPost;
     }
 

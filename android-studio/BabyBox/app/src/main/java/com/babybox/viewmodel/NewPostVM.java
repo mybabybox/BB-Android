@@ -21,17 +21,18 @@ public class NewPostVM {
     public Boolean withPhotos;
     public List<File> images;
     public Boolean freeDelivery;
+    public String countryCode;
     public String deviceType;
 
     public NewPostVM(Long catId, String title, String body, double price,
                      ViewUtil.PostConditionType conditionType, List<SelectedImage> selectedPostImages,
-                     Boolean freeDelivery) {
-        this(-1L, catId, title, body, price, conditionType, selectedPostImages, freeDelivery);
+                     Boolean freeDelivery, String countryCode) {
+        this(-1L, catId, title, body, price, conditionType, selectedPostImages, freeDelivery, countryCode);
     }
 
     public NewPostVM(Long id, Long catId, String title, String body, double price,
                      ViewUtil.PostConditionType conditionType, List<SelectedImage> selectedImages,
-                     Boolean freeDelivery) {
+                     Boolean freeDelivery, String countryCode) {
         this.id = id;
         this.catId = catId;
         this.title = title;
@@ -44,6 +45,7 @@ public class NewPostVM {
             this.images.add(selectedImage.getFile());
         }
         this.freeDelivery = freeDelivery;
+        this.countryCode = countryCode;
         this.deviceType = AppController.DeviceType.ANDROID.name();
     }
 
@@ -56,6 +58,7 @@ public class NewPostVM {
         multipartTypedOutput.addPart("price", new TypedString(price+""));
         multipartTypedOutput.addPart("conditionType", new TypedString(conditionType));
         multipartTypedOutput.addPart("freeDelivery", new TypedString(freeDelivery.toString()));
+        multipartTypedOutput.addPart("countryCode", new TypedString(countryCode.toString()));
         multipartTypedOutput.addPart("withPhotos", new TypedString(withPhotos.toString()));
         multipartTypedOutput.addPart("deviceType", new TypedString(deviceType.toString()));
 

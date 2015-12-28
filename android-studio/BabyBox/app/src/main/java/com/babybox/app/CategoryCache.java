@@ -13,8 +13,9 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class CategoryCache {
+    private static final String TAG = CategoryCache.class.getName();
 
-    private static List<CategoryVM> categories = new ArrayList<>();;
+    private static List<CategoryVM> categories = new ArrayList<>();
 
     private CategoryCache() {}
 
@@ -30,7 +31,7 @@ public class CategoryCache {
     }
 
     public static void refresh(final Callback<List<CategoryVM>> callback) {
-        Log.d(CategoryCache.class.getSimpleName(), "refresh");
+        Log.d(TAG, "refresh");
 
         AppController.getApiService().getCategories(new Callback<List<CategoryVM>>() {
             @Override
@@ -50,7 +51,7 @@ public class CategoryCache {
                 if (callback != null) {
                     callback.failure(error);
                 }
-                Log.e(CategoryCache.class.getSimpleName(), "refresh: failure", error);
+                Log.e(TAG, "refresh: failure", error);
             }
         });
     }

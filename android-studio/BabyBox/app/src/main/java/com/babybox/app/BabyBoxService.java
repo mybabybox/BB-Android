@@ -6,6 +6,7 @@ import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
+import com.babybox.viewmodel.CountryVM;
 import com.babybox.viewmodel.FeaturedItemVM;
 import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
@@ -45,6 +46,10 @@ public class BabyBoxService {
 
     public void getAllDistricts(Callback<List<LocationVM>> cb) {
         api.getAllDistricts(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getCountries(Callback<List<CountryVM>> cb) {
+        api.getCountries(AppController.getInstance().getSessionId(), cb);
     }
 
     public void login(String email, String password, Callback<Response> cb) {

@@ -27,6 +27,7 @@
     <string name="lang_confirm">Confirm to change language?\n(BabyBox will be restarted)</string>
     <string name="lang_complete">Language change will take effect after restart</string>
 
+    <string name="spinner_select">-Select-</string>
     <string name="clipboard_text_label">Copy</string>
     <string name="connection_timeout_title">Network Problem</string>
     <string name="connection_timeout_message">Network Problem. Please check if you are online.</string>
@@ -169,7 +170,6 @@
     <string name="new_post_price">Price($):</string>
     <string name="new_post_price_hint">Set a Price</string>
     <string name="new_post_condition">Condition:</string>
-    <string name="new_post_condition_select">-Select-</string>
     <string name="new_post_to_popup_title">Choose a Category</string>
     <string name="new_post_to">Category:</string>
     <string name="new_post_select_category">Choose a Category</string>

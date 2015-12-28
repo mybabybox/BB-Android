@@ -82,7 +82,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private TextView titleText, descText, priceText, soldText, conditionText;
     private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
     private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, adminLayout;
-    private ImageView likeImage;
+    private ImageView likeImage, freeDeliveryImage;
     private TextView likeText, numLikesText;
 
     private LinearLayout sellerLayout;
@@ -150,6 +150,8 @@ public class ProductActivity extends TrackedFragmentActivity {
         likeImage = (ImageView) findViewById(R.id.likeImage);
         likeText = (TextView) findViewById(R.id.likeText);
         numLikesText = (TextView) findViewById(R.id.numLikesText);
+
+        freeDeliveryImage = (ImageView) findViewById(R.id.freeDeliveryImage);
 
         adminLayout = (LinearLayout) findViewById(R.id.adminLayout);
 
@@ -350,6 +352,10 @@ public class ProductActivity extends TrackedFragmentActivity {
                 });
 
                 numLikesText.setText(post.numLikes+"");
+
+                // free delivery tag
+
+                freeDeliveryImage.setVisibility(post.isFreeDelivery()? View.VISIBLE : View.INVISIBLE);
 
                 // delete
 

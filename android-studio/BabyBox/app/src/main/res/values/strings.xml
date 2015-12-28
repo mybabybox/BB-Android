@@ -27,6 +27,7 @@
     <string name="lang_confirm">確定轉換語言?\n(將重新開啟BabyBox)</string>
     <string name="lang_complete">語言轉換成功並將於下一次生效</string>
 
+    <string name="spinner_select">-選擇-</string>
     <string name="clipboard_text_label">複制信息</string>
     <string name="connection_timeout_title">網路問題</string>
     <string name="connection_timeout_message">網路出現問題。請檢查是否已經上缐</string>
@@ -169,7 +170,6 @@
     <string name="new_post_price">價格($):</string>
     <string name="new_post_price_hint">請輸入價格</string>
     <string name="new_post_condition">商品狀況:</string>
-    <string name="new_post_condition_select">-選擇-</string>
     <string name="new_post_to_popup_title">請選擇分類</string>
     <string name="new_post_to">分類:</string>
     <string name="new_post_select_category">請選擇分類</string>

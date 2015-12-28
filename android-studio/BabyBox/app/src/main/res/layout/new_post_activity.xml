@@ -478,7 +478,7 @@
 
                     <Spinner
                         android:id="@+id/countrySpinner"
-                        android:layout_width="235dp"
+                        android:layout_width="180dp"
                         android:layout_height="35dp"
                         android:spinnerMode="dropdown"
                         android:layout_gravity="center"

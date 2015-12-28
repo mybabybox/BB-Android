@@ -6,6 +6,7 @@ import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
+import com.babybox.viewmodel.CountryVM;
 import com.babybox.viewmodel.FeaturedItemVM;
 import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
@@ -54,6 +55,9 @@ public interface BabyBoxApi {
 
     @GET("/get-all-districts")
     public void getAllDistricts(@Query("key") String key, Callback<List<LocationVM>> cb);
+
+    @GET("/get-countries")
+    public void getCountries(@Query("key") String key, Callback<List<CountryVM>> cb);
 
     @POST("/mobile/login")
     public void login(@Query("email") String email, @Query("password") String password, Callback<Response> cb);

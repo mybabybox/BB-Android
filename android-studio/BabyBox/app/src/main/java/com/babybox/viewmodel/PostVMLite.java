@@ -23,7 +23,8 @@ public class PostVMLite implements Serializable {
 
     // seller fields
     public Boolean freeDelivery;
-    public String country;
+    public String countryCode;
+    public String countryIcon;
 
     // admin fields
     public long baseScore = 0L;
@@ -165,12 +166,28 @@ public class PostVMLite implements Serializable {
         this.isLiked = isLiked;
     }
 
-    public Boolean getFreeDelivery() {
+    public Boolean isFreeDelivery() {
         return freeDelivery;
     }
 
     public void setFreeDelivery(Boolean freeDelivery) {
         this.freeDelivery = freeDelivery;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getCountryIcon() {
+        return countryIcon;
+    }
+
+    public void setCountryIcon(String countryIcon) {
+        this.countryIcon = countryIcon;
     }
 
     public long getBaseScore() {
