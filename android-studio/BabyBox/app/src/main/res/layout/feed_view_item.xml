@@ -123,7 +123,22 @@
                     android:textColor="@color/green"
                     android:layout_alignParentLeft="true"
                     android:singleLine="true"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/originalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="@color/gray"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:layout_toRightOf="@+id/price"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignBaseline="@+id/price"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:orientation="horizontal"

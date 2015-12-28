@@ -156,6 +156,13 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
 
         ViewUtil.setHtmlText(item.getTitle(), holder.title, activity, true);
         holder.price.setText(ViewUtil.priceFormat(item.getPrice()));
+        if (item.getOriginalPrice() > 0) {
+            holder.originalPrice.setVisibility(View.VISIBLE);
+            holder.originalPrice.setText(ViewUtil.priceFormat(item.getOriginalPrice()));
+            ViewUtil.strikeText(holder.originalPrice);
+        } else {
+            holder.originalPrice.setVisibility(View.GONE);
+        }
 
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,6 +278,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         TextView timeScoreText;
         TextView title;
         TextView price;
+        TextView originalPrice;
         LinearLayout likeLayout;
         ImageView likeImage;
         TextView likeText;
@@ -287,6 +295,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             timeScoreText = (TextView) holder.findViewById(R.id.timeScoreText);
             title = (TextView) holder.findViewById(R.id.title);
             price = (TextView) holder.findViewById(R.id.price);
+            originalPrice = (TextView) holder.findViewById(R.id.originalPrice);
             likeLayout = (LinearLayout) holder.findViewById(R.id.likeLayout);
             likeImage = (ImageView) holder.findViewById(R.id.likeImage);
             likeText = (TextView) holder.findViewById(R.id.likeText);

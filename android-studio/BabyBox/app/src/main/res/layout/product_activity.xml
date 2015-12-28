@@ -117,16 +117,28 @@
                                 android:textColor="@color/green"
                                 android:layout_centerVertical="true" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/originalPriceText"
+                                android:textSize="15dp"
+                                android:textColor="@color/gray"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dp"
+                                android:layout_toRightOf="@+id/priceText"
+                                android:layout_alignBaseline="@+id/priceText"
+                                android:visibility="gone" />
+
                             <ImageView
                                 android:layout_width="32dp"
                                 android:layout_height="20dp"
                                 android:id="@+id/freeDeliveryImage"
                                 android:layout_centerVertical="true"
-                                android:layout_toRightOf="@+id/priceText"
+                                android:layout_toRightOf="@+id/originalPriceText"
                                 android:layout_marginLeft="10dp"
                                 android:src="@drawable/ic_free_delivery"
-                                android:visibility="invisible"
-                                android:scaleType="fitXY" />
+                                android:scaleType="fitXY"
+                                android:visibility="gone" />
 
                         </RelativeLayout>
 

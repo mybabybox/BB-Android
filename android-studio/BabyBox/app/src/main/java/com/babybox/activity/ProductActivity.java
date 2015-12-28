@@ -80,7 +80,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private LinearLayout dotsLayout;
     private List<ImageView> dots = new ArrayList<>();
 
-    private TextView titleText, descText, priceText, soldText, conditionText;
+    private TextView titleText, descText, priceText, originalPriceText, soldText, conditionText;
     private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
     private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, adminLayout;
     private ImageView likeImage, freeDeliveryImage, countryImage;
@@ -130,6 +130,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         titleText = (TextView) findViewById(R.id.titleText);
         descText = (TextView) findViewById(R.id.descText);
         priceText = (TextView) findViewById(R.id.priceText);
+        originalPriceText = (TextView) findViewById(R.id.originalPriceText);
 
         buyerButtonsLayout = (LinearLayout) findViewById(R.id.buyerButtonsLayout);
         chatButton = (Button) findViewById(R.id.chatButton);
@@ -298,6 +299,13 @@ public class ProductActivity extends TrackedFragmentActivity {
                 ViewUtil.setHtmlText(post.getBody(), descText, ProductActivity.this, true, true);
                 catNameText.setText(post.getCategoryName());
                 priceText.setText(ViewUtil.priceFormat(post.getPrice()));
+                if (post.getOriginalPrice() > 0) {
+                    originalPriceText.setVisibility(View.VISIBLE);
+                    originalPriceText.setText(ViewUtil.priceFormat(post.getOriginalPrice()));
+                    ViewUtil.strikeText(originalPriceText);
+                } else {
+                    originalPriceText.setVisibility(View.GONE);
+                }
                 conditionText.setText(ViewUtil.getPostConditionTypeValue(
                         ViewUtil.parsePostConditionType(post.getConditionType())));
                 timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));

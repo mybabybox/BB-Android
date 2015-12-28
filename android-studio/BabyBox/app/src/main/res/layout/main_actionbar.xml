@@ -41,7 +41,7 @@
 
         <ImageView
             android:id="@+id/gameBadgeImage"
-            android:layout_width="35dp"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"

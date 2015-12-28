@@ -22,7 +22,8 @@ public class PostVMLite implements Serializable {
     public long offset;
 
     // seller fields
-    public Boolean freeDelivery;
+    public double originalPrice;
+    public boolean freeDelivery;
     public String countryCode;
     public String countryIcon;
 
@@ -164,6 +165,14 @@ public class PostVMLite implements Serializable {
 
     public void setIsLiked(boolean isLiked) {
         this.isLiked = isLiked;
+    }
+
+    public double getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(double originalPrice) {
+        this.originalPrice = originalPrice;
     }
 
     public Boolean isFreeDelivery() {

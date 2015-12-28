@@ -62,7 +62,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
     protected TextView catName;
     protected ImageView catIcon;
     protected ImageView backImage;
-    protected TextView titleEdit, descEdit, priceEdit, postAction, editTextInFocus;
+    protected TextView titleEdit, descEdit, priceEdit, originalPriceEdit, postAction, editTextInFocus;
     protected Spinner conditionTypeSpinner, countrySpinner;
     protected CheckBox freeDeliveryCheckBox;
     protected TextView autoCompleteText;
@@ -107,6 +107,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         priceEdit = (TextView) findViewById(R.id.priceEdit);
         conditionTypeSpinner = (Spinner) findViewById(R.id.conditionTypeSpinner);
         sellerLayout = (LinearLayout) findViewById(R.id.sellerLayout);
+        originalPriceEdit = (TextView) findViewById(R.id.originalPriceEdit);
         freeDeliveryCheckBox = (CheckBox) findViewById(R.id.freeDeliveryCheckBox);
         countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         editTextInFocus = titleEdit;
@@ -397,6 +398,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         String title = titleEdit.getText().toString().trim();
         String body = descEdit.getText().toString().trim();
         String priceValue = priceEdit.getText().toString().trim();
+        String originalPriceValue = originalPriceEdit.getText().toString().trim();
         Boolean freeDelivery = freeDeliveryCheckBox.isChecked();
 
         if (StringUtils.isEmpty(title)) {
@@ -414,9 +416,13 @@ public class NewPostActivity extends TrackedFragmentActivity{
             return null;
         }
 
-        Long price = 0L;
+        Long price = -1L;
         try {
             price = Long.valueOf(priceValue);
+            if (price < 0) {
+                Toast.makeText(this, getString(R.string.invalid_post_price_negative), Toast.LENGTH_SHORT).show();
+                return null;
+            }
         } catch (NumberFormatException e) {
             Toast.makeText(this, getString(R.string.invalid_post_price_not_number), Toast.LENGTH_SHORT).show();
             return null;
@@ -432,6 +438,19 @@ public class NewPostActivity extends TrackedFragmentActivity{
             return null;
         }
 
+        Long originalPrice = -1L;
+        try {
+            originalPrice = Long.valueOf(originalPriceValue);
+            if (price < 0) {
+                Toast.makeText(this, getString(R.string.invalid_post_price_negative), Toast.LENGTH_SHORT).show();
+                return null;
+            } else if (originalPrice <= price) {
+                Toast.makeText(this, getString(R.string.invalid_post_original_price_less_than_price), Toast.LENGTH_SHORT).show();
+                return null;
+            }
+        } catch (NumberFormatException e) {
+        }
+
         if (freeDelivery == null) {
             freeDelivery = false;
         }
@@ -441,7 +460,9 @@ public class NewPostActivity extends TrackedFragmentActivity{
             countryCode = country.code;
         }
 
-        NewPostVM newPost = new NewPostVM(catId, title, body, price, conditionType, selectedImages, freeDelivery, countryCode);
+        NewPostVM newPost = new NewPostVM(
+                catId, title, body, price, conditionType, selectedImages,
+                originalPrice, freeDelivery, countryCode);
         return newPost;
     }
 

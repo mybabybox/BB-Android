@@ -18,6 +18,7 @@ public class NewPostVM {
     public String title, body;
     public double price;
     public String conditionType;
+    public double originalPrice;
     public Boolean withPhotos;
     public List<File> images;
     public Boolean freeDelivery;
@@ -26,19 +27,20 @@ public class NewPostVM {
 
     public NewPostVM(Long catId, String title, String body, double price,
                      ViewUtil.PostConditionType conditionType, List<SelectedImage> selectedPostImages,
-                     Boolean freeDelivery, String countryCode) {
-        this(-1L, catId, title, body, price, conditionType, selectedPostImages, freeDelivery, countryCode);
+                     double originalPrice, Boolean freeDelivery, String countryCode) {
+        this(-1L, catId, title, body, price, conditionType, selectedPostImages, originalPrice, freeDelivery, countryCode);
     }
 
     public NewPostVM(Long id, Long catId, String title, String body, double price,
                      ViewUtil.PostConditionType conditionType, List<SelectedImage> selectedImages,
-                     Boolean freeDelivery, String countryCode) {
+                     double originalPrice, Boolean freeDelivery, String countryCode) {
         this.id = id;
         this.catId = catId;
         this.title = title;
         this.body = body;
         this.price = price;
         this.conditionType = conditionType.name();
+        this.originalPrice = originalPrice;
         this.withPhotos = (selectedImages != null && selectedImages.size() > 0);
         this.images = new ArrayList<>();
         for (SelectedImage selectedImage : selectedImages) {
@@ -57,6 +59,7 @@ public class NewPostVM {
         multipartTypedOutput.addPart("body", new TypedString(body));
         multipartTypedOutput.addPart("price", new TypedString(price+""));
         multipartTypedOutput.addPart("conditionType", new TypedString(conditionType));
+        multipartTypedOutput.addPart("originalPrice", new TypedString(originalPrice+""));
         multipartTypedOutput.addPart("freeDelivery", new TypedString(freeDelivery.toString()));
         multipartTypedOutput.addPart("countryCode", new TypedString(countryCode.toString()));
         multipartTypedOutput.addPart("withPhotos", new TypedString(withPhotos.toString()));
