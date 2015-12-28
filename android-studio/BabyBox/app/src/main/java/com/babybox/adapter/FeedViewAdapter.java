@@ -13,10 +13,13 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.activity.ProductActivity;
 import com.babybox.app.AppController;
+import com.babybox.app.CountryCache;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.PostVMLite;
+
+import org.parceler.apache.commons.lang.StringUtils;
 
 import java.util.List;
 
@@ -134,6 +137,14 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             holder.soldImage.setVisibility(View.VISIBLE);
         } else {
             holder.soldImage.setVisibility(View.INVISIBLE);
+        }
+
+        if (!StringUtils.isEmpty(item.countryCode) &&
+                !item.countryCode.equalsIgnoreCase(CountryCache.COUNTRY_CODE_NA)) {
+            ImageUtil.displayImage(item.countryIcon, holder.countryImage);
+            holder.countryImage.setVisibility(View.VISIBLE);
+        } else {
+            holder.countryImage.setVisibility(View.GONE);
         }
 
         if (UserInfoCache.getUser().isAdmin()) {
@@ -256,6 +267,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         ImageView sellerImage;
         ImageView freeDeliveryImage;
         ImageView soldImage;
+        ImageView countryImage;
         TextView timeScoreText;
         TextView title;
         TextView price;
@@ -271,6 +283,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             sellerImage = (ImageView) holder.findViewById(R.id.sellerImage);
             freeDeliveryImage = (ImageView) holder.findViewById(R.id.freeDeliveryImage);
             soldImage = (ImageView) holder.findViewById(R.id.soldImage);
+            countryImage = (ImageView) holder.findViewById(R.id.countryImage);
             timeScoreText = (TextView) holder.findViewById(R.id.timeScoreText);
             title = (TextView) holder.findViewById(R.id.title);
             price = (TextView) holder.findViewById(R.id.price);

@@ -56,7 +56,6 @@ public class ImageMapping {
         imageMap.put("/assets/app/images/country/hk.png", R.drawable.ct_hk);
         imageMap.put("/assets/app/images/country/id.png", R.drawable.ct_id);
         imageMap.put("/assets/app/images/country/ie.png", R.drawable.ct_ie);
-        imageMap.put("/assets/app/images/country/in.png", R.drawable.ct_in);
         imageMap.put("/assets/app/images/country/is.png", R.drawable.ct_is);
         imageMap.put("/assets/app/images/country/it.png", R.drawable.ct_it);
         imageMap.put("/assets/app/images/country/jp.png", R.drawable.ct_jp);

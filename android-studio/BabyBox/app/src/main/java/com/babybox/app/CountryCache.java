@@ -16,6 +16,8 @@ import retrofit.client.Response;
 public class CountryCache {
     private static final String TAG = CountryCache.class.getName();
 
+    public static final String COUNTRY_CODE_NA = "NA";
+
     private static List<CountryVM> countries = new ArrayList<>();
 
     private CountryCache() {}

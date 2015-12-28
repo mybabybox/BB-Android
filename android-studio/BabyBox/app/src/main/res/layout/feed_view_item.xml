@@ -45,7 +45,8 @@
                 android:adjustViewBounds="false"
                 android:layout_gravity="left|top"
                 android:src="@drawable/ic_free_delivery"
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:scaleType="fitXY" />
 
             <ImageView
                 android:id="@+id/soldImage"
@@ -86,14 +87,29 @@
             android:paddingTop="3dp"
             android:paddingBottom="3dp">
 
-            <TextView
-                android:id="@+id/title"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:textColor="@color/dark_gray"
-                android:singleLine="true"
-                android:gravity="center_vertical" />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="21dp"
+                    android:layout_height="12dp"
+                    android:id="@+id/countryImage"
+                    android:visibility="gone"
+                    android:layout_marginRight="5dp"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textColor="@color/dark_gray"
+                    android:singleLine="true"
+                    android:gravity="center_vertical" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

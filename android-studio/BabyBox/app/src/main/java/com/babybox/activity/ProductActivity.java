@@ -38,6 +38,7 @@ import com.babybox.R;
 import com.babybox.adapter.CommentListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.ConversationCache;
+import com.babybox.app.CountryCache;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
 import com.babybox.fragment.AbstractFeedViewFragment.ItemChangedState;
@@ -82,7 +83,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private TextView titleText, descText, priceText, soldText, conditionText;
     private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
     private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, adminLayout;
-    private ImageView likeImage, freeDeliveryImage;
+    private ImageView likeImage, freeDeliveryImage, countryImage;
     private TextView likeText, numLikesText;
 
     private LinearLayout sellerLayout;
@@ -152,6 +153,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         numLikesText = (TextView) findViewById(R.id.numLikesText);
 
         freeDeliveryImage = (ImageView) findViewById(R.id.freeDeliveryImage);
+        countryImage = (ImageView) findViewById(R.id.countryImage);
 
         adminLayout = (LinearLayout) findViewById(R.id.adminLayout);
 
@@ -353,9 +355,17 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 numLikesText.setText(post.numLikes+"");
 
-                // free delivery tag
+                // seller
 
                 freeDeliveryImage.setVisibility(post.isFreeDelivery()? View.VISIBLE : View.INVISIBLE);
+
+                if (!StringUtils.isEmpty(post.countryCode) &&
+                        !post.countryCode.equalsIgnoreCase(CountryCache.COUNTRY_CODE_NA)) {
+                    ImageUtil.displayImage(post.countryIcon, countryImage);
+                    countryImage.setVisibility(View.VISIBLE);
+                } else {
+                    countryImage.setVisibility(View.GONE);
+                }
 
                 // delete
 

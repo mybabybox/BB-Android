@@ -77,16 +77,31 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/titleText"
-                            android:textColor="@color/dark_gray_2"
-                            android:textSize="17dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentRight="false"
-                            android:layout_alignParentTop="true"
-                            android:layout_toLeftOf="@+id/priceText" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="16dp"
+                                android:id="@+id/countryImage"
+                                android:scaleType="fitXY"
+                                android:visibility="gone"
+                                android:layout_marginRight="5dp"
+                                android:layout_gravity="center_vertical" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/titleText"
+                                android:textColor="@color/dark_gray_2"
+                                android:textSize="17dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentRight="false"
+                                android:layout_alignParentTop="true"
+                                android:layout_toLeftOf="@+id/priceText" />
+                        </LinearLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -110,7 +125,8 @@
                                 android:layout_toRightOf="@+id/priceText"
                                 android:layout_marginLeft="10dp"
                                 android:src="@drawable/ic_free_delivery"
-                                android:visibility="invisible" />
+                                android:visibility="invisible"
+                                android:scaleType="fitXY" />
 
                         </RelativeLayout>
 
