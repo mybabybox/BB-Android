@@ -299,13 +299,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                 ViewUtil.setHtmlText(post.getBody(), descText, ProductActivity.this, true, true);
                 catNameText.setText(post.getCategoryName());
                 priceText.setText(ViewUtil.priceFormat(post.getPrice()));
-                if (post.getOriginalPrice() > 0) {
-                    originalPriceText.setVisibility(View.VISIBLE);
-                    originalPriceText.setText(ViewUtil.priceFormat(post.getOriginalPrice()));
-                    ViewUtil.strikeText(originalPriceText);
-                } else {
-                    originalPriceText.setVisibility(View.GONE);
-                }
                 conditionText.setText(ViewUtil.getPostConditionTypeValue(
                         ViewUtil.parsePostConditionType(post.getConditionType())));
                 timeText.setText(DateTimeUtil.getTimeAgo(post.getCreatedDate()));
@@ -365,7 +358,15 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // seller
 
-                freeDeliveryImage.setVisibility(post.isFreeDelivery()? View.VISIBLE : View.INVISIBLE);
+                if (post.getOriginalPrice() > 0) {
+                    originalPriceText.setVisibility(View.VISIBLE);
+                    originalPriceText.setText(ViewUtil.priceFormat(post.getOriginalPrice()));
+                    ViewUtil.strikeText(originalPriceText);
+                } else {
+                    originalPriceText.setVisibility(View.GONE);
+                }
+
+                freeDeliveryImage.setVisibility(post.isFreeDelivery()? View.VISIBLE : View.GONE);
 
                 if (!StringUtils.isEmpty(post.countryCode) &&
                         !post.countryCode.equalsIgnoreCase(CountryCache.COUNTRY_CODE_NA)) {

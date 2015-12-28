@@ -127,12 +127,6 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             holder.sellerImage.setVisibility(View.INVISIBLE);
         }
 
-        if (item.freeDelivery) {
-            holder.freeDeliveryImage.setVisibility(View.VISIBLE);
-        } else {
-            holder.freeDeliveryImage.setVisibility(View.INVISIBLE);
-        }
-
         if (item.sold) {
             holder.soldImage.setVisibility(View.VISIBLE);
         } else {
@@ -162,6 +156,12 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             ViewUtil.strikeText(holder.originalPrice);
         } else {
             holder.originalPrice.setVisibility(View.GONE);
+        }
+
+        if (item.freeDelivery) {
+            holder.freeDeliveryImage.setVisibility(View.VISIBLE);
+        } else {
+            holder.freeDeliveryImage.setVisibility(View.GONE);
         }
 
         holder.itemLayout.setOnClickListener(new View.OnClickListener() {

@@ -39,16 +39,6 @@
                 android:visibility="invisible" />
 
             <ImageView
-                android:id="@+id/freeDeliveryImage"
-                android:layout_width="32dp"
-                android:layout_height="20dp"
-                android:adjustViewBounds="false"
-                android:layout_gravity="left|top"
-                android:src="@drawable/ic_free_delivery"
-                android:visibility="invisible"
-                android:scaleType="fitXY" />
-
-            <ImageView
                 android:id="@+id/soldImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -123,8 +113,7 @@
                     android:textColor="@color/green"
                     android:layout_alignParentLeft="true"
                     android:singleLine="true"
-                    android:gravity="center_vertical"
-                    android:text="" />
+                    android:gravity="center_vertical" />
 
                 <TextView
                     android:id="@+id/originalPrice"
@@ -134,11 +123,23 @@
                     android:textColor="@color/gray"
                     android:singleLine="true"
                     android:gravity="center_vertical"
-                    android:text=""
                     android:layout_toRightOf="@+id/price"
                     android:layout_marginLeft="5dp"
                     android:layout_alignBaseline="@+id/price"
                     android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/freeDeliveryImage"
+                    android:layout_width="26dp"
+                    android:layout_height="16dp"
+                    android:adjustViewBounds="false"
+                    android:layout_gravity="left|top"
+                    android:src="@drawable/ic_free_delivery"
+                    android:scaleType="fitXY"
+                    android:layout_toRightOf="@+id/originalPrice"
+                    android:layout_marginLeft="5dp"
+                    android:visibility="gone"
+                    android:layout_centerVertical="true" />
 
                 <LinearLayout
                     android:orientation="horizontal"
