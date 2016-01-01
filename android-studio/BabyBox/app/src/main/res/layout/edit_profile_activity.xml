@@ -197,7 +197,7 @@
                     android:layout_weight="3" />
 
                 <EditText
-                    android:id="@+id/aboutmeEdit"
+                    android:id="@+id/aboutMeEdit"
                     android:background="@drawable/edit_text_round"
                     android:textSize="16dp"
                     android:layout_width="0dp"

@@ -31,12 +31,12 @@ public class DistrictCache {
     public static void refresh(final Callback<List<LocationVM>> callback) {
         Log.d(DistrictCache.class.getSimpleName(), "refresh");
 
-        AppController.getApiService().getAllDistricts(new Callback<List<LocationVM>>() {
+        AppController.getApiService().getDistricts(new Callback<List<LocationVM>>() {
             @Override
             public void success(List<LocationVM> vms, Response response) {
                 if (vms == null || vms.size() == 0)
                     return;
-                
+
                 districts = vms;
                 SharedPreferencesUtil.getInstance().saveDistricts(vms);
                 if (callback != null) {

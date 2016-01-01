@@ -42,10 +42,10 @@ public class AdminNewUsersActivity extends AbstractListViewActivity {
     protected void loadListItems(final Long objId, final Long offset) {
         ViewUtil.showSpinner(this);
 
-        AppController.getApiService().getUsers(offset, new Callback<List<UserVMLite>>() {
+        AppController.getApiService().getUsersBySignup(offset, new Callback<List<UserVMLite>>() {
             @Override
             public void success(List<UserVMLite> users, Response response) {
-                Log.d(AdminNewUsersActivity.class.getSimpleName(), "loadListItems.getUsers: offset=" + offset +
+                Log.d(AdminNewUsersActivity.class.getSimpleName(), "loadListItems.getUsersBySignup: offset=" + offset +
                         " size=" + (users == null ? 0 : users.size()));
 
                 if (offset == 0 && (users == null || users.size() == 0)) {
@@ -64,7 +64,7 @@ public class AdminNewUsersActivity extends AbstractListViewActivity {
             @Override
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(AdminNewUsersActivity.this);
-                Log.e(AdminNewUsersActivity.class.getSimpleName(), "loadListItems.getUsers: failure", error);
+                Log.e(AdminNewUsersActivity.class.getSimpleName(), "loadListItems.getUsersBySignup: failure", error);
             }
         });
     }

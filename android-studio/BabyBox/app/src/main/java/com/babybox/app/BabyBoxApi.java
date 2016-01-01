@@ -16,7 +16,7 @@ import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
-import com.babybox.viewmodel.UserProfileDataVM;
+import com.babybox.viewmodel.EditUserInfoVM;
 import com.babybox.viewmodel.UserVM;
 import com.babybox.viewmodel.UserVMLite;
 
@@ -38,6 +38,12 @@ import retrofit.mime.TypedFile;
 
 public interface BabyBoxApi {
 
+    @POST("/api/login/mobile")
+    public void login(@Query("email") String email, @Query("password") String password, Callback<Response> cb);
+
+    @POST("/authenticate/mobile/facebook")
+    public void loginByFacebook(@Query("access_token") String access_token, Callback<Response> cb);
+
     @POST("/signup")
     public void signUp(@Query("lname") String lname,
                        @Query("fname") String fname,
@@ -53,119 +59,110 @@ public interface BabyBoxApi {
                            @Query("key") String key,
                            Callback<Response> cb);
 
-    @GET("/get-all-districts")
-    public void getAllDistricts(@Query("key") String key, Callback<List<LocationVM>> cb);
+    @GET("/api/get-districts")
+    public void getDistricts(@Query("key") String key, Callback<List<LocationVM>> cb);
 
-    @GET("/get-countries")
+    @GET("/api/get-countries")
     public void getCountries(@Query("key") String key, Callback<List<CountryVM>> cb);
 
-    @POST("/mobile/login")
-    public void login(@Query("email") String email, @Query("password") String password, Callback<Response> cb);
-
-    @POST("/authenticate/mobile/facebook")
-    public void loginByFacebook(@Query("access_token") String access_token, Callback<Response> cb);
-
-    @GET("/init-new-user")
+    @GET("/api/init-new-user")
     public void initNewUser(@Query("key") String key, Callback<UserVM> cb);
 
-    @GET("/get-user-info")
+    @GET("/api/get-user-info")
     public void getUserInfo(@Query("key") String key, Callback<UserVM> cb);
 
-    @GET("/get-user/{id}")
+    @GET("/api/get-user/{id}")
     public void getUser(@Path("id") Long id, @Query("key") String key, Callback<UserVM> cb);
 
-    @GET("/get-featured-items/{itemType}")
+    @GET("/api/get-featured-items/{itemType}")
     public void getFeaturedItems(@Path("itemType") String itemType, @Query("key") String key,Callback<List<FeaturedItemVM>> cb);
 
     //
     // Home feeds
     //
 
-    @GET("/get-home-explore-feed/{offset}")
+    @GET("/api/get-home-explore-feed/{offset}")
     public void getHomeExploreFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/get-home-following-feed/{offset}")
+    @GET("/api/get-home-following-feed/{offset}")
     public void getHomeFollowingFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     //
     // Category feeds
     //
 
-    @GET("/get-category-popular-feed/{id}/{productType}/{offset}")
+    @GET("/api/get-category-popular-feed/{id}/{productType}/{offset}")
     public void getCategoryPopularFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/get-category-newest-feed/{id}/{productType}/{offset}")
+    @GET("/api/get-category-newest-feed/{id}/{productType}/{offset}")
     public void getCategoryNewestFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/get-category-price-low-high-feed/{id}/{productType}/{offset}")
+    @GET("/api/get-category-price-low-high-feed/{id}/{productType}/{offset}")
     public void getCategoryPriceLowHighFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/get-category-price-high-low-feed/{id}/{productType}/{offset}")
+    @GET("/api/get-category-price-high-low-feed/{id}/{productType}/{offset}")
     public void getCategoryPriceHighLowFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     //
     // User feeds
     //
 
-    @GET("/get-user-posted-feed/{id}/{offset}")
+    @GET("/api/get-user-posted-feed/{id}/{offset}")
     public void getUserPostedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/get-user-liked-feed/{id}/{offset}")
+    @GET("/api/get-user-liked-feed/{id}/{offset}")
     public void getUserLikedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/get-user-collection-feed/{collectionId}/{offset}")
-    public void getUserCollectionFeed(@Path("offset") Long offset, @Path("collectionId") Long collectionId, @Query("key") String key, Callback<List<PostVMLite>> callback);
-
-    @GET("/get-followings/{userId}/{offset}")
+    @GET("/api/get-followings/{userId}/{offset}")
     public void getFollowings(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
-    @GET("/get-followers/{userId}/{offset}")
+    @GET("/api/get-followers/{userId}/{offset}")
     public void getFollowers(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
     //
     // Category + post + comments
     //
 
-    @GET("/get-categories")
+    @GET("/api/get-categories")
     public void getCategories(@Query("key") String key, Callback<List<CategoryVM>> cb);
 
-    @GET("/get-category/{id}")
+    @GET("/api/get-category/{id}")
     public void getCategory(@Path("id") Long id, @Query("key") String key, Callback<CategoryVM> cb);
 
-    @GET("/post/{id}")
+    @GET("/api/get-post/{id}")
     public void getPost(@Path("id") Long id, @Query("key") String key, Callback<PostVM> callback);
 
-    @POST("/post/new")
+    @POST("/api/post/new")
     public void newPost(@Body MultipartTypedOutput attachments, /*@Body NewPostVM newPost,*/ @Query("key") String key, Callback<ResponseStatusVM> cb);
 
-    @POST("/post/edit")
+    @POST("/api/post/edit")
     public void editPost(@Body MultipartTypedOutput attachments, /*@Body NewPostVM newPost,*/ @Query("key") String key, Callback<ResponseStatusVM> cb);
 
-    @GET("/post/delete/{id}")
+    @GET("/api/post/delete/{id}")
     public void deletePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/comments/{postId}/{offset}")
+    @GET("/api/get-comments/{postId}/{offset}")
     public void getComments(@Path("postId") Long postId, @Path("offset") Long offset, @Query("key") String key, Callback<List<CommentVM>> cb);
 
-    @POST("/comment/new")
+    @POST("/api/comment/new")
     public void newComment(@Body NewCommentVM newComment, @Query("key") String key, Callback<ResponseStatusVM> cb);
 
-    @GET("/comment/delete/{id}")
+    @GET("/api/comment/delete/{id}")
     public void deleteComment(@Path("id") Long comment_id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/like-post/{id}")
+    @GET("/api/like-post/{id}")
     public void likePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/unlike-post/{id}")
+    @GET("/api/unlike-post/{id}")
     public void unlikePost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/sold-post/{id}")
+    @GET("/api/sold-post/{id}")
     public void soldPost(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/follow-user/{id}")
+    @GET("/api/follow-user/{id}")
     public void followUser(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/unfollow-user/{id}")
+    @GET("/api/unfollow-user/{id}")
     public void unfollowUser(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
     //
@@ -180,29 +177,29 @@ public interface BabyBoxApi {
     @POST("/image/upload-profile-photo")
     public void uploadProfilePhoto(@Part("profile-photo") TypedFile photo, @Query("key") String key, Callback<Response> cb);
 
-    @POST("/updateUserProfileData")
-    public void updateUserProfileData(@Body UserProfileDataVM userProfileDataVM, @Query("key") String key, Callback<UserVM> cb);
+    @POST("/api/user-info/edit")
+    public void editUserInfo(@Body EditUserInfoVM userInfoVM, @Query("key") String key, Callback<UserVM> cb);
 
-    @GET("/collections/{userId}")
-    public void getCollections(@Path("userId") Long userId, @Query("key") String key, Callback<List<CollectionVM>> cb);
+    @GET("/api/get-user-collections/{userId}")
+    public void getUserCollections(@Path("userId") Long userId, @Query("key") String key, Callback<List<CollectionVM>> cb);
 
-    @GET("/collection/{id}")
+    @GET("/api/get-collection/{id}")
     public void getCollection(@Path("id") Long id, @Query("key") String key, Callback<CollectionVM> cb);
 
-    @GET("/notification-counter")
+    @GET("/api/notification-counter")
     public void getNotificationCounter(@Query("key") String key, Callback<NotificationCounterVM> cb);
 
-    @GET("/get-activities/{offset}")
+    @GET("/api/get-activities/{offset}")
     public void getActivities(@Path("offset") Long offset, @Query("key") String key, Callback<List<ActivityVM>> cb);
 
     //
     // Game badges
     //
 
-    @GET("/game-badges/{id}")
+    @GET("/api/get-game-badges/{id}")
     public void getGameBadges(@Path("id") Long id, @Query("key") String key, Callback<List<GameBadgeVM>> cb);
 
-    @GET("/game-badges-awarded/{id}")
+    @GET("/api/get-game-badges-awarded/{id}")
     public void getGameBadgesAwarded(@Path("id") Long id, @Query("key") String key, Callback<List<GameBadgeVM>> cb);
 
     //
@@ -266,26 +263,28 @@ public interface BabyBoxApi {
     // GCM
     //
 
-    @POST("/save-gcm-key/{gcmKey}/{versionCode}")
+    @POST("/api/save-gcm-key/{gcmKey}/{versionCode}")
     public void saveGCMKey(@Path("gcmKey") String gcmKey, @Path("versionCode") Long versionCode, @Query("key") String key, Callback<Response> cb);
 
     //
     // Admin
     //
 
-    @GET("/delete-account/{id}")
+    @GET("/api/delete-account/{id}")
     public void deleteAccount(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/adjust-up-post-score/{id}")
+    @GET("/api/adjust-up-post-score/{id}")
     public void adjustUpPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/adjust-down-post-score/{id}")
+    @GET("/api/adjust-down-post-score/{id}")
     public void adjustDownPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/reset-adjust-post-score/{id}")
+    @GET("/api/reset-adjust-post-score/{id}")
     public void resetAdjustPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/users/{offset}")
-    public void getUsers(@Path("offset") Long offset, @Query("key") String key, Callback<List<UserVMLite>> cb);
+    @GET("/api/get-users-by-signup/{offset}")
+    public void getUsersBySignup(@Path("offset") Long offset, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
+    @GET("/api/get-users-by-login/{offset}")
+    public void getUsersByLogin(@Path("offset") Long offset, @Query("key") String key, Callback<List<UserVMLite>> cb);
 }

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.parceler.apache.commons.lang.StringUtils;
@@ -25,7 +24,7 @@ import com.babybox.app.UserInfoCache;
 import com.babybox.util.ValidationUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.LocationVM;
-import com.babybox.viewmodel.UserProfileDataVM;
+import com.babybox.viewmodel.EditUserInfoVM;
 import com.babybox.viewmodel.UserVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -36,13 +35,13 @@ public class EditProfileActivity extends TrackedFragmentActivity {
     private Spinner locationSpinner;
     private Button finishButton;
     private ImageView fbLoginIcon, mbLoginIcon;
-    private EditText emailEdit, displayNameEdit, aboutmeEdit;
+    private EditText emailEdit, displayNameEdit, aboutMeEdit;
     private EditText lastNameEdit,firstNameEdit;
     private ImageView backImage;
 
     private boolean emailCanEdit = false;
 
-    private UserProfileDataVM profileDataVM;
+    private EditUserInfoVM userInfoVM;
 
     private int locationId = 1;
 
@@ -63,9 +62,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
         firstNameEdit = (EditText) findViewById(R.id.firstNameEditText);
 
         emailEdit = (EditText) findViewById(R.id.emailEdit);
-        aboutmeEdit = (EditText) findViewById(R.id.aboutmeEdit);
-
-        profileDataVM = new UserProfileDataVM();
+        aboutMeEdit = (EditText) findViewById(R.id.aboutMeEdit);
 
         displayNameEdit = (EditText) findViewById(R.id.displayNameEdit);
         locationSpinner = (Spinner) findViewById(R.id.locationSpinner);
@@ -100,13 +97,14 @@ public class EditProfileActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View view) {
                 if (isValid()) {
-                    profileDataVM.setParent_email(emailEdit.getText().toString().trim());
-                    profileDataVM.setParent_displayname(displayNameEdit.getText().toString().trim());
-                    profileDataVM.setParent_firstname(firstNameEdit.getText().toString().trim());
-                    profileDataVM.setParent_lastname(lastNameEdit.getText().toString().trim());
-                    profileDataVM.setParent_location(locationId);
-                    profileDataVM.setParent_aboutme(aboutmeEdit.getText().toString().trim());
-                    updateUserProfileData(profileDataVM);
+                    userInfoVM = new EditUserInfoVM();
+                    userInfoVM.setEmail(emailEdit.getText().toString().trim());
+                    userInfoVM.setDisplayName(displayNameEdit.getText().toString().trim());
+                    userInfoVM.setFirstName(firstNameEdit.getText().toString().trim());
+                    userInfoVM.setLastName(lastNameEdit.getText().toString().trim());
+                    userInfoVM.setLocation(locationId);
+                    userInfoVM.setAboutMe(aboutMeEdit.getText().toString().trim());
+                    editUserInfo(userInfoVM);
                 }
             }
         });
@@ -148,7 +146,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
         mbLoginIcon.setVisibility(user.isFbLogin() ? View.GONE : View.VISIBLE);
         emailEdit.setText(user.getEmail());
         displayNameEdit.setText(user.getDisplayName());
-        aboutmeEdit.setText(user.getAboutMe());
+        aboutMeEdit.setText(user.getAboutMe());
         firstNameEdit.setText(user.getFirstName());
         lastNameEdit.setText(user.getLastName());
 
@@ -160,9 +158,9 @@ public class EditProfileActivity extends TrackedFragmentActivity {
         //(new ActivityUtil(this)).hideInputMethodWindow(this.finishButton);
     }
 
-    private void updateUserProfileData(UserProfileDataVM userProfileDataVM){
+    private void editUserInfo(EditUserInfoVM userInfoVM){
         ViewUtil.showSpinner(this);
-        AppController.getApiService().updateUserProfileData(userProfileDataVM, new Callback<UserVM>() {
+        AppController.getApiService().editUserInfo(userInfoVM, new Callback<UserVM>() {
             @Override
             public void success(UserVM userVM, Response response) {
                 UserInfoCache.refresh(new Callback<UserVM>() {
@@ -176,7 +174,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.e(EditProfileActivity.class.getSimpleName(), "updateUserProfileData: failure", error);
+                        Log.e(EditProfileActivity.class.getSimpleName(), "editUserInfo: failure", error);
                     }
                 });
             }
@@ -192,7 +190,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
                     ViewUtil.alert(EditProfileActivity.this, getString(R.string.signup_details_error_info));
                 }
                 ViewUtil.stopSpinner(EditProfileActivity.this);
-                Log.e(EditProfileActivity.class.getSimpleName(), "setUserProfileData: failure", error);
+                Log.e(EditProfileActivity.class.getSimpleName(), "editUserInfo: failure", error);
             }
         });
     }

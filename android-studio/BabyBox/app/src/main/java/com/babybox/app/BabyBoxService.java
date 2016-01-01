@@ -18,7 +18,7 @@ import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
-import com.babybox.viewmodel.UserProfileDataVM;
+import com.babybox.viewmodel.EditUserInfoVM;
 import com.babybox.viewmodel.UserVM;
 import com.babybox.viewmodel.UserVMLite;
 
@@ -44,8 +44,8 @@ public class BabyBoxService {
         api.signUpInfo(parent_displayname, parent_location, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getAllDistricts(Callback<List<LocationVM>> cb) {
-        api.getAllDistricts(AppController.getInstance().getSessionId(), cb);
+    public void getDistricts(Callback<List<LocationVM>> cb) {
+        api.getDistricts(AppController.getInstance().getSessionId(), cb);
     }
 
     public void getCountries(Callback<List<CountryVM>> cb) {
@@ -112,10 +112,6 @@ public class BabyBoxService {
 
     public void getUserLikedFeed(Long offset, Long id, Callback<List<PostVMLite>> cb) {
         api.getUserLikedFeed(offset, id, AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void getUserCollectionFeed(Long offset, Long collectionId, Callback<List<PostVMLite>> cb) {
-        api.getUserCollectionFeed(offset, collectionId, AppController.getInstance().getSessionId(), cb);
     }
 
     public void getFollowers(Long offset, Long userId, Callback<List<UserVMLite>> cb) {
@@ -199,12 +195,12 @@ public class BabyBoxService {
         api.uploadProfilePhoto(photo, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void updateUserProfileData(UserProfileDataVM userProfileDataVM, Callback<UserVM> cb) {
-        api.updateUserProfileData(userProfileDataVM, AppController.getInstance().getSessionId(), cb);
+    public void editUserInfo(EditUserInfoVM userInfoVM, Callback<UserVM> cb) {
+        api.editUserInfo(userInfoVM, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getCollections(Long userId, Callback<List<CollectionVM>> cb) {
-        api.getCollections(userId, AppController.getInstance().getSessionId(), cb);
+    public void getUserCollections(Long userId, Callback<List<CollectionVM>> cb) {
+        api.getUserCollections(userId, AppController.getInstance().getSessionId(), cb);
     }
 
     public void getCollection(Long id, Callback<CollectionVM> cb) {
@@ -319,8 +315,12 @@ public class BabyBoxService {
         api.resetAdjustPostScore(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getUsers(Long offset, Callback<List<UserVMLite>> cb) {
-        api.getUsers(offset, AppController.getInstance().getSessionId(), cb);
+    public void getUsersBySignup(Long offset, Callback<List<UserVMLite>> cb) {
+        api.getUsersBySignup(offset, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getUsersByLogin(Long offset, Callback<List<UserVMLite>> cb) {
+        api.getUsersByLogin(offset, AppController.getInstance().getSessionId(), cb);
     }
 }
 
