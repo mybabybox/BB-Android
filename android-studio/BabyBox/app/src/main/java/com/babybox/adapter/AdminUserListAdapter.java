@@ -21,6 +21,7 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.UserVMLite;
 
+import java.util.Date;
 import java.util.List;
 
 import retrofit.Callback;
@@ -130,6 +131,18 @@ public class AdminUserListAdapter extends BaseAdapter {
         userIdText.setText("ID: "+item.id);
         createdDateText.setText("Signup: "+DateTimeUtil.getTimeAgo(item.getCreatedDate()));
         lastActiveText.setText("Active: "+DateTimeUtil.getTimeAgo(item.getLastLogin()));
+
+        // active after signup date
+        lastActiveText.setTextColor(activity.getResources().getColor(R.color.gray));
+        if (!DateTimeUtil.withinADay(item.getCreatedDate(), item.getLastLogin())) {
+            // active within this week and signup more than a week ago
+            if (DateTimeUtil.withinAWeek(item.getLastLogin(), new Date().getTime()) &&
+                    !DateTimeUtil.withinAWeek(item.getCreatedDate(), new Date().getTime())) {
+                lastActiveText.setTextColor(activity.getResources().getColor(R.color.admin_green));
+            } else {
+                lastActiveText.setTextColor(activity.getResources().getColor(R.color.orange));
+            }
+        }
 
         return convertView;
     }

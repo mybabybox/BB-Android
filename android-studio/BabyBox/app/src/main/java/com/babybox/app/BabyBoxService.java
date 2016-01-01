@@ -1,6 +1,7 @@
 package com.babybox.app;
 
 import com.babybox.viewmodel.ActivityVM;
+import com.babybox.viewmodel.AdminConversationVM;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CollectionVM;
 import com.babybox.viewmodel.CommentVM;
@@ -323,8 +324,12 @@ public class BabyBoxService {
         api.getUsersByLogin(offset, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getLatestConversations(Callback<List<ConversationVM>> cb) {
+    public void getLatestConversations(Callback<List<AdminConversationVM>> cb) {
         api.getLatestConversations(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getMessagesForAdmin(Long conversationId, Long offset, Callback<Response> cb) {
+        api.getMessagesForAdmin(conversationId, offset, AppController.getInstance().getSessionId(), cb);
     }
 }
 

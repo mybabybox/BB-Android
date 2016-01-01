@@ -860,9 +860,9 @@ public class MessageListActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void loadMoreMessages(Long id, Long offset) {
+    private void loadMoreMessages(Long conversationId, Long offset) {
         ViewUtil.showSpinner(MessageListActivity.this);
-        AppController.getApiService().getMessages(id, offset, new Callback<Response>() {
+        AppController.getApiService().getMessages(conversationId, offset, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 listHeader.setVisibility(View.INVISIBLE);

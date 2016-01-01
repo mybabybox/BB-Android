@@ -1,0 +1,115 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainFrameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/feed_bg"
+    android:foreground="#01000000">
+
+    <ProgressBar
+        android:id="@+id/spinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_spinner"
+        android:layout_gravity="center"
+        android:visibility="invisible"></ProgressBar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/admin_message_list_actionbar"
+            android:id="@+id/toolbar" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="68dp"
+                android:background="@color/view_bg"
+                android:id="@+id/postLayout">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/postImageLayout"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp">
+
+                    <ImageView
+                        android:id="@+id/postImage"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pm_sold"
+                        android:id="@+id/soldText"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:textSize="12dp"
+                        android:background="@color/gray"
+                        android:textColor="@color/white"
+                        android:layout_marginTop="-5dp"
+                        android:layout_gravity="center_vertical" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/postTitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_gray_2"
+                    android:textSize="18dp"
+                    android:layout_toRightOf="@+id/postImageLayout"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="5dp"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/postPriceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/green"
+                    android:textSize="16dp"
+                    android:layout_toRightOf="@+id/postImageLayout"
+                    android:layout_below="@+id/postTitleText"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="5dp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1.2dp"
+                    android:background="@drawable/bar1"
+                    android:id="@+id/bar1"
+                    android:layout_alignParentBottom="true" />
+
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/messageList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/feed_bg"
+                android:stackFromBottom="true"
+                android:divider="@null"
+                android:layout_marginTop="67dp">
+            </ListView>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</FrameLayout>

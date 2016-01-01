@@ -5,7 +5,7 @@
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
     <string name="base_url"></string>
-    <string name="base_url_dev">http://192.168.1.145:9000</string>
+    <string name="base_url_dev">http://192.168.1.146:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">對不起！BabyBox 發生問題要退出</string>
@@ -169,6 +169,8 @@
     <string name="new_post">發出</string>
     <string name="new_post_price">價格($):</string>
     <string name="new_post_price_hint">請輸入價格</string>
+    <string name="new_post_original_price">原價($):</string>
+    <string name="new_post_original_price_hint">請輸入原價</string>
     <string name="new_post_condition">商品狀況:</string>
     <string name="new_post_to_popup_title">請選擇分類</string>
     <string name="new_post_to">分類:</string>
@@ -306,6 +308,8 @@
     <string name="invalid_post_desc_empty">請填寫內容</string>
     <string name="invalid_post_price_empty">請填寫價格</string>
     <string name="invalid_post_price_not_number">價格需為數字</string>
+    <string name="invalid_post_price_negative">價格不可以小於$0</string>
+    <string name="invalid_post_original_price_less_than_price">原價不可以小於現價</string>
     <string name="invalid_post_condition_empty">請選擇商品狀況</string>
     <string name="invalid_comment_body_empty">請填寫內容</string>
 
@@ -331,8 +335,10 @@
     <string name="score_adjust_failure">Score Adjust Failure:\n%1$s</string>
 
     <string name="admin_new_users">New Users</string>
+    <string name="admin_latest_logins">Latest Logins</string>
     <string name="admin_delete_account">Delete</string>
     <string name="admin_delete_account_confirm">Confirm delete account?</string>
     <string name="admin_delete_account_success">Account deleted</string>
     <string name="admin_delete_account_failed">Account delete failed</string>
+    <string name="admin_latest_conversations">Latest Conversations</string>
 </resources>

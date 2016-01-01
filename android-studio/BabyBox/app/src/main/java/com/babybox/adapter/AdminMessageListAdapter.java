@@ -2,6 +2,7 @@ package com.babybox.adapter;
 
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import com.babybox.R;
-import com.babybox.app.UserInfoCache;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
+import com.babybox.viewmodel.AdminConversationVM;
 import com.babybox.viewmodel.MessageVM;
 
-public class MessageListAdapter extends BaseAdapter {
-    private static final String TAG = MessageListAdapter.class.getName();
+import java.util.List;
+
+public class AdminMessageListAdapter extends BaseAdapter {
+    private static final String TAG = AdminMessageListAdapter.class.getName();
 
     private Activity activity;
     private LayoutInflater inflater;
@@ -28,10 +29,13 @@ public class MessageListAdapter extends BaseAdapter {
     private ImageView senderImage;
     private boolean hasHeader;
 
-    public MessageListAdapter(Activity activity, List<MessageVM> messages, boolean hasHeader) {
+    private AdminConversationVM conversation;
+
+    public AdminMessageListAdapter(Activity activity, List<MessageVM> messages, AdminConversationVM conversation) {
         this.activity = activity;
         this.messages = messages;
-        this.hasHeader = hasHeader;
+        this.conversation = conversation;
+        this.hasHeader = true;
     }
 
     public boolean hasHeader() {
@@ -64,8 +68,8 @@ public class MessageListAdapter extends BaseAdapter {
 
         final MessageVM message = messages.get(position);
 
-        // Identifying the message owner
-        if (UserInfoCache.getUser().getId().equals(message.getSenderId())) {
+        // seller as owner perspective
+        if (conversation.getUser2Id().equals(message.getSenderId())) {
             // message belongs to you, so load the right aligned layout
             convertView = inflater.inflate(R.layout.list_item_message_right, null);
         } else {
@@ -121,7 +125,7 @@ public class MessageListAdapter extends BaseAdapter {
             public boolean onResourceReady(GlideBitmapDrawable resource, String model, Target<GlideBitmapDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
                 Bitmap loadedImage = resource.getBitmap();
                 if (loadedImage != null) {
-                    Log.d(TAG, "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
+                    Log.d(MessageListAdapter.class.getSimpleName(), "onLoadingComplete: loaded bitmap - " + loadedImage.getWidth() + "|" + loadedImage.getHeight());
 
                     int width = loadedImage.getWidth();
                     int height = loadedImage.getHeight();
@@ -132,7 +136,7 @@ public class MessageListAdapter extends BaseAdapter {
                     width = displayWidth;
                     height = (int) (height * scaleAspect);
 
-                    Log.d(TAG, "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
+                    Log.d(MessageListAdapter.class.getSimpleName(), "onLoadingComplete: after resize - " + width + "|" + height + " with scaleAspect=" + scaleAspect);
 
                     Drawable d = new BitmapDrawable(
                             MessageListAdapter.this.activity.getResources(),

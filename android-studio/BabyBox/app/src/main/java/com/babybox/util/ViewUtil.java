@@ -52,7 +52,9 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.activity.AdminActivity;
+import com.babybox.activity.AdminConversationListActivity;
 import com.babybox.activity.AdminLatestLoginsActivity;
+import com.babybox.activity.AdminMessageListActivity;
 import com.babybox.activity.AdminNewUsersActivity;
 import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.ConversationListActivity;
@@ -77,6 +79,7 @@ import com.babybox.activity.SplashActivity;
 import com.babybox.activity.UserProfileActivity;
 import com.babybox.activity.WelcomeActivity;
 import com.babybox.app.AppController;
+import com.babybox.viewmodel.AdminConversationVM;
 import com.babybox.viewmodel.CommentVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.FeaturedItemVM;
@@ -115,6 +118,7 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_LISTS = "lists";
     public static final String BUNDLE_KEY_IMAGE_SOURCE = "imageSource";
     public static final String BUNDLE_KEY_INDEX = "index";
+    public static final String BUNDLE_KEY_OBJECT = "object";
 
     public static final String BUNDLE_KEY_ARG1 = "arg1";
     public static final String BUNDLE_KEY_ARG2 = "arg2";
@@ -1190,6 +1194,18 @@ public class ViewUtil {
 
     public static void startAdminLatestLoginsActivity(Activity activity) {
         Intent intent = new Intent(activity, AdminLatestLoginsActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startAdminConversationListActivity(Activity activity) {
+        Intent intent = new Intent(activity, AdminConversationListActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startAdminMessageListActivity(Activity activity, AdminConversationVM conversation) {
+        Intent intent = new Intent(activity, AdminMessageListActivity.class);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_OBJECT, conversation);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
 

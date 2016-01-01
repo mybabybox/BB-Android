@@ -44,6 +44,14 @@ public class DateTimeUtil {
         return diff;
     }
 
+    public static boolean withinADay(long start, long end) {
+        return Math.abs(end - start) < DAY_MILLIS;
+    }
+
+    public static boolean withinAWeek(long start, long end) {
+        return Math.abs(end - start) < WEEK_MILLIS;
+    }
+
     public static long getMinsAgo(long time) {
         long diff = getTimeDiffFromNow(time);
         if (diff == -1)

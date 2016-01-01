@@ -3,7 +3,7 @@
 
     <!-- view background color -->
     <solid
-        android:color="@color/signup_yellow" >
+        android:color="@color/dark_yellow" >
     </solid>
 
     <!-- view border color and width -->

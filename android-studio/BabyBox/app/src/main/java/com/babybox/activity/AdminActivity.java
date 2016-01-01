@@ -47,7 +47,7 @@ public class AdminActivity extends TrackedFragmentActivity {
         latestConversationsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ViewUtil.startAdminNewUsersActivity(AdminActivity.this);
+                ViewUtil.startAdminConversationListActivity(AdminActivity.this);
             }
         });
 
