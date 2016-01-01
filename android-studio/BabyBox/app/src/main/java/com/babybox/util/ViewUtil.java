@@ -52,6 +52,7 @@ import android.widget.TextView;
 
 import com.babybox.R;
 import com.babybox.activity.AdminActivity;
+import com.babybox.activity.AdminLatestLoginsActivity;
 import com.babybox.activity.AdminNewUsersActivity;
 import com.babybox.activity.CategoryActivity;
 import com.babybox.activity.ConversationListActivity;
@@ -1184,6 +1185,11 @@ public class ViewUtil {
 
     public static void startAdminNewUsersActivity(Activity activity) {
         Intent intent = new Intent(activity, AdminNewUsersActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startAdminLatestLoginsActivity(Activity activity) {
+        Intent intent = new Intent(activity, AdminLatestLoginsActivity.class);
         activity.startActivity(intent);
     }
 

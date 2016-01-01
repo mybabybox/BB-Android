@@ -206,25 +206,25 @@ public interface BabyBoxApi {
     // Conversation
     //
 
-    @GET("/get-all-conversations")
-    public void getAllConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
+    @GET("/api/get-conversations")
+    public void getConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
 
-    @GET("/get-post-conversations/{id}")
+    @GET("/api/get-post-conversations/{id}")
     public void getPostConversations(@Path("id") Long id, @Query("key") String key, Callback<List<ConversationVM>> cb);
 
-    @GET("/get-conversation/{id}")
+    @GET("/api/get-conversation/{id}")
     public void getConversation(@Path("id") Long id, @Query("key") String key, Callback<ConversationVM> cb);
 
-    @GET("/get-messages/{conversationId}/{offset}")
-    public void getMessages(@Path("conversationId") Long conversationId, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
-
-    @GET("/open-conversation/{postId}")
+    @GET("/api/open-conversation/{postId}")
     public void openConversation(@Path("postId") Long postId, @Query("key") String key, Callback<ConversationVM> cb);
 
-    @GET("/delete-conversation/{id}")
+    @GET("/api/delete-conversation/{id}")
     public void deleteConversation(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @POST("/message/new")
+    @GET("/api/get-messages/{conversationId}/{offset}")
+    public void getMessages(@Path("conversationId") Long conversationId, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
+
+    @POST("/api/message/new")
     public void newMessage(@Body MultipartTypedOutput attachments, /*@Body NewMessageVM message,*/ @Query("key") String key, Callback<MessageVM> cb);
 
     @GET("/image/get-message-image/{id}")
@@ -234,29 +234,29 @@ public interface BabyBoxApi {
     @POST("/image/upload-message-photo")
     public void uploadMessagePhoto(@Query("key") String key, @Part("messageId") Long id, @Part("send-photo0") TypedFile photo, Callback<Response> cb);
 
-    @POST("/update-conversation-note")
+    @POST("/api/update-conversation-note")
     public void updateConversationNote(@Body MultipartTypedOutput attachments, /*@Body NewMessageVM message,*/ @Query("key") String key, Callback<Response> cb);
 
-    @GET("/update-conversation-order-transaction-state/{id}/{state}")
+    @GET("/api/update-conversation-order-transaction-state/{id}/{state}")
     public void updateConversationOrderTransactionState(@Path("id") Long id, @Path("state") String state, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/highlight-conversation/{id}/{color}")
+    @GET("/api/highlight-conversation/{id}/{color}")
     public void highlightConversation(@Path("id") Long id, @Path("color") String color, @Query("key") String key, Callback<Response> cb);
 
     //
     // Conversation Order
     //
 
-    @GET("/conversation-order/new/{conversationId}")
+    @GET("/api/conversation-order/new/{conversationId}")
     public void newConversationOrder(@Path("conversationId") Long conversationId, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
-    @GET("/conversation-order/cancel/{id}")
+    @GET("/api/conversation-order/cancel/{id}")
     public void cancelConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
-    @GET("/conversation-order/accept/{id}")
+    @GET("/api/conversation-order/accept/{id}")
     public void acceptConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
-    @GET("/conversation-order/decline/{id}")
+    @GET("/api/conversation-order/decline/{id}")
     public void declineConversationOrder(@Path("id") Long id, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
     //
@@ -287,4 +287,7 @@ public interface BabyBoxApi {
 
     @GET("/api/get-users-by-login/{offset}")
     public void getUsersByLogin(@Path("offset") Long offset, @Query("key") String key, Callback<List<UserVMLite>> cb);
+
+    @GET("/api/get-latest-conversations")
+    public void getLatestConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
 }

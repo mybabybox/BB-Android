@@ -16,19 +16,19 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class AdminNewUsersActivity extends AbstractListViewActivity {
-    private static final String TAG = AdminNewUsersActivity.class.getName();
+public class AdminLatestLoginsActivity extends AbstractListViewActivity {
+    private static final String TAG = AdminLatestLoginsActivity.class.getName();
 
     private List<UserVMLite> items;
 
     @Override
     protected String getTitleText() {
-        return getString(R.string.admin_new_users);
+        return getString(R.string.admin_latest_logins);
     }
 
     @Override
     protected String getNoItemText() {
-        return getString(R.string.admin_new_users);
+        return getString(R.string.admin_latest_logins);
     }
 
     @Override
@@ -43,10 +43,10 @@ public class AdminNewUsersActivity extends AbstractListViewActivity {
     protected void loadListItems(final Long objId, final Long offset) {
         ViewUtil.showSpinner(this);
 
-        AppController.getApiService().getUsersBySignup(offset, new Callback<List<UserVMLite>>() {
+        AppController.getApiService().getUsersByLogin(offset, new Callback<List<UserVMLite>>() {
             @Override
             public void success(List<UserVMLite> users, Response response) {
-                Log.d(TAG, "loadListItems.getUsersBySignup: offset=" + offset +
+                Log.d(TAG, "loadListItems.getUsersByLogin: offset=" + offset +
                         " size=" + (users == null ? 0 : users.size()));
 
                 if (offset == 0 && (users == null || users.size() == 0)) {
@@ -59,12 +59,12 @@ public class AdminNewUsersActivity extends AbstractListViewActivity {
                     listAdapter.notifyDataSetChanged();
                 }
 
-                ViewUtil.stopSpinner(AdminNewUsersActivity.this);
+                ViewUtil.stopSpinner(AdminLatestLoginsActivity.this);
             }
 
             @Override
             public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(AdminNewUsersActivity.this);
+                ViewUtil.stopSpinner(AdminLatestLoginsActivity.this);
                 Log.e(TAG, "loadListItems.getUsersBySignup: failure", error);
             }
         });

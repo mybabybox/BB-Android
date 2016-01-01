@@ -12,7 +12,7 @@ import com.babybox.util.ViewUtil;
 public class AdminActivity extends TrackedFragmentActivity {
     private static final String TAG = AdminActivity.class.getName();
 
-    private LinearLayout newUsersLayout;
+    private LinearLayout newUsersLayout, latestLoginsLayout, latestConversationsLayout;
     private ImageView backImage;
 
     @Override
@@ -24,9 +24,27 @@ public class AdminActivity extends TrackedFragmentActivity {
         setActionBarTitle(getString(R.string.admin));
 
         newUsersLayout = (LinearLayout) findViewById(R.id.newUsersLayout);
+        latestLoginsLayout = (LinearLayout) findViewById(R.id.latestLoginsLayout);
+        latestConversationsLayout = (LinearLayout) findViewById(R.id.latestConversationsLayout);
 
         // new users
         newUsersLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.startAdminNewUsersActivity(AdminActivity.this);
+            }
+        });
+
+        // latest logins
+        latestLoginsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.startAdminLatestLoginsActivity(AdminActivity.this);
+            }
+        });
+
+        // latest conversations
+        latestConversationsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewUtil.startAdminNewUsersActivity(AdminActivity.this);

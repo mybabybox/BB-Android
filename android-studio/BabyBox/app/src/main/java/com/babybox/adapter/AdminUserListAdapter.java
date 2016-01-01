@@ -27,8 +27,8 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class AdminNewUserListAdapter extends BaseAdapter {
-    private static final String TAG = AdminNewUserListAdapter.class.getName();
+public class AdminUserListAdapter extends BaseAdapter {
+    private static final String TAG = AdminUserListAdapter.class.getName();
 
     private ImageView userImage;
     private TextView userDisplayNameText, userNameText, userEmailText, userIdText, createdDateText, lastActiveText;
@@ -39,7 +39,7 @@ public class AdminNewUserListAdapter extends BaseAdapter {
 
     private List<UserVMLite> users;
 
-    public AdminNewUserListAdapter(Activity activity, List<UserVMLite> users) {
+    public AdminUserListAdapter(Activity activity, List<UserVMLite> users) {
         this.activity = activity;
         this.users = users;
     }
@@ -70,7 +70,7 @@ public class AdminNewUserListAdapter extends BaseAdapter {
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null)
-            convertView = inflater.inflate(R.layout.admin_new_user_list_item, null);
+            convertView = inflater.inflate(R.layout.admin_user_list_item, null);
 
         userImage = (ImageView) convertView.findViewById(R.id.userImage);
         userDisplayNameText = (TextView) convertView.findViewById(R.id.userDisplayNameText);

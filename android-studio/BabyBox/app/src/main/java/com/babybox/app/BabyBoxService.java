@@ -227,8 +227,8 @@ public class BabyBoxService {
 
     // conversation
 
-    public void getAllConversations(Callback<List<ConversationVM>> cb) {
-        api.getAllConversations(AppController.getInstance().getSessionId(), cb);
+    public void getConversations(Callback<List<ConversationVM>> cb) {
+        api.getConversations(AppController.getInstance().getSessionId(), cb);
     }
 
     public void getPostConversations(Long id, Callback<List<ConversationVM>> cb) {
@@ -321,6 +321,10 @@ public class BabyBoxService {
 
     public void getUsersByLogin(Long offset, Callback<List<UserVMLite>> cb) {
         api.getUsersByLogin(offset, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getLatestConversations(Callback<List<ConversationVM>> cb) {
+        api.getLatestConversations(AppController.getInstance().getSessionId(), cb);
     }
 }
 

@@ -39,7 +39,7 @@ public class ConversationCache {
     public static void refresh(final Callback<List<ConversationVM>> callback) {
         Log.d(ConversationCache.class.getSimpleName(), "refresh");
 
-        AppController.getApiService().getAllConversations(new Callback<List<ConversationVM>>() {
+        AppController.getApiService().getConversations(new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> vms, Response response) {
                 conversations = vms;
