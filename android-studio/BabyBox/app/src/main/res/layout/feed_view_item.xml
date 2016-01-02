@@ -97,7 +97,7 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
+                    android:textSize="13dp"
                     android:textColor="@color/dark_gray"
                     android:singleLine="true"
                     android:gravity="center_vertical" />

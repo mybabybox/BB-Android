@@ -554,14 +554,14 @@ public class ViewUtil {
             link = setLinkSpan(clickableText, listener);
         }
 
-        String message;
         if (prepend) {
-            message = link + " " + text;
+            textView.setText(link);
+            textView.append(" " + text);
         } else {
-            message = text + " " + link;
+            textView.setText(text + " ");
+            textView.append(link);
         }
 
-        textView.setText(message.trim());
         setLinksClickable(textView);
     }
 
@@ -1168,7 +1168,7 @@ public class ViewUtil {
 
     public static void startMessageListActivity(Activity activity, ConversationVM conversation, boolean buy) {
         Intent intent = new Intent(activity, MessageListActivity.class);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_OBJECT, conversation);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ID, conversation);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, buy);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
