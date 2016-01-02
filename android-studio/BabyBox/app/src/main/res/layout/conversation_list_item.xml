@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_gray_2"
-                    android:textSize="16dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/dark_gray"
-                    android:textSize="15dp"
+                    android:textSize="14dp"
                     android:layout_marginRight="3dp"
                     android:layout_toLeftOf="@+id/unreadCountText"
                     android:layout_alignParentLeft="true" />
@@ -115,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/image"
-                        android:textSize="14dp"
+                        android:textSize="13dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="3dp"
                         android:textColor="@color/dark_gray" />

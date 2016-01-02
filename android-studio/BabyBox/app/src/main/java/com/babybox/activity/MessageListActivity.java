@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -91,7 +90,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
     private Uri selectedImageUri = null;
     private List<SelectedImage> selectedImages = new ArrayList<>();
 
-    private Long conversationId;
+    private ConversationVM conversation;
     private Long offset = 1L;
 
     private boolean pending = false;
@@ -119,8 +118,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         commentEdit = (TextView) findViewById(R.id.commentEdit);
 
         // conversation
-        conversationId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
-        final ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
+        conversation = (ConversationVM) getIntent().getSerializableExtra(ViewUtil.BUNDLE_KEY_OBJECT);
 
         setActionBarTitle(conversation.getUserName());
         postTitleText.setText(conversation.getPostTitle());
@@ -160,7 +158,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         loadMoreLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadMoreMessages(conversationId, offset);
+                loadMoreMessages(conversation.id, offset);
                 offset++;
             }
         });
@@ -196,12 +194,11 @@ public class MessageListActivity extends TrackedFragmentActivity {
         sellerMessageLayout = (LinearLayout) findViewById(R.id.sellerMessageLayout);
         sellerMessageButton = (Button) findViewById(R.id.sellerMessageButton);
 
-        initLayout(conversationId);
-        loadMessages(conversationId);
+        initLayout(conversation);
+        loadMessages(conversation);
     }
 
-    private void initLayout(Long conversationId) {
-        ConversationVM conversation = ConversationCache.getOpenedConversation(conversationId);
+    private void initLayout(final ConversationVM conversation) {
         ConversationOrderVM order = conversation.getOrder();
 
         ViewUtil.setConversationImageTag(this, conversation);
@@ -617,7 +614,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         return null;
     }
 
-    private void doBuyerOrder(ConversationVM conversation) {
+    private void doBuyerOrder(final ConversationVM conversation) {
         ConversationOrderVM order = conversation.getOrder();
         if (order != null && !order.closed) {
             Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_already), Toast.LENGTH_SHORT).show();
@@ -630,11 +627,11 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
         pendingOrder = true;
         doMessage(getString(R.string.pm_buy_message), true);
-        AppController.getApiService().newConversationOrder(conversationId, new Callback<ConversationOrderVM>() {
+        AppController.getApiService().newConversationOrder(conversation.id, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
-                ConversationCache.updateConversationOrder(conversationId, order);
-                initLayout(conversationId);
+                ConversationCache.updateConversationOrder(conversation.id, order);
+                initLayout(conversation);
 
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -650,7 +647,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void doBuyerCancel(ConversationVM conversation) {
+    private void doBuyerCancel(final ConversationVM conversation) {
         ConversationOrderVM order = conversation.getOrder();
         if (order != null && order.closed) {
             Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_already_closed), Toast.LENGTH_SHORT).show();
@@ -666,8 +663,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
         AppController.getApiService().cancelConversationOrder(conversation.getOrder().id, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
-                ConversationCache.updateConversationOrder(conversationId, order);
-                initLayout(conversationId);
+                ConversationCache.updateConversationOrder(conversation.id, order);
+                initLayout(conversation);
 
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -683,7 +680,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void doSellerAccept(ConversationVM conversation) {
+    private void doSellerAccept(final ConversationVM conversation) {
         ConversationOrderVM order = conversation.getOrder();
         if (order != null && order.closed) {
             Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_already_closed), Toast.LENGTH_SHORT).show();
@@ -699,8 +696,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
         AppController.getApiService().acceptConversationOrder(conversation.getOrder().id, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
-                ConversationCache.updateConversationOrder(conversationId, order);
-                initLayout(conversationId);
+                ConversationCache.updateConversationOrder(conversation.id, order);
+                initLayout(conversation);
 
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -716,7 +713,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         });
     }
 
-    private void doSellerDecline(ConversationVM conversation) {
+    private void doSellerDecline(final ConversationVM conversation) {
         ConversationOrderVM order = conversation.getOrder();
         if (order != null && order.closed) {
             Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_already_closed), Toast.LENGTH_SHORT).show();
@@ -732,8 +729,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
         AppController.getApiService().declineConversationOrder(conversation.getOrder().id, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
-                ConversationCache.updateConversationOrder(conversationId, order);
-                initLayout(conversationId);
+                ConversationCache.updateConversationOrder(conversation.id, order);
+                initLayout(conversation);
 
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -775,7 +772,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         ViewUtil.showSpinner(MessageListActivity.this);
 
         pending = true;
-        NewMessageVM newMessage = new NewMessageVM(conversationId, message, system, selectedImages);
+        NewMessageVM newMessage = new NewMessageVM(conversation.id, message, system, selectedImages);
         AppController.getApiService().newMessage(newMessage, new Callback<MessageVM>() {
             @Override
             public void success(MessageVM message, Response response) {
@@ -783,7 +780,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 adapter.notifyDataSetChanged();
                 listView.smoothScrollToPosition(messages.size());
 
-                ViewUtil.setActivityResult(MessageListActivity.this, conversationId);
+                ViewUtil.setActivityResult(MessageListActivity.this, conversation.id);
                 reset();
                 pending = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -825,9 +822,9 @@ public class MessageListActivity extends TrackedFragmentActivity {
         return count;
     }
 
-    private void loadMessages(final Long conversationId) {
+    private void loadMessages(final ConversationVM conversation) {
         ViewUtil.showSpinner(MessageListActivity.this);
-        AppController.getApiService().getMessages(conversationId, 0L, new Callback<Response>() {
+        AppController.getApiService().getMessages(conversation.id, 0L, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 listHeader.setVisibility(View.INVISIBLE);
@@ -846,7 +843,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 // send a buy message to seller
                 boolean buy = getIntent().getBooleanExtra(ViewUtil.BUNDLE_KEY_ARG1, false);
                 if (buy) {
-                    doBuyerOrder(ConversationCache.getOpenedConversation(conversationId));
+                    doBuyerOrder(conversation);
                 }
 
                 ViewUtil.stopSpinner(MessageListActivity.this);

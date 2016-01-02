@@ -324,8 +324,8 @@ public class BabyBoxService {
         api.getUsersByLogin(offset, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getLatestConversations(Callback<List<AdminConversationVM>> cb) {
-        api.getLatestConversations(AppController.getInstance().getSessionId(), cb);
+    public void getLatestConversations(Long offset, Callback<List<AdminConversationVM>> cb) {
+        api.getLatestConversations(offset, AppController.getInstance().getSessionId(), cb);
     }
 
     public void getMessagesForAdmin(Long conversationId, Long offset, Callback<Response> cb) {

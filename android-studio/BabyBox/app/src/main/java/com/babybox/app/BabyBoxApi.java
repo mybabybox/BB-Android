@@ -289,10 +289,9 @@ public interface BabyBoxApi {
     @GET("/api/get-users-by-login/{offset}")
     public void getUsersByLogin(@Path("offset") Long offset, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
-    @GET("/api/get-latest-conversations")
-    public void getLatestConversations(@Query("key") String key, Callback<List<AdminConversationVM>> cb);
+    @GET("/api/get-latest-conversations/{offset}")
+    public void getLatestConversations(@Path("offset") Long offset, @Query("key") String key, Callback<List<AdminConversationVM>> cb);
 
     @GET("/api/get-messages-for-admin/{conversationId}/{offset}")
     public void getMessagesForAdmin(@Path("conversationId") Long conversationId, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
-
 }

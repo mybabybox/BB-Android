@@ -135,7 +135,7 @@ public class AdminMessageListActivity extends TrackedFragmentActivity {
             }
         });
 
-        loadMessages(conversation.id);
+        loadMessages(conversation);
     }
 
     private int parseAndAddMessages(String responseBody) {
@@ -163,9 +163,9 @@ public class AdminMessageListActivity extends TrackedFragmentActivity {
         return count;
     }
 
-    private void loadMessages(final Long conversationId) {
+    private void loadMessages(final AdminConversationVM conversation) {
         ViewUtil.showSpinner(AdminMessageListActivity.this);
-        AppController.getApiService().getMessagesForAdmin(conversationId, 0L, new Callback<Response>() {
+        AppController.getApiService().getMessagesForAdmin(conversation.id, 0L, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 listHeader.setVisibility(View.INVISIBLE);

@@ -78,7 +78,7 @@ public class AdminConversationListAdapter extends BaseAdapter {
         ImageUtil.displayThumbnailProfileImage(item.getUser1Id(), user1Image);
         ImageUtil.displayThumbnailProfileImage(item.getUser2Id(), user2Image);
         ImageUtil.displayPostImage(item.getPostImage(), postImage);
-        soldText.setVisibility(item.isPostSold()? View.VISIBLE : View.INVISIBLE);
+        soldText.setVisibility(item.isPostSold() ? View.VISIBLE : View.INVISIBLE);
 
         user1Text.setText(item.getUser1Name());
         user2Text.setText(item.getUser2Name());
@@ -86,7 +86,14 @@ public class AdminConversationListAdapter extends BaseAdapter {
         dateText.setText(DateTimeUtil.getTimeAgo(item.getLastMessageDate()));
         ViewUtil.setHtmlText(item.getLastMessage(), lastMessageText, activity);
 
-        hasImageLayout.setVisibility(item.lastMessageHasImage? View.VISIBLE : View.GONE);
+        hasImageLayout.setVisibility(item.lastMessageHasImage ? View.VISIBLE : View.GONE);
+
+        conversationLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.startAdminMessageListActivity(activity, item);
+            }
+        });
 
         return view;
     }

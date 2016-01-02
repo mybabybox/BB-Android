@@ -131,13 +131,12 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             }
         });
 
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ConversationVM conversation = adapter.getItem(i);
                 conversation.unread = 0L;
-                ViewUtil.startMessageListActivity(ConversationListActivity.this, conversation.id, false);
+                ViewUtil.startMessageListActivity(ConversationListActivity.this, conversation, false);
             }
         });
 
@@ -224,9 +223,9 @@ public class ConversationListActivity extends TrackedFragmentActivity {
         ViewUtil.showSpinner(this);
         ConversationCache.refresh(new Callback<List<ConversationVM>>() {
             @Override
-            public void success(List<ConversationVM> conversations, Response response) {
+            public void success(List<ConversationVM> vms, Response response) {
                 Log.d(ConversationListActivity.class.getSimpleName(), "getConversations: success");
-                if (conversations.size() == 0) {
+                if (vms.size() == 0) {
                     tipText.setVisibility(View.VISIBLE);
                 } else {
                     adapter = new ConversationListAdapter(ConversationListActivity.this, ConversationCache.getConversations());

@@ -715,9 +715,9 @@ public class ProductActivity extends TrackedFragmentActivity {
     private void openConversation(final Long postId, final boolean buy) {
         ConversationCache.open(postId, new Callback<ConversationVM>() {
             @Override
-            public void success(ConversationVM conversationVM, Response response) {
-                if (conversationVM != null) {
-                    ViewUtil.startMessageListActivity(ProductActivity.this, conversationVM.getId(), buy);
+            public void success(ConversationVM vm, Response response) {
+                if (vm != null) {
+                    ViewUtil.startMessageListActivity(ProductActivity.this, vm, buy);
                 } else {
                     Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
                 }
