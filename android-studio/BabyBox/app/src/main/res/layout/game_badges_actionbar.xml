@@ -35,7 +35,7 @@
             android:layout_centerInParent="true">
 
             <ImageView
-                android:layout_width="35dp"
+                android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:id="@+id/toolbarTitleImage"
                 android:src="@drawable/game_badge" />
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
-                android:textSize="22dp"
+                android:textSize="20dp"
                 android:singleLine="true"
                 android:text="@string/game_my_badges"
                 android:layout_centerVertical="true"

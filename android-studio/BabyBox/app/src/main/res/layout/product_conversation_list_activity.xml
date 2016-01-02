@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/light_gray"
-        android:textSize="20dp"
+        android:textSize="16dp"
         android:layout_marginTop="65dp"
         android:visibility="invisible" />
 
