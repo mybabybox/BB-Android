@@ -166,12 +166,6 @@ public class ConversationCache {
         return openedConversation;
     }
 
-    public static ConversationVM getOpenedConversation(Long id) {
-        ConversationVM conversation = getConversation(id);
-        openedConversation = conversation;
-        return openedConversation;
-    }
-
     public static void updateConversationOrder(Long conversationId, ConversationOrderVM order) {
         ConversationVM conversation = getConversation(conversationId);
         if (conversation != null) {

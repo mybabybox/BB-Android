@@ -36,8 +36,8 @@
                 android:text="@string/app_version"
                 android:layout_weight="5"
                 android:singleLine="true"
-                android:textColor="@color/dark_gray"
-                android:textSize="17dp"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical" />
 
@@ -46,8 +46,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="5"
                 android:singleLine="true"
-                android:textColor="@color/dark_gray"
-                android:textSize="17dp"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/appVersionText"
                 android:gravity="center_vertical|right" />
@@ -63,10 +63,10 @@
 
             <TextView
                 android:text="@string/lang_desc"
-                android:textSize="17dp"
+                android:textSize="16dp"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/dark_gray_2"
                 android:layout_weight="5"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical" />
