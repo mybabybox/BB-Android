@@ -112,7 +112,7 @@ public class AdminMessageListAdapter extends BaseAdapter {
         messageImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
         messageImage.setPadding(0, 0, 0, ViewUtil.getRealDimension(10));
 
-        ImageUtil.displayOriginalMessageImage(item.getSenderId()+"_"+item.getReceiverId()+"_"+item.getImage(), messageImage);
+        ImageUtil.displayOriginalMessageImage(item.getSenderId(), item.getReceiverId(), item.getImage(), messageImage);
         /*
         ImageUtil.displayOriginalMessageImage(item.getImgs(), messageImage, new RequestListener<String, GlideBitmapDrawable>() {
             @Override

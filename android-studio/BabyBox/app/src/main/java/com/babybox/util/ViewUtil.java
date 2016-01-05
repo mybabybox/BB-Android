@@ -370,6 +370,10 @@ public class ViewUtil {
     // View
     //
 
+    public static String urlAppendSessionId(String url) {
+        return url + "?key="+ AppController.getInstance().getSessionId();
+    }
+
     public static Locale getAppLocale() {
         Locale locale = AppController.getInstance().getResources().getConfiguration().locale;
         //Log.d(TAG, "getAppLocale: locale="+locale.getLanguage());

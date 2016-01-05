@@ -57,9 +57,9 @@ public class ImageUtil {
     public static final String POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-post-image-by-id/";
     public static final String ORIGINAL_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-original-post-image-by-id/";
     public static final String MINI_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-mini-post-image-by-id/";
-    public static final String MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-message-image-by-id/";
-    public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-original-message-image-by-id/";
-    public static final String MINI_MESSAGE_IMAGE_BY_ID_URL= AppController.BASE_URL + "/image/get-mini-message-image-by-id/";
+    public static final String MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-message-image-by-id/";
+    public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-original-message-image-by-id/";
+    public static final String MINI_MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-mini-message-image-by-id/";
 
     public static final String IMAGE_FOLDER_NAME = AppController.APP_NAME;
     public static final String IMAGE_FOLDER_PATH = Environment.getExternalStorageDirectory() + "/" + IMAGE_FOLDER_NAME;
@@ -192,28 +192,49 @@ public class ImageUtil {
         displayImage(MINI_POST_IMAGE_BY_ID_URL + id, imageView, listener);
     }
 
-    public static void displayMessageImage(String id, ImageView imageView) {
-        displayImage(MESSAGE_IMAGE_BY_ID_URL + id +"?key="+ AppController.getInstance().getSessionId(), imageView);
+    // Message image
+
+    public static void displayMessageImage(long senderId, long receiverId, long id, ImageView imageView) {
+        displayImage(
+                ViewUtil.urlAppendSessionId(MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                imageView);
     }
 
-    public static void displayMessageImage(String id, ImageView imageView, RequestListener listener) {
-        displayImage(MESSAGE_IMAGE_BY_ID_URL + id +"?key="+ AppController.getInstance().getSessionId(), imageView, listener);
+    public static void displayMessageImage(long senderId, long receiverId, long id, ImageView imageView, RequestListener listener) {
+        displayImage(
+                ViewUtil.urlAppendSessionId(MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                imageView,
+                listener);
     }
 
-    public static void displayOriginalMessageImage(String id, ImageView imageView) {
-        displayImage(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id +"?key="+ AppController.getInstance().getSessionId(), imageView);
+    public static void displayOriginalMessageImage(long senderId, long receiverId, long id, ImageView imageView) {
+        displayImage(
+                ViewUtil.urlAppendSessionId(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                imageView);
     }
 
-    public static void displayOriginalMessageImage(String id, ImageView imageView, RequestListener listener) {
-        displayImage(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id +"?key="+ AppController.getInstance().getSessionId(), imageView, listener);
+    public static void displayOriginalMessageImage(long senderId, long receiverId, long id, ImageView imageView, RequestListener listener) {
+        displayImage(
+                ViewUtil.urlAppendSessionId(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                imageView,
+                listener);
     }
 
-    public static void displayMiniMessageImage(String id, ImageView imageView) {
-        displayImage(MINI_MESSAGE_IMAGE_BY_ID_URL + id +"?key="+ AppController.getInstance().getSessionId(), imageView);
+    public static void displayMiniMessageImage(long senderId, long receiverId, long id, ImageView imageView) {
+        displayImage(
+                ViewUtil.urlAppendSessionId(MINI_MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                imageView);
     }
 
-    public static void displayMiniMessageImage(String id, ImageView imageView, RequestListener listener) {
-        displayImage(MINI_MESSAGE_IMAGE_BY_ID_URL + id +"?key="+ AppController.getInstance().getSessionId(), imageView, listener);
+    public static void displayMiniMessageImage(long senderId, long receiverId, long id, ImageView imageView, RequestListener listener) {
+        displayImage(
+                ViewUtil.urlAppendSessionId(MINI_MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                imageView,
+                listener);
+    }
+
+    private static String formatMessageImageId(long senderId, long receiverId, long id) {
+        return senderId + "_" + receiverId + "_" + id;
     }
 
     // Default image
