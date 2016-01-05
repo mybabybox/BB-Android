@@ -194,47 +194,43 @@ public class ImageUtil {
 
     // Message image
 
-    public static void displayMessageImage(long senderId, long receiverId, long id, ImageView imageView) {
+    public static void displayMessageImage(long id, ImageView imageView) {
         displayImage(
-                ViewUtil.urlAppendSessionId(MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                ViewUtil.urlAppendSessionId(MESSAGE_IMAGE_BY_ID_URL + id),
                 imageView);
     }
 
-    public static void displayMessageImage(long senderId, long receiverId, long id, ImageView imageView, RequestListener listener) {
+    public static void displayMessageImage(long id, ImageView imageView, RequestListener listener) {
         displayImage(
-                ViewUtil.urlAppendSessionId(MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                ViewUtil.urlAppendSessionId(MESSAGE_IMAGE_BY_ID_URL + id),
                 imageView,
                 listener);
     }
 
-    public static void displayOriginalMessageImage(long senderId, long receiverId, long id, ImageView imageView) {
+    public static void displayOriginalMessageImage(long id, ImageView imageView) {
         displayImage(
-                ViewUtil.urlAppendSessionId(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                ViewUtil.urlAppendSessionId(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id),
                 imageView);
     }
 
-    public static void displayOriginalMessageImage(long senderId, long receiverId, long id, ImageView imageView, RequestListener listener) {
+    public static void displayOriginalMessageImage(long id, ImageView imageView, RequestListener listener) {
         displayImage(
-                ViewUtil.urlAppendSessionId(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                ViewUtil.urlAppendSessionId(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id),
                 imageView,
                 listener);
     }
 
-    public static void displayMiniMessageImage(long senderId, long receiverId, long id, ImageView imageView) {
+    public static void displayMiniMessageImage(long id, ImageView imageView) {
         displayImage(
-                ViewUtil.urlAppendSessionId(MINI_MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                ViewUtil.urlAppendSessionId(MINI_MESSAGE_IMAGE_BY_ID_URL + id),
                 imageView);
     }
 
-    public static void displayMiniMessageImage(long senderId, long receiverId, long id, ImageView imageView, RequestListener listener) {
+    public static void displayMiniMessageImage(long id, ImageView imageView, RequestListener listener) {
         displayImage(
-                ViewUtil.urlAppendSessionId(MINI_MESSAGE_IMAGE_BY_ID_URL + formatMessageImageId(senderId, receiverId, id)),
+                ViewUtil.urlAppendSessionId(MINI_MESSAGE_IMAGE_BY_ID_URL + id),
                 imageView,
                 listener);
-    }
-
-    private static String formatMessageImageId(long senderId, long receiverId, long id) {
-        return senderId + "_" + receiverId + "_" + id;
     }
 
     // Default image
