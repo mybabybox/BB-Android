@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.babybox.R;
@@ -50,16 +51,16 @@ public class ImageUtil {
 
     public static final int IMAGE_COMPRESS_QUALITY = 80;
 
-    public static final String COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-cover-image-by-id/";
-    public static final String THUMBNAIL_COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-cover-image-by-id/";
-    public static final String PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-profile-image-by-id/";
-    public static final String THUMBNAIL_PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-profile-image-by-id/";
-    public static final String POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-post-image-by-id/";
-    public static final String ORIGINAL_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-original-post-image-by-id/";
-    public static final String MINI_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-mini-post-image-by-id/";
-    public static final String MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-message-image-by-id/";
-    public static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-original-message-image-by-id/";
-    public static final String MINI_MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-mini-message-image-by-id/";
+    private static final String COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-cover-image-by-id/";
+    private static final String THUMBNAIL_COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-cover-image-by-id/";
+    private static final String PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-profile-image-by-id/";
+    private static final String THUMBNAIL_PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-profile-image-by-id/";
+    private static final String POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-post-image-by-id/";
+    private static final String ORIGINAL_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-original-post-image-by-id/";
+    private static final String MINI_POST_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-mini-post-image-by-id/";
+    private static final String MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-message-image-by-id/";
+    private static final String ORIGINAL_MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-original-message-image-by-id/";
+    private static final String MINI_MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-mini-message-image-by-id/";
 
     public static final String IMAGE_FOLDER_NAME = AppController.APP_NAME;
     public static final String IMAGE_FOLDER_PATH = Environment.getExternalStorageDirectory() + "/" + IMAGE_FOLDER_NAME;
@@ -82,7 +83,6 @@ public class ImageUtil {
     private ImageUtil() {}
 
     public static void init() {
-
         initImageTempDir();
     }
 
@@ -119,6 +119,16 @@ public class ImageUtil {
                 }
             }
         }
+    }
+
+    // Url helpers
+
+    public static String getOriginalPostImageUrl(long id) {
+        return ORIGINAL_POST_IMAGE_BY_ID_URL + id;
+    }
+
+    public static String getOriginalMessageImageUrl(long id) {
+        return ViewUtil.urlAppendSessionId(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id);
     }
 
     // Cover image

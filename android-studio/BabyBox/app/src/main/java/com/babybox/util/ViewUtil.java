@@ -757,8 +757,8 @@ public class ViewUtil {
         }
     }
 
-    public static void fullscreenImagePopup(Activity activity, String source) {
-        startFullscreenImageActivity(activity, source);
+    public static void fullscreenImagePopup(Activity activity, String url) {
+        startFullscreenImageActivity(activity, url);
     }
 
     //

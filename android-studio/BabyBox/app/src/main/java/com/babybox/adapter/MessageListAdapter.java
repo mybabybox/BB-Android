@@ -95,7 +95,7 @@ public class MessageListAdapter extends BaseAdapter {
         messageImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewUtil.fullscreenImagePopup(activity, ImageUtil.ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + message.getImage());
+                ViewUtil.fullscreenImagePopup(activity, ImageUtil.getOriginalMessageImageUrl(message.getImage()));
             }
         });
 

@@ -32,7 +32,7 @@ public class ProductImagePagerFragment extends TrackedFragment {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ViewUtil.fullscreenImagePopup(getActivity(), ImageUtil.ORIGINAL_POST_IMAGE_BY_ID_URL + imageId);
+                ViewUtil.fullscreenImagePopup(getActivity(), ImageUtil.getOriginalPostImageUrl(imageId));
             }
         });
 
