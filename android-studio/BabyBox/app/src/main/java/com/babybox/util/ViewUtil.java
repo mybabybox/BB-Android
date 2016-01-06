@@ -25,13 +25,11 @@ import android.text.Html;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.URLSpan;
-import android.text.util.Linkify;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -371,7 +369,7 @@ public class ViewUtil {
     //
 
     public static String urlAppendSessionId(String url) {
-        return url + "?key="+ AppController.getInstance().getSessionId();
+        return url + "?key="+ UrlUtil.encode(AppController.getInstance().getSessionId());
     }
 
     public static Locale getAppLocale() {

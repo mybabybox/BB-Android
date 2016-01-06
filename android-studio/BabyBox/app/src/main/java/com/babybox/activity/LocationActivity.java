@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -13,6 +14,7 @@ import android.widget.Filterable;
 
 import com.babybox.R;
 import com.babybox.util.SharedPreferencesUtil;
+import com.babybox.util.UrlUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +25,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class LocationActivity extends Activity implements AdapterView.OnItemClickListener {
@@ -59,7 +60,7 @@ public class LocationActivity extends Activity implements AdapterView.OnItemClic
             StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
             sb.append("?key=" + API_KEY);
             sb.append("&components=country:hk");
-            sb.append("&input=" + URLEncoder.encode(input, "utf8"));
+            sb.append("&input=" + UrlUtil.encode(input));
 
             URL url = new URL(sb.toString());
 

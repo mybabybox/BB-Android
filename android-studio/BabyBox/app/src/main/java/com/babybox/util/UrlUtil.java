@@ -1,5 +1,6 @@
 package com.babybox.util;
 
+import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,8 @@ import com.babybox.viewmodel.UserVM;
  * Created by keithlei on 3/16/15.
  */
 public class UrlUtil {
+    public static final String ENCODE_CHARSET_UTF8 = "UTF-8";
+
     private static final String SELLER_URL = AppController.BASE_URL + "/seller/%d";
     private static final String PRODUCT_URL = AppController.BASE_URL + "/product/%d";
     private static final String CATEGORY_URL = AppController.BASE_URL + "/category/%d";
@@ -32,6 +35,14 @@ public class UrlUtil {
             "https://",
             "www."
     };
+
+    public static String encode(String value) {
+        try {
+            return URLEncoder.encode(value, ENCODE_CHARSET_UTF8);
+        } catch (Exception e) {
+        }
+        return value;
+    }
 
     public static String getFullUrl(String url) {
         if (!url.startsWith(AppController.BASE_URL)) {
