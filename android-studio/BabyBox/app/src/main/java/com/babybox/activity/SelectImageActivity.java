@@ -17,7 +17,7 @@ import org.joda.time.DateTime;
 import java.io.File;
 
 public class SelectImageActivity extends Activity {
-    final int SELECT_PICTURE = 3;
+    final int SELECT_PICTURE = 1000;
     public String outputUrl;
 
     @Override

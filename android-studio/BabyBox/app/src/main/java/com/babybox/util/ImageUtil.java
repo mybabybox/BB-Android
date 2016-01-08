@@ -43,9 +43,6 @@ public class ImageUtil {
     public static final int PREVIEW_THUMBNAIL_MAX_WIDTH = 128;
     public static final int PREVIEW_THUMBNAIL_MAX_HEIGHT = 128;
 
-    public static final int GALLERY_PICTURE = 2;
-    public static final int REQUEST_CAMERA = 1;
-
     public static final int IMAGE_UPLOAD_MAX_WIDTH = 1024;
     public static final int IMAGE_UPLOAD_MAX_HEIGHT = 1024;
 
@@ -422,7 +419,7 @@ public class ImageUtil {
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_PICK);
                         intent.setData(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                        activity.startActivityForResult(intent, GALLERY_PICTURE);
+                        activity.startActivityForResult(intent, ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE);
                     }
                 });
 
@@ -440,9 +437,8 @@ public class ImageUtil {
                         }
                         // Continue only if the File was successfully created
                         if (photoFile != null) {
-                            intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                                    Uri.fromFile(photoFile));
-                            activity.startActivityForResult(intent, REQUEST_CAMERA);
+                            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+                            activity.startActivityForResult(intent, ViewUtil.SELECT_CAMERA_IMAGE_REQUEST_CODE);
                         }
                     }
                 });

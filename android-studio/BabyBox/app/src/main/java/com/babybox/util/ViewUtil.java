@@ -132,14 +132,13 @@ public class ViewUtil {
 
     public static final String GCM_LAUNCH_TARGET = "gcmLaunchTarget";
 
-    public static final int START_ACTIVITY_REQUEST_CODE = 1;
+    public static final int START_ACTIVITY_REQUEST_CODE = 100;
 
-    //public static final int SELECT_IMAGE_REQUEST_CODE = 2;
-    public static final int SELECT_GALLERY_IMAGE_REQUEST_CODE = 2;
-    public static final int SELECT_CAMERA_IMAGE_REQUEST_CODE = 1;
+    public static final int SELECT_GALLERY_IMAGE_REQUEST_CODE = 200;
+    public static final int SELECT_CAMERA_IMAGE_REQUEST_CODE = 201;
 
-    public static final int CROP_IMAGE_REQUEST_CODE = 3;
-    public static final int PROCESS_IMAGE_REQUEST_CODE = 4;
+    public static final int CROP_IMAGE_REQUEST_CODE = 202;
+    public static final int PROCESS_IMAGE_REQUEST_CODE = 203;
 
     public static final String HTML_LINE_BREAK = "<br>";
 
@@ -1127,7 +1126,7 @@ public class ViewUtil {
 
     public static void startEditProfileActivity(Activity activity) {
         Intent intent = new Intent(activity, EditProfileActivity.class);
-        activity.startActivityForResult(intent, ViewUtil.START_ACTIVITY_REQUEST_CODE);
+        activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
     }
 
     public static void startGameBadgesActivity(Activity activity, Long userId) {
@@ -1180,7 +1179,7 @@ public class ViewUtil {
         Intent intent = new Intent(activity, SelectImageActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_IMAGE_SOURCE, 2);
         intent.setData(imageUri);
-        activity.startActivityForResult(intent, ViewUtil.CROP_IMAGE_REQUEST_CODE);
+        activity.startActivityForResult(intent, CROP_IMAGE_REQUEST_CODE);
         activity.overridePendingTransition(0, 0);
     }
 
