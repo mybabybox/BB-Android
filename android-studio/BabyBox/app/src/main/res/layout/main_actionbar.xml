@@ -103,11 +103,11 @@
 
             <ImageView
                 android:id="@+id/newPostIcon"
-                android:layout_width="35dp"
+                android:layout_width="32dp"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/new_post"
+                android:src="@drawable/btn_sell"
                 android:layout_marginLeft="5dp" />
         </LinearLayout>
 

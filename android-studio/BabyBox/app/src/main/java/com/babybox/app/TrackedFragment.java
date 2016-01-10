@@ -55,8 +55,8 @@ public abstract class TrackedFragment extends Fragment {
     }
 
     protected void trackFragmentShow() {
-        Log.d(this.getClass().getSimpleName(), "[DEBUG] fragment show");
-        getTracker().set(Fields.SCREEN_NAME, getClass().getSimpleName());
+        Log.d(this.getClass().getCanonicalName(), "[DEBUG] fragment show");
+        getTracker().set(Fields.SCREEN_NAME, getClass().getCanonicalName());
         getTracker().send(MapBuilder.createAppView().build());
     }
 
