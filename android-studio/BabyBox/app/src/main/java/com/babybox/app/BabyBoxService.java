@@ -15,6 +15,7 @@ import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
 import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.NewPostVM;
+import com.babybox.viewmodel.NewReportedPostVM;
 import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
@@ -330,6 +331,11 @@ public class BabyBoxService {
 
     public void getMessagesForAdmin(Long conversationId, Long offset, Callback<Response> cb) {
         api.getMessagesForAdmin(conversationId, offset, AppController.getInstance().getSessionId(), cb);
+    }
+
+    //Report API
+    public void reportPost(NewReportedPostVM newReportedPostVM, Callback<Response> cb) {
+        api.reportPost(newReportedPostVM, AppController.getInstance().getSessionId(), cb);
     }
 }
 
