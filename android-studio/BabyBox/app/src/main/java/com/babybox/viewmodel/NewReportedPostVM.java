@@ -13,8 +13,6 @@ public class NewReportedPostVM {
     public String note;
     public String reportedType;
 
-    public NewReportedPostVM(){}
-
     public NewReportedPostVM(Long id, String note) {
         this(id, -1L, -1L, null, note, null);
     }

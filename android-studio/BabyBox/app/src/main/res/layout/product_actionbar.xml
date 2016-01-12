@@ -93,12 +93,13 @@
                 android:visibility="gone" />
 
             <ImageView
-                android:id="@+id/overflowAction"
-                android:layout_width="30dp"
+                android:id="@+id/moreAction"
+                android:layout_width="24dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_menu_moreoverflow_normal_holo_light"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true" />
+                android:src="@drawable/ic_menu_more"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

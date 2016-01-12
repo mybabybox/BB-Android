@@ -79,6 +79,9 @@ public interface BabyBoxApi {
     @GET("/api/get-featured-items/{itemType}")
     public void getFeaturedItems(@Path("itemType") String itemType, @Query("key") String key,Callback<List<FeaturedItemVM>> cb);
 
+    @POST("/api/report-post")
+    public void reportPost(@Body NewReportedPostVM newReportedPostVM, @Query("key") String key, Callback<Response> cb);
+
     //
     // Home feeds
     //
@@ -295,11 +298,4 @@ public interface BabyBoxApi {
 
     @GET("/api/get-messages-for-admin/{conversationId}/{offset}")
     public void getMessagesForAdmin(@Path("conversationId") Long conversationId, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
-
-    //Report API
-    @POST("/api/report-post")
-    public void reportPost(@Body NewReportedPostVM newReportedPostVM, @Query("key") String key, Callback<Response> cb);
-
-
-
 }

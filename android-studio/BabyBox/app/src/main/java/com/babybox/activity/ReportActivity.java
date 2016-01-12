@@ -1,23 +1,23 @@
 package com.babybox.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.app.AppController;
+import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.app.UserInfoCache;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.NewReportedPostVM;
-
-import org.parceler.apache.commons.lang.StringUtils;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -26,28 +26,33 @@ import retrofit.client.Response;
 /**
  * Created by User on 08-01-2016.
  */
-public class ReportActivity extends Activity {
+public class ReportActivity extends TrackedFragmentActivity {
+    private static final String TAG = ReportActivity.class.getName();
 
-    ImageView backImage;
-    ImageView cat1Layout, cat2Layout, cat3Layout, cat4Layout, cat5Layout, cat6Layout;
-    Long postId;
+    private ImageView backImage;
+    private ImageView image1, image2, image3, image4, image5, image6;
+    private Long postId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.report_acivity);
+
+        setContentView(R.layout.report_activity);
+
         backImage = (ImageView) findViewById(R.id.backImage);
-        cat1Layout = (ImageView) findViewById(R.id.image_1);
-        cat2Layout = (ImageView) findViewById(R.id.image_2);
-        cat3Layout = (ImageView) findViewById(R.id.image_3);
-        cat4Layout = (ImageView) findViewById(R.id.image_4);
-        cat5Layout = (ImageView) findViewById(R.id.image_5);
-        cat6Layout = (ImageView) findViewById(R.id.image_6);
+        image1 = (ImageView) findViewById(R.id.image1);
+        image2 = (ImageView) findViewById(R.id.image2);
+        image3 = (ImageView) findViewById(R.id.image3);
+        image4 = (ImageView) findViewById(R.id.image4);
+        image5 = (ImageView) findViewById(R.id.image5);
+        image6 = (ImageView) findViewById(R.id.image6);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            postId = extras.getLong("post_id", 0L);
+            postId = extras.getLong(ViewUtil.BUNDLE_KEY_ID, 0L);
         }
+
+        setActionBarTitle(getString(R.string.report_post));
 
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,98 +61,118 @@ public class ReportActivity extends Activity {
             }
         });
 
-        cat1Layout.setOnClickListener(reportListener);
-        cat2Layout.setOnClickListener(reportListener);
-        cat3Layout.setOnClickListener(reportListener);
-        cat4Layout.setOnClickListener(reportListener);
-        cat5Layout.setOnClickListener(reportListener);
-        cat6Layout.setOnClickListener(reportListener);
+        image1.setOnClickListener(reportListener);
+        image2.setOnClickListener(reportListener);
+        image3.setOnClickListener(reportListener);
+        image4.setOnClickListener(reportListener);
+        image5.setOnClickListener(reportListener);
+        image6.setOnClickListener(reportListener);
     }
 
     private View.OnClickListener reportListener = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            System.out.println("on click listener");
-            final EditText edittext = new EditText(ReportActivity.this);
+            final EditText editText = new EditText(ReportActivity.this);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ReportActivity.this);
 
-            if (v.getId() == R.id.image_6) {
-                alertDialogBuilder.setMessage(getString(R.string.other_report_confirm));
-                edittext.setLines(5);
-                edittext.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-                edittext.setHint(getString(R.string.other_report_editview_placeholder));
-                alertDialogBuilder.setView(edittext);
+            if (v.getId() == R.id.image6) {
+                alertDialogBuilder.setMessage(getString(R.string.report_post_other_title));
+                //editText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 100));
+                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                editText.setSingleLine(false);
+                editText.setTextSize(15);
+                editText.setHint(getString(R.string.report_post_other_hint));
+                alertDialogBuilder.setView(editText);
             } else {
-                alertDialogBuilder.setMessage(getString(R.string.report_confirm));
+                alertDialogBuilder.setMessage(getString(R.string.report_post_confirm));
             }
+
             alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String body = edittext.getText().toString();
+                    String body = editText.getText().toString();
+                    if (body.trim().isEmpty()) {
+                        Toast.makeText(ReportActivity.this, ReportActivity.this.getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     showSpinner();
                     reportPost(v, postId, body);
                 }
             });
+
             alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                 }
             });
 
-            AlertDialog alertDialog = alertDialogBuilder.show();
+            alertDialogBuilder.show();
         }
     };
 
-    private void reportPost(View v, Long postId, String body) {
-        NewReportedPostVM reportedPostVM = new NewReportedPostVM();
-        switch (v.getId()) {
-            case R.id.image_1:
-                reportedPostVM.reportedType = ViewUtil.ReportedType.POST_WRONG_CATEGORY.name();
+    private void reportPost(View view, Long postId, String body) {
+        NewReportedPostVM reportedPost = null;
+        switch (view.getId()) {
+            case R.id.image1:
+                reportedPost = new NewReportedPostVM(
+                        postId,
+                        UserInfoCache.getUser().id,
+                        body,
+                        ViewUtil.ReportedType.POST_WRONG_CATEGORY);
                 break;
-
-            case R.id.image_2:
-                reportedPostVM.reportedType = ViewUtil.ReportedType.POST_COUNTERFEIT.name();
+            case R.id.image2:
+                reportedPost = new NewReportedPostVM(
+                        postId,
+                        UserInfoCache.getUser().id,
+                        body,
+                        ViewUtil.ReportedType.POST_WRONG_CATEGORY);
                 break;
-
-            case R.id.image_3:
-                reportedPostVM.reportedType = ViewUtil.ReportedType.POST_REPEATED_LISTING.name();
+            case R.id.image3:
+                reportedPost = new NewReportedPostVM(
+                        postId,
+                        UserInfoCache.getUser().id,
+                        body,
+                        ViewUtil.ReportedType.POST_REPEATED_LISTING);
                 break;
-
-            case R.id.image_4:
-                reportedPostVM.reportedType = ViewUtil.ReportedType.POST_SPAM.name();
+            case R.id.image4:
+                reportedPost = new NewReportedPostVM(
+                        postId,
+                        UserInfoCache.getUser().id,
+                        body,
+                        ViewUtil.ReportedType.POST_SPAM);
                 break;
-
-            case R.id.image_5:
-                reportedPostVM.reportedType = ViewUtil.ReportedType.POST_PROHIBITED_ITEM.name();
+            case R.id.image5:
+                reportedPost = new NewReportedPostVM(
+                        postId,
+                        UserInfoCache.getUser().id,
+                        body,
+                        ViewUtil.ReportedType.POST_PROHIBITED_ITEM);
                 break;
-
-            case R.id.image_6:
-                reportedPostVM.reportedType = ViewUtil.ReportedType.OTHER.name();
+            case R.id.image6:
+                reportedPost = new NewReportedPostVM(
+                        postId,
+                        UserInfoCache.getUser().id,
+                        body,
+                        ViewUtil.ReportedType.OTHER);
                 break;
-
         }
-        reportedPostVM.body = body;
-        reportedPostVM.postId = postId;
 
-
+        showSpinner();
         AppController.getApiService().reportPost(
-                reportedPostVM, new Callback<Response>() {
+                reportedPost, new Callback<Response>() {
                     @Override
                     public void success(Response responseObject, Response response) {
-                        Log.d(SignupDetailActivity.class.getSimpleName(), "api.reportPost success");
+                        finish();
+                        Toast.makeText(ReportActivity.this, ReportActivity.this.getString(R.string.report_post_success), Toast.LENGTH_SHORT).show();
+                        stopSpinner();
+                        Log.d(TAG, "api.reportPost success");
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        String errorMsg = ViewUtil.getResponseBody(error.getResponse());
-                        if (error.getResponse().getStatus() == 500 &&
-                                error.getResponse() != null &&
-                                !StringUtils.isEmpty(errorMsg)) {
-                            ViewUtil.alert(ReportActivity.this, errorMsg);
-                        }
-
+                        Toast.makeText(ReportActivity.this, ReportActivity.this.getString(R.string.report_post_failed), Toast.LENGTH_SHORT).show();
                         stopSpinner();
-                        Log.e(ReportActivity.class.getSimpleName(), "reportPost: failure", error);
+                        Log.e(TAG, "reportPost: failure", error);
                     }
                 });
     }
@@ -167,6 +192,4 @@ public class ReportActivity extends Activity {
             ViewUtil.stopSpinner(this);
         }
     }
-
-
 }

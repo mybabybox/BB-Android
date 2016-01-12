@@ -15,7 +15,7 @@
     <string name="crash_dialog_ok_toast">Thanks!</string>
 
     <!-- Settings -->
-    <string name="app_name">BabyBox Dev</string>
+    <string name="app_name">BabyBox</string>
     <string name="app_desc">BabyBox - Everymom is a Seller</string>
     <string name="app_version">BabyBox Version:</string>
     <string name="request_upgrade">New version of BabyBox is now available! Upgrade and try out our new features! </string>
@@ -37,6 +37,12 @@
     <string name="text_copy_failed">Text cannot be copied</string>
     <string name="comment_copy_success">Text is copied</string>
     <string name="comment_copy_failed">Text cannot be copied</string>
+    <string name="report_post">Report this product</string>
+    <string name="report_post_confirm">Report this product?</string>
+    <string name="report_post_success">Report this product successfully</string>
+    <string name="report_post_failed">Failed to report this product. Try again later.</string>
+    <string name="report_post_other_title">Why are you reporting this product?</string>
+    <string name="report_post_other_hint">Describe with details...</string>
 
     <!-- Login / Signup -->
     <string name="login">Login</string>
@@ -340,5 +346,5 @@
     <string name="admin_delete_account_confirm">Confirm delete account?</string>
     <string name="admin_delete_account_success">Account deleted</string>
     <string name="admin_delete_account_failed">Account delete failed</string>
-    <string name="admin_latest_conversations">Latest Conversations</string>
+    <string name="admin_latest_conversations">Latest Chats</string>
 </resources>

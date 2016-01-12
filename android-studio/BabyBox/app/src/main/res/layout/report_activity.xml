@@ -1,58 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/Top_Lout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/actionbar_bg_pink">
+    <ProgressBar
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyle"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_spinner"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/backImage"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/back" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/transparent"
-            android:text="Report this listing"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+    <include layout="@layout/view_actionbar"
+        android:id="@+id/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:weightSum="3">
+        android:weightSum="3"
+        android:layout_below="@+id/toolbar">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:paddingTop="10dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp">
 
             <LinearLayout
-                android:id="@+id/catge1_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp">
+                android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/image_1"
+                    android:id="@+id/image1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/mascot_box_2"/>
@@ -60,28 +51,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="2dp"
                     android:layout_gravity="center"
                     android:inputType="textMultiLine"
-                    android:text=" Wrong\nCategory" />
+                    android:text="Wrong Category"
+                    android:gravity="center" />
 
             </LinearLayout>
 
-
             <LinearLayout
-                android:id="@+id/catge2_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp">
+                android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/image_2"
+                    android:id="@+id/image2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/mascot_box_2"/>
+                    android:src="@drawable/mascot_box_2" />
 
 
                 <TextView
@@ -90,22 +78,20 @@
                     android:inputType="text"
                     android:padding="2dp"
                     android:layout_gravity="center"
-                    android:text="Counterfeit" />
+                    android:text="Counterfeit"
+                    android:gravity="center" />
 
             </LinearLayout>
 
-
             <LinearLayout
-                android:id="@+id/catge3_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_weight="1"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp">
+                android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/image_3"
+                    android:id="@+id/image3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/mascot_box_2"/>
@@ -115,9 +101,9 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:singleLine="false"
-                    android:layout_margin="2dp"
                     android:layout_gravity="center"
-                    android:text="Repeated\n  listings" />
+                    android:text="Repeated Listings"
+                    android:gravity="center" />
 
             </LinearLayout>
 
@@ -127,46 +113,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:padding="5dp">
 
             <LinearLayout
-                android:id="@+id/catge4_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/image_4"
+                    android:id="@+id/image4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/mascot_box_2"/>
 
                 <TextView
-                    android:id="@+id/image4_text1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:layout_gravity="center"
-                    android:text="  Promotions \n abuse/Spam" />
+                    android:text="Promotions abuse/Spam"
+                    android:gravity="center" />
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:orientation="vertical"
-                android:id="@+id/catge5_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/image_5"
+                    android:id="@+id/image5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/mascot_box_2"/>
@@ -176,21 +158,20 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:layout_gravity="center"
-                    android:text="Prohibited item" />
+                    android:text="Prohibited item"
+                    android:gravity="center" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/catge6_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/image_6"
+                    android:id="@+id/image6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/mascot_box_2"/>
@@ -200,9 +181,10 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:layout_gravity="center"
-                    android:text="Others" />
+                    android:text="Others"
+                    android:gravity="center" />
 
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

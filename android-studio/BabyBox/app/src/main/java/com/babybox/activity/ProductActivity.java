@@ -72,7 +72,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     private static final String TAG = ProductActivity.class.getName();
 
     private FrameLayout mainLayout;
-    private ImageView backImage, facebookAction, whatsappAction, copyLinkAction, overflowAction;
+    private ImageView backImage, facebookAction, whatsappAction, copyLinkAction, moreAction;
     private TextView editPostAction;
 
     private AdaptiveViewPager imagePager;
@@ -111,8 +111,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private boolean pending = false;
 
-    PopupWindow popupwindow_obj;
-     // where u want show on view click event popupwindow.showAsDropDown(view, x, y);
+    private PopupWindow popupWindow;    // where u want show on view click event popupwindow.showAsDropDown(view, x, y);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,10 +125,9 @@ public class ProductActivity extends TrackedFragmentActivity {
         whatsappAction = (ImageView) findViewById(R.id.whatsappAction);
         copyLinkAction = (ImageView) findViewById(R.id.copyLinkAction);
         editPostAction = (TextView) findViewById(R.id.editPostAction);
-        overflowAction = (ImageView) findViewById(R.id.overflowAction);
+        moreAction = (ImageView) findViewById(R.id.moreAction);
 
-
-        popupwindow_obj = initpopupDisplay();
+        popupWindow = initPopupDisplay();
 
         imagePager = (AdaptiveViewPager) findViewById(R.id.imagePager);
         dotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
@@ -199,14 +197,6 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View view) {
                 ViewUtil.startUserProfileActivity(ProductActivity.this, post.ownerId);
-            }
-        });
-
-        overflowAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("on clicke action overflow");
-                popupwindow_obj.showAsDropDown(overflowAction, -40, 18);
             }
         });
 
@@ -579,7 +569,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                if ((post.isOwner() && !post.isSold())) {
+                if (post.isOwner() && !post.isSold()) {
                     editPostAction.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -589,6 +579,18 @@ public class ProductActivity extends TrackedFragmentActivity {
                     editPostAction.setVisibility(View.VISIBLE);
                 } else {
                     editPostAction.setVisibility(View.GONE);
+                }
+
+                if (post.isOwner()) {
+                    moreAction.setVisibility(View.GONE);
+                } else {
+                    moreAction.setVisibility(View.VISIBLE);
+                    moreAction.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            popupWindow.showAsDropDown(moreAction, -40, 18);
+                        }
+                    });
                 }
 
                 // admin
@@ -832,10 +834,8 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
     }
 
-    public PopupWindow initpopupDisplay()
-    {
+    public PopupWindow initPopupDisplay() {
         final PopupWindow popupWindow = new PopupWindow(ProductActivity.this);
-        // inflate your layout or dynamically add view
         LayoutInflater inflater = (LayoutInflater) ProductActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.actionbar_popup, null);
         TextView reportButton = (TextView) view.findViewById(R.id.report);
@@ -843,7 +843,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent reportActivity = new Intent(ProductActivity.this, ReportActivity.class);
-                reportActivity.putExtra("post_id", postId);
+                reportActivity.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
                 startActivity(reportActivity);
             }
         });

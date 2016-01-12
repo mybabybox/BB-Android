@@ -78,6 +78,10 @@ public class BabyBoxService {
         api.getFeaturedItems("HOME_SLIDER", AppController.getInstance().getSessionId(), cb);
     }
 
+    public void reportPost(NewReportedPostVM newReportedPostVM, Callback<Response> cb) {
+        api.reportPost(newReportedPostVM, AppController.getInstance().getSessionId(), cb);
+    }
+
     // home feeds
 
     public void getHomeExploreFeed(Long offset, Callback<List<PostVMLite>> cb) {
@@ -331,11 +335,6 @@ public class BabyBoxService {
 
     public void getMessagesForAdmin(Long conversationId, Long offset, Callback<Response> cb) {
         api.getMessagesForAdmin(conversationId, offset, AppController.getInstance().getSessionId(), cb);
-    }
-
-    //Report API
-    public void reportPost(NewReportedPostVM newReportedPostVM, Callback<Response> cb) {
-        api.reportPost(newReportedPostVM, AppController.getInstance().getSessionId(), cb);
     }
 }
 

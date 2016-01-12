@@ -15,7 +15,7 @@
     <string name="crash_dialog_ok_toast">謝謝！</string>
 
     <!-- Settings -->
-    <string name="app_name">BabyBox Dev</string>
+    <string name="app_name">BabyBox</string>
     <string name="app_desc">BabyBox 媽媽即拍即賣</string>
     <string name="app_version">BabyBox 版本:</string>
     <string name="request_upgrade">BabyBox 新版本已上線！更多新功能為你而設！</string>
@@ -37,6 +37,12 @@
     <string name="text_copy_failed">信息不能複制</string>
     <string name="comment_copy_success">留言已複制</string>
     <string name="comment_copy_failed">留言不能複制</string>
+    <string name="report_post">Report this product</string>
+    <string name="report_post_confirm">Report this product?</string>
+    <string name="report_post_success">Report this product successfully</string>
+    <string name="report_post_failed">Failed to report this product. Try again later.</string>
+    <string name="report_post_other_title">Why are you reporting this product?</string>
+    <string name="report_post_other_hint">Describe with details...</string>
 
     <!-- Login / Signup -->
     <string name="login">登入</string>
@@ -340,5 +346,5 @@
     <string name="admin_delete_account_confirm">Confirm delete account?</string>
     <string name="admin_delete_account_success">Account deleted</string>
     <string name="admin_delete_account_failed">Account delete failed</string>
-    <string name="admin_latest_conversations">Latest Conversations</string>
+    <string name="admin_latest_conversations">Latest Chats</string>
 </resources>
