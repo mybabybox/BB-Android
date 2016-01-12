@@ -13,6 +13,7 @@ import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
+import com.babybox.viewmodel.NewReportedPostVM;
 import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
@@ -294,4 +295,11 @@ public interface BabyBoxApi {
 
     @GET("/api/get-messages-for-admin/{conversationId}/{offset}")
     public void getMessagesForAdmin(@Path("conversationId") Long conversationId, @Path("offset") Long offset, @Query("key") String key, Callback<Response> cb);
+
+    //Report API
+    @POST("/api/report-post")
+    public void reportPost(@Body NewReportedPostVM newReportedPostVM, @Query("key") String key, Callback<Response> cb);
+
+
+
 }
