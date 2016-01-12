@@ -166,11 +166,12 @@ public class ConversationCache {
         return openedConversation;
     }
 
-    public static void updateConversationOrder(Long conversationId, ConversationOrderVM order) {
+    public static ConversationVM updateConversationOrder(Long conversationId, ConversationOrderVM order) {
         ConversationVM conversation = getConversation(conversationId);
         if (conversation != null) {
             conversation.setOrder(order);
         }
+        return conversation;
     }
 
     public static void clear() {

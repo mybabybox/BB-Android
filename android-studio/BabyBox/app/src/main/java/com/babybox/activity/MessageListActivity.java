@@ -630,8 +630,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
         AppController.getApiService().newConversationOrder(conversation.id, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
-                ConversationCache.updateConversationOrder(conversation.id, order);
-                initLayout(conversation);
+                ConversationVM updatedConversation = ConversationCache.updateConversationOrder(conversation.id, order);
+                initLayout(updatedConversation);
 
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -663,8 +663,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
         AppController.getApiService().cancelConversationOrder(conversation.getOrder().id, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
-                ConversationCache.updateConversationOrder(conversation.id, order);
-                initLayout(conversation);
+                ConversationVM updatedConversation = ConversationCache.updateConversationOrder(conversation.id, order);
+                initLayout(updatedConversation);
 
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -696,8 +696,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
         AppController.getApiService().acceptConversationOrder(conversation.getOrder().id, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
-                ConversationCache.updateConversationOrder(conversation.id, order);
-                initLayout(conversation);
+                ConversationVM updatedConversation = ConversationCache.updateConversationOrder(conversation.id, order);
+                initLayout(updatedConversation);
 
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -729,8 +729,8 @@ public class MessageListActivity extends TrackedFragmentActivity {
         AppController.getApiService().declineConversationOrder(conversation.getOrder().id, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
-                ConversationCache.updateConversationOrder(conversation.id, order);
-                initLayout(conversation);
+                ConversationVM updatedConversation = ConversationCache.updateConversationOrder(conversation.id, order);
+                initLayout(updatedConversation);
 
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -886,6 +886,10 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 Log.e(MessageListActivity.class.getSimpleName(), "loadMoreMessages.api.getMessages: failure", error);
             }
         });
+    }
+
+    private void setConversation(ConversationVM conversation) {
+        this.conversation = conversation;
     }
 
     private void reset() {
