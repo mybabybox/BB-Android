@@ -1,18 +1,18 @@
 package com.babybox.activity;
 
 import android.app.AlertDialog;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,7 +46,6 @@ import com.babybox.fragment.ProductImagePagerFragment;
 import com.babybox.util.DateTimeUtil;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
-import com.babybox.util.MessageUtil;
 import com.babybox.util.SharingUtil;
 import com.babybox.util.UrlUtil;
 import com.babybox.util.ViewUtil;
@@ -111,7 +110,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private boolean pending = false;
 
-    private PopupWindow popupWindow;    // where u want show on view click event popupwindow.showAsDropDown(view, x, y);
+    private PopupWindow menuPopup;    // where u want show on view click event popupwindow.showAsDropDown(view, x, y);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,7 +126,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         editPostAction = (TextView) findViewById(R.id.editPostAction);
         moreAction = (ImageView) findViewById(R.id.moreAction);
 
-        popupWindow = initPopupDisplay();
+        menuPopup = initMenuPopup();
 
         imagePager = (AdaptiveViewPager) findViewById(R.id.imagePager);
         dotsLayout = (LinearLayout) findViewById(R.id.dotsLayout);
@@ -588,7 +587,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     moreAction.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            popupWindow.showAsDropDown(moreAction, -40, 18);
+                            menuPopup.showAsDropDown(moreAction, -40, 15);
                         }
                     });
                 }
@@ -834,12 +833,12 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
     }
 
-    public PopupWindow initPopupDisplay() {
+    public PopupWindow initMenuPopup() {
         final PopupWindow popupWindow = new PopupWindow(ProductActivity.this);
         LayoutInflater inflater = (LayoutInflater) ProductActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.actionbar_popup, null);
-        TextView reportButton = (TextView) view.findViewById(R.id.report);
-        reportButton.setOnClickListener(new View.OnClickListener() {
+        View view = inflater.inflate(R.layout.actionbar_menu_popup_window, null);
+        TextView reportText = (TextView) view.findViewById(R.id.reportText);
+        reportText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent reportActivity = new Intent(ProductActivity.this, ReportActivity.class);
@@ -847,6 +846,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                 startActivity(reportActivity);
             }
         });
+
+        //popupWindow.setOutsideTouchable(true);
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);

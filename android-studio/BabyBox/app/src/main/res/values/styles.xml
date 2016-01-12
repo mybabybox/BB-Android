@@ -24,7 +24,7 @@
         <item name="contentInsetRight">0dp</item>
     </style>
 
-    <style name="MyPopupMenu" parent="@android:style/Widget.Holo.ListPopupWindow">
+    <style name="MyPopupMenu" parent="@android:style/Widget.Holo.Light.PopupMenu">
         <item name="android:popupBackground">@color/light_gray_3</item>
     </style>
 
