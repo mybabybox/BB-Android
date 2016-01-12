@@ -37,6 +37,12 @@
     <string name="text_copy_failed">信息不能複制</string>
     <string name="comment_copy_success">留言已複制</string>
     <string name="comment_copy_failed">留言不能複制</string>
+    <string name="report_wrong_cat">Wrong Category</string>
+    <string name="report_counterfeit">Counterfeit</string>
+    <string name="report_repeat">Repeated Listing</string>
+    <string name="report_spam">Promotions abuse / Spam</string>
+    <string name="report_prohibited">Prohibited Item</string>
+    <string name="report_other">Other</string>
     <string name="report_post">Report this product</string>
     <string name="report_post_confirm">Report this product?</string>
     <string name="report_post_success">Report this product successfully</string>

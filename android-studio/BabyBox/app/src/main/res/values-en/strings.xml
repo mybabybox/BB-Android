@@ -37,6 +37,12 @@
     <string name="text_copy_failed">Text cannot be copied</string>
     <string name="comment_copy_success">Text is copied</string>
     <string name="comment_copy_failed">Text cannot be copied</string>
+    <string name="report_wrong_cat">Wrong Category</string>
+    <string name="report_counterfeit">Counterfeit</string>
+    <string name="report_repeat">Repeated Listing</string>
+    <string name="report_spam">Promotions abuse / Spam</string>
+    <string name="report_prohibited">Prohibited Item</string>
+    <string name="report_other">Other</string>
     <string name="report_post">Report this product</string>
     <string name="report_post_confirm">Report this product?</string>
     <string name="report_post_success">Report this product successfully</string>

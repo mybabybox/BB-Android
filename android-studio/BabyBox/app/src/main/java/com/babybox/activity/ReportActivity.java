@@ -80,11 +80,14 @@ public class ReportActivity extends TrackedFragmentActivity {
                 //editText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 100));
                 editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
                 editText.setSingleLine(false);
+                editText.setLines(2);
+                editText.setMinLines(2);
+                editText.setMaxLines(5);
                 editText.setTextSize(15);
                 editText.setHint(getString(R.string.report_post_other_hint));
                 alertDialogBuilder.setView(editText);
             } else {
-                alertDialogBuilder.setMessage(getString(R.string.report_post_confirm));
+                alertDialogBuilder.setMessage(getReportMessage(v));
             }
 
             alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
@@ -175,6 +178,25 @@ public class ReportActivity extends TrackedFragmentActivity {
                         Log.e(TAG, "reportPost: failure", error);
                     }
                 });
+    }
+
+    private String getReportMessage(View view) {
+        String message = getString(R.string.report_post_confirm);
+        switch (view.getId()) {
+            case R.id.image1:
+                return message + "\n" + getString(R.string.report_wrong_cat);
+            case R.id.image2:
+                return message + "\n" + getString(R.string.report_counterfeit);
+            case R.id.image3:
+                return message + "\n" + getString(R.string.report_repeat);
+            case R.id.image4:
+                return message + "\n" + getString(R.string.report_spam);
+            case R.id.image5:
+                return message + "\n" + getString(R.string.report_prohibited);
+            case R.id.image6:
+                return message + "\n" + getString(R.string.report_other);
+        }
+        return message;
     }
 
     private void showSpinner() {
