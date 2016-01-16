@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.babybox.R;
 import com.babybox.activity.MainActivity;
 import com.babybox.util.ImageUtil;
+import com.babybox.util.LocationUtil;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.LocationVM;
@@ -148,13 +149,15 @@ public class AppController extends Application {
         return SharedPreferencesUtil.getInstance().getLoginFailedCount();
     }
 
-    public static void init() {
+    public void init() {
 
         initApiService();
 
         initStaticCaches();
 
         ImageUtil.init();
+
+        //LocationUtil.getInstance().getLastKnownLocation(this);
 
         SharedPreferencesUtil.getInstance();
 
@@ -201,6 +204,8 @@ public class AppController extends Application {
         NotificationCounter.refresh();
         ConversationCache.refresh();
     }
+
+    //getLastKnownLocation();
 
     /**
      * Exit app. Clear everything.
@@ -267,4 +272,4 @@ public class AppController extends Application {
             e.printStackTrace();
         }
     }
-    }
+}

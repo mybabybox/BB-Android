@@ -169,14 +169,14 @@ public class MainActivity extends TrackedFragmentActivity {
 
         pressHomeTab();
 
-        refreshNotifications();
-        getLastKnownLocation();
         checkAndroidUpgrade();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        NotificationCounter.refresh();
 
         // handle gcm
         if (ViewUtil.isGcmLaunchTarget(getIntent())) {
@@ -335,10 +335,6 @@ public class MainActivity extends TrackedFragmentActivity {
             chatCountText.setVisibility(View.VISIBLE);
             chatCountText.setText(counter.conversationsCount+"");
         }
-    }
-
-    public void getLastKnownLocation() {
-        LocationUtil.getInstance().getLastKnownLocation(this);
     }
 
     public void checkAndroidUpgrade() {

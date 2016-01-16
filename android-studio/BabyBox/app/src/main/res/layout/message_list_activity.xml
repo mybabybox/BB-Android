@@ -118,7 +118,7 @@
 
                 <View
                     android:layout_width="wrap_content"
-                    android:layout_height="1.2dp"
+                    android:layout_height="1dp"
                     android:background="@drawable/bar1"
                     android:id="@+id/bar1"
                     android:layout_alignParentBottom="true" />
@@ -132,8 +132,8 @@
                 android:background="@color/feed_bg"
                 android:stackFromBottom="true"
                 android:divider="@null"
-                android:layout_marginTop="67dp"
-                android:layout_above="@+id/commentLayout">
+                android:layout_above="@+id/commentLayout"
+                android:layout_below="@+id/postLayout">
             </ListView>
 
             <LinearLayout

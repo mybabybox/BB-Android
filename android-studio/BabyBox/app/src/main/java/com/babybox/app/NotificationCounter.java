@@ -26,7 +26,7 @@ public class NotificationCounter implements TimerUtil.Task {
     private NotificationCounter() {}
 
     static {
-        init();
+        //init();
     }
 
     private static void init() {
@@ -55,14 +55,14 @@ public class NotificationCounter implements TimerUtil.Task {
         AppController.getApiService().getNotificationCounter(new Callback<NotificationCounterVM>() {
             @Override
             public void success(NotificationCounterVM vm, Response response) {
-                if (vm == null || sameCounter(vm))
+                if (vm == null)    // || sameCounter(vm))
                     return;
 
                 Log.d(NotificationCounter.class.getSimpleName(), "refresh.success: activitiesCount=" + vm.activitiesCount + " conversationsCount=" + vm.conversationsCount);
                 counter = vm;
 
                 if (callback != null) {
-                    callback.success(counter, response);
+                    callback.success(vm, response);
                 }
             }
 

@@ -31,11 +31,10 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="82dp"
         android:background="@color/view_bg"
         android:id="@+id/postLayout"
-        android:layout_below="@+id/toolbar"
-        android:visibility="gone">
+        android:layout_below="@+id/toolbar">
 
         <LinearLayout
             android:orientation="vertical"
@@ -43,8 +42,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/postImageLayout"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp">
 
             <ImageView
                 android:id="@+id/postImage"
@@ -104,7 +103,7 @@
             android:layout_toRightOf="@+id/postImageLayout"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="7dp" />
 
         <TextView
             android:id="@+id/postPriceText"
@@ -120,7 +119,7 @@
 
         <View
             android:layout_width="wrap_content"
-            android:layout_height="1.2dp"
+            android:layout_height="1dp"
             android:background="@drawable/bar1"
             android:id="@+id/bar1"
             android:layout_alignParentBottom="true" />
