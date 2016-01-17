@@ -43,7 +43,8 @@
             android:id="@+id/postImageLayout"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp">
+            android:layout_marginBottom="7dp"
+            android:layout_centerVertical="true">
 
             <ImageView
                 android:id="@+id/postImage"
@@ -64,7 +65,8 @@
                 android:background="@color/pink"
                 android:textColor="@color/white"
                 android:layout_marginTop="-5dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -77,7 +79,8 @@
                 android:background="@color/green"
                 android:textColor="@color/white"
                 android:layout_marginTop="-5dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -90,7 +93,8 @@
                 android:background="@color/gray"
                 android:textColor="@color/white"
                 android:layout_marginTop="-5dp"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                android:visibility="gone" />
 
         </LinearLayout>
 

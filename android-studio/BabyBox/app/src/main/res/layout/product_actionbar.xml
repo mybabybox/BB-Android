@@ -93,8 +93,8 @@
                 android:textSize="17dp"
                 android:gravity="center"
                 android:layout_centerVertical="true"
-                android:visibility="gone"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/moreAction"
@@ -103,8 +103,7 @@
                 android:src="@drawable/ic_menu_more"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:layout_gravity="center"
-                android:visibility="gone" />
+                android:layout_gravity="center" />
 
         </LinearLayout>
 

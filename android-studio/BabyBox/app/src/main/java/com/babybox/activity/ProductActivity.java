@@ -580,7 +580,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                     editPostAction.setVisibility(View.GONE);
                 }
 
-                /*
                 if (post.isOwner()) {
                     moreAction.setVisibility(View.GONE);
                 } else {
@@ -592,7 +591,6 @@ public class ProductActivity extends TrackedFragmentActivity {
                         }
                     });
                 }
-                */
 
                 // admin
 

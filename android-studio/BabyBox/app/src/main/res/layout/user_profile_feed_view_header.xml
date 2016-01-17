@@ -61,8 +61,8 @@
                     android:layout_height="85dp" />
 
                 <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
                     android:id="@+id/editProfileImage"
                     android:src="@drawable/edit_photo"
                     android:adjustViewBounds="true"
