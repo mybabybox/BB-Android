@@ -75,8 +75,7 @@
         android:textColor="@color/gray"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:textSize="14dp"
-        android:textStyle="bold"
+        android:textSize="13dp"
         android:layout_marginBottom="5dp"
         android:id="@+id/categoryText" />
 
@@ -134,9 +133,8 @@
         android:layout_below="@+id/viewBar2"
         android:textColor="@color/gray"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:textSize="14dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginTop="7dp"
+        android:textSize="13dp"
+        android:layout_marginBottom="3dp" />
 
 </RelativeLayout>
