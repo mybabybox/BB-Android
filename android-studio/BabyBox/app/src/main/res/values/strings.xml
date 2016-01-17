@@ -37,18 +37,19 @@
     <string name="text_copy_failed">信息不能複制</string>
     <string name="comment_copy_success">留言已複制</string>
     <string name="comment_copy_failed">留言不能複制</string>
-    <string name="report_wrong_cat">Wrong Category</string>
-    <string name="report_counterfeit">Counterfeit</string>
-    <string name="report_repeat">Repeated Listing</string>
-    <string name="report_spam">Promotions abuse / Spam</string>
-    <string name="report_prohibited">Prohibited Item</string>
-    <string name="report_other">Other</string>
-    <string name="report_post">Report this product</string>
-    <string name="report_post_confirm">Report this product?</string>
-    <string name="report_post_success">Report this product successfully</string>
-    <string name="report_post_failed">Failed to report this product. Try again later.</string>
-    <string name="report_post_other_title">Why are you reporting this product?</string>
-    <string name="report_post_other_hint">Describe with details...</string>
+    <string name="report_wrong_cat">錯誤商品分類</string>
+    <string name="report_counterfeit">仿冒品</string>
+    <string name="report_repeat">重覆刊登</string>
+    <string name="report_spam">不正當促銷手法</string>
+    <string name="report_prohibited">違反刊登規則</string>
+    <string name="report_other">其他</string>
+    <string name="report_post">檢舉商品</string>
+    <string name="report_this_post">檢舉這個商品</string>
+    <string name="report_post_confirm">檢舉這個商品?</string>
+    <string name="report_post_success">成功檢舉商品</string>
+    <string name="report_post_failed">不能檢舉商品，請稍後重試</string>
+    <string name="report_post_other_title">請列明檢舉商品原因</string>
+    <string name="report_post_other_hint">檢舉原因...</string>
 
     <!-- Login / Signup -->
     <string name="login">登入</string>

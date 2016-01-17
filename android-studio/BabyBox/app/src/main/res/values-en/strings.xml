@@ -43,7 +43,8 @@
     <string name="report_spam">Promotions abuse / Spam</string>
     <string name="report_prohibited">Prohibited Item</string>
     <string name="report_other">Other</string>
-    <string name="report_post">Report this product</string>
+    <string name="report_post">Report Product</string>
+    <string name="report_this_post">Report this product</string>
     <string name="report_post_confirm">Report this product?</string>
     <string name="report_post_success">Report this product successfully</string>
     <string name="report_post_failed">Failed to report this product. Try again later.</string>

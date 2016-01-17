@@ -93,10 +93,13 @@ public class ReportActivity extends TrackedFragmentActivity {
             alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String body = editText.getText().toString();
-                    if (body.trim().isEmpty()) {
-                        Toast.makeText(ReportActivity.this, ReportActivity.this.getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
-                        return;
+                    String body = "";
+                    if (editText.isShown()) {
+                        body = editText.getText().toString();
+                        if (body.trim().isEmpty()) {
+                            Toast.makeText(ReportActivity.this, ReportActivity.this.getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                     showSpinner();
                     reportPost(v, postId, body);
