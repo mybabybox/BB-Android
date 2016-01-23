@@ -106,15 +106,6 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
                         feedFilter.productType.name(),
                         feedCallback);
                 break;
-            /*
-            case USER_COLLECTION:
-            case USER_COLLECTIONS:
-                AppController.getApiService().getUserCollectionFeed(
-                        Long.valueOf(offset),
-                        feedFilter.objId,
-                        feedCallback);
-                break;
-            */
             case USER_POSTED:
                 AppController.getApiService().getUserPostedFeed(
                         Long.valueOf(offset),

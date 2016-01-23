@@ -154,11 +154,12 @@
                     android:paddingRight="5dp">
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
                         android:id="@+id/likeImage"
                         android:src="@drawable/ic_like_tips"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:layout_margin="3dp" />
 
                     <TextView
                         android:layout_width="wrap_content"

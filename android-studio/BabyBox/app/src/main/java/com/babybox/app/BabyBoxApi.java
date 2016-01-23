@@ -118,11 +118,21 @@ public interface BabyBoxApi {
     @GET("/api/get-user-liked-feed/{id}/{offset}")
     public void getUserLikedFeed(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/api/get-followings/{userId}/{offset}")
-    public void getFollowings(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
+    @GET("/api/get-followings/{id}/{offset}")
+    public void getFollowings(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<UserVMLite>> cb);
 
-    @GET("/api/get-followers/{userId}/{offset}")
-    public void getFollowers(@Path("offset") Long offset, @Path("userId") Long userId, @Query("key") String key, Callback<List<UserVMLite>> cb);
+    @GET("/api/get-followers/{id}/{offset}")
+    public void getFollowers(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<UserVMLite>> cb);
+
+    //
+    // Other feeds
+    //
+
+    @GET("/api/get-user-recommended-sellers/{id}/{offset}")
+    public void getUserRecommendedSellers(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<UserVMLite>> callback);
+
+    @GET("/api/get-suggested-products/{id}")
+    public void getSuggestedProducts(@Path("id") Long id, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     //
     // Category + post + comments

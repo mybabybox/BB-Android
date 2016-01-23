@@ -255,7 +255,9 @@ public class NewPostActivity extends TrackedFragmentActivity{
         // seller layout
 
         sellerLayout.setVisibility(View.GONE);
-        if (UserInfoCache.getUser().isAdmin() || UserInfoCache.getUser().isVerifiedSeller()) {
+        if (UserInfoCache.getUser().isAdmin() ||
+                UserInfoCache.getUser().isPromotedSeller() ||
+                UserInfoCache.getUser().isVerifiedSeller()) {
             sellerLayout.setVisibility(View.VISIBLE);
         }
 

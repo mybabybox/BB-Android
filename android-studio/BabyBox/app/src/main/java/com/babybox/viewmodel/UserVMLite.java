@@ -31,6 +31,7 @@ public class UserVMLite implements Serializable {
     public boolean isAdmin = false;
     public boolean isPromotedSeller = false;
     public boolean isVerifiedSeller = false;
+    public boolean isRecommendedSeller = false;
 
     public Long getId() {
         return id;
@@ -238,5 +239,13 @@ public class UserVMLite implements Serializable {
 
     public void setIsVerifiedSeller(boolean isVerifiedSeller) {
         this.isVerifiedSeller = isVerifiedSeller;
+    }
+
+    public boolean isRecommendedSeller() {
+        return isRecommendedSeller;
+    }
+
+    public void setIsRecommendedSeller(boolean isRecommendedSeller) {
+        this.isRecommendedSeller = isRecommendedSeller;
     }
 }

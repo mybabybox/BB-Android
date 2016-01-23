@@ -81,7 +81,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
     private TextView titleText, descText, priceText, originalPriceText, soldText, conditionText;
     private Button chatButton, buyButton, viewChatsButton, soldButton, soldViewChatsButton;
-    private LinearLayout likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, adminLayout;
+    private LinearLayout actionsLayout, likeLayout, buyerButtonsLayout, sellerButtonsLayout, buyerSoldButtonsLayout, sellerSoldButtonsLayout, adminLayout;
     private ImageView likeImage, freeDeliveryImage, countryImage;
     private TextView likeText, numLikesText;
 
@@ -152,6 +152,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
         conditionText = (TextView) findViewById(R.id.conditionText);
 
+        actionsLayout = (LinearLayout) findViewById(R.id.actionsLayout);
         likeLayout = (LinearLayout) findViewById(R.id.likeLayout);
         likeImage = (ImageView) findViewById(R.id.likeImage);
         likeText = (TextView) findViewById(R.id.likeText);
@@ -694,6 +695,7 @@ public class ProductActivity extends TrackedFragmentActivity {
     }
 
     private void initActionsLayout() {
+        actionsLayout.setVisibility(View.VISIBLE);
         if (post.isOwner()) {
             if (post.isSold()) {
                 buyerButtonsLayout.setVisibility(View.GONE);

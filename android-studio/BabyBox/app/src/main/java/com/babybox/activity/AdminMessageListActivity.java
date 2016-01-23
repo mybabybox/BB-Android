@@ -80,7 +80,7 @@ public class AdminMessageListActivity extends TrackedFragmentActivity {
         postTitleText.setText(conversation.getPostTitle());
         postPriceText.setText(ViewUtil.priceFormat(conversation.getPostPrice()));
         ImageUtil.displayPostImage(conversation.getPostImage(), postImage);
-        soldText.setVisibility(conversation.isPostSold() ? View.VISIBLE : View.INVISIBLE);
+        soldText.setVisibility(conversation.isPostSold() ? View.VISIBLE : View.GONE);
 
         listView.addHeaderView(listHeader);
         listHeader.setVisibility(View.INVISIBLE);
