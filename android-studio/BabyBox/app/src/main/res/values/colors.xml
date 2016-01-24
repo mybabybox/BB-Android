@@ -36,7 +36,7 @@
     <color name="main_menubar_bg">#FCFAF8</color>
     <color name="input_text">#111</color>
     <color name="view_bg">#F9F7F5</color>
-    <color name="feed_bg">#F9F7F5</color>
+    <color name="feed_bg">#f6f6f6</color>
     <color name="feed_item_bg">#ffffff</color>
     <color name="feed_item_border">#c2c3c8</color>
     <color name="like_blue">#3334FE</color>

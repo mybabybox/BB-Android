@@ -29,6 +29,7 @@ import org.acra.annotation.ReportsCrashes;
 
 import java.security.MessageDigest;
 
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
@@ -151,6 +152,8 @@ public class AppController extends Application {
 
     public void init() {
 
+        initVersion();
+
         initApiService();
 
         initStaticCaches();
@@ -160,16 +163,6 @@ public class AppController extends Application {
         //LocationUtil.getInstance().getLastKnownLocation(this);
 
         SharedPreferencesUtil.getInstance();
-
-        try {
-            PackageInfo packageInfo =
-                    getInstance().getPackageManager().getPackageInfo(getInstance().getPackageName(), 0);
-            versionCode = packageInfo.versionCode;
-            versionName = packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e(AppController.class.getSimpleName(), "Failed to get app version", e);
-            throw new RuntimeException(e);
-        }
 
         if (crashReportEnabled) {
             ACRA.init(getInstance());
@@ -183,24 +176,37 @@ public class AppController extends Application {
         return getInstance().getString(R.string.base_url);
     }
 
-    public static void initApiService() {
+    public void initVersion() {
+        try {
+            PackageInfo packageInfo =
+                    getInstance().getPackageManager().getPackageInfo(getInstance().getPackageName(), 0);
+            versionCode = packageInfo.versionCode;
+            versionName = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(TAG, "Failed to get app version", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void initApiService() {
         APP_NAME = getInstance().getString(R.string.app_name);
         BASE_URL = getBaseUrl();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(BASE_URL)
+                .setRequestInterceptor(new RetrofitInterceptor())
                 .setClient(new OkClient()).build();
         BabyBoxApi api = restAdapter.create(BabyBoxApi.class);
         apiService = new BabyBoxService(api);
     }
 
-    public static void initStaticCaches() {
+    public void initStaticCaches() {
         DistrictCache.refresh();
         CountryCache.refresh();
         CategoryCache.refresh();
     }
 
-    public static void initUserCaches() {
+    public void initUserCaches() {
         NotificationCounter.refresh();
         ConversationCache.refresh();
     }
@@ -230,7 +236,7 @@ public class AppController extends Application {
     }
 
     public void logout() {
-        Log.d(this.getClass().getSimpleName(), "logout");
+        Log.d(TAG, "logout");
 
         // clear session and exit
         AppController.getInstance().clearAll();
@@ -266,10 +272,25 @@ public class AppController extends Application {
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.d(this.getClass().getSimpleName(), "KeyHash - " + Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                Log.d(TAG, "KeyHash - " + Base64.encodeToString(md.digest(), Base64.DEFAULT));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "Failed to printKeyHashForFacebook", e);
         }
+    }
+
+    /**
+     * Append header user-agent to rest api.
+     */
+    public static class RetrofitInterceptor implements RequestInterceptor {
+
+        public final String USER_AGENT = String.format("Android App %s(%d)", getVersionName(), getVersionCode());
+
+        @Override
+        public void intercept(RequestFacade req) {
+            //Log.d(TAG, "User-Agent = " + USER_AGENT);
+            req.addHeader("User-Agent", USER_AGENT);
+        }
+
     }
 }
