@@ -23,6 +23,8 @@ public class AdminActivity extends TrackedFragmentActivity {
 
         setActionBarTitle(getString(R.string.admin));
 
+        setTracked(false);
+
         newUsersLayout = (LinearLayout) findViewById(R.id.newUsersLayout);
         latestLoginsLayout = (LinearLayout) findViewById(R.id.latestLoginsLayout);
         latestConversationsLayout = (LinearLayout) findViewById(R.id.latestConversationsLayout);

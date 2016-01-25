@@ -1,5 +1,6 @@
 package com.babybox.activity;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.BaseAdapter;
 
@@ -29,6 +30,13 @@ public class AdminNewUsersActivity extends AbstractListViewActivity {
     @Override
     protected String getNoItemText() {
         return getString(R.string.admin_new_users);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setTracked(false);
     }
 
     @Override

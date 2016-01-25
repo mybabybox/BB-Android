@@ -1,5 +1,6 @@
 package com.babybox.activity;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.BaseAdapter;
 
@@ -29,6 +30,13 @@ public class AdminConversationListActivity extends AbstractListViewActivity {
     @Override
     protected String getNoItemText() {
         return getString(R.string.admin_latest_conversations);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setTracked(false);
     }
 
     @Override

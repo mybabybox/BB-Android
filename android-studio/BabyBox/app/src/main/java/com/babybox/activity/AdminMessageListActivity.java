@@ -58,6 +58,8 @@ public class AdminMessageListActivity extends TrackedFragmentActivity {
 
         setContentView(R.layout.admin_message_list_activity);
 
+        setTracked(false);
+
         LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
         listHeader = layoutInflater.inflate(R.layout.message_list_header, null);
         loadMoreLayout = (RelativeLayout) listHeader.findViewById(R.id.loadMoreLayout);
