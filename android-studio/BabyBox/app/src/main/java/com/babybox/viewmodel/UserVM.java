@@ -41,6 +41,7 @@ public class UserVM extends UserVMLite {
                 "fbLogin=" + isFbLogin + "\n" +
                 "signupDate=" + new DateTime(createdDate) + "\n" +
                 "lastLogin=" + new DateTime(lastLogin) + "\n" +
+                "lastLoginUserAgent=" + lastLoginUserAgent + "\n" +
                 "totalLogin=" + totalLogin + "\n" +
                 "numLikes=" + numLikes + "\n" +
                 "numFollowers=" + numFollowers + "\n" +

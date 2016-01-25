@@ -21,6 +21,7 @@ public class UserVMLite implements Serializable {
     // admin readyonly fields
     public Long createdDate;
     public Long lastLogin;
+    public String lastLoginUserAgent;
     public Long totalLogin;
     public boolean isLoggedIn = false;
     public boolean isFbLogin = false;
@@ -155,6 +156,14 @@ public class UserVMLite implements Serializable {
 
     public Long getLastLogin() {
         return lastLogin;
+    }
+
+    public void setLastLoginUserAgent(String lastLoginUserAgent) {
+        this.lastLoginUserAgent = lastLoginUserAgent;
+    }
+
+    public String getLastLoginUserAgent() {
+        return lastLoginUserAgent;
     }
 
     public void setLastLogin(Long lastLogin) {

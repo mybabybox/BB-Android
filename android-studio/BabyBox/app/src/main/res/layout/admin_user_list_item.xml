@@ -88,6 +88,23 @@
             android:layout_marginTop="2dp">
 
             <TextView
+                android:id="@+id/lastLoginUserAgentText"
+                android:layout_width="wrap_content"
+                android:textColor="@color/gray"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="10"
+            android:layout_marginTop="2dp">
+
+            <TextView
                 android:id="@+id/userIdText"
                 android:layout_width="0dp"
                 android:textColor="@color/gray"

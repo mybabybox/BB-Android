@@ -21,6 +21,8 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.UserVMLite;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class AdminUserListAdapter extends BaseAdapter {
     private static final String TAG = AdminUserListAdapter.class.getName();
 
     private ImageView userImage;
-    private TextView userDisplayNameText, userNameText, userEmailText, userIdText, createdDateText, lastActiveText;
+    private TextView userDisplayNameText, userNameText, userEmailText, lastLoginUserAgentText, userIdText, createdDateText, lastActiveText;
     private Button deleteButton;
 
     private Activity activity;
@@ -77,6 +79,7 @@ public class AdminUserListAdapter extends BaseAdapter {
         userDisplayNameText = (TextView) convertView.findViewById(R.id.userDisplayNameText);
         userNameText = (TextView) convertView.findViewById(R.id.userNameText);
         userEmailText = (TextView) convertView.findViewById(R.id.userEmailText);
+        lastLoginUserAgentText = (TextView) convertView.findViewById(R.id.lastLoginUserAgentText);
         deleteButton = (Button) convertView.findViewById(R.id.deleteButton);
         userIdText = (TextView) convertView.findViewById(R.id.userIdText);
         createdDateText = (TextView) convertView.findViewById(R.id.createdDateText);
@@ -102,8 +105,15 @@ public class AdminUserListAdapter extends BaseAdapter {
             }
         });
 
-        userNameText.setText(item.getFirstName()+" "+item.getLastName());
+        userNameText.setText(item.getFirstName() + " " + item.getLastName());
         userEmailText.setText(item.getEmail());
+
+        if (!StringUtils.isEmpty(item.getLastLoginUserAgent())) {
+            lastLoginUserAgentText.setVisibility(View.VISIBLE);
+            lastLoginUserAgentText.setText("[ "+item.getLastLoginUserAgent()+" ]");
+        } else {
+            lastLoginUserAgentText.setVisibility(View.GONE);
+        }
 
         // delete account
         deleteButton.setOnClickListener(new View.OnClickListener() {
