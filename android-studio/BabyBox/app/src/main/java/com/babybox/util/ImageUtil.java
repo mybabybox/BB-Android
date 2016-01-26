@@ -67,7 +67,7 @@ public class ImageUtil {
             new ImageCircleTransform(AppController.getInstance());
 
     private static ImageRoundedTransform roundedTransform =
-            new ImageRoundedTransform(AppController.getInstance(), DefaultValues.IMAGE_ROUNDED_RADIUS, 3);
+            new ImageRoundedTransform(AppController.getInstance(), DefaultValues.IMAGE_ROUNDED_RADIUS, 0);
 
     private static String stringSignature = AppController.getVersionCode()+"";  // default no signature
 
@@ -269,7 +269,7 @@ public class ImageUtil {
                 .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.img_loading)
                 .error(R.drawable.img_loading)
-                .crossFade(300);
+                .crossFade(150);
 
         displayImage(builder, imageView, listener, centerCrop, noCache, null);
     }
@@ -301,7 +301,8 @@ public class ImageUtil {
                 .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.img_loading)
                 .error(R.drawable.img_loading)
-                .dontAnimate();
+                .crossFade(150);
+                //.dontAnimate();
 
         displayImage(builder, imageView, listener, centerCrop, noCache, circleTransform);
     }
@@ -333,7 +334,7 @@ public class ImageUtil {
                 .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.img_loading)
                 .error(R.drawable.img_loading)
-                .dontAnimate();
+                .crossFade(150);
 
         displayImage(builder, imageView, listener, centerCrop, noCache, roundedTransform);
     }

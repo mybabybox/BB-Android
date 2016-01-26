@@ -1,6 +1,7 @@
 package com.babybox.adapter;
 
 import android.app.Activity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -119,6 +120,8 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         if (item.getImages() != null && item.getImages().length != 0) {
             loadImage(item.getImages()[0], holder.image);
         }
+
+        //holder.itemCard.setPreventCornerOverlap(false);
 
         if (showSeller) {
             ImageUtil.displayThumbnailProfileImage(item.getOwnerId(), holder.sellerImage);
@@ -269,6 +272,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
      * View item.
      */
     class FeedViewHolder extends RecyclerView.ViewHolder {
+        CardView itemCard;
         LinearLayout itemLayout;
         ImageView image;
         ImageView sellerImage;
@@ -286,6 +290,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
         public FeedViewHolder(View holder) {
             super(holder);
 
+            itemCard = (CardView) holder.findViewById(R.id.itemCard);
             itemLayout = (LinearLayout) holder.findViewById(R.id.itemLayout);
             image = (ImageView) holder.findViewById(R.id.image);
             sellerImage = (ImageView) holder.findViewById(R.id.sellerImage);

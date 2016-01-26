@@ -53,7 +53,7 @@ public class DefaultValues {
     public static final int MAX_POST_IMAGE_DIMENSION = 100;
     public static final int LATEST_COMMENTS_COUNT = 3;
 
-    public static final int IMAGE_ROUNDED_RADIUS = 25;
+    public static final int IMAGE_ROUNDED_RADIUS = 15;
     public static final int IMAGE_CIRCLE_RADIUS = 120;
 
     public static final int NEW_POST_DAYS_AGO = 3;

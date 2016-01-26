@@ -1,10 +1,15 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemCard"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="0.0dp"
-    card_view:cardElevation="1.2dp">
+    card_view:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="true"
+    card_view:contentPadding="0dp"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="1.5dp"
+    card_view:cardMaxElevation="1.5dp">
 
     <LinearLayout
         android:id="@+id/itemLayout"
@@ -34,7 +39,7 @@
                 android:scaleType="fitCenter"
                 android:layout_margin="3dp"
                 android:layout_gravity="bottom|left"
-                android:alpha="0.75"
+                android:alpha="0.85"
                 android:background="@drawable/thumb_circle"
                 android:padding="3dp"
                 android:visibility="invisible" />
