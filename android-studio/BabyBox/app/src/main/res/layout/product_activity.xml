@@ -355,7 +355,7 @@
                                 <ImageView
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
-                                    android:src="@drawable/view"
+                                    android:src="@drawable/ic_view"
                                     android:layout_gravity="center_vertical"
                                     android:layout_centerVertical="true"
                                     android:layout_marginLeft="10dp" />
