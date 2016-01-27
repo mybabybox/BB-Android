@@ -48,6 +48,8 @@ public class ImageUtil {
 
     public static final int IMAGE_COMPRESS_QUALITY = 80;
 
+    public static final int IMAGE_DISPLAY_CROSS_FADE_DURATION = 200;
+
     private static final String COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-cover-image-by-id/";
     private static final String THUMBNAIL_COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-cover-image-by-id/";
     private static final String PROFILE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-profile-image-by-id/";
@@ -269,7 +271,7 @@ public class ImageUtil {
                 .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.img_loading)
                 .error(R.drawable.img_loading)
-                .crossFade(150);
+                .crossFade(IMAGE_DISPLAY_CROSS_FADE_DURATION);
 
         displayImage(builder, imageView, listener, centerCrop, noCache, null);
     }
@@ -301,7 +303,7 @@ public class ImageUtil {
                 .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.img_loading)
                 .error(R.drawable.img_loading)
-                .crossFade(150);
+                .crossFade(IMAGE_DISPLAY_CROSS_FADE_DURATION);
                 //.dontAnimate();
 
         displayImage(builder, imageView, listener, centerCrop, noCache, circleTransform);
@@ -334,7 +336,7 @@ public class ImageUtil {
                 .signature(new StringSignature(stringSignature))
                 .placeholder(R.drawable.img_loading)
                 .error(R.drawable.img_loading)
-                .crossFade(150);
+                .crossFade(IMAGE_DISPLAY_CROSS_FADE_DURATION);
 
         displayImage(builder, imageView, listener, centerCrop, noCache, roundedTransform);
     }
