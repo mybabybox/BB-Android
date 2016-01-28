@@ -45,7 +45,7 @@ public class UrlUtil {
     }
 
     public static String getFullUrl(String url) {
-        if (!url.startsWith(AppController.BASE_URL)) {
+        if (!url.startsWith("http")) {      // !url.startsWith(AppController.BASE_URL)) {
             url = AppController.BASE_URL + url;
         }
         return url;
