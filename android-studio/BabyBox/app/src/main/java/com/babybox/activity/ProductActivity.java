@@ -226,6 +226,9 @@ public class ProductActivity extends TrackedFragmentActivity {
         });
 
         postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
+        if(postId == 0 && getIntent().getData() != null){
+            postId = Long.parseLong(getIntent().getData().getLastPathSegment());
+        }
 
         getProduct(postId);
         getSuggestedProducts(postId);
