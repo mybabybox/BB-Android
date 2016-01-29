@@ -103,7 +103,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.ProductActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="www.baby-box.hk" />
+        </intent-filter>
+        </activity>
+
         <activity
             android:name="com.babybox.activity.FullscreenImageActivity"
             android:screenOrientation="portrait" />
