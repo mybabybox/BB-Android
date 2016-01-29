@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,8 +24,8 @@ import retrofit.client.Response;
 /**
  * Created by User on 08-01-2016.
  */
-public class ReportActivity extends TrackedFragmentActivity {
-    private static final String TAG = ReportActivity.class.getName();
+public class ReportPostActivity extends TrackedFragmentActivity {
+    private static final String TAG = ReportPostActivity.class.getName();
 
     private ImageView backImage;
     private ImageView image1, image2, image3, image4, image5, image6;
@@ -37,7 +35,7 @@ public class ReportActivity extends TrackedFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.report_activity);
+        setContentView(R.layout.report_post_activity);
 
         backImage = (ImageView) findViewById(R.id.backImage);
         image1 = (ImageView) findViewById(R.id.image1);
@@ -72,8 +70,8 @@ public class ReportActivity extends TrackedFragmentActivity {
     private View.OnClickListener reportListener = new View.OnClickListener() {
         @Override
         public void onClick(final View v) {
-            final EditText editText = new EditText(ReportActivity.this);
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ReportActivity.this);
+            final EditText editText = new EditText(ReportPostActivity.this);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ReportPostActivity.this);
 
             if (v.getId() == R.id.image6) {
                 alertDialogBuilder.setMessage(getString(R.string.report_post_other_title));
@@ -97,7 +95,7 @@ public class ReportActivity extends TrackedFragmentActivity {
                     if (editText.isShown()) {
                         body = editText.getText().toString();
                         if (body.trim().isEmpty()) {
-                            Toast.makeText(ReportActivity.this, ReportActivity.this.getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReportPostActivity.this, ReportPostActivity.this.getString(R.string.invalid_post_desc_empty), Toast.LENGTH_SHORT).show();
                             return;
                         }
                     }
@@ -169,14 +167,14 @@ public class ReportActivity extends TrackedFragmentActivity {
                     @Override
                     public void success(Response responseObject, Response response) {
                         finish();
-                        Toast.makeText(ReportActivity.this, ReportActivity.this.getString(R.string.report_post_success), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReportPostActivity.this, ReportPostActivity.this.getString(R.string.report_post_success), Toast.LENGTH_SHORT).show();
                         stopSpinner();
                         Log.d(TAG, "api.reportPost success");
                     }
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Toast.makeText(ReportActivity.this, ReportActivity.this.getString(R.string.report_post_failed), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReportPostActivity.this, ReportPostActivity.this.getString(R.string.report_post_failed), Toast.LENGTH_SHORT).show();
                         stopSpinner();
                         Log.e(TAG, "reportPost: failure", error);
                     }

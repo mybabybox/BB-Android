@@ -134,7 +134,7 @@ public class ConversationListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 item.unread = 0L;   // reset unread count
-                ViewUtil.startMessageListActivity(activity, item.id, false);
+                ViewUtil.startMessageListActivity(activity, item.id, false, -1L);
             }
         });
         */

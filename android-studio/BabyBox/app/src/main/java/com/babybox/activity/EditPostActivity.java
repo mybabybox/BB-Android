@@ -54,7 +54,9 @@ public class EditPostActivity extends NewPostActivity {
                 initCategoryLayout(CategoryCache.getCategory(post.getCategoryId()));
 
                 // seller
-                originalPriceEdit.setText((int) post.getOriginalPrice() + "");
+                if (post.getOriginalPrice() > 0) {
+                    originalPriceEdit.setText((int) post.getOriginalPrice() + "");
+                }
                 freeDeliveryCheckBox.setChecked(post.isFreeDelivery());
                 setCountrySpinner(post.countryCode);
 

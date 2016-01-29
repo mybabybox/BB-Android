@@ -22,6 +22,7 @@ import android.os.Parcelable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.InputType;
 import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -41,12 +42,14 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.activity.AdminActivity;
@@ -615,6 +618,51 @@ public class ViewUtil {
         }
     }
 
+    public static EditText createPriceEditText(Activity activity, String priceValue) {
+        final EditText editText = new EditText(activity);
+        //editText.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 100));
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        editText.setGravity(Gravity.CENTER_HORIZONTAL);
+        editText.setSingleLine(true);
+        editText.setTextSize(18);
+        editText.setText(priceValue);
+        editText.setHint(priceValue);
+        editText.setSelection(priceValue.length());
+        return editText;
+    }
+
+    public static EditText initOfferPriceAlertLayout(Activity activity, long price, AlertDialog.Builder alertDialogBuilder) {
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View layout = inflater.inflate(R.layout.offer_price_popup_window, (ViewGroup) activity.findViewById(R.id.popupElement));
+        final EditText priceEdit = (EditText) layout.findViewById(R.id.priceEdit);
+        priceEdit.setText(price + "");
+        priceEdit.setHint(price + "");
+        priceEdit.setSelection(priceEdit.length());
+        alertDialogBuilder.setView(layout);
+        return priceEdit;
+    }
+
+    public static long validateAndGetPriceFromInput(Activity activity, TextView textView) {
+        String value = textView.getText().toString().trim();
+        if (StringUtils.isEmpty(value)) {
+            Toast.makeText(activity, activity.getString(R.string.invalid_post_price_empty), Toast.LENGTH_SHORT).show();
+            return -1L;
+        }
+
+        Long price = -1L;
+        try {
+            price = Long.valueOf(value);
+            if (price < 0) {
+                Toast.makeText(activity, activity.getString(R.string.invalid_post_price_negative), Toast.LENGTH_SHORT).show();
+                return -1L;
+            }
+            return price;
+        } catch (NumberFormatException e) {
+            Toast.makeText(activity, activity.getString(R.string.invalid_post_price_not_number), Toast.LENGTH_SHORT).show();
+            return -1L;
+        }
+    }
+
     public static void strikeText(TextView textView) {
         textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
@@ -1058,7 +1106,7 @@ public class ViewUtil {
 
     public static void startSignupDetailActivity(Activity activity, String username) {
         Intent intent = new Intent(activity, SignupDetailActivity.class);
-        intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, username);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_NAME, username);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivity(intent);
     }
@@ -1167,10 +1215,15 @@ public class ViewUtil {
         activity.startActivity(intent);
     }
 
-    public static void startMessageListActivity(Activity activity, ConversationVM conversation, boolean buy) {
+    public static void startMessageListActivity(Activity activity, ConversationVM conversation) {
+        startMessageListActivity(activity, conversation, false, -1L);
+    }
+
+    public static void startMessageListActivity(Activity activity, ConversationVM conversation, boolean buy, long offeredPrice) {
         Intent intent = new Intent(activity, MessageListActivity.class);
         intent.putExtra(ViewUtil.BUNDLE_KEY_OBJECT, conversation);
         intent.putExtra(ViewUtil.BUNDLE_KEY_ARG1, buy);
+        intent.putExtra(ViewUtil.BUNDLE_KEY_ARG2, offeredPrice);
         intent.putExtra(ViewUtil.BUNDLE_KEY_SOURCE, activity.getClass().getSimpleName());
         activity.startActivityForResult(intent, START_ACTIVITY_REQUEST_CODE);
     }

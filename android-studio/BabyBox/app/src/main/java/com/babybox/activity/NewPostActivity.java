@@ -400,8 +400,6 @@ public class NewPostActivity extends TrackedFragmentActivity{
         String title = titleEdit.getText().toString().trim();
         String body = descEdit.getText().toString().trim();
         String priceValue = priceEdit.getText().toString().trim();
-        String originalPriceValue = originalPriceEdit.getText().toString().trim();
-        Boolean freeDelivery = freeDeliveryCheckBox.isChecked();
 
         if (StringUtils.isEmpty(title)) {
             Toast.makeText(this, getString(R.string.invalid_post_title_empty), Toast.LENGTH_SHORT).show();
@@ -441,25 +439,32 @@ public class NewPostActivity extends TrackedFragmentActivity{
         }
 
         Long originalPrice = -1L;
-        try {
-            originalPrice = Long.valueOf(originalPriceValue);
-            if (price < 0) {
-                Toast.makeText(this, getString(R.string.invalid_post_price_negative), Toast.LENGTH_SHORT).show();
-                return null;
-            } else if (originalPrice <= price) {
-                Toast.makeText(this, getString(R.string.invalid_post_original_price_less_than_price), Toast.LENGTH_SHORT).show();
-                return null;
-            }
-        } catch (NumberFormatException e) {
-        }
-
-        if (freeDelivery == null) {
-            freeDelivery = false;
-        }
-
+        Boolean freeDelivery = false;
         String countryCode = "";
-        if (country != null) {
-            countryCode = country.code;
+        if (UserInfoCache.getUser().isAdmin() ||
+                UserInfoCache.getUser().isPromotedSeller() ||
+                UserInfoCache.getUser().isVerifiedSeller()) {
+            try {
+                String originalPriceValue = originalPriceEdit.getText().toString().trim();
+                originalPrice = Long.valueOf(originalPriceValue);
+                if (price < 0) {
+                    Toast.makeText(this, getString(R.string.invalid_post_price_negative), Toast.LENGTH_SHORT).show();
+                    return null;
+                } else if (originalPrice <= price) {
+                    Toast.makeText(this, getString(R.string.invalid_post_original_price_less_than_price), Toast.LENGTH_SHORT).show();
+                    return null;
+                }
+            } catch (NumberFormatException e) {
+            }
+
+            freeDelivery = freeDeliveryCheckBox.isChecked();
+            if (freeDelivery == null) {
+                freeDelivery = false;
+            }
+
+            if (country != null) {
+                countryCode = country.code;
+            }
         }
 
         NewPostVM newPost = new NewPostVM(

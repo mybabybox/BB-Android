@@ -136,7 +136,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ConversationVM conversation = adapter.getItem(i);
                 conversation.unread = 0L;
-                ViewUtil.startMessageListActivity(ConversationListActivity.this, conversation, false);
+                ViewUtil.startMessageListActivity(ConversationListActivity.this, conversation);
             }
         });
 

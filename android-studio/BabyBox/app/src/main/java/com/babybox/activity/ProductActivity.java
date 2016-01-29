@@ -357,7 +357,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     }
                 });
 
-                numLikesText.setText(post.numLikes+"");
+                numLikesText.setText(post.numLikes + "");
 
                 // seller
 
@@ -369,7 +369,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     originalPriceText.setVisibility(View.GONE);
                 }
 
-                freeDeliveryImage.setVisibility(post.isFreeDelivery()? View.VISIBLE : View.GONE);
+                freeDeliveryImage.setVisibility(post.isFreeDelivery() ? View.VISIBLE : View.GONE);
 
                 if (!StringUtils.isEmpty(post.countryCode) &&
                         !post.countryCode.equalsIgnoreCase(CountryCache.COUNTRY_CODE_NA)) {
@@ -422,19 +422,24 @@ public class ProductActivity extends TrackedFragmentActivity {
                 chatButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        openConversation(post.id, false);
+                        openConversation(post.id);
                     }
                 });
 
                 buyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        final long price = (long) post.price;
+
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProductActivity.this);
-                        alertDialogBuilder.setMessage(getString(R.string.pm_buy_confirm));
+                        final EditText priceEdit = ViewUtil.initOfferPriceAlertLayout(ProductActivity.this, price, alertDialogBuilder);
                         alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                openConversation(post.id, true);
+                                long offeredPrice = ViewUtil.validateAndGetPriceFromInput(ProductActivity.this, priceEdit);
+                                if (offeredPrice != -1L) {
+                                    openConversation(post.id, true, offeredPrice);
+                                }
                             }
                         });
                         alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -593,7 +598,7 @@ public class ProductActivity extends TrackedFragmentActivity {
 
                 // admin
 
-                adminLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
+                adminLayout.setVisibility(AppController.isUserAdmin() ? View.VISIBLE : View.GONE);
                 if (UserInfoCache.getUser().isAdmin()) {
                     TextView idText = (TextView) findViewById(R.id.idText);
                     TextView numViewsText = (TextView) findViewById(R.id.numViewsText);
@@ -602,9 +607,9 @@ public class ProductActivity extends TrackedFragmentActivity {
                     ImageView downImage = (ImageView) findViewById(R.id.downImage);
                     ImageView resetImage = (ImageView) findViewById(R.id.resetImage);
 
-                    idText.setText(post.id+"");
+                    idText.setText(post.id + "");
                     numViewsText.setText(post.getNumViews() + "");
-                    scoreText.setText(post.timeScore+"");
+                    scoreText.setText(post.timeScore + "");
 
                     upImage.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -728,12 +733,16 @@ public class ProductActivity extends TrackedFragmentActivity {
         setResult(RESULT_OK, intent);
     }
 
-    private void openConversation(final Long postId, final boolean buy) {
+    private void openConversation(final Long postId) {
+        openConversation(postId, false, -1L);
+    }
+
+    private void openConversation(final Long postId, final boolean buy, final long offeredPrice) {
         ConversationCache.open(postId, new Callback<ConversationVM>() {
             @Override
             public void success(ConversationVM vm, Response response) {
                 if (vm != null) {
-                    ViewUtil.startMessageListActivity(ProductActivity.this, vm, buy);
+                    ViewUtil.startMessageListActivity(ProductActivity.this, vm, buy, offeredPrice);
                 } else {
                     Toast.makeText(ProductActivity.this, getString(R.string.pm_start_failed), Toast.LENGTH_SHORT).show();
                 }
@@ -841,7 +850,7 @@ public class ProductActivity extends TrackedFragmentActivity {
         reportText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent reportActivity = new Intent(ProductActivity.this, ReportActivity.class);
+                Intent reportActivity = new Intent(ProductActivity.this, ReportPostActivity.class);
                 reportActivity.putExtra(ViewUtil.BUNDLE_KEY_ID, postId);
                 startActivity(reportActivity);
             }

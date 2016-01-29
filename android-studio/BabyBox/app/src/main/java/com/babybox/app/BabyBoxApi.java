@@ -13,6 +13,7 @@ import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
+import com.babybox.viewmodel.NewConversationOrderVM;
 import com.babybox.viewmodel.NewReportedPostVM;
 import com.babybox.viewmodel.NotificationCounterVM;
 import com.babybox.viewmodel.PostVM;
@@ -261,6 +262,9 @@ public interface BabyBoxApi {
     //
     // Conversation Order
     //
+
+    @POST("/api/conversation-order/new")
+    public void newConversationOrder(@Body NewConversationOrderVM newConversationOrder, @Query("key") String key, Callback<ConversationOrderVM> cb);
 
     @GET("/api/conversation-order/new/{conversationId}")
     public void newConversationOrder(@Path("conversationId") Long conversationId, @Query("key") String key, Callback<ConversationOrderVM> cb);

@@ -103,7 +103,8 @@
                 android:src="@drawable/ic_menu_more"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="5dp"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:visibility="gone" />
 
         </LinearLayout>
 
