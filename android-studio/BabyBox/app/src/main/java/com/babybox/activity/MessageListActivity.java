@@ -43,6 +43,7 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationOrderVM;
 import com.babybox.viewmodel.ConversationVM;
 import com.babybox.viewmodel.MessageVM;
+import com.babybox.viewmodel.NewConversationOrderVM;
 import com.babybox.viewmodel.NewMessageVM;
 
 import org.json.JSONArray;
@@ -230,18 +231,21 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 buyerOrderButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        final long price = (long) conversation.getPostPrice();
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MessageListActivity.this);
-                        alertDialogBuilder.setMessage(getString(R.string.pm_order_buy_confirm));
+                        final EditText priceEdit = ViewUtil.initOfferPriceAlertLayout(MessageListActivity.this, price, alertDialogBuilder);
                         alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                doBuyerOrder(conversation);
+                                long offeredPrice = ViewUtil.validateAndGetPriceFromInput(MessageListActivity.this, priceEdit);
+                                if (offeredPrice != -1L) {
+                                    doBuyerOrder(conversation, offeredPrice);
+                                }
                             }
                         });
                         alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                             }
                         });
                         AlertDialog alertDialog = alertDialogBuilder.create();
@@ -292,18 +296,21 @@ public class MessageListActivity extends TrackedFragmentActivity {
             buyerOrderAgainButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    final long price = (long) conversation.getPostPrice();
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MessageListActivity.this);
-                    alertDialogBuilder.setMessage(getString(R.string.pm_order_buy_confirm));
+                    final EditText priceEdit = ViewUtil.initOfferPriceAlertLayout(MessageListActivity.this, price, alertDialogBuilder);
                     alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            doBuyerOrder(conversation);
+                            long offeredPrice = ViewUtil.validateAndGetPriceFromInput(MessageListActivity.this, priceEdit);
+                            if (offeredPrice != -1L) {
+                                doBuyerOrder(conversation, offeredPrice);
+                            }
                         }
                     });
                     alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
                         }
                     });
                     AlertDialog alertDialog = alertDialogBuilder.create();
@@ -614,7 +621,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         return null;
     }
 
-    private void doBuyerOrder(final ConversationVM conversation) {
+    private void doBuyerOrder(final ConversationVM conversation, final long offeredPrice) {
         ConversationOrderVM order = conversation.getOrder();
         if (order != null && !order.closed) {
             Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_already), Toast.LENGTH_SHORT).show();
@@ -626,8 +633,9 @@ public class MessageListActivity extends TrackedFragmentActivity {
         }
 
         pendingOrder = true;
-        doMessage(getString(R.string.pm_buy_message), true);
-        AppController.getApiService().newConversationOrder(conversation.id, new Callback<ConversationOrderVM>() {
+        doMessage(getString(R.string.pm_buy_message)+": $"+offeredPrice, true);
+        final NewConversationOrderVM newConversationOrder = new NewConversationOrderVM(conversation.id, offeredPrice);
+        AppController.getApiService().newConversationOrder(newConversationOrder, new Callback<ConversationOrderVM>() {
             @Override
             public void success(ConversationOrderVM order, Response response) {
                 ConversationVM updatedConversation = ConversationCache.updateConversationOrder(conversation.id, order);
@@ -672,7 +680,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doBuyerOrder.api.cancelConversationOrder: failed with error", error);
+                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doBuyerCancel.api.cancelConversationOrder: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_failed), Toast.LENGTH_SHORT).show();
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -705,7 +713,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doBuyerOrder.api.acceptConversationOrder: failed with error", error);
+                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doSellerAccept.api.acceptConversationOrder: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_failed), Toast.LENGTH_SHORT).show();
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -738,7 +746,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doBuyerOrder.api.declineConversationOrder: failed with error", error);
+                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doSellerDecline.api.declineConversationOrder: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_failed), Toast.LENGTH_SHORT).show();
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -842,8 +850,9 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
                 // send a buy message to seller
                 boolean buy = getIntent().getBooleanExtra(ViewUtil.BUNDLE_KEY_ARG1, false);
+                long offeredPrice = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ARG2, (long) conversation.getPostPrice());
                 if (buy) {
-                    doBuyerOrder(conversation);
+                    doBuyerOrder(conversation, offeredPrice);
                 }
 
                 ViewUtil.stopSpinner(MessageListActivity.this);

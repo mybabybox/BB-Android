@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 public class ConversationOrderVM implements Serializable, Comparable<ConversationOrderVM> {
     public Long id;
+    public Long createdDate;
+    public Long updatedDate;
     public Long conversationId;
     public Long userId;
     public String userName;
-    public Long createdDate;
-    public Long updatedDate;
+    public Double offeredPrice;
     public boolean cancelled;
     public Long cancelDate;
     public boolean accepted;
@@ -34,6 +35,22 @@ public class ConversationOrderVM implements Serializable, Comparable<Conversatio
         this.conversationId = conversationId;
     }
 
+    public Long getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Long createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Long getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Long updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -50,20 +67,12 @@ public class ConversationOrderVM implements Serializable, Comparable<Conversatio
         this.userName = userName;
     }
 
-    public Long getCreatedDate() {
-        return createdDate;
+    public double getOfferedPrice() {
+        return offeredPrice;
     }
 
-    public void setCreatedDate(Long createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public Long getUpdatedDate() {
-        return updatedDate;
-    }
-
-    public void setUpdatedDate(Long updatedDate) {
-        this.updatedDate = updatedDate;
+    public void setOfferedPrice(double offeredPrice) {
+        this.offeredPrice = offeredPrice;
     }
 
     public boolean isCancelled() {

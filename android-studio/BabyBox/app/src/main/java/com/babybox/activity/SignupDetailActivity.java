@@ -142,7 +142,7 @@ public class SignupDetailActivity extends TrackedFragmentActivity {
         babySpinner = (Spinner) findViewById(R.id.babySpinner);
         babySpinner.setAdapter(babyAdapter);
 
-        //titleText.setText(getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_ARG1) + " " + getString(R.string.signup_details_greeting));
+        //titleText.setText(getIntent().getStringExtra(ViewUtil.BUNDLE_KEY_NAME) + " " + getString(R.string.signup_details_greeting));
 
         parentType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

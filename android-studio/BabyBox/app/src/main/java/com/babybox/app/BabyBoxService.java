@@ -13,6 +13,7 @@ import com.babybox.viewmodel.GameBadgeVM;
 import com.babybox.viewmodel.LocationVM;
 import com.babybox.viewmodel.MessageVM;
 import com.babybox.viewmodel.NewCommentVM;
+import com.babybox.viewmodel.NewConversationOrderVM;
 import com.babybox.viewmodel.NewMessageVM;
 import com.babybox.viewmodel.NewPostVM;
 import com.babybox.viewmodel.NewReportedPostVM;
@@ -286,6 +287,10 @@ public class BabyBoxService {
     }
 
     // conversation order
+
+    public void newConversationOrder(NewConversationOrderVM newConversationOrder, Callback<ConversationOrderVM> cb) {
+        api.newConversationOrder(newConversationOrder, AppController.getInstance().getSessionId(), cb);
+    }
 
     public void newConversationOrder(Long conversationId, Callback<ConversationOrderVM> cb) {
         api.newConversationOrder(conversationId, AppController.getInstance().getSessionId(), cb);

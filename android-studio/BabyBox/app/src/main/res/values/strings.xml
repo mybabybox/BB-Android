@@ -5,7 +5,7 @@
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
     <string name="base_url"></string>
-    <string name="base_url_dev">http://192.168.1.146:9000</string>
+    <string name="base_url_dev">http://192.168.1.131:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">對不起！BabyBox 發生問題要退出</string>
@@ -262,12 +262,11 @@
     <string name="pm_buy">買</string>
     <string name="pm_sell">賣</string>
     <string name="pm_sold">已售</string>
-    <string name="pm_buy_confirm">購買商品\n現在聯絡賣家</string>
 
-    <string name="pm_buy_message">你好！我要購買商品。</string>
-    <string name="pm_cancelled_message">購買已取消。</string>
-    <string name="pm_accepted_message">購買已被接受。</string>
-    <string name="pm_declined_message">購買不被接受。</string>
+    <string name="pm_buy_message">我要購買商品</string>
+    <string name="pm_cancelled_message">購買已取消</string>
+    <string name="pm_accepted_message">購買已被接受</string>
+    <string name="pm_declined_message">購買不被接受</string>
 
     <string name="pm_order_buy_text">有興趣？</string>
     <string name="pm_order_buy">購買商品</string>
@@ -285,7 +284,7 @@
     <string name="pm_order_failed">暫時不能購買，請稍後重試</string>
     <string name="pm_order_already">你已發出購買訂單，請等待回覆或聯絡賣家</string>
     <string name="pm_order_already_closed">購買訂單已完成，如有問題請聯絡賣家</string>
-    <string name="pm_order_buy_confirm">購買商品\n現在發訊息給賣家</string>
+    <string name="pm_order_buy_confirm">購買商品\n出價給賣家</string>
     <string name="pm_order_cancel_confirm">取消購買商品?</string>
     <string name="pm_order_accept_confirm">接受購買?</string>
     <string name="pm_order_decline_confirm">不接受購買?</string>

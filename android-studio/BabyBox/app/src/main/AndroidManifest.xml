@@ -156,7 +156,7 @@
             android:name=".activity.AdminMessageListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.babybox.activity.ReportActivity"
+            android:name=".activity.ReportPostActivity"
             android:screenOrientation="portrait" />
 
         <activity android:name="com.facebook.FacebookActivity"

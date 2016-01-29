@@ -7,7 +7,7 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
     public Long postId;
     public Long postImage;
     public String postTitle;
-    public Long postPrice;
+    public double postPrice;
     public boolean postOwner;
     public boolean postSold;
     public Long userId;
@@ -55,11 +55,11 @@ public class ConversationVM implements Serializable, Comparable<ConversationVM> 
         this.postTitle = postTitle;
     }
 
-    public Long getPostPrice() {
+    public double getPostPrice() {
         return postPrice;
     }
 
-    public void setPostPrice(Long postPrice) {
+    public void setPostPrice(double postPrice) {
         this.postPrice = postPrice;
     }
 
