@@ -144,7 +144,7 @@ public class FeedViewAdapter extends RecyclerView.Adapter<FeedViewAdapter.FeedVi
             holder.countryImage.setVisibility(View.GONE);
         }
 
-        if (UserInfoCache.getUser().isAdmin()) {
+        if (AppController.isUserAdmin()) {
             holder.timeScoreText.setVisibility(View.VISIBLE);
             holder.timeScoreText.setText(item.getTimeScore()+"");
         } else {

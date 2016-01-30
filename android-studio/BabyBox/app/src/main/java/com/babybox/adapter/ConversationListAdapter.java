@@ -186,7 +186,7 @@ public class ConversationListAdapter extends BaseAdapter {
         // seller admin
 
         //Log.d(TAG, "post="+item.getLastMessage()+" owner="+item.postOwner);
-        if (item.postOwner && UserInfoCache.getUser().isAdmin()) {
+        if (item.postOwner && AppController.isUserAdmin()) {
             sellerAdminLayout.setVisibility(View.VISIBLE);
 
             initColorSpinner(item);

@@ -145,8 +145,8 @@ public class SettingsActivity extends TrackedFragmentActivity {
         });
 
         // admin
-        adminLayout.setVisibility(UserInfoCache.getUser().isAdmin()? View.VISIBLE : View.GONE);
-        if (UserInfoCache.getUser().isAdmin()) {
+        adminLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
+        if (AppController.isUserAdmin()) {
             adminLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

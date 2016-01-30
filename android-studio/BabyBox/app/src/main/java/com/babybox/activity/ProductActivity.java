@@ -602,7 +602,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                 // admin
 
                 adminLayout.setVisibility(AppController.isUserAdmin() ? View.VISIBLE : View.GONE);
-                if (UserInfoCache.getUser().isAdmin()) {
+                if (AppController.isUserAdmin()) {
                     TextView idText = (TextView) findViewById(R.id.idText);
                     TextView numViewsText = (TextView) findViewById(R.id.numViewsText);
                     TextView scoreText = (TextView) findViewById(R.id.scoreText);

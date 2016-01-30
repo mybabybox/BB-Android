@@ -255,7 +255,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         // seller layout
 
         sellerLayout.setVisibility(View.GONE);
-        if (UserInfoCache.getUser().isAdmin() ||
+        if (AppController.isUserAdmin() ||
                 UserInfoCache.getUser().isPromotedSeller() ||
                 UserInfoCache.getUser().isVerifiedSeller()) {
             sellerLayout.setVisibility(View.VISIBLE);
@@ -441,7 +441,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         Long originalPrice = -1L;
         Boolean freeDelivery = false;
         String countryCode = "";
-        if (UserInfoCache.getUser().isAdmin() ||
+        if (AppController.isUserAdmin() ||
                 UserInfoCache.getUser().isPromotedSeller() ||
                 UserInfoCache.getUser().isVerifiedSeller()) {
             try {

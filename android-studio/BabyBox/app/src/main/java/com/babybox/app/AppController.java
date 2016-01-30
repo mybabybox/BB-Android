@@ -103,11 +103,17 @@ public class AppController extends Application {
     }
 
     public static synchronized boolean isUserAdmin() {
-        return UserInfoCache.getUser().isAdmin();
+        if (UserInfoCache.getUser() != null) {
+            return UserInfoCache.getUser().isAdmin();
+        }
+        return false;
     }
 
     public static synchronized LocationVM getUserLocation() {
-        return UserInfoCache.getUser().getLocation();
+        if (UserInfoCache.getUser() != null) {
+            return UserInfoCache.getUser().getLocation();
+        }
+        return null;
     }
 
     /**

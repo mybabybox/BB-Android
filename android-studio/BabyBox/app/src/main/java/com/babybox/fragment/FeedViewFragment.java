@@ -44,7 +44,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
             public void failure(RetrofitError error) {
                 //setFooterText(R.string.list_loading_error);
                 String msg = getActivity().getString(R.string.list_loading_error);
-                if (UserInfoCache.getUser().isAdmin()) {
+                if (AppController.isUserAdmin()) {
                     msg += "\n[FeedFilter]\n"+
                             getFeedFilter().toString()+"\n[Error]\n"+
                             ViewUtil.getResponseBody(error.getResponse());
