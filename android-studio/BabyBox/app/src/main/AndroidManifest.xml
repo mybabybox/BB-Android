@@ -48,14 +48,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
-                <category android:name="android.intent.category.BROWSABLE"></category>
-                <data android:scheme="www"></data>
-            </intent-filter>
-
         </activity>
         <activity
             android:name="com.babybox.activity.WelcomeActivity"
@@ -91,7 +83,17 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.babybox.activity.CategoryActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="www.baby-box.hk" android:pathPrefix="/category"/>
+            <data android:scheme="https" android:host="baby-box.hk" android:pathPrefix="/category"/>
+            <data android:scheme="https" android:host="www.baby-box.com.hk" android:pathPrefix="/category"/>
+            <data android:scheme="https" android:host="baby-box.com.hk" android:pathPrefix="/category"/>
+        </intent-filter>
+        </activity>
         <activity
             android:name="com.babybox.activity.NewPostActivity"
             android:screenOrientation="portrait" />
@@ -108,7 +110,10 @@
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="https" android:host="www.baby-box.hk" />
+            <data android:scheme="https" android:host="www.baby-box.hk" android:pathPrefix="/product"/>
+            <data android:scheme="https" android:host="baby-box.hk" android:pathPrefix="/product"/>
+            <data android:scheme="https" android:host="www.baby-box.com.hk" android:pathPrefix="/product"/>
+            <data android:scheme="https" android:host="baby-box.com.hk" android:pathPrefix="/product"/>
         </intent-filter>
         </activity>
 
@@ -120,7 +125,18 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.babybox.activity.UserProfileActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="www.baby-box.hk" android:pathPrefix="/user"/>
+                <data android:scheme="https" android:host="baby-box.hk" android:pathPrefix="/user"/>
+                <data android:scheme="https" android:host="www.baby-box.com.hk" android:pathPrefix="/user"/>
+                <data android:scheme="https" android:host="baby-box.com.hk" android:pathPrefix="/user"/>
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.babybox.activity.EditProfileActivity"
             android:screenOrientation="portrait" />
