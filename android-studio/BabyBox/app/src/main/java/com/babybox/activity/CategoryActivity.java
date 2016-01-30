@@ -20,13 +20,14 @@ public class CategoryActivity extends TrackedFragmentActivity {
         setContentView(R.layout.category_activity);
 
         // feed filter keys
+        long catId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
+        if (catId == 0) {
+            catId = ViewUtil.getIntentFilterLastPathSegment(getIntent());
+        }
+
         Bundle bundle = new Bundle();
         bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, DefaultValues.DEFAULT_CATEGORY_FEED_TYPE.name());
         bundle.putString(ViewUtil.BUNDLE_KEY_FEED_PRODUCT_TYPE, DefaultValues.DEFAULT_FEED_PRODUCT_TYPE.name());
-        long catId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
-        if(catId == -1 && getIntent().getData() != null){
-            catId = Long.parseLong(getIntent().getData().getLastPathSegment());
-        }
         bundle.putLong(ViewUtil.BUNDLE_KEY_ID, catId);
 
         CategoryFeedViewFragment fragment = new CategoryFeedViewFragment();

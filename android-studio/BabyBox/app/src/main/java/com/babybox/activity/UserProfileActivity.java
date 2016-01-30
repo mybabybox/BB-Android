@@ -30,11 +30,12 @@ public class UserProfileActivity extends TrackedFragmentActivity {
             }
         });
 
-        Bundle bundle = new Bundle();
         long userId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, 0L);
-        if(userId == 0l && getIntent().getData() != null){
-            userId = Long.parseLong(getIntent().getData().getLastPathSegment());
+        if (userId == 0) {
+            userId = ViewUtil.getIntentFilterLastPathSegment(getIntent());
         }
+
+        Bundle bundle = new Bundle();
         bundle.putLong(ViewUtil.BUNDLE_KEY_ID, userId);
 
         //set Fragmentclass Arguments

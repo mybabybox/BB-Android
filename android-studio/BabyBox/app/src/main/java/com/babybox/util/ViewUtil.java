@@ -1089,6 +1089,13 @@ public class ViewUtil {
     // Start Activities
     //
 
+    public static Long getIntentFilterLastPathSegment(Intent intent) {
+        if (intent.getData() != null) {
+            return Long.parseLong(intent.getData().getLastPathSegment());
+        }
+        return -1L;
+    }
+
     public static void startWelcomeActivity(Activity activity) {
         Intent intent = new Intent(activity, WelcomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |
