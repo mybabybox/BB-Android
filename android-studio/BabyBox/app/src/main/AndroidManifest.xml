@@ -84,14 +84,6 @@
         <activity
             android:name="com.babybox.activity.CategoryActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="http" android:host="baby-box.hk" android:pathPrefix="/category"/>
-                <data android:scheme="http" android:host="baby-box.com.hk" android:pathPrefix="/category"/>
-                <data android:scheme="http" android:host="www.baby-box.hk" android:pathPrefix="/category"/>
-                <data android:scheme="http" android:host="www.baby-box.com.hk" android:pathPrefix="/category"/>
-            </intent-filter>
         </activity>
         <activity
             android:name="com.babybox.activity.NewPostActivity"
@@ -105,9 +97,10 @@
         <activity
             android:name="com.babybox.activity.ProductActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http" android:host="baby-box.hk" android:pathPrefix="/product"/>
                 <data android:scheme="http" android:host="baby-box.com.hk" android:pathPrefix="/product"/>
                 <data android:scheme="http" android:host="www.baby-box.hk" android:pathPrefix="/product"/>
@@ -124,13 +117,14 @@
         <activity
             android:name="com.babybox.activity.UserProfileActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="http" android:host="baby-box.hk" android:pathPrefix="/profile"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!--data android:scheme="http" android:host="baby-box.hk" android:pathPrefix="/profile"/>
                 <data android:scheme="http" android:host="baby-box.com.hk" android:pathPrefix="/profile"/>
                 <data android:scheme="http" android:host="www.baby-box.hk" android:pathPrefix="/profile"/>
-                <data android:scheme="http" android:host="www.baby-box.com.hk" android:pathPrefix="/profile"/>
+                <data android:scheme="http" android:host="www.baby-box.com.hk" android:pathPrefix="/profile"/-->
                 <data android:scheme="http" android:host="baby-box.hk" android:pathPrefix="/seller"/>
                 <data android:scheme="http" android:host="baby-box.com.hk" android:pathPrefix="/seller"/>
                 <data android:scheme="http" android:host="www.baby-box.hk" android:pathPrefix="/seller"/>
