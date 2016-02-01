@@ -219,7 +219,8 @@
                     android:singleLine="true"
                     android:layout_alignParentRight="true"
                     android:gravity="center_vertical|right"
-                    android:inputType="textNoSuggestions|number" />
+                    android:inputType="textNoSuggestions|number"
+                    android:digits="0123456789" />
 
             </RelativeLayout>
 
@@ -453,7 +454,8 @@
                         android:singleLine="true"
                         android:layout_alignParentRight="true"
                         android:gravity="center_vertical|right"
-                        android:inputType="textNoSuggestions|number" />
+                        android:inputType="textNoSuggestions|number"
+                        android:digits="0123456789" />
 
                 </RelativeLayout>
 

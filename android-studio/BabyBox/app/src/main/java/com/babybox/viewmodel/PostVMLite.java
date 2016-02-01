@@ -13,6 +13,7 @@ public class PostVMLite implements Serializable {
     public String conditionType;
     public Long[] images;
     public Boolean hasImage = false;
+    public int numRelatedPosts;
     public int numLikes;
     public int numChats;
     public int numBuys;
@@ -141,6 +142,14 @@ public class PostVMLite implements Serializable {
 
     public void setConditionType(String conditionType) {
         this.conditionType = conditionType;
+    }
+
+    public int getNumRelatedPosts() {
+        return numRelatedPosts;
+    }
+
+    public void setNumRelatedPosts(int numRelatedPosts) {
+        this.numRelatedPosts = numRelatedPosts;
     }
 
     public int getNumViews() {

@@ -39,6 +39,7 @@ public class GCMClient {
 	}
 
 	public void registerGCM() {
+		/*
 		regId = getRegId();
 		if (TextUtils.isEmpty(regId)) {
 			registerInBackground();
@@ -47,6 +48,10 @@ public class GCMClient {
 			sendGCMKeyToServer(regId);
 			Log.d(this.getClass().getSimpleName(), "registerGCM: regId="+regId+" in SharedPreference will be used");
 		}
+		*/
+
+		// always register new gcm
+		registerInBackground();
 
 		// start gcm broadcast
 		AppController.getInstance().sendBroadcast(new Intent(AppController.getInstance(), GCMBroadcastReceiver.class));
