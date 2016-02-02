@@ -56,7 +56,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
-                android:weightSum="100"
+                android:weightSum="10"
                 android:transitionGroup="false">
 
                 <LinearLayout
@@ -65,7 +65,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/homeLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="33.4"
+                    android:layout_weight="2.8"
                     android:gravity="center">
 
                     <ImageView
@@ -73,7 +73,8 @@
                         android:layout_height="24dp"
                         android:id="@+id/homeImage"
                         android:src="@drawable/mn_home"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="2dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -85,11 +86,37 @@
                         android:layout_marginLeft="2dp" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/sellerLayout"
+                    android:background="@color/main_menubar_bg"
+                    android:layout_weight="2.4"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:id="@+id/sellerImage"
+                        android:src="@drawable/mn_seller"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tabset_seller"
+                        android:id="@+id/sellerText"
+                        android:textSize="15dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="4dp" />
+                </LinearLayout>
+
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/activitiesFrame"
-                    android:layout_weight="33.3">
+                    android:layout_weight="2.4">
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -113,7 +140,7 @@
                             android:id="@+id/activityText"
                             android:textSize="15dp"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="2dp" />
+                            android:layout_marginLeft="4dp" />
                     </LinearLayout>
 
                     <TextView
@@ -142,7 +169,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/profileLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="33.3"
+                    android:layout_weight="2.4"
                     android:gravity="center" >
 
                     <ImageView

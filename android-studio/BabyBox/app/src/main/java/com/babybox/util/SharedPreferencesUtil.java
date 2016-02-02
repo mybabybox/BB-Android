@@ -23,17 +23,18 @@ public class SharedPreferencesUtil {
     public static final String TAG = SharedPreferencesUtil.class.getName();
     public static final String PREFS = AppController.getInstance().getString(R.string.app_name)+"-prefs";
 
+    public static final String APP_VERSION = "appVersion";
     public static final String FB_ACCESS_TOKEN = "access_token";
     public static final String FB_ACCESS_EXPIRES = "access_expires";
     public static final String LOGIN_FAILED_COUNT = "loginFailedCount";
     public static final String SESSION_ID = "sessionId";
+    public static final String LANG = "lang";
+    public static final String USER_LOCATION = "userLocation";
     public static final String USER_INFO = "userInfo";
     public static final String DISTRICTS = "districts";
     public static final String COUNTRIES = "countries";
     public static final String CATEGORIES = "categories";
-    public static final String APP_VERSION = "appVersion";
-    public static final String LANG = "lang";
-    public static final String LOCATION = "location";
+    public static final String SHARING_FB_WALL = "sharingFBWall";
 
     // gcm
     public static final String GCM_KEY = "gcmKey";
@@ -42,14 +43,15 @@ public class SharedPreferencesUtil {
 
     public enum Screen {
         HOME_TAB,
-        SEARCH_TAB,
+        SELLER_TAB,
+        ACTIVITY_TAB,
         PROFILE_TAB,
 
         HOME_EXPLORE_TIPS,
-        HOME_TRENDING_TIPS,
         HOME_FOLLOWING_TIPS,
         CATEGORY_TIPS,
-        MY_PROFILE_TIPS,
+        SELLER_TIPS,
+        MY_PROFILE_TIPS
     }
 
     private static SharedPreferencesUtil instance = null;
@@ -71,7 +73,11 @@ public class SharedPreferencesUtil {
     //
 
     public void setScreenViewed(Screen screen) {
-        saveBoolean(screen.name(), true);
+        this.saveBoolean(screen.name(), true);
+    }
+
+    public void setSharingFacebookWall(boolean sharing) {
+        this.saveBoolean(SharedPreferencesUtil.SHARING_FB_WALL, sharing);
     }
 
     public void saveSessionId(String sessionId) {
@@ -87,8 +93,8 @@ public class SharedPreferencesUtil {
         this.saveLong(SharedPreferencesUtil.APP_VERSION, appVersion);
     }
 
-    public void saveLocation(String location) {
-        this.saveString(SharedPreferencesUtil.LOCATION, location);
+    public void saveUserLocation(String location) {
+        this.saveString(SharedPreferencesUtil.USER_LOCATION, location);
     }
 
     public void saveLang(String lang) {
@@ -166,7 +172,11 @@ public class SharedPreferencesUtil {
     //
 
     public Boolean isScreenViewed(Screen screen) {
-        return getBoolean(screen.name());
+        return this.getBoolean(screen.name());
+    }
+
+    public Boolean isSharingFacebookWall() {
+        return this.getBoolean(SharedPreferencesUtil.SHARING_FB_WALL);
     }
 
     public String getSessionId() {
@@ -181,8 +191,8 @@ public class SharedPreferencesUtil {
         return this.getLong(SharedPreferencesUtil.APP_VERSION);
     }
 
-    public String getLocation() {
-        return this.getString(SharedPreferencesUtil.LOCATION);
+    public String getUserLocation() {
+        return this.getString(SharedPreferencesUtil.USER_LOCATION);
     }
 
     public String getLang() {

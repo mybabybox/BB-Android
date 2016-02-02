@@ -112,7 +112,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
         editTextInFocus = titleEdit;
 
-        SharedPreferencesUtil.getInstance().saveLocation("");
+        SharedPreferencesUtil.getInstance().saveUserLocation("");
 
         autoCompleteText = (TextView) findViewById(R.id.autoCompleteText);
         autoCompleteText.setOnClickListener(new View.OnClickListener() {
@@ -302,8 +302,8 @@ public class NewPostActivity extends TrackedFragmentActivity{
     public void onResume() {
         super.onResume();
 
-        if(!SharedPreferencesUtil.getInstance().getLocation().equals("")) {
-            autoCompleteText.setText(SharedPreferencesUtil.getInstance().getLocation());
+        if(!SharedPreferencesUtil.getInstance().getUserLocation().equals("")) {
+            autoCompleteText.setText(SharedPreferencesUtil.getInstance().getUserLocation());
         }
     }
 

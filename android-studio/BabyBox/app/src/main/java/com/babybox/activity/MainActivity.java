@@ -47,6 +47,10 @@ public class MainActivity extends TrackedFragmentActivity {
     private ImageView homeImage;
     private TextView homeText;
 
+    private LinearLayout sellerLayout;
+    private ImageView sellerImage;
+    private TextView sellerText;
+
     private LinearLayout activityLayout;
     private ImageView activityImage;
     private TextView activityText;
@@ -56,7 +60,7 @@ public class MainActivity extends TrackedFragmentActivity {
     private ImageView profileImage;
     private TextView profileText;
 
-    private boolean homeClicked = false, activityClicked = false, profileClicked = false;
+    private boolean homeClicked = false, sellerClicked = false, activityClicked = false, profileClicked = false;
 
     private boolean showBottomMenuBar = true;
 
@@ -134,6 +138,10 @@ public class MainActivity extends TrackedFragmentActivity {
         homeImage = (ImageView) findViewById(R.id.homeImage);
         homeText = (TextView) findViewById(R.id.homeText);
 
+        sellerLayout = (LinearLayout) findViewById(R.id.sellerLayout);
+        sellerImage = (ImageView) findViewById(R.id.sellerImage);
+        sellerText = (TextView) findViewById(R.id.sellerText);
+
         activityLayout = (LinearLayout) findViewById(R.id.activityLayout);
         activityImage = (ImageView) findViewById(R.id.activityImage);
         activityText = (TextView) findViewById(R.id.activityText);
@@ -148,6 +156,14 @@ public class MainActivity extends TrackedFragmentActivity {
             public void onClick(View v) {
                 Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Home tab clicked");
                 pressHomeTab();
+            }
+        });
+
+        sellerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Seller tab clicked");
+                pressSellerTab();
             }
         });
 
@@ -201,6 +217,29 @@ public class MainActivity extends TrackedFragmentActivity {
         setMenuButton(homeImage, homeText, R.drawable.mn_home_sel, R.color.sharp_pink);
         homeClicked = true;
 
+        setMenuButton(sellerImage, sellerText, R.drawable.mn_seller, R.color.dark_gray_2);
+        sellerClicked = false;
+
+        setMenuButton(activityImage, activityText, R.drawable.mn_notif, R.color.dark_gray_2);
+        activityClicked = false;
+
+        setMenuButton(profileImage, profileText, R.drawable.mn_profile, R.color.dark_gray_2);
+        profileClicked = false;
+    }
+
+    public void pressSellerTab() {
+        if (!sellerClicked) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            selectedFragment = new HomeMainFragment();
+            fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
+        }
+
+        setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
+        homeClicked = false;
+
+        setMenuButton(sellerImage, sellerText, R.drawable.mn_seller_sel, R.color.sharp_pink);
+        sellerClicked = true;
+
         setMenuButton(activityImage, activityText, R.drawable.mn_notif, R.color.dark_gray_2);
         activityClicked = false;
 
@@ -219,6 +258,9 @@ public class MainActivity extends TrackedFragmentActivity {
 
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
         homeClicked = false;
+
+        setMenuButton(sellerImage, sellerText, R.drawable.mn_seller, R.color.dark_gray_2);
+        sellerClicked = false;
 
         setMenuButton(activityImage, activityText, R.drawable.mn_notif_sel, R.color.sharp_pink);
         activityClicked = true;
@@ -241,6 +283,9 @@ public class MainActivity extends TrackedFragmentActivity {
 
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);
         homeClicked = false;
+
+        setMenuButton(sellerImage, sellerText, R.drawable.mn_seller, R.color.dark_gray_2);
+        sellerClicked = false;
 
         setMenuButton(activityImage, activityText, R.drawable.mn_notif, R.color.dark_gray_2);
         activityClicked = false;
