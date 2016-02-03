@@ -66,6 +66,14 @@ public abstract class AbstractListViewActivity extends TrackedFragmentActivity {
             public void onLoadMore(int page, int totalItemsCount) {
                 loadListItems(objId, page - 1L);
             }
+
+            @Override
+            public void onScrollUp() {
+            }
+
+            @Override
+            public void onScrollDown() {
+            }
         });
 
         loadListItems(objId, 0L);

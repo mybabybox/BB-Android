@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.babybox.R;
@@ -25,8 +26,11 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class FollowerFollowingListAdapter extends BaseAdapter {
+    private static final String TAG = FollowerFollowingListAdapter.class.getName();
+
     private ImageView userImage;
-    private TextView userNameText;
+    private LinearLayout userLayout;
+    private TextView userNameText, userFollowersText;
     private Button followButton;
 
     private Activity activity;
@@ -68,7 +72,9 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.follower_following_list_item, null);
 
         userImage = (ImageView) convertView.findViewById(R.id.userImage);
+        userLayout = (LinearLayout) convertView.findViewById(R.id.userLayout);
         userNameText = (TextView) convertView.findViewById(R.id.userNameText);
+        userFollowersText = (TextView) convertView.findViewById(R.id.userFollowersText);
         followButton = (Button) convertView.findViewById(R.id.followButton);
 
         final UserVMLite item = users.get(position);
@@ -89,13 +95,15 @@ public class FollowerFollowingListAdapter extends BaseAdapter {
             }
         });
 
-        userNameText.setText(item.getDisplayName());
-        userNameText.setOnClickListener(new View.OnClickListener() {
+        userLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewUtil.startUserProfileActivity(activity, item.getId());
             }
         });
+
+        userNameText.setText(item.getDisplayName());
+        userFollowersText.setText(ViewUtil.formatUserFollowers(item.getNumFollowers()));
 
         // follow
         if (item.isFollowing) {

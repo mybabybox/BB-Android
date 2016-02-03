@@ -674,12 +674,12 @@ public class ViewUtil {
         return DateTimeUtil.getTimeAgo(value) + AppController.getInstance().getString(R.string.last_active);
     }
 
-    public static String formatSellerProducts(Long value) {
+    public static String formatUserProducts(Long value) {
         return AppController.getInstance().getString(R.string.products) + ": " + value;
     }
 
-    public static String formatSellerFollowers(Long value) {
-        return AppController.getInstance().getString(R.string.seller_followers) + ": " + value;
+    public static String formatUserFollowers(Long value) {
+        return AppController.getInstance().getString(R.string.user_followers) + ": " + value;
     }
 
     public static String formatFollowers(Long value) {

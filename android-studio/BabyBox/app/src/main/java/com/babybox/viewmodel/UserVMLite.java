@@ -1,5 +1,7 @@
 package com.babybox.viewmodel;
 
+import org.joda.time.DateTime;
+
 import java.io.Serializable;
 
 public class UserVMLite implements Serializable {
@@ -256,5 +258,26 @@ public class UserVMLite implements Serializable {
 
     public void setIsRecommendedSeller(boolean isRecommendedSeller) {
         this.isRecommendedSeller = isRecommendedSeller;
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id + "\n" +
+                "name=" + lastName + " " + firstName + "\n" +
+                "email=" + email + "\n" +
+                "emailValidated=" + emailValidated + "\n" +
+                "accountVerified=" + accountVerified + "\n" +
+                "fbLogin=" + isFbLogin + "\n" +
+                "signupDate=" + new DateTime(createdDate) + "\n" +
+                "lastLogin=" + new DateTime(lastLogin) + "\n" +
+                "lastLoginUserAgent=" + lastLoginUserAgent + "\n" +
+                "totalLogin=" + totalLogin + "\n" +
+                "numLikes=" + numLikes + "\n" +
+                "numFollowers=" + numFollowers + "\n" +
+                "numFollowings=" + numFollowings + "\n" +
+                "numProducts=" + numProducts + "\n" +
+                "numComments=" + numComments + "\n" +
+                "numConversationsAsSender=" + numConversationsAsSender + "\n" +
+                "numConversationsAsRecipient=" + numConversationsAsRecipient;
     }
 }

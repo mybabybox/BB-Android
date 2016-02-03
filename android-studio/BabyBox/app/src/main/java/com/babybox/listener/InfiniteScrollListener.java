@@ -3,6 +3,8 @@ package com.babybox.listener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 
+import com.babybox.activity.MainActivity;
+
 public abstract class InfiniteScrollListener implements OnScrollListener {
     // The minimum amount of items to have below your current scroll position
     // before loading more.
@@ -19,6 +21,8 @@ public abstract class InfiniteScrollListener implements OnScrollListener {
     private boolean hasHeader = false;
     // Need to offset footer by -1 from count
     private boolean hasFooter = false;
+    // For tracking scroll up scroll down
+    private int mLastFirstVisibleItem;
 
     public InfiniteScrollListener() {
     }
@@ -44,6 +48,16 @@ public abstract class InfiniteScrollListener implements OnScrollListener {
     // but first we check if we are waiting for the previous load to finish.
     @Override
     public void onScroll(AbsListView view,int firstVisibleItem,int visibleItemCount,int totalItemCount) {
+        // scrolling up down
+        if (mLastFirstVisibleItem < firstVisibleItem) {
+            onScrollUp();
+        }
+        if (mLastFirstVisibleItem > firstVisibleItem) {
+            onScrollDown();
+        }
+        mLastFirstVisibleItem = firstVisibleItem;
+
+        // load more?
         if (totalItemCount > 0) {
             if (hasHeader)
                 totalItemCount--;
@@ -77,11 +91,12 @@ public abstract class InfiniteScrollListener implements OnScrollListener {
         }
     }
 
-    // Defines the process for actually loading more data based on page
-    public abstract void onLoadMore(int page, int totalItemsCount);
-
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         // Don't take any action on changed
     }
+
+    public abstract void onLoadMore(int page, int totalItemsCount);
+    public abstract void onScrollUp();
+    public abstract void onScrollDown();
 }

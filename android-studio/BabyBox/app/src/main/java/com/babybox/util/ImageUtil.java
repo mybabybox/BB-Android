@@ -264,7 +264,7 @@ public class ImageUtil {
         }
 
         url = UrlUtil.getFullUrl(url);
-        Log.d(TAG, "displayImage: ulr="+url);
+        Log.d(TAG, "displayImage: url="+url);
 
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)

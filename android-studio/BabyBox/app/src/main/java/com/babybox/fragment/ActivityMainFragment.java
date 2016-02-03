@@ -7,15 +7,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.babybox.R;
+import com.babybox.activity.MainActivity;
 import com.babybox.adapter.ActivityListAdapter;
 import com.babybox.app.AppController;
 import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragment;
+import com.babybox.listener.EndlessScrollListener;
+import com.babybox.listener.InfiniteScrollListener;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ActivityVM;
@@ -65,9 +69,30 @@ public class ActivityMainFragment extends TrackedFragment {
             });
         }
 
+        attachEndlessScrollListener();
+
         getActivities();
 
         return view;
+    }
+
+    protected void attachEndlessScrollListener() {
+        listView.setOnScrollListener(new InfiniteScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // no opt
+            }
+
+            @Override
+            public void onScrollUp() {
+                MainActivity.getInstance().showBottomMenuBar(false);
+            }
+
+            @Override
+            public void onScrollDown() {
+                MainActivity.getInstance().showBottomMenuBar(true);
+            }
+        });
     }
 
     protected void markRead() {
