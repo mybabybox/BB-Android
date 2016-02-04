@@ -364,13 +364,66 @@
                 android:layout_height="0.8dp"
                  />
             <RelativeLayout
+                android:background="@color/view_bg"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:textSize="15dp"
+                   android:layout_margin="10dp"
+                    android:textColor="#000000"
+                    android:text="Sharing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+              <RelativeLayout
+
+                  android:background="@color/white"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp">
+
+                  <ImageView
+                      android:id="@+id/facebookButton"
+                      android:layout_marginTop="5dp"
+                      android:layout_marginLeft="15dp"
+                      android:src="@drawable/ic_facebook"
+                      android:layout_width="35dp"
+                      android:layout_height="35dp" />
+
+                  <TextView
+                      android:id="@+id/facebooktext"
+                      android:textSize="20dp"
+                      android:layout_toRightOf="@+id/facebookButton"
+                      android:text="Facebook Wall"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginLeft="15dp"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content" />
+
+                  <Switch
+                      android:layout_width="wrap_content"
+                      android:layout_marginLeft="15dp"
+                      android:layout_alignParentRight="true"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginRight="15dp"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/switch1"
+                      android:layout_toRightOf="@+id/facebooktext"
+       />
+
+              </RelativeLayout>
+
+
+            <RelativeLayout
                 android:id="@+id/locationLayout"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:orientation="horizontal"
                 android:background="@color/white"
                 android:layout_below="@+id/bar4"
-                android:visibility="gone">
+                android:visibility="gone"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"

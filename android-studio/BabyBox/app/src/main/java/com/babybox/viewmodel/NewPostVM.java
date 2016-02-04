@@ -31,6 +31,31 @@ public class NewPostVM {
         this(-1L, catId, title, body, price, conditionType, selectedPostImages, originalPrice, freeDelivery, countryCode);
     }
 
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public NewPostVM(Long id, Long catId, String title, String body, double price,
                      ViewUtil.PostConditionType conditionType, List<SelectedImage> selectedImages,
                      double originalPrice, Boolean freeDelivery, String countryCode) {
@@ -46,6 +71,7 @@ public class NewPostVM {
         for (SelectedImage selectedImage : selectedImages) {
             this.images.add(selectedImage.getFile());
         }
+
         this.freeDelivery = freeDelivery;
         this.countryCode = countryCode;
         this.deviceType = AppController.DeviceType.ANDROID.name();
