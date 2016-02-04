@@ -16,14 +16,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.babybox.R;
 import com.babybox.adapter.PopupCategoryListAdapter;
@@ -37,10 +40,12 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SelectedImage;
 import com.babybox.util.SharedPreferencesUtil;
+import com.babybox.util.SharingUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CountryVM;
 import com.babybox.viewmodel.NewPostVM;
+import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
 import org.parceler.apache.commons.lang.StringUtils;
@@ -54,8 +59,9 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class NewPostActivity extends TrackedFragmentActivity{
-
+             PostVM post;
     protected LinearLayout imagesLayout, selectCatLayout, sellerLayout;
+    boolean flag;
     protected RelativeLayout catLayout;
     protected TextView selectCatText;
     protected ImageView selectCatIcon;
@@ -86,12 +92,16 @@ public class NewPostActivity extends TrackedFragmentActivity{
     protected String getActionTypeText() {
         return getString(R.string.new_post_action);
     }
-
+    ToggleButton facebooklinksharebtn;
+    ToggleButton togglebutton2;
+    Switch facebookswitch;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.new_post_activity);
+      //  facebookswitch=(Switch)findViewById(R.id.switch1);
+        facebooklinksharebtn=(ToggleButton)findViewById(R.id.facebookshare);
 
         backImage = (ImageView) findViewById(R.id.backImage);
         postAction = (TextView) findViewById(R.id.postAction);
@@ -279,6 +289,44 @@ public class NewPostActivity extends TrackedFragmentActivity{
 
             }
         });
+
+
+
+        if(SharedPreferencesUtil.getInstance().isSharingFacebookWall()){
+            facebooklinksharebtn.setChecked(true);
+            flag= true;
+        }else{
+            facebooklinksharebtn.setChecked(false);
+            flag= false;
+        }
+
+
+
+        facebooklinksharebtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                System.out.println("::ischecked=="+isChecked);
+
+
+                if(isChecked){
+
+                    //switchStatus.setText("Switch is currently ON");
+                    System.out.println("inside button1");
+                    flag=true;
+                    SharedPreferencesUtil.getInstance().setSharingFacebookWall(true);
+
+                }
+                else{
+                    flag=false;
+                    SharedPreferencesUtil.getInstance().setSharingFacebookWall(false);
+                }
+            }
+        });
+
+
 
 
         // post
@@ -479,19 +527,48 @@ public class NewPostActivity extends TrackedFragmentActivity{
             return;
         }
 
-        NewPostVM newPost = getNewPost();
+        final NewPostVM newPost = getNewPost();
         if (newPost == null) {
             return;
         }
 
         ViewUtil.showSpinner(this);
 
+
+
         postAction.setEnabled(false);
         AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
-                UserInfoCache.incrementNumProducts();
-                complete();
+                System.out.println("Inside image post success");
+             //   facebookswitch.setChecked(true);
+                post=new PostVM();
+
+                post.price=newPost.getPrice();
+                post.body=newPost.getBody();
+                post.title=newPost.getTitle();
+
+                if(flag==true)
+                {
+                    System.out.println("inside button on flag::"+flag);
+                    SharingUtil.shareToFacebook(post, NewPostActivity.this);
+
+                    UserInfoCache.incrementNumProducts();
+                    complete();
+
+                }
+                else {
+
+                    //switchStatus.setText("Switch is currently OFF");
+                    UserInfoCache.incrementNumProducts();
+                    complete();
+
+                }
+
+
+
+
+
             }
 
             @Override
