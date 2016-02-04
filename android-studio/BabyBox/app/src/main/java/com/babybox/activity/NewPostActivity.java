@@ -92,7 +92,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
     protected String getActionTypeText() {
         return getString(R.string.new_post_action);
     }
-    ToggleButton togglebutton1;
+    ToggleButton facebooklinksharebtn;
     ToggleButton togglebutton2;
     Switch facebookswitch;
     @Override
@@ -100,7 +100,8 @@ public class NewPostActivity extends TrackedFragmentActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.new_post_activity);
-        facebookswitch=(Switch)findViewById(R.id.switch1);
+      //  facebookswitch=(Switch)findViewById(R.id.switch1);
+        facebooklinksharebtn=(ToggleButton)findViewById(R.id.facebookshare);
 
         backImage = (ImageView) findViewById(R.id.backImage);
         postAction = (TextView) findViewById(R.id.postAction);
@@ -289,16 +290,19 @@ public class NewPostActivity extends TrackedFragmentActivity{
             }
         });
 
+
+
         if(SharedPreferencesUtil.getInstance().isSharingFacebookWall()){
-            facebookswitch.setChecked(true);
+            facebooklinksharebtn.setChecked(true);
             flag= true;
         }else{
-            facebookswitch.setChecked(false);
+            facebooklinksharebtn.setChecked(false);
             flag= false;
         }
 
 
-        facebookswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        facebooklinksharebtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
