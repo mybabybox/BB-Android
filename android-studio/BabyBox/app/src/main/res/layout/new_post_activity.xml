@@ -361,73 +361,7 @@
                 android:id="@+id/bar7"
                 android:background="@drawable/bar1"
                 android:layout_width="match_parent"
-                android:layout_height="0.8dp"
-                 />
-            <RelativeLayout
-                android:background="@color/view_bg"
-                android:layout_width="match_parent"
-                android:layout_height="40dp">
-
-                <TextView
-                    android:textSize="15dp"
-                   android:layout_margin="10dp"
-                    android:textColor="#000000"
-                    android:text="Sharing"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                </RelativeLayout>
-              <RelativeLayout
-
-                  android:background="@color/white"
-                  android:layout_width="match_parent"
-                  android:layout_height="50dp">
-
-                  <ImageView
-                      android:id="@+id/facebookButton"
-                      android:layout_marginTop="5dp"
-                      android:layout_marginLeft="15dp"
-                      android:src="@drawable/ic_facebook"
-                      android:layout_width="25dp"
-                      android:layout_height="25dp" />
-
-                  <TextView
-                      android:textColor="#000000"
-                      android:id="@+id/facebooktext"
-                      android:textSize="15dp"
-                      android:layout_toRightOf="@+id/facebookButton"
-                      android:text="Facebook Wall"
-                      android:layout_marginTop="10dp"
-                      android:layout_marginLeft="15dp"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content" />
-
-                  <!--Switch
-                      android:layout_width="wrap_content"
-                      android:layout_marginLeft="15dp"
-                      android:layout_alignParentRight="true"
-                      android:layout_marginTop="10dp"
-                      android:layout_marginRight="15dp"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/switch1"
-                      android:layout_toRightOf="@+id/facebooktext"
-       />-->
-                  <ToggleButton
-                      android:layout_marginTop="10dp"
-                      android:id="@+id/facebookshare"
-                      android:layout_width="50dp"
-                      android:layout_height="30dp"
-                      android:background="@drawable/toggle_selector"
-                      android:layout_marginRight="10dp"
-                      android:layout_alignParentRight="true"
-                      android:layout_gravity="center"
-                      android:checked="false"
-                      android:text=""
-                      android:textOff=""
-                      android:textOn="" />
-
-              </RelativeLayout>
-
+                android:layout_height="0.8dp" />
 
             <RelativeLayout
                 android:id="@+id/locationLayout"
@@ -436,8 +370,7 @@
                 android:orientation="horizontal"
                 android:background="@color/white"
                 android:layout_below="@+id/bar4"
-                android:visibility="gone"
-                >
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -613,10 +546,90 @@
                     android:id="@+id/bar12"
                     android:background="@drawable/bar1"
                     android:layout_width="match_parent"
-                    android:layout_height="0.8dp"
-                    android:layout_marginBottom="15dp" />
+                    android:layout_height="0.8dp" />
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:background="@color/view_bg"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:textSize="15dp"
+                    android:layout_margin="10dp"
+                    android:textColor="@color/dark_gray_2"
+                    android:text="Sharing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/bar13"
+                android:background="@drawable/bar1"
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp" />
+
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:id="@+id/facebookButton"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/ic_facebook"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerVertical="true" />
+
+                <TextView
+                    android:textColor="@color/dark_gray_2"
+                    android:id="@+id/facebookText"
+                    android:textSize="16dp"
+                    android:layout_toRightOf="@+id/facebookButton"
+                    android:text="Facebook Wall"
+                    android:layout_marginLeft="7dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true" />
+
+                <!--Switch
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switch1"
+                    android:layout_toRightOf="@+id/facebooktext" /-->
+
+                <ToggleButton
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/facebookshare"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/toggle_selector"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center"
+                    android:checked="false"
+                    android:text=""
+                    android:textOff=""
+                    android:textOn=""
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/bar14"
+                android:background="@drawable/bar1"
+                android:layout_width="match_parent"
+                android:layout_height="0.8dp"
+                android:layout_marginBottom="15dp" />
 
         </LinearLayout>
 

@@ -300,34 +300,21 @@ public class NewPostActivity extends TrackedFragmentActivity{
             flag= false;
         }
 
-
-
         facebooklinksharebtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                System.out.println("::ischecked=="+isChecked);
-
-
-                if(isChecked){
-
-                    //switchStatus.setText("Switch is currently ON");
-                    System.out.println("inside button1");
-                    flag=true;
+                if (isChecked) {
+                    flag = true;
                     SharedPreferencesUtil.getInstance().setSharingFacebookWall(true);
 
-                }
-                else{
-                    flag=false;
+                } else {
+                    flag = false;
                     SharedPreferencesUtil.getInstance().setSharingFacebookWall(false);
                 }
             }
         });
-
-
-
 
         // post
 

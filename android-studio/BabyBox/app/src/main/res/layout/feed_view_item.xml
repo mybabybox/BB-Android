@@ -38,7 +38,7 @@
                 android:scaleType="fitCenter"
                 android:layout_margin="3dp"
                 android:layout_gravity="bottom|left"
-                android:alpha="0.85"
+                android:alpha="0.9"
                 android:background="@drawable/thumb_circle"
                 android:padding="3dp"
                 android:visibility="invisible" />
