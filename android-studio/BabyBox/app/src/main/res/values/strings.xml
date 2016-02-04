@@ -112,7 +112,7 @@
     <string name="signup_details_error_baby_not_entered">請填寫小寶寶性別，出生日期</string>
 
     <!-- Main -->
-    <string name="tabset_home">BabyBox</string>
+    <string name="tabset_home">逛逛</string>
     <string name="tabset_seller">賣家</string>
     <string name="tabset_activity">動態</string>
     <string name="tabset_profile">我的</string>
@@ -124,8 +124,8 @@
     <string name="my_profile_tips">按 \"Sell\" 立即刊登商品\n所有媽媽都是BabyBox賣家！</string>
 
     <!-- Home tab -->
-    <string name="main_tab_explore">逛逛</string>
-    <string name="main_tab_following">關注</string>
+    <string name="main_tab_seller">推薦賣家</string>
+    <string name="main_tab_following">我的關注</string>
     <string name="suggest_for_you">推介給你</string>
     <string name="follow">+ 關注</string>
     <string name="following">關注中</string>

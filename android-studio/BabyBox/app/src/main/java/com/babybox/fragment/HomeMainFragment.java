@@ -3,57 +3,72 @@ package com.babybox.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.astuetz.PagerSlidingTabStrip;
-import com.babybox.R;
-import com.babybox.app.TrackedFragment;
 import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
 
-public class HomeMainFragment extends TrackedFragment {
+import java.lang.reflect.Field;
 
-    private ViewPager viewPager;
-    private HomeMainPagerAdapter adapter;
-    private PagerSlidingTabStrip tabs;
+import com.babybox.R;
+import com.babybox.app.TrackedFragment;
+
+public class HomeMainFragment extends TrackedFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.home_main_fragment, container, false);
+        View view = inflater.inflate(R.layout.child_layout_view, container, false);
 
-        // pager
-
-        tabs = (PagerSlidingTabStrip) view.findViewById(R.id.homeTabs);
-        viewPager = (ViewPager) view.findViewById(R.id.homePager);
-        adapter = new HomeMainPagerAdapter(getChildFragmentManager());
-
-        int pageMargin = ViewUtil.getRealDimension(0);
-        viewPager.setPageMargin(pageMargin);
-        viewPager.setAdapter(adapter);
-
-        tabs.setViewPager(viewPager);
-
-        /*
-        // styles declared in xml
-        tabs.setTextColor(getResources().getColor(R.color.dark_gray));
-        tabs.setIndicatorColor(getResources().getColor(R.color.actionbar_selected_text));
-
-        int indicatorHeight = ViewUtil.getRealDimension(5, this.getResources());
-        tabs.setIndicatorHeight(indicatorHeight);
-
-        final int textSize = ViewUtil.getRealDimension(16, this.getResources());
-        tabs.setTextSize(textSize);
-        */
+        Bundle bundle = new Bundle();
+        bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_EXPLORE.name());
+        TrackedFragment fragment = new HomeExploreFeedViewFragment();
+        fragment.setArguments(bundle);
+        fragment.setTrackedOnce();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.childLayout, fragment, "home").commit();
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // TODO: add back notification code
+        /*
+        NotificationCache.refresh(new Callback<NotificationsParentVM>() {
+            @Override
+            public void success(NotificationsParentVM notificationsParentVM, Response response) {
+                // update notification count
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                error.printStackTrace();
+            }
+        });
+        */
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+
+        try {
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -67,57 +82,3 @@ public class HomeMainFragment extends TrackedFragment {
         }
     }
 }
-
-/**
- * https://guides.codepath.com/android/Sliding-Tabs-with-PagerSlidingTabStrip
- * https://android-arsenal.com/details/1/1100
- */
-class HomeMainPagerAdapter extends FragmentStatePagerAdapter {
-
-    public HomeMainPagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return ViewUtil.HOME_MAIN_TITLES[position];
-    }
-
-    @Override
-    public int getCount() {
-        return ViewUtil.HOME_MAIN_TITLES.length;
-    }
-
-    @Override
-    public Fragment getItem(int position) {
-        Log.d(this.getClass().getSimpleName(), "getItem: item position=" + position);
-
-        Bundle bundle = new Bundle();
-        TrackedFragment fragment = null;
-        switch (position) {
-            // Explore
-            case 0: {
-                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_EXPLORE.name());
-                fragment = new HomeExploreFeedViewFragment();
-                break;
-            }
-            // Following
-            case 1: {
-                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_FOLLOWING.name());
-                fragment = new HomeFollowingFeedViewFragment();
-                break;
-            }
-            default: {
-                Log.e(this.getClass().getSimpleName(), "getItem: Unknown item position=" + position);
-                break;
-            }
-        }
-
-        if (fragment != null) {
-            fragment.setArguments(bundle);
-            fragment.setTrackedOnce();
-        }
-        return fragment;
-    }
-}
-

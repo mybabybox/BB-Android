@@ -200,7 +200,7 @@ public class ViewUtil {
         RED
     }
 
-    public static String[] HOME_MAIN_TITLES;
+    public static String[] SELLER_MAIN_TITLES;
 
     private static Map<PostConditionType, String> postConditionTypeMap = new HashMap<>();
 
@@ -219,8 +219,8 @@ public class ViewUtil {
     //
 
     public static void initCachedLocaleStrings() {
-        HOME_MAIN_TITLES = new String[] {
-                AppController.getInstance().getString(R.string.main_tab_explore),
+        SELLER_MAIN_TITLES = new String[] {
+                AppController.getInstance().getString(R.string.main_tab_seller),
                 AppController.getInstance().getString(R.string.main_tab_following)
         };
 

@@ -64,8 +64,7 @@
         android:layout_below="@+id/tipsLayout"
         custom:indicator_visibility="visible"
         custom:pager_animation_span="1100"
-        android:layout_height="120dp"
-        android:visibility="gone" />
+        android:layout_height="120dp" />
 
     <TextView
         android:layout_width="wrap_content"

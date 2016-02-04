@@ -6,20 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.babybox.R;
 import com.babybox.activity.MainActivity;
 import com.babybox.util.SharedPreferencesUtil;
-import com.babybox.util.ViewUtil;
-import com.babybox.view.AdaptiveViewPager;
 
-import java.util.ArrayList;
-import java.util.List;
+public class SellerFollowingFeedViewFragment extends FeedViewFragment {
 
-public class HomeFollowingFeedViewFragment extends FeedViewFragment {
-
-    private static final String TAG = HomeFollowingFeedViewFragment.class.getName();
+    private static final String TAG = SellerFollowingFeedViewFragment.class.getName();
 
     private FrameLayout tipsLayout;
     private ImageView dismissTipsButton;

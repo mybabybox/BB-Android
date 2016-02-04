@@ -3,47 +3,25 @@ package com.babybox.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.babybox.R;
-import com.babybox.activity.MainActivity;
-import com.babybox.adapter.ActivityListAdapter;
-import com.babybox.adapter.SellerListAdapter;
-import com.babybox.app.AppController;
-import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragment;
-import com.babybox.listener.InfiniteScrollListener;
-import com.babybox.util.DefaultValues;
+import com.babybox.util.FeedFilter;
 import com.babybox.util.ViewUtil;
-import com.babybox.viewmodel.ActivityVM;
-import com.babybox.viewmodel.PostVMLite;
-import com.babybox.viewmodel.SellerVM;
-import com.yalantis.phoenix.PullToRefreshView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 public class SellerMainFragment extends TrackedFragment {
 
-    private static final String TAG = SellerMainFragment.class.getName();
-
-    protected ListView listView;
-
-    protected ImageView backImage;
-    protected PullToRefreshView pullListView;
-
-    protected List<SellerVM> items;
-    protected SellerListAdapter adapter;
+    private ViewPager viewPager;
+    private SellerMainPagerAdapter adapter;
+    private PagerSlidingTabStrip tabs;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,80 +29,31 @@ public class SellerMainFragment extends TrackedFragment {
 
         View view = inflater.inflate(R.layout.seller_main_fragment, container, false);
 
-        items = new ArrayList<>();
-        adapter = new SellerListAdapter(getActivity(), items);
+        // pager
 
-        listView = (ListView) view.findViewById(R.id.sellerList);
-        listView.setAdapter(adapter);
+        tabs = (PagerSlidingTabStrip) view.findViewById(R.id.sellerTabs);
+        viewPager = (ViewPager) view.findViewById(R.id.sellerPager);
+        adapter = new SellerMainPagerAdapter(getChildFragmentManager());
 
-        // pull refresh
-        pullListView = (PullToRefreshView) view.findViewById(R.id.pull_to_refresh);
-        if (pullListView != null) {
-            pullListView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    pullListView.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            pullListView.setRefreshing(false);
-                            getSellers(0L);
-                        }
-                    }, DefaultValues.PULL_TO_REFRESH_DELAY);
-                }
-            });
-        }
+        int pageMargin = ViewUtil.getRealDimension(0);
+        viewPager.setPageMargin(pageMargin);
+        viewPager.setAdapter(adapter);
 
-        attachEndlessScrollListener();
+        tabs.setViewPager(viewPager);
 
-        getSellers(0L);
+        /*
+        // styles declared in xml
+        tabs.setTextColor(getResources().getColor(R.color.dark_gray));
+        tabs.setIndicatorColor(getResources().getColor(R.color.actionbar_selected_text));
+
+        int indicatorHeight = ViewUtil.getRealDimension(5, this.getResources());
+        tabs.setIndicatorHeight(indicatorHeight);
+
+        final int textSize = ViewUtil.getRealDimension(16, this.getResources());
+        tabs.setTextSize(textSize);
+        */
 
         return view;
-    }
-
-    protected void attachEndlessScrollListener() {
-        int visibleThreshold = 5;
-        listView.setOnScrollListener(new InfiniteScrollListener(visibleThreshold) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                getSellers(items.get(items.size() - 1).offset);
-            }
-
-            @Override
-            public void onScrollUp() {
-                MainActivity.getInstance().showBottomMenuBar(false);
-            }
-
-            @Override
-            public void onScrollDown() {
-                MainActivity.getInstance().showBottomMenuBar(true);
-            }
-        });
-    }
-
-    protected void getSellers(long offset) {
-        if (offset == 0L) {
-            items.clear();
-            adapter.notifyDataSetChanged();
-        }
-
-        Log.d(TAG, "getSellers() offset="+offset);
-
-        ViewUtil.showSpinner(getActivity());
-        AppController.getApiService().getRecommendedSellersFeed(offset, new Callback<List<SellerVM>>() {
-            @Override
-            public void success(List<SellerVM> sellers, Response response) {
-                Log.d(TAG, "getSellers: success size="+sellers.size());
-                items.addAll(sellers);
-                adapter.notifyDataSetChanged();
-                ViewUtil.stopSpinner(getActivity());
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                ViewUtil.stopSpinner(getActivity());
-                Log.e(TAG, "getSellers: failure", error);
-            }
-        });
     }
 
     @Override
@@ -138,3 +67,56 @@ public class SellerMainFragment extends TrackedFragment {
         }
     }
 }
+
+/**
+ * https://guides.codepath.com/android/Sliding-Tabs-with-PagerSlidingTabStrip
+ * https://android-arsenal.com/details/1/1100
+ */
+class SellerMainPagerAdapter extends FragmentStatePagerAdapter {
+
+    public SellerMainPagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return ViewUtil.SELLER_MAIN_TITLES[position];
+    }
+
+    @Override
+    public int getCount() {
+        return ViewUtil.SELLER_MAIN_TITLES.length;
+    }
+
+    @Override
+    public Fragment getItem(int position) {
+        Log.d(this.getClass().getSimpleName(), "getItem: item position=" + position);
+
+        Bundle bundle = new Bundle();
+        TrackedFragment fragment = null;
+        switch (position) {
+            // Seller
+            case 0: {
+                fragment = new SellerFeedFragment();
+                break;
+            }
+            // Following
+            case 1: {
+                bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, FeedFilter.FeedType.HOME_FOLLOWING.name());
+                fragment = new SellerFollowingFeedViewFragment();
+                break;
+            }
+            default: {
+                Log.e(this.getClass().getSimpleName(), "getItem: Unknown item position=" + position);
+                break;
+            }
+        }
+
+        if (fragment != null) {
+            fragment.setArguments(bundle);
+            fragment.setTrackedOnce();
+        }
+        return fragment;
+    }
+}
+

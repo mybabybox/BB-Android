@@ -112,7 +112,7 @@
     <string name="signup_details_error_baby_not_entered">Please enter gender and birthday of you baby</string>
 
     <!-- Main -->
-    <string name="tabset_home">BabyBox</string>
+    <string name="tabset_home">Explore</string>
     <string name="tabset_seller">Seller</string>
     <string name="tabset_activity">Activity</string>
     <string name="tabset_profile">Me</string>
@@ -124,7 +124,7 @@
     <string name="my_profile_tips">Click \"Sell\" to list your product now\nEverymom is BabyBox seller！</string>
 
     <!-- Home tab -->
-    <string name="main_tab_explore">Explore</string>
+    <string name="main_tab_seller">Recommended Sellers</string>
     <string name="main_tab_following">Following</string>
     <string name="suggest_for_you">Suggested For You</string>
     <string name="follow">+ Follow</string>
