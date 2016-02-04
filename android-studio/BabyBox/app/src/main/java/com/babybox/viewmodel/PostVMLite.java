@@ -20,6 +20,8 @@ public class PostVMLite implements Serializable {
     public int numComments;
     public int numViews;
     public boolean isLiked = false;
+
+    // for feed
     public long offset;
 
     // seller fields

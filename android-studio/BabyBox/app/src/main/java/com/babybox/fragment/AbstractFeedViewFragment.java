@@ -224,8 +224,8 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     protected void attachEndlessScrollListener() {
         feedView.setOnScrollListener(new EndlessScrollListener(layoutManager) {
             @Override
-            public void onLoadMore(Long page) {
-                loadFeed(Long.valueOf(page - 1), getFeedFilter());
+            public void onLoadMore(Long offset) {
+                loadFeed(offset, getFeedFilter());
             }
 
             @Override

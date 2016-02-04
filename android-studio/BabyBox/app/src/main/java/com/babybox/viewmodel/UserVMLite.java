@@ -20,6 +20,9 @@ public class UserVMLite implements Serializable {
     public Long numCollections = 0L;
     public boolean isFollowing = false;
 
+    // for feed
+    public long offset;
+
     // admin readyonly fields
     public Long createdDate;
     public Long lastLogin;

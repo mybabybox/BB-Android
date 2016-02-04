@@ -53,12 +53,11 @@ public abstract class EndlessScrollListener extends RecyclerView.OnScrollListene
 
             Long offset = 0L;
             offset = (Long) recyclerView.getChildAt(visibleItemCount - 1).getTag();
-            if(offset != null) {
-                if( offset == 0) {
+            if (offset != null) {
+                if (offset == 0) {
                     current_page++;
                     onLoadMore((long)current_page);
                 } else {
-                    offset = offset+1;   //TODO:loadFeed(Long.valueOf(page - 1), getFeedFilter()) we are decrementing page value in loadFeed function
                     onLoadMore(offset);
                 }
             }

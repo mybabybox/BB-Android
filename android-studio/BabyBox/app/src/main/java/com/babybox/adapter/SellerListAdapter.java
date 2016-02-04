@@ -96,6 +96,8 @@ public class SellerListAdapter extends BaseAdapter {
         post2Image.setVisibility(View.GONE);
         post3Image.setVisibility(View.GONE);
         post4Image.setVisibility(View.GONE);
+        moreView.setVisibility(View.GONE);
+        moreTextLayout.setVisibility(View.GONE);
 
         List<ImageView> postImages = new ArrayList<>();
         postImages.add(post1Image);
@@ -160,7 +162,7 @@ public class SellerListAdapter extends BaseAdapter {
         int i = 0;
         for (final PostVMLite post : item.getPosts()) {
             if (post.images != null && post.images.length > 0) {
-                Log.d(TAG, item.displayName+" post image "+(i+1)+": "+post.images[0]);
+                //Log.d(TAG, item.displayName+" post image "+(i+1)+": "+post.images[0]);
                 try {
                     // load image
                     ImageView postImage = postImages.get(i);
@@ -188,9 +190,6 @@ public class SellerListAdapter extends BaseAdapter {
                                     ViewUtil.startProductActivity(activity, post.id);
                                 }
                             });
-                            moreView.setVisibility(View.GONE);
-                            moreTextLayout.setVisibility(View.GONE);
-                            moreText.setText("");
                         }
                     } else {
                         // open product

@@ -22,9 +22,11 @@ import com.babybox.listener.InfiniteScrollListener;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ActivityVM;
+import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.SellerVM;
 import com.yalantis.phoenix.PullToRefreshView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -40,6 +42,7 @@ public class SellerMainFragment extends TrackedFragment {
     protected ImageView backImage;
     protected PullToRefreshView pullListView;
 
+    protected List<SellerVM> items;
     protected SellerListAdapter adapter;
 
     @Override
@@ -48,7 +51,11 @@ public class SellerMainFragment extends TrackedFragment {
 
         View view = inflater.inflate(R.layout.seller_main_fragment, container, false);
 
+        items = new ArrayList<>();
+        adapter = new SellerListAdapter(getActivity(), items);
+
         listView = (ListView) view.findViewById(R.id.sellerList);
+        listView.setAdapter(adapter);
 
         // pull refresh
         pullListView = (PullToRefreshView) view.findViewById(R.id.pull_to_refresh);
@@ -60,7 +67,7 @@ public class SellerMainFragment extends TrackedFragment {
                         @Override
                         public void run() {
                             pullListView.setRefreshing(false);
-                            getSellers();
+                            getSellers(0L);
                         }
                     }, DefaultValues.PULL_TO_REFRESH_DELAY);
                 }
@@ -69,16 +76,17 @@ public class SellerMainFragment extends TrackedFragment {
 
         attachEndlessScrollListener();
 
-        getSellers();
+        getSellers(0L);
 
         return view;
     }
 
     protected void attachEndlessScrollListener() {
-        listView.setOnScrollListener(new InfiniteScrollListener() {
+        int visibleThreshold = 5;
+        listView.setOnScrollListener(new InfiniteScrollListener(visibleThreshold) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                // no opt
+                getSellers(items.get(items.size() - 1).offset);
             }
 
             @Override
@@ -93,27 +101,28 @@ public class SellerMainFragment extends TrackedFragment {
         });
     }
 
-    protected void markRead() {
-        // actual activities are marked as read after getActivities() in server
-        NotificationCounter.resetActivitiesCount();
-    }
+    protected void getSellers(long offset) {
+        if (offset == 0L) {
+            items.clear();
+            adapter.notifyDataSetChanged();
+        }
 
-    protected void getSellers() {
+        Log.d(TAG, "getSellers() offset="+offset);
+
         ViewUtil.showSpinner(getActivity());
-        AppController.getApiService().getRecommendedSellersFeed(0L, new Callback<List<SellerVM>>() {
+        AppController.getApiService().getRecommendedSellersFeed(offset, new Callback<List<SellerVM>>() {
             @Override
             public void success(List<SellerVM> sellers, Response response) {
-                Log.d(SellerMainFragment.class.getSimpleName(), "getSellers: success");
-                adapter = new SellerListAdapter(getActivity(), sellers);
-                listView.setAdapter(adapter);
-
+                Log.d(TAG, "getSellers: success size="+sellers.size());
+                items.addAll(sellers);
+                adapter.notifyDataSetChanged();
                 ViewUtil.stopSpinner(getActivity());
             }
 
             @Override
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(getActivity());
-                Log.e(SellerMainFragment.class.getSimpleName(), "getSellers: failure", error);
+                Log.e(TAG, "getSellers: failure", error);
             }
         });
     }
