@@ -34,8 +34,9 @@ public class SellerListAdapter extends BaseAdapter {
     private static final String TAG = SellerListAdapter.class.getName();
 
     private ImageView userImage, post1Image, post2Image, post3Image, post4Image;
-    private LinearLayout userLayout;
-    private TextView userNameText, userFollowersText, userDescText;
+    private View moreView;
+    private LinearLayout userLayout, moreTextLayout;
+    private TextView userNameText, userFollowersText, userDescText, moreText;
     private Button followButton;
 
     private Activity activity;
@@ -87,6 +88,9 @@ public class SellerListAdapter extends BaseAdapter {
         post2Image = (ImageView) convertView.findViewById(R.id.post2Image);
         post3Image = (ImageView) convertView.findViewById(R.id.post3Image);
         post4Image = (ImageView) convertView.findViewById(R.id.post4Image);
+        moreView = (View) convertView.findViewById(R.id.moreView);
+        moreTextLayout = (LinearLayout) convertView.findViewById(R.id.moreTextLayout);
+        moreText = (TextView) convertView.findViewById(R.id.moreText);
 
         post1Image.setVisibility(View.GONE);
         post2Image.setVisibility(View.GONE);
@@ -154,13 +158,50 @@ public class SellerListAdapter extends BaseAdapter {
 
         // posts images
         int i = 0;
-        for (PostVMLite post : item.getPosts()) {
+        for (final PostVMLite post : item.getPosts()) {
             if (post.images != null && post.images.length > 0) {
                 Log.d(TAG, item.displayName+" post image "+(i+1)+": "+post.images[0]);
                 try {
+                    // load image
                     ImageView postImage = postImages.get(i);
-                    postImage.setVisibility(View.VISIBLE);
                     ImageUtil.displayPostImage(post.images[0], postImage);
+                    postImage.setVisibility(View.VISIBLE);
+
+                    // click
+                    if (postImage == post4Image) {
+                        if (item.numMoreProducts > 0) {
+                            // open seller profile
+                            postImage.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    ViewUtil.startUserProfileActivity(activity, post.ownerId);
+                                }
+                            });
+                            moreView.setVisibility(View.VISIBLE);
+                            moreTextLayout.setVisibility(View.VISIBLE);
+                            moreText.setText("+" + item.numMoreProducts);
+                        } else {
+                            // open product
+                            postImage.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    ViewUtil.startProductActivity(activity, post.id);
+                                }
+                            });
+                            moreView.setVisibility(View.GONE);
+                            moreTextLayout.setVisibility(View.GONE);
+                            moreText.setText("");
+                        }
+                    } else {
+                        // open product
+                        postImage.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ViewUtil.startProductActivity(activity, post.id);
+                            }
+                        });
+                    }
+
                     i++;
                 } catch (Exception e) {
                     break;

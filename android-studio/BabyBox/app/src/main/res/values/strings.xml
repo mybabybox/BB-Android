@@ -5,7 +5,7 @@
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
     <string name="base_url"></string>
-    <string name="base_url_dev">http://192.168.1.131:9000</string>
+    <string name="base_url_dev">http://192.168.1.134:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">對不起！BabyBox 發生問題要退出</string>
@@ -113,6 +113,7 @@
 
     <!-- Main -->
     <string name="tabset_home">BabyBox</string>
+    <string name="tabset_seller">賣家</string>
     <string name="tabset_activity">動態</string>
     <string name="tabset_profile">我的</string>
 
@@ -130,7 +131,7 @@
     <string name="following">關注中</string>
     <string name="followings">關注中</string>
     <string name="followers">關注我</string>
-    <string name="seller_followers">關注</string>
+    <string name="user_followers">關注</string>
     <string name="products">商品</string>
 
     <!-- Activity tab -->
@@ -263,7 +264,7 @@
     <string name="pm_sell">賣</string>
     <string name="pm_sold">已售</string>
 
-    <string name="pm_buy_message">我要購買商品</string>
+    <string name="pm_buy_message">購買商品</string>
     <string name="pm_cancelled_message">購買已取消</string>
     <string name="pm_accepted_message">購買已被接受</string>
     <string name="pm_declined_message">購買不被接受</string>

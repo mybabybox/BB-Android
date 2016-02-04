@@ -18,7 +18,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.babybox.app.dev"
+        applicationId "com.babybox.app"
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 45

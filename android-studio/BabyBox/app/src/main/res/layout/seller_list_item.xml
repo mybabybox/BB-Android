@@ -131,11 +131,11 @@
                     android:id="@+id/post1Image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/image_rounded_elevated"
                     android:minHeight="50dp"
                     android:minWidth="50dp"
                     android:scaleType="fitCenter"
-                    android:adjustViewBounds="true" />
+                    android:adjustViewBounds="true"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout
@@ -151,7 +151,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
-                    android:background="@drawable/image_rounded_elevated"
                     android:minHeight="50dp"
                     android:minWidth="50dp"
                     android:scaleType="fitCenter"
@@ -171,14 +170,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
-                    android:background="@drawable/image_rounded_elevated"
                     android:minHeight="50dp"
                     android:minWidth="50dp"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true" />
             </LinearLayout>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -191,14 +189,46 @@
                     android:layout_toRightOf="@+id/postImage3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
-                    android:background="@drawable/image_rounded_elevated"
                     android:minHeight="50dp"
                     android:minWidth="50dp"
                     android:scaleType="fitCenter"
-                    android:adjustViewBounds="true" />
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/gradient_bottom"
+                    android:visibility="gone" />
 
-            </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/gradient_all"
+                    android:id="@+id/moreView"></View>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:id="@+id/moreTextLayout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/moreText"
+                        android:layout_gravity="center_horizontal"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/products"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </FrameLayout>
 
         </LinearLayout>
     </LinearLayout>
