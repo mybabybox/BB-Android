@@ -26,6 +26,7 @@ import com.babybox.app.UserInfoCache;
 import com.babybox.fragment.ActivityMainFragment;
 import com.babybox.fragment.HomeMainFragment;
 import com.babybox.fragment.ProfileMainFragment;
+import com.babybox.fragment.SellerMainFragment;
 import com.babybox.listener.EndlessScrollListener;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.LocationUtil;
@@ -230,7 +231,7 @@ public class MainActivity extends TrackedFragmentActivity {
     public void pressSellerTab() {
         if (!sellerClicked) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            selectedFragment = new HomeMainFragment();
+            selectedFragment = new SellerMainFragment();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
         }
 

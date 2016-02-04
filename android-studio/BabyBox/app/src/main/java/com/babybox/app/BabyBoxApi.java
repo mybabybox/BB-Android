@@ -20,6 +20,7 @@ import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.EditUserInfoVM;
+import com.babybox.viewmodel.SellerVM;
 import com.babybox.viewmodel.UserVM;
 import com.babybox.viewmodel.UserVMLite;
 
@@ -129,8 +130,11 @@ public interface BabyBoxApi {
     // Other feeds
     //
 
-    @GET("/api/get-user-recommended-sellers/{id}/{offset}")
-    public void getUserRecommendedSellers(@Path("offset") Long offset, @Path("id") Long id, @Query("key") String key, Callback<List<UserVMLite>> callback);
+    @GET("/api/get-recommended-sellers")
+    public void getRecommendedSellers(@Query("key") String key, Callback<List<UserVMLite>> callback);
+
+    @GET("/api/get-recommended-sellers-feed/{offset}")
+    public void getRecommendedSellersFeed(@Path("offset") Long offset, @Query("key") String key, Callback<List<SellerVM>> callback);
 
     @GET("/api/get-suggested-products/{id}")
     public void getSuggestedProducts(@Path("id") Long id, @Query("key") String key, Callback<List<PostVMLite>> callback);

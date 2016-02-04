@@ -22,6 +22,7 @@ import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.EditUserInfoVM;
+import com.babybox.viewmodel.SellerVM;
 import com.babybox.viewmodel.UserVM;
 import com.babybox.viewmodel.UserVMLite;
 
@@ -129,6 +130,20 @@ public class BabyBoxService {
         api.getFollowings(offset, userId, AppController.getInstance().getSessionId(), cb);
     }
 
+    // other feeds
+
+    public void getRecommendedSellers(Callback<List<UserVMLite>> cb) {
+        api.getRecommendedSellers(AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getRecommendedSellersFeed(Long offset, Callback<List<SellerVM>> cb) {
+        api.getRecommendedSellersFeed(offset, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void getSuggestedProducts(Long id, Callback<List<PostVMLite>> cb) {
+        api.getSuggestedProducts(id, AppController.getInstance().getSessionId(), cb);
+    }
+
     // category + post + comments
 
     public void getCategories(Callback<List<CategoryVM>> cb) {
@@ -185,11 +200,6 @@ public class BabyBoxService {
 
     public void soldPost(Long id, Callback<Response> cb) {
         api.soldPost(id, AppController.getInstance().getSessionId(), cb);
-    }
-
-    public void getSuggestedPosts(Long id, Callback<List<PostVMLite>> cb) {
-        // TODO: TEMP!!!
-        api.getUserLikedFeed(0L, UserInfoCache.getUser().id, AppController.getInstance().getSessionId(), cb);
     }
 
     // user profile
