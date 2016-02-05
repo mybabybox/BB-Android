@@ -23,7 +23,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -59,9 +58,9 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class NewPostActivity extends TrackedFragmentActivity{
-             PostVM post;
+    private static final String TAG = NewPostActivity.class.getName();
+
     protected LinearLayout imagesLayout, selectCatLayout, sellerLayout;
-    boolean flag;
     protected RelativeLayout catLayout;
     protected TextView selectCatText;
     protected ImageView selectCatIcon;
@@ -87,21 +86,21 @@ public class NewPostActivity extends TrackedFragmentActivity{
     protected PopupWindow categoryPopup;
     protected PopupCategoryListAdapter adapter;
 
+    protected ToggleButton fbSharingButton;
+
     protected boolean postSuccess = false;
 
     protected String getActionTypeText() {
         return getString(R.string.new_post_action);
     }
-    ToggleButton facebooklinksharebtn;
-    ToggleButton togglebutton2;
-    Switch facebookswitch;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.new_post_activity);
-      //  facebookswitch=(Switch)findViewById(R.id.switch1);
-        facebooklinksharebtn=(ToggleButton)findViewById(R.id.facebookshare);
+
+        fbSharingButton =(ToggleButton)findViewById(R.id.facebookshare);
 
         backImage = (ImageView) findViewById(R.id.backImage);
         postAction = (TextView) findViewById(R.id.postAction);
@@ -290,29 +289,13 @@ public class NewPostActivity extends TrackedFragmentActivity{
             }
         });
 
+        // sharing
 
-
-        if(SharedPreferencesUtil.getInstance().isSharingFacebookWall()){
-            facebooklinksharebtn.setChecked(true);
-            flag= true;
-        }else{
-            facebooklinksharebtn.setChecked(false);
-            flag= false;
-        }
-
-        facebooklinksharebtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
+        fbSharingButton.setChecked(SharedPreferencesUtil.getInstance().isSharingFacebookWall());
+        fbSharingButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked) {
-                    flag = true;
-                    SharedPreferencesUtil.getInstance().setSharingFacebookWall(true);
-
-                } else {
-                    flag = false;
-                    SharedPreferencesUtil.getInstance().setSharingFacebookWall(false);
-                }
+                SharedPreferencesUtil.getInstance().setSharingFacebookWall(isChecked);
             }
         });
 
@@ -521,41 +504,20 @@ public class NewPostActivity extends TrackedFragmentActivity{
 
         ViewUtil.showSpinner(this);
 
-
-
         postAction.setEnabled(false);
         AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
-                System.out.println("Inside image post success");
-             //   facebookswitch.setChecked(true);
-                post=new PostVM();
-
-                post.price=newPost.getPrice();
-                post.body=newPost.getBody();
-                post.title=newPost.getTitle();
-
-                if(flag==true)
-                {
-                    System.out.println("inside button on flag::"+flag);
+                if (SharedPreferencesUtil.getInstance().isSharingFacebookWall()) {
+                    PostVM post = new PostVM();
+                    post.price = newPost.getPrice();
+                    post.body = newPost.getBody();
+                    post.title = newPost.getTitle();
                     SharingUtil.shareToFacebook(post, NewPostActivity.this);
-
-                    UserInfoCache.incrementNumProducts();
-                    complete();
-
-                }
-                else {
-
-                    //switchStatus.setText("Switch is currently OFF");
-                    UserInfoCache.incrementNumProducts();
-                    complete();
-
                 }
 
-
-
-
-
+                UserInfoCache.incrementNumProducts();
+                complete();
             }
 
             @Override

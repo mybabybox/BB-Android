@@ -103,8 +103,6 @@ public class SharingUtil {
         FacebookSdk.sdkInitialize(activity);
 
         ShareDialog shareDialog = new ShareDialog(activity);
-
-
         if (ShareDialog.canShow(ShareLinkContent.class)) {
             ShareLinkContent linkContent = new ShareLinkContent.Builder()
                     .setContentTitle(title)

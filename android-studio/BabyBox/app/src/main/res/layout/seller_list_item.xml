@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/rect_border_light_gray"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
