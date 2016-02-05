@@ -176,7 +176,7 @@ public class SharedPreferencesUtil {
     }
 
     public Boolean isSharingFacebookWall() {
-        return this.getBoolean(SharedPreferencesUtil.SHARING_FB_WALL);
+        return this.getBoolean(SharedPreferencesUtil.SHARING_FB_WALL, true);    // default is true
     }
 
     public String getSessionId() {
@@ -258,15 +258,27 @@ public class SharedPreferencesUtil {
     }
 
     public String getString(String key) {
-        return this.prefs.getString(key, null);
+        return getString(key, null);
+    }
+
+    public String getString(String key, String defaultValue) {
+        return this.prefs.getString(key, defaultValue);
     }
 
     public Long getLong(String key) {
-        return this.prefs.getLong(key, 0L);
+        return getLong(key, 0L);
+    }
+
+    public Long getLong(String key, long defaultValue) {
+        return this.prefs.getLong(key, defaultValue);
     }
 
     public Boolean getBoolean(String key) {
-        return this.prefs.getBoolean(key, false);
+        return getBoolean(key, false);
+    }
+
+    public Boolean getBoolean(String key, boolean defaultValue) {
+        return this.prefs.getBoolean(key, defaultValue);
     }
 
     public void clear(String key) {

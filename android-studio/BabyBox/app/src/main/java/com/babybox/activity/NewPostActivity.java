@@ -292,19 +292,19 @@ public class NewPostActivity extends TrackedFragmentActivity{
 
         // sharing
 
+        Log.d(TAG, "isSharingFacebookWall="+SharedPreferencesUtil.getInstance().isSharingFacebookWall());
         if (UserInfoCache.getUser().isFbLogin()) {
             sharingLayout.setVisibility(View.VISIBLE);
             fbSharingButton.setChecked(SharedPreferencesUtil.getInstance().isSharingFacebookWall());
             fbSharingButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    SharedPreferencesUtil.getInstance().setSharingFacebookWall(isChecked);
+                    // no opt
                 }
             });
         } else {
             sharingLayout.setVisibility(View.GONE);
             fbSharingButton.setChecked(false);
-            SharedPreferencesUtil.getInstance().setSharingFacebookWall(false);
         }
 
         // post
@@ -516,14 +516,17 @@ public class NewPostActivity extends TrackedFragmentActivity{
         AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
-                if (UserInfoCache.getUser().isFbLogin() &&
-                        SharedPreferencesUtil.getInstance().isSharingFacebookWall()) {
-                    PostVM post = new PostVM();
-                    post.id = responseStatus.objId;
-                    post.price = newPost.getPrice();
-                    post.body = newPost.getBody();
-                    post.title = newPost.getTitle();
-                    SharingUtil.shareToFacebook(post, NewPostActivity.this);
+                if (UserInfoCache.getUser().isFbLogin()) {
+                    boolean fbShare = fbSharingButton.isChecked();
+                    if (fbShare) {
+                        PostVM post = new PostVM();
+                        post.id = responseStatus.objId;
+                        post.price = newPost.getPrice();
+                        post.body = newPost.getBody();
+                        post.title = newPost.getTitle();
+                        SharingUtil.shareToFacebook(post, NewPostActivity.this);
+                    }
+                    SharedPreferencesUtil.getInstance().setSharingFacebookWall(fbShare);
                 }
 
                 UserInfoCache.incrementNumProducts();
