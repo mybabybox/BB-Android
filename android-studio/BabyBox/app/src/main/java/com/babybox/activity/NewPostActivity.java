@@ -60,7 +60,7 @@ import retrofit.client.Response;
 public class NewPostActivity extends TrackedFragmentActivity{
     private static final String TAG = NewPostActivity.class.getName();
 
-    protected LinearLayout imagesLayout, selectCatLayout, sellerLayout;
+    protected LinearLayout imagesLayout, selectCatLayout, sellerLayout, sharingLayout;
     protected RelativeLayout catLayout;
     protected TextView selectCatText;
     protected ImageView selectCatIcon;
@@ -119,6 +119,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         originalPriceEdit = (TextView) findViewById(R.id.originalPriceEdit);
         freeDeliveryCheckBox = (CheckBox) findViewById(R.id.freeDeliveryCheckBox);
         countrySpinner = (Spinner) findViewById(R.id.countrySpinner);
+        sharingLayout = (LinearLayout) findViewById(R.id.sharingLayout);
         editTextInFocus = titleEdit;
 
         SharedPreferencesUtil.getInstance().saveUserLocation("");
@@ -291,13 +292,20 @@ public class NewPostActivity extends TrackedFragmentActivity{
 
         // sharing
 
-        fbSharingButton.setChecked(SharedPreferencesUtil.getInstance().isSharingFacebookWall());
-        fbSharingButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferencesUtil.getInstance().setSharingFacebookWall(isChecked);
-            }
-        });
+        if (UserInfoCache.getUser().isFbLogin()) {
+            sharingLayout.setVisibility(View.VISIBLE);
+            fbSharingButton.setChecked(SharedPreferencesUtil.getInstance().isSharingFacebookWall());
+            fbSharingButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    SharedPreferencesUtil.getInstance().setSharingFacebookWall(isChecked);
+                }
+            });
+        } else {
+            sharingLayout.setVisibility(View.GONE);
+            fbSharingButton.setChecked(false);
+            SharedPreferencesUtil.getInstance().setSharingFacebookWall(false);
+        }
 
         // post
 
@@ -508,8 +516,10 @@ public class NewPostActivity extends TrackedFragmentActivity{
         AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
-                if (SharedPreferencesUtil.getInstance().isSharingFacebookWall()) {
+                if (UserInfoCache.getUser().isFbLogin() &&
+                        SharedPreferencesUtil.getInstance().isSharingFacebookWall()) {
                     PostVM post = new PostVM();
+                    post.id = responseStatus.objId;
                     post.price = newPost.getPrice();
                     post.body = newPost.getBody();
                     post.title = newPost.getTitle();
