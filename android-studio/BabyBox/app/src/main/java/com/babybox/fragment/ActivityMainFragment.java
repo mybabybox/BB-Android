@@ -23,8 +23,10 @@ import com.babybox.listener.InfiniteScrollListener;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ActivityVM;
+import com.babybox.viewmodel.SellerVM;
 import com.yalantis.phoenix.PullToRefreshView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit.Callback;
@@ -41,6 +43,7 @@ public class ActivityMainFragment extends TrackedFragment {
     protected ImageView backImage;
     protected PullToRefreshView pullListView;
 
+    protected List<ActivityVM> items;
     protected ActivityListAdapter adapter;
 
     @Override
@@ -52,6 +55,10 @@ public class ActivityMainFragment extends TrackedFragment {
         tipText = (TextView) view.findViewById(R.id.tipText);
         listView = (ListView) view.findViewById(R.id.activityList);
 
+        items = new ArrayList<>();
+        adapter = new ActivityListAdapter(getActivity(), items);
+        listView.setAdapter(adapter);
+
         // pull refresh
         pullListView = (PullToRefreshView) view.findViewById(R.id.pull_to_refresh);
         if (pullListView != null) {
@@ -62,7 +69,7 @@ public class ActivityMainFragment extends TrackedFragment {
                         @Override
                         public void run() {
                             pullListView.setRefreshing(false);
-                            getActivities();
+                            getActivities(0L);
                         }
                     }, DefaultValues.PULL_TO_REFRESH_DELAY);
                 }
@@ -71,7 +78,7 @@ public class ActivityMainFragment extends TrackedFragment {
 
         attachEndlessScrollListener();
 
-        getActivities();
+        getActivities(0L);
 
         return view;
     }
@@ -80,7 +87,7 @@ public class ActivityMainFragment extends TrackedFragment {
         listView.setOnScrollListener(new InfiniteScrollListener() {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                // no opt
+                getActivities(page - 1);
             }
 
             @Override
@@ -100,21 +107,27 @@ public class ActivityMainFragment extends TrackedFragment {
         NotificationCounter.resetActivitiesCount();
     }
 
-    protected void getActivities() {
+    protected void getActivities(final long offset) {
+        Log.d(TAG, "getActivities() offset="+offset);
+
         ViewUtil.showSpinner(getActivity());
-        AppController.getApiService().getActivites(0L, new Callback<List<ActivityVM>>() {
+        AppController.getApiService().getActivites(offset, new Callback<List<ActivityVM>>() {
             @Override
             public void success(List<ActivityVM> activities, Response response) {
-                Log.d(ActivityMainFragment.class.getSimpleName(), "getActivities: success");
-                if (activities.size() == 0) {
-                    tipText.setVisibility(View.VISIBLE);
-                } else {
-                    adapter = new ActivityListAdapter(getActivity(), activities);
-                    listView.setAdapter(adapter);
+                Log.d(ActivityMainFragment.class.getSimpleName(), "getActivities: size=" + activities.size());
+                if (offset == 0L) {
+                    items.clear();
+                    adapter.notifyDataSetChanged();
 
-                    markRead();
+                    if (activities.size() == 0) {
+                        tipText.setVisibility(View.VISIBLE);
+                    } else {
+                        markRead();
+                    }
                 }
 
+                items.addAll(activities);
+                adapter.notifyDataSetChanged();
                 ViewUtil.stopSpinner(getActivity());
             }
 

@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="11dp"
                     android:layout_gravity="center_vertical"
-                    android:maxLines="2"
+                    android:maxLines="3"
                     android:layout_below="@+id/userLayout"
                     android:layout_marginTop="2dp"
                     android:visibility="gone" />
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="10"
-            android:padding="5dp">
+            android:paddingTop="5dp">
 
             <LinearLayout
                 android:layout_width="0dp"

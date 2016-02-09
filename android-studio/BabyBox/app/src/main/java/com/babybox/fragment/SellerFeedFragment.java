@@ -46,10 +46,10 @@ public class SellerFeedFragment extends TrackedFragment {
 
         View view = inflater.inflate(R.layout.seller_feed_fragment, container, false);
 
+        listView = (ListView) view.findViewById(R.id.sellerList);
+
         items = new ArrayList<>();
         adapter = new SellerListAdapter(getActivity(), items);
-
-        listView = (ListView) view.findViewById(R.id.sellerList);
         listView.setAdapter(adapter);
 
         // pull refresh

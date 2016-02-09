@@ -65,7 +65,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/homeLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="2.8"
+                    android:layout_weight="2.5"
                     android:gravity="center">
 
                     <ImageView
@@ -73,8 +73,7 @@
                         android:layout_height="24dp"
                         android:id="@+id/homeImage"
                         android:src="@drawable/mn_home"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="2dp" />
+                        android:layout_gravity="center" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -83,7 +82,7 @@
                         android:id="@+id/homeText"
                         android:textSize="15dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="2dp" />
+                        android:layout_marginLeft="4dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -92,7 +91,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/sellerLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="2.4"
+                    android:layout_weight="2.5"
                     android:gravity="center">
 
                     <ImageView
@@ -116,7 +115,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/activitiesFrame"
-                    android:layout_weight="2.4">
+                    android:layout_weight="2.5">
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -169,7 +168,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/profileLayout"
                     android:background="@color/main_menubar_bg"
-                    android:layout_weight="2.4"
+                    android:layout_weight="2.5"
                     android:gravity="center" >
 
                     <ImageView

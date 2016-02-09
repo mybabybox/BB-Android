@@ -68,7 +68,7 @@ public class ActivityListAdapter extends BaseAdapter {
 
         final ActivityVM item = activities.get(i);
 
-        Log.d(this.getClass().getSimpleName(), "[" + i + "|id=" + item.id + "] " + item.getActivityType() + " actor=" + item.actorName + " target=" + item.targetName);
+        //Log.d(this.getClass().getSimpleName(), "[" + i + "|id=" + item.id + "] " + item.getActivityType() + " actor=" + item.actorName + " target=" + item.targetName);
         if (!item.isViewed()) {
             activityLayout.setBackgroundDrawable(this.activity.getResources().getDrawable(R.drawable.rect_border_notification_new));
         } else {

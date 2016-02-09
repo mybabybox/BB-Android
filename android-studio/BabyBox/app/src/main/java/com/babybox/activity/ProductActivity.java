@@ -875,7 +875,7 @@ public class ProductActivity extends TrackedFragmentActivity {
             LayoutInflater inflater = (LayoutInflater) ProductActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            final View layout = inflater.inflate(R.layout.comment_popup_window,
+            final View layout = inflater.inflate(R.layout.message_popup_window,
                     (ViewGroup) findViewById(R.id.popupElement));
 
             if (commentPopup == null) {
