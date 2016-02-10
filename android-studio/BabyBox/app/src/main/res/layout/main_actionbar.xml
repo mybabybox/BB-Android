@@ -66,10 +66,10 @@
 
             <ImageView
                 android:id="@+id/chatImage"
-                android:layout_width="24dp"
+                android:layout_width="26dp"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:src="@drawable/w_message"
+                android:src="@drawable/ic_chat"
                 android:layout_toLeftOf="@+id/setting"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
