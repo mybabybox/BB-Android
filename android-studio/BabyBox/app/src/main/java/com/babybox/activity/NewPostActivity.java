@@ -292,6 +292,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
 
         // sharing
 
+        /*
         Log.d(TAG, "isSharingFacebookWall="+SharedPreferencesUtil.getInstance().isSharingFacebookWall());
         if (UserInfoCache.getUser().isFbLogin()) {
             sharingLayout.setVisibility(View.VISIBLE);
@@ -306,6 +307,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
             sharingLayout.setVisibility(View.GONE);
             fbSharingButton.setChecked(false);
         }
+        */
 
         // post
 
@@ -516,6 +518,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
         AppController.getApiService().newPost(newPost, new Callback<ResponseStatusVM>() {
             @Override
             public void success(ResponseStatusVM responseStatus, Response response) {
+                /*
                 if (UserInfoCache.getUser().isFbLogin()) {
                     boolean fbShare = fbSharingButton.isChecked();
                     if (fbShare) {
@@ -528,6 +531,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
                     }
                     SharedPreferencesUtil.getInstance().setSharingFacebookWall(fbShare);
                 }
+                */
 
                 UserInfoCache.incrementNumProducts();
                 complete();

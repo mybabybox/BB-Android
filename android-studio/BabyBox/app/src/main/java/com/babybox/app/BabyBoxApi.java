@@ -42,7 +42,7 @@ import retrofit.mime.TypedFile;
 
 public interface BabyBoxApi {
 
-    @POST("/api/login/mobile")
+    @POST("/login/mobile")
     public void login(@Query("email") String email, @Query("password") String password, Callback<Response> cb);
 
     @POST("/authenticate/mobile/facebook")
@@ -98,17 +98,17 @@ public interface BabyBoxApi {
     // Category feeds
     //
 
-    @GET("/api/get-category-popular-feed/{id}/{productType}/{offset}")
-    public void getCategoryPopularFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
+    @GET("/api/get-category-popular-feed/{id}/{conditionType}/{offset}")
+    public void getCategoryPopularFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("conditionType") String conditionType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/api/get-category-newest-feed/{id}/{productType}/{offset}")
-    public void getCategoryNewestFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
+    @GET("/api/get-category-newest-feed/{id}/{conditionType}/{offset}")
+    public void getCategoryNewestFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("conditionType") String conditionType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/api/get-category-price-low-high-feed/{id}/{productType}/{offset}")
-    public void getCategoryPriceLowHighFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
+    @GET("/api/get-category-price-low-high-feed/{id}/{conditionType}/{offset}")
+    public void getCategoryPriceLowHighFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("conditionType") String conditionType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
-    @GET("/api/get-category-price-high-low-feed/{id}/{productType}/{offset}")
-    public void getCategoryPriceHighLowFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("productType") String productType, @Query("key") String key, Callback<List<PostVMLite>> callback);
+    @GET("/api/get-category-price-high-low-feed/{id}/{conditionType}/{offset}")
+    public void getCategoryPriceHighLowFeed(@Path("offset") Long offset, @Path("id") Long id, @Path("conditionType") String conditionType, @Query("key") String key, Callback<List<PostVMLite>> callback);
 
     //
     // User feeds

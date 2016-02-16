@@ -48,7 +48,7 @@ public class ImageUtil {
 
     public static final int IMAGE_COMPRESS_QUALITY = 80;
 
-    public static final int IMAGE_DISPLAY_CROSS_FADE_DURATION = 200;
+    public static final int IMAGE_DISPLAY_CROSS_FADE_DURATION = 500;
 
     private static final String COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-cover-image-by-id/";
     private static final String THUMBNAIL_COVER_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-thumbnail-cover-image-by-id/";

@@ -96,20 +96,20 @@ public class BabyBoxService {
 
     // category feeds
 
-    public void getCategoryPopularFeed(Long offset, Long id, String productType, Callback<List<PostVMLite>> cb) {
-        api.getCategoryPopularFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
+    public void getCategoryPopularFeed(Long offset, Long id, String conditionType, Callback<List<PostVMLite>> cb) {
+        api.getCategoryPopularFeed(offset, id, conditionType, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getCategoryNewestFeed(Long offset, Long id, String productType, Callback<List<PostVMLite>> cb) {
-        api.getCategoryNewestFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
+    public void getCategoryNewestFeed(Long offset, Long id, String conditionType, Callback<List<PostVMLite>> cb) {
+        api.getCategoryNewestFeed(offset, id, conditionType, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getCategoryPriceLowHighFeed(Long offset, Long id, String productType, Callback<List<PostVMLite>> cb) {
-        api.getCategoryPriceLowHighFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
+    public void getCategoryPriceLowHighFeed(Long offset, Long id, String conditionType, Callback<List<PostVMLite>> cb) {
+        api.getCategoryPriceLowHighFeed(offset, id, conditionType, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void getCategoryPriceHighLowFeed(Long offset, Long id, String productType, Callback<List<PostVMLite>> cb) {
-        api.getCategoryPriceHighLowFeed(offset, id, productType, AppController.getInstance().getSessionId(), cb);
+    public void getCategoryPriceHighLowFeed(Long offset, Long id, String conditionType, Callback<List<PostVMLite>> cb) {
+        api.getCategoryPriceHighLowFeed(offset, id, conditionType, AppController.getInstance().getSessionId(), cb);
     }
 
     // user feeds

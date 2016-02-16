@@ -16,7 +16,7 @@ public class DefaultValues {
     public static final FeedFilter.FeedType DEFAULT_HOME_FEED_TYPE = FeedFilter.FeedType.HOME_EXPLORE;
     public static final FeedFilter.FeedType DEFAULT_CATEGORY_FEED_TYPE = FeedFilter.FeedType.CATEGORY_POPULAR;
     public static final FeedFilter.FeedType DEFAULT_USER_FEED_TYPE = FeedFilter.FeedType.USER_POSTED;
-    public static final FeedFilter.FeedProductType DEFAULT_FEED_PRODUCT_TYPE = FeedFilter.FeedProductType.ALL;
+    public static final FeedFilter.ConditionType DEFAULT_FEED_FILTER_CONDITION_TYPE = FeedFilter.ConditionType.ALL;
 
     // From server
     public static final int DEFAULT_INFINITE_SCROLL_VISIBLE_THRESHOLD = 2;

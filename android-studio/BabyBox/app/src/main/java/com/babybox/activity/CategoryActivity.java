@@ -27,7 +27,7 @@ public class CategoryActivity extends TrackedFragmentActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString(ViewUtil.BUNDLE_KEY_FEED_TYPE, DefaultValues.DEFAULT_CATEGORY_FEED_TYPE.name());
-        bundle.putString(ViewUtil.BUNDLE_KEY_FEED_PRODUCT_TYPE, DefaultValues.DEFAULT_FEED_PRODUCT_TYPE.name());
+        bundle.putString(ViewUtil.BUNDLE_KEY_FEED_FILTER_CONDITION_TYPE, DefaultValues.DEFAULT_FEED_FILTER_CONDITION_TYPE.name());
         bundle.putLong(ViewUtil.BUNDLE_KEY_ID, catId);
 
         CategoryFeedViewFragment fragment = new CategoryFeedViewFragment();

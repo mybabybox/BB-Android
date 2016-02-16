@@ -113,7 +113,7 @@ public class ViewUtil {
     public static final String BUNDLE_KEY_CATEGORY_ID = "catId";
     public static final String BUNDLE_KEY_SOURCE = "source";
     public static final String BUNDLE_KEY_FEED_TYPE = "feedType";
-    public static final String BUNDLE_KEY_FEED_PRODUCT_TYPE = "feedProductType";
+    public static final String BUNDLE_KEY_FEED_FILTER_CONDITION_TYPE = "feedFilterConditionType";
     public static final String BUNDLE_KEY_FEED_OBJECT_ID = "feedObjectId";
     public static final String BUNDLE_KEY_ACTION_TYPE = "actionType";
     public static final String BUNDLE_KEY_LISTS = "lists";

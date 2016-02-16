@@ -50,7 +50,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
                             ViewUtil.getResponseBody(error.getResponse());
                 }
                 ViewUtil.alert(getActivity(), msg);
-                Log.e(FeedViewFragment.class.getSimpleName(), "getFeed: failure feedFilter=\n"+getFeedFilter().toString(), error);
+                Log.e(TAG, "getFeed: failure feedFilter=\n"+getFeedFilter().toString(), error);
                 ViewUtil.stopSpinner(getActivity());
             }
         };
@@ -58,7 +58,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
 
     protected void loadFeed(Long offset, FeedFilter feedFilter) {
         if (feedFilter == null || feedFilter.feedType == null) {
-            Log.w(this.getClass().getSimpleName(), "loadFeed: offset=" + offset + " with null key!!");
+            Log.w(TAG, "loadFeed: offset=" + offset + " with null key!!");
             return;
         }
 
@@ -66,7 +66,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
             initCallback();
         }
 
-        Log.d(this.getClass().getSimpleName(), "loadFeed: offset=" + offset + " with key=" + feedFilter.feedType.name());
+        Log.d(TAG, "loadFeed: offset=" + offset + " with key=" + feedFilter.feedType.name());
         switch (feedFilter.feedType) {
             case HOME_EXPLORE:
                 AppController.getApiService().getHomeExploreFeed(
@@ -82,28 +82,28 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
                 AppController.getApiService().getCategoryPopularFeed(
                         Long.valueOf(offset),
                         feedFilter.objId,
-                        feedFilter.productType.name(),
+                        feedFilter.conditionType.name(),
                         feedCallback);
                 break;
             case CATEGORY_NEWEST:
                 AppController.getApiService().getCategoryNewestFeed(
                         Long.valueOf(offset),
                         feedFilter.objId,
-                        feedFilter.productType.name(),
+                        feedFilter.conditionType.name(),
                         feedCallback);
                 break;
             case CATEGORY_PRICE_LOW_HIGH:
                 AppController.getApiService().getCategoryPriceLowHighFeed(
                         Long.valueOf(offset),
                         feedFilter.objId,
-                        feedFilter.productType.name(),
+                        feedFilter.conditionType.name(),
                         feedCallback);
                 break;
             case CATEGORY_PRICE_HIGH_LOW:
                 AppController.getApiService().getCategoryPriceHighLowFeed(
                         Long.valueOf(offset),
                         feedFilter.objId,
-                        feedFilter.productType.name(),
+                        feedFilter.conditionType.name(),
                         feedCallback);
                 break;
             case USER_POSTED:
@@ -119,7 +119,7 @@ public class FeedViewFragment extends AbstractFeedViewFragment {
                         feedCallback);
                 break;
             default:
-                Log.w(this.getClass().getSimpleName(), "loadFeed: unknown default case with key - " + feedFilter.feedType.name());
+                Log.w(TAG, "loadFeed: unknown default case with key - " + feedFilter.feedType.name());
         }
     }
 

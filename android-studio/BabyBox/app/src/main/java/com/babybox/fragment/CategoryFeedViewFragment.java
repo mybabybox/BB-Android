@@ -34,7 +34,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
     private Long catId;
 
     private FeedFilter.FeedType feedType;
-    private FeedFilter.FeedProductType productType;
+    private FeedFilter.ConditionType conditionType;
 
     private ImageView backImage, newPostAction;
 
@@ -112,22 +112,22 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         allFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectProductFilter(FeedFilter.FeedProductType.ALL);
+                selectProductFilter(FeedFilter.ConditionType.ALL);
             }
         });
         newFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectProductFilter(FeedFilter.FeedProductType.NEW);
+                selectProductFilter(FeedFilter.ConditionType.NEW);
             }
         });
         usedFilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectProductFilter(FeedFilter.FeedProductType.USED);
+                selectProductFilter(FeedFilter.ConditionType.USED);
             }
         });
-        selectProductFilter(FeedFilter.FeedProductType.ALL, false);
+        selectProductFilter(FeedFilter.ConditionType.ALL, false);
 
         // tips
         /*
@@ -202,23 +202,23 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         if (loadFeed) {
             reloadFeed(new FeedFilter(
                     getFeedType(),
-                    getProductType(),
+                    getFeedFilterConditionType(),
                     catId));
         }
     }
 
-    private void selectProductFilter(FeedFilter.FeedProductType productType) {
-        selectProductFilter(productType, true);
+    private void selectProductFilter(FeedFilter.ConditionType conditionType) {
+        selectProductFilter(conditionType, true);
     }
 
-    private void selectProductFilter(FeedFilter.FeedProductType productType, boolean loadFeed) {
-        if (FeedFilter.FeedProductType.ALL.equals(productType)) {
+    private void selectProductFilter(FeedFilter.ConditionType conditionType, boolean loadFeed) {
+        if (FeedFilter.ConditionType.ALL.equals(conditionType)) {
             ViewUtil.selectFilterButtonStyle(allFilterButton);
         } else {
             ViewUtil.unselectFilterButtonStyle(allFilterButton);
         }
 
-        if (FeedFilter.FeedProductType.NEW.equals(productType)) {
+        if (FeedFilter.ConditionType.NEW.equals(conditionType)) {
             ViewUtil.selectFilterButtonStyle(newFilterButton);
             if (loadFeed) {
 
@@ -227,7 +227,7 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             ViewUtil.unselectFilterButtonStyle(newFilterButton);
         }
 
-        if (FeedFilter.FeedProductType.USED.equals(productType)) {
+        if (FeedFilter.ConditionType.USED.equals(conditionType)) {
             ViewUtil.selectFilterButtonStyle(usedFilterButton);
             if (loadFeed) {
 
@@ -236,12 +236,12 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
             ViewUtil.unselectFilterButtonStyle(usedFilterButton);
         }
 
-        setProductType(productType);
+        setFeedFilterConditionType(conditionType);
 
         if (loadFeed) {
             reloadFeed(new FeedFilter(
                     getFeedType(),
-                    getProductType(),
+                    getFeedFilterConditionType(),
                     catId));
         }
     }
@@ -276,11 +276,11 @@ public class CategoryFeedViewFragment extends FeedViewFragment {
         this.feedType = feedType;
     }
 
-    public FeedFilter.FeedProductType getProductType() {
-        return productType;
+    public FeedFilter.ConditionType getFeedFilterConditionType() {
+        return conditionType;
     }
 
-    public void setProductType(FeedFilter.FeedProductType productType) {
-        this.productType = productType;
+    public void setFeedFilterConditionType(FeedFilter.ConditionType conditionType) {
+        this.conditionType = conditionType;
     }
 }

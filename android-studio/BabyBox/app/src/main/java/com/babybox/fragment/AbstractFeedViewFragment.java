@@ -170,10 +170,12 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
     }
 
     protected void reloadFeed() {
-        FeedFilter.FeedType feedType = getFeedType(getArguments().getString(ViewUtil.BUNDLE_KEY_FEED_TYPE));
-        FeedFilter.FeedProductType productType = getFeedProductType(getArguments().getString(ViewUtil.BUNDLE_KEY_FEED_PRODUCT_TYPE));
+        FeedFilter.FeedType feedType = getFeedType(
+                getArguments().getString(ViewUtil.BUNDLE_KEY_FEED_TYPE));
+        FeedFilter.ConditionType conditionType = getFeedFilterConditionType(
+                getArguments().getString(ViewUtil.BUNDLE_KEY_FEED_FILTER_CONDITION_TYPE));
         Long objId = getArguments().getLong(ViewUtil.BUNDLE_KEY_ID, -1);
-        reloadFeed(new FeedFilter(feedType, productType, objId));
+        reloadFeed(new FeedFilter(feedType, conditionType, objId));
     }
 
     protected void reloadFeed(FeedFilter feedFilter) {
@@ -208,17 +210,17 @@ public abstract class AbstractFeedViewFragment extends TrackedFragment {
         return null;
     }
 
-    protected FeedFilter.FeedProductType getFeedProductType(String productType) {
-        if (StringUtils.isEmpty(productType)) {
-            return FeedFilter.FeedProductType.ALL;
+    protected FeedFilter.ConditionType getFeedFilterConditionType(String conditionType) {
+        if (StringUtils.isEmpty(conditionType)) {
+            return FeedFilter.ConditionType.ALL;
         }
 
         try {
-            return FeedFilter.FeedProductType.valueOf(productType);
+            return FeedFilter.ConditionType.valueOf(conditionType);
         } catch (IllegalArgumentException e) {
-            Log.e(this.getClass().getSimpleName(), "getFeedProductType: Invalid productType="+productType, e);
+            Log.e(this.getClass().getSimpleName(), "getConditionType: Invalid conditionType="+conditionType, e);
         }
-        return FeedFilter.FeedProductType.ALL;
+        return FeedFilter.ConditionType.ALL;
     }
 
     protected void attachEndlessScrollListener() {
