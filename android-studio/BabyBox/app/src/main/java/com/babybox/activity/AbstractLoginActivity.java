@@ -107,10 +107,13 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
 
                 // FB API v4.0 - FB log out previous user to allow login again
                 if (e instanceof FacebookAuthorizationException) {
+                    Log.e(AbstractLoginActivity.class.getSimpleName(), "FacebookCallback.onError: Log out existing valid access token");
+                    LoginManager.getInstance().logOut();
+                    /*
                     if (AccessToken.getCurrentAccessToken() != null) {
-                        Log.e(AbstractLoginActivity.class.getSimpleName(), "FacebookCallback.onError: Log out existing valid access token");
                         LoginManager.getInstance().logOut();
                     }
+                    */
                 }
             }
         });
@@ -119,7 +122,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
     protected void emailLogin(String username, String password) {
         showSpinner();
 
-        AppController.getApiService().login(username, password, new Callback<Response>() {
+        AppController.getApiService().loginByEmail(username, password, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
                 stopSpinner();
@@ -155,7 +158,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
                             getString(R.string.login_error_message));
                 }
 
-                Log.e(LoginActivity.class.getSimpleName(), "api.login: failure", error);
+                Log.e(LoginActivity.class.getSimpleName(), "emailLogin: failure", error);
             }
         });
     }

@@ -56,8 +56,8 @@ public class BabyBoxService {
         api.getCountries(AppController.getInstance().getSessionId(), cb);
     }
 
-    public void login(String email, String password, Callback<Response> cb) {
-        api.login(email, password, cb);
+    public void loginByEmail(String email, String password, Callback<Response> cb) {
+        api.loginByEmail(email, password, cb);
     }
 
     public void loginByFacebook(String access_token, Callback<Response> cb) {

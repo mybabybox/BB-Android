@@ -43,7 +43,7 @@ import retrofit.mime.TypedFile;
 public interface BabyBoxApi {
 
     @POST("/login/mobile")
-    public void login(@Query("email") String email, @Query("password") String password, Callback<Response> cb);
+    public void loginByEmail(@Query("email") String email, @Query("password") String password, Callback<Response> cb);
 
     @POST("/authenticate/mobile/facebook")
     public void loginByFacebook(@Query("access_token") String access_token, Callback<Response> cb);
