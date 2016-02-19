@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_actionbar"
+        android:id="@+id/toolbar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email Notifications"
+        android:singleLine="true"
+        android:textColor="@color/dark_gray_2"
+        android:textSize="14dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:background="@drawable/bar1"
+        android:id="@+id/bar1"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/emailNewPostLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New post"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailNewPostCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/emailNewChatLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New chat"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailNewChatCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/emailNewCommentLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New comment on your products"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailNewCommentCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/emailNewPromoLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New promotions"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailNewPromoCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:background="@drawable/bar1"
+        android:id="@+id/bar2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Push Notifications"
+        android:singleLine="true"
+        android:textColor="@color/dark_gray_2"
+        android:textSize="14dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:background="@drawable/bar1"
+        android:id="@+id/bar3"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/pushNewChatLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New chat"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pushNewChatCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/pushNewCommentLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New comment on your products"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pushNewCommentCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/pushNewFollowLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New follow"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pushNewFollowCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/pushNewFeedbackLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New feedback"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pushNewFeedbackCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/pushNewPromoLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="New promotions"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pushNewPromoCheckBox"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:checked="false"
+                android:button="@drawable/checkbox" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:background="@drawable/bar1"
+        android:id="@+id/bar4"
+        android:focusableInTouchMode="false" />
+
+</LinearLayout>

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0.8dp"
         android:background="@drawable/bar1"
-        android:id="@+id/barTop"
+        android:id="@+id/bar1"
         android:layout_marginTop="15dp" />
 
     <LinearLayout
@@ -94,7 +94,61 @@
         android:layout_width="wrap_content"
         android:layout_height="0.8dp"
         android:background="@drawable/bar1"
-        android:id="@+id/barBottom"
+        android:id="@+id/bar2"
+        android:focusableInTouchMode="false" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:background="@drawable/bar1"
+        android:id="@+id/bar3"
+        android:focusableInTouchMode="false"
+        android:layout_marginTop="15dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:weightSum="10"
+            android:id="@+id/notificationSettingsLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/notification_settings"
+                android:layout_weight="5"
+                android:singleLine="true"
+                android:textColor="@color/dark_gray_2"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/imageView"
+                android:layout_gravity="center_vertical|right"
+                android:src="@drawable/arrow_next"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0.8dp"
+        android:background="@drawable/bar1"
+        android:id="@+id/bar4"
         android:focusableInTouchMode="false" />
 
     <RelativeLayout

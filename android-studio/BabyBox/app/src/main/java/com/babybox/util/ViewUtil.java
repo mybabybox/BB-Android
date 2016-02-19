@@ -70,10 +70,12 @@ import com.babybox.activity.LoginActivity;
 import com.babybox.activity.MainActivity;
 import com.babybox.activity.MessageListActivity;
 import com.babybox.activity.NewPostActivity;
+import com.babybox.activity.NotificationSettingsActivity;
 import com.babybox.activity.ProductActivity;
 import com.babybox.activity.CommentsActivity;
 import com.babybox.activity.ProductConversationListActivity;
 import com.babybox.activity.SelectImageActivity;
+import com.babybox.activity.SettingsActivity;
 import com.babybox.activity.SignupActivity;
 import com.babybox.activity.SignupDetailActivity;
 import com.babybox.activity.SplashActivity;
@@ -1241,6 +1243,16 @@ public class ViewUtil {
         intent.setData(imageUri);
         activity.startActivityForResult(intent, CROP_IMAGE_REQUEST_CODE);
         activity.overridePendingTransition(0, 0);
+    }
+
+    public static void startSettingsActivity(Activity activity) {
+        Intent intent = new Intent(activity, SettingsActivity.class);
+        activity.startActivity(intent);
+    }
+
+    public static void startNotificationSettingsActivity(Activity activity) {
+        Intent intent = new Intent(activity, NotificationSettingsActivity.class);
+        activity.startActivity(intent);
     }
 
     public static void startAdminActivity(Activity activity) {

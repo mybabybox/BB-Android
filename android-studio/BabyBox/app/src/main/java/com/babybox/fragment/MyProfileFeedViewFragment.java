@@ -102,8 +102,7 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
         settingsIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(intent);
+                ViewUtil.startSettingsActivity(getActivity());
             }
         });
 

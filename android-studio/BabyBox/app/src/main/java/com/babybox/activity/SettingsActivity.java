@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,18 +15,15 @@ import android.widget.TextView;
 import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
-
-import java.util.Set;
 
 public class SettingsActivity extends TrackedFragmentActivity {
     private static final String TAG = SettingsActivity.class.getName();
 
     private TextView appVersionText;
-    private RelativeLayout logoutLayout, adminLayout;
+    private RelativeLayout notificationSettingsLayout, logoutLayout, adminLayout;
     private Spinner langSpinner;
     private ImageView backImage;
 
@@ -44,14 +40,15 @@ public class SettingsActivity extends TrackedFragmentActivity {
 
         appVersionText = (TextView) findViewById(R.id.appVersionText);
         langSpinner = (Spinner) findViewById(R.id.langSpinner);
+        notificationSettingsLayout = (RelativeLayout) findViewById(R.id.notificationSettingsLayout);
         logoutLayout = (RelativeLayout) findViewById(R.id.logoutLayout);
         adminLayout = (RelativeLayout) findViewById(R.id.adminLayout);
 
         // version
-        appVersionText.setText("v"+ AppController.getVersionName());
+        appVersionText.setText("v" + AppController.getVersionName());
 
         // lang
-        langNames = new String[] {
+        langNames = new String[]{
                 getString(R.string.lang_zh),
                 getString(R.string.lang_en)
         };
@@ -122,6 +119,14 @@ public class SettingsActivity extends TrackedFragmentActivity {
             }
         });
 
+        // notifications
+        notificationSettingsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewUtil.startNotificationSettingsActivity(SettingsActivity.this);
+            }
+        });
+
         // logout
         logoutLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +150,7 @@ public class SettingsActivity extends TrackedFragmentActivity {
         });
 
         // admin
-        adminLayout.setVisibility(AppController.isUserAdmin()? View.VISIBLE : View.GONE);
+        adminLayout.setVisibility(AppController.isUserAdmin() ? View.VISIBLE : View.GONE);
         if (AppController.isUserAdmin()) {
             adminLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,6 +167,16 @@ public class SettingsActivity extends TrackedFragmentActivity {
                 onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }
 
