@@ -21,6 +21,7 @@ import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.EditUserInfoVM;
 import com.babybox.viewmodel.SellerVM;
+import com.babybox.viewmodel.SettingsVM;
 import com.babybox.viewmodel.UserVM;
 import com.babybox.viewmodel.UserVMLite;
 
@@ -199,6 +200,9 @@ public interface BabyBoxApi {
 
     @POST("/api/user-info/edit")
     public void editUserInfo(@Body EditUserInfoVM userInfoVM, @Query("key") String key, Callback<UserVM> cb);
+
+    @POST("/api/user-notification-settings/edit")
+    public void editUserNotificationSettings(@Body SettingsVM settingsVM, @Query("key") String key, Callback<UserVM> cb);
 
     @GET("/api/get-user-collections/{userId}")
     public void getUserCollections(@Path("userId") Long userId, @Query("key") String key, Callback<List<CollectionVM>> cb);

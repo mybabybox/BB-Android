@@ -31,6 +31,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class EditProfileActivity extends TrackedFragmentActivity {
+    private static final String TAG = EditProfileActivity.class.getName();
 
     private Spinner locationSpinner;
     private Button finishButton;
@@ -174,7 +175,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
 
                     @Override
                     public void failure(RetrofitError error) {
-                        Log.e(EditProfileActivity.class.getSimpleName(), "editUserInfo: failure", error);
+                        Log.e(TAG, "editUserInfo: failure", error);
                     }
                 });
             }
@@ -190,7 +191,7 @@ public class EditProfileActivity extends TrackedFragmentActivity {
                     ViewUtil.alert(EditProfileActivity.this, getString(R.string.signup_details_error_info));
                 }
                 ViewUtil.stopSpinner(EditProfileActivity.this);
-                Log.e(EditProfileActivity.class.getSimpleName(), "editUserInfo: failure", error);
+                Log.e(TAG, "editUserInfo: failure", error);
             }
         });
     }

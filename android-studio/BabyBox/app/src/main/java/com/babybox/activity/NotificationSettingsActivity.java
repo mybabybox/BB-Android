@@ -1,15 +1,25 @@
 package com.babybox.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.babybox.R;
+import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
+import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.SettingsVM;
+import com.babybox.viewmodel.UserVM;
+
+import org.parceler.apache.commons.lang.StringUtils;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class NotificationSettingsActivity extends TrackedFragmentActivity {
     private static final String TAG = NotificationSettingsActivity.class.getName();
@@ -123,6 +133,31 @@ public class NotificationSettingsActivity extends TrackedFragmentActivity {
         });
     }
 
+    private void updateSettings() {
+        SettingsVM settings = UserInfoCache.getUser().settings;
+        settings.emailNewPost = emailNewPostCheckBox.isChecked();
+        settings.emailNewConversation = emailNewChatCheckBox.isChecked();
+        settings.emailNewComment = emailNewCommentCheckBox.isChecked();
+        settings.emailNewPromotions = emailNewPromoCheckBox.isChecked();
+        settings.pushNewConversation = pushNewChatCheckBox.isChecked();
+        settings.pushNewComment = pushNewCommentCheckBox.isChecked();
+        settings.pushNewFollow = pushNewFollowCheckBox.isChecked();
+        settings.pushNewFeedback = pushNewFeedbackCheckBox.isChecked();
+        settings.pushNewPromotions = pushNewPromoCheckBox.isChecked();
+
+        AppController.getApiService().editUserNotificationSettings(settings, new Callback<UserVM>() {
+            @Override
+            public void success(UserVM userVM, Response response) {
+                UserInfoCache.getUser().settings = userVM.settings;
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, "editUserNotificationSettings: failure", error);
+            }
+        });
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -131,6 +166,12 @@ public class NotificationSettingsActivity extends TrackedFragmentActivity {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        updateSettings();
     }
 }
 

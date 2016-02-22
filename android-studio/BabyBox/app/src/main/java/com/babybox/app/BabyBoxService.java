@@ -23,6 +23,7 @@ import com.babybox.viewmodel.PostVMLite;
 import com.babybox.viewmodel.ResponseStatusVM;
 import com.babybox.viewmodel.EditUserInfoVM;
 import com.babybox.viewmodel.SellerVM;
+import com.babybox.viewmodel.SettingsVM;
 import com.babybox.viewmodel.UserVM;
 import com.babybox.viewmodel.UserVMLite;
 
@@ -214,6 +215,10 @@ public class BabyBoxService {
 
     public void editUserInfo(EditUserInfoVM userInfoVM, Callback<UserVM> cb) {
         api.editUserInfo(userInfoVM, AppController.getInstance().getSessionId(), cb);
+    }
+
+    public void editUserNotificationSettings(SettingsVM settingsVM, Callback<UserVM> cb) {
+        api.editUserNotificationSettings(settingsVM, AppController.getInstance().getSessionId(), cb);
     }
 
     public void getUserCollections(Long userId, Callback<List<CollectionVM>> cb) {
