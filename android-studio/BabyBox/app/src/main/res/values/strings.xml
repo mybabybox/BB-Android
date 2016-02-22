@@ -5,7 +5,7 @@
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
     <string name="base_url"></string>
-    <string name="base_url_dev">http://192.168.1.134:9000</string>
+    <string name="base_url_dev">http://192.168.1.109:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">對不起！BabyBox 發生問題要退出</string>
@@ -26,6 +26,8 @@
     <string name="lang_desc">語言設定:</string>
     <string name="lang_confirm">確定轉換語言?\n(將重新開啟BabyBox)</string>
     <string name="lang_complete">語言轉換成功並將於下一次生效</string>
+    <string name="notification_settings">通知設定</string>
+    <string name="notifications">通知設定</string>
 
     <string name="spinner_select">-選擇-</string>
     <string name="clipboard_text_label">複制信息</string>
@@ -162,8 +164,8 @@
     <string name="like">喜歡</string>
     <string name="likes">喜歡</string>
     <string name="comments">個留言</string>
-    <string name="chat">聯絡賣家</string>
-    <string name="buy">購買</string>
+    <string name="chat">發問</string>
+    <string name="buy">立即購買</string>
     <string name="buy_again">再購買</string>
     <string name="view_chats">查看訊息</string>
     <string name="mark_as_sold">標為已售</string>
@@ -297,6 +299,8 @@
     <string name="game_badges_awarded_already">[你已獲得此徽章！]</string>
 
     <!-- Sharing -->
+    <string name="sharing">分享</string>
+    <string name="sharing_fb">分享到 Facebook</string>
     <string name="sharing_seller_msg_prefix">看看 BabyBox 商店</string>
     <string name="sharing_app_not_installed"> 沒有安裝。</string>
     <string name="sharing_message_note">(分享自 BabyBox 立即下載全新 Android App)</string>

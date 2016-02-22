@@ -33,8 +33,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -59,7 +59,6 @@
                 android:id="@+id/emailNewPostCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 
@@ -88,7 +87,6 @@
                 android:id="@+id/emailNewChatCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 
@@ -117,7 +115,6 @@
                 android:id="@+id/emailNewCommentCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 
@@ -146,7 +143,6 @@
                 android:id="@+id/emailNewPromoCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 
@@ -185,8 +181,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -211,7 +207,6 @@
                 android:id="@+id/pushNewChatCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 
@@ -240,7 +235,6 @@
                 android:id="@+id/pushNewCommentCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 
@@ -269,7 +263,6 @@
                 android:id="@+id/pushNewFollowCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 
@@ -298,7 +291,6 @@
                 android:id="@+id/pushNewFeedbackCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 
@@ -327,7 +319,6 @@
                 android:id="@+id/pushNewPromoCheckBox"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
                 android:checked="false"
                 android:button="@drawable/checkbox" />
 

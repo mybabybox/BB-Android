@@ -26,6 +26,8 @@
     <string name="lang_desc">Language:</string>
     <string name="lang_confirm">Confirm to change language?\n(BabyBox will be restarted)</string>
     <string name="lang_complete">Language change will take effect after restart</string>
+    <string name="notification_settings">Notification Settings</string>
+    <string name="notifications">Notifications</string>
 
     <string name="spinner_select">-Select-</string>
     <string name="clipboard_text_label">Copy</string>
@@ -297,6 +299,8 @@
     <string name="game_badges_awarded_already">[You have collected this badge!]</string>
 
     <!-- Sharing -->
+    <string name="sharing">Sharing</string>
+    <string name="sharing_fb">Share to Facebook</string>
     <string name="sharing_seller_msg_prefix">Check out BabyBox Seller</string>
     <string name="sharing_app_not_installed"> App is not installed</string>
     <string name="sharing_message_note">(Shared from BabyBox，Install Android App now)</string>

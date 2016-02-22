@@ -1,11 +1,9 @@
 package com.babybox.app;
 
-import android.app.Application;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.babybox.util.SharedPreferencesUtil;
-import com.babybox.viewmodel.SettingVM;
+import com.babybox.viewmodel.SettingsVM;
 import com.babybox.viewmodel.UserVM;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -97,16 +95,16 @@ public class UserInfoCache {
             return false;
         }
 
-        SettingVM setting = getUser().setting;
-        if (setting == null) {
+        SettingsVM settings = getUser().settings;
+        if (settings == null) {
             return false;
         }
 
         Log.d(UserInfoCache.class.getSimpleName(), "requestAndroidUpgrade: client version="+AppController.getVersionCode());
-        Log.d(UserInfoCache.class.getSimpleName(), "requestAndroidUpgrade: system version="+setting.systemAndroidVersion);
+        Log.d(UserInfoCache.class.getSimpleName(), "requestAndroidUpgrade: system version="+settings.systemAndroidVersion);
 
         try {
-            int systemAndroidVersion = Integer.valueOf(setting.systemAndroidVersion);
+            int systemAndroidVersion = Integer.valueOf(settings.systemAndroidVersion);
             if (AppController.getVersionCode() < systemAndroidVersion) {
                 return true;
             }

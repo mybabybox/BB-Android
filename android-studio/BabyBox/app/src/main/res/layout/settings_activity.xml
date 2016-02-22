@@ -19,16 +19,16 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        android:background="@color/white">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:weightSum="10"
-            android:id="@+id/appVersionLayout">
+            android:id="@+id/appVersionLayout"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -54,12 +54,21 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar2"
+            android:focusableInTouchMode="false" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:weightSum="10"
-            android:id="@+id/langLayout">
+            android:id="@+id/langLayout"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp">
 
             <TextView
                 android:text="@string/lang_desc"
@@ -88,36 +97,20 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.8dp"
-        android:background="@drawable/bar1"
-        android:id="@+id/bar2"
-        android:focusableInTouchMode="false" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0.8dp"
-        android:background="@drawable/bar1"
-        android:id="@+id/bar3"
-        android:focusableInTouchMode="false"
-        android:layout_marginTop="15dp" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar3"
+            android:focusableInTouchMode="false" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:weightSum="10"
-            android:id="@+id/notificationSettingsLayout">
+            android:id="@+id/notificationSettingsLayout"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -153,9 +146,9 @@
 
     <RelativeLayout
         android:id="@+id/logoutLayout"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/pink">
@@ -173,13 +166,12 @@
 
     <RelativeLayout
         android:id="@+id/adminLayout"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/light_gray"
-        android:visibility="gone">
+        android:background="@color/light_gray">
 
         <TextView
             android:id="@+id/adminText"

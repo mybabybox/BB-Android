@@ -3,7 +3,7 @@ package com.babybox.viewmodel;
 public class UserVM extends UserVMLite {
     public String aboutMe;
     public LocationVM location;
-    public SettingVM setting;
+    public SettingsVM settings;
 
     public String getAboutMe() {
         return aboutMe;
@@ -21,12 +21,12 @@ public class UserVM extends UserVMLite {
         this.location = location;
     }
 
-    public SettingVM getSetting() {
-        return setting;
+    public SettingsVM getSettings() {
+        return settings;
     }
 
-    public void setSetting(SettingVM setting) {
-        this.setting = setting;
+    public void setSettings(SettingsVM settings) {
+        this.settings = settings;
     }
 }
 

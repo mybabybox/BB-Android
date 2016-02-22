@@ -1,6 +1,6 @@
 package com.babybox.viewmodel;
 
-public class SettingVM {
+public class SettingsVM {
     public long id;
     public boolean emailNewPost;
     public boolean emailNewConversation;
