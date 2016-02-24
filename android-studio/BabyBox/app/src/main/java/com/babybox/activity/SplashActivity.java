@@ -61,9 +61,10 @@ public class SplashActivity extends TrackedFragmentActivity {
             public void success(UserVM user, retrofit.client.Response response) {
                 Log.d(SplashActivity.this.getClass().getSimpleName(), "startMainActivity: getUserInfo.success: user=" + user.getDisplayName() + " id=" + user.getId() + " newUser=" + user.newUser);
 
-                // clear session id, redirect to login page
+                // user not logged in, redirect to login page
                 if (user.getId() == -1) {
                     Toast.makeText(SplashActivity.this, "Cannot find user. Please login again.", Toast.LENGTH_LONG).show();
+                    AppController.getInstance().clearUserSession();
                     ViewUtil.startWelcomeActivity(SplashActivity.this);
                 }
 
@@ -77,8 +78,9 @@ public class SplashActivity extends TrackedFragmentActivity {
                         ViewUtil.startSignupDetailActivity(SplashActivity.this, user.firstName);
                         finish();
                     }
-                    // login successful
-                } else {
+                }
+                // login successful
+                else {
                     // save to preferences
                     if (AppController.getInstance().getSessionId() == null) {
                         AppController.getInstance().saveSessionId(sessionId);

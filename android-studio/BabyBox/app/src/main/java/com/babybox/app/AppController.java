@@ -224,20 +224,20 @@ public class AppController extends Application {
      */
     public void clearAll() {
         clearUserSession();
-        AppController.getInstance().clearPreferences();
+        clearPreferences();
     }
 
     public void clearPreferences() {
         SharedPreferencesUtil.getInstance().clearAll();
     }
 
-    public void clearUserCache() {
+    public void clearUserCaches() {
         NotificationCounter.clear();
         UserInfoCache.clear();
     }
 
     public void clearUserSession() {
-        clearUserCache();
+        clearUserCaches();
         SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.SESSION_ID);
     }
 
@@ -245,7 +245,7 @@ public class AppController extends Application {
         Log.d(TAG, "logout");
 
         // clear session and exit
-        AppController.getInstance().clearAll();
+        clearAll();
 
         // log out from FB
         FacebookSdk.sdkInitialize(getApplicationContext());
