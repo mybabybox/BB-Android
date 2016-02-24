@@ -11,11 +11,8 @@ import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.TrackedFragmentActivity;
 import com.babybox.app.UserInfoCache;
-import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.SettingsVM;
 import com.babybox.viewmodel.UserVM;
-
-import org.parceler.apache.commons.lang.StringUtils;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

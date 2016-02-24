@@ -17,7 +17,7 @@
     <!-- Settings -->
     <string name="app_name">BabyBox</string>
     <string name="app_desc">BabyBox 媽媽即拍即賣</string>
-    <string name="app_version">BabyBox 版本:</string>
+    <string name="app_version">版本:</string>
     <string name="request_upgrade">BabyBox 新版本已上線！更多新功能為你而設！</string>
     <string name="request_upgrade_confirm">立即安裝</string>
     <string name="request_upgrade_cancel">取消</string>
@@ -28,6 +28,17 @@
     <string name="lang_complete">語言轉換成功並將於下一次生效</string>
     <string name="notification_settings">通知設定</string>
     <string name="notifications">通知設定</string>
+    <string name="notifications_email">EMAIL NOTIFICATIONS</string>
+    <string name="notifications_email_new_post">New product listed</string>
+    <string name="notifications_email_new_chat">New chat</string>
+    <string name="notifications_email_new_comment">New comment on your product listings</string>
+    <string name="notifications_email_new_promo">New promotions</string>
+    <string name="notifications_push">PUSH NOTIFICATIONS</string>
+    <string name="notifications_push_new_chat">New chat</string>
+    <string name="notifications_push_new_comment">New comment on your product listings</string>
+    <string name="notifications_push_new_follow">New follower</string>
+    <string name="notifications_push_new_feedback">New feedback</string>
+    <string name="notifications_push_new_promo">New promotions</string>
 
     <string name="spinner_select">-選擇-</string>
     <string name="clipboard_text_label">複制信息</string>

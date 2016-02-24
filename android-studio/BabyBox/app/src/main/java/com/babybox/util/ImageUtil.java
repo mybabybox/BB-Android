@@ -43,8 +43,8 @@ public class ImageUtil {
     public static final int PREVIEW_THUMBNAIL_MAX_WIDTH = 128;
     public static final int PREVIEW_THUMBNAIL_MAX_HEIGHT = 128;
 
-    public static final int IMAGE_UPLOAD_MAX_WIDTH = 1024;
-    public static final int IMAGE_UPLOAD_MAX_HEIGHT = 1024;
+    public static final int IMAGE_UPLOAD_MAX_WIDTH = 1280;
+    public static final int IMAGE_UPLOAD_MAX_HEIGHT = 1280;
 
     public static final int IMAGE_COMPRESS_QUALITY = 80;
 
@@ -536,7 +536,7 @@ public class ImageUtil {
 
         File resizedImage = new File(tempDir, image.getName());
         if (!tempDir.canWrite()) {
-            Log.e(ImageUtil.class.getSimpleName(), "resizeAsFormat: "+tempDir.getAbsolutePath()+" cannot be written!!!");
+            Log.e(ImageUtil.class.getSimpleName(), "resizeAsFormat: " + tempDir.getAbsolutePath() + " cannot be written!!!");
             return image;
         }
 

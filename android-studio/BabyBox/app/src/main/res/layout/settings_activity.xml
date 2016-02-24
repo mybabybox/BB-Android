@@ -8,12 +8,39 @@
     <include layout="@layout/view_actionbar"
         android:id="@+id/toolbar" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_version"
+            android:textColor="@color/dark_gray_2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray_2"
+            android:textSize="14dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/appVersionText"
+            android:gravity="center_vertical|right"
+            android:textStyle="bold"
+            android:layout_marginLeft="3dp" />
+    </LinearLayout>
+
     <View
         android:layout_width="wrap_content"
         android:layout_height="0.8dp"
         android:background="@drawable/bar1"
         android:id="@+id/bar1"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="5dp" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -24,47 +51,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:weightSum="10"
-            android:id="@+id/appVersionLayout"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="@string/app_version"
-                android:layout_weight="5"
-                android:singleLine="true"
-                android:textColor="@color/dark_gray_2"
-                android:textSize="16dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:singleLine="true"
-                android:textColor="@color/dark_gray_2"
-                android:textSize="16dp"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/appVersionText"
-                android:gravity="center_vertical|right" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="0.8dp"
-            android:background="@drawable/bar1"
-            android:id="@+id/bar2"
-            android:focusableInTouchMode="false" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
             android:id="@+id/langLayout"
             android:paddingRight="15dp"
@@ -101,12 +88,12 @@
             android:layout_width="wrap_content"
             android:layout_height="0.8dp"
             android:background="@drawable/bar1"
-            android:id="@+id/bar3"
+            android:id="@+id/bar2"
             android:focusableInTouchMode="false" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
             android:id="@+id/notificationSettingsLayout"
             android:paddingLeft="15dp"
@@ -141,7 +128,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0.8dp"
         android:background="@drawable/bar1"
-        android:id="@+id/bar4"
+        android:id="@+id/bar3"
         android:focusableInTouchMode="false" />
 
     <RelativeLayout

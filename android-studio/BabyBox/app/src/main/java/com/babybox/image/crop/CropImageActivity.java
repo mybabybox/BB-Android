@@ -35,6 +35,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.babybox.R;
+import com.babybox.util.ImageUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -428,12 +429,15 @@ public class CropImageActivity extends MonitoredActivity {
     }
 
     private void saveOutput(Bitmap croppedImage) {
+        Bitmap resizedCroppedImage =
+                Bitmap.createScaledBitmap(
+                        croppedImage, ImageUtil.IMAGE_UPLOAD_MAX_WIDTH, ImageUtil.IMAGE_UPLOAD_MAX_WIDTH, false);
         if (saveUri != null) {
             OutputStream outputStream = null;
             try {
                 outputStream = getContentResolver().openOutputStream(saveUri);
                 if (outputStream != null) {
-                    croppedImage.compress(Bitmap.CompressFormat.JPEG, 90, outputStream);
+                    resizedCroppedImage.compress(Bitmap.CompressFormat.JPEG, ImageUtil.IMAGE_COMPRESS_QUALITY, outputStream);
                 }
             } catch (IOException e) {
                 setResultException(e);
@@ -450,7 +454,7 @@ public class CropImageActivity extends MonitoredActivity {
             setResultUri(saveUri);
         }
 
-        final Bitmap b = croppedImage;
+        final Bitmap b = resizedCroppedImage;
         handler.post(new Runnable() {
             public void run() {
                 imageView.clear();

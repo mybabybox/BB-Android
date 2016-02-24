@@ -5,7 +5,7 @@
     <string name="facebook_app_id">1469031873403459</string>
     <string name="gcm_project_id">42246542708</string>
     <string name="base_url"></string>
-    <string name="base_url_dev">http://192.168.1.134:9000</string>
+    <string name="base_url_dev">http://192.168.1.109:9000</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">Sorry.. BabyBox encountered problem and exit</string>
@@ -17,7 +17,7 @@
     <!-- Settings -->
     <string name="app_name">BabyBox</string>
     <string name="app_desc">BabyBox - Everymom is a Seller</string>
-    <string name="app_version">BabyBox Version:</string>
+    <string name="app_version">Version:</string>
     <string name="request_upgrade">New version of BabyBox is now available! Upgrade and try out our new features! </string>
     <string name="request_upgrade_confirm">Install now</string>
     <string name="request_upgrade_cancel">Cancel</string>
@@ -28,6 +28,17 @@
     <string name="lang_complete">Language change will take effect after restart</string>
     <string name="notification_settings">Notification Settings</string>
     <string name="notifications">Notifications</string>
+    <string name="notifications_email">EMAIL NOTIFICATIONS</string>
+    <string name="notifications_email_new_post">New product listed</string>
+    <string name="notifications_email_new_chat">New chat</string>
+    <string name="notifications_email_new_comment">New comment on your product listings</string>
+    <string name="notifications_email_new_promo">New promotions</string>
+    <string name="notifications_push">PUSH NOTIFICATIONS</string>
+    <string name="notifications_push_new_chat">New chat</string>
+    <string name="notifications_push_new_comment">New comment on your product listings</string>
+    <string name="notifications_push_new_follow">New follower</string>
+    <string name="notifications_push_new_feedback">New feedback</string>
+    <string name="notifications_push_new_promo">New promotions</string>
 
     <string name="spinner_select">-Select-</string>
     <string name="clipboard_text_label">Copy</string>

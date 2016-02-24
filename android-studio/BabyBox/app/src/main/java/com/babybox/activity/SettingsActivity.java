@@ -45,7 +45,7 @@ public class SettingsActivity extends TrackedFragmentActivity {
         adminLayout = (RelativeLayout) findViewById(R.id.adminLayout);
 
         // version
-        appVersionText.setText("v" + AppController.getVersionName());
+        appVersionText.setText(AppController.getVersionName());
 
         // lang
         langNames = new String[]{

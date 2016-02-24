@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email Notifications"
+        android:text="@string/notifications_email"
         android:singleLine="true"
         android:textColor="@color/dark_gray_2"
         android:textSize="14dp"
@@ -33,19 +33,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/emailNewPostLayout">
+            android:id="@+id/emailNewPostLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New post"
+                android:text="@string/notifications_email_new_post"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
@@ -64,16 +66,24 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar11" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/emailNewChatLayout">
+            android:id="@+id/emailNewChatLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New chat"
+                android:text="@string/notifications_email_new_chat"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
@@ -92,16 +102,24 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar12" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/emailNewCommentLayout">
+            android:id="@+id/emailNewCommentLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New comment on your products"
+                android:text="@string/notifications_email_new_comment"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
@@ -120,16 +138,24 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar13" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/emailNewPromoLayout">
+            android:id="@+id/emailNewPromoLayout"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New promotions"
+                android:text="@string/notifications_email_new_promo"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
@@ -159,7 +185,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Push Notifications"
+        android:text="@string/notifications_push"
         android:singleLine="true"
         android:textColor="@color/dark_gray_2"
         android:textSize="14dp"
@@ -181,19 +207,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/pushNewChatLayout">
+            android:id="@+id/pushNewChatLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New chat"
+                android:text="@string/notifications_push_new_chat"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
@@ -212,16 +240,24 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar21" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/pushNewCommentLayout">
+            android:id="@+id/pushNewCommentLayout"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New comment on your products"
+                android:text="@string/notifications_push_new_comment"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
@@ -240,16 +276,24 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar22" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/pushNewFollowLayout">
+            android:id="@+id/pushNewFollowLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New follow"
+                android:text="@string/notifications_push_new_follow"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
@@ -268,16 +312,24 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar23" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/pushNewFeedbackLayout">
+            android:id="@+id/pushNewFeedbackLayout"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New feedback"
+                android:text="@string/notifications_push_new_feedback"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
@@ -296,16 +348,24 @@
 
         </RelativeLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0.8dp"
+            android:background="@drawable/bar1"
+            android:id="@+id/bar24" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:weightSum="10"
-            android:id="@+id/pushNewPromoLayout">
+            android:id="@+id/pushNewPromoLayout"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="New promotions"
+                android:text="@string/notifications_push_new_promo"
                 android:layout_weight="5"
                 android:singleLine="true"
                 android:textColor="@color/dark_gray_2"
