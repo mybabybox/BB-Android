@@ -46,7 +46,7 @@ public class ImageUtil {
     public static final int IMAGE_UPLOAD_MAX_WIDTH = 1280;
     public static final int IMAGE_UPLOAD_MAX_HEIGHT = 1280;
 
-    public static final int IMAGE_COMPRESS_QUALITY = 80;
+    public static final int IMAGE_COMPRESS_QUALITY = 70;
 
     public static final int IMAGE_DISPLAY_CROSS_FADE_DURATION = 500;
 
@@ -63,7 +63,7 @@ public class ImageUtil {
 
     public static final String IMAGE_FOLDER_NAME = AppController.APP_NAME;
     public static final String IMAGE_FOLDER_PATH = Environment.getExternalStorageDirectory() + "/" + IMAGE_FOLDER_NAME;
-    public static final String CAMERA_IMAGE_TEMP_PATH = IMAGE_FOLDER_PATH + "/" + "camera.jpg";
+    public static final String CAMERA_IMAGE_TEMP_PATH = IMAGE_FOLDER_PATH + "/" + "Image-snap-temp.jpg";
 
     private static ImageCircleTransform circleTransform =
             new ImageCircleTransform(AppController.getInstance());
