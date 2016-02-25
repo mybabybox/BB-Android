@@ -352,6 +352,7 @@
     <!-- GCM -->
     <string name="gcm_new_conversations">%1$d new message</string>
     <string name="gcm_new_comments">%1$d new comment</string>
+    <string name="gcm_new_followers">%1$d new follower</string>
 
     <!-- Admin -->
     <string name="admin">Admin</string>

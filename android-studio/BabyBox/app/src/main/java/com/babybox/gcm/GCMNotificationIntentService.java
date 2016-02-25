@@ -13,6 +13,7 @@ import android.util.Log;
 import com.babybox.R;
 import com.babybox.activity.ConversationListActivity;
 import com.babybox.activity.MainActivity;
+import com.babybox.activity.UserProfileActivity;
 import com.babybox.app.AppController;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
@@ -30,7 +31,8 @@ public class GCMNotificationIntentService extends IntentService {
 
 	public static enum NotificationType {
         CONVERSATION,
-		COMMENT
+		COMMENT,
+		FOLLOW
 	}
 
 	public GCMNotificationIntentService() {
@@ -67,6 +69,10 @@ public class GCMNotificationIntentService extends IntentService {
 			if (MainActivity.getInstance() != null) {
 				gcmMessage = actor + MainActivity.getInstance().getString(R.string.activity_commented) + "\n" + message;
 			}
+		} else if (messageType.equals(NotificationType.FOLLOW.name())) {
+			if (MainActivity.getInstance() != null) {
+				gcmMessage = actor + MainActivity.getInstance().getString(R.string.activity_followed);
+			}
 		}
 		return gcmMessage;
 	}
@@ -78,16 +84,21 @@ public class GCMNotificationIntentService extends IntentService {
 			String messageType = jObject.getString("messageType");
 			String actor = jObject.getString("actor");
 			String message = jObject.getString("message");
-			if (messageType.equals(NotificationType.COMMENT.name())) {
-				List<String> messages = SharedPreferencesUtil.getInstance().getGcmCommentNotifs();
-				messages.add(getMessage(messageType, actor, message));
-				SharedPreferencesUtil.getInstance().saveGcmCommentNotifs(messages);
-				updateOrSendNotification(this, NotificationType.COMMENT, messages);
-			} else if(messageType.equals(NotificationType.CONVERSATION.name())) {
+			if (messageType.equals(NotificationType.CONVERSATION.name())) {
 				List<String> messages = SharedPreferencesUtil.getInstance().getGcmConversationNotifs();
 				messages.add(getMessage(messageType, actor, message));
 				SharedPreferencesUtil.getInstance().saveGcmConversationNotifs(messages);
 				updateOrSendNotification(this, NotificationType.CONVERSATION, messages);
+			} else if (messageType.equals(NotificationType.COMMENT.name())) {
+				List<String> messages = SharedPreferencesUtil.getInstance().getGcmCommentNotifs();
+				messages.add(getMessage(messageType, actor, message));
+				SharedPreferencesUtil.getInstance().saveGcmCommentNotifs(messages);
+				updateOrSendNotification(this, NotificationType.COMMENT, messages);
+			} else if (messageType.equals(NotificationType.FOLLOW.name())) {
+				List<String> messages = SharedPreferencesUtil.getInstance().getGcmFollowNotifs();
+				messages.add(getMessage(messageType, actor, message));
+				SharedPreferencesUtil.getInstance().saveGcmFollowNotifs(messages);
+				updateOrSendNotification(this, NotificationType.FOLLOW, messages);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -105,11 +116,7 @@ public class GCMNotificationIntentService extends IntentService {
 
 		int count = messages.size();
 		if (messages.size() == 0) {
-            if (notificationType == NotificationType.CONVERSATION) {
-                notificationManager.cancel(NotificationType.CONVERSATION.ordinal());
-            } else if (notificationType == NotificationType.COMMENT){
-                notificationManager.cancel(NotificationType.COMMENT.ordinal());
-            }
+			notificationManager.cancel(notificationType.ordinal());
 			return;
 		}
 
@@ -121,7 +128,7 @@ public class GCMNotificationIntentService extends IntentService {
 
         Log.d(TAG, "updateOrSendNotification: notificationType=" + notificationType);
         int requestId = (int) System.currentTimeMillis();
-		if(notificationType == NotificationType.CONVERSATION) {
+		if (notificationType == NotificationType.CONVERSATION) {
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
 					context,
@@ -134,11 +141,10 @@ public class GCMNotificationIntentService extends IntentService {
                     requestId,
 					intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-
 			mBuilder = new NotificationCompat.Builder(context);
             contentTitle = context.getString(R.string.gcm_new_conversations, count);
-		} else if (notificationType == NotificationType.COMMENT) {
-			//Intent to be launched on notification click
+		} else if (notificationType == NotificationType.COMMENT ||
+				notificationType == NotificationType.FOLLOW) {
 			intent = new Intent(Intent.ACTION_VIEW,
 					null,
 					context,
@@ -151,17 +157,20 @@ public class GCMNotificationIntentService extends IntentService {
                     requestId,
 					intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
-
-			 mBuilder = new NotificationCompat.Builder(context);
-            contentTitle = context.getString(R.string.gcm_new_comments, count);
+			mBuilder = new NotificationCompat.Builder(context);
+			if (notificationType == NotificationType.COMMENT) {
+				contentTitle = context.getString(R.string.gcm_new_comments, count);
+			} else if (notificationType == NotificationType.FOLLOW) {
+				contentTitle = context.getString(R.string.gcm_new_followers, count);
+			}
 		}
 
 		mBuilder.setSmallIcon(R.drawable.ic_launcher)
-				.setTicker(ticker)                          // the thicker is the message that appears on the status bar when the notification first appears
-				.setDefaults(Notification.DEFAULT_ALL|
-                        Notification.DEFAULT_SOUND|
-                        Notification.DEFAULT_LIGHTS|
-                        Notification.DEFAULT_VIBRATE)       // use defaults for various notification settings
+				.setTicker(ticker)                          // the ticker is the message that appears on the status bar when the notification first appears
+				.setDefaults(Notification.DEFAULT_ALL |
+						Notification.DEFAULT_SOUND |
+						Notification.DEFAULT_LIGHTS |
+						Notification.DEFAULT_VIBRATE)       // use defaults for various notification settings
 				.setContentIntent(contentIntent)            // intent used on click
                 .setContentTitle(contentTitle)
 				.setAutoCancel(true)
@@ -178,12 +187,8 @@ public class GCMNotificationIntentService extends IntentService {
             contextText += message + "\n";
         }
 		mBuilder.setStyle(inboxStyle);
-        mBuilder.setContentText(contextText);
+		mBuilder.setContentText(contextText);
 
-		if (notificationType == NotificationType.CONVERSATION) {
-			notificationManager.notify(NotificationType.CONVERSATION.ordinal(), mBuilder.build());
-		} else if (notificationType == NotificationType.COMMENT) {
-			notificationManager.notify(NotificationType.COMMENT.ordinal(), mBuilder.build());
-		}
+		notificationManager.notify(notificationType.ordinal(), mBuilder.build());
 	}
 }

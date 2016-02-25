@@ -352,6 +352,7 @@
     <!-- GCM -->
     <string name="gcm_new_conversations">%1$d個新訊息</string>
     <string name="gcm_new_comments">%1$d個新留言</string>
+    <string name="gcm_new_followers">%1$d個新關注</string>
 
     <!-- Admin -->
     <string name="admin">Admin</string>

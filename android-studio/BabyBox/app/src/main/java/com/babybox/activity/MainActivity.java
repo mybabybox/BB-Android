@@ -254,7 +254,9 @@ public class MainActivity extends TrackedFragmentActivity {
             selectedFragment = new ActivityMainFragment();
             fragmentTransaction.replace(R.id.placeHolder, selectedFragment).commit();
 
+            // read... clear gcm notifs
             SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_COMMENT_NOTIFS);
+            SharedPreferencesUtil.getInstance().clear(SharedPreferencesUtil.GCM_FOLLOW_NOTIFS);
         }
 
         setMenuButton(homeImage, homeText, R.drawable.mn_home, R.color.dark_gray_2);

@@ -40,6 +40,7 @@ public class SharedPreferencesUtil {
     public static final String GCM_KEY = "gcmKey";
     public static final String GCM_CONVERSATION_NOTIFS = "gcmConversationNotifs";
     public static final String GCM_COMMENT_NOTIFS = "gcmCommentNotifs";
+    public static final String GCM_FOLLOW_NOTIFS = "gcmFollowNotifs";
 
     public enum Screen {
         HOME_TAB,
@@ -139,6 +140,12 @@ public class SharedPreferencesUtil {
         if (messages == null || messages.size() == 0)
             return;
         this.saveObject(GCM_COMMENT_NOTIFS, messages);
+    }
+
+    public void saveGcmFollowNotifs(List<String> messages) {
+        if (messages == null || messages.size() == 0)
+            return;
+        this.saveObject(GCM_FOLLOW_NOTIFS, messages);
     }
 
     public void saveString(String key, String value) {
@@ -250,6 +257,16 @@ public class SharedPreferencesUtil {
     public List<String> getGcmCommentNotifs() {
         Type type = new TypeToken<List<String>>() {}.getType();
         String json = this.prefs.getString(GCM_COMMENT_NOTIFS, null);
+        List<String> comments = new Gson().fromJson(json, type);
+        if(comments == null){
+            comments = new ArrayList<>();
+        }
+        return comments;
+    }
+
+    public List<String> getGcmFollowNotifs() {
+        Type type = new TypeToken<List<String>>() {}.getType();
+        String json = this.prefs.getString(GCM_FOLLOW_NOTIFS, null);
         List<String> comments = new Gson().fromJson(json, type);
         if(comments == null){
             comments = new ArrayList<>();
