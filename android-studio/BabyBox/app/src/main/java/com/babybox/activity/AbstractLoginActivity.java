@@ -173,7 +173,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
     protected void fbLogin(String access_token) {
         //showSpinner();
 
-        Log.d(this.getClass().getSimpleName(), "fbLogin: access_token - " + access_token);
+        Log.d(this.getClass().getSimpleName(), "fbLogin: access_token=" + access_token);
         AppController.getApiService().loginByFacebook(access_token, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
@@ -211,7 +211,7 @@ public abstract class AbstractLoginActivity extends TrackedFragmentActivity {
         }
 
         String key = ViewUtil.getResponseBody(response);
-        Log.d(this.getClass().getSimpleName(), "saveToSession: sessionID - " + key);
+        Log.d(this.getClass().getSimpleName(), "saveToSession: sessionID=" + key);
         AppController.getInstance().saveSessionId(key);
 
         ViewUtil.startSplashActivity(this, key);

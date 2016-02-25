@@ -1,6 +1,5 @@
 package com.babybox.activity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +20,6 @@ import com.babybox.R;
 import com.babybox.app.AppController;
 import com.babybox.app.DistrictCache;
 import com.babybox.app.TrackedFragmentActivity;
-import com.babybox.util.DefaultValues;
 import com.babybox.util.ValidationUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.LocationVM;

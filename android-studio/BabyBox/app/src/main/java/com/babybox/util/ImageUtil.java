@@ -16,7 +16,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.babybox.R;
@@ -31,8 +30,6 @@ import com.bumptech.glide.signature.StringSignature;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
