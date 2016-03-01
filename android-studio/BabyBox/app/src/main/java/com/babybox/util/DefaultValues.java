@@ -29,7 +29,7 @@ public class DefaultValues {
     public static final String DEFAULT_LANG = LANG_ZH;
 
     public static final int MIN_CHAR_SIGNUP_PASSWORD = 4;
-    public static final int DEFAULT_SHORT_TITLE_COUNT = 15;
+    public static final int DEFAULT_SHORT_TITLE_COUNT = 12;
 
     public static final int SPLASH_DISPLAY_MILLIS = 300;
     public static final int DEFAULT_CONNECTION_TIMEOUT_MILLIS = 3000;

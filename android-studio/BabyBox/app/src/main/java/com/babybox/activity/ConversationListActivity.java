@@ -94,10 +94,10 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
                 String message = ConversationListActivity.this.getString(R.string.post_delete_confirm);
                 SparseBooleanArray selected = adapter.getSelectedIds();
-                for (int i = (selected.size() - 1); i >= 0; i--) {
+                for (int i = 0; i < selected.size(); i++) {
                     if (selected.valueAt(i)) {
                         ConversationVM item = adapter.getItem(selected.keyAt(i));
-                        message += "\n" + item.userName + ": " + ViewUtil.shortenString(item.postTitle, DefaultValues.DEFAULT_SHORT_TITLE_COUNT);
+                        message += "\n  " + item.userName + ": " + ViewUtil.shortenString(item.postTitle, DefaultValues.DEFAULT_SHORT_TITLE_COUNT);
                     }
                 }
 
@@ -118,6 +118,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                 alertDialogBuilder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        adapter.removeSelection();
                     }
                 });
                 AlertDialog alertDialog = alertDialogBuilder.create();
@@ -129,7 +130,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
 
             @Override
             public void onDestroyActionMode(ActionMode actionMode) {
-
+                adapter.removeSelection();
             }
         });
 
