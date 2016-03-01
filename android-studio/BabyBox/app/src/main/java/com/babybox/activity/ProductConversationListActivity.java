@@ -63,7 +63,8 @@ public class ProductConversationListActivity extends ConversationListActivity {
         if (deleted) {
             conversations.add(conversation);
         }
-        ConversationCache.sortConversations();
+        ConversationCache.sortConversations(conversations);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -83,7 +84,6 @@ public class ProductConversationListActivity extends ConversationListActivity {
                     @Override
                     public void success(ConversationVM conversation, Response response) {
                         updateConversations(conversation);
-                        adapter.notifyDataSetChanged();
                         ViewUtil.stopSpinner(ProductConversationListActivity.this);
                     }
 

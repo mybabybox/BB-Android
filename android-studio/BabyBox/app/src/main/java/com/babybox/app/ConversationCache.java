@@ -150,7 +150,7 @@ public class ConversationCache {
                 }
 
                 conversations.add(conversation);
-                ConversationCache.sortConversations();
+                ConversationCache.sortConversations(conversations);
 
                 if (callback != null) {
                     callback.success(conversation, response);
@@ -167,13 +167,12 @@ public class ConversationCache {
         });
     }
 
-    public static List<ConversationVM> sortConversations() {
-        Collections.sort(conversations, new Comparator<ConversationVM>() {
+    public static void sortConversations(List<ConversationVM> items) {
+        Collections.sort(items, new Comparator<ConversationVM>() {
             public int compare(ConversationVM c1, ConversationVM c2) {
                 return c2.getLastMessageDate().compareTo(c1.getLastMessageDate());  // reverse chron order
             }
         });
-        return conversations;
     }
 
     public static List<ConversationVM> getConversations() {

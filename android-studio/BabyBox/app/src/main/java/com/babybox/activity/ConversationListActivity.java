@@ -29,6 +29,8 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.ConversationVM;
 import com.yalantis.phoenix.PullToRefreshView;
 
+import org.parceler.apache.commons.lang.StringUtils;
+
 import java.util.List;
 
 import retrofit.Callback;
@@ -90,8 +92,17 @@ public class ConversationListActivity extends TrackedFragmentActivity {
 
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+                String message = ConversationListActivity.this.getString(R.string.post_delete_confirm);
+                SparseBooleanArray selected = adapter.getSelectedIds();
+                for (int i = (selected.size() - 1); i >= 0; i--) {
+                    if (selected.valueAt(i)) {
+                        ConversationVM item = adapter.getItem(selected.keyAt(i));
+                        message += "\n" + item.userName + ": " + ViewUtil.shortenString(item.postTitle, DefaultValues.DEFAULT_SHORT_TITLE_COUNT);
+                    }
+                }
+
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ConversationListActivity.this);
-                alertDialogBuilder.setMessage(ConversationListActivity.this.getString(R.string.post_delete_confirm));
+                alertDialogBuilder.setMessage(message);
                 alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
