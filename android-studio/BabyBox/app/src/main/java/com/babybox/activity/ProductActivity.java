@@ -608,6 +608,8 @@ public class ProductActivity extends TrackedFragmentActivity {
                     TextView scoreText = (TextView) findViewById(R.id.scoreText);
                     ImageView upImage = (ImageView) findViewById(R.id.upImage);
                     ImageView downImage = (ImageView) findViewById(R.id.downImage);
+                    ImageView upImage2 = (ImageView) findViewById(R.id.upImage2);
+                    ImageView downImage2 = (ImageView) findViewById(R.id.downImage2);
                     ImageView resetImage = (ImageView) findViewById(R.id.resetImage);
 
                     idText.setText(post.id + "");
@@ -617,7 +619,7 @@ public class ProductActivity extends TrackedFragmentActivity {
                     upImage.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AppController.getApiService().adjustUpPostScore(post.id, new Callback<Response>() {
+                            AppController.getApiService().adjustUpPostScore(post.id, DefaultValues.POST_SCORE_POINTS_ADJUST, new Callback<Response>() {
                                 @Override
                                 public void success(Response responseObject, Response response) {
                                     ViewUtil.alert(ProductActivity.this,
@@ -637,7 +639,47 @@ public class ProductActivity extends TrackedFragmentActivity {
                     downImage.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AppController.getApiService().adjustDownPostScore(post.id, new Callback<Response>() {
+                            AppController.getApiService().adjustDownPostScore(post.id, DefaultValues.POST_SCORE_POINTS_ADJUST, new Callback<Response>() {
+                                @Override
+                                public void success(Response responseObject, Response response) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            getString(R.string.score_adjust_success, ViewUtil.getResponseBody(responseObject)));
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            String.format(getString(R.string.score_adjust_failure), error.getLocalizedMessage()));
+                                    Log.e(TAG, "adjustDownPostScore: failure", error);
+                                }
+                            });
+                        }
+                    });
+
+                    upImage2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppController.getApiService().adjustUpPostScore(post.id, DefaultValues.POST_SCORE_POINTS_ADJUST2, new Callback<Response>() {
+                                @Override
+                                public void success(Response responseObject, Response response) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            getString(R.string.score_adjust_success, ViewUtil.getResponseBody(responseObject)));
+                                }
+
+                                @Override
+                                public void failure(RetrofitError error) {
+                                    ViewUtil.alert(ProductActivity.this,
+                                            String.format(getString(R.string.score_adjust_failure), error.getLocalizedMessage()));
+                                    Log.e(TAG, "adjustUpPostScore: failure", error);
+                                }
+                            });
+                        }
+                    });
+
+                    downImage2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AppController.getApiService().adjustDownPostScore(post.id, DefaultValues.POST_SCORE_POINTS_ADJUST2, new Callback<Response>() {
                                 @Override
                                 public void success(Response responseObject, Response response) {
                                     ViewUtil.alert(ProductActivity.this,

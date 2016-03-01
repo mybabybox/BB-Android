@@ -33,7 +33,34 @@ public class ConversationCache {
     }
 
     public static void refresh() {
-        refresh(null);
+        //refresh(null)
+        load(0L, null);
+    }
+
+    public static void load(final long offset, final Callback<List<ConversationVM>> callback) {
+        Log.d(ConversationCache.class.getSimpleName(), "load");
+
+        AppController.getApiService().getConversations(offset, new Callback<List<ConversationVM>>() {
+            @Override
+            public void success(List<ConversationVM> vms, Response response) {
+                if (offset == 0) {
+                    conversations.clear();
+                }
+
+                conversations.addAll(vms);
+                if (callback != null) {
+                    callback.success(vms, response);
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                if (callback != null) {
+                    callback.failure(error);
+                }
+                Log.e(ConversationCache.class.getSimpleName(), "load: failure", error);
+            }
+        });
     }
 
     public static void refresh(final Callback<List<ConversationVM>> callback) {

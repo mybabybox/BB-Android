@@ -53,6 +53,11 @@ public class ProductConversationListActivity extends ConversationListActivity {
         postPriceText = (TextView) findViewById(R.id.postPriceText);
     }
 
+    @Override
+    protected void attachEndlessScrollListener() {
+        // no infinite scroll
+    }
+
     private void updateConversations(ConversationVM conversation) {
         boolean deleted = conversations.remove(conversation);
         if (deleted) {
@@ -95,10 +100,14 @@ public class ProductConversationListActivity extends ConversationListActivity {
     }
 
     @Override
-    protected void getConversations() {
-        ViewUtil.showSpinner(this);
-
+    protected void getConversations(final long offset) {
         Long postId = getIntent().getLongExtra(ViewUtil.BUNDLE_KEY_ID, -1L);
+        if (postId == -1) {
+            Log.w(ProductConversationListActivity.class.getSimpleName(), "getConversations: postId == -1");
+            return;
+        }
+
+        ViewUtil.showSpinner(this);
         AppController.getApiService().getPostConversations(postId, new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> vms, Response response) {
@@ -111,6 +120,7 @@ public class ProductConversationListActivity extends ConversationListActivity {
                 } else {
                     adapter = new ConversationListAdapter(ProductConversationListActivity.this, conversations, false);
                     listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
 
                     // init post details
                     postLayout.setVisibility(View.VISIBLE);

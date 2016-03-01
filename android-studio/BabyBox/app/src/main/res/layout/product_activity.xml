@@ -414,6 +414,24 @@
                                     android:layout_marginLeft="10dp" />
 
                                 <ImageView
+                                    android:id="@+id/upImage2"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_upx2"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp" />
+
+                                <ImageView
+                                    android:id="@+id/downImage2"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:src="@drawable/ic_downx2"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="10dp" />
+
+                                <ImageView
                                     android:id="@+id/resetImage"
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"

@@ -233,6 +233,9 @@ public interface BabyBoxApi {
     @GET("/api/get-conversations")
     public void getConversations(@Query("key") String key, Callback<List<ConversationVM>> cb);
 
+    @GET("/api/get-user-conversations/{offset}")
+    public void getConversations(@Path("offset") Long offset, @Query("key") String key, Callback<List<ConversationVM>> cb);
+
     @GET("/api/get-post-conversations/{id}")
     public void getPostConversations(@Path("id") Long id, @Query("key") String key, Callback<List<ConversationVM>> cb);
 
@@ -300,11 +303,11 @@ public interface BabyBoxApi {
     @GET("/api/delete-account/{id}")
     public void deleteAccount(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/api/adjust-up-post-score/{id}")
-    public void adjustUpPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
+    @GET("/api/adjust-up-post-score/{id}/{points}")
+    public void adjustUpPostScore(@Path("id") Long id, @Path("points") Long points, @Query("key") String key, Callback<Response> cb);
 
-    @GET("/api/adjust-down-post-score/{id}")
-    public void adjustDownPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);
+    @GET("/api/adjust-down-post-score/{id}/{points}")
+    public void adjustDownPostScore(@Path("id") Long id, @Path("points") Long points, @Query("key") String key, Callback<Response> cb);
 
     @GET("/api/reset-adjust-post-score/{id}")
     public void resetAdjustPostScore(@Path("id") Long id, @Query("key") String key, Callback<Response> cb);

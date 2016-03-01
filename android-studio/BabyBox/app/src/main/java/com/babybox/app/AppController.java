@@ -214,7 +214,6 @@ public class AppController extends Application {
 
     public void initUserCaches() {
         NotificationCounter.refresh();
-        ConversationCache.refresh();
     }
 
     //getLastKnownLocation();

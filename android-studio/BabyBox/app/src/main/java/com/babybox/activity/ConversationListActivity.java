@@ -22,6 +22,7 @@ import com.babybox.adapter.ConversationListAdapter;
 import com.babybox.app.ConversationCache;
 import com.babybox.app.NotificationCounter;
 import com.babybox.app.TrackedFragmentActivity;
+import com.babybox.listener.InfiniteScrollListener;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
@@ -148,21 +149,33 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                         @Override
                         public void run() {
                             pullListView.setRefreshing(false);
-                            getConversations();
+                            getConversations(0L);
                         }
                     }, DefaultValues.PULL_TO_REFRESH_DELAY);
                 }
             });
         }
 
-        getConversations();
+        attachEndlessScrollListener();
+
+        getConversations(0L);
     }
 
-    protected void markRead(ConversationVM conversation) {
-        if (conversation != null) {
-            conversation.unread = 0L;
-            adapter.notifyDataSetChanged();
-        }
+    protected void attachEndlessScrollListener() {
+        listView.setOnScrollListener(new InfiniteScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                getConversations(page - 1);
+            }
+
+            @Override
+            public void onScrollUp() {
+            }
+
+            @Override
+            public void onScrollDown() {
+            }
+        });
     }
 
     @Override
@@ -209,19 +222,24 @@ public class ConversationListActivity extends TrackedFragmentActivity {
         }
     }
 
-    protected void getConversations() {
+    protected void getConversations(final long offset) {
+        if (offset == 0) {
+            ConversationCache.clear();
+            adapter = new ConversationListAdapter(this, ConversationCache.getConversations());
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
+
         ViewUtil.showSpinner(this);
-        ConversationCache.refresh(new Callback<List<ConversationVM>>() {
+        ConversationCache.load(offset, new Callback<List<ConversationVM>>() {
             @Override
             public void success(List<ConversationVM> vms, Response response) {
                 Log.d(ConversationListActivity.class.getSimpleName(), "getConversations: success");
-                if (vms.size() == 0) {
+                if (offset == 0 && vms.size() == 0) {
                     tipText.setVisibility(View.VISIBLE);
-                } else {
-                    adapter = new ConversationListAdapter(ConversationListActivity.this, ConversationCache.getConversations());
-                    listView.setAdapter(adapter);
                 }
 
+                adapter.notifyDataSetChanged();
                 ViewUtil.stopSpinner(ConversationListActivity.this);
             }
 

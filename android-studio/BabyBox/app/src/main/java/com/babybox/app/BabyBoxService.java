@@ -253,6 +253,10 @@ public class BabyBoxService {
         api.getConversations(AppController.getInstance().getSessionId(), cb);
     }
 
+    public void getConversations(Long offset, Callback<List<ConversationVM>> cb) {
+        api.getConversations(offset, AppController.getInstance().getSessionId(), cb);
+    }
+
     public void getPostConversations(Long id, Callback<List<ConversationVM>> cb) {
         api.getPostConversations(id, AppController.getInstance().getSessionId(), cb);
     }
@@ -329,12 +333,12 @@ public class BabyBoxService {
         api.deleteAccount(id, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void adjustUpPostScore(Long id, Callback<Response> cb) {
-        api.adjustUpPostScore(id, AppController.getInstance().getSessionId(), cb);
+    public void adjustUpPostScore(Long id, Long points, Callback<Response> cb) {
+        api.adjustUpPostScore(id, points, AppController.getInstance().getSessionId(), cb);
     }
 
-    public void adjustDownPostScore(Long id, Callback<Response> cb) {
-        api.adjustDownPostScore(id, AppController.getInstance().getSessionId(), cb);
+    public void adjustDownPostScore(Long id, Long points, Callback<Response> cb) {
+        api.adjustDownPostScore(id, points, AppController.getInstance().getSessionId(), cb);
     }
 
     public void resetAdjustPostScore(Long id, Callback<Response> cb) {

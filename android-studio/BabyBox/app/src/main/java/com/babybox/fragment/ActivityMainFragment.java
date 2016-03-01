@@ -117,7 +117,6 @@ public class ActivityMainFragment extends TrackedFragment {
                 Log.d(ActivityMainFragment.class.getSimpleName(), "getActivities: size=" + activities.size());
                 if (offset == 0L) {
                     items.clear();
-                    adapter.notifyDataSetChanged();
 
                     if (activities.size() == 0) {
                         tipText.setVisibility(View.VISIBLE);
