@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,6 +51,7 @@ import com.babybox.viewmodel.ResponseStatusVM;
 import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -647,13 +649,29 @@ public class NewPostActivity extends TrackedFragmentActivity{
                     Toast.makeText(this, getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
                 }
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
-                String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
-                selectPostImage(selectedPostImageIndex, croppedImagePath);
+
+				String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
+
+				Log.d(this.getClass().getSimpleName(), "onActivityResult: imagePath edit set=" + croppedImagePath);
+
+				if(data.getData() != null) {
+					try {
+						Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+						selectedImageUri = data.getData();
+						selectPostImage(bitmap, selectedPostImageIndex);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}else{
+					selectPostImage(selectedPostImageIndex, croppedImagePath);
+				}
+
             }
 
             // pop back soft keyboard
             ViewUtil.popupInputMethodWindow(this);
-        }
+        
+		}
     }
 
     @Override

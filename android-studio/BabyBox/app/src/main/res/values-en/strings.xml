@@ -370,4 +370,11 @@
     <string name="admin_delete_account_success">Account deleted</string>
     <string name="admin_delete_account_failed">Account delete failed</string>
     <string name="admin_latest_conversations">Latest Chats</string>
+
+    <!--Edit Image Activity-->
+    <string name="brightness">Brightness</string>
+    <string name="contrast">Contrast</string>
+    <string name="gray_scale">Gray Scale</string>
+    <string name="save">Save</string>
+    
 </resources>
