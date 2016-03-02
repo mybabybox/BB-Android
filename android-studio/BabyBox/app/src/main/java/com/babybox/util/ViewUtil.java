@@ -144,6 +144,7 @@ public class ViewUtil {
 
     public static final int CROP_IMAGE_REQUEST_CODE = 202;
     public static final int PROCESS_IMAGE_REQUEST_CODE = 203;
+	public static final int EDIT_IMAGE_REQUEST_CODE = 204;
 
     public static final String HTML_LINE_BREAK = "<br>";
 
