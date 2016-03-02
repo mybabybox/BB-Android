@@ -56,7 +56,7 @@ public class SelectImageActivity extends Activity {
         } else if (requestCode == Crop.REQUEST_CROP) {
             handleCrop(resultCode, data);
         }else if(requestCode == ViewUtil.EDIT_IMAGE_REQUEST_CODE){
-			handleEffect(requestCode,data);
+			handleEffect(resultCode,data);
 		}
     }
 
