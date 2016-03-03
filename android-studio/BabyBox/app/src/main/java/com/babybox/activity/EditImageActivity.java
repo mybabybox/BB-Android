@@ -14,10 +14,12 @@ import android.widget.SeekBar;
 import com.babybox.R;
 import com.babybox.image.effect.FilterAdjuster;
 import com.babybox.image.effect.GPUImageTransformFilter;
+import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
 import org.joda.time.DateTime;
 
+import java.io.File;
 import java.io.IOException;
 
 import jp.co.cyberagent.android.gpuimage.GPUImage;
@@ -36,7 +38,6 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 	private GPUImage imageView;
 	private GPUImageFilter mFilter;
 	private SeekBar seekBar;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -124,11 +125,10 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 			}
 		});
 
-
 		applyButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				imageView.saveToPictures("Babybox-Effect",String.valueOf(new DateTime().getSecondOfDay())+".jpg",new GPUImage.OnPictureSavedListener() {
+				imageView.saveToPictures(ImageUtil.IMAGE_FOLDER_PATH,String.valueOf(new DateTime().getSecondOfDay())+".jpg",new GPUImage.OnPictureSavedListener() {
 					@Override
 					public void onPictureSaved(Uri uri) {
 
@@ -143,7 +143,6 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 				});
 			}
 		});
-
 	}
 
 	@Override
@@ -166,16 +165,15 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 		}
 	}
 
-		@Override
-		public void onStartTrackingTouch (SeekBar seekBar){
+	@Override
+	public void onStartTrackingTouch (SeekBar seekBar){
 
-		}
+	}
 
-		@Override
-		public void onStopTrackingTouch (SeekBar seekBar){
+	@Override
+	public void onStopTrackingTouch (SeekBar seekBar){
 
-
-		}
+	}
 
 	protected float range(final int percentage, final float start, final float end) {
 		return (end - start) * percentage / 100.0f + start;
