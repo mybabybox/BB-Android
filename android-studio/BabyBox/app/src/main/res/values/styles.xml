@@ -66,7 +66,7 @@
         <item name="android:drawablePadding">8dp</item>
         <item name="android:textColor">@color/crop__button_text</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="Crop.ActionButtonText.Done">

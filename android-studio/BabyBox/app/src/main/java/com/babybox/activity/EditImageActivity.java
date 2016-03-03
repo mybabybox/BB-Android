@@ -9,32 +9,30 @@ import android.provider.MediaStore;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
 import com.babybox.R;
 import com.babybox.image.effect.FilterAdjuster;
-import com.babybox.image.effect.GPUImageTransformFilter;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
 import org.joda.time.DateTime;
 
-import java.io.File;
 import java.io.IOException;
 
 import jp.co.cyberagent.android.gpuimage.GPUImage;
 import jp.co.cyberagent.android.gpuimage.GPUImageBrightnessFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageContrastFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
-import jp.co.cyberagent.android.gpuimage.GPUImageGrayscaleFilter;
-import jp.co.cyberagent.android.gpuimage.Rotation;
 
 public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener {
 
 	private FilterAdjuster mFilterAdjuster;
-	GPUImageBrightnessFilter brightnessFilter;
-	GPUImageContrastFilter contrastFilter;
-	private Button contrastButton, brightButton,applyButton,grayScaleButton;
+	private GPUImageBrightnessFilter brightnessFilter;
+    private GPUImageContrastFilter contrastFilter;
+	private RelativeLayout contrastButton, brightButton;
+    private Button applyButton;
 	private GPUImage imageView;
 	private GPUImageFilter mFilter;
 	private SeekBar seekBar;
@@ -42,11 +40,10 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_edit_image);
-		brightButton = (Button) findViewById(R.id.brightButton);
-		contrastButton = (Button) findViewById(R.id.contrastButton);
+		setContentView(R.layout.edit_image_activity);
+		brightButton = (RelativeLayout) findViewById(R.id.brightButton);
+		contrastButton = (RelativeLayout) findViewById(R.id.contrastButton);
 		applyButton = (Button) findViewById(R.id.applyButton);
-		grayScaleButton = (Button) findViewById(R.id.blackScaleButton);
 
 		seekBar = (SeekBar) findViewById(R.id.seekBar);
 
@@ -71,16 +68,10 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 		brightButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-
 				seekBar.setVisibility(View.VISIBLE);
 
-				brightButton.setBackgroundResource(R.drawable.button_pink);
-				brightButton.setTextColor(getResources().getColor(R.color.white));
-
-				grayScaleButton.setBackgroundResource(R.drawable.button_light_gray_border);
-				grayScaleButton.setTextColor(getResources().getColor(R.color.input_text));
-				contrastButton.setBackgroundResource(R.drawable.button_light_gray_border);
-				contrastButton.setTextColor(getResources().getColor(R.color.input_text));
+				brightButton.setBackgroundResource(R.drawable.button_pink_2);
+				contrastButton.setBackgroundResource(R.drawable.button_light_gray_border_2);
 
 				mFilter = new GPUImageBrightnessFilter();
 				mFilterAdjuster = new FilterAdjuster(mFilter);
@@ -92,36 +83,11 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 			public void onClick(View view) {
 				seekBar.setVisibility(View.VISIBLE);
 
-				contrastButton.setBackgroundResource(R.drawable.button_pink);
-				contrastButton.setTextColor(getResources().getColor(R.color.white));
-
-				grayScaleButton.setBackgroundResource(R.drawable.button_light_gray_border);
-				grayScaleButton.setTextColor(getResources().getColor(R.color.input_text));
-				brightButton.setBackgroundResource(R.drawable.button_light_gray_border);
-				brightButton.setTextColor(getResources().getColor(R.color.input_text));
-
+				contrastButton.setBackgroundResource(R.drawable.button_pink_2);
+				brightButton.setBackgroundResource(R.drawable.button_light_gray_border_2);
 
 				mFilter = new GPUImageContrastFilter();
 				mFilterAdjuster = new FilterAdjuster(mFilter);
-			}
-		});
-
-		grayScaleButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				seekBar.setVisibility(View.VISIBLE);
-
-				grayScaleButton.setBackgroundResource(R.drawable.button_pink);
-				grayScaleButton.setTextColor(getResources().getColor(R.color.white));
-
-				contrastButton.setBackgroundResource(R.drawable.button_light_gray_border);
-				contrastButton.setTextColor(getResources().getColor(R.color.input_text));
-				brightButton.setBackgroundResource(R.drawable.button_light_gray_border);
-				brightButton.setTextColor(getResources().getColor(R.color.input_text));
-
-				mFilter = new GPUImageGrayscaleFilter();
-				mFilterAdjuster = new FilterAdjuster(mFilter);
-				imageView.setFilter(mFilter);
 			}
 		});
 
@@ -138,7 +104,6 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 						setResult(RESULT_OK,intent);
 
 						finish();
-
 					}
 				});
 			}

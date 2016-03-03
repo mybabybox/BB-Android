@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.babybox.activity.EditImageActivity">
+
+    <android.opengl.GLSurfaceView
+
+        android:id="@+id/imageView"
+        android:layout_above="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_above="@+id/bottomBar"
+        android:max="100" />
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:id="@+id/brightButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_light_gray_border_2">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_image_adjust_brightness"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/contrastButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_light_gray_border_2">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_image_adjust_contrast"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/resetButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_light_gray_border_2" >
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_image_adjust_reset"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/applyButton"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="center"
+            android:text="@string/crop__done"
+            android:textSize="15dp"
+            android:textColor="@color/pink"
+            android:background="@drawable/button_light_gray_border_2"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</RelativeLayout>
