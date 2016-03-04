@@ -5,20 +5,33 @@
                 tools:context="com.babybox.activity.EditImageActivity">
 
     <android.opengl.GLSurfaceView
-
         android:id="@+id/imageView"
-        android:layout_above="@+id/seekBar"
+        android:layout_above="@+id/seekBarLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
+    <RelativeLayout
+        android:id="@+id/seekBarLayout"
+        android:layout_above="@+id/bottomBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <SeekBar
-        android:id="@+id/seekBar"
-        android:visibility="gone"
+        android:id="@+id/contrastSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_above="@+id/bottomBar"
+        android:visibility="gone"
         android:max="100" />
+
+    <SeekBar
+        android:id="@+id/brightSeekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:max="100" />
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_alignParentBottom="true"

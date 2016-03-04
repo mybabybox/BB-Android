@@ -3,8 +3,12 @@ package com.babybox.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
+import android.os.AsyncTask;
+import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.view.View;
@@ -19,12 +23,16 @@ import com.babybox.util.ViewUtil;
 
 import org.joda.time.DateTime;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import jp.co.cyberagent.android.gpuimage.GPUImage;
 import jp.co.cyberagent.android.gpuimage.GPUImageBrightnessFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageContrastFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
+import jp.co.cyberagent.android.gpuimage.GPUImageFilterGroup;
 
 public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener {
 
@@ -33,9 +41,10 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
     private GPUImageContrastFilter contrastFilter;
 	private RelativeLayout contrastButton, brightButton;
     private Button applyButton;
-	private GPUImage imageView;
+	public GPUImage imageView;
 	private GPUImageFilter mFilter;
-	private SeekBar seekBar;
+	private SeekBar contrastSeekBar,brightSeekBar;
+	private GLSurfaceView glSurfaceView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +53,16 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 		brightButton = (RelativeLayout) findViewById(R.id.brightButton);
 		contrastButton = (RelativeLayout) findViewById(R.id.contrastButton);
 		applyButton = (Button) findViewById(R.id.applyButton);
+		glSurfaceView = (GLSurfaceView) findViewById(R.id.imageView);
 
-		seekBar = (SeekBar) findViewById(R.id.seekBar);
+		contrastSeekBar = (SeekBar) findViewById(R.id.contrastSeekBar);
+		brightSeekBar = (SeekBar) findViewById(R.id.brightSeekBar);
 
-		((SeekBar) findViewById(R.id.seekBar)).setOnSeekBarChangeListener(this);
+		contrastSeekBar.setProgress(25);
+		brightSeekBar.setProgress(50);
+
+		((SeekBar) findViewById(R.id.brightSeekBar)).setOnSeekBarChangeListener(this);
+		((SeekBar) findViewById(R.id.contrastSeekBar)).setOnSeekBarChangeListener(this);
 
 		imageView = new GPUImage(this);
 
@@ -56,10 +71,14 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 
 		Uri uri = Uri.parse(getIntent().getStringExtra("uri"));
 
-		imageView.setGLSurfaceView((GLSurfaceView) findViewById(R.id.imageView));
+
 
 		try {
 			Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+			glSurfaceView.setMinimumHeight(bmp.getHeight());
+			glSurfaceView.setMinimumWidth(bmp.getWidth());
+			imageView.setGLSurfaceView(glSurfaceView);
+
 			imageView.setImage(bmp);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -68,33 +87,47 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 		brightButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				seekBar.setVisibility(View.VISIBLE);
+				contrastSeekBar.setVisibility(View.GONE);
+				brightSeekBar.setVisibility(View.VISIBLE);
 
 				brightButton.setBackgroundResource(R.drawable.button_pink_2);
 				contrastButton.setBackgroundResource(R.drawable.button_light_gray_border_2);
 
 				mFilter = new GPUImageBrightnessFilter();
 				mFilterAdjuster = new FilterAdjuster(mFilter);
+
+				onProgressChanged(brightSeekBar,brightSeekBar.getProgress(),true);
+
 			}
 		});
 
 		contrastButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				seekBar.setVisibility(View.VISIBLE);
+				brightSeekBar.setVisibility(View.GONE);
+				contrastSeekBar.setVisibility(View.VISIBLE);
 
 				contrastButton.setBackgroundResource(R.drawable.button_pink_2);
 				brightButton.setBackgroundResource(R.drawable.button_light_gray_border_2);
 
 				mFilter = new GPUImageContrastFilter();
 				mFilterAdjuster = new FilterAdjuster(mFilter);
+
+				onProgressChanged(contrastSeekBar,contrastSeekBar.getProgress(),true);
 			}
 		});
 
 		applyButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				imageView.saveToPictures(ImageUtil.IMAGE_FOLDER_PATH,String.valueOf(new DateTime().getSecondOfDay())+".jpg",new GPUImage.OnPictureSavedListener() {
+
+				Bitmap bitmap = imageView.getBitmapWithFilterApplied();
+
+				saveImage(bitmap);
+
+
+
+				/*imageView.saveToPictures(ImageUtil.IMAGE_FOLDER_PATH,String.valueOf(new DateTime().getSecondOfDay())+".jpg",new GPUImage.OnPictureSavedListener() {
 					@Override
 					public void onPictureSaved(Uri uri) {
 
@@ -105,7 +138,7 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 
 						finish();
 					}
-				});
+				});*/
 			}
 		});
 	}
@@ -143,6 +176,34 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 	protected float range(final int percentage, final float start, final float end) {
 		return (end - start) * percentage / 100.0f + start;
 	}
+
+	private void saveImage(final Bitmap image) {
+		//File path = ImageUtil.IMAGE_FOLDER_PATH;
+		File file = new File(ImageUtil.IMAGE_FOLDER_PATH, String.valueOf(new DateTime().getSecondOfDay())+".jpg");
+		try {
+			file.getParentFile().mkdirs();
+			image.compress(Bitmap.CompressFormat.JPEG, 80, new FileOutputStream(file));
+			MediaScannerConnection.scanFile(this,
+					new String[]{
+							file.toString()
+					}, null,
+					new MediaScannerConnection.OnScanCompletedListener() {
+						@Override
+						public void onScanCompleted(final String path, final Uri uri) {
+							Intent intent = new Intent();
+							intent.setData(uri);
+							intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT,uri.toString());
+							setResult(RESULT_OK,intent);
+
+							finish();
+
+						}
+					});
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
 
 

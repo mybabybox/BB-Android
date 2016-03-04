@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.Gravity;
@@ -52,6 +53,7 @@ import org.json.JSONObject;
 import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -585,13 +587,35 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 }
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
                 String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
-                setCommentImage(croppedImagePath);
+
+                //setCommentImage(croppedImagePath);
+
+				if(data.getData() != null) {
+					try {
+						Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+						selectedImageUri = data.getData();
+						setCommentImage(bitmap);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}else{
+					setCommentImage(croppedImagePath);
+				}
+
             }
 
             // pop back soft keyboard
             ViewUtil.popupInputMethodWindow(this);
         }
     }
+
+
+	protected void setCommentImage(Bitmap bp) {
+		ImageView postImage = commentImages.get(0);
+		postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
+		postImage.setVisibility(View.VISIBLE);
+		selectedImages.add(new SelectedImage(0, ImageUtil.getRealPathFromUri(this, selectedImageUri)));
+	}
 
     private void setCommentImage(String imagePath) {
         if (!StringUtils.isEmpty(imagePath)) {
