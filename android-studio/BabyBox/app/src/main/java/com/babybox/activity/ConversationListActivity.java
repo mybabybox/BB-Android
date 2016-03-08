@@ -93,7 +93,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
             @Override
             public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
                 String message = ConversationListActivity.this.getString(R.string.post_delete_confirm);
-                SparseBooleanArray selected = adapter.getSelectedIds();
+                final SparseBooleanArray selected = adapter.getSelectedIds();
                 for (int i = 0; i < selected.size(); i++) {
                     if (selected.valueAt(i)) {
                         ConversationVM item = adapter.getItem(selected.keyAt(i));
@@ -106,8 +106,8 @@ public class ConversationListActivity extends TrackedFragmentActivity {
                 alertDialogBuilder.setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SparseBooleanArray selected = adapter.getSelectedIds();
-                        for (int i = (selected.size() - 1); i >= 0; i--) {
+                        Log.d(TAG, "listView.deleteConversation: selected.size="+selected.size());
+                        for (int i = selected.size() - 1; i >= 0; i--) {
                             if (selected.valueAt(i)) {
                                 ConversationVM item = adapter.getItem(selected.keyAt(i));
                                 adapter.deleteConversation(item.getId());
@@ -130,6 +130,7 @@ public class ConversationListActivity extends TrackedFragmentActivity {
 
             @Override
             public void onDestroyActionMode(ActionMode actionMode) {
+                Log.d(TAG, "listView.onDestroyActionMode: adapter.removeSelection");
                 adapter.removeSelection();
             }
         });

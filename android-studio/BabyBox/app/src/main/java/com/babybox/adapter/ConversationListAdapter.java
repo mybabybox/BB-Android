@@ -439,6 +439,7 @@ public class ConversationListAdapter extends BaseAdapter {
 
     public void deleteConversation(final Long id) {
         ViewUtil.showSpinner(activity);
+        Log.d(TAG, "deleteConversation: id="+id);
         ConversationCache.delete(id, new Callback<Response>() {
             @Override
             public void success(Response responseObject, Response response) {
