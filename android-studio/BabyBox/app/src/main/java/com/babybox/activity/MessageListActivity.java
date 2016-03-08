@@ -555,6 +555,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (resultCode == RESULT_OK) {
             if (selectedImages.size() >= DefaultValues.MAX_MESSAGE_IMAGES) {
                 //Toast.makeText(MessageListActivity.this,

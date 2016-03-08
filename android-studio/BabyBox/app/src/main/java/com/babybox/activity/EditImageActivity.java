@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -27,6 +28,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jp.co.cyberagent.android.gpuimage.GPUImage;
 import jp.co.cyberagent.android.gpuimage.GPUImageBrightnessFilter;
@@ -34,17 +37,19 @@ import jp.co.cyberagent.android.gpuimage.GPUImageContrastFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilterGroup;
 
-public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener {
+public class EditImageActivity extends Activity {
 
 	private FilterAdjuster mFilterAdjuster;
 	private GPUImageBrightnessFilter brightnessFilter;
     private GPUImageContrastFilter contrastFilter;
-	private RelativeLayout contrastButton, brightButton;
+	private RelativeLayout contrastButton, brightButton,resetButton;
     private Button applyButton;
 	public GPUImage imageView;
 	private GPUImageFilter mFilter;
 	private SeekBar contrastSeekBar,brightSeekBar;
 	private GLSurfaceView glSurfaceView;
+	private GPUImageFilterGroup gpuImageFilterGroup;
+	private List<GPUImageFilter> gpuImageFilters;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,37 +57,84 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 		setContentView(R.layout.edit_image_activity);
 		brightButton = (RelativeLayout) findViewById(R.id.brightButton);
 		contrastButton = (RelativeLayout) findViewById(R.id.contrastButton);
+		resetButton = (RelativeLayout) findViewById(R.id.resetButton);
 		applyButton = (Button) findViewById(R.id.applyButton);
 		glSurfaceView = (GLSurfaceView) findViewById(R.id.imageView);
 
 		contrastSeekBar = (SeekBar) findViewById(R.id.contrastSeekBar);
 		brightSeekBar = (SeekBar) findViewById(R.id.brightSeekBar);
 
+
 		contrastSeekBar.setProgress(25);
 		brightSeekBar.setProgress(50);
 
-		((SeekBar) findViewById(R.id.brightSeekBar)).setOnSeekBarChangeListener(this);
-		((SeekBar) findViewById(R.id.contrastSeekBar)).setOnSeekBarChangeListener(this);
+		gpuImageFilters = new ArrayList<>();
 
 		imageView = new GPUImage(this);
 
 		brightnessFilter = new GPUImageBrightnessFilter();
 		contrastFilter = new GPUImageContrastFilter();
 
+		gpuImageFilters.add(brightnessFilter);
+		gpuImageFilters.add(contrastFilter);
+
+		gpuImageFilterGroup = new GPUImageFilterGroup(gpuImageFilters);
+
 		Uri uri = Uri.parse(getIntent().getStringExtra("uri"));
-
-
 
 		try {
 			Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-			glSurfaceView.setMinimumHeight(bmp.getHeight());
-			glSurfaceView.setMinimumWidth(bmp.getWidth());
 			imageView.setGLSurfaceView(glSurfaceView);
 
-			imageView.setImage(bmp);
+			Bitmap b = Bitmap.createScaledBitmap(bmp, getIntent().getIntExtra("cropWidth", 0), getIntent().getIntExtra("cropHeight", 0), false);
+
+			imageView.setScaleType(GPUImage.ScaleType.CENTER_INSIDE);
+			imageView.setImage(b);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		imageView.setFilter(gpuImageFilterGroup);
+
+		((SeekBar) findViewById(R.id.brightSeekBar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+				brightnessFilter.setBrightness(range(i, -1.0f, 1.0f));
+				imageView.setFilter(gpuImageFilterGroup);
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+
+			}
+		});
+
+
+		((SeekBar) findViewById(R.id.contrastSeekBar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+				contrastFilter.setContrast(range(i, 0.0f, 4.0f));
+				imageView.setFilter(contrastFilter);
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+
+			}
+		});
 
 		brightButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -95,8 +147,6 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 
 				mFilter = new GPUImageBrightnessFilter();
 				mFilterAdjuster = new FilterAdjuster(mFilter);
-
-				onProgressChanged(brightSeekBar,brightSeekBar.getProgress(),true);
 
 			}
 		});
@@ -112,8 +162,16 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 
 				mFilter = new GPUImageContrastFilter();
 				mFilterAdjuster = new FilterAdjuster(mFilter);
+			}
+		});
 
-				onProgressChanged(contrastSeekBar,contrastSeekBar.getProgress(),true);
+		resetButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				brightnessFilter.setBrightness(0.0f);
+				contrastFilter.setContrast(1.0f);
+
+				imageView.setFilter(gpuImageFilterGroup);
 			}
 		});
 
@@ -124,8 +182,6 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 				Bitmap bitmap = imageView.getBitmapWithFilterApplied();
 
 				saveImage(bitmap);
-
-
 
 				/*imageView.saveToPictures(ImageUtil.IMAGE_FOLDER_PATH,String.valueOf(new DateTime().getSecondOfDay())+".jpg",new GPUImage.OnPictureSavedListener() {
 					@Override
@@ -143,42 +199,12 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 		});
 	}
 
-	@Override
-	public void onClick(View view) {
-
-	}
-
-	@Override
-	public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-
-	 	 if(mFilterAdjuster != null) {
-			if(mFilter instanceof GPUImageBrightnessFilter){
-				brightnessFilter.setBrightness(range(i, -1.0f, 1.0f));
-				imageView.setFilter(brightnessFilter);
-			}else if (mFilter instanceof GPUImageContrastFilter){
-				contrastFilter.setContrast(range(i, 0.0f, 4.0f));
-				imageView.setFilter(contrastFilter);
-			}
-			mFilterAdjuster.adjust(i);
-		}
-	}
-
-	@Override
-	public void onStartTrackingTouch (SeekBar seekBar){
-
-	}
-
-	@Override
-	public void onStopTrackingTouch (SeekBar seekBar){
-
-	}
 
 	protected float range(final int percentage, final float start, final float end) {
 		return (end - start) * percentage / 100.0f + start;
 	}
 
 	private void saveImage(final Bitmap image) {
-		//File path = ImageUtil.IMAGE_FOLDER_PATH;
 		File file = new File(ImageUtil.IMAGE_FOLDER_PATH, String.valueOf(new DateTime().getSecondOfDay())+".jpg");
 		try {
 			file.getParentFile().mkdirs();
@@ -205,5 +231,7 @@ public class EditImageActivity extends Activity implements SeekBar.OnSeekBarChan
 	}
 
 }
+
+
 
 

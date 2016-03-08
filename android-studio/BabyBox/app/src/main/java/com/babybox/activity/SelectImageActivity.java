@@ -36,7 +36,6 @@ public class SelectImageActivity extends Activity {
         File file = new File (imageFolder, fname);
         outputUrl = file.getAbsolutePath();
 
-
         Uri destination = Uri.fromFile(file);
 
 		outputUri = destination;
@@ -77,6 +76,8 @@ public class SelectImageActivity extends Activity {
 			Intent intent = new Intent(this,EditImageActivity.class);
 			intent.putExtra("uri", outputUri+"");
 			intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT, outputUrl);
+			intent.putExtra("cropWidth",result.getIntExtra("cropWidth",0));
+			intent.putExtra("cropHeight",result.getIntExtra("cropHeight",0));
 			setResult(RESULT_OK, intent);
 			startActivityForResult(intent, ViewUtil.EDIT_IMAGE_REQUEST_CODE);
 

@@ -72,6 +72,7 @@ public class CropImageActivity extends MonitoredActivity {
     private RotateBitmap rotateBitmap;
     private CropImageView imageView;
     private HighlightView cropView;
+	private Integer cropHeight,cropWidth;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -345,6 +346,10 @@ public class CropImageActivity extends MonitoredActivity {
             imageView.center();
             imageView.highlightViews.clear();
         }
+
+		cropWidth = croppedImage.getWidth();
+		cropHeight = croppedImage.getHeight();
+
         saveImage(croppedImage);
     }
 
@@ -483,7 +488,11 @@ public class CropImageActivity extends MonitoredActivity {
     }
 
     private void setResultUri(Uri uri) {
-        setResult(RESULT_OK, new Intent().putExtra(MediaStore.EXTRA_OUTPUT, uri));
+		Intent intent = new Intent();
+		intent.putExtra("cropHeight",cropHeight);
+		intent.putExtra("cropWidth",cropWidth);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        setResult(RESULT_OK, intent);
     }
 
     private void setResultException(Throwable throwable) {
