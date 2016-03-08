@@ -14,21 +14,30 @@
         android:layout_above="@+id/bottomBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <SeekBar
-        android:id="@+id/contrastSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="gone"
-        android:max="100" />
 
-    <SeekBar
-        android:id="@+id/brightSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="gone"
-        android:max="100" />
+        <SeekBar
+            android:id="@+id/brightSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:max="100" />
+
+        <SeekBar
+            android:id="@+id/contrastSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:max="100" />
+
+        <SeekBar
+            android:id="@+id/saturationSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:max="100" />
 
     </RelativeLayout>
 
@@ -36,17 +45,17 @@
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
-        android:weightSum="4"
+        android:weightSum="5"
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/light_gray_3">
 
         <RelativeLayout
             android:id="@+id/brightButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_light_gray_border_2">
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="32dp"
@@ -60,8 +69,7 @@
             android:id="@+id/contrastButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_light_gray_border_2">
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="32dp"
@@ -71,11 +79,23 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/saturationButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_image_adjust_grayscale"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/resetButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/button_light_gray_border_2" >
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="32dp"
@@ -92,10 +112,10 @@
             android:text="@string/crop__done"
             android:textSize="15dp"
             android:textColor="@color/pink"
-            android:background="@drawable/button_light_gray_border_2"
             android:layout_height="match_parent"
             android:singleLine="true"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@color/light_gray_3" />
     </LinearLayout>
 
 </RelativeLayout>
