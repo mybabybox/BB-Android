@@ -13,7 +13,7 @@
         android:id="@+id/btn_done"
         style="@style/Crop.ActionButton">
         <TextView style="@style/Crop.ActionButtonText.Done"
-            android:textColor="@color/pink"
+            android:textColor="@color/dark_gray_2"
             android:textSize="15dp"
             android:textStyle="bold" />
     </FrameLayout>

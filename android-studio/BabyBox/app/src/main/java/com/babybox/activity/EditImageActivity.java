@@ -60,6 +60,7 @@ public class EditImageActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.edit_image_activity);
 
 		brightButton = (RelativeLayout) findViewById(R.id.brightButton);
@@ -72,10 +73,6 @@ public class EditImageActivity extends Activity {
 		brightSeekBar = (SeekBar) findViewById(R.id.brightSeekBar);
 		contrastSeekBar = (SeekBar) findViewById(R.id.contrastSeekBar);
 		saturationSeekBar = (SeekBar) findViewById(R.id.saturationSeekBar);
-
-		brightSeekBar.setProgress(50);
-		contrastSeekBar.setProgress(50);
-		saturationSeekBar.setProgress(50);
 
 		gpuImageFilters = new ArrayList<>();
 
@@ -92,6 +89,8 @@ public class EditImageActivity extends Activity {
 		gpuImageFilterGroup = new GPUImageFilterGroup(gpuImageFilters);
 
 		Uri uri = Uri.parse(getIntent().getStringExtra("uri"));
+
+        resetFilters();
 
 		try {
 			Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
@@ -179,11 +178,7 @@ public class EditImageActivity extends Activity {
 		resetButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				brightnessFilter.setBrightness(0.0f);
-				contrastFilter.setContrast(1.0f);
-				saturationFilter.setSaturation(1.0f);
-
-				imageView.setFilter(gpuImageFilterGroup);
+                resetFilters();
 			}
 		});
 
@@ -211,17 +206,31 @@ public class EditImageActivity extends Activity {
 		});
 	}
 
-	private void selectFilter(boolean brightness, boolean contrast, boolean saturation) {
+    private void resetFilters() {
+        selectFilter(false, false, false);
+
+        brightnessFilter.setBrightness(0.0f);
+        contrastFilter.setContrast(1.0f);
+        saturationFilter.setSaturation(1.0f);
+
+        brightSeekBar.setProgress(50);
+        contrastSeekBar.setProgress(50);
+        saturationSeekBar.setProgress(50);
+
+        imageView.setFilter(gpuImageFilterGroup);
+    }
+
+ 	private void selectFilter(boolean brightness, boolean contrast, boolean saturation) {
 		brightSeekBar.setVisibility(brightness? View.VISIBLE : View.GONE);
 		contrastSeekBar.setVisibility(contrast? View.VISIBLE : View.GONE);
 		saturationSeekBar.setVisibility(saturation? View.VISIBLE : View.GONE);
 
 		brightButton.setBackgroundColor(
-				brightness ? getResources().getColor(R.color.light_pink_2) : getResources().getColor(R.color.light_gray_3));
+				brightness ? getResources().getColor(R.color.light_gray) : getResources().getColor(R.color.light_gray_3));
 		contrastButton.setBackgroundColor(
-				contrast? getResources().getColor(R.color.light_pink_2) : getResources().getColor(R.color.light_gray_3));
+				contrast? getResources().getColor(R.color.light_gray) : getResources().getColor(R.color.light_gray_3));
 		saturationButton.setBackgroundColor(
-				saturation ? getResources().getColor(R.color.light_pink_2) : getResources().getColor(R.color.light_gray_3));
+				saturation ? getResources().getColor(R.color.light_gray) : getResources().getColor(R.color.light_gray_3));
 
 		if (brightness) {
 			mFilter = new GPUImageBrightnessFilter();

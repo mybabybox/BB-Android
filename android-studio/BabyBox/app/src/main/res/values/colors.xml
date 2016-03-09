@@ -5,7 +5,8 @@
     <color name="cardview_shadow_end_color">#03000000</color>
 
     <!-- custom -->
-    <color name="white">#ffffff</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
     <color name="admin_green">#038100</color>
     <color name="admin_light_green">#91cf90</color>
     <color name="admin_light_green_2">#e3f5e2</color>

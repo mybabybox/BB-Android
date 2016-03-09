@@ -4,11 +4,20 @@
                 android:layout_height="match_parent"
                 tools:context="com.babybox.activity.EditImageActivity">
 
-    <android.opengl.GLSurfaceView
-        android:id="@+id/imageView"
-        android:layout_above="@+id/seekBarLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <android.opengl.GLSurfaceView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/seekBarLayout"
         android:layout_above="@+id/bottomBar"
@@ -111,7 +120,7 @@
             android:gravity="center"
             android:text="@string/crop__done"
             android:textSize="15dp"
-            android:textColor="@color/pink"
+            android:textColor="@color/dark_gray_2"
             android:layout_height="match_parent"
             android:singleLine="true"
             android:textStyle="bold"
