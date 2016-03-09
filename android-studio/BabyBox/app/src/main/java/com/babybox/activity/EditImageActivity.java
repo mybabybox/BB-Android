@@ -1,6 +1,8 @@
 package com.babybox.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -23,6 +25,7 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
 import org.joda.time.DateTime;
+import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -102,7 +105,7 @@ public class EditImageActivity extends Activity {
 			e.printStackTrace();
 		}
 
-		imageView.setFilter(gpuImageFilterGroup);
+		//imageView.setFilter(gpuImageFilterGroup);
 
 		((SeekBar) findViewById(R.id.brightSeekBar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
@@ -124,7 +127,7 @@ public class EditImageActivity extends Activity {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 				contrastFilter.setContrast(range(i, 0.2f, 2.0f));
-				imageView.setFilter(contrastFilter);
+				imageView.setFilter(gpuImageFilterGroup);
 			}
 
 			@Override
@@ -140,7 +143,7 @@ public class EditImageActivity extends Activity {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 				saturationFilter.setSaturation(range(i, 0.2f, 2.0f));
-				imageView.setFilter(saturationFilter);
+				imageView.setFilter(gpuImageFilterGroup);
 			}
 
 			@Override
@@ -258,6 +261,30 @@ public class EditImageActivity extends Activity {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(EditImageActivity.this);
+		builder.setMessage(getString(R.string.cancel_image))
+				.setCancelable(false)
+				.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						Intent intent = new Intent();
+						intent.setData(null);
+						intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT,"");
+						setResult(RESULT_OK,intent);
+						EditImageActivity.super.onBackPressed();
+					}
+				})
+				.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+		AlertDialog alert = builder.create();
+		alert.show();
 	}
 }
 

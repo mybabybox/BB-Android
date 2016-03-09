@@ -322,6 +322,7 @@
 
     <!-- Dialog -->
     <string name="cancel_post">退出%1$s商品？</string>
+    <string name="cancel_image">Do you want to close image ?</string>
     <string name="exit_app">退出 BabyBox？</string>
     <string name="logout_message">確定登出 BabyBox？</string>
     <string name="delete_account_message">確定刪除帳戶？</string>

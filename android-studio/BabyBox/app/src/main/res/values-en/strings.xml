@@ -325,6 +325,7 @@
     <string name="exit_app">Exit BabyBox？</string>
     <string name="logout_message">Logout from BabyBox？</string>
     <string name="delete_account_message">Confirm to delete account？</string>
+    <string name="cancel_image">Do you want to close image ?</string>
     <string name="yes">Yes</string>
     <string name="no">Cancel</string>
     <string name="confirm">Confirm</string>
