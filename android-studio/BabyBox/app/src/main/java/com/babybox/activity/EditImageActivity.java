@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.provider.MediaStore;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -37,6 +38,7 @@ import jp.co.cyberagent.android.gpuimage.GPUImageFilterGroup;
 import jp.co.cyberagent.android.gpuimage.GPUImageSaturationFilter;
 
 public class EditImageActivity extends Activity {
+    private static final String TAG = EditImageActivity.class.getName();
 
 	private FilterAdjuster mFilterAdjuster;
 	private GPUImageBrightnessFilter brightnessFilter;
@@ -70,11 +72,9 @@ public class EditImageActivity extends Activity {
 		saturationSeekBar = (SeekBar) findViewById(R.id.saturationSeekBar);
 		relativeLayout = (RelativeLayout) findViewById(R.id.imageLayout);
 
-
 		gpuImageFilters = new ArrayList<>();
 
 		glSurfaceView = new GLSurfaceView(this);
-
 
 		imageView = new GPUImage(this);
 
@@ -97,7 +97,9 @@ public class EditImageActivity extends Activity {
 
 			Bitmap b = Bitmap.createScaledBitmap(bmp, getIntent().getIntExtra("cropWidth", 0), getIntent().getIntExtra("cropHeight", 0), false);
 
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(b.getWidth(),b.getHeight());
+            Log.d(TAG, "image width="+b.getWidth()+" height="+b.getHeight());
+
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(b.getWidth(),b.getHeight());
 			params.addRule(RelativeLayout.CENTER_IN_PARENT);
 			glSurfaceView.setLayoutParams(params);
 
