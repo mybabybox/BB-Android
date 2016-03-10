@@ -125,7 +125,7 @@ public class EditImageActivity extends Activity {
 		((SeekBar) findViewById(R.id.contrastSeekBar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-				contrastFilter.setContrast(range(i, 0.2f, 2.0f));
+				contrastFilter.setContrast(range(i, 0.5f, 1.5f));
 				imageView.setFilter(gpuImageFilterGroup);
 			}
 
@@ -141,7 +141,7 @@ public class EditImageActivity extends Activity {
 		((SeekBar) findViewById(R.id.saturationSeekBar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-				saturationFilter.setSaturation(range(i, 0.2f, 2.0f));
+				saturationFilter.setSaturation(range(i, 0.5f, 1.5f));
 				imageView.setFilter(gpuImageFilterGroup);
 			}
 
