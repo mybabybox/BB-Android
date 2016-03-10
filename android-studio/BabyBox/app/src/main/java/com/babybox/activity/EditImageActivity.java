@@ -8,12 +8,8 @@ import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -25,7 +21,6 @@ import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
 import org.joda.time.DateTime;
-import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,7 +34,6 @@ import jp.co.cyberagent.android.gpuimage.GPUImageBrightnessFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageContrastFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilterGroup;
-import jp.co.cyberagent.android.gpuimage.GPUImageGrayscaleFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageSaturationFilter;
 
 public class EditImageActivity extends Activity {
@@ -56,6 +50,7 @@ public class EditImageActivity extends Activity {
 	private GLSurfaceView glSurfaceView;
 	private GPUImageFilterGroup gpuImageFilterGroup;
 	private List<GPUImageFilter> gpuImageFilters;
+	private RelativeLayout relativeLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +63,18 @@ public class EditImageActivity extends Activity {
 		saturationButton = (RelativeLayout) findViewById(R.id.saturationButton);
 		resetButton = (RelativeLayout) findViewById(R.id.resetButton);
 		applyButton = (Button) findViewById(R.id.applyButton);
-		glSurfaceView = (GLSurfaceView) findViewById(R.id.imageView);
+		//glSurfaceView = (GLSurfaceView) findViewById(R.id.imageView);
 
 		brightSeekBar = (SeekBar) findViewById(R.id.brightSeekBar);
 		contrastSeekBar = (SeekBar) findViewById(R.id.contrastSeekBar);
 		saturationSeekBar = (SeekBar) findViewById(R.id.saturationSeekBar);
+		relativeLayout = (RelativeLayout) findViewById(R.id.imageLayout);
+
 
 		gpuImageFilters = new ArrayList<>();
+
+		glSurfaceView = new GLSurfaceView(this);
+
 
 		imageView = new GPUImage(this);
 
@@ -94,12 +94,19 @@ public class EditImageActivity extends Activity {
 
 		try {
 			Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-			imageView.setGLSurfaceView(glSurfaceView);
 
 			Bitmap b = Bitmap.createScaledBitmap(bmp, getIntent().getIntExtra("cropWidth", 0), getIntent().getIntExtra("cropHeight", 0), false);
 
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(b.getWidth(),b.getHeight());
+			params.addRule(RelativeLayout.CENTER_IN_PARENT);
+			glSurfaceView.setLayoutParams(params);
+
+			relativeLayout.addView(glSurfaceView);
+
 			imageView.setScaleType(GPUImage.ScaleType.CENTER_INSIDE);
 			imageView.setImage(b);
+			imageView.setGLSurfaceView(glSurfaceView);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
