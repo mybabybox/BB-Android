@@ -496,7 +496,7 @@ public class ViewUtil {
 
     public static Rect getDisplayDimensions(Activity activity) {
         if (displayDimensions == null) {
-            int padding = 60;
+            int padding = 0;
             DisplayMetrics displaymetrics = new DisplayMetrics();
             activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
             int width = displaymetrics.widthPixels - padding;

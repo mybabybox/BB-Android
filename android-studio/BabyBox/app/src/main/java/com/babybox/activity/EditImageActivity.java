@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.opengl.GLSurfaceView;
@@ -52,7 +53,7 @@ public class EditImageActivity extends Activity {
 	private GLSurfaceView glSurfaceView;
 	private GPUImageFilterGroup gpuImageFilterGroup;
 	private List<GPUImageFilter> gpuImageFilters;
-	private RelativeLayout relativeLayout;
+	private RelativeLayout imageLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class EditImageActivity extends Activity {
 		brightSeekBar = (SeekBar) findViewById(R.id.brightSeekBar);
 		contrastSeekBar = (SeekBar) findViewById(R.id.contrastSeekBar);
 		saturationSeekBar = (SeekBar) findViewById(R.id.saturationSeekBar);
-		relativeLayout = (RelativeLayout) findViewById(R.id.imageLayout);
+        imageLayout = (RelativeLayout) findViewById(R.id.imageLayout);
 
 		gpuImageFilters = new ArrayList<>();
 
@@ -99,11 +100,13 @@ public class EditImageActivity extends Activity {
 
             Log.d(TAG, "image width="+b.getWidth()+" height="+b.getHeight());
 
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(b.getWidth(),b.getHeight());
-			params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            // HACK: stretch GLSurfaceView to device width as square size all the time
+            Rect rect = ViewUtil.getDisplayDimensions(this);
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(rect.width(),rect.width());
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
 			glSurfaceView.setLayoutParams(params);
 
-			relativeLayout.addView(glSurfaceView);
+            imageLayout.addView(glSurfaceView);
 
 			imageView.setScaleType(GPUImage.ScaleType.CENTER_INSIDE);
 			imageView.setImage(b);
