@@ -6,7 +6,7 @@ package com.babybox.util;
 public class DefaultValues {
 
     // Config
-    public static final boolean IMAGE_ADJUST_ENABLED = false;
+    public static final boolean IMAGE_ADJUST_ENABLED = true;
 
     // Email signup need verification email
     public static final boolean EMAIL_SIGNUP_VERIFICATION_REQUIRED = false;
