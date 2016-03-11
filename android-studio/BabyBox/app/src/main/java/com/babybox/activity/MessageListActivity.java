@@ -64,6 +64,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MessageListActivity extends TrackedFragmentActivity {
+    private static final String TAG = MessageListActivity.class.getName();
 
     private TextView postTitleText, postPriceText, commentEdit;
     private FrameLayout mainFrameLayout;
@@ -422,11 +423,11 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 commentEditText.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        Log.d(MessageListActivity.this.getClass().getSimpleName(), "onLongClick");
+                        Log.d(TAG, "onLongClick");
                         startActionMode(new ActionMode.Callback() {
 
                             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                                Log.d(MessageListActivity.this.getClass().getSimpleName(), "onPrepareActionMode");
+                                Log.d(TAG, "onPrepareActionMode");
                                 return true;
                             }
 
@@ -436,12 +437,12 @@ public class MessageListActivity extends TrackedFragmentActivity {
                             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                                 mode.getMenuInflater().inflate(R.menu.contextual_menu, menu);
                                 menu.setQwertyMode(false);
-                                Log.d(MessageListActivity.this.getClass().getSimpleName(), "onCreateActionMode: menu size=" + menu.size());
+                                Log.d(TAG, "onCreateActionMode: menu size=" + menu.size());
                                 return true;
                             }
 
                             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                                Log.d(MessageListActivity.this.getClass().getSimpleName(), "onActionItemClicked: item clicked=" + item.getItemId() + " title=" + item.getTitle());
+                                Log.d(TAG, "onActionItemClicked: item clicked=" + item.getItemId() + " title=" + item.getTitle());
                                 switch (item.getItemId()) {
                                     case R.id.item_select_all:
                                         commentEditText.selectAll();
@@ -488,7 +489,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 /*
                 commentEditText.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
                     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                        Log.d(DetailActivity.this.getClass().getSimpleName(), "onPrepareActionMode");
+                        Log.d(TAG, "onPrepareActionMode");
                         return false;
                     }
 
@@ -496,12 +497,12 @@ public class MessageListActivity extends TrackedFragmentActivity {
                     }
 
                     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                        Log.d(DetailActivity.this.getClass().getSimpleName(), "onCreateActionMode");
+                        Log.d(TAG, "onCreateActionMode");
                         return false;
                     }
 
                     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                        Log.d(DetailActivity.this.getClass().getSimpleName(), "onActionItemClicked");
+                        Log.d(TAG, "onActionItemClicked");
                         return false;
                     }
                 });
@@ -549,7 +550,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             commentPopup.showAtLocation(layout, Gravity.BOTTOM, 0, 0);
             ViewUtil.popupInputMethodWindow(this);
         } catch (Exception e) {
-            Log.e(MessageListActivity.class.getSimpleName(), "initCommentPopup: exception", e);
+            Log.e(TAG, "initCommentPopup: exception", e);
         }
     }
 
@@ -578,7 +579,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                     imagePath = picture.getPath();
                 }
 
-                Log.d(this.getClass().getSimpleName(), "onActivityResult: imagePath=" + imagePath);
+                Log.d(TAG, "onActivityResult: imagePath=" + imagePath);
 
                 Bitmap bitmap = ImageUtil.resizeToUpload(imagePath);
                 if (bitmap != null) {
@@ -588,9 +589,6 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 }
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
                 String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
-
-                //setCommentImage(croppedImagePath);
-
 				if(data.getData() != null) {
 					try {
 						Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
@@ -610,8 +608,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
         }
     }
 
-
-	protected void setCommentImage(Bitmap bp) {
+	private void setCommentImage(Bitmap bp) {
 		ImageView postImage = commentImages.get(0);
 		postImage.setImageDrawable(new BitmapDrawable(this.getResources(), bp));
 		postImage.setVisibility(View.VISIBLE);
@@ -627,7 +624,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             imageView.setImageBitmap(bp);
             //imageView.setImageURI(Uri.parse(imagePath);
 
-            Log.d(this.getClass().getSimpleName(), "setCommentImage: imagePath=" + imagePath);
+            Log.d(TAG, "setCommentImage: imagePath=" + imagePath);
         }
     }
 
@@ -672,7 +669,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doBuyerOrder.api.newConversationOrder: failed with error", error);
+                Log.e(TAG, "doBuyerOrder.api.newConversationOrder: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_failed), Toast.LENGTH_SHORT).show();
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -705,7 +702,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doBuyerCancel.api.cancelConversationOrder: failed with error", error);
+                Log.e(TAG, "doBuyerCancel.api.cancelConversationOrder: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_failed), Toast.LENGTH_SHORT).show();
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -738,7 +735,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doSellerAccept.api.acceptConversationOrder: failed with error", error);
+                Log.e(TAG, "doSellerAccept.api.acceptConversationOrder: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_failed), Toast.LENGTH_SHORT).show();
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -771,7 +768,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doSellerDecline.api.declineConversationOrder: failed with error", error);
+                Log.e(TAG, "doSellerDecline.api.declineConversationOrder: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_order_failed), Toast.LENGTH_SHORT).show();
                 pendingOrder = false;
                 ViewUtil.stopSpinner(MessageListActivity.this);
@@ -800,7 +797,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             return;
         }
 
-        //Log.d(this.getClass().getSimpleName(), "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
+        //Log.d(TAG, "doMessage: message=" + comment.substring(0, Math.min(5, comment.length())));
 
         ViewUtil.showSpinner(MessageListActivity.this);
 
@@ -821,7 +818,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Log.e(MessageListActivity.this.getClass().getSimpleName(), "doMessage.api.newMessage: failed with error", error);
+                Log.e(TAG, "doMessage.api.newMessage: failed with error", error);
                 Toast.makeText(MessageListActivity.this, MessageListActivity.this.getString(R.string.pm_send_failed), Toast.LENGTH_SHORT).show();
                 reset();
                 pending = false;
@@ -839,7 +836,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             count = messagesObj.length();
             for (int i = 0; i < count; i++) {
                 JSONObject messageObj = messagesObj.getJSONObject(i);
-                Log.d(MessageListActivity.class.getSimpleName(), "getMessages.api.getMessages: message["+i+"]="+messageObj.toString());
+                Log.d(TAG, "getMessages.api.getMessages: message["+i+"]="+messageObj.toString());
                 MessageVM vm = new MessageVM(messageObj);
                 messages.add(vm);
             }
@@ -850,7 +847,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 }
             });
         } catch (JSONException e) {
-            Log.e(MessageListActivity.class.getSimpleName(), "getMessages.api.getMessages: exception", e);
+            Log.e(TAG, "getMessages.api.getMessages: exception", e);
         }
         return count;
     }
@@ -886,7 +883,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             @Override
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(MessageListActivity.this);
-                Log.e(MessageListActivity.class.getSimpleName(), "getMessages.api.getMessages: failure", error);
+                Log.e(TAG, "getMessages.api.getMessages: failure", error);
             }
         });
     }
@@ -917,7 +914,7 @@ public class MessageListActivity extends TrackedFragmentActivity {
             @Override
             public void failure(RetrofitError error) {
                 ViewUtil.stopSpinner(MessageListActivity.this);
-                Log.e(MessageListActivity.class.getSimpleName(), "loadMoreMessages.api.getMessages: failure", error);
+                Log.e(TAG, "loadMoreMessages.api.getMessages: failure", error);
             }
         });
     }
