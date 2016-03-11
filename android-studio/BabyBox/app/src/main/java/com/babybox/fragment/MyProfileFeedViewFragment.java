@@ -17,6 +17,7 @@ import com.babybox.R;
 import com.babybox.activity.EditProfileActivity;
 import com.babybox.activity.SettingsActivity;
 import com.babybox.app.AppController;
+import com.babybox.app.NotificationCounter;
 import com.babybox.app.UserInfoCache;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.FeedFilter;
@@ -49,6 +50,13 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        NotificationCounter.refresh();
     }
 
     @Override
@@ -276,8 +284,9 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
+        Log.d(TAG, "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == ViewUtil.SELECT_GALLERY_IMAGE_REQUEST_CODE  && data != null) {
 

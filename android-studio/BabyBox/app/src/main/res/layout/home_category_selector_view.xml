@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/feed_bg">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginLeft="2dp"
+            android:id="@+id/catsRow1Layout">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat1"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom"
+                        android:paddingBottom="2dp" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat2"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat3"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginLeft="2dp"
+            android:id="@+id/catsRow2Layout"
+            android:layout_marginTop="2dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat4"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat5"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat6"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginLeft="2dp"
+            android:id="@+id/catsRow3Layout"
+            android:layout_marginTop="2dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat7"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat8"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat9"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:layout_marginLeft="2dp"
+            android:id="@+id/catsRow4Layout"
+            android:layout_marginTop="2dp">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat10"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image10"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name10"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat11"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image11"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name11"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/cat12"
+                android:layout_marginRight="2dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/image12"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:minHeight="85dp"></ImageView>
+
+                    <TextView
+                        android:id="@+id/name12"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:shadowColor="@color/dark_gray_2"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="6"
+                        android:textSize="14dp"
+                        android:textColor="@color/white"
+                        android:gravity="center_horizontal|bottom"
+                        android:paddingBottom="2dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/gradient_bottom" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

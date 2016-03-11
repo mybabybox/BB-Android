@@ -16,6 +16,7 @@ import com.babybox.R;
 import com.babybox.activity.MainActivity;
 import com.babybox.app.AppController;
 import com.babybox.app.CategoryCache;
+import com.babybox.util.CategorySelectorViewUtil;
 import com.babybox.util.DefaultValues;
 import com.babybox.util.SharedPreferencesUtil;
 import com.babybox.util.ViewUtil;
@@ -45,10 +46,12 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
 
     private static final String TAG = HomeExploreFeedViewFragment.class.getName();
 
-    private AdaptiveViewPager catPager;
-    private HomeCategoryPagerAdapter catPagerAdapter;
-    private LinearLayout dotsLayout;
-    private List<ImageView> dots = new ArrayList<>();
+    private int[] catsRowLayoutIds = { R.id.catsRow1Layout, R.id.catsRow2Layout, R.id.catsRow3Layout, R.id.catsRow4Layout };
+    private int[] catLayoutIds = { R.id.cat1, R.id.cat2, R.id.cat3, R.id.cat4, R.id.cat5, R.id.cat6, R.id.cat7, R.id.cat8, R.id.cat9, R.id.cat10, R.id.cat11, R.id.cat12 };
+    private int[] imageIds = { R.id.image1, R.id.image2, R.id.image3, R.id.image4, R.id.image5, R.id.image6, R.id.image7, R.id.image8, R.id.image9, R.id.image10, R.id.image11, R.id.image12 };
+    private int[] nameIds = { R.id.name1, R.id.name2, R.id.name3, R.id.name4, R.id.name5, R.id.name6, R.id.name7, R.id.name8, R.id.name9, R.id.name10, R.id.name11, R.id.name12 };
+
+    private CategorySelectorViewUtil catSelectorViewUtil;
 
     private FrameLayout tipsLayout;
     private ImageView dismissTipsButton;
@@ -64,22 +67,21 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        // home slider
+        initSlider();
+
+        // category selector
+        initCategorySelector();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        catPager = (AdaptiveViewPager) getHeaderView(inflater).findViewById(R.id.catPager);
-        dotsLayout = (LinearLayout) getHeaderView(inflater).findViewById(R.id.dotsLayout);
-
-        int pageMargin = ViewUtil.getRealDimension(0);
-        catPager.setPageMargin(pageMargin);
-
-        // init adapter
-        catPagerAdapter = new HomeCategoryPagerAdapter(getChildFragmentManager());
-        catPager.setAdapter(catPagerAdapter);
-
-        // home slider
         homeSlider = (SliderLayout)getHeaderView(inflater).findViewById(R.id.homeSlider);
-        initSlider();
 
         // tips
         tipsLayout = (FrameLayout) headerView.findViewById(R.id.tipsLayout);
@@ -97,11 +99,6 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
                 }
             });
         }
-
-        catPager.setCurrentItem(0);
-
-        // pager indicator
-        ViewUtil.addDots(getActivity(), catPagerAdapter.getCount(), dotsLayout, dots, catPager);
 
         return view;
     }
@@ -170,6 +167,22 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
         });
     }
 
+    private void initCategorySelector() {
+        List<CategoryVM> categories = CategoryCache.getCategories();
+        catSelectorViewUtil = new CategorySelectorViewUtil(
+                categories, catsRowLayoutIds, catLayoutIds, imageIds, nameIds, headerView, getActivity());
+        catSelectorViewUtil.setNumCategoriesPerRow(3);
+        catSelectorViewUtil.initLayout();
+    }
+
+    @Override
+    protected void onRefreshView() {
+        super.onRefreshView();
+
+        initSlider();
+        initCategorySelector();
+    }
+
     @Override
     protected void onScrollUp() {
         MainActivity.getInstance().showBottomMenuBar(true);
@@ -180,69 +193,3 @@ public class HomeExploreFeedViewFragment extends FeedViewFragment {
         MainActivity.getInstance().showBottomMenuBar(false);
     }
 }
-
-class HomeCategoryPagerAdapter extends FragmentStatePagerAdapter {
-    private static final String TAG = HomeCategoryPagerAdapter.class.getName();
-
-    public static final int CATEGORIES_PER_PAGE = 9;
-
-    private String title;
-
-    public HomeCategoryPagerAdapter(FragmentManager fm) {
-        super(fm);
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return title;
-    }
-
-    @Override
-    public int getCount() {
-        int count = (int) Math.ceil((double) CategoryCache.getCategories().size() / (double) CATEGORIES_PER_PAGE);
-        return count;
-    }
-
-    @Override
-    public Fragment getItem(int position) {
-        Log.d(TAG, "getItem: item - " + position);
-        switch (position) {
-            default: {
-                HomeCategoryPagerFragment fragment = new HomeCategoryPagerFragment();
-                //fragment.setTrackedOnce();
-                fragment.setPage(position);
-                return fragment;
-            }
-        }
-    }
-
-    /**
-     * HACK... returns POSITION_NONE will refresh pager more frequent than needed... but works in this case
-     * http://stackoverflow.com/questions/12510404/reorder-pages-in-fragmentstatepageradapter-using-getitempositionobject-object
-     *
-     * @param object
-     * @return
-     */
-    @Override
-    public int getItemPosition(Object object) {
-        return POSITION_NONE;
-    }
-
-    public static List<CategoryVM> getCategoriesForPosition(int position) {
-        int start = position * CATEGORIES_PER_PAGE;
-        int end = start + CATEGORIES_PER_PAGE;
-
-        List<CategoryVM> categories = CategoryCache.getCategories();
-        if (start >= categories.size()) {
-            Log.e(TAG, "getCategoriesForPage: position out of bound... position="+position+" categories.size="+categories.size());
-            return null;
-        }
-
-        if (end >= categories.size()) {
-            end = categories.size();
-        }
-
-        return categories.subList(start, end);
-    }
-}
-

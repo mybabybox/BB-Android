@@ -64,7 +64,8 @@
         android:layout_below="@+id/tipsLayout"
         custom:indicator_visibility="visible"
         custom:pager_animation_span="1100"
-        android:layout_height="120dp" />
+        android:layout_height="120dp"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,62 +79,21 @@
         android:layout_marginBottom="5dp"
         android:id="@+id/categoryText" />
 
-    <com.babybox.view.AdaptiveViewPager
-        android:id="@+id/catPager"
+    <include layout="@layout/home_category_selector_view"
+        android:id="@+id/categorySelector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/categoryText">
-    </com.babybox.view.AdaptiveViewPager>
-
-    <!--android.support.v4.view.ViewPager
-        android:id="@+id/catPager"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@+id/tipsLayout">
-    </android.support.v4.view.ViewPager-->
-
-    <View
-        android:id="@+id/viewBar"
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:background="@drawable/bar1"
-        android:layout_below="@+id/catPager">
-
-    </View>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_below="@+id/viewBar"
-        android:id="@+id/dotsIndicator"
-        android:visibility="gone">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:id="@+id/dots"
-            android:orientation="horizontal"
-            android:layout_centerInParent="true">
-        </LinearLayout>
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/viewBar2"
-        android:layout_width="match_parent"
-        android:layout_height="0.8dp"
-        android:background="@drawable/bar1"
-        android:layout_below="@+id/dotsIndicator"
-        android:visibility="gone"></View>
+        android:layout_below="@+id/categoryText" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/suggest_for_you"
-        android:layout_below="@+id/viewBar2"
         android:textColor="@color/gray"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
         android:textSize="13dp"
-        android:layout_marginBottom="2dp" />
+        android:layout_marginBottom="2dp"
+        android:layout_below="@+id/categorySelector" />
 
 </RelativeLayout>
