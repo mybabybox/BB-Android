@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.babybox.R;
 import com.babybox.image.crop.Crop;
+import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.ViewUtil;
 
@@ -73,13 +74,20 @@ public class SelectImageActivity extends Activity {
             intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT, outputUrl);
             setResult(RESULT_OK, intent);*/
 
-			Intent intent = new Intent(this,EditImageActivity.class);
-			intent.putExtra("uri", outputUri+"");
-			intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT, outputUrl);
-			intent.putExtra("cropWidth",result.getIntExtra("cropWidth",0));
-			intent.putExtra("cropHeight",result.getIntExtra("cropHeight",0));
-			setResult(RESULT_OK, intent);
-			startActivityForResult(intent, ViewUtil.EDIT_IMAGE_REQUEST_CODE);
+			if(DefaultValues.IMAGE_ADJUST_ENABLED) {
+				Intent intent = new Intent(this, EditImageActivity.class);
+				intent.putExtra("uri", outputUri + "");
+				intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT, outputUrl);
+				intent.putExtra("cropWidth", result.getIntExtra("cropWidth", 0));
+				intent.putExtra("cropHeight", result.getIntExtra("cropHeight", 0));
+				setResult(RESULT_OK, intent);
+				startActivityForResult(intent, ViewUtil.EDIT_IMAGE_REQUEST_CODE);
+			}else{
+				Intent intent = new Intent();
+				intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT, outputUrl);
+				setResult(RESULT_OK, intent);
+				finish();
+			}
 
         } else if (resultCode == Crop.RESULT_ERROR) {
             Toast.makeText(this, Crop.getError(result).getMessage(), Toast.LENGTH_SHORT).show();
