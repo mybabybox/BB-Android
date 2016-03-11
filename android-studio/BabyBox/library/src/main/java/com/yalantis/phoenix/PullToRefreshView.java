@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -19,8 +18,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 
 import com.yalantis.phoenix.refresh_view.BaseRefreshView;
-import com.yalantis.phoenix.refresh_view.MyRefreshView;
-import com.yalantis.phoenix.refresh_view.SunRefreshView;
+import com.yalantis.phoenix.refresh_view.BoxRefreshView;
 import com.yalantis.phoenix.util.Utils;
 
 import java.security.InvalidParameterException;
@@ -85,7 +83,7 @@ public class PullToRefreshView extends ViewGroup {
         switch (type) {
             case STYLE_SUN:
                 //mBaseRefreshView = new SunRefreshView(getContext(), this);
-                mBaseRefreshView = new MyRefreshView(getContext(), this);
+                mBaseRefreshView = new BoxRefreshView(getContext(), this);
                 break;
             default:
                 throw new InvalidParameterException("Type does not exist");

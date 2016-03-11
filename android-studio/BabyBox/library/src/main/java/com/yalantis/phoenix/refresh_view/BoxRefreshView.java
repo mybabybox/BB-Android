@@ -22,7 +22,7 @@ import com.yalantis.phoenix.util.Utils;
  * Created by Oleksii Shliama on 22/12/2014.
  * https://dribbble.com/shots/1650317-Pull-to-Refresh-Rentals
  */
-public class MyRefreshView extends BaseRefreshView implements Animatable {
+public class BoxRefreshView extends BaseRefreshView implements Animatable {
 
     private static final float SCALE_START_PERCENT = 0.5f;
     private static final int ANIMATION_DURATION = 1000;
@@ -69,7 +69,7 @@ public class MyRefreshView extends BaseRefreshView implements Animatable {
 
     private boolean isRefreshing = false;
 
-    public MyRefreshView(Context context, final PullToRefreshView parent) {
+    public BoxRefreshView(Context context, final PullToRefreshView parent) {
         super(context, parent);
         mParent = parent;
         mMatrix = new Matrix();
