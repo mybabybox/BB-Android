@@ -59,8 +59,7 @@ public class ImageUtil {
     private static final String MINI_MESSAGE_IMAGE_BY_ID_URL = AppController.BASE_URL + "/image/get-mini-message-image-by-id/";
 
     public static final String IMAGE_FOLDER_NAME = AppController.APP_NAME;
-    public static final String IMAGE_FOLDER_PATH = Environment.getExternalStorageDirectory() + "/" + IMAGE_FOLDER_NAME;
-    public static final String CAMERA_IMAGE_TEMP_PATH = IMAGE_FOLDER_PATH + "/" + "Image-snap-temp.jpg";
+    public static final String CAMERA_IMAGE_TEMP_PATH = getImageTempDirPath() + "/" + "Image-camera.jpg";
 
     private static ImageCircleTransform circleTransform =
             new ImageCircleTransform(AppController.getInstance());
@@ -82,7 +81,7 @@ public class ImageUtil {
         initImageTempDir();
     }
 
-    // babybox temp directory
+    // temp directory
 
     public static void initImageTempDir() {
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -102,6 +101,14 @@ public class ImageUtil {
         }
     }
 
+    public static String getImageTempDirPath() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory() + "/" + IMAGE_FOLDER_NAME;
+        } else {
+            return "";
+        }
+    }
+
     public static File getTempDir() {
         return tempDir;
     }
@@ -117,6 +124,10 @@ public class ImageUtil {
         }
     }
 
+    public static void clearRequests(ImageView imageView) {
+        Glide.clear(imageView);
+    }
+
     // Url helpers
 
     public static String getOriginalPostImageUrl(long id) {
@@ -127,55 +138,68 @@ public class ImageUtil {
         return ViewUtil.urlAppendSessionId(ORIGINAL_MESSAGE_IMAGE_BY_ID_URL + id);
     }
 
+    public static int getImageLoadingResId(long id) {
+        return R.drawable.image_loading;
+    }
+
     // Cover image
 
     public static void displayCoverImage(long id, ImageView imageView) {
-        Glide.clear(imageView);
+        clearRequests(imageView);
         displayImage(COVER_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     public static void displayCoverImage(long id, ImageView imageView, RequestListener listener) {
+        clearRequests(imageView);
         displayImage(COVER_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     public static void displayThumbnailCoverImage(long id, ImageView imageView) {
+        clearRequests(imageView);
         displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     public static void displayThumbnailCoverImage(long id, ImageView imageView, RequestListener listener) {
+        clearRequests(imageView);
         displayImage(THUMBNAIL_COVER_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     // Profile image
 
     public static void displayProfileImage(long id, ImageView imageView) {
+        clearRequests(imageView);
         displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, false);
     }
 
     public static void displayProfileImage(long id, ImageView imageView, RequestListener listener) {
+        clearRequests(imageView);
         displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, false);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView) {
+        clearRequests(imageView);
         displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, false);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView, RequestListener listener) {
+        clearRequests(imageView);
         displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, false);
     }
 
     public static void displayMyProfileImage(long id, ImageView imageView, RequestListener listener) {
+        clearRequests(imageView);
         displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     public static void displayMyThumbnailProfileImage(long id, ImageView imageView) {
+        clearRequests(imageView);
         displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     // Post image
 
     public static void displayPostImage(long id, ImageView imageView) {
-        displayImage(POST_IMAGE_BY_ID_URL + id, imageView);
+        displayImage(POST_IMAGE_BY_ID_URL + id, imageView, null, true, false, getImageLoadingResId(id));
     }
 
     public static void displayPostImage(long id, ImageView imageView, RequestListener listener) {
@@ -254,6 +278,10 @@ public class ImageUtil {
     }
 
     public static void displayImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
+        displayImage(url, imageView, listener, centerCrop, noCache, R.drawable.image_loading);
+    }
+
+    public static void displayImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache, int imageLoadingResId) {
         int resId = ImageMapping.map(url);
         if (resId != -1) {
             imageView.setImageDrawable(imageView.getResources().getDrawable(resId));
@@ -266,8 +294,8 @@ public class ImageUtil {
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))
-                .placeholder(R.drawable.img_loading)
-                .error(R.drawable.img_loading)
+                .placeholder(imageLoadingResId)
+                .error(imageLoadingResId)
                 .crossFade(IMAGE_DISPLAY_CROSS_FADE_DURATION);
 
         displayImage(builder, imageView, listener, centerCrop, noCache, null);
@@ -288,6 +316,10 @@ public class ImageUtil {
     }
 
     public static void displayCircleImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
+        displayCircleImage(url, imageView, listener, centerCrop, noCache, R.drawable.image_loading);
+    }
+
+    public static void displayCircleImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache, int imageLoadingResId) {
         int resId = ImageMapping.map(url);
         if (resId != -1) {
             imageView.setImageDrawable(imageView.getResources().getDrawable(resId));
@@ -298,10 +330,10 @@ public class ImageUtil {
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))
-                .placeholder(R.drawable.img_loading)
-                .error(R.drawable.img_loading)
+                .placeholder(imageLoadingResId)
+                .error(imageLoadingResId)
                 .crossFade(IMAGE_DISPLAY_CROSS_FADE_DURATION);
-                //.dontAnimate();
+        //.dontAnimate();
 
         displayImage(builder, imageView, listener, centerCrop, noCache, circleTransform);
     }
@@ -321,6 +353,10 @@ public class ImageUtil {
     }
 
     public static void displayRoundedImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache) {
+        displayRoundedImage(url, imageView, listener, centerCrop, noCache, R.drawable.image_loading);
+    }
+
+    public static void displayRoundedImage(String url, ImageView imageView, RequestListener listener, boolean centerCrop, boolean noCache, int imageLoadingResId) {
         int resId = ImageMapping.map(url);
         if (resId != -1) {
             imageView.setImageDrawable(imageView.getResources().getDrawable(resId));
@@ -331,8 +367,8 @@ public class ImageUtil {
         DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
                 .load(url)
                 .signature(new StringSignature(stringSignature))
-                .placeholder(R.drawable.img_loading)
-                .error(R.drawable.img_loading)
+                .placeholder(imageLoadingResId)
+                .error(imageLoadingResId)
                 .crossFade(IMAGE_DISPLAY_CROSS_FADE_DURATION);
 
         displayImage(builder, imageView, listener, centerCrop, noCache, roundedTransform);
@@ -346,6 +382,8 @@ public class ImageUtil {
             boolean noCache,
             BitmapTransformation transform) {
 
+        clearRequests(imageView);
+
         if (listener != null) {
             builder = builder.listener(listener);
         }
@@ -354,11 +392,23 @@ public class ImageUtil {
         }
         if (noCache) {
             builder = builder.diskCacheStrategy(DiskCacheStrategy.NONE);
+        } else {
+            builder = builder.diskCacheStrategy(DiskCacheStrategy.SOURCE);
         }
         if (transform != null) {
             builder = builder.transform(transform);
         }
         builder.into(imageView);
+    }
+
+    public static void displayCircleImageFromPath(String imagePath, ImageView imageView) {
+        DrawableRequestBuilder builder = Glide.with(AppController.getInstance())
+                .load(imagePath)
+                .signature(new StringSignature(stringSignature))
+                .placeholder(R.drawable.image_loading)
+                .error(R.drawable.image_loading)
+                .crossFade(IMAGE_DISPLAY_CROSS_FADE_DURATION);
+        displayImage(builder, imageView, null, true, true, circleTransform);
     }
 
     public static void clearProfileImageCache(long id){
@@ -373,10 +423,6 @@ public class ImageUtil {
 
     private static void clearImageCache(String url) {
         //Glide.get(AppController.getInstance()).clearMemory();
-    }
-
-    public static void clearImageView(ImageView imageView) {
-        Glide.clear(imageView);
     }
 
     // Select photo
@@ -451,7 +497,7 @@ public class ImageUtil {
         try {
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
             cursor = context.getContentResolver().query(contentUri, filePathColumn, null, null, null);
-            if (cursor.moveToFirst()) {
+            if (cursor != null && cursor.moveToFirst()) {
                 int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
                 String filePath = cursor.getString(columnIndex);
                 return filePath;
@@ -465,6 +511,7 @@ public class ImageUtil {
     }
 
     private static File createImageFile() throws IOException {
+        Log.d(TAG, "createImageFile: camera path=" + CAMERA_IMAGE_TEMP_PATH);
         File storageDir = new File(CAMERA_IMAGE_TEMP_PATH);
         storageDir.createNewFile();
         return storageDir;
@@ -509,16 +556,7 @@ public class ImageUtil {
         */
 
         bp = BitmapFactory.decodeFile(path, opts);
-
-        // retain EXIF orientation
-        try {
-            ExifInterface exif = new ExifInterface(path);
-            bp = retainOrientation(bp, exif);
-        } catch (IOException ioe) {
-            Log.e(ImageUtil.class.getSimpleName(), "resizeImage: failed to retain orientation", ioe);
-        }
-
-        return bp;
+        return retainOrientation(bp, path);
     }
 
     public static File resizeAsJPG(File image) {
@@ -558,22 +596,28 @@ public class ImageUtil {
     }
 
     /**
+     * Retain EXIF orientation
      * http://stackoverflow.com/questions/7286714/android-get-orientation-of-a-camera-bitmap-and-rotate-back-90-degrees
      *
      * @param bp
-     * @param exif
+     * @param path
      * @return
      */
-    public static Bitmap retainOrientation(Bitmap bp, ExifInterface exif) {
-        int rotation = exifToDegrees(exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_NORMAL));
-        if (rotation > 0) {
-            int width = bp.getWidth();
-            int height = bp.getHeight();
+    public static Bitmap retainOrientation(Bitmap bp, String path) {
+        try {
+            ExifInterface exif = new ExifInterface(path);
+            int rotation = exifToDegrees(exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,ExifInterface.ORIENTATION_NORMAL));
+            if (rotation > 0) {
+                int width = bp.getWidth();
+                int height = bp.getHeight();
 
-            Matrix matrix = new Matrix();
-            matrix.preRotate(rotation);
+                Matrix matrix = new Matrix();
+                matrix.preRotate(rotation);
 
-            return Bitmap.createBitmap(bp, 0, 0, width, height, matrix, false);
+                return Bitmap.createBitmap(bp, 0, 0, width, height, matrix, false);
+            }
+        } catch (IOException ioe) {
+            Log.e(ImageUtil.class.getSimpleName(), "retainOrientation: failed to retain orientation", ioe);
         }
         return bp;
     }

@@ -35,10 +35,9 @@ import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.NotificationCounterVM;
 
 public class MainActivity extends TrackedFragmentActivity {
+    private static final String TAG = MainActivity.class.getName();
 
-    private RelativeLayout userLayout;
-    private ImageView userImage, gameBadgeImage;
-    private TextView userNameText;
+    private ImageView gameBadgeImage;
 
     private ViewGroup chatLayout, newPostLayout;
     private TextView chatCountText;
@@ -83,24 +82,11 @@ public class MainActivity extends TrackedFragmentActivity {
 
         mInstance = this;
 
-        userLayout = (RelativeLayout) findViewById(R.id.userLayout);
-        userImage = (ImageView) findViewById(R.id.userImage);
-        userNameText = (TextView) findViewById(R.id.userNameText);
         gameBadgeImage = (ImageView) findViewById(R.id.gameBadgeImage);
 
         chatCountText = (TextView) findViewById(R.id.chatCountText);
         chatLayout = (ViewGroup) findViewById(R.id.chatLayout);
         newPostLayout = (ViewGroup) findViewById(R.id.newPostLayout);
-
-        // user profile thumbnail
-        setUserProfileThumbnail();
-
-        userLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pressProfileTab();
-            }
-        });
 
         /*
         new Handler().postDelayed(new Runnable() {
@@ -155,7 +141,7 @@ public class MainActivity extends TrackedFragmentActivity {
         homeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Home tab clicked");
+                Log.d(TAG, "onClick: Home tab clicked");
                 pressHomeTab();
             }
         });
@@ -163,7 +149,7 @@ public class MainActivity extends TrackedFragmentActivity {
         sellerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Seller tab clicked");
+                Log.d(TAG, "onClick: Seller tab clicked");
                 pressSellerTab();
             }
         });
@@ -171,7 +157,7 @@ public class MainActivity extends TrackedFragmentActivity {
         activityLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Activity tab clicked");
+                Log.d(TAG, "onClick: Activity tab clicked");
                 pressActivityTab();
             }
         });
@@ -179,7 +165,7 @@ public class MainActivity extends TrackedFragmentActivity {
         profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(MainActivity.this.getClass().getSimpleName(), "onClick: Profile tab clicked");
+                Log.d(TAG, "onClick: Profile tab clicked");
                 pressProfileTab();
             }
         });
@@ -200,12 +186,6 @@ public class MainActivity extends TrackedFragmentActivity {
             pressActivityTab();
             getIntent().removeExtra(ViewUtil.GCM_LAUNCH_TARGET);
         }
-    }
-
-    public void setUserProfileThumbnail() {
-        ImageUtil.clearImageView(userImage);
-        ImageUtil.displayMyThumbnailProfileImage(UserInfoCache.getUser().getId(), userImage);
-        userNameText.setText(UserInfoCache.getUser().getDisplayName());
     }
 
     public void pressHomeTab() {
@@ -339,18 +319,18 @@ public class MainActivity extends TrackedFragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        Log.d(this.getClass().getSimpleName(), "onDestroy: clear all");
+        Log.d(TAG, "onDestroy: clear all");
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(this.getClass().getSimpleName(), "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
+        Log.d(TAG, "onActivityResult: requestCode:" + requestCode + " resultCode:" + resultCode + " data:" + data);
 
         if (requestCode == ViewUtil.START_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             boolean refresh = data.getBooleanExtra(ViewUtil.INTENT_RESULT_REFRESH, false);
             if (refresh) {
-                setUserProfileThumbnail();
+                Log.d(TAG, "onActivityResult: pressProfileTab");
                 pressProfileTab(true);
                 return;     // handled... dont trickle down to fragments
             }
@@ -368,7 +348,7 @@ public class MainActivity extends TrackedFragmentActivity {
             return;
         }
 
-        Log.d(this.getClass().getSimpleName(), "refreshNotifications: activitiesCount=" + counter.activitiesCount + " conversationsCount=" + counter.conversationsCount);
+        Log.d(TAG, "refreshNotifications: activitiesCount=" + counter.activitiesCount + " conversationsCount=" + counter.conversationsCount);
 
         if (counter.activitiesCount == 0) {
             activityCountText.setVisibility(View.INVISIBLE);

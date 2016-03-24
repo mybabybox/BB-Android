@@ -38,16 +38,16 @@ import jp.co.cyberagent.android.gpuimage.GPUImageFilter;
 import jp.co.cyberagent.android.gpuimage.GPUImageFilterGroup;
 import jp.co.cyberagent.android.gpuimage.GPUImageSaturationFilter;
 
-public class EditImageActivity extends Activity {
-    private static final String TAG = EditImageActivity.class.getName();
+public class AdjustImageActivity extends Activity {
+	private static final String TAG = AdjustImageActivity.class.getName();
 
 	private FilterAdjuster mFilterAdjuster;
 	private GPUImageBrightnessFilter brightnessFilter;
-    private GPUImageContrastFilter contrastFilter;
+	private GPUImageContrastFilter contrastFilter;
 	private GPUImageSaturationFilter saturationFilter;
 	private RelativeLayout brightButton, contrastButton, saturationButton, resetButton;
-    private Button applyButton;
-	public GPUImage imageView;
+	private Button applyButton;
+	private GPUImage imageView;
 	private GPUImageFilter mFilter;
 	private SeekBar brightSeekBar, contrastSeekBar, saturationSeekBar;
 	private GLSurfaceView glSurfaceView;
@@ -59,7 +59,7 @@ public class EditImageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.edit_image_activity);
+		setContentView(R.layout.adjust_image_activity);
 
 		brightButton = (RelativeLayout) findViewById(R.id.brightButton);
 		contrastButton = (RelativeLayout) findViewById(R.id.contrastButton);
@@ -71,7 +71,7 @@ public class EditImageActivity extends Activity {
 		brightSeekBar = (SeekBar) findViewById(R.id.brightSeekBar);
 		contrastSeekBar = (SeekBar) findViewById(R.id.contrastSeekBar);
 		saturationSeekBar = (SeekBar) findViewById(R.id.saturationSeekBar);
-        imageLayout = (RelativeLayout) findViewById(R.id.imageLayout);
+		imageLayout = (RelativeLayout) findViewById(R.id.imageLayout);
 
 		gpuImageFilters = new ArrayList<>();
 
@@ -91,25 +91,25 @@ public class EditImageActivity extends Activity {
 
 		Uri uri = Uri.parse(getIntent().getStringExtra("uri"));
 
-        resetFilters();
+		resetFilters();
 
 		try {
-			Bitmap bmp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+			Bitmap bp = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+			bp = ImageUtil.retainOrientation(bp, uri.getPath());
+			bp = Bitmap.createScaledBitmap(bp, getIntent().getIntExtra("cropWidth", 0), getIntent().getIntExtra("cropHeight", 0), false);
 
-			Bitmap b = Bitmap.createScaledBitmap(bmp, getIntent().getIntExtra("cropWidth", 0), getIntent().getIntExtra("cropHeight", 0), false);
+			Log.d(TAG, "image width=" + bp.getWidth() + " height=" + bp.getHeight());
 
-            Log.d(TAG, "image width="+b.getWidth()+" height="+b.getHeight());
-
-            // HACK: stretch GLSurfaceView to device width as square size all the time
-            Rect rect = ViewUtil.getDisplayDimensions(this);
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(rect.width(),rect.width());
-            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+			// HACK: stretch GLSurfaceView to device width as square size all the time
+			Rect rect = ViewUtil.getDisplayDimensions(this);
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(rect.width(),rect.width());
+			params.addRule(RelativeLayout.CENTER_IN_PARENT);
 			glSurfaceView.setLayoutParams(params);
 
-            imageLayout.addView(glSurfaceView);
+			imageLayout.addView(glSurfaceView);
 
 			imageView.setScaleType(GPUImage.ScaleType.CENTER_INSIDE);
-			imageView.setImage(b);
+			imageView.setImage(bp);
 			imageView.setGLSurfaceView(glSurfaceView);
 
 		} catch (IOException e) {
@@ -190,7 +190,7 @@ public class EditImageActivity extends Activity {
 		resetButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-                resetFilters();
+				resetFilters();
 			}
 		});
 
@@ -218,21 +218,21 @@ public class EditImageActivity extends Activity {
 		});
 	}
 
-    private void resetFilters() {
-        selectFilter(false, false, false);
+	private void resetFilters() {
+		selectFilter(false, false, false);
 
-        brightnessFilter.setBrightness(0.0f);
-        contrastFilter.setContrast(1.0f);
-        saturationFilter.setSaturation(1.0f);
+		brightnessFilter.setBrightness(0.0f);
+		contrastFilter.setContrast(1.0f);
+		saturationFilter.setSaturation(1.0f);
 
-        brightSeekBar.setProgress(50);
-        contrastSeekBar.setProgress(50);
-        saturationSeekBar.setProgress(50);
+		brightSeekBar.setProgress(50);
+		contrastSeekBar.setProgress(50);
+		saturationSeekBar.setProgress(50);
 
-        imageView.setFilter(gpuImageFilterGroup);
-    }
+		imageView.setFilter(gpuImageFilterGroup);
+	}
 
- 	private void selectFilter(boolean brightness, boolean contrast, boolean saturation) {
+	private void selectFilter(boolean brightness, boolean contrast, boolean saturation) {
 		brightSeekBar.setVisibility(brightness? View.VISIBLE : View.GONE);
 		contrastSeekBar.setVisibility(contrast? View.VISIBLE : View.GONE);
 		saturationSeekBar.setVisibility(saturation? View.VISIBLE : View.GONE);
@@ -259,7 +259,7 @@ public class EditImageActivity extends Activity {
 	}
 
 	private void saveImage(final Bitmap image) {
-		File file = new File(ImageUtil.IMAGE_FOLDER_PATH, String.valueOf(new DateTime().getSecondOfDay())+".jpg");
+		File file = new File(ImageUtil.getImageTempDirPath(), String.valueOf(new DateTime().getSecondOfDay())+".jpg");
 		try {
 			file.getParentFile().mkdirs();
 			image.compress(Bitmap.CompressFormat.JPEG, 80, new FileOutputStream(file));
@@ -286,8 +286,7 @@ public class EditImageActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(EditImageActivity.this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(AdjustImageActivity.this);
 		builder.setMessage(getString(R.string.cancel_image))
 				.setCancelable(false)
 				.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -296,7 +295,7 @@ public class EditImageActivity extends Activity {
 						intent.setData(null);
 						intent.putExtra(ViewUtil.INTENT_RESULT_OBJECT,"");
 						setResult(RESULT_OK,intent);
-						EditImageActivity.super.onBackPressed();
+						AdjustImageActivity.super.onBackPressed();
 					}
 				})
 				.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -308,7 +307,3 @@ public class EditImageActivity extends Activity {
 		alert.show();
 	}
 }
-
-
-
-

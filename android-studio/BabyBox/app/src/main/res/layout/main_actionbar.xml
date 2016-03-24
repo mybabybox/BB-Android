@@ -17,27 +17,9 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/userLayout"
         android:visibility="visible"
         android:paddingBottom="0dp"
         android:layout_centerVertical="true">
-
-        <ImageView
-            android:id="@+id/userImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="7dp"></ImageView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/userNameText"
-            android:layout_toRightOf="@+id/userImage"
-            android:layout_centerVertical="true"
-            android:textColor="@color/white"
-            android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/gameBadgeImage"
@@ -45,71 +27,70 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/userNameText"
-            android:src="@drawable/game_badge" />
+            android:src="@drawable/mascot_box" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/actionsLayout"
-        android:gravity="right"
-        android:layout_alignParentRight="true">
-
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/chatLayout"
-            android:layout_toLeftOf="@+id/newPostLayout"
-            android:layout_centerVertical="true">
+            android:id="@+id/actionsLayout"
+            android:gravity="right"
+            android:layout_alignParentRight="true">
 
-            <ImageView
-                android:id="@+id/chatImage"
-                android:layout_width="26dp"
+            <FrameLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_chat"
-                android:layout_toLeftOf="@+id/setting"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp" />
+                android:id="@+id/chatLayout"
+                android:layout_toLeftOf="@+id/newPostLayout"
+                android:layout_centerVertical="true">
 
-            <TextView
-                android:id="@+id/chatCountText"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:text="0"
-                android:textSize="11dp"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:background="@drawable/badge_circle"
-                android:layout_alignTop="@+id/setting"
-                android:layout_alignRight="@+id/chatImage"
-                android:layout_alignEnd="@+id/chatImage"
-                android:gravity="center"
-                android:layout_gravity="center|right"
-                android:layout_marginBottom="7dp"
-                android:visibility="invisible"
-                android:layout_marginRight="5dp" />
-        </FrameLayout>
+                <ImageView
+                    android:id="@+id/chatImage"
+                    android:layout_width="26dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_chat"
+                    android:layout_toLeftOf="@+id/setting"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:id="@+id/newPostLayout">
+                <TextView
+                    android:id="@+id/chatCountText"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:text="0"
+                    android:textSize="11dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:background="@drawable/badge_circle"
+                    android:layout_alignTop="@+id/setting"
+                    android:layout_alignRight="@+id/chatImage"
+                    android:layout_alignEnd="@+id/chatImage"
+                    android:gravity="center"
+                    android:layout_gravity="center|right"
+                    android:layout_marginBottom="7dp"
+                    android:visibility="invisible"
+                    android:layout_marginRight="5dp" />
+            </FrameLayout>
 
-            <ImageView
-                android:id="@+id/newPostIcon"
-                android:layout_width="32dp"
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/btn_sell"
-                android:layout_marginLeft="5dp" />
-        </LinearLayout>
+                android:layout_alignParentRight="true"
+                android:id="@+id/newPostLayout">
+
+                <ImageView
+                    android:id="@+id/newPostIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/btn_sell"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
