@@ -649,28 +649,34 @@ public class NewPostActivity extends TrackedFragmentActivity{
                     Toast.makeText(this, getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
                 }
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
+                String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
+                Log.d(TAG, "onActivityResult: croppedImagePath=" + croppedImagePath);
 
-				String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
+                // adjusted?
+                if (data.getData() != null) {
+                    selectedImageUri = data.getData();
+                    croppedImagePath = ImageUtil.getRealPathFromUri(this, data.getData());
+                }
 
-				Log.d(this.getClass().getSimpleName(), "onActivityResult: imagePath edit set=" + croppedImagePath);
+                selectPostImage(selectedPostImageIndex, croppedImagePath);
 
-				if(data.getData() != null) {
+                /*
+				if (data.getData() != null) {
 					try {
 						Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
 						selectedImageUri = data.getData();
-						selectPostImage(bitmap, selectedPostImageIndex);
+						selectPostImage(bitmap, selectedPostImageIndex, selectedImageUri);
 					} catch (IOException e) {
-						e.printStackTrace();
+                        Log.e(TAG, "onActivityResult: crop image error", e);
 					}
-				}else{
+				} else {
 					selectPostImage(selectedPostImageIndex, croppedImagePath);
 				}
-
+				*/
             }
 
             // pop back soft keyboard
             ViewUtil.popupInputMethodWindow(this);
-        
 		}
     }
 

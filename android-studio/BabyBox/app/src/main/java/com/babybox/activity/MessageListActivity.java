@@ -589,18 +589,29 @@ public class MessageListActivity extends TrackedFragmentActivity {
                 }
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
                 String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
-				if(data.getData() != null) {
-					try {
-						Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-						selectedImageUri = data.getData();
-						setCommentImage(bitmap);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}else{
-					setCommentImage(croppedImagePath);
-				}
+                Log.d(TAG, "onActivityResult: croppedImagePath=" + croppedImagePath);
 
+                // adjusted?
+                if (data.getData() != null) {
+                    selectedImageUri = data.getData();
+                    croppedImagePath = ImageUtil.getRealPathFromUri(this, data.getData());
+                }
+
+                setCommentImage(croppedImagePath);
+
+                /*
+                if (data.getData() != null) {
+                    try {
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                        selectedImageUri = data.getData();
+                        setCommentImage(bitmap);
+                    } catch (IOException e) {
+                        Log.e(TAG, "onActivityResult: crop image error", e);
+                    }
+                } else {
+                    setCommentImage(croppedImagePath);
+                }
+                */
             }
 
             // pop back soft keyboard

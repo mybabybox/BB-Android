@@ -306,6 +306,13 @@ public class MyProfileFeedViewFragment extends UserProfileFeedViewFragment {
                 }
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
                 String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
+                Log.d(this.getClass().getSimpleName(), "onActivityResult: croppedImagePath=" + croppedImagePath);
+
+                // adjusted?
+                if (data.getData() != null) {
+                    croppedImagePath = ImageUtil.getRealPathFromUri(getActivity(), data.getData());
+                }
+
                 if (coverImageClicked) {
                     setImagePreviewThumbnail(coverImage, croppedImagePath);
                     uploadCoverImage(userId, croppedImagePath);
