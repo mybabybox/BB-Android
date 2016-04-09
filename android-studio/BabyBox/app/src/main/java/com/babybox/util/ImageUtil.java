@@ -37,11 +37,11 @@ import java.io.IOException;
 public class ImageUtil {
     private static final String TAG = ImageUtil.class.getName();
 
-    public static final int PREVIEW_THUMBNAIL_MAX_WIDTH = 128;
-    public static final int PREVIEW_THUMBNAIL_MAX_HEIGHT = 128;
+    public static final int PREVIEW_THUMBNAIL_MAX_WIDTH = 120;
+    public static final int PREVIEW_THUMBNAIL_MAX_HEIGHT = 120;
 
-    public static final int IMAGE_UPLOAD_MAX_WIDTH = 1280;
-    public static final int IMAGE_UPLOAD_MAX_HEIGHT = 1280;
+    public static final int IMAGE_UPLOAD_MAX_WIDTH = 640;
+    public static final int IMAGE_UPLOAD_MAX_HEIGHT = 640;
 
     public static final int IMAGE_COMPRESS_QUALITY = 70;
 
