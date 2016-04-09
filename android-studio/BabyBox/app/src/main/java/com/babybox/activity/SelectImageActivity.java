@@ -41,7 +41,10 @@ public class SelectImageActivity extends Activity {
         Uri destination = Uri.fromFile(file);
         outputUri = destination;
 
-        Crop.of(getIntent().getData(), destination).asSquare().start(this);
+        Crop.of(getIntent().getData(), destination)
+                .asSquare()
+                .withMaxSize(ImageUtil.IMAGE_UPLOAD_MAX_WIDTH, ImageUtil.IMAGE_UPLOAD_MAX_HEIGHT)
+                .start(this);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -61,7 +64,10 @@ public class SelectImageActivity extends Activity {
 
     private void beginCrop(Uri source) {
         Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
-        Crop.of(source, destination).asSquare().start(this);
+        Crop.of(source, destination)
+                .asSquare()
+                .withMaxSize(ImageUtil.IMAGE_UPLOAD_MAX_WIDTH, ImageUtil.IMAGE_UPLOAD_MAX_HEIGHT)
+                .start(this);
     }
 
     private void handleCrop(int resultCode, Intent result) {

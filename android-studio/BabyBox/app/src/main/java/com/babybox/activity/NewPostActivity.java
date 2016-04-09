@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -40,18 +38,15 @@ import com.babybox.util.DefaultValues;
 import com.babybox.util.ImageUtil;
 import com.babybox.util.SelectedImage;
 import com.babybox.util.SharedPreferencesUtil;
-import com.babybox.util.SharingUtil;
 import com.babybox.util.ViewUtil;
 import com.babybox.viewmodel.CategoryVM;
 import com.babybox.viewmodel.CountryVM;
 import com.babybox.viewmodel.NewPostVM;
-import com.babybox.viewmodel.PostVM;
 import com.babybox.viewmodel.ResponseStatusVM;
 
 import org.parceler.apache.commons.lang.StringUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,7 +154,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
             catId = id;
             initCategoryLayout(CategoryCache.getCategory(id));
         }
-        Log.d(this.getClass().getSimpleName(), "onCreate: catId=" + catId);
+        Log.d(TAG, "onCreate: catId=" + catId);
 
         updateSelectCategoryLayout();
         selectCatLayout.setOnClickListener(new View.OnClickListener() {
@@ -407,7 +402,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
             imageView.setImageBitmap(bp);
             //imageView.setImageURI(Uri.parse(imagePath);
 
-            Log.d(this.getClass().getSimpleName(), "selectPostImage: index="+index+" imagePath="+imagePath);
+            Log.d(TAG, "selectPostImage: index="+index+" imagePath="+imagePath);
         }
     }
 
@@ -610,7 +605,7 @@ public class NewPostActivity extends TrackedFragmentActivity{
 
                     categoryPopup.dismiss();
                     categoryPopup = null;
-                    Log.d(this.getClass().getSimpleName(), "initCategoryPopup: listView.onItemClick: category=" + category.getId() + "|" + category.getName());
+                    Log.d(TAG, "initCategoryPopup: listView.onItemClick: category=" + category.getId() + "|" + category.getName());
                 }
             });
         } catch (Exception e) {
@@ -640,14 +635,18 @@ public class NewPostActivity extends TrackedFragmentActivity{
                     imagePath = picture.getPath();
                 }
 
-                Log.d(this.getClass().getSimpleName(), "onActivityResult: imagePath=" + imagePath);
+                Log.d(TAG, "onActivityResult: imagePath=" + imagePath);
 
+                ViewUtil.startSelectImageActivity(this, selectedImageUri);
+
+                /*
                 Bitmap bitmap = ImageUtil.resizeToUpload(imagePath);
                 if (bitmap != null) {
                     ViewUtil.startSelectImageActivity(this, selectedImageUri);
                 } else {
                     Toast.makeText(this, getString(R.string.photo_size_too_big), Toast.LENGTH_SHORT).show();
                 }
+                */
             } else if (requestCode == ViewUtil.CROP_IMAGE_REQUEST_CODE) {
                 String croppedImagePath = data.getStringExtra(ViewUtil.INTENT_RESULT_OBJECT);
                 Log.d(TAG, "onActivityResult: croppedImagePath=" + croppedImagePath);

@@ -96,7 +96,7 @@ public class ImageUtil {
                 //clearTempDir();
             }
         } else {
-            Log.e(ImageUtil.class.getSimpleName(), "initImageTempDir: no external storage!!!");
+            Log.e(TAG, "initImageTempDir: no external storage!!!");
             tempDir = null;
         }
     }
@@ -555,8 +555,19 @@ public class ImageUtil {
         }
         */
 
+        // scale down
         bp = BitmapFactory.decodeFile(path, opts);
-        return retainOrientation(bp, path);
+        Log.d(TAG, "after scale: width="+bp.getWidth()+" height="+bp.getHeight());
+
+        // resize
+        bp = Bitmap.createScaledBitmap(bp, maxWidth, maxHeight, false);
+        Log.d(TAG, "after resize: width="+bp.getWidth()+" height="+bp.getHeight());
+
+        // retain orientaion
+        bp = retainOrientation(bp, path);
+        Log.d(TAG, "after retain orientation: width="+bp.getWidth()+" height="+bp.getHeight());
+
+        return bp;
     }
 
     public static File resizeAsJPG(File image) {
@@ -565,13 +576,13 @@ public class ImageUtil {
 
     public static File resizeAsFormat(Bitmap.CompressFormat format, File image) {
         if (tempDir == null) {
-            Log.e(ImageUtil.class.getSimpleName(), "resizeAsFormat: tempDir is null!!!");
+            Log.e(TAG, "resizeAsFormat: tempDir is null!!!");
             return image;
         }
 
         File resizedImage = new File(tempDir, image.getName());
         if (!tempDir.canWrite()) {
-            Log.e(ImageUtil.class.getSimpleName(), "resizeAsFormat: " + tempDir.getAbsolutePath() + " cannot be written!!!");
+            Log.e(TAG, "resizeAsFormat: " + tempDir.getAbsolutePath() + " cannot be written!!!");
             return image;
         }
 
@@ -589,7 +600,7 @@ public class ImageUtil {
                 out = null;
             }
         } catch (Exception e) {
-            Log.e(ImageUtil.class.getSimpleName(), "resizeAsFormat: " + e.getMessage(), e);
+            Log.e(TAG, "resizeAsFormat: " + e.getMessage(), e);
         }
 
         return resizedImage;
@@ -614,10 +625,11 @@ public class ImageUtil {
                 Matrix matrix = new Matrix();
                 matrix.preRotate(rotation);
 
+                Log.d(TAG, "retainOrientation: rotation=" + rotation);
                 return Bitmap.createBitmap(bp, 0, 0, width, height, matrix, false);
             }
         } catch (IOException ioe) {
-            Log.e(ImageUtil.class.getSimpleName(), "retainOrientation: failed to retain orientation", ioe);
+            Log.e(TAG, "retainOrientation: failed to retain orientation", ioe);
         }
         return bp;
     }
