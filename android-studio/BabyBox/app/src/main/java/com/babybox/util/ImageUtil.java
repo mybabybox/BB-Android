@@ -168,22 +168,22 @@ public class ImageUtil {
 
     public static void displayProfileImage(long id, ImageView imageView) {
         clearRequests(imageView);
-        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, false);
+        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     public static void displayProfileImage(long id, ImageView imageView, RequestListener listener) {
         clearRequests(imageView);
-        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, false);
+        displayCircleImage(PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView) {
         clearRequests(imageView);
-        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, false);
+        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, null, true, true);
     }
 
     public static void displayThumbnailProfileImage(long id, ImageView imageView, RequestListener listener) {
         clearRequests(imageView);
-        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, false);
+        displayCircleImage(THUMBNAIL_PROFILE_IMAGE_BY_ID_URL + id, imageView, listener, true, true);
     }
 
     public static void displayMyProfileImage(long id, ImageView imageView, RequestListener listener) {
