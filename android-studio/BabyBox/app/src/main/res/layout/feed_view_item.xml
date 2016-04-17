@@ -8,7 +8,7 @@
     card_view:cardPreventCornerOverlap="true"
     card_view:contentPadding="0dp"
     card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="1.5dp">
+    card_view:cardElevation="0.8dp">
 
     <LinearLayout
         android:id="@+id/itemLayout"
@@ -101,7 +101,7 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14dp"
+                    android:textSize="13dp"
                     android:textColor="@color/dark_gray"
                     android:singleLine="true"
                     android:gravity="center_vertical" />
