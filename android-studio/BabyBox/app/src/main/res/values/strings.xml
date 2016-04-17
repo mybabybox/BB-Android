@@ -2,10 +2,11 @@
 <resources>
 
     <string name="env">dev</string>
-    <string name="facebook_app_id">1469031873403459</string>
-    <string name="gcm_project_id">42246542708</string>
+    <string name="facebook_app_id"></string>
+    <string name="gcm_project_id"></string>
     <string name="base_url"></string>
     <string name="base_url_dev">http://192.168.1.109:9000</string>
+    <string name="app_name">BabyBox</string>
 
     <!-- Crash report -->
     <string name="crash_toast_text">對不起！BabyBox 發生問題要退出</string>
@@ -15,7 +16,6 @@
     <string name="crash_dialog_ok_toast">謝謝！</string>
 
     <!-- Settings -->
-    <string name="app_name">BabyBox</string>
     <string name="app_desc">BabyBox 媽媽即拍即賣</string>
     <string name="app_version">版本:</string>
     <string name="request_upgrade">BabyBox 新版本已上線！更多新功能為你而設！</string>
@@ -149,7 +149,7 @@
 
     <!-- Activity tab -->
     <string name="no_activity">~ 暫沒有動態 ~</string>
-    <string name="activity_first_post">歡迎成為BabyBox賣家！你已成功刊登第一個商品:</string>
+    <string name="activity_first_post">歡迎成為 BabyBox 賣家！你已成功刊登第一個商品:</string>
     <string name="activity_posted">刊登了新商品:</string>
     <string name="activity_commented">在商品留言:</string>
     <string name="activity_liked">喜歡你的商品。</string>
@@ -322,7 +322,7 @@
 
     <!-- Dialog -->
     <string name="cancel_post">退出%1$s商品？</string>
-    <string name="cancel_image">Do you want to close image ?</string>
+    <string name="cancel_image">確定取消上載這照片?</string>
     <string name="exit_app">退出 BabyBox？</string>
     <string name="logout_message">確定登出 BabyBox？</string>
     <string name="delete_account_message">確定刪除帳戶？</string>
