@@ -43,7 +43,7 @@ public class ImageUtil {
     public static final int IMAGE_UPLOAD_MAX_WIDTH = 640;
     public static final int IMAGE_UPLOAD_MAX_HEIGHT = 640;
 
-    public static final int IMAGE_COMPRESS_QUALITY = 90;
+    public static final int IMAGE_COMPRESS_QUALITY = 100;
 
     public static final int IMAGE_DISPLAY_CROSS_FADE_DURATION = 500;
 
